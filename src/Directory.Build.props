@@ -1,0 +1,20 @@
+<Project>
+  
+  <Import Project="..\Directory.Build.props" />
+
+  <PropertyGroup Label="Assembly and Package Information">
+    <NeutralLanguage>en-US</NeutralLanguage>
+
+    <Product>Mailtrap Client</Product>
+    <Authors>Railsware</Authors>
+    <Company>Railsware Products Studio, LLC</Company>
+    <Copyright>Copyright © 2024, Railsware Products Studio, LLC. All rights reserved.</Copyright>
+    
+    <RepositoryUrl>https://github.com/mailtrap/mailtrap-dotnet</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://mailtrap.io</PackageProjectUrl>
+  </PropertyGroup>
+  
+</Project>

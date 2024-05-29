@@ -1,0 +1,24 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <EnforceCodeStyleInBuild Condition=" '$(EnforceCodeStyleInBuild)' == '' ">true</EnforceCodeStyleInBuild>
+    <AnalysisLevel Condition=" '$(AnalysisLevel)' == '' ">latest</AnalysisLevel>
+
+    <!-- None, Default, Minimum, Recommended, All-->
+    <!--<AnalysisMode>Recommended</AnalysisMode>-->
+
+    <AnalysisModeDesign>Recommended</AnalysisModeDesign>
+    <AnalysisModeDocumentation>Recommended</AnalysisModeDocumentation>
+    <AnalysisModeGlobalization>Recommended</AnalysisModeGlobalization>
+    <AnalysisModeInteroperability>Recommended</AnalysisModeInteroperability>
+    <AnalysisModeMaintainability>Recommended</AnalysisModeMaintainability>
+    <AnalysisModeNaming>Recommended</AnalysisModeNaming>
+    <AnalysisModePerformance>Recommended</AnalysisModePerformance>
+    <AnalysisModeSingleFile>Recommended</AnalysisModeSingleFile>
+    <AnalysisModeReliability>Recommended</AnalysisModeReliability>
+    <AnalysisModeSecurity>Recommended</AnalysisModeSecurity>
+    <AnalysisModeStyle>Recommended</AnalysisModeStyle>
+    <AnalysisModeUsage>Recommended</AnalysisModeUsage>
+  </PropertyGroup>
+
+</Project>

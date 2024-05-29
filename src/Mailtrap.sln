@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap", "Mailtrap\Mailtrap.csproj", "{86FBC028-ED4D-481E-B7F9-F6D0EE8A7DE3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Abstractions", "Mailtrap.Abstractions\Mailtrap.Abstractions.csproj", "{1EF34CD9-EE4A-444D-A847-B65A9D0A8571}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ED362417-8434-400B-851A-10E6B8909616}"
+	ProjectSection(SolutionItems) = preProject
+		..\.editorconfig = ..\.editorconfig
+		..\CHANGELOG.md = ..\CHANGELOG.md
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{6FC6F44E-0A31-4279-AD98-79A1E42FE5AD}"
+	ProjectSection(SolutionItems) = preProject
+		..\Directory.Build.props = ..\Directory.Build.props
+		Directory.Build.props = Directory.Build.props
+		..\Directory.Packages.props = ..\Directory.Packages.props
+		..\Directory.Solution.props = ..\Directory.Solution.props
+		..\build\mailtrap-code-analysis.props = ..\build\mailtrap-code-analysis.props
+		..\build\mailtrap-global.props = ..\build\mailtrap-global.props
+		..\build\mailtrap-paths.props = ..\build\mailtrap-paths.props
+		..\build\mailtrap-test.props = ..\build\mailtrap-test.props
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{86FBC028-ED4D-481E-B7F9-F6D0EE8A7DE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86FBC028-ED4D-481E-B7F9-F6D0EE8A7DE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86FBC028-ED4D-481E-B7F9-F6D0EE8A7DE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86FBC028-ED4D-481E-B7F9-F6D0EE8A7DE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EF34CD9-EE4A-444D-A847-B65A9D0A8571}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EF34CD9-EE4A-444D-A847-B65A9D0A8571}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EF34CD9-EE4A-444D-A847-B65A9D0A8571}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EF34CD9-EE4A-444D-A847-B65A9D0A8571}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6FC6F44E-0A31-4279-AD98-79A1E42FE5AD} = {ED362417-8434-400B-851A-10E6B8909616}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0FF614CC-FEBC-4C66-B3FC-FCB73EE511D7}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup Label="Roots">
+    <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
+    <BaseDirectory>$(RepositoryRoot)</BaseDirectory>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Props Dir">
+    <BuildConfigurationDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'build'))</BuildConfigurationDirectory>
+  </PropertyGroup>
+
+  <Import Project="$(BuildConfigurationDirectory)mailtrap-global.props" />
+</Project>

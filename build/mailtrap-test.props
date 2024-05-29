@@ -1,0 +1,45 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <UseCommonOutputDirectory>false</UseCommonOutputDirectory>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
+
+    <PackageReference Include="coverlet.collector">
+      <TreatAsUsed>true</TreatAsUsed>
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <PackageReference Include="NUnit">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
+    
+    <PackageReference Include="NUnit3TestAdapter">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
+
+    <PackageReference Include="NUnit.Analyzers">
+      <TreatAsUsed>true</TreatAsUsed>
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <PackageReference Include="FluentAssertions">
+       <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
+    
+    <PackageReference Include="FluentAssertions.Analyzers" >
+      <TreatAsUsed>true</TreatAsUsed>
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

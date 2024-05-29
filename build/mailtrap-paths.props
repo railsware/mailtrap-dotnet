@@ -1,0 +1,15 @@
+﻿<Project>
+
+  <PropertyGroup Label="Custom Build Paths">
+    <BaseSourceDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'src'))</BaseSourceDirectory>    
+    <BaseOutputDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'artifacts'))</BaseOutputDirectory>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Artifacts Output Configuration">
+    <UseCommonOutputDirectory>true</UseCommonOutputDirectory> 
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <ArtifactsPath>$(BaseOutputDirectory)</ArtifactsPath>
+    <!-- <ArtifactsPivots>$(Configuration)</ArtifactsPivots> -->
+  </PropertyGroup>
+
+</Project>

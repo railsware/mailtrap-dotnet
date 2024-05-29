@@ -1,0 +1,64 @@
+name: Default CI
+
+on:
+  workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# Limiting workflow concurrency
+concurrency: 
+  # Grouping by workflow, triggering event and ref name.
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+  
+jobs:  
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      SOLUTION_FILE_PATH: './src/Mailtrap.sln'
+      TEST_RESULTS_DIR: './artifacts/test-results'
+
+    strategy:
+      max-parallel: 1
+      matrix:
+        platform: [anycpu] 
+        configuration: [Release]
+        dotnet: ['8.0.x']
+
+    steps:
+    # https://github.com/marketplace/actions/checkout
+    - name: Checkout Sources
+      uses: actions/checkout@v4
+
+    # https://github.com/marketplace/actions/setup-net-core-sdk
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ matrix.dotnet }}
+
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.SOLUTION_FILE_PATH }} --locked-mode
+
+    - name: Build
+      run: dotnet build ${{ env.SOLUTION_FILE_PATH }} --configuration ${{ matrix.configuration }} --no-restore
+
+    # https://github.com/marketplace/actions/upload-a-build-artifact
+    - name: Publish Artifacts - Binaries
+      uses: actions/upload-artifact@v4
+      with:
+        name: Binaries
+        path: './artifacts/bin'          
+
+    - name: Test
+      run: dotnet test ${{ env.SOLUTION_FILE_PATH }} --configuration ${{ matrix.configuration }} --results-directory ${{ env.TEST_RESULTS_DIR }} --collect "XPlat Code Coverage" --no-build --verbosity normal
+
+    # https://github.com/marketplace/actions/upload-a-build-artifact
+    - name: Publish Artifacts - Test Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: Test Results
+        path: ${{ env.TEST_RESULTS_DIR }}
