@@ -4,6 +4,7 @@
     <BaseSourceDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'src'))</BaseSourceDirectory>
     <LibSourceDirectory>$([MSBuild]::NormalizeDirectory('$(BaseSourceDirectory)', 'lib'))</LibSourceDirectory>
     <SamplesSourceDirectory>$([MSBuild]::NormalizeDirectory('$(BaseSourceDirectory)', 'samples'))</SamplesSourceDirectory>
+    <AssetsSourceDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'package'))</AssetsSourceDirectory>
       
     <BaseOutputDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'artifacts'))</BaseOutputDirectory>
   </PropertyGroup>
