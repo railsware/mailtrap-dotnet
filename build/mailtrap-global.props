@@ -11,7 +11,7 @@
     </PropertyGroup>
 
     <PropertyGroup Label="C# Global Project Settings" Condition="'$(MSBuildProjectExtension)' == '.csproj'">
-        <TargetFrameworks>net8.0</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0</TargetFrameworks>
         <LangVersion>latest</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
