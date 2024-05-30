@@ -1,15 +1,14 @@
 ﻿<Project>
 
-  <PropertyGroup Label="Custom Build Paths">
+  <PropertyGroup Label="Path Shortcuts">
     <BaseSourceDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'src'))</BaseSourceDirectory>
     <LibSourceDirectory>$([MSBuild]::NormalizeDirectory('$(BaseSourceDirectory)', 'lib'))</LibSourceDirectory>
-    <SamplesSourceDirectory>$([MSBuild]::NormalizeDirectory('$(BaseSourceDirectory)', 'samples'))</SamplesSourceDirectory>
-    <AssetsSourceDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'package'))</AssetsSourceDirectory>
-      
-    <BaseOutputDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'artifacts'))</BaseOutputDirectory>
+    <SamplesSourceDirectory>$([MSBuild]::NormalizeDirectory('$(BaseSourceDirectory)', 'samples'))</SamplesSourceDirectory>          
   </PropertyGroup>
 
   <PropertyGroup Label="Artifacts Output Configuration">
+    <BaseOutputDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'artifacts'))</BaseOutputDirectory>
+
     <UseCommonOutputDirectory>true</UseCommonOutputDirectory> 
     <UseArtifactsOutput>true</UseArtifactsOutput>
     <ArtifactsPath>$(BaseOutputDirectory)</ArtifactsPath>
