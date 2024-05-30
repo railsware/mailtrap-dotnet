@@ -47,18 +47,18 @@ jobs:
       run: dotnet build ${{ env.SOLUTION_FILE_PATH }} --configuration ${{ matrix.configuration }} --no-restore
 
     # https://github.com/marketplace/actions/upload-a-build-artifact
-    - name: Publish Artifacts - Binaries
-      uses: actions/upload-artifact@v4
-      with:
-        name: Binaries
-        path: './artifacts/bin'          
+    # - name: Publish Artifacts - Binaries
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: Binaries
+    #     path: './artifacts/bin'          
 
     - name: Test
       run: dotnet test ${{ env.SOLUTION_FILE_PATH }} --configuration ${{ matrix.configuration }} --results-directory ${{ env.TEST_RESULTS_DIR }} --collect "XPlat Code Coverage" --no-build --verbosity normal
 
     # https://github.com/marketplace/actions/upload-a-build-artifact
-    - name: Publish Artifacts - Test Results
-      uses: actions/upload-artifact@v4
-      with:
-        name: Test Results
-        path: ${{ env.TEST_RESULTS_DIR }}
+    # - name: Publish Artifacts - Test Results
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: Test Results
+    #     path: ${{ env.TEST_RESULTS_DIR }}
