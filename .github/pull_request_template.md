@@ -3,6 +3,7 @@
 
 ## Description of Changes:
 
+
 ### Checklist:
 - [ ] Acknowledged that contribution is made under the project's [LICENSE](https://github.com/mailtrap/mailtrap-dotnet/blob/main/LICENSE.md)
 - [ ] Confirmed that PR and code/documentation changes are following the [Contributor Code of Conduct](https://github.com/mailtrap/mailtrap-dotnet/blob/main/CODE_OF_CONDUCT.md)
