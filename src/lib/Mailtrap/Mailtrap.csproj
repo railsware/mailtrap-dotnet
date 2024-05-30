@@ -13,7 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="$(BaseSourceDirectory)Mailtrap.Abstractions\Mailtrap.Abstractions.csproj" />
+        <ProjectReference Include="$(LibSourceDirectory)Mailtrap.Abstractions\Mailtrap.Abstractions.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -21,7 +21,7 @@
         <Pack>True</Pack>
         <PackagePath>\</PackagePath>
       </None>
-      <None Include="..\..\package\icon.png">
+      <None Include="..\..\..\package\icon.png">
         <Pack>True</Pack>
         <PackagePath>\</PackagePath>
       </None>
