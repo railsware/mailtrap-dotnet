@@ -11,7 +11,8 @@
     </PropertyGroup>
 
     <ItemGroup>        
-        <PackageReference Include="Nito.AsyncEx.Coordination" />
+        <PackageReference Include="Nito.AsyncEx.Coordination" />        
+        <PackageReference Include="System.Net.Http.Json" />
     </ItemGroup>
 
     <ItemGroup>

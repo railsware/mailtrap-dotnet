@@ -12,6 +12,7 @@
 
     <ItemGroup>
         <PackageReference Include="FluentValidation" />
+        <PackageReference Include="System.Text.Json" />
     </ItemGroup>
 
 </Project>
