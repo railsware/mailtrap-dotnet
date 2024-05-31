@@ -9,9 +9,7 @@ on:
         required: true
         default: false        
   push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
 
 # Limiting workflow concurrency
 concurrency: 
