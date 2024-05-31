@@ -4,21 +4,23 @@
     <EnforceCodeStyleInBuild Condition=" '$(EnforceCodeStyleInBuild)' == '' ">true</EnforceCodeStyleInBuild>
     <AnalysisLevel Condition=" '$(AnalysisLevel)' == '' ">latest</AnalysisLevel>
 
-    <!-- None, Default, Minimum, Recommended, All-->
-    <!--<AnalysisMode>Recommended</AnalysisMode>-->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
-    <AnalysisModeDesign>Recommended</AnalysisModeDesign>
-    <AnalysisModeDocumentation>Recommended</AnalysisModeDocumentation>
-    <AnalysisModeGlobalization>Recommended</AnalysisModeGlobalization>
-    <AnalysisModeInteroperability>Recommended</AnalysisModeInteroperability>
-    <AnalysisModeMaintainability>Recommended</AnalysisModeMaintainability>
-    <AnalysisModeNaming>Recommended</AnalysisModeNaming>
-    <AnalysisModePerformance>Recommended</AnalysisModePerformance>
-    <AnalysisModeSingleFile>Recommended</AnalysisModeSingleFile>
-    <AnalysisModeReliability>Recommended</AnalysisModeReliability>
-    <AnalysisModeSecurity>Recommended</AnalysisModeSecurity>
-    <AnalysisModeStyle>Recommended</AnalysisModeStyle>
-    <AnalysisModeUsage>Recommended</AnalysisModeUsage>
+    <!-- None, Default, Minimum, Recommended, All-->
+    <!--<AnalysisMode>All</AnalysisMode>-->
+
+    <AnalysisModeDesign>All</AnalysisModeDesign>
+    <AnalysisModeDocumentation>All</AnalysisModeDocumentation>
+    <AnalysisModeGlobalization>All</AnalysisModeGlobalization>
+    <AnalysisModeInteroperability>All</AnalysisModeInteroperability>
+    <AnalysisModeMaintainability>All</AnalysisModeMaintainability>
+    <AnalysisModeNaming>All</AnalysisModeNaming>
+    <AnalysisModePerformance>All</AnalysisModePerformance>
+    <AnalysisModeSingleFile>All</AnalysisModeSingleFile>
+    <AnalysisModeReliability>All</AnalysisModeReliability>
+    <AnalysisModeSecurity>All</AnalysisModeSecurity>
+    <AnalysisModeStyle>All</AnalysisModeStyle>
+    <AnalysisModeUsage>All</AnalysisModeUsage>
   </PropertyGroup>
 
 </Project>
