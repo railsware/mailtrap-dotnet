@@ -1,10 +1,12 @@
 ﻿<Project>
 
   <PropertyGroup>
+    <EnableNETAnalyzers Condition=" '$(EnableNETAnalyzers)' == '' ">true</EnableNETAnalyzers>
     <EnforceCodeStyleInBuild Condition=" '$(EnforceCodeStyleInBuild)' == '' ">true</EnforceCodeStyleInBuild>
-    <AnalysisLevel Condition=" '$(AnalysisLevel)' == '' ">latest</AnalysisLevel>
+    <TreatWarningsAsErrors Condition=" '$(TreatWarningsAsErrors)' == '' ">true</TreatWarningsAsErrors>
+    <CodeAnalysisTreatWarningsAsErrors Condition=" '$(CodeAnalysisTreatWarningsAsErrors)' == '' ">true</CodeAnalysisTreatWarningsAsErrors>
 
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AnalysisLevel Condition=" '$(AnalysisLevel)' == '' ">latest</AnalysisLevel>
 
     <!-- None, Default, Minimum, Recommended, All-->
     <!--<AnalysisMode>All</AnalysisMode>-->

@@ -9,11 +9,16 @@
     <PackageProjectUrl>https://github.com/mailtrap/mailtrap-dotnet</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mailtrap/mailtrap-dotnet</RepositoryUrl>
 
+    <!-- 
+      SourceLink generation settings 
+      https://devblogs.microsoft.com/dotnet/producing-packages-with-source-link/
+    -->
     <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl> 
     <!-- Embed source files that are not tracked by the source control manager in the PDB -->
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
 
+    <DebugType>portable</DebugType>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
