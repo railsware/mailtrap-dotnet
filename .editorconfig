@@ -1,0 +1,38 @@
+﻿# https://editorconfig.org
+# https://aka.ms/editorconfigdocs
+
+# top-most EditorConfig file
+root = true
+
+[*]
+
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+tab_width = 4
+end_of_line = crlf
+
+spelling_checkable_types = strings,identifiers,comments
+spelling_error_severity = information
+
+
+[*.cs]
+
+# License header
+file_header_template = -----------------------------------------------------------------------\n<copyright file="{fileName}" company="Railsware Products Studio, LLC">\nCopyright (c) Railsware Products Studio, LLC. All rights reserved.\n</copyright>\n-----------------------------------------------------------------------
+
+
+# IDE0160: Convert to block scoped namespace
+csharp_style_namespace_declarations = file_scoped
+
+# IDE0007: Use var instead of explicit type
+csharp_style_var_for_built_in_types = true
+csharp_style_var_when_type_is_apparent = true
+csharp_style_var_elsewhere = true
+
+# IDE0022: Use expression body for methods
+csharp_style_expression_bodied_methods = when_on_single_line:silent
+
+# IDE0023: Use expression body for conversion operators
+csharp_style_expression_bodied_operators = when_on_single_line:silent

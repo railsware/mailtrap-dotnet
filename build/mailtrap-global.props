@@ -1,0 +1,26 @@
+﻿<Project>
+
+    <Import Project="$(BuildConfigurationDirectory)mailtrap-paths.props" />
+
+    <PropertyGroup Label="Global Project Settings">
+        <Platforms>anycpu</Platforms>
+
+        <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+
+        <DefaultItemExcludes>$(DefaultItemExcludes);**/bin/**;**/obj/**;**/*.bak</DefaultItemExcludes>
+    </PropertyGroup>
+
+    <PropertyGroup Label="CI Related Settings" Condition="'$(GITHUB_ACTIONS)' == 'true'">
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    </PropertyGroup>
+
+    <PropertyGroup Label="C# Global Project Settings" Condition="'$(MSBuildProjectExtension)' == '.csproj'">
+        <TargetFrameworks>netstandard2.0</TargetFrameworks>
+        <LangVersion>latest</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <Import Project="$(BuildConfigurationDirectory)mailtrap-code-analysis.props" />
+
+</Project>
