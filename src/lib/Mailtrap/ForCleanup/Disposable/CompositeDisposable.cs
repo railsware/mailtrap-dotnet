@@ -6,8 +6,7 @@
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 
-
-namespace Mailtrap.Disposable;
+namespace Mailtrap.ForCleanup.Disposable;
 
 
 /// <summary>
@@ -181,7 +180,7 @@ public sealed class CompositeDisposable : ICollection<IDisposable>, ICancelable
                     {
                         // If we've blown through this threshold, chances are there's more to come,
                         // so allocate some more spare capacity.
-                        var dictionary = new Dictionary<IDisposable, int>(listDisposables.Count + (listDisposables.Count / 4));
+                        var dictionary = new Dictionary<IDisposable, int>(listDisposables.Count + listDisposables.Count / 4);
                         foreach (var d in listDisposables)
                         {
                             if (d is not null)

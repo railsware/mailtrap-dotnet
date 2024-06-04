@@ -4,4 +4,15 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-Console.WriteLine("Hello, World!");
+
+using Mailtrap.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+
+var hostBuilder = Host.CreateApplicationBuilder();
+
+hostBuilder.Services.AddMailtrapClient();
+
+var host = hostBuilder.Build();
+
+await host.RunAsync().ConfigureAwait(false);

@@ -5,8 +5,7 @@
 
 using System.Diagnostics;
 
-
-namespace Mailtrap.Disposable;
+namespace Mailtrap.ForCleanup.Disposable;
 
 
 /// <summary>

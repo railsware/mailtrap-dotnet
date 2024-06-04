@@ -60,19 +60,13 @@ public record EmailSendApiRequest
     {
         ExceptionHelpers.ThrowIfNull(recipients, nameof(recipients));
 
-        foreach (var recipient in recipients)
-        {
-            Recipients.Add(recipient);
-        }
+        Recipients.AddRange(recipients);
     }
 
     public void AddAttachments(params Attachment[] attachments)
     {
         ExceptionHelpers.ThrowIfNull(attachments, nameof(attachments));
 
-        foreach (var attachment in attachments)
-        {
-            Attachments.Add(attachment);
-        }
+        Attachments.AddRange(attachments);
     }
 }

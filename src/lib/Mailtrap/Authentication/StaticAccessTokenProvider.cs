@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Mailtrap.Behaviors;
+namespace Mailtrap.Authentication;
 
 
 /// <summary>

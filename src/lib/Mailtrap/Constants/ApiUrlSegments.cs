@@ -4,11 +4,12 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+
 namespace Mailtrap.Constants;
 
 
 internal static class ApiUrlSegments
 {
-    public const string ApiRootSegment = "api";
-    public const string SendEmailSegment = "send";
+    internal const string ApiRootSegment = "api";
+    internal const string SendEmailSegment = "send";
 }

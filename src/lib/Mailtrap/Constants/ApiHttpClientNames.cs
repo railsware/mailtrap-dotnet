@@ -1,17 +1,14 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IApiBaseUrlProvider.cs" company="Railsware Products Studio, LLC">
+// <copyright file="ApiHeaderNames.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Contracts;
+namespace Mailtrap.Constants;
 
 
-/// <summary>
-/// Provides API host base URL
-/// </summary>
-internal interface IApiBaseUrlProvider
+internal static class ApiHttpClientNames
 {
-    Uri SendEmailHost { get; }
+    internal const string Default = "mailtrap";
 }

@@ -6,6 +6,7 @@
 
 
 using System.Net.Http.Json;
+using Microsoft.Extensions.DependencyInjection;
 
 
 namespace Mailtrap;
@@ -18,6 +19,37 @@ public class MailtrapEmailApiClient : IMailtrapEmailApiClient
     private readonly IHttpClientProvider _httpClientProvider;
     private readonly ISerializationOptionsProvider _serializationOptionsProvider;
 
+    /// <summary>
+    /// Shortcut constructor to be used with base URL and API key parameters
+    /// </summary>
+    /// <param name="apiHost">Root API URL, e.g. https://send.api.mailtrap.io/. <b>Should contain trailing slash.</b></param>
+    /// <param name="apiKey">API authorization key</param>
+    /// <exception cref="ArgumentNullException"/>
+    /// <exception cref="ArgumentException"/>
+    public MailtrapEmailApiClient(string apiHost, string apiKey) :
+        this(
+            new DefaultApiBaseUrlProvider(apiHost),
+            new DefaultHttpClientProvider(apiKey),
+            DefaultSerializationOptionsProvider.Instance)
+    { }
+
+    /// <summary>
+    /// Shortcut constructor to be used with API key parameter
+    /// </summary>
+    /// <param name="apiKey">API authorization key</param>
+    /// <exception cref="ArgumentNullException"/>
+    /// <exception cref="ArgumentException"/>
+    public MailtrapEmailApiClient(string apiKey) :
+        this(
+            new DefaultApiBaseUrlProvider("https://send.api.mailtrap.io/"),
+            new DefaultHttpClientProvider(apiKey),
+            DefaultSerializationOptionsProvider.Instance)
+    { }
+
+    public MailtrapEmailApiClient(string apiKey, Action<IHttpClientBuilder> configureHttpClient)
+    {
+
+    }
 
     /// <summary>
     /// Internal constructor to be used in unit tests to mock dependencies.
@@ -39,20 +71,6 @@ public class MailtrapEmailApiClient : IMailtrapEmailApiClient
         _httpClientProvider = httpClientProvider;
         _serializationOptionsProvider = serializationOptionsProvider;
     }
-
-    /// <summary>
-    /// Shortcut constructor to be used with base URL and API key parameters
-    /// </summary>
-    /// <param name="apiHost">Root API URL, e.g. https://send.api.mailtrap.io/. <b>Should contain trailing slash.</b></param>
-    /// <param name="apiKey">API authorization key</param>
-    /// <exception cref="ArgumentNullException"/>
-    /// <exception cref="ArgumentException"/>
-    public MailtrapEmailApiClient(string apiHost, string apiKey) :
-        this(
-            new DefaultApiBaseUrlProvider(apiHost),
-            new DefaultHttpClientProvider(apiKey),
-            DefaultSerializationOptionsProvider.Instance)
-    { }
 
 
     /// <inheritdoc />

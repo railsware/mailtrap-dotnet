@@ -14,6 +14,7 @@ global using Mailtrap.Contracts;
 global using Mailtrap.Extensions;
 global using Mailtrap.Helpers;
 global using Mailtrap.Behaviors;
+global using Mailtrap.Options.Models;
 
 
 // Allowing test assembly to access internals for unit tests

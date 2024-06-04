@@ -4,11 +4,12 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+
 namespace Mailtrap.Constants;
 
 
 internal static class ApiHeaderNames
 {
-    public const string ApiKeyHeader = "Api-Token";
-    public const string PreferHeader = "Prefer";
+    internal const string ApiKeyHeader = "Api-Token";
+    internal const string PreferHeader = "Prefer";
 }

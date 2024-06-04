@@ -2,8 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT License.
 // Copyright(c).NET Foundation and Contributors
 
-
-namespace Mailtrap.Disposable;
+namespace Mailtrap.ForCleanup.Disposable;
 
 
 /// <summary>

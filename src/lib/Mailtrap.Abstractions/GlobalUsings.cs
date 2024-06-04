@@ -11,9 +11,11 @@ global using FluentValidation;
 global using Mailtrap.Helpers;
 global using Mailtrap.Models;
 global using Mailtrap.Validators;
+global using Mailtrap.Extensions;
 
 
 // Allowing test assembly to access internals for unit tests
 using System.Runtime.CompilerServices;
+
 
 [assembly: InternalsVisibleTo("Mailtrap.Tests")]

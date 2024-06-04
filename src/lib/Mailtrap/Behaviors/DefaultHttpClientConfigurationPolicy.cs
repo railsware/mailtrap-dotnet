@@ -5,6 +5,8 @@
 // -----------------------------------------------------------------------
 
 
+using Mailtrap.Authentication;
+
 namespace Mailtrap.Behaviors;
 
 
