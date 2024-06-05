@@ -8,9 +8,6 @@
 namespace Mailtrap.Authentication;
 
 
-/// <summary>
-/// Provides static predefined token instance
-/// </summary>
 internal class OptionsAccessTokenProvider : IAccessTokenProvider
 {
     private readonly string _token;

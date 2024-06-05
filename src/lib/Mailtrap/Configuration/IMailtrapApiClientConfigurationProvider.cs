@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Options;
+namespace Mailtrap.Configuration;
 
 
 public interface IMailtrapApiClientConfigurationProvider

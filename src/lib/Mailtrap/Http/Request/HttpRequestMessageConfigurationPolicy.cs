@@ -4,8 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
-namespace Mailtrap.Http;
+namespace Mailtrap.Http.Request;
 
 
 internal sealed class HttpRequestMessageConfigurationPolicy : IHttpRequestMessageConfigurationPolicy
@@ -22,8 +21,6 @@ internal sealed class HttpRequestMessageConfigurationPolicy : IHttpRequestMessag
 
     public async Task ApplyPolicyAsync(HttpRequestMessage request, CancellationToken cancellationToken = default)
     {
-        request.ConfigureAcceptHeader();
-
         await _authenticationProvider
             .AuthenticateAsync(request, cancellationToken)
             .ConfigureAwait(false);

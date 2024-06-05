@@ -12,6 +12,7 @@ internal class ApiKeyHttpRequestMessageAuthenticationProvider : IHttpRequestMess
 {
     private readonly IAccessTokenProvider _accessTokenProvider;
 
+    
     public ApiKeyHttpRequestMessageAuthenticationProvider(IAccessTokenProvider accessTokenProvider)
     {
         ExceptionHelpers.ThrowIfNull(accessTokenProvider, nameof(accessTokenProvider));
@@ -19,16 +20,6 @@ internal class ApiKeyHttpRequestMessageAuthenticationProvider : IHttpRequestMess
         _accessTokenProvider = accessTokenProvider;
     }
 
-    public async Task AuthenticateAsync(HttpClient httpClient, CancellationToken cancellationToken = default)
-    {
-        ExceptionHelpers.ThrowIfNull(httpClient, nameof(httpClient));
-
-        var token = await _accessTokenProvider
-            .GetAccessTokenAsync(cancellationToken)
-            .ConfigureAwait(false);
-
-        httpClient.WithApiAuthenticationHeader(token);
-    }
 
     public async Task AuthenticateAsync(HttpRequestMessage request, CancellationToken cancellationToken = default)
     {

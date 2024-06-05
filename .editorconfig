@@ -16,7 +16,7 @@ end_of_line = crlf
 spelling_languages = en-us
 spelling_checkable_types = strings,identifiers,comments
 spelling_error_severity = hint
-spelling_exclusion_path = ./exclusions.dic
+spelling_exclusion_path = .\spelling_exclusions.dic
 
 
 [*.cs]

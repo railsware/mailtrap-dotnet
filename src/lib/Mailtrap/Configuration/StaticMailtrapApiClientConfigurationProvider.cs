@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Options;
+namespace Mailtrap.Configuration;
 
 
 internal sealed class StaticMailtrapApiClientConfigurationProvider : IMailtrapApiClientConfigurationProvider

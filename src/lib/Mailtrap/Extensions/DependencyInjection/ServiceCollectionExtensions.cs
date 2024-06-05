@@ -33,6 +33,7 @@ public static class ServiceCollectionExtensions
             .AddHttpClient(httpClientName);
     }
 
+
     private static IServiceCollection AddMailtrapServices(this IServiceCollection services)
     {
         ExceptionHelpers.ThrowIfNull(services, nameof(services));

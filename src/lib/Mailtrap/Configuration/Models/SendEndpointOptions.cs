@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Options.Models;
+namespace Mailtrap.Configuration.Models;
 
 
 public record SendEndpointOptions : MailtrapApiClientEndpointOptions
