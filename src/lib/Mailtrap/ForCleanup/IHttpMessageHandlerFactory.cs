@@ -4,8 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
-namespace Mailtrap.Contracts;
+namespace Mailtrap.ForCleanup;
 
 
 internal interface IHttpMessageHandlerFactory

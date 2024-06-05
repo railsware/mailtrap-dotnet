@@ -5,13 +5,24 @@
 // -----------------------------------------------------------------------
 
 
+using System.Net;
 using Mailtrap.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 
 var hostBuilder = Host.CreateApplicationBuilder();
 
-hostBuilder.Services.AddMailtrapClient();
+hostBuilder.Services.AddMailtrapClient(builder =>
+{
+    builder.ConfigurePrimaryHttpMessageHandler(() =>
+    {
+        return new HttpClientHandler()
+        {
+            Proxy = new WebProxy("proxy.mailtrap.io", 8080)
+        };
+    });
+});
 
 var host = hostBuilder.Build();
 

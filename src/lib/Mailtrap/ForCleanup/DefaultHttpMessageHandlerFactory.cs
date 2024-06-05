@@ -4,8 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
-namespace Mailtrap.Behaviors;
+namespace Mailtrap.ForCleanup;
 
 
 internal partial class DefaultHttpMessageHandlerFactory : IHttpMessageHandlerFactory

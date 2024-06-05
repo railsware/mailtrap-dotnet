@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Contracts;
+namespace Mailtrap.Http;
 
 
 internal interface IHttpClientConfigurationPolicy

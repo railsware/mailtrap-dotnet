@@ -1,8 +1,9 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MailtrapApiClientOptions.cs" company="Railsware Products Studio, LLC">
+// <copyright file="MailtrapApiClientSerializationOptions.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
+
 
 namespace Mailtrap.Options.Models;
 

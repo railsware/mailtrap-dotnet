@@ -4,14 +4,15 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+
 namespace Mailtrap.Options.Models;
 
 
 public record SendEndpointOptions : MailtrapApiClientEndpointOptions
 {
-    public static SendEndpointOptions Default { get; } = new("https://send.api.mailtrap.io/");
+    public static SendEndpointOptions Default { get; } = new(ApiEndpoints.SendDefaultUrl);
 
-    public SendEndpointOptions(string baseUrl) : base(baseUrl) { }
+    public SendEndpointOptions(string baseUrl, string? httpClientName = default) : base(baseUrl, httpClientName) { }
 
-    public SendEndpointOptions(Uri baseUrl) : base(baseUrl) { }
+    public SendEndpointOptions(Uri baseUrl, string? httpClientName = default) : base(baseUrl, httpClientName) { }
 }

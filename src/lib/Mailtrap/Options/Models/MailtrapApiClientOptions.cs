@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+
 namespace Mailtrap.Options.Models;
 
 
@@ -15,5 +16,7 @@ public record MailtrapApiClientOptions
     public TestEndpointOptions TestEndpoint { get; set; } = TestEndpointOptions.Default;
     public BulkEndpointOptions BulkEndpoint { get; set; } = BulkEndpointOptions.Default;
 
-    public MailtrapApiClientSerializationOptions SerializationOptions { get; set; } = MailtrapApiClientSerializationOptions.Default;
+    public MailtrapApiClientAuthenticationOptions Authentication { get; set; } = MailtrapApiClientAuthenticationOptions.Default;
+
+    public MailtrapApiClientSerializationOptions Serialization { get; set; } = MailtrapApiClientSerializationOptions.Default;
 }

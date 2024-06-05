@@ -13,8 +13,10 @@ namespace Mailtrap.Extensions;
 /// </summary>
 internal static class HttpClientExtensions
 {
-    public static HttpClient ConfigureAcceptHeader(this HttpClient httpClient)
+    internal static HttpClient WithJsonAcceptHeader(this HttpClient httpClient)
     {
+        ExceptionHelpers.ThrowIfNull(httpClient, nameof(httpClient));
+
         var acceptHeader = httpClient.DefaultRequestHeaders.Accept;
 
         acceptHeader.Clear();
@@ -23,11 +25,25 @@ internal static class HttpClientExtensions
         return httpClient;
     }
 
-    public static HttpClient ConfigureApiAuthenticationHeader(this HttpClient httpClient, string apiKey)
+    internal static HttpClient WithApiAuthenticationHeader(this HttpClient httpClient, string apiKey)
     {
+        ExceptionHelpers.ThrowIfNull(httpClient, nameof(httpClient));
+
         var headers = httpClient.DefaultRequestHeaders;
 
         headers.Add(ApiHeaderNames.ApiKeyHeader, apiKey);
+
+        return httpClient;
+    }
+
+    internal static HttpClient WithBaseAddress(this HttpClient httpClient, Uri? baseAddress, bool force = false)
+    {
+        ExceptionHelpers.ThrowIfNull(httpClient, nameof(httpClient));
+
+        if (force || httpClient.BaseAddress is null)
+        {
+            httpClient.BaseAddress = baseAddress;
+        }
 
         return httpClient;
     }

@@ -1,14 +1,15 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IHttpClientProvider.cs" company="Railsware Products Studio, LLC">
+// <copyright file="IJsonSerializerFacade.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Contracts;
+namespace Mailtrap.Serialization;
 
 
-internal interface IHttpClientProvider
+public interface IJsonSerializerFacade
 {
-    Task<HttpClient> GetClientAsync(CancellationToken cancellationToken = default);
+    T? Deserialize<T>(string value);
+    string Serialize<T>(T value);
 }

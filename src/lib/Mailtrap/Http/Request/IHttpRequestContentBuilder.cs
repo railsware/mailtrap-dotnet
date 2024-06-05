@@ -1,14 +1,14 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ApiHttpClientNames.cs" company="Railsware Products Studio, LLC">
+// <copyright file="IHttpRequestContentBuilder.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Constants;
+namespace Mailtrap.Http.Request;
 
 
-internal static class ApiHttpClientNames
+public interface IHttpRequestContentBuilder
 {
-    internal const string Default = "mailtrap";
+    Task<StringContent> BuildAsync(string content);
 }

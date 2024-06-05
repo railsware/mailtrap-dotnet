@@ -1,14 +1,14 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IMailtrapApiClientOptionsProvider.cs" company="Railsware Products Studio, LLC">
+// <copyright file="IHttpClientLifetimeAdapter.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Options;
+namespace Mailtrap.Http.Lifetime;
 
 
-internal interface IMailtrapApiClientOptionsProvider
+public interface IHttpClientLifetimeAdapter : IDisposable
 {
-    MailtrapApiClientOptions Options { get; }
+    HttpClient HttpClient { get; }
 }

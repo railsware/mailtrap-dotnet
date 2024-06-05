@@ -14,10 +14,31 @@ namespace Mailtrap.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
-    public static IHttpClientBuilder AddMailtrapClient(this IServiceCollection services)
+    public static IServiceCollection AddMailtrapClient(this IServiceCollection services, Action<IHttpClientBuilder> configure)
     {
-        services.TryAddTransient<IMailtrapEmailApiClient, MailtrapEmailApiClient>();
+        ExceptionHelpers.ThrowIfNull(services, nameof(services));
+        ExceptionHelpers.ThrowIfNull(configure, nameof(configure));
 
-        return services.AddHttpClient(MailtrapEmailApiClient.HttpClientName);
+        return services
+            .AddMailtrapServices()
+            .ConfigureHttpClientDefaults(configure);
+    }
+
+    public static IHttpClientBuilder AddMailtrapClient(this IServiceCollection services, string httpClientName)
+    {
+        ExceptionHelpers.ThrowIfNull(services, nameof(services));
+
+        return services
+            .AddMailtrapServices()
+            .AddHttpClient(httpClientName);
+    }
+
+    private static IServiceCollection AddMailtrapServices(this IServiceCollection services)
+    {
+        ExceptionHelpers.ThrowIfNull(services, nameof(services));
+
+        services.TryAddTransient<IMailtrapApiClient, MailtrapApiClient>();
+
+        return services;
     }
 }

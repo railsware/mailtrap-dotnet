@@ -1,0 +1,36 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="HttpRequestMessageExtensions.cs" company="Railsware Products Studio, LLC">
+// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+
+namespace Mailtrap.Extensions;
+
+
+/// <summary>
+/// A set of helpers for <see cref="HttpRequestMessage"/> configuration.
+/// </summary>
+internal static class HttpRequestMessageExtensions
+{
+    internal static HttpRequestMessage ConfigureAcceptHeader(this HttpRequestMessage request)
+    {
+        ExceptionHelpers.ThrowIfNull(request, nameof(request));
+
+        var acceptHeader = request.Headers.Accept;
+
+        acceptHeader.Clear();
+        acceptHeader.Add(new("application/json"));
+
+        return request;
+    }
+
+    internal static HttpRequestMessage ConfigureApiAuthenticationHeader(this HttpRequestMessage request, string apiKey)
+    {
+        ExceptionHelpers.ThrowIfNull(request, nameof(request));
+
+        request.Headers.Add(ApiHeaderNames.ApiKeyHeader, apiKey);
+
+        return request;
+    }
+}

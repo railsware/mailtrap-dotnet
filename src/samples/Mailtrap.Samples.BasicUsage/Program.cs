@@ -18,12 +18,12 @@ try
         .WithRecipient("hero.bill@galaxy.net")
         .WithTextBody("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
 
-    var mockEndpointClient = new MailtrapEmailApiClient("https://mock.email.mailtrap.io/", apiKey);
+    var mockEndpointClient = new MailtrapApiClient("https://mock.email.mailtrap.io/", apiKey);
     var responseFromMock = await mockEndpointClient.SendAsync(request).ConfigureAwait(false);
 
     Console.WriteLine("Email has been sent successfully to the mock endpoint. MessageId: {0}", responseFromMock?.MessageIds?.FirstOrDefault());
 
-    var client = new MailtrapEmailApiClient(apiKey);
+    var client = new MailtrapApiClient(apiKey);
     var response = await client.SendAsync(request).ConfigureAwait(false);
 
     Console.WriteLine("Email has been sent successfully. MessageId: {0}", response?.MessageIds?.FirstOrDefault());

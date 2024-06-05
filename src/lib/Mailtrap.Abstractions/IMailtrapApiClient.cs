@@ -11,7 +11,7 @@ namespace Mailtrap;
 /// <summary>
 /// Main Mailtrap Email API client entry point.
 /// </summary>
-public interface IMailtrapEmailApiClient
+public interface IMailtrapApiClient
 {
     /// <summary>
     /// Sends provided <paramref name="request"/> to an API endpoint and returns result.<br/>

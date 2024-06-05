@@ -47,3 +47,20 @@ dotnet_diagnostic.IDE0058.severity = silent
 
 # CA1303: Do not pass literals as localized parameters
 dotnet_diagnostic.CA1303.severity = none
+
+# CA1062: Null-check validation
+dotnet_code_quality.CA1062.null_check_validation_methods = ThrowIfNull|ThrowIfNullOrEmpty
+
+
+# Naming Rules
+# dotnet_diagnostic.IDE1006.severity = silent
+
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+
+dotnet_naming_style.prefix_underscore.capitalization = camel_case
+dotnet_naming_style.prefix_underscore.required_prefix = _
+
+dotnet_naming_rule.private_underscored.symbols = private_fields
+dotnet_naming_rule.private_underscored.style = prefix_underscore
+dotnet_naming_rule.private_underscored.severity = warning

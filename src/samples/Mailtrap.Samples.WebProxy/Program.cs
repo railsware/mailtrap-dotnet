@@ -18,8 +18,15 @@ try
         .WithRecipient("hero.bill@galaxy.net")
         .WithTextBody("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
 
-    var client = new MailtrapEmailApiClient(apiKey, httpClientBuilder =>
+    var client = new MailtrapApiClient(apiKey, httpClientBuilder =>
     {
+        httpClientBuilder.ConfigurePrimaryHttpMessageHandler(() =>
+        {
+            return new HttpClientHandler()
+            {
+                Proxy = new WebProxy("proxy.mailtrap.io", 8080)
+            };
+        });
     });
     var response = await client.SendAsync(request).ConfigureAwait(false);
 
