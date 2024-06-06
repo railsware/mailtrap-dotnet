@@ -23,7 +23,7 @@ public class MailtrapApiClient : IMailtrapApiClient
     /// <param name="apiKey">API authorization key</param>
     /// <exception cref="ArgumentNullException"/>
     /// <exception cref="ArgumentException"/>
-    public MailtrapApiClient(string apiHost, string apiKey) :
+    public MailtrapApiClient(string apiHost, string apiKey)
     { }
 
     /// <summary>
