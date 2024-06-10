@@ -12,16 +12,18 @@ internal class ApiKeyHttpClientAuthenticationProvider : IHttpClientAuthenticatio
 {
     private readonly IAccessTokenProvider _accessTokenProvider;
 
+
     public ApiKeyHttpClientAuthenticationProvider(IAccessTokenProvider accessTokenProvider)
     {
-        ExceptionHelpers.ThrowIfNull(accessTokenProvider, nameof(accessTokenProvider));
+        Ensure.NotNull(accessTokenProvider, nameof(accessTokenProvider));
 
         _accessTokenProvider = accessTokenProvider;
     }
 
+
     public async Task AuthenticateAsync(HttpClient httpClient, CancellationToken cancellationToken = default)
     {
-        ExceptionHelpers.ThrowIfNull(httpClient, nameof(httpClient));
+        Ensure.NotNull(httpClient, nameof(httpClient));
 
         var token = await _accessTokenProvider
             .GetAccessTokenAsync(cancellationToken)

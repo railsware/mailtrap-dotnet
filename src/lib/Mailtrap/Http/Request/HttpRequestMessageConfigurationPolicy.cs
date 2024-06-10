@@ -12,9 +12,9 @@ internal sealed class HttpRequestMessageConfigurationPolicy : IHttpRequestMessag
     private readonly IHttpRequestMessageAuthenticationProvider _authenticationProvider;
 
 
-    internal HttpRequestMessageConfigurationPolicy(IHttpRequestMessageAuthenticationProvider authenticationProvider)
+    public HttpRequestMessageConfigurationPolicy(IHttpRequestMessageAuthenticationProvider authenticationProvider)
     {
-        ExceptionHelpers.ThrowIfNull(authenticationProvider, nameof(authenticationProvider));
+        Ensure.NotNull(authenticationProvider, nameof(authenticationProvider));
 
         _authenticationProvider = authenticationProvider;
     }

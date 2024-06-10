@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="HttpRequestContentBuilder.cs" company="Railsware Products Studio, LLC">
+// <copyright file="HttpRequestContentFactory.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,9 +8,9 @@
 namespace Mailtrap.Http.Request;
 
 
-internal sealed class HttpRequestContentBuilder : IHttpRequestContentBuilder
+internal sealed class HttpRequestContentFactory : IHttpRequestContentFactory
 {
-    public Task<StringContent> BuildAsync(string content)
+    public Task<StringContent> CreateAsync(string content)
     {
         var httpRequestContent = new StringContent(content).ApplyJsonContentTypeHeader();
 

@@ -46,8 +46,8 @@ public record Attachment
     /// <exception cref="ArgumentException"></exception>
     public Attachment(string content, string filename, DispositionType? dispositionType = null, string? mimeType = null)
     {
-        ExceptionHelpers.ThrowIfNullOrEmpty(content, nameof(content));
-        ExceptionHelpers.ThrowIfNull(filename, nameof(filename));
+        Ensure.NotNullOrEmpty(content, nameof(content));
+        Ensure.NotNull(filename, nameof(filename));
 
         Content = content;
         Filename = filename;

@@ -15,7 +15,7 @@ internal static class HttpClientExtensions
 {
     internal static HttpClient WithJsonAcceptHeader(this HttpClient httpClient)
     {
-        ExceptionHelpers.ThrowIfNull(httpClient, nameof(httpClient));
+        Ensure.NotNull(httpClient, nameof(httpClient));
 
         var acceptHeader = httpClient.DefaultRequestHeaders.Accept;
 
@@ -27,7 +27,7 @@ internal static class HttpClientExtensions
 
     internal static HttpClient WithApiAuthenticationHeader(this HttpClient httpClient, string apiKey)
     {
-        ExceptionHelpers.ThrowIfNull(httpClient, nameof(httpClient));
+        Ensure.NotNull(httpClient, nameof(httpClient));
 
         var headers = httpClient.DefaultRequestHeaders;
 
@@ -38,7 +38,7 @@ internal static class HttpClientExtensions
 
     internal static HttpClient WithBaseAddress(this HttpClient httpClient, Uri? baseAddress, bool force = false)
     {
-        ExceptionHelpers.ThrowIfNull(httpClient, nameof(httpClient));
+        Ensure.NotNull(httpClient, nameof(httpClient));
 
         if (force || httpClient.BaseAddress is null)
         {

@@ -15,7 +15,7 @@ internal abstract class HttpClientLifetimeAdapter : IHttpClientLifetimeAdapter
 
     public HttpClientLifetimeAdapter(HttpClient httpClient)
     {
-        ExceptionHelpers.ThrowIfNull(httpClient, nameof(httpClient));
+        Ensure.NotNull(httpClient, nameof(httpClient));
 
         HttpClient = httpClient;
     }

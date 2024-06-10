@@ -12,12 +12,12 @@ global using Mailtrap.Authentication;
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;
 global using Mailtrap.Helpers;
+global using Mailtrap.Http;
 global using Mailtrap.Http.Lifetime;
 global using Mailtrap.Http.Request;
 global using Mailtrap.Models;
 global using Mailtrap.Configuration;
 global using Mailtrap.Configuration.Models;
-global using Mailtrap.Serialization;
 
 
 // Allowing test assembly to access internals for unit tests

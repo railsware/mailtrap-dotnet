@@ -22,7 +22,7 @@ public static class EmailSendApiRequestExtensions
     /// <exception cref="ArgumentNullException" />
     public static bool IsValid(this EmailSendApiRequest request)
     {
-        ExceptionHelpers.ThrowIfNull(request, nameof(request));
+        Ensure.NotNull(request, nameof(request));
 
         return EmailSendApiRequestValidator.Instance.Validate(request).IsValid;
     }
@@ -36,7 +36,7 @@ public static class EmailSendApiRequestExtensions
     /// <exception cref="ValidationException" />
     public static void Validate(this EmailSendApiRequest request)
     {
-        ExceptionHelpers.ThrowIfNull(request, nameof(request));
+        Ensure.NotNull(request, nameof(request));
 
         EmailSendApiRequestValidator.Instance.ValidateAndThrow(request);
     }

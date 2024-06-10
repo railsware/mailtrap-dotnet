@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IHttpRequestMessageBuilder.cs" company="Railsware Products Studio, LLC">
+// <copyright file="IHttpRequestContentFactory.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,7 +8,7 @@
 namespace Mailtrap.Http.Request;
 
 
-public interface IHttpRequestMessageBuilder
+public interface IHttpRequestContentFactory
 {
-    Task<HttpRequestMessage> BuildAsync(HttpMethod method, Uri uri, HttpContent content);
+    Task<StringContent> CreateAsync(string content);
 }

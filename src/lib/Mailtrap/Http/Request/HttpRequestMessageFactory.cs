@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="HttpRequestMessageBuilder.cs" company="Railsware Products Studio, LLC">
+// <copyright file="HttpRequestMessageFactory.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,20 +8,20 @@
 namespace Mailtrap.Http.Request;
 
 
-internal sealed class HttpRequestMessageBuilder : IHttpRequestMessageBuilder
+internal sealed class HttpRequestMessageFactory : IHttpRequestMessageFactory
 {
     private readonly IHttpRequestMessageConfigurationPolicy _requestConfigurationPolicy;
 
 
-    public HttpRequestMessageBuilder(IHttpRequestMessageConfigurationPolicy requestConfigurationPolicy)
+    public HttpRequestMessageFactory(IHttpRequestMessageConfigurationPolicy requestConfigurationPolicy)
     {
-        ExceptionHelpers.ThrowIfNull(requestConfigurationPolicy, nameof(requestConfigurationPolicy));
+        Ensure.NotNull(requestConfigurationPolicy, nameof(requestConfigurationPolicy));
 
         _requestConfigurationPolicy = requestConfigurationPolicy;
     }
 
 
-    public async Task<HttpRequestMessage> BuildAsync(HttpMethod method, Uri uri, HttpContent content)
+    public async Task<HttpRequestMessage> CreateAsync(HttpMethod method, Uri uri, HttpContent content)
     {
         var request = new HttpRequestMessage(method, uri)
         {

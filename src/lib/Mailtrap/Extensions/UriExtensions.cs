@@ -15,7 +15,7 @@ internal static class UriExtensions
 {
     internal static Uri ToUri(this string url)
     {
-        ExceptionHelpers.ThrowIfNullOrEmpty(url, nameof(url));
+        Ensure.NotNullOrEmpty(url, nameof(url));
 
         return Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out var result)
             ? result
@@ -24,7 +24,7 @@ internal static class UriExtensions
 
     internal static Uri ToAbsoluteUri(this string url)
     {
-        ExceptionHelpers.ThrowIfNullOrEmpty(url, nameof(url));
+        Ensure.NotNullOrEmpty(url, nameof(url));
 
         return Uri.TryCreate(url, UriKind.Absolute, out var result)
             ? result
@@ -33,7 +33,7 @@ internal static class UriExtensions
 
     internal static Uri ToRelativeUri(this string url)
     {
-        ExceptionHelpers.ThrowIfNullOrEmpty(url, nameof(url));
+        Ensure.NotNullOrEmpty(url, nameof(url));
 
         return Uri.TryCreate(url, UriKind.Relative, out var result)
             ? result

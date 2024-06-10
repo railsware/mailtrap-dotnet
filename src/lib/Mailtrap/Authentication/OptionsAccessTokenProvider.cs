@@ -14,7 +14,7 @@ internal class OptionsAccessTokenProvider : IAccessTokenProvider
 
     internal OptionsAccessTokenProvider(IOptions<MailtrapApiClientOptions> options)
     {
-        ExceptionHelpers.ThrowIfNull(options, nameof(options));
+        Ensure.NotNull(options, nameof(options));
 
         _token = options.Value.Authentication.ApiToken;
     }

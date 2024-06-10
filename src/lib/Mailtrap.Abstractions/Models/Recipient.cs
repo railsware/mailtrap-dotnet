@@ -31,7 +31,7 @@ public record Recipient
     /// <exception cref="ArgumentNullException"></exception>
     public Recipient(string emailAddress, string? displayName = null)
     {
-        ExceptionHelpers.ThrowIfNullOrEmpty(emailAddress, nameof(emailAddress));
+        Ensure.NotNullOrEmpty(emailAddress, nameof(emailAddress));
 
         EmailAddress = emailAddress;
         DisplayName = displayName;

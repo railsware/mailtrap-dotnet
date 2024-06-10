@@ -16,7 +16,7 @@ public abstract record MailtrapApiClientEndpointOptions
 
     protected MailtrapApiClientEndpointOptions(Uri baseUrl, string? httpClientName = default)
     {
-        ExceptionHelpers.ThrowIfNull(baseUrl, nameof(baseUrl));
+        Ensure.NotNull(baseUrl, nameof(baseUrl));
 
         BaseUrl = baseUrl;
         HttpClientName = httpClientName;

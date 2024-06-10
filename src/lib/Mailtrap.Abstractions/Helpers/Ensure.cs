@@ -8,9 +8,9 @@
 namespace Mailtrap.Helpers;
 
 
-public static class ExceptionHelpers
+public static class Ensure
 {
-    public static void ThrowIfNull<T>(T paramValue, string paramName)
+    public static void NotNull<T>(T paramValue, string paramName)
     {
         if (paramValue == null)
         {
@@ -18,7 +18,7 @@ public static class ExceptionHelpers
         }
     }
 
-    public static void ThrowIfNullOrEmpty(string paramValue, string paramName)
+    public static void NotNullOrEmpty(string paramValue, string paramName)
     {
         if (string.IsNullOrEmpty(paramValue))
         {

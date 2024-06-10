@@ -15,7 +15,7 @@ internal static class HttpContentExtensions
 {
     internal static T ApplyJsonContentTypeHeader<T>(this T content) where T : HttpContent
     {
-        ExceptionHelpers.ThrowIfNull(content, nameof(content));
+        Ensure.NotNull(content, nameof(content));
 
         content.Headers.ContentType = new("application/json");
 

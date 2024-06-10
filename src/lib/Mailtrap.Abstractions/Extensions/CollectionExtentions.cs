@@ -12,7 +12,7 @@ internal static class CollectionExtentions
 {
     internal static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
     {
-        ExceptionHelpers.ThrowIfNull(collection, nameof(collection));
+        Ensure.NotNull(collection, nameof(collection));
 
         if (collection is List<T> list)
         {

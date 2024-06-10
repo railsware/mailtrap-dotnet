@@ -17,8 +17,8 @@ internal sealed class HttpClientLifetimeFactory : IHttpClientLifetimeFactory
         IHttpClientFactory httpClientFactory,
         IHttpClientConfigurationPolicy httpClientConfigurationPolicy)
     {
-        ExceptionHelpers.ThrowIfNull(httpClientFactory, nameof(httpClientFactory));
-        ExceptionHelpers.ThrowIfNull(httpClientConfigurationPolicy, nameof(httpClientConfigurationPolicy));
+        Ensure.NotNull(httpClientFactory, nameof(httpClientFactory));
+        Ensure.NotNull(httpClientConfigurationPolicy, nameof(httpClientConfigurationPolicy));
 
         _httpClientFactory = httpClientFactory;
         _httpClientConfigurationPolicy = httpClientConfigurationPolicy;

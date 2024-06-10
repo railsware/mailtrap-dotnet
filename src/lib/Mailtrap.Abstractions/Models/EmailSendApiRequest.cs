@@ -45,9 +45,9 @@ public record EmailSendApiRequest
     /// <exception cref="ArgumentException"></exception>
     public EmailSendApiRequest(Recipient sender, Recipient recipient, string subject)
     {
-        ExceptionHelpers.ThrowIfNull(sender, nameof(sender));
-        ExceptionHelpers.ThrowIfNull(recipient, nameof(recipient));
-        ExceptionHelpers.ThrowIfNullOrEmpty(subject, nameof(subject));
+        Ensure.NotNull(sender, nameof(sender));
+        Ensure.NotNull(recipient, nameof(recipient));
+        Ensure.NotNullOrEmpty(subject, nameof(subject));
 
         Sender = sender;
         Subject = subject;
@@ -58,14 +58,14 @@ public record EmailSendApiRequest
 
     public void AddRecipients(params Recipient[] recipients)
     {
-        ExceptionHelpers.ThrowIfNull(recipients, nameof(recipients));
+        Ensure.NotNull(recipients, nameof(recipients));
 
         Recipients.AddRange(recipients);
     }
 
     public void AddAttachments(params Attachment[] attachments)
     {
-        ExceptionHelpers.ThrowIfNull(attachments, nameof(attachments));
+        Ensure.NotNull(attachments, nameof(attachments));
 
         Attachments.AddRange(attachments);
     }

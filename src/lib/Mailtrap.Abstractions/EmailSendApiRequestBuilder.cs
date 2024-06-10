@@ -17,8 +17,8 @@ public static class EmailSendApiRequestBuilder
 
     public static EmailSendApiRequest WithSender(this EmailSendApiRequest request, Recipient sender)
     {
-        ExceptionHelpers.ThrowIfNull(request, nameof(request));
-        ExceptionHelpers.ThrowIfNull(sender, nameof(sender));
+        Ensure.NotNull(request, nameof(request));
+        Ensure.NotNull(sender, nameof(sender));
 
         request.Sender = sender;
 
@@ -27,7 +27,7 @@ public static class EmailSendApiRequestBuilder
 
     public static EmailSendApiRequest WithSender(this EmailSendApiRequest request, string emailAddress, string? displayName = null)
     {
-        ExceptionHelpers.ThrowIfNull(request, nameof(request));
+        Ensure.NotNull(request, nameof(request));
 
         request.Sender = new Recipient(emailAddress, displayName);
 
@@ -36,8 +36,8 @@ public static class EmailSendApiRequestBuilder
 
     public static EmailSendApiRequest WithSubject(this EmailSendApiRequest request, string subject)
     {
-        ExceptionHelpers.ThrowIfNull(request, nameof(request));
-        ExceptionHelpers.ThrowIfNullOrEmpty(subject, nameof(subject));
+        Ensure.NotNull(request, nameof(request));
+        Ensure.NotNullOrEmpty(subject, nameof(subject));
 
         request.Subject = subject;
 
@@ -46,7 +46,7 @@ public static class EmailSendApiRequestBuilder
 
     public static EmailSendApiRequest WithRecipient(this EmailSendApiRequest request, string emailAddress, string? displayName = null)
     {
-        ExceptionHelpers.ThrowIfNull(request, nameof(request));
+        Ensure.NotNull(request, nameof(request));
 
         request.Recipients.Add(new Recipient(emailAddress, displayName));
 
@@ -55,7 +55,7 @@ public static class EmailSendApiRequestBuilder
 
     public static EmailSendApiRequest WithRecipients(this EmailSendApiRequest request, params Recipient[] recipients)
     {
-        ExceptionHelpers.ThrowIfNull(request, nameof(request));
+        Ensure.NotNull(request, nameof(request));
 
         request.AddRecipients(recipients);
 
@@ -68,7 +68,7 @@ public static class EmailSendApiRequestBuilder
         DispositionType? dispositionType = null,
         string? mimeType = null)
     {
-        ExceptionHelpers.ThrowIfNull(request, nameof(request));
+        Ensure.NotNull(request, nameof(request));
 
         request.Attachments.Add(new Attachment(content, filename, dispositionType, mimeType));
 
@@ -77,7 +77,7 @@ public static class EmailSendApiRequestBuilder
 
     public static EmailSendApiRequest WithAttachments(this EmailSendApiRequest request, params Attachment[] attachments)
     {
-        ExceptionHelpers.ThrowIfNull(request, nameof(request));
+        Ensure.NotNull(request, nameof(request));
 
         request.AddAttachments(attachments);
 
@@ -86,7 +86,7 @@ public static class EmailSendApiRequestBuilder
 
     public static EmailSendApiRequest WithTextBody(this EmailSendApiRequest request, string? text)
     {
-        ExceptionHelpers.ThrowIfNull(request, nameof(request));
+        Ensure.NotNull(request, nameof(request));
 
         request.TextBody = text;
 
@@ -95,7 +95,7 @@ public static class EmailSendApiRequestBuilder
 
     public static EmailSendApiRequest WithHtmlBody(this EmailSendApiRequest request, string? html)
     {
-        ExceptionHelpers.ThrowIfNull(request, nameof(request));
+        Ensure.NotNull(request, nameof(request));
 
         request.HtmlBody = html;
 

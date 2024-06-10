@@ -12,5 +12,5 @@ public record MailtrapApiClientSerializationOptions
 {
     public static MailtrapApiClientSerializationOptions Default { get; } = new();
 
-    public bool PrettyJson { get; set; }
+    public bool PrettyJson { get; set; } = false;
 }

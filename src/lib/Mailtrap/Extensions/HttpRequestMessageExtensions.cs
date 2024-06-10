@@ -15,7 +15,7 @@ internal static class HttpRequestMessageExtensions
 {
     internal static HttpRequestMessage ConfigureAcceptHeader(this HttpRequestMessage request)
     {
-        ExceptionHelpers.ThrowIfNull(request, nameof(request));
+        Ensure.NotNull(request, nameof(request));
 
         var acceptHeader = request.Headers.Accept;
 
@@ -27,7 +27,7 @@ internal static class HttpRequestMessageExtensions
 
     internal static HttpRequestMessage ConfigureApiAuthenticationHeader(this HttpRequestMessage request, string apiKey)
     {
-        ExceptionHelpers.ThrowIfNull(request, nameof(request));
+        Ensure.NotNull(request, nameof(request));
 
         request.Headers.Add(ApiHeaderNames.ApiKeyHeader, apiKey);
 

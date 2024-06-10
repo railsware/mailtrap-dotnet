@@ -1,4 +1,4 @@
-﻿# https://editorconfig.org
+# https://editorconfig.org
 # https://aka.ms/editorconfigdocs
 
 
@@ -88,14 +88,14 @@ dotnet_style_prefer_conditional_expression_over_return = true:silent
 csharp_prefer_simple_default_expression = true:suggestion
 
 # Expression-bodied members
-csharp_style_expression_bodied_methods = when_on_single_line:silent
-csharp_style_expression_bodied_constructors = false:silent
-csharp_style_expression_bodied_operators = when_on_single_line:silent
-csharp_style_expression_bodied_properties = when_on_single_line:silent
-csharp_style_expression_bodied_indexers = when_on_single_line:silent
-csharp_style_expression_bodied_accessors = when_on_single_line:silent
-csharp_style_expression_bodied_lambdas = when_on_single_line:silent
-csharp_style_expression_bodied_local_functions = when_on_single_line:silent
+csharp_style_expression_bodied_methods = when_on_single_line:none
+csharp_style_expression_bodied_constructors = when_on_single_line:none
+csharp_style_expression_bodied_operators = when_on_single_line:none
+csharp_style_expression_bodied_properties = when_on_single_line:none
+csharp_style_expression_bodied_indexers = when_on_single_line:none
+csharp_style_expression_bodied_accessors = when_on_single_line:none
+csharp_style_expression_bodied_lambdas = when_on_single_line:none
+csharp_style_expression_bodied_local_functions = when_on_single_line:none
 
 # Pattern matching
 csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
@@ -144,7 +144,7 @@ csharp_space_between_square_brackets = false
 dotnet_naming_rule.constant_fields_should_be_pascal_case.severity = suggestion
 dotnet_naming_rule.constant_fields_should_be_pascal_case.symbols  = constant_fields
 dotnet_naming_rule.constant_fields_should_be_pascal_case.style    = pascal_case_style
-dotnet_naming_symbols.constant_fields.applicable_kinds = field
+dotnet_naming_symbols.constant_fields.applicable_kinds   = field
 dotnet_naming_symbols.constant_fields.required_modifiers = const
 dotnet_naming_style.pascal_case_style.capitalization = pascal_case
 
@@ -152,20 +152,20 @@ dotnet_naming_style.pascal_case_style.capitalization = pascal_case
 dotnet_naming_rule.static_fields_should_have_prefix.severity = suggestion
 dotnet_naming_rule.static_fields_should_have_prefix.symbols  = static_fields
 dotnet_naming_rule.static_fields_should_have_prefix.style    = static_prefix_style
-dotnet_naming_symbols.static_fields.applicable_kinds   = field
-dotnet_naming_symbols.static_fields.required_modifiers = static
+dotnet_naming_symbols.static_fields.applicable_kinds           = field
+dotnet_naming_symbols.static_fields.required_modifiers         = static
 dotnet_naming_symbols.static_fields.applicable_accessibilities = private, internal, private_protected
 dotnet_naming_style.static_prefix_style.required_prefix = s_
-dotnet_naming_style.static_prefix_style.capitalization = camel_case
+dotnet_naming_style.static_prefix_style.capitalization  = camel_case
 
 # internal and private fields should be _camelCase
 dotnet_naming_rule.camel_case_for_private_internal_fields.severity = suggestion
 dotnet_naming_rule.camel_case_for_private_internal_fields.symbols  = private_internal_fields
 dotnet_naming_rule.camel_case_for_private_internal_fields.style    = camel_case_underscore_style
-dotnet_naming_symbols.private_internal_fields.applicable_kinds = field
+dotnet_naming_symbols.private_internal_fields.applicable_kinds           = field
 dotnet_naming_symbols.private_internal_fields.applicable_accessibilities = private, internal
 dotnet_naming_style.camel_case_underscore_style.required_prefix = _
-dotnet_naming_style.camel_case_underscore_style.capitalization = camel_case
+dotnet_naming_style.camel_case_underscore_style.capitalization  = camel_case
 
 
 # Fine Tuning
@@ -174,10 +174,14 @@ dotnet_naming_style.camel_case_underscore_style.capitalization = camel_case
 dotnet_diagnostic.IDE0058.severity = silent
 
 # CA1303: Do not pass literals as localized parameters
-dotnet_diagnostic.CA1303.severity = none
+dotnet_diagnostic.CA1303.severity = silent
+
+# CA1805: Do not initialize unnecessarily
+dotnet_diagnostic.CA1805.severity = silent
 
 # CA1062: Null-check validation
-dotnet_code_quality.CA1062.null_check_validation_methods = ThrowIfNull|ThrowIfNullOrEmpty
+dotnet_code_quality.CA1062.null_check_validation_methods = NotNull|NotNullOrEmpty
+
 
 
 # Xml project files

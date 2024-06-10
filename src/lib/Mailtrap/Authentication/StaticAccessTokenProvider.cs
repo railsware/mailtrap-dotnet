@@ -17,7 +17,7 @@ internal class StaticAccessTokenProvider : IAccessTokenProvider
 
     internal StaticAccessTokenProvider(string token)
     {
-        ExceptionHelpers.ThrowIfNullOrEmpty(token, nameof(token));
+        Ensure.NotNullOrEmpty(token, nameof(token));
 
         _token = token;
     }
