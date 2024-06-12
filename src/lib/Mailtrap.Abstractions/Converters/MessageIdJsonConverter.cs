@@ -5,9 +5,6 @@
 // -----------------------------------------------------------------------
 
 
-using System.Text.Json;
-
-
 namespace Mailtrap.Converters;
 
 
@@ -16,6 +13,8 @@ namespace Mailtrap.Converters;
 /// </summary>
 internal sealed class MessageIdJsonConverter : JsonConverter<MessageId>
 {
+    /// <inheritdoc />
+    /// <exception cref="JsonException"></exception>
     public override MessageId? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         return reader.TokenType == JsonTokenType.String

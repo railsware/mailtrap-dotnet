@@ -8,13 +8,13 @@
 namespace Mailtrap.Configuration.Models;
 
 
-public abstract record MailtrapApiClientEndpointOptions
+public record MailtrapApiClientEndpointOptions
 {
     public Uri BaseUrl { get; }
     public string? HttpClientName { get; }
 
 
-    protected MailtrapApiClientEndpointOptions(Uri baseUrl, string? httpClientName = default)
+    public MailtrapApiClientEndpointOptions(Uri baseUrl, string? httpClientName = default)
     {
         Ensure.NotNull(baseUrl, nameof(baseUrl));
 
@@ -22,6 +22,6 @@ public abstract record MailtrapApiClientEndpointOptions
         HttpClientName = httpClientName;
     }
 
-    protected MailtrapApiClientEndpointOptions(string baseUrl, string? httpClientName = default)
+    public MailtrapApiClientEndpointOptions(string baseUrl, string? httpClientName = default)
         : this(baseUrl.ToAbsoluteUri(), httpClientName) { }
 }

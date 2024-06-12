@@ -5,13 +5,13 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Extensions;
+namespace Mailtrap.Validation;
 
 
 /// <summary>
-/// A set of extensions for <see cref="EmailSendApiRequest"/>
+/// A set of extensions for <see cref="EmailSendApiRequest"/> validation
 /// </summary>
-public static class EmailSendApiRequestExtensions
+public static class EmailSendApiRequestValidationExtensions
 {
     /// <summary>
     /// Allows to check safely if <see cref="EmailSendApiRequest"/> instance is valid

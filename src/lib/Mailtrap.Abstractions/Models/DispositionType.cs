@@ -9,12 +9,20 @@ namespace Mailtrap.Models;
 
 
 /// <summary>
-/// Attachment disposition type
+/// Attachment disposition type.
 /// </summary>
 public record DispositionType
 {
-    public static readonly DispositionType Inline = new("inline");
-    public static readonly DispositionType Attachment = new("attachment");
+    /// <summary>
+    /// Results in the attached file displayed automatically within the message
+    /// </summary>
+    public static DispositionType Inline { get; } = new("inline");
+
+    /// <summary>
+    /// Results in the attached file require some action to be taken before it is displayed,
+    /// such as opening or downloading the file.
+    /// </summary>
+    public static DispositionType Attachment { get; } = new("attachment");
 
 
     private readonly string _value;

@@ -15,7 +15,7 @@ public static class EmailSendApiRequestBuilder
 {
     public static EmailSendApiRequest Create() => new();
 
-    public static EmailSendApiRequest WithSender(this EmailSendApiRequest request, Recipient sender)
+    public static EmailSendApiRequest WithSender(this EmailSendApiRequest request, EmailParty sender)
     {
         Ensure.NotNull(request, nameof(request));
         Ensure.NotNull(sender, nameof(sender));
@@ -28,10 +28,9 @@ public static class EmailSendApiRequestBuilder
     public static EmailSendApiRequest WithSender(this EmailSendApiRequest request, string emailAddress, string? displayName = null)
     {
         Ensure.NotNull(request, nameof(request));
+        Ensure.NotNullOrEmpty(emailAddress, nameof(emailAddress));
 
-        request.Sender = new Recipient(emailAddress, displayName);
-
-        return request;
+        return request.WithSender(new EmailParty(emailAddress, displayName));
     }
 
     public static EmailSendApiRequest WithSubject(this EmailSendApiRequest request, string subject)
@@ -44,22 +43,48 @@ public static class EmailSendApiRequestBuilder
         return request;
     }
 
-    public static EmailSendApiRequest WithRecipient(this EmailSendApiRequest request, string emailAddress, string? displayName = null)
+    public static EmailSendApiRequest WithRecipients(this EmailSendApiRequest request, params EmailParty[] recipients)
     {
         Ensure.NotNull(request, nameof(request));
+        Ensure.NotNull(recipients, nameof(recipients));
 
-        request.Recipients.Add(new Recipient(emailAddress, displayName));
+        request.Recipients.AddRange(recipients);
 
         return request;
     }
 
-    public static EmailSendApiRequest WithRecipients(this EmailSendApiRequest request, params Recipient[] recipients)
+    public static EmailSendApiRequest WithRecipient(this EmailSendApiRequest request, EmailParty recipient)
     {
         Ensure.NotNull(request, nameof(request));
+        Ensure.NotNull(recipient, nameof(recipient));
 
-        request.AddRecipients(recipients);
+        return request.WithRecipients(recipient);
+    }
+
+    public static EmailSendApiRequest WithRecipient(this EmailSendApiRequest request, string emailAddress, string? displayName = null)
+    {
+        Ensure.NotNull(request, nameof(request));
+        Ensure.NotNullOrEmpty(emailAddress, nameof(emailAddress));
+
+        return request.WithRecipient(new EmailParty(emailAddress, displayName));
+    }
+
+    public static EmailSendApiRequest WithAttachments(this EmailSendApiRequest request, params Attachment[] attachments)
+    {
+        Ensure.NotNull(request, nameof(request));
+        Ensure.NotNull(attachments, nameof(attachments));
+
+        request.Attachments.AddRange(attachments);
 
         return request;
+    }
+
+    public static EmailSendApiRequest WithAttachment(this EmailSendApiRequest request, Attachment attachment)
+    {
+        Ensure.NotNull(request, nameof(request));
+        Ensure.NotNull(attachment, nameof(attachment));
+
+        return request.WithAttachments(attachment);
     }
 
     public static EmailSendApiRequest WithAttachment(this EmailSendApiRequest request,
@@ -70,18 +95,7 @@ public static class EmailSendApiRequestBuilder
     {
         Ensure.NotNull(request, nameof(request));
 
-        request.Attachments.Add(new Attachment(content, filename, dispositionType, mimeType));
-
-        return request;
-    }
-
-    public static EmailSendApiRequest WithAttachments(this EmailSendApiRequest request, params Attachment[] attachments)
-    {
-        Ensure.NotNull(request, nameof(request));
-
-        request.AddAttachments(attachments);
-
-        return request;
+        return request.WithAttachment(new Attachment(content, filename, dispositionType, mimeType));
     }
 
     public static EmailSendApiRequest WithTextBody(this EmailSendApiRequest request, string? text)

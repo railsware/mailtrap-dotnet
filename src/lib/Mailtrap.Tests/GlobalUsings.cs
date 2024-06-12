@@ -5,16 +5,10 @@
 // -----------------------------------------------------------------------
 
 
+global using FluentAssertions;
+global using NUnit.Framework;
 global using System.Text.Json;
-global using System.Text.Json.Serialization;
 
-global using Mailtrap.Helpers;
 global using Mailtrap.Models;
-global using Mailtrap.Extensions;
-
-
-// Allowing test assembly to access internals for unit tests
-using System.Runtime.CompilerServices;
-
-
-[assembly: InternalsVisibleTo("Mailtrap.Tests")]
+global using Mailtrap.Configuration;
+global using Mailtrap.Configuration.Models;

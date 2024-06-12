@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IMailtrapEmailApiClient.cs" company="Railsware Products Studio, LLC">
+// <copyright file="IMailtrapApiClient.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -32,5 +32,11 @@ public interface IMailtrapApiClient
     ///          var result = await client.SendAsync(request);
     ///     </code>
     /// </example>
+    /// <exception cref="ArgumentNullException"/>
+    /// <exception cref="ArgumentException"/>
+    /// <exception cref="JsonException"/>
+    /// <exception cref="TaskCanceledException"/>
+    /// <exception cref="OperationCanceledException"/>
+    /// <exception cref="HttpRequestException"/>
     Task<EmailSendApiResponse?> SendAsync(EmailSendApiRequest request, CancellationToken cancellationToken = default);
 }

@@ -8,13 +8,13 @@
 namespace Mailtrap.Validators;
 
 
-internal class RecipientValidator : AbstractValidator<Recipient>
+internal class RecipientValidator : AbstractValidator<EmailParty>
 {
     public static readonly RecipientValidator Instance = new();
 
     public RecipientValidator()
     {
-        var Boak = new List<Recipient>();
+        var Boak = new List<EmailParty>();
 
         RuleFor(r => r.EmailAddress).NotNull().EmailAddress();
     }

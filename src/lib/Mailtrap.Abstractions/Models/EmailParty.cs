@@ -12,9 +12,9 @@ namespace Mailtrap.Models;
 // At the moment being passing Recipient type instance as a sender parameter looks a bit weird.
 
 /// <summary>
-/// Represents sender's or recipient's email address and name tuple that can be used in From, To or CC parameters
+/// Represents sender's or recipient's email address and name tuple, that can be used in From, To, CC or BCC parameters
 /// </summary>
-public record Recipient
+public record EmailParty
 {
     [JsonPropertyName("email")]
     public string EmailAddress { get; }
@@ -24,12 +24,12 @@ public record Recipient
 
 
     /// <summary>
-    /// Primary constructor. Creates a new <see cref="Recipient"/> instance with provided parameters
+    /// Primary constructor. Creates a new <see cref="EmailParty"/> instance with provided parameters
     /// </summary>
-    /// <param name="emailAddress"></param>
+    /// <param name="emailAddress">Required. </param>
     /// <param name="displayName"></param>
     /// <exception cref="ArgumentNullException"></exception>
-    public Recipient(string emailAddress, string? displayName = null)
+    public EmailParty(string emailAddress, string? displayName = null)
     {
         Ensure.NotNullOrEmpty(emailAddress, nameof(emailAddress));
 

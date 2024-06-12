@@ -13,14 +13,36 @@ namespace Mailtrap;
 
 
 /// <inheritdoc cref="IMailtrapApiClient"/>
-public class MailtrapApiClient : IMailtrapApiClient
+public sealed class MailtrapApiClient : IMailtrapApiClient, IDisposable
 {
     private readonly MailtrapApiClientOptions _clientConfiguration;
     private readonly IHttpClientLifetimeFactory _httpClientLifetimeFactory;
-    private readonly IHttpRequestMessageFactory _httpRequestMessageBuilder;
-    private readonly IHttpRequestContentFactory _httpRequestContentBuilder;
+    private readonly IHttpRequestMessageFactory _httpRequestMessageFactory;
+    private readonly IHttpRequestContentFactory _httpRequestContentFactory;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
+    private readonly ServiceProvider? _serviceProvider;
 
+
+    public MailtrapApiClient(MailtrapApiClientOptions configuration)
+    {
+        Ensure.NotNull(configuration, nameof(configuration));
+
+        _clientConfiguration = configuration;
+
+        _jsonSerializerOptions = _clientConfiguration.Serialization.ToJsonSerializerOptions();
+
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection.Configure<MailtrapApiClientOptions>(options => options = _clientConfiguration);
+
+        serviceCollection.AddMailtrapClient();
+
+        _serviceProvider = serviceCollection.BuildServiceProvider();
+
+        _httpClientLifetimeFactory = _serviceProvider.GetRequiredService<IHttpClientLifetimeFactory>();
+        _httpRequestMessageFactory = _serviceProvider.GetRequiredService<IHttpRequestMessageFactory>();
+        _httpRequestContentFactory = _serviceProvider.GetRequiredService<IHttpRequestContentFactory>();
+    }
 
     /// <summary>
     /// Shortcut constructor to be used with API key parameter, using default production endpoints and
@@ -29,48 +51,33 @@ public class MailtrapApiClient : IMailtrapApiClient
     /// <param name="apiKey">API authorization key</param>
     /// <exception cref="ArgumentNullException"/>
     public MailtrapApiClient(string apiKey)
-    {
-        Ensure.NotNullOrEmpty(apiKey, nameof(apiKey));
-
-        _clientConfiguration = MailtrapApiClientOptions.Default with
+        : this(MailtrapApiClientOptions.Default with
         {
-            Authentication = new MailtrapApiClientAuthenticationOptions
-            {
-                ApiToken = apiKey
-            }
-        };
+            Authentication = new MailtrapApiClientAuthenticationOptions(apiKey)
+        })
+    { }
 
-        _jsonSerializerOptions = _clientConfiguration.Serialization.ToJsonSerializerOptions();
+    public MailtrapApiClient(string apiKey, string emailHost, string bulkHost, string testHost)
+        : this(MailtrapApiClientOptions.Default with
+        {
+            Authentication = new MailtrapApiClientAuthenticationOptions(apiKey),
+            SendEndpoint = new MailtrapApiClientEndpointOptions(emailHost),
+            BulkEndpoint = new MailtrapApiClientEndpointOptions(bulkHost),
+            TestEndpoint = new MailtrapApiClientEndpointOptions(testHost)
+        })
+    { }
 
-
-        var serviceCollection = new ServiceCollection();
-
-        serviceCollection
-            .AddOptions<MailtrapApiClientOptions>()
-            .Configure(options =>
-            {
-                options = _clientConfiguration;
-            });
-
-        serviceCollection.AddMailtrapClient();
-        var serviceProvider = serviceCollection.BuildServiceProvider();
-
-        _httpClientLifetimeFactory = serviceProvider.GetRequiredService<IHttpClientLifetimeFactory>();
-        _httpRequestMessageBuilder = serviceProvider.GetRequiredService<IHttpRequestMessageFactory>();
-        _httpRequestContentBuilder = serviceProvider.GetRequiredService<IHttpRequestContentFactory>();
-    }
+    public MailtrapApiClient(string apiKey, string apiHost)
+        : this(apiKey, apiHost, apiHost, apiHost)
+    { }
 
     /// <summary>
-    /// Shortcut constructor to be used with base URL and API key parameters
+    /// Primary constructor for DI
     /// </summary>
-    /// <param name="apiHost">Root API URL, e.g. https://send.api.mailtrap.io/. <b>Should contain trailing slash.</b></param>
-    /// <param name="apiKey">API authorization key</param>
-    /// <exception cref="ArgumentNullException"/>
-    /// <exception cref="ArgumentException"/>
-    //public MailtrapApiClient(string apiHost, string apiKey)
-    //{ }
-
-
+    /// <param name="clientConfigurationProvider"></param>
+    /// <param name="httpClientLifetimeFactory"></param>
+    /// <param name="httpRequestMessageBuilder"></param>
+    /// <param name="httpRequestContentBuilder"></param>
     public MailtrapApiClient(
         IMailtrapApiClientConfigurationProvider clientConfigurationProvider,
         IHttpClientLifetimeFactory httpClientLifetimeFactory,
@@ -87,27 +94,31 @@ public class MailtrapApiClient : IMailtrapApiClient
         _jsonSerializerOptions = _clientConfiguration.Serialization.ToJsonSerializerOptions();
 
         _httpClientLifetimeFactory = httpClientLifetimeFactory;
-        _httpRequestMessageBuilder = httpRequestMessageBuilder;
-        _httpRequestContentBuilder = httpRequestContentBuilder;
+        _httpRequestMessageFactory = httpRequestMessageBuilder;
+        _httpRequestContentFactory = httpRequestContentBuilder;
     }
 
 
+    public void Dispose() => _serviceProvider?.Dispose();
+
+
     /// <inheritdoc />
-    /// <exception cref="ArgumentNullException"/>
-    /// <exception cref="ValidationException"/>
-    /// <exception cref="HttpRequestException"/>
-    /// <exception cref="TaskCanceledException"/>
-    /// <exception cref="OperationCanceledException"/>
-    /// <exception cref="JsonException"/>
     public async Task<EmailSendApiResponse?> SendAsync(EmailSendApiRequest request, CancellationToken cancellationToken = default)
     {
         Ensure.NotNull(request, nameof(request));
 
-        request.Validate();
+        var validationResult = await EmailSendApiRequestValidator.Instance
+            .ValidateAsync(request, cancellationToken)
+            .ConfigureAwait(false);
+
+        if (!validationResult.IsValid)
+        {
+            throw new ArgumentException($"Invalid request data:\n{validationResult}", nameof(request));
+        }
 
         var jsonContent = JsonSerializer.Serialize(request, _jsonSerializerOptions);
 
-        using var httpContent = await _httpRequestContentBuilder
+        using var httpContent = await _httpRequestContentFactory
             .CreateAsync(jsonContent)
             .ConfigureAwait(false);
 
@@ -116,7 +127,7 @@ public class MailtrapApiClient : IMailtrapApiClient
             .Join("/", ApiUrlSegments.ApiRootSegment, ApiUrlSegments.SendEmailSegment)
             .ToRelativeUri();
 
-        using var httpRequest = await _httpRequestMessageBuilder
+        using var httpRequest = await _httpRequestMessageFactory
             .CreateAsync(HttpMethod.Post, uri, httpContent)
             .ConfigureAwait(false);
 

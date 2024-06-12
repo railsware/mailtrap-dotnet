@@ -9,18 +9,18 @@ namespace Mailtrap.Models;
 
 
 /// <summary>
-/// Email Send API call response object
+/// Mailtrap API send email call response object
 /// </summary>
 public record EmailSendApiResponse : ApiResponse<IList<string>>
 {
     /// <summary>
-    /// List of message IDs
+    /// List of <see cref="MessageId"/> objects, representing IDs of emails sent
     /// </summary>
     [JsonPropertyName("message_ids")]
     public IList<MessageId>? MessageIds { get; }
 
 
-    public EmailSendApiResponse(bool success, IList<MessageId>? messageIds = null, IList<string>? errorData = null)
+    internal EmailSendApiResponse(bool success, IList<MessageId>? messageIds = null, IList<string>? errorData = null)
         : base(success, errorData ?? [])
     {
         MessageIds = messageIds ?? [];

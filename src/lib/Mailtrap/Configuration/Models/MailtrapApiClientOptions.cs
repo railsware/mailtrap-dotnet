@@ -12,11 +12,11 @@ public record MailtrapApiClientOptions
 {
     public static MailtrapApiClientOptions Default { get; } = new();
 
-    public SendEndpointOptions SendEndpoint { get; set; } = SendEndpointOptions.Default;
-    public TestEndpointOptions TestEndpoint { get; set; } = TestEndpointOptions.Default;
-    public BulkEndpointOptions BulkEndpoint { get; set; } = BulkEndpointOptions.Default;
+    public MailtrapApiClientEndpointOptions SendEndpoint { get; set; } = new MailtrapApiClientEndpointOptions(ApiEndpoints.SendDefaultUrl);
+    public MailtrapApiClientEndpointOptions TestEndpoint { get; set; } = new MailtrapApiClientEndpointOptions(ApiEndpoints.TestDefaultUrl);
+    public MailtrapApiClientEndpointOptions BulkEndpoint { get; set; } = new MailtrapApiClientEndpointOptions(ApiEndpoints.BulkDefaultUrl);
 
-    public MailtrapApiClientAuthenticationOptions Authentication { get; set; } = MailtrapApiClientAuthenticationOptions.Default;
+    public MailtrapApiClientAuthenticationOptions Authentication { get; set; } = MailtrapApiClientAuthenticationOptions.Empty;
 
     public MailtrapApiClientSerializationOptions Serialization { get; set; } = MailtrapApiClientSerializationOptions.Default;
 }

@@ -17,13 +17,25 @@ namespace Mailtrap.Models;
 [JsonConverter(typeof(MessageIdJsonConverter))]
 public record MessageId
 {
-    public static readonly MessageId Empty = new(string.Empty);
+    /// <summary>
+    /// Returns empty <see cref="MessageId"/> object.
+    /// </summary>
+    public static MessageId Empty { get; } = new(string.Empty);
+
 
     private readonly string _value;
 
+    /// <summary>
+    /// Returns <see langword="true"/> if this <see cref="MessageId"/> object is empty,
+    /// <see langword="false"/> otherwise.
+    /// </summary>
     public bool IsEmpty => string.IsNullOrEmpty(_value);
 
 
+    /// <summary>
+    /// Construct a <see cref="MessageId"/> from the specified string value.
+    /// </summary>
+    /// <param name="value">The string value that represents a MessageId.</param>
     public MessageId(string value)
     {
         _value = value;
@@ -36,7 +48,12 @@ public record MessageId
     /// <param name="value">The string value that represents a MessageId.</param>
     public static explicit operator MessageId(string value) => new(value);
 
+    /// <summary>
+    /// Construct a <see cref="MessageId"/> from the specified string value.
+    /// </summary>
+    /// <param name="value">The string value that represents a MessageId.</param>
     public static MessageId ToMessageId(string value) => new(value);
+
 
     public override string ToString() => _value;
 

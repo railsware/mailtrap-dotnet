@@ -9,18 +9,18 @@ namespace Mailtrap.Models;
 
 
 /// <summary>
-/// Generic API response.
+/// Generic Mailtrap API response object
 /// </summary>
 public record ApiResponse<TError>
 {
     /// <summary>
-    /// A value indicating whether the response was successful.
+    /// Value indicating whether contains a success response data.
     /// </summary>
     [JsonPropertyName("success")]
-    public bool Success { get; }
+    public bool IsSuccess { get; }
 
     /// <summary>
-    /// Errors associated with the response.
+    /// Error(s) associated with the response.
     /// </summary>
     [JsonPropertyName("errors")]
     public TError? ErrorData { get; }
@@ -28,13 +28,13 @@ public record ApiResponse<TError>
 
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ApiResponse"/> class.
+    /// Initializes a new instance of the <see cref="ApiResponse{TError}"/> class.
     /// </summary>
     /// <param name="success">A flag indicating whether the response describes success or failure.</param>
     /// <param name="errorData">Errors to associate with the response.</param>
-    public ApiResponse(bool success, TError? errorData)
+    internal ApiResponse(bool success, TError? errorData = default)
     {
-        Success = success;
+        IsSuccess = success;
         ErrorData = errorData;
     }
 }

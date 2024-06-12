@@ -10,7 +10,16 @@ namespace Mailtrap.Configuration.Models;
 
 public record MailtrapApiClientAuthenticationOptions
 {
-    public static MailtrapApiClientAuthenticationOptions Default { get; } = new();
+    public static MailtrapApiClientAuthenticationOptions Empty { get; } = new(string.Empty);
 
-    public string ApiToken { get; set; } = string.Empty;
+
+    public string ApiToken { get; }
+
+
+    public MailtrapApiClientAuthenticationOptions(string apiToken)
+    {
+        Ensure.NotNull(apiToken, nameof(apiToken));
+
+        ApiToken = apiToken;
+    }
 }

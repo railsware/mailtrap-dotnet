@@ -25,6 +25,13 @@ internal class EmailSendApiRequestValidator : AbstractValidator<EmailSendApiRequ
 
         RuleFor(r => r.Recipients).Must(r => r.Count is > 0 and <= 1000);
         RuleForEach(r => r.Recipients).SetValidator(RecipientValidator.Instance);
+
+        RuleFor(r => r.CarbonCopies).Must(r => r.Count is <= 1000);
+        RuleForEach(r => r.CarbonCopies).SetValidator(RecipientValidator.Instance);
+
+        RuleFor(r => r.BlindCarbonCopies).Must(r => r.Count is <= 1000);
+        RuleForEach(r => r.BlindCarbonCopies).SetValidator(RecipientValidator.Instance);
+
         RuleForEach(r => r.Attachments).SetValidator(AttachmentValidator.Instance);
     }
 }

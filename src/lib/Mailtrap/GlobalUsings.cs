@@ -7,10 +7,12 @@
 
 global using System.Text.Json;
 global using Microsoft.Extensions.Options;
+global using FluentValidation;
 
 global using Mailtrap.Authentication;
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;
+global using Mailtrap.Validators;
 global using Mailtrap.Helpers;
 global using Mailtrap.Http;
 global using Mailtrap.Http.Lifetime;
