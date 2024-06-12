@@ -8,9 +8,6 @@
 namespace Mailtrap.Models;
 
 
-// TODO: Consider renaming this one to better fit usage for Sender.
-// At the moment being passing Recipient type instance as a sender parameter looks a bit weird.
-
 /// <summary>
 /// Represents sender's or recipient's email address and name tuple, that can be used in From, To, CC or BCC parameters
 /// </summary>

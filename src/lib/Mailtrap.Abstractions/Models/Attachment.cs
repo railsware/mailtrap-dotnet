@@ -64,7 +64,7 @@ public record Attachment
     /// </remarks>
     [JsonPropertyName("content_id")]
     public string? ContentId { get; }
-    
+
 
     /// <summary>
     /// Constructor for <see cref="Attachment"/> instance
