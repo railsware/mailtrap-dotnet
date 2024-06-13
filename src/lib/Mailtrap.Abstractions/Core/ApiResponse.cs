@@ -17,12 +17,14 @@ public record ApiResponse<TError>
     /// Value indicating whether contains a success response data.
     /// </summary>
     [JsonPropertyName("success")]
+    [JsonPropertyOrder(1)]
     public bool IsSuccess { get; }
 
     /// <summary>
     /// Error(s) associated with the response.
     /// </summary>
     [JsonPropertyName("errors")]
+    [JsonPropertyOrder(2)]
     public TError? ErrorData { get; }
 
 
@@ -30,11 +32,11 @@ public record ApiResponse<TError>
     /// <summary>
     /// Initializes a new instance of the <see cref="ApiResponse{TError}"/> class.
     /// </summary>
-    /// <param name="success">A flag indicating whether the response describes success or failure.</param>
+    /// <param name="isSuccess">A flag indicating whether the response describes success or failure.</param>
     /// <param name="errorData">Errors to associate with the response.</param>
-    internal ApiResponse(bool success, TError? errorData = default)
+    public ApiResponse(bool isSuccess, TError? errorData = default)
     {
-        IsSuccess = success;
+        IsSuccess = isSuccess;
         ErrorData = errorData;
     }
 }

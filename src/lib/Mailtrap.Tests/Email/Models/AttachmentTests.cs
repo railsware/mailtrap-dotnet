@@ -114,11 +114,11 @@ internal sealed class AttachmentTests
         // TODO: Find more stable way to assert JSON serialization.
         serialized.Should().Be(
             "{" +
-                "\"content\":\"Content\"," +
-                "\"filename\":\"FileName\"," +
-                "\"disposition\":\"inline\"," +
-                "\"type\":\"MimeType\"," +
-                "\"content_id\":\"ID\"" +
+                "\"content\":\"" + content + "\"," +
+                "\"filename\":\"" + fileName + "\"," +
+                "\"disposition\":\"" + DispositionType.Inline.ToString() + "\"," +
+                "\"type\":\"" + mimeType + "\"," +
+                "\"content_id\":\"" + contentId + "\"" +
             "}");
 
         var deserialized = JsonSerializer.Deserialize<Attachment>(serialized, GlobalJsonSerializerOptions.NotIndented);

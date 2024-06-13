@@ -35,6 +35,8 @@ public record MessageId
     /// <param name="value">The string value that represents a MessageId.</param>
     public MessageId(string value)
     {
+        Ensure.NotNull(value, nameof(value));
+
         _value = value;
     }
 

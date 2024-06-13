@@ -20,6 +20,7 @@ public record EmailParty
     /// Required.
     /// </remarks>
     [JsonPropertyName("email")]
+    [JsonPropertyOrder(1)]
     public string EmailAddress { get; }
 
     /// <summary>
@@ -29,6 +30,7 @@ public record EmailParty
     /// Optional.
     /// </remarks>
     [JsonPropertyName("name")]
+    [JsonPropertyOrder(2)]
     public string? DisplayName { get; }
 
 

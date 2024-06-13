@@ -21,7 +21,7 @@ internal sealed class EmailSendApiResponseTests
                 "]" +
             "}";
 
-        var response = JsonSerializer.Deserialize<SendEmailApiResponse>(responseText, MailtrapApiClientSerializationOptions.Default.ToJsonSerializerOptions());
+        var response = JsonSerializer.Deserialize<SendEmailApiResponse>(responseText, GlobalJsonSerializerOptions.NotIndented);
 
         response.Should().NotBeNull();
         response!.IsSuccess.Should().BeTrue();

@@ -17,4 +17,32 @@ internal sealed class DispositionTypeTests
         DispositionType.Inline.ToString().Should().Be("inline");
         DispositionType.Attachment.ToString().Should().Be("attachment");
     }
+
+    [Test]
+    public void ShouldSerializeCorrectly_WhenInline()
+    {
+        var disposition = DispositionType.Inline;
+
+        var serialized = JsonSerializer.Serialize(disposition, GlobalJsonSerializerOptions.NotIndented);
+
+        serialized.Should().Be("\"" + DispositionType.Inline.ToString() + "\"");
+
+        var deserialized = JsonSerializer.Deserialize<DispositionType>(serialized, GlobalJsonSerializerOptions.NotIndented);
+
+        deserialized.Should().BeEquivalentTo(disposition);
+    }
+
+    [Test]
+    public void ShouldSerializeCorrectly_WhenAttachment()
+    {
+        var disposition = DispositionType.Attachment;
+
+        var serialized = JsonSerializer.Serialize(disposition, GlobalJsonSerializerOptions.NotIndented);
+
+        serialized.Should().Be("\"" + DispositionType.Attachment.ToString() + "\"");
+
+        var deserialized = JsonSerializer.Deserialize<DispositionType>(serialized, GlobalJsonSerializerOptions.NotIndented);
+
+        deserialized.Should().BeEquivalentTo(disposition);
+    }
 }

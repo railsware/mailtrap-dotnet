@@ -11,7 +11,15 @@ namespace Mailtrap.Tests.Email.Models;
 internal sealed class MessageIdTests
 {
     [Test]
-    public void ShouldNotThrowWhenEmptyParameterProvidedToConstructor()
+    public void Constructor_ShouldThrowArgumentNullException_WhenNullValue()
+    {
+        var act = () => new MessageId(null!);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void Constructor_ShouldNotThrowException_WhenEmptyValue()
     {
         var act = () => new MessageId(string.Empty);
 

@@ -17,11 +17,12 @@ public record SendEmailApiResponse : ApiResponse<IList<string>>
     /// List of <see cref="MessageId"/> objects, representing IDs of emails sent
     /// </summary>
     [JsonPropertyName("message_ids")]
+    [JsonPropertyOrder(3)]
     public IList<MessageId>? MessageIds { get; }
 
 
-    internal SendEmailApiResponse(bool success, IList<MessageId>? messageIds = null, IList<string>? errorData = null)
-        : base(success, errorData ?? [])
+    public SendEmailApiResponse(bool isSuccess, IList<MessageId>? messageIds = null, IList<string>? errorData = null)
+        : base(isSuccess, errorData ?? [])
     {
         MessageIds = messageIds ?? [];
     }
