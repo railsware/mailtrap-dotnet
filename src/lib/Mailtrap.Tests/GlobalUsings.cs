@@ -9,6 +9,9 @@ global using FluentAssertions;
 global using NUnit.Framework;
 global using System.Text.Json;
 
-global using Mailtrap.Models;
+global using Mailtrap.Core;
 global using Mailtrap.Configuration;
 global using Mailtrap.Configuration.Models;
+global using Mailtrap.Email.Models;
+global using Mailtrap.Email.Requests;
+global using Mailtrap.Email.Responses;

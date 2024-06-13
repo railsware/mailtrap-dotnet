@@ -11,9 +11,9 @@
     </PropertyGroup>
 
     <ItemGroup>        
+        <PackageReference Include="System.Net.Http.Json" />
         <PackageReference Include="Microsoft.Extensions.Http" />
         <PackageReference Include="FluentValidation" />  
-        <PackageReference Include="System.Net.Http.Json" />
     </ItemGroup>
 
     <ItemGroup>

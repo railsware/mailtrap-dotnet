@@ -103,11 +103,11 @@ public sealed class MailtrapApiClient : IMailtrapApiClient, IDisposable
 
 
     /// <inheritdoc />
-    public async Task<EmailSendApiResponse?> SendAsync(EmailSendApiRequest request, CancellationToken cancellationToken = default)
+    public async Task<SendEmailApiResponse?> SendAsync(SendEmailApiRequest request, CancellationToken cancellationToken = default)
     {
         Ensure.NotNull(request, nameof(request));
 
-        var validationResult = await EmailSendApiRequestValidator.Instance
+        var validationResult = await SendEmailApiRequestValidator.Instance
             .ValidateAsync(request, cancellationToken)
             .ConfigureAwait(false);
 
@@ -148,6 +148,6 @@ public sealed class MailtrapApiClient : IMailtrapApiClient, IDisposable
             .ReadAsStringAsync()
             .ConfigureAwait(false);
 
-        return JsonSerializer.Deserialize<EmailSendApiResponse>(body, _jsonSerializerOptions);
+        return JsonSerializer.Deserialize<SendEmailApiResponse>(body, _jsonSerializerOptions);
     }
 }

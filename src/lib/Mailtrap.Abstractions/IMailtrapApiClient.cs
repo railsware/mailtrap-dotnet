@@ -9,26 +9,28 @@ namespace Mailtrap;
 
 
 /// <summary>
-/// Main Mailtrap Email API client entry point.
+/// Main Mailtrap API client entry point.
 /// </summary>
 public interface IMailtrapApiClient
 {
     /// <summary>
-    /// Sends provided <paramref name="request"/> to an API endpoint and returns result.<br/>
-    /// Request is checked for validity before send. Validation exception is thrown if validation fails.
+    /// Sends provided <paramref name="request"/> to an API endpoint and returns result.
     /// </summary>
-    /// <param name="request"></param>
+    /// <remarks>
+    /// Request is checked for validity before send. Exception is thrown if validation fails.
+    /// </remarks>
+    /// <param name="request"><see cref="SendEmailApiRequest"/> object with email configuration.</param>
     /// <param name="cancellationToken"></param>
-    /// <returns><see cref="EmailSendApiResponse"/> instance with response data.</returns>
+    /// <returns><see cref="SendEmailApiResponse"/> instance with response data.</returns>
     /// <example>
     ///     <code>
-    ///          var client = new MailtrapEmailApiClient("https://send.api.mailtrap.io/", "api-token");
+    ///          var client = new MailtrapEmailApiClient(&quot;https://send.api.mailtrap.io/&quot;, &quot;api-token&quot;);
     ///          var request = EmailSendApiRequestBuilder
-    ///             .Create()
-    ///             .WithSender("john.doe@demomailtrap.com", "John Doe")
-    ///             .WithSubject("Invitation to Earth")
-    ///             .WithRecipient("bill.hero@galactic.com")
-    ///             .WithTextBody("Dear Bill, It will be a great pleasure to see you on our blue planet next weekend. Best regards, John.");
+    ///             .Create&lt;RegularEmailSendApiRequest&gt;()
+    ///             .WithSender(&quot;john.doe@demomailtrap.com&quot;, &quot;John Doe&quot;)
+    ///             .WithSubject(&quot;Invitation to Earth&quot;)
+    ///             .WithRecipient(&quot;bill.hero@galactic.com&quot;)
+    ///             .WithTextBody(&quot;Dear Bill, It will be a great pleasure to see you on our blue planet next weekend. Best regards, John.&quot;);
     ///          var result = await client.SendAsync(request);
     ///     </code>
     /// </example>
@@ -38,5 +40,5 @@ public interface IMailtrapApiClient
     /// <exception cref="TaskCanceledException"/>
     /// <exception cref="OperationCanceledException"/>
     /// <exception cref="HttpRequestException"/>
-    Task<EmailSendApiResponse?> SendAsync(EmailSendApiRequest request, CancellationToken cancellationToken = default);
+    Task<SendEmailApiResponse?> SendAsync(SendEmailApiRequest request, CancellationToken cancellationToken = default);
 }

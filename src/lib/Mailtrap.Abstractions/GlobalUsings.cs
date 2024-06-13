@@ -8,9 +8,11 @@
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
 
-global using Mailtrap.Helpers;
-global using Mailtrap.Models;
-global using Mailtrap.Extensions;
+global using Mailtrap.Core;
+global using Mailtrap.Email.Models;
+global using Mailtrap.Email.Converters;
+global using Mailtrap.Email.Requests;
+global using Mailtrap.Email.Responses;
 
 
 // Allowing test assembly to access internals for unit tests

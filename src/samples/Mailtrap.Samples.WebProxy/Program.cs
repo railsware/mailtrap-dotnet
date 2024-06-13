@@ -6,13 +6,17 @@
 
 
 using Mailtrap;
+using Mailtrap.Email.Requests;
 
 
 try
 {
+    // For sure you should not hardcode apiKey for security reasons, and use environment variables or configuration files instead.
+    // But for the sake of simplicity, we will use hardcoded value in this example.
     var apiKey = "<API_KEY>";
-    var request = EmailSendApiRequestBuilder
-        .Create()
+
+    var request = SendEmailApiRequestBuilder
+        .Create<RegularSendEmailApiRequest>()
         .WithSender("john.doe@demomailtrap.com", "John Doe")
         .WithSubject("Invitation to Earth")
         .WithRecipient("hero.bill@galaxy.net")

@@ -173,11 +173,15 @@ dotnet_naming_style.camel_case_underscore_style.capitalization  = camel_case
 # IDE0058: Expression value is never used
 dotnet_diagnostic.IDE0058.severity = silent
 
+# IDE0072: Add missing cases to switch expression
+dotnet_diagnostic.IDE0072.severity = silent
+
 # CA1303: Do not pass literals as localized parameters
 dotnet_diagnostic.CA1303.severity = silent
 
 # CA1805: Do not initialize unnecessarily
 dotnet_diagnostic.CA1805.severity = silent
+
 
 # CA1062: Null-check validation
 dotnet_code_quality.CA1062.null_check_validation_methods = NotNull|NotNullOrEmpty
