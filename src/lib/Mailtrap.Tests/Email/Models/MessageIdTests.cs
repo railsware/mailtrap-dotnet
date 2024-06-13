@@ -41,4 +41,20 @@ internal sealed class MessageIdTests
         messageId1.ToString().Should().Be(id);
         messageId2.ToString().Should().Be(id);
     }
+
+    [Test]
+    public void ShouldSerializeCorrectly()
+    {
+        var id = "123";
+
+        var messageId = new MessageId(id);
+
+        var serialized = JsonSerializer.Serialize(messageId, GlobalJsonSerializerOptions.NotIndented);
+
+        serialized.Should().Be("\"" + id + "\"");
+
+        var deserialized = JsonSerializer.Deserialize<MessageId>(serialized, GlobalJsonSerializerOptions.NotIndented);
+
+        deserialized.Should().BeEquivalentTo(messageId);
+    }
 }
