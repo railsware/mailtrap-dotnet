@@ -4,7 +4,7 @@
     <TargetFrameworks>net8.0</TargetFrameworks>
     <UseCommonOutputDirectory>false</UseCommonOutputDirectory>
     <IsPackable>false</IsPackable>
-    <IsTestProject>true</IsTestProject>
+    <IsTestProject>true</IsTestProject>    
   </PropertyGroup>
 
   <ItemGroup>
