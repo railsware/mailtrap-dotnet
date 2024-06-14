@@ -31,6 +31,7 @@ internal sealed class HttpClientLifetimeFactory : IHttpClientLifetimeFactory
         var clientName = endpointConfiguration.HttpClientName;
         var defaultBaseAddress = endpointConfiguration.BaseUrl;
 
+#pragma warning disable IDE0055
         var httpClient = string.IsNullOrEmpty(clientName)
             ? _httpClientFactory
                 .CreateClient()
@@ -41,6 +42,7 @@ internal sealed class HttpClientLifetimeFactory : IHttpClientLifetimeFactory
                 // for named clients expecting BaseAddress to be properly pre-configured with HttpClientBuilder,
                 // thus falling back to default value only if it is missing
                 .WithBaseAddress(defaultBaseAddress);
+#pragma warning restore IDE0055
 
         await _httpClientConfigurationPolicy
             .ApplyPolicyAsync(httpClient, cancellationToken)
