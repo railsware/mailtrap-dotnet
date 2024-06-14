@@ -5,9 +5,9 @@
 // -----------------------------------------------------------------------
 
 
-global using FluentAssertions;
-global using NUnit.Framework;
 global using System.Text.Json;
+global using NUnit.Framework;
+global using FluentAssertions;
 
 global using Mailtrap.Core;
 global using Mailtrap.Configuration;

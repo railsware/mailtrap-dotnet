@@ -20,7 +20,7 @@ public static partial class SendEmailApiRequestBuilder
         return request;
     }
 
-    public static T WithSender<T>(this T request, string emailAddress, string? displayName = null) where T : SendEmailApiRequest
+    public static T WithSender<T>(this T request, string emailAddress, string? displayName = default) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
         Ensure.NotNullOrEmpty(emailAddress, nameof(emailAddress));
@@ -47,7 +47,7 @@ public static partial class SendEmailApiRequestBuilder
         return request.WithRecipients(recipient);
     }
 
-    public static T WithRecipient<T>(this T request, string emailAddress, string? displayName = null) where T : SendEmailApiRequest
+    public static T WithRecipient<T>(this T request, string emailAddress, string? displayName = default) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
         Ensure.NotNullOrEmpty(emailAddress, nameof(emailAddress));
@@ -73,7 +73,7 @@ public static partial class SendEmailApiRequestBuilder
         return request.WithCopy(carbonCopy);
     }
 
-    public static T WithCopy<T>(this T request, string emailAddress, string? displayName = null) where T : SendEmailApiRequest
+    public static T WithCopy<T>(this T request, string emailAddress, string? displayName = default) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
         Ensure.NotNullOrEmpty(emailAddress, nameof(emailAddress));
@@ -100,7 +100,7 @@ public static partial class SendEmailApiRequestBuilder
         return request.WithBlindCopy(blindCarbonCopy);
     }
 
-    public static T WithBlindCopy<T>(this T request, string emailAddress, string? displayName = null) where T : SendEmailApiRequest
+    public static T WithBlindCopy<T>(this T request, string emailAddress, string? displayName = default) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
         Ensure.NotNullOrEmpty(emailAddress, nameof(emailAddress));
@@ -130,12 +130,13 @@ public static partial class SendEmailApiRequestBuilder
     public static T WithAttachment<T>(this T request,
         string content,
         string filename,
-        DispositionType? dispositionType = null,
-        string? mimeType = null)
+        DispositionType? dispositionType = default,
+        string? mimeType = default,
+        string? contentId = default)
          where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
 
-        return request.WithAttachment(new Attachment(content, filename, dispositionType, mimeType));
+        return request.WithAttachment(new Attachment(content, filename, dispositionType, mimeType, contentId));
     }
 }

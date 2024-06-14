@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+
 namespace Mailtrap.Configuration;
 
 
@@ -15,8 +16,7 @@ internal static class MailtrapApiClientSerializationOptionsExtensions
 
         return new JsonSerializerOptions()
         {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            PropertyNameCaseInsensitive = true,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             WriteIndented = options.PrettyJson
         };
     }

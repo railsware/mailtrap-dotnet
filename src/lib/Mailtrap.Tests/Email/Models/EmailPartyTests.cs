@@ -60,6 +60,7 @@ internal sealed class EmailPartyTests
 
         var serialized = JsonSerializer.Serialize(party, GlobalJsonSerializerOptions.NotIndented);
 
+        // TODO: Find more stable way to assert JSON serialization.
         serialized.Should().Be(
         "{" +
             "\"email\":\"" + email + "\"," +

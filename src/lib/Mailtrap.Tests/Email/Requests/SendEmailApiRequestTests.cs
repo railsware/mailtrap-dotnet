@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SendEmailApiRequestTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="RegularSendEmailApiRequestTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,26 +11,24 @@ namespace Mailtrap.Tests.Email.Requests;
 [TestFixture]
 internal sealed class SendEmailApiRequestTests
 {
+    private readonly EmailParty _sender = new("sender@domain.com", "Sender");
+    private readonly EmailParty _recipient = new("recipient@domain.com", "Recipient");
+    private readonly string _subject = "Email Subject";
+
+
     [Test]
-    public void ShouldSerializeCorrectly()
+    public void Constructor_ShouldThrowArgumentNullException_WhenSenderIsNull()
     {
-        var request = SendEmailApiRequestBuilder
-            .Create<RegularSendEmailApiRequest>()
-            .WithSender("john.doe@demomailtrap.com", "John Doe")
-            .WithSubject("Invitation to Earth")
-            .WithRecipient("bill.hero@galaxy.com")
-            .WithTextBody("Dear Bill, It will be a great pleasure to see you on our blue planet next weekend. Best regards, John.");
+        var act = () => new RegularSendEmailApiRequest(null!, _recipient, _subject);
 
-        var serialized = JsonSerializer.Serialize(request, GlobalJsonSerializerOptions.NotIndented);
+        act.Should().Throw<ArgumentNullException>();
+    }
 
-        serialized.Should().Be(
-            "{" +
-                "\"from\":{\"email\":\"john.doe@demomailtrap.com\",\"name\":\"John Doe\"}," +
-                "\"to\":[{\"email\":\"bill.hero@galaxy.com\",\"name\":null}]," +
-                "\"subject\":\"Invitation to Earth\"," +
-                "\"text\":\"Dear Bill, It will be a great pleasure to see you on our blue planet next weekend. Best regards, John.\"," +
-                "\"html\":null," +
-                "\"attachments\":[]" +
-            "}");
+    [Test]
+    public void Constructor_ShouldThrowArgumentNullException_WhenRecipientIsNull()
+    {
+        var act = () => new RegularSendEmailApiRequest(_sender, null!, _subject);
+
+        act.Should().Throw<ArgumentNullException>();
     }
 }

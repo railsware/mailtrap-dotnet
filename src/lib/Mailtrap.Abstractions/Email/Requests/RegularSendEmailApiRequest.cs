@@ -21,6 +21,7 @@ public record RegularSendEmailApiRequest : SendEmailApiRequest
     /// Required. Should be non-empty string.
     /// </remarks>
     [JsonPropertyName("subject")]
+    [JsonPropertyOrder(8)]
     public string? Subject { get; set; }
 
     /// <summary>
@@ -31,6 +32,7 @@ public record RegularSendEmailApiRequest : SendEmailApiRequest
     /// Required in the absence of HtmlBody.
     /// </remarks>
     [JsonPropertyName("text")]
+    [JsonPropertyOrder(9)]
     public string? TextBody { get; set; }
 
     /// <summary>
@@ -41,9 +43,11 @@ public record RegularSendEmailApiRequest : SendEmailApiRequest
     /// Required in the absence of TextBody.
     /// </remarks>
     [JsonPropertyName("html")]
+    [JsonPropertyOrder(10)]
     public string? HtmlBody { get; set; }
 
     [JsonPropertyName("category")]
+    [JsonPropertyOrder(11)]
     public string? Category { get; set; }
 
 

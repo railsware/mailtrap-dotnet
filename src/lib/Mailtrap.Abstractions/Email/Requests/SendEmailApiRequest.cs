@@ -17,6 +17,7 @@ public abstract record SendEmailApiRequest
     /// Email's sender
     /// </summary>
     [JsonPropertyName("from")]
+    [JsonPropertyOrder(1)]
     public EmailParty? Sender { get; set; }
 
     /// <summary>
@@ -28,6 +29,8 @@ public abstract record SendEmailApiRequest
     /// Each object in the collection may optionally contain the recipient's name.
     /// </remarks>
     [JsonPropertyName("to")]
+    [JsonPropertyOrder(2)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<EmailParty> Recipients { get; } = new List<EmailParty>(1); // We should always have at least one recipient
 
     /// <summary>
@@ -38,6 +41,8 @@ public abstract record SendEmailApiRequest
     /// Each object in the collection may optionally contain the recipient's name.
     /// </remarks>
     [JsonPropertyName("cc")]
+    [JsonPropertyOrder(3)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<EmailParty> CarbonCopies { get; } = [];
 
     /// <summary>
@@ -48,12 +53,16 @@ public abstract record SendEmailApiRequest
     /// Each object in the collection may optionally contain the recipient's name.
     /// </remarks>
     [JsonPropertyName("bcc")]
+    [JsonPropertyOrder(4)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<EmailParty> BlindCarbonCopies { get; } = [];
 
     /// <summary>
     /// A collection of objects where you can specify any attachments you want to include.
     /// </summary>
     [JsonPropertyName("attachments")]
+    [JsonPropertyOrder(5)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<Attachment> Attachments { get; } = [];
 
     /// <summary>
@@ -66,6 +75,8 @@ public abstract record SendEmailApiRequest
     /// </para>
     /// </summary>
     [JsonPropertyName("headers")]
+    [JsonPropertyOrder(6)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IDictionary<string, string> Headers { get; } = new Dictionary<string, string>();
 
     /// <summary>
@@ -75,6 +86,8 @@ public abstract record SendEmailApiRequest
     /// </para>
     /// </summary>
     [JsonPropertyName("custom_variables")]
+    [JsonPropertyOrder(7)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IDictionary<string, string> CustomVariables { get; } = new Dictionary<string, string>();
 
 

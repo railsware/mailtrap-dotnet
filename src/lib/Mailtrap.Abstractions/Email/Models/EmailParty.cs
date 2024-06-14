@@ -40,7 +40,7 @@ public record EmailParty
     /// <param name="emailAddress">Required. </param>
     /// <param name="displayName"></param>
     /// <exception cref="ArgumentNullException"></exception>
-    public EmailParty(string emailAddress, string? displayName = null)
+    public EmailParty(string emailAddress, string? displayName = default)
     {
         Ensure.NotNullOrEmpty(emailAddress, nameof(emailAddress));
 

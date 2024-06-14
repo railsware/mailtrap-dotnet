@@ -23,6 +23,7 @@ public record TemplatedSendEmailApiRequest : SendEmailApiRequest
     /// Required.
     /// </remarks>
     [JsonPropertyName("template_uuid")]
+    [JsonPropertyOrder(8)]
     public string? TemplateId { get; set; }
 
     /// <summary>
@@ -32,6 +33,7 @@ public record TemplatedSendEmailApiRequest : SendEmailApiRequest
     /// Optional.
     /// </remarks>
     [JsonPropertyName("template_variables")]
+    [JsonPropertyOrder(9)]
     public object? TemplateVariables { get; set; }
 
 
