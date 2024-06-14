@@ -1,6 +1,8 @@
 ﻿<Project>
 
   <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    
     <IsPackable>true</IsPackable>
 
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

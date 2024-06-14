@@ -46,6 +46,12 @@ public record RegularSendEmailApiRequest : SendEmailApiRequest
     [JsonPropertyOrder(10)]
     public string? HtmlBody { get; set; }
 
+    /// <summary>
+    /// The category of email.
+    /// </summary>
+    /// <remarks>
+    /// Optional. Must be less or equal to 255 characters.
+    /// </remarks>
     [JsonPropertyName("category")]
     [JsonPropertyOrder(11)]
     public string? Category { get; set; }

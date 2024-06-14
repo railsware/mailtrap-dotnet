@@ -13,5 +13,10 @@ namespace Mailtrap.Email.Requests;
 /// </summary>
 public static partial class SendEmailApiRequestBuilder
 {
+    /// <summary>
+    /// Creates a new instance of request of type <typeparamref name="T"/>.
+    /// </summary>
+    /// <typeparam name="T">Api request type, derived from <see cref="SendEmailApiRequest"/></typeparam>
+    /// <returns></returns>
     public static T Create<T>() where T : SendEmailApiRequest, new() => new();
 }

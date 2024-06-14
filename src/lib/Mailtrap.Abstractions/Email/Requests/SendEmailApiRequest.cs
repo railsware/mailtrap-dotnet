@@ -14,8 +14,11 @@ namespace Mailtrap.Email.Requests;
 public abstract record SendEmailApiRequest
 {
     /// <summary>
-    /// Email's sender
+    /// <see cref="EmailParty"/> instance representing email's sender.
     /// </summary>
+    /// <remarks>
+    /// Required.
+    /// </remarks>
     [JsonPropertyName("from")]
     [JsonPropertyOrder(1)]
     public EmailParty? Sender { get; set; }
@@ -24,9 +27,9 @@ public abstract record SendEmailApiRequest
     /// A collection of <see cref="EmailParty"/> who will receive a copy of your email.
     /// </summary>
     /// <remarks>
-    /// Should contain at least one recipient.<br />
+    /// Must contain at least one recipient, but not more than 1000.<br />
     /// Each object in this collection must contain the recipient's email address.<br />
-    /// Each object in the collection may optionally contain the recipient's name.
+    /// Each object in this collection may optionally contain the recipient's name.
     /// </remarks>
     [JsonPropertyName("to")]
     [JsonPropertyOrder(2)]
@@ -37,8 +40,9 @@ public abstract record SendEmailApiRequest
     /// A collection of <see cref="EmailParty"/> who will receive a carbon copy of your email.
     /// </summary>
     /// <remarks>
+    /// Must contain less or equal to 1000 recipients.<br />
     /// Each object in this collection must contain the recipient's email address.<br />
-    /// Each object in the collection may optionally contain the recipient's name.
+    /// Each object in this collection may optionally contain the recipient's name.
     /// </remarks>
     [JsonPropertyName("cc")]
     [JsonPropertyOrder(3)]
@@ -49,8 +53,9 @@ public abstract record SendEmailApiRequest
     /// A collection of <see cref="EmailParty"/> who will receive a blind carbon copy of your email.
     /// </summary>
     /// <remarks>
+    /// Must contain less or equal to 1000 recipients.<br />
     /// Each object in this collection must contain the recipient's email address.<br />
-    /// Each object in the collection may optionally contain the recipient's name.
+    /// Each object in this collection may optionally contain the recipient's name.
     /// </remarks>
     [JsonPropertyName("bcc")]
     [JsonPropertyOrder(4)]
@@ -58,7 +63,7 @@ public abstract record SendEmailApiRequest
     public IList<EmailParty> BlindCarbonCopies { get; } = [];
 
     /// <summary>
-    /// A collection of objects where you can specify any attachments you want to include.
+    /// A collection of <see cref="Attachment"/> objects where you can specify any attachments you want to include.
     /// </summary>
     [JsonPropertyName("attachments")]
     [JsonPropertyOrder(5)]
@@ -66,25 +71,26 @@ public abstract record SendEmailApiRequest
     public IList<Attachment> Attachments { get; } = [];
 
     /// <summary>
-    /// An object containing key/value pairs of header names and the value to substitute for them.
-    /// <para>
+    /// A collection containing key/value pairs of header names and the value to substitute for them.
+    /// </summary>
+    /// <remarks>
     /// The key/value pairs must be strings.<br/>
     /// You must ensure these are properly encoded if they contain unicode characters.<br />
     /// These headers cannot be one of the reserved headers.<br />
     /// "Content-Transfer-Encoding" header will be ignored and replaced with "quoted-printable".
-    /// </para>
-    /// </summary>
+    /// </remarks>
     [JsonPropertyName("headers")]
     [JsonPropertyOrder(6)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IDictionary<string, string> Headers { get; } = new Dictionary<string, string>();
 
     /// <summary>
-    /// Values that are specific to the entire send that will be carried along with the email and its activity data.
-    /// <para>
-    /// Total size of custom variables in JSON form must not exceed 1000 bytes.
-    /// </para>
+    /// A collection of values that are specific to the entire send
+    /// that will be carried along with the email and its activity data.
     /// </summary>
+    /// <remarks>
+    /// Total size of custom variables in JSON form must not exceed 1000 bytes.
+    /// </remarks>
     [JsonPropertyName("custom_variables")]
     [JsonPropertyOrder(7)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]

@@ -53,11 +53,13 @@ public record MessageId
     /// <param name="value">The string value that represents a MessageId.</param>
     public static MessageId ToMessageId(string value) => new(value);
 
-
+    /// <inheritdoc/>
     public override string ToString() => _value;
 
+    /// <inheritdoc/>
     public override int GetHashCode() => _value.GetHashCode();
 
+    /// <inheritdoc/>
     public virtual bool Equals(MessageId? other)
         => string.Equals(_value, other?._value, StringComparison.OrdinalIgnoreCase);
 }

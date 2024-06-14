@@ -10,6 +10,9 @@ namespace Mailtrap.Email.Requests;
 
 public static partial class SendEmailApiRequestBuilder
 {
+    /// <summary>
+    /// Sets provided sender to the request.
+    /// </summary>
     public static T WithSender<T>(this T request, EmailParty sender) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
@@ -20,6 +23,9 @@ public static partial class SendEmailApiRequestBuilder
         return request;
     }
 
+    /// <summary>
+    /// Sets provided sender to the request.
+    /// </summary>
     public static T WithSender<T>(this T request, string emailAddress, string? displayName = default) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
@@ -28,7 +34,9 @@ public static partial class SendEmailApiRequestBuilder
         return request.WithSender(new EmailParty(emailAddress, displayName));
     }
 
-
+    /// <summary>
+    /// Adds provided collection of recipients to the request's TO collection.
+    /// </summary>
     public static T WithRecipients<T>(this T request, params EmailParty[] recipients) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
@@ -39,6 +47,9 @@ public static partial class SendEmailApiRequestBuilder
         return request;
     }
 
+    /// <summary>
+    /// Adds provided recipient to the request's TO collection.
+    /// </summary>
     public static T WithRecipient<T>(this T request, EmailParty recipient) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
@@ -47,6 +58,9 @@ public static partial class SendEmailApiRequestBuilder
         return request.WithRecipients(recipient);
     }
 
+    /// <summary>
+    /// Adds provided recipient to the request's TO collection.
+    /// </summary>
     public static T WithRecipient<T>(this T request, string emailAddress, string? displayName = default) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
@@ -55,24 +69,33 @@ public static partial class SendEmailApiRequestBuilder
         return request.WithRecipient(new EmailParty(emailAddress, displayName));
     }
 
-    public static T WithCopies<T>(this T request, params EmailParty[] carbonCopies) where T : SendEmailApiRequest
+    /// <summary>
+    /// Adds provided collection of recipients to the request's CC collection.
+    /// </summary>
+    public static T WithCopies<T>(this T request, params EmailParty[] recipients) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
-        Ensure.NotNull(carbonCopies, nameof(carbonCopies));
+        Ensure.NotNull(recipients, nameof(recipients));
 
-        request.CarbonCopies.AddRange(carbonCopies);
+        request.CarbonCopies.AddRange(recipients);
 
         return request;
     }
 
-    public static T WithCopy<T>(this T request, EmailParty carbonCopy) where T : SendEmailApiRequest
+    /// <summary>
+    /// Adds provided recipient to the request's CC collection.
+    /// </summary>
+    public static T WithCopy<T>(this T request, EmailParty recipient) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
-        Ensure.NotNull(carbonCopy, nameof(carbonCopy));
+        Ensure.NotNull(recipient, nameof(recipient));
 
-        return request.WithCopy(carbonCopy);
+        return request.WithCopy(recipient);
     }
 
+    /// <summary>
+    /// Adds provided recipient to the request's CC collection.
+    /// </summary>
     public static T WithCopy<T>(this T request, string emailAddress, string? displayName = default) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
@@ -81,25 +104,33 @@ public static partial class SendEmailApiRequestBuilder
         return request.WithCopy(new EmailParty(emailAddress, displayName));
     }
 
-
-    public static T WithBlindCopies<T>(this T request, params EmailParty[] blindCarbonCopies) where T : SendEmailApiRequest
+    /// <summary>
+    /// Adds provided collection of recipients to the request's BCC collection.
+    /// </summary>
+    public static T WithBlindCopies<T>(this T request, params EmailParty[] recipients) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
-        Ensure.NotNull(blindCarbonCopies, nameof(blindCarbonCopies));
+        Ensure.NotNull(recipients, nameof(recipients));
 
-        request.CarbonCopies.AddRange(blindCarbonCopies);
+        request.CarbonCopies.AddRange(recipients);
 
         return request;
     }
 
-    public static T WithBlindCopy<T>(this T request, EmailParty blindCarbonCopy) where T : SendEmailApiRequest
+    /// <summary>
+    /// Adds provided recipient to the request's BCC collection.
+    /// </summary>
+    public static T WithBlindCopy<T>(this T request, EmailParty recipient) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
-        Ensure.NotNull(blindCarbonCopy, nameof(blindCarbonCopy));
+        Ensure.NotNull(recipient, nameof(recipient));
 
-        return request.WithBlindCopy(blindCarbonCopy);
+        return request.WithBlindCopy(recipient);
     }
 
+    /// <summary>
+    /// Adds provided recipient to the request's BCC collection.
+    /// </summary>
     public static T WithBlindCopy<T>(this T request, string emailAddress, string? displayName = default) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
@@ -108,7 +139,9 @@ public static partial class SendEmailApiRequestBuilder
         return request.WithBlindCopy(new EmailParty(emailAddress, displayName));
     }
 
-
+    /// <summary>
+    /// Adds provided collection of attachments to the request's attacments collection.
+    /// </summary>
     public static T WithAttachments<T>(this T request, params Attachment[] attachments) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
@@ -119,6 +152,9 @@ public static partial class SendEmailApiRequestBuilder
         return request;
     }
 
+    /// <summary>
+    /// Adds provided attachment to the request's attacments collection.
+    /// </summary>
     public static T WithAttachment<T>(this T request, Attachment attachment) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
@@ -127,6 +163,9 @@ public static partial class SendEmailApiRequestBuilder
         return request.WithAttachments(attachment);
     }
 
+    /// <summary>
+    /// Adds provided attachment to the request's attacments collection.
+    /// </summary>
     public static T WithAttachment<T>(this T request,
         string content,
         string filename,
