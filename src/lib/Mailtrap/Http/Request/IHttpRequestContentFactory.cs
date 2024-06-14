@@ -8,7 +8,15 @@
 namespace Mailtrap.Http.Request;
 
 
+/// <summary>
+/// Factory to create <see cref="HttpContent"/> instances.
+/// </summary>
 public interface IHttpRequestContentFactory
 {
+    /// <summary>
+    /// Asynchronously creates a new <see cref="HttpContent"/> instance, using provided string content.
+    /// </summary>
+    /// <param name="content"></param>
+    /// <returns></returns>
     Task<StringContent> CreateAsync(string content);
 }

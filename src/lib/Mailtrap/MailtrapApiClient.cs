@@ -6,7 +6,6 @@
 
 
 using Mailtrap.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection;
 
 
 namespace Mailtrap;
@@ -23,6 +22,10 @@ public sealed class MailtrapApiClient : IMailtrapApiClient, IDisposable
     private readonly ServiceProvider? _serviceProvider;
 
 
+    /// <summary>
+    /// Constructor to create a new instance of <see cref="MailtrapApiClient"/> with provided configuration.
+    /// </summary>
+    /// <param name="configuration"></param>
     public MailtrapApiClient(MailtrapApiClientOptions configuration)
     {
         Ensure.NotNull(configuration, nameof(configuration));
@@ -57,6 +60,13 @@ public sealed class MailtrapApiClient : IMailtrapApiClient, IDisposable
         })
     { }
 
+    /// <summary>
+    /// Shortcut constructor with different hosts for each endpoint.
+    /// </summary>
+    /// <param name="apiKey"></param>
+    /// <param name="emailHost"></param>
+    /// <param name="bulkHost"></param>
+    /// <param name="testHost"></param>
     public MailtrapApiClient(string apiKey, string emailHost, string bulkHost, string testHost)
         : this(MailtrapApiClientOptions.Default with
         {
@@ -67,6 +77,11 @@ public sealed class MailtrapApiClient : IMailtrapApiClient, IDisposable
         })
     { }
 
+    /// <summary>
+    /// Shortcut constructor, using the same host for all endpoints.
+    /// </summary>
+    /// <param name="apiKey"></param>
+    /// <param name="apiHost"></param>
     public MailtrapApiClient(string apiKey, string apiHost)
         : this(apiKey, apiHost, apiHost, apiHost)
     { }
@@ -99,6 +114,9 @@ public sealed class MailtrapApiClient : IMailtrapApiClient, IDisposable
     }
 
 
+    /// <summary>
+    /// Disposes internal DI container used to create transient <see cref="HttpClient"/> instances properly.
+    /// </summary>
     public void Dispose() => _serviceProvider?.Dispose();
 
 

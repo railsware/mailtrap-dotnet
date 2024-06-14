@@ -8,9 +8,18 @@
 namespace Mailtrap.Configuration.Models;
 
 
+/// <summary>
+/// A set of options to configure serialization settings for Mailtrap API client.
+/// </summary>
 public record MailtrapApiClientSerializationOptions
 {
+    /// <summary>
+    /// Default set of settings
+    /// </summary>
     public static MailtrapApiClientSerializationOptions Default { get; } = new();
 
+    /// <summary>
+    /// Switch to enable JSON indentation for pretty output.
+    /// </summary>
     public bool PrettyJson { get; set; } = false;
 }
