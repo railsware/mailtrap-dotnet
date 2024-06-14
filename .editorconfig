@@ -64,7 +64,7 @@ dotnet_style_predefined_type_for_member_access = true:suggestion
 # Code style defaults
 csharp_using_directive_placement = outside_namespace:suggestion
 dotnet_sort_system_directives_first = true
-csharp_prefer_braces = true:silent
+csharp_prefer_braces = true:suggestion
 csharp_preserve_single_line_blocks = true:silent
 csharp_preserve_single_line_statements = false:silent
 csharp_prefer_static_local_function = true:suggestion
@@ -109,7 +109,7 @@ csharp_style_conditional_delegate_call = true:suggestion
 # Other features
 csharp_style_prefer_index_operator = false:none
 csharp_style_prefer_range_operator = false:none
-csharp_style_prefer_primary_constructors = false:silent
+csharp_style_prefer_primary_constructors = false:none
 csharp_style_pattern_local_over_anonymous_function = false:none
 
 # Space preferences
