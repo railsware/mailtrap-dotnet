@@ -1,14 +1,15 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="EmailSendApiRequestTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="SendEmailApiRequestTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
+
 
 namespace Mailtrap.Tests.Email.Requests;
 
 
 [TestFixture]
-internal sealed class EmailSendApiRequestTests
+internal sealed class SendEmailApiRequestTests
 {
     [Test]
     public void ShouldSerializeCorrectly()
