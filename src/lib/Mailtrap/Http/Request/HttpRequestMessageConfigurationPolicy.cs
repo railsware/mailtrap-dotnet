@@ -21,6 +21,10 @@ internal sealed class HttpRequestMessageConfigurationPolicy : IHttpRequestMessag
 
     public async Task ApplyPolicyAsync(HttpRequestMessage request, CancellationToken cancellationToken = default)
     {
+        Ensure.NotNull(request, nameof(request));
+
+        request.ConfigureAcceptHeader();
+
         await _authenticationProvider
             .AuthenticateAsync(request, cancellationToken)
             .ConfigureAwait(false);
