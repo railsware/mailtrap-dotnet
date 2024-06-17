@@ -57,6 +57,7 @@ internal sealed class SendEmailApiResponseTests
 
         response.Should().NotBeNull();
         response!.IsSuccess.Should().BeTrue();
+        response!.ErrorData.Should().BeEmpty();
         response!.MessageIds.Should()
             .NotBeNull().And
             .HaveCount(1);
@@ -80,6 +81,7 @@ internal sealed class SendEmailApiResponseTests
 
         response.Should().NotBeNull();
         response!.IsSuccess.Should().BeFalse();
+        response!.MessageIds.Should().BeEmpty();
         response!.ErrorData.Should()
             .NotBeNull().And
             .HaveCount(3).And

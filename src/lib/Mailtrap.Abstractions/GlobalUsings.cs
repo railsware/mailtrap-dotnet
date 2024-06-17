@@ -7,6 +7,7 @@
 
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
+global using System.Net.Mime;
 
 global using Mailtrap.Core;
 global using Mailtrap.Email.Models;

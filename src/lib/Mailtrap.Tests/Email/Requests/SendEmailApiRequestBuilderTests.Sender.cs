@@ -8,7 +8,7 @@
 namespace Mailtrap.Tests.Email.Requests;
 
 
-[TestFixture]
+[TestFixture(TestOf = typeof(SendEmailApiRequestBuilder))]
 internal sealed class SendEmailApiRequestBuilderTests_Sender
 {
     private const string SenderEmail = "sender@domain.com";

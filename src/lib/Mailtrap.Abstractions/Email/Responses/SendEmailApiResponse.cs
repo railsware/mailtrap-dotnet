@@ -27,7 +27,7 @@ public record SendEmailApiResponse : ApiResponse<IList<string>>
     /// <param name="isSuccess">A flag indicating whether the response describes success or failure.</param>
     /// <param name="messageIds">A collection of <see cref="MessageId"/> objects</param>
     /// <param name="errorData">Errors to associate with the response.</param>
-    public SendEmailApiResponse(bool isSuccess, IList<MessageId>? messageIds = null, IList<string>? errorData = null)
+    public SendEmailApiResponse(bool isSuccess, IList<MessageId>? messageIds = default, IList<string>? errorData = default)
         : base(isSuccess, errorData ?? [])
     {
         MessageIds = messageIds ?? [];

@@ -170,11 +170,14 @@ dotnet_naming_style.camel_case_underscore_style.capitalization  = camel_case
 
 # Fine Tuning
 
-# IDE0058: Expression value is never used
-dotnet_diagnostic.IDE0058.severity = silent
+# IDE0010: Add missing cases to switch statement
+dotnet_diagnostic.IDE0010.severity = suggestion
 
 # IDE0072: Add missing cases to switch expression
-dotnet_diagnostic.IDE0072.severity = silent
+dotnet_diagnostic.IDE0072.severity = suggestion
+
+# IDE0058: Expression value is never used
+dotnet_diagnostic.IDE0058.severity = silent
 
 # CA1303: Do not pass literals as localized parameters
 dotnet_diagnostic.CA1303.severity = silent

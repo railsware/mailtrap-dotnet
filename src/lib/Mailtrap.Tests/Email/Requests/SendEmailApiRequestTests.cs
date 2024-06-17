@@ -11,15 +11,16 @@ namespace Mailtrap.Tests.Email.Requests;
 [TestFixture]
 internal sealed class SendEmailApiRequestTests
 {
-    private readonly EmailParty _sender = new("sender@domain.com", "Sender");
-    private readonly EmailParty _recipient = new("recipient@domain.com", "Recipient");
-    private readonly string _subject = "Email Subject";
+    private EmailParty _sender { get; } = new("sender@domain.com", "Sender");
+    private EmailParty _recipient1 { get; } = new("recipient1@domain.com", "Recipient 1");
+    private string _subject { get; } = "Email Subject";
+
 
 
     [Test]
     public void Constructor_ShouldThrowArgumentNullException_WhenSenderIsNull()
     {
-        var act = () => new RegularSendEmailApiRequest(null!, _recipient, _subject);
+        var act = () => new RegularSendEmailApiRequest(null!, _recipient1, _subject);
 
         act.Should().Throw<ArgumentNullException>();
     }

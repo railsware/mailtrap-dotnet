@@ -8,7 +8,7 @@
 namespace Mailtrap.Tests.Email.Requests;
 
 
-[TestFixture]
+[TestFixture(TestOf = typeof(SendEmailApiRequestBuilder))]
 internal sealed class SendEmailApiRequestBuilderTests_Recipient
 {
     private string RecipientEmail { get; } = "recipient@domain.com";
@@ -29,7 +29,7 @@ internal sealed class SendEmailApiRequestBuilderTests_Recipient
     }
 
     [Test]
-    public void WithRecipients_ShouldThrowArgumentNullException_WhenCollectionIsNull()
+    public void WithRecipients_ShouldThrowArgumentNullException_WhenParamsIsNull()
     {
         var request = SendEmailApiRequestBuilder.Create<RegularSendEmailApiRequest>();
 
@@ -39,15 +39,19 @@ internal sealed class SendEmailApiRequestBuilderTests_Recipient
     }
 
     [Test]
+    public void WithRecipients_ShouldNotThrowException_WhenParamsIsEmpty()
+    {
+        var request = SendEmailApiRequestBuilder.Create<RegularSendEmailApiRequest>();
+
+        var act = () => SendEmailApiRequestBuilder.WithRecipients(request, []);
+
+        act.Should().NotThrow();
+    }
+
+    [Test]
     public void WithRecipients_ShouldAddRecipientsToCollection()
     {
-        var request = SendEmailApiRequestBuilder
-            .Create<RegularSendEmailApiRequest>()
-            .WithRecipients(_recipient1, _recipient2);
-
-        request.Recipients.Should()
-            .HaveCount(2).And
-            .ContainInOrder(_recipient1, _recipient2);
+        WithRecipients_CreateAndValidate(_recipient1, _recipient2);
     }
 
     [Test]
@@ -56,14 +60,39 @@ internal sealed class SendEmailApiRequestBuilderTests_Recipient
         var recipient3 = new EmailParty("recipient3@domain.com");
         var recipient4 = new EmailParty("recipient4@domain.com", "Recipient 4");
 
-        var request = SendEmailApiRequestBuilder
-            .Create<RegularSendEmailApiRequest>()
-            .WithRecipients(_recipient1, _recipient2)
-            .WithRecipients(recipient3, recipient4);
+        var request = WithRecipients_CreateAndValidate(_recipient1, _recipient2);
+
+        request.WithRecipients(recipient3, recipient4);
 
         request.Recipients.Should()
             .HaveCount(4).And
             .ContainInOrder(_recipient1, _recipient2, recipient3, recipient4);
+    }
+
+    [Test]
+    public void WithRecipients_ShouldNotAddRecipientsToCollection_WhenParamsIsEmpty()
+    {
+        var request = WithRecipients_CreateAndValidate(_recipient1, _recipient2);
+
+        request.WithRecipients([]);
+
+        request.Recipients.Should()
+            .HaveCount(2).And
+            .ContainInOrder(_recipient1, _recipient2);
+    }
+
+
+    private static RegularSendEmailApiRequest WithRecipients_CreateAndValidate(params EmailParty[] recipients)
+    {
+        var request = SendEmailApiRequestBuilder
+            .Create<RegularSendEmailApiRequest>()
+            .WithRecipients(recipients);
+
+        request.Recipients.Should()
+            .HaveCount(2).And
+            .ContainInOrder(recipients);
+
+        return request;
     }
 
     #endregion
@@ -93,26 +122,33 @@ internal sealed class SendEmailApiRequestBuilderTests_Recipient
     [Test]
     public void WithRecipient_ShouldAddRecipientToCollection()
     {
-        var request = SendEmailApiRequestBuilder
-            .Create<RegularSendEmailApiRequest>()
-            .WithRecipient(_recipient1);
-
-        request.Recipients.Should()
-            .ContainSingle().And
-            .Contain(_recipient1);
+        WithRecipient_CreateAndValidate(_recipient1);
     }
 
     [Test]
     public void WithRecipient_ShouldAddRecipientToCollection_WhenCalledMultipleTimes()
     {
-        var request = SendEmailApiRequestBuilder
-            .Create<RegularSendEmailApiRequest>()
-            .WithRecipient(_recipient1)
-            .WithRecipient(_recipient2);
+        var request = WithRecipient_CreateAndValidate(_recipient1);
+
+        request.WithRecipient(_recipient2);
 
         request.Recipients.Should()
             .HaveCount(2).And
             .ContainInOrder(_recipient1, _recipient2);
+    }
+
+
+    private static RegularSendEmailApiRequest WithRecipient_CreateAndValidate(EmailParty recipient)
+    {
+        var request = SendEmailApiRequestBuilder
+            .Create<RegularSendEmailApiRequest>()
+            .WithRecipient(recipient);
+
+        request.Recipients.Should()
+            .ContainSingle().And
+            .Contain(recipient);
+
+        return request;
     }
 
     #endregion
@@ -142,7 +178,7 @@ internal sealed class SendEmailApiRequestBuilderTests_Recipient
     }
 
     [Test]
-    public void WithRecipient_ShouldNotThrowException_WhenSenderDisplayNameIsNull()
+    public void WithRecipient_ShouldNotThrowException_WhenRecipientDisplayNameIsNull()
     {
         var request = SendEmailApiRequestBuilder.Create<RegularSendEmailApiRequest>();
 
@@ -152,7 +188,7 @@ internal sealed class SendEmailApiRequestBuilderTests_Recipient
     }
 
     [Test]
-    public void WithRecipient_ShouldNotThrowException_WhenSenderDisplayNameIsEmpty()
+    public void WithRecipient_ShouldNotThrowException_WhenRecipientDisplayNameIsEmpty()
     {
         var request = SendEmailApiRequestBuilder.Create<RegularSendEmailApiRequest>();
 

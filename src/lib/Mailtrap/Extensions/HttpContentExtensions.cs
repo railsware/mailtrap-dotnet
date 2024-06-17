@@ -17,7 +17,7 @@ internal static class HttpContentExtensions
     {
         Ensure.NotNull(content, nameof(content));
 
-        content.Headers.ContentType = new("application/json");
+        content.Headers.ContentType = new(MimeTypes.Application.Json);
 
         return content;
     }

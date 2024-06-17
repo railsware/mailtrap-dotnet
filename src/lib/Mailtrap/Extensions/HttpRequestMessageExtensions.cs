@@ -20,7 +20,7 @@ internal static class HttpRequestMessageExtensions
         var acceptHeader = request.Headers.Accept;
 
         acceptHeader.Clear();
-        acceptHeader.Add(new("application/json"));
+        acceptHeader.Add(new(MimeTypes.Application.Json));
 
         return request;
     }

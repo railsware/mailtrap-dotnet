@@ -17,13 +17,13 @@ public record DispositionType
     /// <summary>
     /// Results in the attached file displayed automatically within the message
     /// </summary>
-    public static DispositionType Inline { get; } = new("inline");
+    public static DispositionType Inline { get; } = new(DispositionTypeNames.Inline);
 
     /// <summary>
     /// Results in the attached file require some action to be taken before it is displayed,
     /// such as opening or downloading the file.
     /// </summary>
-    public static DispositionType Attachment { get; } = new("attachment");
+    public static DispositionType Attachment { get; } = new(DispositionTypeNames.Attachment);
 
 
     private readonly string _value;

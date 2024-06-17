@@ -82,7 +82,7 @@ internal sealed class AttachmentTests
         var content = "Content";
         var fileName = "FileName";
         var disposition = DispositionType.Inline;
-        var mimeType = "MimeType";
+        var mimeType = MediaTypeNames.Image.Png;
         var contentId = "ID";
 
         var attachment = new Attachment(content, fileName, disposition, mimeType, contentId);
@@ -100,7 +100,7 @@ internal sealed class AttachmentTests
         var content = "Content";
         var fileName = "FileName";
         var disposition = DispositionType.Inline;
-        var mimeType = "MimeType";
+        var mimeType = MediaTypeNames.Image.Png;
         var contentId = "ID";
 
         var attachment = new Attachment(content, fileName, disposition, mimeType, contentId);

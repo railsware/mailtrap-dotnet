@@ -25,13 +25,14 @@ internal sealed class DispositionTypeJsonConverter : JsonConverter<DispositionTy
         if (reader.TokenType == JsonTokenType.String)
         {
             var stringValue = reader.GetString() ?? string.Empty;
+            var comparison = options.PropertyNameCaseInsensitive ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
 
-            if (string.Equals(stringValue, DispositionType.Inline.ToString(), StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(stringValue, DispositionType.Inline.ToString(), comparison))
             {
                 return DispositionType.Inline;
             }
 
-            if (string.Equals(stringValue, DispositionType.Attachment.ToString(), StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(stringValue, DispositionType.Attachment.ToString(), comparison))
             {
                 return DispositionType.Attachment;
             }

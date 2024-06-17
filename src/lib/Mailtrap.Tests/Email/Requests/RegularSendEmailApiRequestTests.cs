@@ -11,10 +11,10 @@ namespace Mailtrap.Tests.Email.Requests;
 [TestFixture]
 internal sealed class RegularSendEmailApiRequestTests
 {
-    private readonly EmailParty _sender = new("sender@domain.com", "Sender");
-    private readonly EmailParty _recipient1 = new("recipient1@domain.com", "Recipient 1");
-    //private readonly EmailParty _recipient2 = new("recipient2@domain.com", "Recipient 2");
-    private readonly string _subject = "Email Subject";
+    private EmailParty _sender { get; } = new("sender@domain.com", "Sender");
+    private EmailParty _recipient1 { get; } = new("recipient1@domain.com", "Recipient 1");
+    private string _subject { get; } = "Email Subject";
+
 
 
     [Test]
