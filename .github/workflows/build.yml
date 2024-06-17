@@ -24,7 +24,7 @@ jobs:
 
     env:
       SOLUTION_FILE_PATH: './src/Mailtrap.sln'
-      TEST_SETTINGS_FILE_PATH: './src/test.runsettings'
+      TEST_SETTINGS_FILE_PATH: './src/tests.runsettings'
       TEST_RESULTS_DIR: './artifacts/test-results'
 
     strategy:
