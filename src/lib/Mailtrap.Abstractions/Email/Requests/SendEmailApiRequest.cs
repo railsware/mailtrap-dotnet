@@ -9,7 +9,7 @@ namespace Mailtrap.Email.Requests;
 
 
 /// <summary>
-/// Generic request for sending emails
+/// Abstract request object for send email API calls.
 /// </summary>
 public abstract record SendEmailApiRequest
 {
@@ -98,12 +98,12 @@ public abstract record SendEmailApiRequest
 
 
     /// <summary>
-    /// Parameterless constructor to be used in builder helper
+    /// Parameterless constructor to be used in builder helper.
     /// </summary>
     protected SendEmailApiRequest() { }
 
     /// <summary>
-    /// Primary constructor with required parameters
+    /// Primary constructor with required parameters.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="recipient"></param>

@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.Tests.Email.Models;
 
 
@@ -23,11 +22,11 @@ internal sealed class DispositionTypeTests
     {
         var disposition = DispositionType.Inline;
 
-        var serialized = JsonSerializer.Serialize(disposition, GlobalJsonSerializerOptions.NotIndented);
+        var serialized = JsonSerializer.Serialize(disposition, MailtrapJsonSerializerOptions.NotIndented);
 
-        serialized.Should().Be("\"" + DispositionType.Inline.ToString() + "\"");
+        serialized.Should().Be(DispositionType.Inline.ToString().Quoted());
 
-        var deserialized = JsonSerializer.Deserialize<DispositionType>(serialized, GlobalJsonSerializerOptions.NotIndented);
+        var deserialized = JsonSerializer.Deserialize<DispositionType>(serialized, MailtrapJsonSerializerOptions.NotIndented);
 
         deserialized.Should().BeEquivalentTo(disposition);
     }
@@ -37,11 +36,11 @@ internal sealed class DispositionTypeTests
     {
         var disposition = DispositionType.Attachment;
 
-        var serialized = JsonSerializer.Serialize(disposition, GlobalJsonSerializerOptions.NotIndented);
+        var serialized = JsonSerializer.Serialize(disposition, MailtrapJsonSerializerOptions.NotIndented);
 
-        serialized.Should().Be("\"" + DispositionType.Attachment.ToString() + "\"");
+        serialized.Should().Be(DispositionType.Attachment.ToString().Quoted());
 
-        var deserialized = JsonSerializer.Deserialize<DispositionType>(serialized, GlobalJsonSerializerOptions.NotIndented);
+        var deserialized = JsonSerializer.Deserialize<DispositionType>(serialized, MailtrapJsonSerializerOptions.NotIndented);
 
         deserialized.Should().BeEquivalentTo(disposition);
     }

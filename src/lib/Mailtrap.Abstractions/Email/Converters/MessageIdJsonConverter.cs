@@ -9,7 +9,7 @@ namespace Mailtrap.Email.Converters;
 
 
 /// <summary>
-/// Custom JSON converter to be used for <see cref="MessageId"/>
+/// Custom JSON converter to be used for <see cref="MessageId"/>.
 /// </summary>
 internal sealed class MessageIdJsonConverter : JsonConverter<MessageId>
 {
@@ -19,8 +19,7 @@ internal sealed class MessageIdJsonConverter : JsonConverter<MessageId>
     {
         return reader.TokenType switch
         {
-            JsonTokenType.Null => MessageId.Empty,
-            JsonTokenType.String => new MessageId(reader.GetString() ?? string.Empty),
+            JsonTokenType.Null or JsonTokenType.String => new MessageId(reader.GetString() ?? string.Empty),
             _ => throw new JsonException($"Unsupported token type: {reader.TokenType}")
         };
     }

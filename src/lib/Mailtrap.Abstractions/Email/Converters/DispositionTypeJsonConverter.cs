@@ -9,7 +9,7 @@ namespace Mailtrap.Email.Converters;
 
 
 /// <summary>
-/// Custom JSON converter to be used for <see cref="DispositionType"/>
+/// Custom JSON converter to be used for <see cref="DispositionType"/>.
 /// </summary>
 internal sealed class DispositionTypeJsonConverter : JsonConverter<DispositionType>
 {
@@ -24,7 +24,7 @@ internal sealed class DispositionTypeJsonConverter : JsonConverter<DispositionTy
 
         if (reader.TokenType == JsonTokenType.String)
         {
-            var stringValue = reader.GetString() ?? string.Empty;
+            var stringValue = reader.GetString();
             var comparison = options.PropertyNameCaseInsensitive ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
 
             if (string.Equals(stringValue, DispositionType.Inline.ToString(), comparison))

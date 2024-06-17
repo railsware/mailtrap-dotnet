@@ -9,7 +9,7 @@ namespace Mailtrap.Email.Models;
 
 
 /// <summary>
-/// Record containing email attachment details
+/// Record containing email attachment details.
 /// </summary>
 public record Attachment
 {

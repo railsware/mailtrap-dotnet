@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.Tests.Email.Requests;
 
 
@@ -65,7 +64,7 @@ internal sealed class RegularSendEmailApiRequestTests
             .WithRecipient("bill.hero@galaxy.com")
             .WithTextBody("Dear Bill, It will be a great pleasure to see you on our blue planet next weekend. Best regards, John.");
 
-        var serialized = JsonSerializer.Serialize(request, GlobalJsonSerializerOptions.NotIndented);
+        var serialized = JsonSerializer.Serialize(request, MailtrapJsonSerializerOptions.NotIndented);
 
         // TODO: Find more stable way to assert JSON serialization.
         serialized.Should().Be(
@@ -81,7 +80,7 @@ internal sealed class RegularSendEmailApiRequestTests
                 "\"text\":\"Dear Bill, It will be a great pleasure to see you on our blue planet next weekend. Best regards, John.\"" +
             "}");
 
-        var deserialized = JsonSerializer.Deserialize<RegularSendEmailApiRequest>(serialized, GlobalJsonSerializerOptions.NotIndented);
+        var deserialized = JsonSerializer.Deserialize<RegularSendEmailApiRequest>(serialized, MailtrapJsonSerializerOptions.NotIndented);
 
         deserialized.Should().BeEquivalentTo(request);
     }

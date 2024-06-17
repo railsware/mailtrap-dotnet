@@ -9,7 +9,7 @@ namespace Mailtrap.Email.Responses;
 
 
 /// <summary>
-/// Mailtrap API send email call response object
+/// Mailtrap API send email call response object.
 /// </summary>
 public record SendEmailApiResponse : ApiResponse<IList<string>>
 {
@@ -22,7 +22,7 @@ public record SendEmailApiResponse : ApiResponse<IList<string>>
 
 
     /// <summary>
-    /// Primary constructor with required parameters
+    /// Primary constructor with required parameters.
     /// </summary>
     /// <param name="isSuccess">A flag indicating whether the response describes success or failure.</param>
     /// <param name="messageIds">A collection of <see cref="MessageId"/> objects</param>

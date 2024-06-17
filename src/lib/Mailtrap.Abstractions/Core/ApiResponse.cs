@@ -9,7 +9,7 @@ namespace Mailtrap.Core;
 
 
 /// <summary>
-/// Generic Mailtrap API response object
+/// Generic Mailtrap API response object.
 /// </summary>
 public record ApiResponse<TError>
 {

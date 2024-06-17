@@ -9,7 +9,7 @@ namespace Mailtrap.Email.Requests;
 
 
 /// <summary>
-/// Request for sending email using predefined templates
+/// Request for sending email using predefined templates.
 /// </summary>
 public record TemplatedSendEmailApiRequest : SendEmailApiRequest
 {
@@ -41,7 +41,7 @@ public record TemplatedSendEmailApiRequest : SendEmailApiRequest
     public TemplatedSendEmailApiRequest() { }
 
     /// <summary>
-    /// Primary constructor with required parameters
+    /// Primary constructor with required parameters.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="recipient"></param>

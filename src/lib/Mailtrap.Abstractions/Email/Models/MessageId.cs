@@ -9,7 +9,7 @@ namespace Mailtrap.Email.Models;
 
 
 /// <summary>
-/// Represents MessageId value returned from the API
+/// Represents MessageId value returned from the API.
 /// </summary>
 [JsonConverter(typeof(MessageIdJsonConverter))]
 public record MessageId
@@ -40,18 +40,6 @@ public record MessageId
         _value = value;
     }
 
-
-    /// <summary>
-    /// Construct a <see cref="MessageId"/> from the specified string value.
-    /// </summary>
-    /// <param name="value">The string value that represents a MessageId.</param>
-    public static explicit operator MessageId(string value) => new(value);
-
-    /// <summary>
-    /// Construct a <see cref="MessageId"/> from the specified string value.
-    /// </summary>
-    /// <param name="value">The string value that represents a MessageId.</param>
-    public static MessageId ToMessageId(string value) => new(value);
 
     /// <inheritdoc/>
     public override string ToString() => _value;

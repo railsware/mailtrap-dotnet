@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.Tests.Email.Models;
 
 
@@ -105,7 +104,7 @@ internal sealed class AttachmentTests
 
         var attachment = new Attachment(content, fileName, disposition, mimeType, contentId);
 
-        var serialized = JsonSerializer.Serialize(attachment, GlobalJsonSerializerOptions.NotIndented);
+        var serialized = JsonSerializer.Serialize(attachment, MailtrapJsonSerializerOptions.NotIndented);
 
         // This straightforward JSON assertion is quite fragile,
         // since depends on the order of properties in the JSON string.
@@ -121,7 +120,7 @@ internal sealed class AttachmentTests
                 "\"content_id\":\"" + contentId + "\"" +
             "}");
 
-        var deserialized = JsonSerializer.Deserialize<Attachment>(serialized, GlobalJsonSerializerOptions.NotIndented);
+        var deserialized = JsonSerializer.Deserialize<Attachment>(serialized, MailtrapJsonSerializerOptions.NotIndented);
 
         deserialized.Should().BeEquivalentTo(attachment);
     }

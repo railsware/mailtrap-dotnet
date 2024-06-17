@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.Tests.Email.Models;
 
 
@@ -58,16 +57,16 @@ internal sealed class EmailPartyTests
 
         var party = new EmailParty(email, displayName);
 
-        var serialized = JsonSerializer.Serialize(party, GlobalJsonSerializerOptions.NotIndented);
+        var serialized = JsonSerializer.Serialize(party, MailtrapJsonSerializerOptions.NotIndented);
 
         // TODO: Find more stable way to assert JSON serialization.
         serialized.Should().Be(
         "{" +
-            "\"email\":\"" + email + "\"," +
-            "\"name\":\"" + displayName + "\"" +
+            "email".Quoted() + ":" + email.Quoted() + "," +
+            "name".Quoted() + ":" + displayName.Quoted() +
         "}");
 
-        var deserialized = JsonSerializer.Deserialize<EmailParty>(serialized, GlobalJsonSerializerOptions.NotIndented);
+        var deserialized = JsonSerializer.Deserialize<EmailParty>(serialized, MailtrapJsonSerializerOptions.NotIndented);
 
         deserialized.Should().BeEquivalentTo(party);
     }

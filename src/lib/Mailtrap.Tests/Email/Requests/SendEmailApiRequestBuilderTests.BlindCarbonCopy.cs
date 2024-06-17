@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SendEmailApiRequestBuilderTests.Recipient.cs" company="Railsware Products Studio, LLC">
+// <copyright file="SendEmailApiRequestBuilderTests.BlindCarbonCopy.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------

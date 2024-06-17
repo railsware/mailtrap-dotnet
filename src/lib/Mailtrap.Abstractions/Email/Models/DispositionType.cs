@@ -15,7 +15,7 @@ namespace Mailtrap.Email.Models;
 public record DispositionType
 {
     /// <summary>
-    /// Results in the attached file displayed automatically within the message
+    /// Results in the attached file displayed automatically within the message.
     /// </summary>
     public static DispositionType Inline { get; } = new(DispositionTypeNames.Inline);
 

@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.Tests.Email.Requests;
 
 
@@ -62,7 +61,7 @@ internal sealed class TemplatedSendEmailApiRequestTests
             .WithRecipient("bill.hero@galaxy.com")
             .WithTemplate("ID");
 
-        var serialized = JsonSerializer.Serialize(request, GlobalJsonSerializerOptions.NotIndented);
+        var serialized = JsonSerializer.Serialize(request, MailtrapJsonSerializerOptions.NotIndented);
 
         // TODO: Find more stable way to assert JSON serialization.
         serialized.Should().Be(
@@ -77,7 +76,7 @@ internal sealed class TemplatedSendEmailApiRequestTests
                 "\"template_uuid\":\"ID\"" +
             "}");
 
-        var deserialized = JsonSerializer.Deserialize<TemplatedSendEmailApiRequest>(serialized, GlobalJsonSerializerOptions.NotIndented);
+        var deserialized = JsonSerializer.Deserialize<TemplatedSendEmailApiRequest>(serialized, MailtrapJsonSerializerOptions.NotIndented);
 
         deserialized.Should().BeEquivalentTo(request);
     }

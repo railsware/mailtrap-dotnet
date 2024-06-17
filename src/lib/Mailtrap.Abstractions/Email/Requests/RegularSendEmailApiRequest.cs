@@ -9,7 +9,7 @@ namespace Mailtrap.Email.Requests;
 
 
 /// <summary>
-/// Request for sending email with html and(or) plain text body
+/// Request for sending email with html and(or) plain text body.
 /// </summary>
 public record RegularSendEmailApiRequest : SendEmailApiRequest
 {
@@ -61,7 +61,7 @@ public record RegularSendEmailApiRequest : SendEmailApiRequest
     public RegularSendEmailApiRequest() { }
 
     /// <summary>
-    /// Primary constructor with required parameters
+    /// Primary constructor with required parameters.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="recipient"></param>

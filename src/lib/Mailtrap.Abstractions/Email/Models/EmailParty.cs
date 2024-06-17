@@ -9,7 +9,7 @@ namespace Mailtrap.Email.Models;
 
 
 /// <summary>
-/// Represents sender's or recipient's email address and name tuple, that can be used in From, To, CC or BCC parameters
+/// Represents sender's or recipient's email address and name tuple, that can be used in From, To, CC or BCC parameters.
 /// </summary>
 public record EmailParty
 {
@@ -35,10 +35,10 @@ public record EmailParty
 
 
     /// <summary>
-    /// Primary constructor. Creates a new <see cref="EmailParty"/> instance with provided parameters
+    /// Primary constructor. Creates a new <see cref="EmailParty"/> instance with provided parameters.
     /// </summary>
-    /// <param name="emailAddress">Required. </param>
-    /// <param name="displayName"></param>
+    /// <param name="emailAddress">Required.</param>
+    /// <param name="displayName">Optional.</param>
     /// <exception cref="ArgumentNullException"></exception>
     public EmailParty(string emailAddress, string? displayName = default)
     {

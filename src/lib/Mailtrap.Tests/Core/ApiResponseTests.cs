@@ -27,6 +27,8 @@ internal sealed class ApiResponseTests
         var response = new ApiResponse<string>(false, errorMessage);
 
         response.IsSuccess.Should().BeFalse();
-        response.ErrorData.Should().Be(errorMessage);
+        response.ErrorData.Should()
+            .BeOfType<string>().And
+            .Be(errorMessage);
     }
 }

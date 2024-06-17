@@ -53,7 +53,7 @@ internal sealed class SendEmailApiResponseTests
                 "]" +
             "}";
 
-        var response = JsonSerializer.Deserialize<SendEmailApiResponse>(responseText, GlobalJsonSerializerOptions.NotIndented);
+        var response = JsonSerializer.Deserialize<SendEmailApiResponse>(responseText, MailtrapJsonSerializerOptions.NotIndented);
 
         response.Should().NotBeNull();
         response!.IsSuccess.Should().BeTrue();
@@ -77,7 +77,7 @@ internal sealed class SendEmailApiResponseTests
                 "]" +
             "}";
 
-        var response = JsonSerializer.Deserialize<SendEmailApiResponse>(responseText, GlobalJsonSerializerOptions.NotIndented);
+        var response = JsonSerializer.Deserialize<SendEmailApiResponse>(responseText, MailtrapJsonSerializerOptions.NotIndented);
 
         response.Should().NotBeNull();
         response!.IsSuccess.Should().BeFalse();

@@ -8,6 +8,9 @@
 namespace Mailtrap.Core;
 
 
+/// <summary>
+/// A set of helpers for managing collections.
+/// </summary>
 internal static class CollectionExtensions
 {
     internal static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)

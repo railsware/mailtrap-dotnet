@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.Configuration;
 
 
@@ -14,9 +13,8 @@ internal static class MailtrapApiClientSerializationOptionsExtensions
     {
         Ensure.NotNull(options, nameof(options));
 
-        return new JsonSerializerOptions()
+        return new JsonSerializerOptions(MailtrapJsonSerializerOptions.Default)
         {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             WriteIndented = options.PrettyJson
         };
     }
