@@ -113,11 +113,11 @@ internal sealed class AttachmentTests
         // TODO: Find more stable way to assert JSON serialization.
         serialized.Should().Be(
             "{" +
-                "\"content\":\"" + content + "\"," +
-                "\"filename\":\"" + fileName + "\"," +
-                "\"disposition\":\"" + DispositionType.Inline.ToString() + "\"," +
-                "\"type\":\"" + mimeType + "\"," +
-                "\"content_id\":\"" + contentId + "\"" +
+                "content".Quoted() + ":" + content.Quoted() + "," +
+                "filename".Quoted() + ":" + fileName.Quoted() + "," +
+                "disposition".Quoted() + ":" + DispositionType.Inline.ToString().Quoted() + "," +
+                "type".Quoted() + ":" + mimeType.Quoted() + "," +
+                "content_id".Quoted() + ":" + contentId.Quoted() + "" +
             "}");
 
         var deserialized = JsonSerializer.Deserialize<Attachment>(serialized, MailtrapJsonSerializerOptions.NotIndented);

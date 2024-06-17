@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+
 namespace Mailtrap.Tests.Email.Models;
 
 
@@ -51,6 +52,16 @@ internal sealed class MessageIdTests
         var messageId1 = new MessageId(id1);
 
         return messageId1.Equals(new MessageId(id2));
+    }
+
+    [TestCase("", ExpectedResult = false)]
+    [TestCase("123", ExpectedResult = false)]
+    [SuppressMessage("Maintainability", "CA1508:Avoid dead conditional code", Justification = "Required for code coverage")]
+    public bool Equals_ShouldWorkCorrectly_WhenSecondIsNull(string id)
+    {
+        var messageId = new MessageId(id);
+
+        return messageId.Equals(null);
     }
 
     [Test]

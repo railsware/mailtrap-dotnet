@@ -190,8 +190,11 @@ dotnet_diagnostic.CA1805.severity = suggestion
 dotnet_code_quality.CA1062.null_check_validation_methods = NotNull|NotNullOrEmpty
 
 
-[*.{csproj,vbproj,proj,nativeproj,locproj}]
+
+# XML files
+[*.{csproj,vbproj,proj,nativeproj,locproj,props,runsettings}]
 charset = utf-8
+indent_size = 2
 
 # YAML config files
 [*.{yml,yaml}]
