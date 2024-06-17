@@ -1,4 +1,4 @@
-name: Default CI
+name: Build and Test
 
 on:
   workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
@@ -24,6 +24,7 @@ jobs:
 
     env:
       SOLUTION_FILE_PATH: './src/Mailtrap.sln'
+      TEST_SETTINGS_FILE_PATH: './src/tests.runsettings'
       TEST_RESULTS_DIR: './artifacts/test-results'
 
     strategy:
@@ -59,7 +60,7 @@ jobs:
         path: './artifacts/bin'          
 
     - name: Test
-      run: dotnet test ${{ env.SOLUTION_FILE_PATH }} --configuration ${{ matrix.configuration }} --results-directory ${{ env.TEST_RESULTS_DIR }} --collect "XPlat Code Coverage" --no-build --verbosity normal
+      run: dotnet test ${{ env.SOLUTION_FILE_PATH }} --configuration ${{ matrix.configuration }} --settings ${{ env.TEST_SETTINGS_FILE_PATH }} --results-directory ${{ env.TEST_RESULTS_DIR }} --collect "XPlat Code Coverage" --no-build --verbosity normal
 
     # https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Publish Artifacts - Test Results

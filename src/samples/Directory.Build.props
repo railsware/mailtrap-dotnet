@@ -1,0 +1,7 @@
+<Project>
+  
+  <Import Project="..\Directory.Build.props" />
+
+  <Import Project="$(BuildConfigurationDirectory)mailtrap-sample.props" />
+  
+</Project>
