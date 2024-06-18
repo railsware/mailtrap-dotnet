@@ -66,7 +66,6 @@ public static partial class SendEmailApiRequestBuilder
     public static T WithRecipients<T>(this T request, params EmailParty[] recipients) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
-        Ensure.NotNull(recipients, nameof(recipients));
 
         request.Recipients.AddRange(recipients);
 
@@ -109,7 +108,6 @@ public static partial class SendEmailApiRequestBuilder
     public static T WithCopies<T>(this T request, params EmailParty[] recipients) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
-        Ensure.NotNull(recipients, nameof(recipients));
 
         request.CarbonCopies.AddRange(recipients);
 
@@ -152,7 +150,6 @@ public static partial class SendEmailApiRequestBuilder
     public static T WithBlindCopies<T>(this T request, params EmailParty[] recipients) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
-        Ensure.NotNull(recipients, nameof(recipients));
 
         request.BlindCarbonCopies.AddRange(recipients);
 
@@ -195,7 +192,6 @@ public static partial class SendEmailApiRequestBuilder
     public static T WithAttachments<T>(this T request, params Attachment[] attachments) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
-        Ensure.NotNull(attachments, nameof(attachments));
 
         request.Attachments.AddRange(attachments);
 
@@ -229,6 +225,96 @@ public static partial class SendEmailApiRequestBuilder
         Ensure.NotNull(request, nameof(request));
 
         return request.WithAttachment(new Attachment(content, filename, dispositionType, mimeType, contentId));
+    }
+
+    #endregion
+
+
+
+    #region Headers
+
+    /// <summary>
+    /// Adds provided collection of headers to the request.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static T WithHeaders<T>(this T request, params KeyValuePair<string, string>[] headers) where T : SendEmailApiRequest
+    {
+        Ensure.NotNull(request, nameof(request));
+
+        request.Headers.AddRange(headers);
+
+        return request;
+    }
+
+    /// <summary>
+    /// Adds provided header to the request.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static T WithHeader<T>(this T request, KeyValuePair<string, string> header) where T : SendEmailApiRequest
+    {
+        Ensure.NotNull(request, nameof(request));
+
+        request.Headers.Add(header);
+
+        return request;
+    }
+
+    /// <summary>
+    /// Adds provided header to the request.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static T WithHeader<T>(this T request, string key, string value) where T : SendEmailApiRequest
+    {
+        Ensure.NotNull(request, nameof(request));
+
+        request.Headers.Add(key, value);
+
+        return request;
+    }
+
+    #endregion
+
+
+
+    #region Custom Variables
+
+    /// <summary>
+    /// Adds provided collection of custom variables to the request.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static T WithCustomVariables<T>(this T request, params KeyValuePair<string, string>[] variables) where T : SendEmailApiRequest
+    {
+        Ensure.NotNull(request, nameof(request));
+
+        request.CustomVariables.AddRange(variables);
+
+        return request;
+    }
+
+    /// <summary>
+    /// Adds provided variable to the request.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static T WithCustomVariable<T>(this T request, KeyValuePair<string, string> variable) where T : SendEmailApiRequest
+    {
+        Ensure.NotNull(request, nameof(request));
+
+        request.CustomVariables.Add(variable);
+
+        return request;
+    }
+
+    /// <summary>
+    /// Adds provided variable to the request.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static T WithCustomVariable<T>(this T request, string key, string value) where T : SendEmailApiRequest
+    {
+        Ensure.NotNull(request, nameof(request));
+
+        request.CustomVariables.Add(key, value);
+
+        return request;
     }
 
     #endregion
