@@ -156,6 +156,15 @@ internal sealed class SendEmailApiRequestBuilderTests_BlindCarbonCopy
 
 
     #region WithBlindCopy(email, displayName)
+    [Test]
+    public void WithBlindCopy_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
+    {
+        var request = SendEmailApiRequestBuilder.Create<RegularSendEmailApiRequest>();
+
+        var act = () => SendEmailApiRequestBuilder.WithBlindCopy<RegularSendEmailApiRequest>(null!, RecipientEmail);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
 
     [Test]
     public void WithBlindCopy_ShouldThrowArgumentNullException_WhenRecipientEmailIsNull()

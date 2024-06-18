@@ -156,6 +156,15 @@ internal sealed class SendEmailApiRequestBuilderTests_Recipient
 
 
     #region WithRecipient(email, displayName)
+    [Test]
+    public void WithRecipient_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
+    {
+        var request = SendEmailApiRequestBuilder.Create<RegularSendEmailApiRequest>();
+
+        var act = () => SendEmailApiRequestBuilder.WithRecipient<RegularSendEmailApiRequest>(null!, RecipientEmail);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
 
     [Test]
     public void WithRecipient_ShouldThrowArgumentNullException_WhenRecipientEmailIsNull()

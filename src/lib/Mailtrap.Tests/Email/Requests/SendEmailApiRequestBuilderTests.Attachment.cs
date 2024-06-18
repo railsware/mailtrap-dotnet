@@ -158,6 +158,16 @@ internal sealed class SendEmailApiRequestBuilderTests_Attachment
     #region WithAttachment(content, fileName, disposition, mimeType, contentId)
 
     [Test]
+    public void WithAttachment_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
+    {
+        var request = SendEmailApiRequestBuilder.Create<RegularSendEmailApiRequest>();
+
+        var act = () => SendEmailApiRequestBuilder.WithAttachment<RegularSendEmailApiRequest>(null!, Content, FileName);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
     public void WithAttachment_ShouldThrowArgumentNullException_WhenContentIsNull()
     {
         var request = SendEmailApiRequestBuilder.Create<RegularSendEmailApiRequest>();
@@ -211,8 +221,8 @@ internal sealed class SendEmailApiRequestBuilderTests_Attachment
 
     [Test, Combinatorial]
     public void WithAttachment_ShouldNotThrowException_WhenDispositionIsSetAndOtherOptionalParamsAreNullOrEmpty(
-    [Values(null, "")] string? mimeType,
-    [Values(null, "")] string? contentId)
+        [Values(null, "")] string? mimeType,
+        [Values(null, "")] string? contentId)
     {
         var request = SendEmailApiRequestBuilder.Create<RegularSendEmailApiRequest>();
 

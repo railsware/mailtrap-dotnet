@@ -11,9 +11,9 @@ namespace Mailtrap.Tests.Email.Requests;
 [TestFixture(TestOf = typeof(SendEmailApiRequestBuilder))]
 internal sealed class SendEmailApiRequestBuilderTests_Sender
 {
-    private const string SenderEmail = "sender@domain.com";
-    private const string SenderDisplayName = "Sender";
-    private readonly EmailParty _sender = new(SenderEmail, SenderDisplayName);
+    private string SenderEmail { get; } = "sender@domain.com";
+    private string SenderDisplayName { get; } = "Sender";
+    private EmailParty _sender { get; } = new("sender@domain.com", "Sender");
 
 
     #region WithSender(sender)
@@ -63,6 +63,16 @@ internal sealed class SendEmailApiRequestBuilderTests_Sender
 
 
     #region WithSender(email, displayName)
+
+    [Test]
+    public void WithSender_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
+    {
+        var request = SendEmailApiRequestBuilder.Create<RegularSendEmailApiRequest>();
+
+        var act = () => SendEmailApiRequestBuilder.WithSender<RegularSendEmailApiRequest>(null!, SenderEmail);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
 
     [Test]
     public void WithSender_ShouldThrowArgumentNullException_WhenSenderEmailIsNull()

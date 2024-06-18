@@ -236,12 +236,19 @@ public static partial class SendEmailApiRequestBuilder
     /// <summary>
     /// Adds provided collection of headers to the request.
     /// </summary>
+    /// <remarks>
+    /// Any existing headers with the same keys will be overridden.
+    /// </remarks>
     /// <exception cref="ArgumentNullException"></exception>
-    public static T WithHeaders<T>(this T request, params KeyValuePair<string, string>[] headers) where T : SendEmailApiRequest
+    public static T WithHeaders<T>(this T request, params RequestHeader[] headers) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
+        Ensure.NotNull(headers, nameof(headers));
 
-        request.Headers.AddRange(headers);
+        foreach (var header in headers)
+        {
+            request.WithHeader(header.Key, header.Value);
+        }
 
         return request;
     }
@@ -249,25 +256,32 @@ public static partial class SendEmailApiRequestBuilder
     /// <summary>
     /// Adds provided header to the request.
     /// </summary>
+    /// <remarks>
+    /// Any existing header with the same key will be overridden.
+    /// </remarks>
     /// <exception cref="ArgumentNullException"></exception>
-    public static T WithHeader<T>(this T request, KeyValuePair<string, string> header) where T : SendEmailApiRequest
+    public static T WithHeader<T>(this T request, RequestHeader header) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
 
-        request.Headers.Add(header);
+        // RequestHeader is a struct, so it can't be null
 
-        return request;
+        return request.WithHeader(header.Key, header.Value);
     }
 
     /// <summary>
     /// Adds provided header to the request.
     /// </summary>
+    /// <remarks>
+    /// Any existing header with the same key will be overridden.
+    /// </remarks>
     /// <exception cref="ArgumentNullException"></exception>
     public static T WithHeader<T>(this T request, string key, string value) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
+        Ensure.NotNullOrEmpty(key, nameof(key));
 
-        request.Headers.Add(key, value);
+        request.Headers[key] = value;
 
         return request;
     }
@@ -281,12 +295,19 @@ public static partial class SendEmailApiRequestBuilder
     /// <summary>
     /// Adds provided collection of custom variables to the request.
     /// </summary>
+    /// <remarks>
+    /// Any existing variables with the same keys will be overridden.
+    /// </remarks>
     /// <exception cref="ArgumentNullException"></exception>
-    public static T WithCustomVariables<T>(this T request, params KeyValuePair<string, string>[] variables) where T : SendEmailApiRequest
+    public static T WithCustomVariables<T>(this T request, params RequestVariable[] variables) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
+        Ensure.NotNull(variables, nameof(variables));
 
-        request.CustomVariables.AddRange(variables);
+        foreach (var variable in variables)
+        {
+            request.WithCustomVariable(variable.Key, variable.Value);
+        }
 
         return request;
     }
@@ -294,25 +315,32 @@ public static partial class SendEmailApiRequestBuilder
     /// <summary>
     /// Adds provided variable to the request.
     /// </summary>
+    /// <remarks>
+    /// Any existing variable with the same key will be overridden.
+    /// </remarks>
     /// <exception cref="ArgumentNullException"></exception>
-    public static T WithCustomVariable<T>(this T request, KeyValuePair<string, string> variable) where T : SendEmailApiRequest
+    public static T WithCustomVariable<T>(this T request, RequestVariable variable) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
 
-        request.CustomVariables.Add(variable);
+        // RequestVariable is a struct, so it can't be null
 
-        return request;
+        return request.WithCustomVariable(variable.Key, variable.Value);
     }
 
     /// <summary>
     /// Adds provided variable to the request.
     /// </summary>
+    /// <remarks>
+    /// Any existing variable with the same key will be overridden.
+    /// </remarks>
     /// <exception cref="ArgumentNullException"></exception>
     public static T WithCustomVariable<T>(this T request, string key, string value) where T : SendEmailApiRequest
     {
         Ensure.NotNull(request, nameof(request));
+        Ensure.NotNullOrEmpty(key, nameof(key));
 
-        request.CustomVariables.Add(key, value);
+        request.CustomVariables[key] = value;
 
         return request;
     }

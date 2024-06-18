@@ -158,6 +158,16 @@ internal sealed class SendEmailApiRequestBuilderTests_CarbonCopy
     #region WithCopy(email, displayName)
 
     [Test]
+    public void WithCopy_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
+    {
+        var request = SendEmailApiRequestBuilder.Create<RegularSendEmailApiRequest>();
+
+        var act = () => SendEmailApiRequestBuilder.WithCopy<RegularSendEmailApiRequest>(null!, RecipientEmail);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
     public void WithCopy_ShouldThrowArgumentNullException_WhenRecipientEmailIsNull()
     {
         var request = SendEmailApiRequestBuilder.Create<RegularSendEmailApiRequest>();
