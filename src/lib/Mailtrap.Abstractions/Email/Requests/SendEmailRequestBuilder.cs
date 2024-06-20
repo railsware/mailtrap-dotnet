@@ -18,7 +18,7 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Creates a new instance of <see cref="SendEmailRequest" /> request.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>New <see cref="SendEmailRequest"/> instance.</returns>
     public static SendEmailRequest Email() => new();
 
     #endregion
@@ -30,7 +30,9 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Sets provided sender to the request.
     /// </summary>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> or <paramref name="sender"/> is <see langword="null"/>.
+    /// </exception>
     public static SendEmailRequest From(this SendEmailRequest request, EmailAddress sender)
     {
         Ensure.NotNull(request, nameof(request));
@@ -44,7 +46,10 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Sets provided sender to the request.
     /// </summary>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> is <see langword="null"/>
+    /// or <paramref name="emailAddress"/> is <see langword="null"/> or <see cref="string.Empty"/>.
+    /// </exception>
     public static SendEmailRequest From(this SendEmailRequest request, string emailAddress, string? displayName = default)
     {
         Ensure.NotNull(request, nameof(request));
@@ -61,7 +66,9 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Adds provided collection of recipients to the request's TO collection.
     /// </summary>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> or <paramref name="recipients"/> is <see langword="null"/>.
+    /// </exception>
     public static SendEmailRequest To(this SendEmailRequest request, params EmailAddress[] recipients)
     {
         Ensure.NotNull(request, nameof(request));
@@ -74,7 +81,10 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Adds provided recipient to the request's TO collection.
     /// </summary>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> is <see langword="null"/>
+    /// or <paramref name="emailAddress"/> is <see langword="null"/> or <see cref="string.Empty"/>.
+    /// </exception>
     public static SendEmailRequest To(this SendEmailRequest request, string emailAddress, string? displayName = default)
     {
         Ensure.NotNull(request, nameof(request));
@@ -91,7 +101,9 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Adds provided collection of recipients to the request's CC collection.
     /// </summary>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> or <paramref name="recipients"/> is <see langword="null"/>.
+    /// </exception>
     public static SendEmailRequest Cc(this SendEmailRequest request, params EmailAddress[] recipients)
     {
         Ensure.NotNull(request, nameof(request));
@@ -104,7 +116,10 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Adds provided recipient to the request's CC collection.
     /// </summary>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> is <see langword="null"/>
+    /// or <paramref name="emailAddress"/> is <see langword="null"/> or <see cref="string.Empty"/>.
+    /// </exception>
     public static SendEmailRequest Cc(this SendEmailRequest request, string emailAddress, string? displayName = default)
     {
         Ensure.NotNull(request, nameof(request));
@@ -121,7 +136,9 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Adds provided collection of recipients to the request's BCC collection.
     /// </summary>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> or <paramref name="recipients"/> is <see langword="null"/>.
+    /// </exception>
     public static SendEmailRequest Bcc(this SendEmailRequest request, params EmailAddress[] recipients)
     {
         Ensure.NotNull(request, nameof(request));
@@ -134,7 +151,10 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Adds provided recipient to the request's BCC collection.
     /// </summary>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> is <see langword="null"/>
+    /// or <paramref name="emailAddress"/> is <see langword="null"/> or <see cref="string.Empty"/>.
+    /// </exception>
     public static SendEmailRequest Bcc(this SendEmailRequest request, string emailAddress, string? displayName = default)
     {
         Ensure.NotNull(request, nameof(request));
@@ -151,7 +171,9 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Adds provided collection of attachments to the request's attacments collection.
     /// </summary>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> or <paramref name="attachments"/> is <see langword="null"/>.
+    /// </exception>
     public static SendEmailRequest Attach(this SendEmailRequest request, params Attachment[] attachments)
     {
         Ensure.NotNull(request, nameof(request));
@@ -164,7 +186,11 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Adds provided attachment to the request's attacments collection.
     /// </summary>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> is <see langword="null"/>
+    /// or <paramref name="content"/> is <see langword="null"/> or <see cref="string.Empty"/>
+    /// or <paramref name="filename"/> is <see langword="null"/> or <see cref="string.Empty"/>.
+    /// </exception>
     public static SendEmailRequest Attach(this SendEmailRequest request,
         string content,
         string filename,
@@ -189,7 +215,9 @@ public static partial class SendEmailRequestBuilder
     /// <remarks>
     /// Any existing headers with the same keys will be overridden.
     /// </remarks>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> or <paramref name="headers"/> is <see langword="null"/>.
+    /// </exception>
     public static SendEmailRequest Header(this SendEmailRequest request, params RequestHeader[] headers)
     {
         Ensure.NotNull(request, nameof(request));
@@ -209,7 +237,10 @@ public static partial class SendEmailRequestBuilder
     /// <remarks>
     /// Any existing header with the same key will be overridden.
     /// </remarks>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> is <see langword="null"/>
+    /// or <paramref name="key"/> is <see langword="null"/> or <see cref="string.Empty"/>.
+    /// </exception>
     public static SendEmailRequest Header(this SendEmailRequest request, string key, string value)
     {
         Ensure.NotNull(request, nameof(request));
@@ -232,7 +263,9 @@ public static partial class SendEmailRequestBuilder
     /// <remarks>
     /// Any existing variables with the same keys will be overridden.
     /// </remarks>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> or <paramref name="variables"/> is <see langword="null"/>.
+    /// </exception>
     public static SendEmailRequest CustomVariable(this SendEmailRequest request, params RequestVariable[] variables)
     {
         Ensure.NotNull(request, nameof(request));
@@ -252,7 +285,10 @@ public static partial class SendEmailRequestBuilder
     /// <remarks>
     /// Any existing variable with the same key will be overridden.
     /// </remarks>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> is <see langword="null"/>
+    /// or <paramref name="key"/> is <see langword="null"/> or <see cref="string.Empty"/>.
+    /// </exception>
     public static SendEmailRequest CustomVariable(this SendEmailRequest request, string key, string value)
     {
         Ensure.NotNull(request, nameof(request));
@@ -270,6 +306,13 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Sets provided subject to the request.
     /// </summary>
+    /// <remarks>
+    /// Subject must remain <see langword="null"/> if <see cref="Template(SendEmailRequest, string)"/> is used to create email from template.
+    /// </remarks>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> is <see langword="null"/>
+    /// or <paramref name="subject"/> is <see langword="null"/> or <see cref="string.Empty"/>.
+    /// </exception>
     public static SendEmailRequest Subject(this SendEmailRequest request, string subject)
     {
         Ensure.NotNull(request, nameof(request));
@@ -283,6 +326,12 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Sets provided text to the request's text body.
     /// </summary>
+    /// <remarks>
+    /// TextBody must remain <see langword="null"/> if <see cref="Template(SendEmailRequest, string)"/> is used to create email from template.
+    /// </remarks>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> is <see langword="null"/>.
+    /// </exception>
     public static SendEmailRequest Text(this SendEmailRequest request, string? text)
     {
         Ensure.NotNull(request, nameof(request));
@@ -295,6 +344,12 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Sets provided HTML text to the request's HTML body.
     /// </summary>
+    /// <remarks>
+    /// HtmlBody must remain <see langword="null"/> if <see cref="Template(SendEmailRequest, string)"/> is used to create email from template.
+    /// </remarks>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> is <see langword="null"/>.
+    /// </exception>
     public static SendEmailRequest Html(this SendEmailRequest request, string? html)
     {
         Ensure.NotNull(request, nameof(request));
@@ -307,6 +362,12 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Sets provided category to the request.
     /// </summary>
+    /// <remarks>
+    /// Category must remain <see langword="null"/> if <see cref="Template(SendEmailRequest, string)"/> is used to create email from template.
+    /// </remarks>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> is <see langword="null"/>.
+    /// </exception>
     public static SendEmailRequest Category(this SendEmailRequest request, string? category)
     {
         Ensure.NotNull(request, nameof(request));
@@ -321,6 +382,13 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Sets provided template ID to the request.
     /// </summary>
+    /// <remarks>
+    /// If TemplateId is set, then Subject, TextBody, HtmlBody and Category properties are forbidden and must be set to <see langword="null"/>.
+    /// </remarks>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> is <see langword="null"/>
+    /// or <paramref name="templateId"/> is <see langword="null"/> or <see cref="string.Empty"/>.
+    /// </exception>
     public static SendEmailRequest Template(this SendEmailRequest request, string templateId)
     {
         Ensure.NotNull(request, nameof(request));
@@ -334,6 +402,12 @@ public static partial class SendEmailRequestBuilder
     /// <summary>
     /// Sets provided template variables object to the request.
     /// </summary>
+    /// <remarks>
+    /// Will be used only in case template is set.
+    /// </remarks>
+    /// <exception cref="ArgumentNullException">
+    /// If <paramref name="request"/> is <see langword="null"/>.
+    /// </exception>
     public static SendEmailRequest TemplateVariables(this SendEmailRequest request, object? variables)
     {
         Ensure.NotNull(request, nameof(request));

@@ -101,7 +101,8 @@ public record SendEmailRequest
     /// This may be overridden by subject lines set in personalizations.
     /// </summary>
     /// <remarks>
-    /// Required. Should be non-empty string.
+    /// Must be <see langword="null"/> if <see cref="TemplateId"/> is set.<br/>
+    /// Required in case <see cref="HtmlBody"/> and(or) <see cref="TextBody"/> is used. Should be non-empty string in this case.
     /// </remarks>
     [JsonPropertyName("subject")]
     [JsonPropertyOrder(8)]
@@ -112,7 +113,8 @@ public record SendEmailRequest
     /// Can be used along with HtmlBody to create a fallback for non-html clients.
     /// </summary>
     /// <remarks>
-    /// Required in the absence of HtmlBody.
+    /// Must be <see langword="null"/> if <see cref="TemplateId"/> is set.<br/>
+    /// Required in the absence of <see cref="HtmlBody"/>.
     /// </remarks>
     [JsonPropertyName("text")]
     [JsonPropertyOrder(9)]
@@ -123,7 +125,8 @@ public record SendEmailRequest
     /// Can be used along with HtmlBody to create a fallback for non-html clients.
     /// </summary>
     /// <remarks>
-    /// Required in the absence of TextBody.
+    /// Must be <see langword="null"/> if <see cref="TemplateId"/> is set.<br/>
+    /// Required in the absence of <see cref="TextBody"/>.
     /// </remarks>
     [JsonPropertyName("html")]
     [JsonPropertyOrder(10)]
@@ -133,7 +136,8 @@ public record SendEmailRequest
     /// The category of email.
     /// </summary>
     /// <remarks>
-    /// Optional. Must be less or equal to 255 characters.
+    /// Should be <see langword="null"/> if <see cref="TemplateId"/> is set.<br/>
+    /// Otherwise must be less or equal to 255 characters.
     /// </remarks>
     [JsonPropertyName("category")]
     [JsonPropertyOrder(11)]
@@ -146,7 +150,7 @@ public record SendEmailRequest
     /// </para>
     /// </summary>
     /// <remarks>
-    /// If provided, then subject, text and html params are forbidden.
+    /// If provided, then subject, text, html and category properties are forbidden and must be <see langword="null"/>.
     /// </remarks>
     [JsonPropertyName("template_uuid")]
     [JsonPropertyOrder(12)]
@@ -156,7 +160,7 @@ public record SendEmailRequest
     /// Optional template variables that will be used to generate actual subject, text and html from email template.
     /// </summary>
     /// <remarks>
-    /// Optional.
+    /// Optional. Will be used only in case <see cref="TemplateId"/> is set.
     /// </remarks>
     [JsonPropertyName("template_variables")]
     [JsonPropertyOrder(13)]
