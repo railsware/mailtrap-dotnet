@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SendEmailApiResponseTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="SendEmailResponseTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,12 +9,12 @@ namespace Mailtrap.Tests.Email.Responses;
 
 
 [TestFixture]
-internal sealed class SendEmailApiResponseTests
+internal sealed class SendEmailResponseTests
 {
     [Test]
     public void Constructor_ShouldDefaultFieldsCorrectly_WhenNotSpecified()
     {
-        var response = new SendEmailApiResponse(true);
+        var response = new SendEmailResponse(true);
 
         response.IsSuccess.Should().BeTrue();
         response.MessageIds.Should().BeEmpty();
@@ -26,7 +26,7 @@ internal sealed class SendEmailApiResponseTests
     {
         var messageIds = new List<MessageId> { new("1"), new("2") };
         var errorData = new List<string> { "Error 1", "Error 2" };
-        var response = new SendEmailApiResponse(true, messageIds, errorData);
+        var response = new SendEmailResponse(true, messageIds, errorData);
 
         // Assert
         response.IsSuccess.Should().BeTrue();
@@ -53,7 +53,7 @@ internal sealed class SendEmailApiResponseTests
                 "]" +
             "}";
 
-        var response = JsonSerializer.Deserialize<SendEmailApiResponse>(responseText, MailtrapJsonSerializerOptions.NotIndented);
+        var response = JsonSerializer.Deserialize<SendEmailResponse>(responseText, MailtrapJsonSerializerOptions.NotIndented);
 
         response.Should().NotBeNull();
         response!.IsSuccess.Should().BeTrue();
@@ -77,7 +77,7 @@ internal sealed class SendEmailApiResponseTests
                 "]" +
             "}";
 
-        var response = JsonSerializer.Deserialize<SendEmailApiResponse>(responseText, MailtrapJsonSerializerOptions.NotIndented);
+        var response = JsonSerializer.Deserialize<SendEmailResponse>(responseText, MailtrapJsonSerializerOptions.NotIndented);
 
         response.Should().NotBeNull();
         response!.IsSuccess.Should().BeFalse();

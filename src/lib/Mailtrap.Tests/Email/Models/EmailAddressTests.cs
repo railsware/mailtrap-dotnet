@@ -1,19 +1,20 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="EmailPartyTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="EmailAddressTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
+
 
 namespace Mailtrap.Tests.Email.Models;
 
 
 [TestFixture]
-internal sealed class EmailPartyTests
+internal sealed class EmailAddressTests
 {
     [Test]
     public void Constructor_ShouldThrowArgumentNullException_WhenEmailIsNull()
     {
-        var act = () => new EmailParty(null!);
+        var act = () => new EmailAddress(null!);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -21,7 +22,7 @@ internal sealed class EmailPartyTests
     [Test]
     public void Constructor_ShouldThrowArgumentNullException_WhenEmailIsEmptyString()
     {
-        var act = () => new EmailParty(string.Empty);
+        var act = () => new EmailAddress(string.Empty);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -32,10 +33,10 @@ internal sealed class EmailPartyTests
         var email = "john.doe@gmail.com";
         var displayName = "John Doe";
 
-        var party = new EmailParty(email, displayName);
+        var address = new EmailAddress(email, displayName);
 
-        party.EmailAddress.Should().Be(email);
-        party.DisplayName.Should().Be(displayName);
+        address.Email.Should().Be(email);
+        address.DisplayName.Should().Be(displayName);
     }
 
     [Test]
@@ -43,10 +44,10 @@ internal sealed class EmailPartyTests
     {
         var email = "john.doe@gmail.com";
 
-        var party = new EmailParty(email);
+        var address = new EmailAddress(email);
 
-        party.EmailAddress.Should().Be(email);
-        party.DisplayName.Should().BeNull();
+        address.Email.Should().Be(email);
+        address.DisplayName.Should().BeNull();
     }
 
     [Test]
@@ -55,9 +56,9 @@ internal sealed class EmailPartyTests
         var email = "john.doe@gmail.com";
         var displayName = "John Doe";
 
-        var party = new EmailParty(email, displayName);
+        var address = new EmailAddress(email, displayName);
 
-        var serialized = JsonSerializer.Serialize(party, MailtrapJsonSerializerOptions.NotIndented);
+        var serialized = JsonSerializer.Serialize(address, MailtrapJsonSerializerOptions.NotIndented);
 
         // TODO: Find more stable way to assert JSON serialization.
         serialized.Should().Be(
@@ -66,8 +67,8 @@ internal sealed class EmailPartyTests
             "name".Quoted() + ":" + displayName.Quoted() +
         "}");
 
-        var deserialized = JsonSerializer.Deserialize<EmailParty>(serialized, MailtrapJsonSerializerOptions.NotIndented);
+        var deserialized = JsonSerializer.Deserialize<EmailAddress>(serialized, MailtrapJsonSerializerOptions.NotIndented);
 
-        deserialized.Should().BeEquivalentTo(party);
+        deserialized.Should().BeEquivalentTo(address);
     }
 }

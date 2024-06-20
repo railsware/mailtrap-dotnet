@@ -19,9 +19,9 @@ public interface IMailtrapApiClient
     /// <remarks>
     /// Request is checked for validity before send. Exception is thrown if validation fails.
     /// </remarks>
-    /// <param name="request"><see cref="SendEmailApiRequest"/> object with email configuration.</param>
+    /// <param name="request"><see cref="SendEmailRequest"/> object with email configuration.</param>
     /// <param name="cancellationToken"></param>
-    /// <returns><see cref="SendEmailApiResponse"/> instance with response data.</returns>
+    /// <returns><see cref="SendEmailResponse"/> instance with response data.</returns>
     /// <example>
     ///     <code>
     ///          var client = new MailtrapEmailApiClient(&quot;https://send.api.mailtrap.io/&quot;, &quot;api-token&quot;);
@@ -40,5 +40,5 @@ public interface IMailtrapApiClient
     /// <exception cref="TaskCanceledException"/>
     /// <exception cref="OperationCanceledException"/>
     /// <exception cref="HttpRequestException"/>
-    Task<SendEmailApiResponse?> SendAsync(SendEmailApiRequest request, CancellationToken cancellationToken = default);
+    Task<SendEmailResponse?> SendAsync(SendEmailRequest request, CancellationToken cancellationToken = default);
 }

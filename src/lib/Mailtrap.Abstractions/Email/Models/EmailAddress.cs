@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="EmailParty.cs" company="Railsware Products Studio, LLC">
+// <copyright file="EmailAddress.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Mailtrap.Email.Models;
 /// <summary>
 /// Represents sender's or recipient's email address and name tuple, that can be used in From, To, CC or BCC parameters.
 /// </summary>
-public record EmailParty
+public record EmailAddress
 {
     /// <summary>
     /// Sender's or recipient's email address.
@@ -21,7 +21,7 @@ public record EmailParty
     /// </remarks>
     [JsonPropertyName("email")]
     [JsonPropertyOrder(1)]
-    public string EmailAddress { get; }
+    public string Email { get; }
 
     /// <summary>
     /// Sender's or recipient's display name.
@@ -35,16 +35,16 @@ public record EmailParty
 
 
     /// <summary>
-    /// Primary constructor. Creates a new <see cref="EmailParty"/> instance with provided parameters.
+    /// Primary constructor. Creates a new <see cref="EmailAddress"/> instance with provided parameters.
     /// </summary>
-    /// <param name="emailAddress">Required.</param>
+    /// <param name="email">Required.</param>
     /// <param name="displayName">Optional.</param>
     /// <exception cref="ArgumentNullException"></exception>
-    public EmailParty(string emailAddress, string? displayName = default)
+    public EmailAddress(string email, string? displayName = default)
     {
-        Ensure.NotNullOrEmpty(emailAddress, nameof(emailAddress));
+        Ensure.NotNullOrEmpty(email, nameof(email));
 
-        EmailAddress = emailAddress;
+        Email = email;
         DisplayName = displayName;
     }
 }

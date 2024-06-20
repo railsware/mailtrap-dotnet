@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SendEmailApiRequest.cs" company="Railsware Products Studio, LLC">
+// <copyright file="SendEmailRequest.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,22 +9,22 @@ namespace Mailtrap.Email.Requests;
 
 
 /// <summary>
-/// Abstract request object for send email API calls.
+/// Request object for send email API calls.
 /// </summary>
-public abstract record SendEmailApiRequest
+public record SendEmailRequest
 {
     /// <summary>
-    /// <see cref="EmailParty"/> instance representing email's sender.
+    /// <see cref="EmailAddress"/> instance representing email's sender.
     /// </summary>
     /// <remarks>
     /// Required.
     /// </remarks>
     [JsonPropertyName("from")]
     [JsonPropertyOrder(1)]
-    public EmailParty? Sender { get; set; }
+    public EmailAddress? From { get; set; }
 
     /// <summary>
-    /// A collection of <see cref="EmailParty"/> who will receive a copy of your email.
+    /// A collection of <see cref="EmailAddress"/> who will receive a copy of your email.
     /// </summary>
     /// <remarks>
     /// Must contain at least one recipient, but not more than 1000.<br />
@@ -34,10 +34,10 @@ public abstract record SendEmailApiRequest
     [JsonPropertyName("to")]
     [JsonPropertyOrder(2)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
-    public IList<EmailParty> Recipients { get; } = new List<EmailParty>(1); // We should always have at least one recipient
+    public IList<EmailAddress> To { get; } = [];
 
     /// <summary>
-    /// A collection of <see cref="EmailParty"/> who will receive a carbon copy of your email.
+    /// A collection of <see cref="EmailAddress"/> who will receive a carbon copy of your email.
     /// </summary>
     /// <remarks>
     /// Must contain less or equal to 1000 recipients.<br />
@@ -47,10 +47,10 @@ public abstract record SendEmailApiRequest
     [JsonPropertyName("cc")]
     [JsonPropertyOrder(3)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
-    public IList<EmailParty> CarbonCopies { get; } = [];
+    public IList<EmailAddress> Cc { get; } = [];
 
     /// <summary>
-    /// A collection of <see cref="EmailParty"/> who will receive a blind carbon copy of your email.
+    /// A collection of <see cref="EmailAddress"/> who will receive a blind carbon copy of your email.
     /// </summary>
     /// <remarks>
     /// Must contain less or equal to 1000 recipients.<br />
@@ -60,7 +60,7 @@ public abstract record SendEmailApiRequest
     [JsonPropertyName("bcc")]
     [JsonPropertyOrder(4)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
-    public IList<EmailParty> BlindCarbonCopies { get; } = [];
+    public IList<EmailAddress> Bcc { get; } = [];
 
     /// <summary>
     /// A collection of <see cref="Attachment"/> objects where you can specify any attachments you want to include.
@@ -96,24 +96,69 @@ public abstract record SendEmailApiRequest
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IDictionary<string, string> CustomVariables { get; } = new Dictionary<string, string>();
 
+    /// <summary>
+    /// The global or 'message level' subject of your email.<br />
+    /// This may be overridden by subject lines set in personalizations.
+    /// </summary>
+    /// <remarks>
+    /// Required. Should be non-empty string.
+    /// </remarks>
+    [JsonPropertyName("subject")]
+    [JsonPropertyOrder(8)]
+    public string? Subject { get; set; }
 
     /// <summary>
-    /// Parameterless constructor to be used in builder helper.
+    /// Text version of the body of the email.<br />
+    /// Can be used along with HtmlBody to create a fallback for non-html clients.
     /// </summary>
-    protected SendEmailApiRequest() { }
+    /// <remarks>
+    /// Required in the absence of HtmlBody.
+    /// </remarks>
+    [JsonPropertyName("text")]
+    [JsonPropertyOrder(9)]
+    public string? TextBody { get; set; }
 
     /// <summary>
-    /// Primary constructor with required parameters.
+    /// HTML version of the body of the email.<br />
+    /// Can be used along with HtmlBody to create a fallback for non-html clients.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="recipient"></param>
-    /// <exception cref="ArgumentNullException"></exception>
-    protected SendEmailApiRequest(EmailParty sender, EmailParty recipient)
-    {
-        Ensure.NotNull(sender, nameof(sender));
-        Ensure.NotNull(recipient, nameof(recipient));
+    /// <remarks>
+    /// Required in the absence of TextBody.
+    /// </remarks>
+    [JsonPropertyName("html")]
+    [JsonPropertyOrder(10)]
+    public string? HtmlBody { get; set; }
 
-        Sender = sender;
-        Recipients.Add(recipient);
-    }
+    /// <summary>
+    /// The category of email.
+    /// </summary>
+    /// <remarks>
+    /// Optional. Must be less or equal to 255 characters.
+    /// </remarks>
+    [JsonPropertyName("category")]
+    [JsonPropertyOrder(11)]
+    public string? Category { get; set; }
+
+    /// <summary>
+    /// UUID of email template.
+    /// <para>
+    /// Subject, text and html will be generated from template using optional template_variables.
+    /// </para>
+    /// </summary>
+    /// <remarks>
+    /// If provided, then subject, text and html params are forbidden.
+    /// </remarks>
+    [JsonPropertyName("template_uuid")]
+    [JsonPropertyOrder(12)]
+    public string? TemplateId { get; set; }
+
+    /// <summary>
+    /// Optional template variables that will be used to generate actual subject, text and html from email template.
+    /// </summary>
+    /// <remarks>
+    /// Optional.
+    /// </remarks>
+    [JsonPropertyName("template_variables")]
+    [JsonPropertyOrder(13)]
+    public object? TemplateVariables { get; set; }
 }

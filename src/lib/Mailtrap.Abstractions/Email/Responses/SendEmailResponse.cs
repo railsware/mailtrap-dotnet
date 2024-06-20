@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SendEmailApiResponse.cs" company="Railsware Products Studio, LLC">
+// <copyright file="SendEmailResponse.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Mailtrap.Email.Responses;
 /// <summary>
 /// Mailtrap API send email call response object.
 /// </summary>
-public record SendEmailApiResponse : ApiResponse<IList<string>>
+public record SendEmailResponse : MailtrapApiResponse<IList<string>>
 {
     /// <summary>
     /// List of <see cref="MessageId"/> objects, representing IDs of emails sent
@@ -27,7 +27,7 @@ public record SendEmailApiResponse : ApiResponse<IList<string>>
     /// <param name="isSuccess">A flag indicating whether the response describes success or failure.</param>
     /// <param name="messageIds">A collection of <see cref="MessageId"/> objects</param>
     /// <param name="errorData">Errors to associate with the response.</param>
-    public SendEmailApiResponse(bool isSuccess, IList<MessageId>? messageIds = default, IList<string>? errorData = default)
+    public SendEmailResponse(bool isSuccess, IList<MessageId>? messageIds = default, IList<string>? errorData = default)
         : base(isSuccess, errorData ?? [])
     {
         MessageIds = messageIds ?? [];
