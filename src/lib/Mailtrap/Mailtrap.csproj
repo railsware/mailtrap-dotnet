@@ -1,21 +1,23 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
-    <Import Project="$(BuildConfigurationDirectory)mailtrap-nuget.props" />
+  <Import Project="$(BuildConfigurationDirectory)mailtrap-nuget.props" />
 
-    <PropertyGroup>
-        <RootNamespace>Mailtrap</RootNamespace>
-        
-        <Title>Mailtrap Client</Title>
-        <PackageId>Mailtrap</PackageId>
-        <PackageTags>mailtrap; sdk; client; email; smtp</PackageTags>
-    </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>Mailtrap</RootNamespace>
 
-    <ItemGroup>        
-        <PackageReference Include="Nito.AsyncEx.Coordination" />
-    </ItemGroup>
+    <Title>Mailtrap Client</Title>
+    <PackageId>Mailtrap</PackageId>
+    <PackageTags>mailtrap; sdk; client; email; smtp</PackageTags>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="$(LibSourceDirectory)Mailtrap.Abstractions\Mailtrap.Abstractions.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Net.Http.Json" />
+    <PackageReference Include="Microsoft.Extensions.Http" />
+    <PackageReference Include="FluentValidation" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(LibSourceDirectory)Mailtrap.Abstractions\Mailtrap.Abstractions.csproj" />
+  </ItemGroup>
 
 </Project>

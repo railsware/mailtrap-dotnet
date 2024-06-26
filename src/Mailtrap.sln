@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{6FC6F44E
 	ProjectSection(SolutionItems) = preProject
 		..\Directory.Build.props = ..\Directory.Build.props
 		Directory.Build.props = Directory.Build.props
+		samples\Directory.Build.props = samples\Directory.Build.props
 		..\Directory.Packages.props = ..\Directory.Packages.props
 		..\Directory.Solution.props = ..\Directory.Solution.props
 		..\build\mailtrap-code-analysis.props = ..\build\mailtrap-code-analysis.props
@@ -31,11 +32,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{579935CA-55D2-42F6-A40F-A02E1C1E670F}"
 	ProjectSection(SolutionItems) = preProject
 		..\.editorconfig = ..\.editorconfig
+		tests.runsettings = tests.runsettings
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CD08E7CB-CD42-4721-B893-B23426FE71D8}"
 	ProjectSection(SolutionItems) = preProject
 		..\CHANGELOG.md = ..\CHANGELOG.md
+		..\LICENSE.md = ..\LICENSE.md
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
