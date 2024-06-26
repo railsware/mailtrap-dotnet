@@ -1,9 +1,10 @@
-﻿<Project>
+<Project>
 
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
     <UseCommonOutputDirectory>false</UseCommonOutputDirectory>
     <IsPackable>false</IsPackable>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,0 +1,24 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="OptionsAccessTokenProvider.cs" company="Railsware Products Studio, LLC">
+// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+
+namespace Mailtrap.Authentication;
+
+
+internal class OptionsAccessTokenProvider : IAccessTokenProvider
+{
+    private readonly string _token;
+
+    internal OptionsAccessTokenProvider(IOptions<MailtrapClientOptions> options)
+    {
+        Ensure.NotNull(options, nameof(options));
+
+        _token = options.Value.Authentication.ApiToken;
+    }
+
+    public Task<string> GetAccessTokenAsync(CancellationToken cancellationToken = default)
+        => Task.FromResult(_token);
+}

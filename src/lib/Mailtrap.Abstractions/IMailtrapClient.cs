@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IMailtrapApiClient.cs" company="Railsware Products Studio, LLC">
+// <copyright file="IMailtrapClient.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Mailtrap;
 /// <summary>
 /// Main Mailtrap API client entry point.
 /// </summary>
-public interface IMailtrapApiClient
+public interface IMailtrapClient
 {
     /// <summary>
     /// Sends provided <paramref name="request"/> to an API endpoint and returns result.
