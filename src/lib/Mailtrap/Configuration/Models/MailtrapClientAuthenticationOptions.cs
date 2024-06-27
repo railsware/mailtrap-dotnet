@@ -29,6 +29,7 @@ public record MailtrapClientAuthenticationOptions
     /// Default constructor.
     /// </summary>
     /// <param name="apiToken">Required.</param>
+    /// <exception cref="ArgumentNullException">When <paramref name="apiToken"/> is <see langword="null"/></exception>
     public MailtrapClientAuthenticationOptions(string apiToken)
     {
         Ensure.NotNull(apiToken, nameof(apiToken));

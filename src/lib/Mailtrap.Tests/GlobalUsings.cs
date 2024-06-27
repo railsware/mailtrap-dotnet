@@ -15,6 +15,7 @@ global using Microsoft.Extensions.Options;
 
 global using NUnit.Framework;
 global using FluentAssertions;
+global using FluentValidation;
 global using FluentValidation.TestHelper;
 global using Moq;
 //global using RichardSzalay.MockHttp;

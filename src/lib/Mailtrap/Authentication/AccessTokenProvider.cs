@@ -19,7 +19,7 @@ internal class AccessTokenProvider : IAccessTokenProvider
     public AccessTokenProvider(IOptions<MailtrapClientOptions> options)
     {
         Ensure.NotNull(options, nameof(options));
-        Ensure.NotNullOrEmpty(options.Value.Authentication.ApiToken, nameof(options));
+        Ensure.NotNullOrEmpty(options.Value.Authentication.ApiToken, nameof(MailtrapClientOptions.Authentication.ApiToken));
 
         _token = options.Value.Authentication.ApiToken;
     }

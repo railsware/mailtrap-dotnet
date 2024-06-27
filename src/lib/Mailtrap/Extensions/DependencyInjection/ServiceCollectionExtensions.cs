@@ -102,7 +102,7 @@ public static class ServiceCollectionExtensions
 
         services.AddOptions();
 
-        services.TryAddSingleton<IMailtrapClientConfigurationProvider, OptionsMailtrapClientConfigurationProvider>();
+        services.TryAddSingleton<IMailtrapClientConfigurationProvider, MailtrapClientConfigurationProvider>();
         services.TryAddSingleton<IAccessTokenProvider, AccessTokenProvider>();
         services.TryAddSingleton<IHttpRequestMessageAuthenticationProvider, ApiKeyHttpRequestMessageAuthenticationProvider>();
 

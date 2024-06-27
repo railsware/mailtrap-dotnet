@@ -20,7 +20,7 @@ internal sealed class ApiKeyHttpRequestMessageAuthenticationProviderTests
     }
 
     [Test]
-    public async Task ApplyPolicyAsync_ShouldThrowArgumentNullException_WhenRequestIsNull()
+    public async Task AuthenticateAsync_ShouldThrowArgumentNullException_WhenRequestIsNull()
     {
         var tokenProviderMock = new Mock<IAccessTokenProvider>();
         var policy = new ApiKeyHttpRequestMessageAuthenticationProvider(tokenProviderMock.Object);
@@ -31,17 +31,21 @@ internal sealed class ApiKeyHttpRequestMessageAuthenticationProviderTests
     }
 
     [Test]
-    public async Task ApplyPolicyAsync_ShouldApplyHeaders()
+    public async Task AuthenticateAsync_ShouldApplyAuthenticationHeader()
     {
-        using var request = new HttpRequestMessage();
-
         var token = "token";
         var tokenProviderMock = new Mock<IAccessTokenProvider>();
-        tokenProviderMock.Setup(x => x.GetAccessTokenAsync(It.IsAny<CancellationToken>()))
+        tokenProviderMock
+            .Setup(x => x.GetAccessTokenAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(token);
         var policy = new ApiKeyHttpRequestMessageAuthenticationProvider(tokenProviderMock.Object);
 
-        await policy.AuthenticateAsync(request).ConfigureAwait(false);
+        using var request = new HttpRequestMessage();
+        using var cts = new CancellationTokenSource();
+
+        await policy.AuthenticateAsync(request, cts.Token).ConfigureAwait(false);
+
+        tokenProviderMock.Verify(x => x.GetAccessTokenAsync(cts.Token), Times.Once);
 
         request.Headers.Should().ContainKey(HeaderNames.ApiKeyHeader);
         request.Headers.GetValues(HeaderNames.ApiKeyHeader).Should().ContainSingle(v => v == token);

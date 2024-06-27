@@ -24,17 +24,17 @@ public record MailtrapClientOptions
     /// <summary>
     /// Send email endpoint settings
     /// </summary>
-    public MailtrapClientEndpointOptions SendEndpoint { get; set; } = new MailtrapClientEndpointOptions(Endpoints.SendDefaultUrl);
+    public MailtrapClientEndpointOptions SendEndpoint { get; set; } = MailtrapClientEndpointOptions.SendDefault;
 
     /// <summary>
     /// Test email endpoint settings
     /// </summary>
-    public MailtrapClientEndpointOptions TestEndpoint { get; set; } = new MailtrapClientEndpointOptions(Endpoints.TestDefaultUrl);
+    public MailtrapClientEndpointOptions TestEndpoint { get; set; } = MailtrapClientEndpointOptions.TestDefault;
 
     /// <summary>
     /// Bulk email endpoint settings
     /// </summary>
-    public MailtrapClientEndpointOptions BulkEndpoint { get; set; } = new MailtrapClientEndpointOptions(Endpoints.BulkDefaultUrl);
+    public MailtrapClientEndpointOptions BulkEndpoint { get; set; } = MailtrapClientEndpointOptions.BulkDefault;
 
     /// <summary>
     /// API authentication settings

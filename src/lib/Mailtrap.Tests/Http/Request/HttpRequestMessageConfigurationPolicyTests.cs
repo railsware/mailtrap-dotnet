@@ -33,16 +33,18 @@ internal sealed class HttpRequestMessageConfigurationPolicyTests
     [Test]
     public async Task ApplyPolicyAsync_ShouldApplyHeaders()
     {
-        using var request = new HttpRequestMessage();
 
         var authProviderMock = new Mock<IHttpRequestMessageAuthenticationProvider>();
         var policy = new HttpRequestMessageConfigurationPolicy(authProviderMock.Object);
 
-        await policy.ApplyPolicyAsync(request).ConfigureAwait(false);
+        using var request = new HttpRequestMessage();
+        using var cts = new CancellationTokenSource();
+
+        await policy.ApplyPolicyAsync(request, cts.Token).ConfigureAwait(false);
+
+        authProviderMock.Verify(x => x.AuthenticateAsync(request, cts.Token), Times.Once);
 
         request.Headers.Should().ContainKey("Accept");
         request.Headers.Accept.Should().ContainSingle(h => h.MediaType == MimeTypes.Application.Json);
-
-        authProviderMock.Verify(x => x.AuthenticateAsync(request, It.IsAny<CancellationToken>()), Times.Once);
     }
 }

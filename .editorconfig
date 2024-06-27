@@ -183,7 +183,7 @@ dotnet_diagnostic.IDE0058.severity = silent
 dotnet_diagnostic.CA1303.severity = suggestion
 
 # CA1805: Do not initialize unnecessarily
-dotnet_diagnostic.CA1805.severity = suggestion
+dotnet_diagnostic.CA1805.severity = silent
 
 
 # CA1062: Null-check validation
