@@ -22,7 +22,7 @@ public static class ServiceCollectionExtensions
     /// <param name="services">The <see cref="IServiceCollection"/> instance to configure</param>
     /// <param name="configure">Delegate to configure options</param>
     /// <returns>The <see cref="IServiceCollection"/> so additional calls can be chained</returns>
-    public static IServiceCollection ConfigureMailtrapClientOptions(this IServiceCollection services, Action<MailtrapClientOptions> configure)
+    public static IServiceCollection ConfigureMailtrapClient(this IServiceCollection services, Action<MailtrapClientOptions> configure)
     {
         Ensure.NotNull(services, nameof(services));
         Ensure.NotNull(configure, nameof(configure));
@@ -33,7 +33,7 @@ public static class ServiceCollectionExtensions
     /// <summary>
     /// Adds Mailtrap API client services with default <see cref="HttpClient"/> configuration.
     /// <para>
-    /// Requires <see cref="ConfigureMailtrapClientOptions(IServiceCollection, Action{MailtrapClientOptions})"/> or
+    /// Requires <see cref="ConfigureMailtrapClient(IServiceCollection, Action{MailtrapClientOptions})"/> or
     /// <see cref="OptionsServiceCollectionExtensions.Configure{TOptions}(IServiceCollection, Action{TOptions})"/> to be called
     /// to setup proper configuration to the client.
     /// </para>
@@ -47,7 +47,7 @@ public static class ServiceCollectionExtensions
         services.TryAddSingleton<IHttpClientLifetimeFactory, TransientHttpClientLifetimeFactory>();
 
         return services
-            .AddMailtrapServices()
+            .AddMailtrapServices<TransientHttpClientLifetimeFactory>()
             .AddHttpClient();
     }
 
@@ -58,16 +58,20 @@ public static class ServiceCollectionExtensions
     /// <param name="services">The <see cref="IServiceCollection"/> instance to configure</param>
     /// <param name="configure">Delegate to configure <see cref="HttpClient"/></param>
     /// <returns>The <see cref="IServiceCollection"/> so additional calls can be chained</returns>
-    public static IServiceCollection AddMailtrapClient(this IServiceCollection services, Action<IHttpClientBuilder> configure)
+    public static IServiceCollection AddMailtrapClient(this IServiceCollection services, Action<IHttpClientBuilder>? configure = null)
     {
         Ensure.NotNull(services, nameof(services));
-        Ensure.NotNull(configure, nameof(configure));
 
         services.TryAddSingleton<IHttpClientLifetimeFactory, TransientHttpClientLifetimeFactory>();
 
-        return services
-            .AddMailtrapServices()
-            .ConfigureHttpClientDefaults(configure);
+        services.AddMailtrapServices<TransientHttpClientLifetimeFactory>();
+
+        if (configure is not null)
+        {
+            services.ConfigureHttpClientDefaults(configure);
+        }
+
+        return services;
     }
 
     /// <summary>
@@ -80,10 +84,8 @@ public static class ServiceCollectionExtensions
     {
         Ensure.NotNull(services, nameof(services));
 
-        services.TryAddSingleton<IHttpClientLifetimeFactory, TransientHttpClientLifetimeFactory>();
-
         return services
-            .AddMailtrapServices()
+            .AddMailtrapServices<TransientHttpClientLifetimeFactory>()
             .AddHttpClient(httpClientName);
     }
 
@@ -93,19 +95,22 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> instance to configure</param>
     /// <returns>The <see cref="IServiceCollection"/> so additional calls can be chained</returns>
-    public static IServiceCollection AddMailtrapServices(this IServiceCollection services)
+    public static IServiceCollection AddMailtrapServices<T>(this IServiceCollection services)
+        where T : class, IHttpClientLifetimeFactory
     {
         Ensure.NotNull(services, nameof(services));
 
         services.AddOptions();
 
         services.TryAddSingleton<IMailtrapClientConfigurationProvider, OptionsMailtrapClientConfigurationProvider>();
-        services.TryAddSingleton<IAccessTokenProvider, OptionsAccessTokenProvider>();
+        services.TryAddSingleton<IAccessTokenProvider, AccessTokenProvider>();
         services.TryAddSingleton<IHttpRequestMessageAuthenticationProvider, ApiKeyHttpRequestMessageAuthenticationProvider>();
 
         services.TryAddSingleton<IHttpRequestContentFactory, HttpRequestContentFactory>();
         services.TryAddSingleton<IHttpRequestMessageFactory, HttpRequestMessageFactory>();
         services.TryAddSingleton<IHttpRequestMessageConfigurationPolicy, HttpRequestMessageConfigurationPolicy>();
+
+        services.TryAddSingleton<IHttpClientLifetimeFactory, T>();
 
         services.TryAddTransient<IMailtrapClient, MailtrapClient>();
 

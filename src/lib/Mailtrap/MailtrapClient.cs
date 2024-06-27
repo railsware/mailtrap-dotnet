@@ -6,7 +6,6 @@
 
 
 using Mailtrap.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 
 namespace Mailtrap;
@@ -25,7 +24,7 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
 
 
     /// <summary>
-    /// Primary constructor for DI
+    /// Constructor for DI use
     /// </summary>
     /// <param name="clientConfigurationProvider"></param>
     /// <param name="httpClientLifetimeFactory"></param>
@@ -52,10 +51,12 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
     }
 
     /// <summary>
-    /// Constructor to create a new instance of <see cref="MailtrapClient"/> with provided configuration.
+    /// Constructor to create a new instance of <see cref="MailtrapClient"/> with provided <paramref name="configuration"/>
+    /// and optional <see cref="HttpClient"/> configuration delegate.
     /// </summary>
     /// <param name="configuration"></param>
-    public MailtrapClient(MailtrapClientOptions configuration)
+    /// <param name="configure"></param>
+    public MailtrapClient(MailtrapClientOptions configuration, Action<IHttpClientBuilder>? configure = null)
     {
         Ensure.NotNull(configuration, nameof(configuration));
 
@@ -65,9 +66,9 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
 
         var serviceCollection = new ServiceCollection();
 
-        serviceCollection.Configure<MailtrapClientOptions>(options => options = _clientConfiguration);
+        serviceCollection.ConfigureMailtrapClient(options => options = _clientConfiguration);
 
-        serviceCollection.AddMailtrapClient();
+        serviceCollection.AddMailtrapClient(configure);
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
 
@@ -77,29 +78,27 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
     }
 
     /// <summary>
-    /// Constructor to create a new instance of <see cref="MailtrapClient"/> using provided <see cref="HttpClient"/> instance.
+    /// Constructor to create a new instance of <see cref="MailtrapClient"/> using provided <paramref name="configuration"/>
+    /// and preconfigured <see cref="HttpClient"/> instance.
     /// </summary>
-    /// <param name="apiKey"></param>
+    /// <param name="configuration"></param>
     /// <param name="httpClient"></param>
-    public MailtrapClient(string apiKey, HttpClient httpClient)
+    public MailtrapClient(MailtrapClientOptions configuration, HttpClient httpClient)
     {
-        Ensure.NotNullOrEmpty(apiKey, nameof(apiKey));
+        Ensure.NotNull(configuration, nameof(configuration));
         Ensure.NotNull(httpClient, nameof(httpClient));
 
-        _clientConfiguration = MailtrapClientOptions.Default with
-        {
-            Authentication = new MailtrapClientAuthenticationOptions(apiKey)
-        };
+        _clientConfiguration = configuration;
 
         _jsonSerializerOptions = _clientConfiguration.Serialization.ToJsonSerializerOptions();
 
         var serviceCollection = new ServiceCollection();
 
-        serviceCollection.Configure<MailtrapClientOptions>(options => options = _clientConfiguration);
+        serviceCollection.ConfigureMailtrapClient(options => options = _clientConfiguration);
 
-        serviceCollection.AddMailtrapClient();
+        serviceCollection.AddMailtrapServices<StaticHttpClientLifetimeFactory>();
 
-        serviceCollection.TryAddSingleton<IHttpClientLifetimeFactory, StaticHttpClientLifetimeFactory>();
+        serviceCollection.AddSingleton(httpClient);
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
 
@@ -109,42 +108,51 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
     }
 
     /// <summary>
-    /// Shortcut constructor to be used with API key parameter, using default production endpoints and
-    /// default <see cref="HttpClient"/> settings for all of them.
-    /// </summary>
-    /// <param name="apiKey">API authorization key</param>
-    /// <exception cref="ArgumentNullException"/>
-    public MailtrapClient(string apiKey)
-        : this(MailtrapClientOptions.Default with
-        {
-            Authentication = new MailtrapClientAuthenticationOptions(apiKey)
-        })
-    { }
-
-    /// <summary>
-    /// Shortcut constructor with different hosts for each endpoint.
+    /// Constructor to create a new instance of <see cref="MailtrapClient"/> using provided <paramref name="apiKey"/>
+    /// and optional <see cref="HttpClient"/> configuration delegate.
     /// </summary>
     /// <param name="apiKey"></param>
+    /// <param name="configure"></param>
     /// <param name="emailHost"></param>
     /// <param name="bulkHost"></param>
     /// <param name="testHost"></param>
-    public MailtrapClient(string apiKey, string emailHost, string bulkHost, string testHost)
+    public MailtrapClient(
+        string apiKey,
+        Action<IHttpClientBuilder>? configure = null,
+        string? emailHost = null,
+        string? bulkHost = null,
+        string? testHost = null)
         : this(MailtrapClientOptions.Default with
         {
             Authentication = new MailtrapClientAuthenticationOptions(apiKey),
-            SendEndpoint = new MailtrapClientEndpointOptions(emailHost),
-            BulkEndpoint = new MailtrapClientEndpointOptions(bulkHost),
-            TestEndpoint = new MailtrapClientEndpointOptions(testHost)
-        })
+            SendEndpoint = new MailtrapClientEndpointOptions(emailHost ?? Endpoints.SendDefaultUrl),
+            BulkEndpoint = new MailtrapClientEndpointOptions(bulkHost ?? Endpoints.BulkDefaultUrl),
+            TestEndpoint = new MailtrapClientEndpointOptions(testHost ?? Endpoints.TestDefaultUrl)
+        }, configure)
     { }
 
     /// <summary>
-    /// Shortcut constructor, using the same host for all endpoints.
+    /// Constructor to create a new instance of <see cref="MailtrapClient"/> using provided <paramref name="apiKey"/>
+    /// and preconfigured <see cref="HttpClient"/> instance.
     /// </summary>
     /// <param name="apiKey"></param>
-    /// <param name="apiHost"></param>
-    public MailtrapClient(string apiKey, string apiHost)
-        : this(apiKey, apiHost, apiHost, apiHost)
+    /// <param name="httpClient"></param>
+    /// <param name="emailHost"></param>
+    /// <param name="bulkHost"></param>
+    /// <param name="testHost"></param>
+    public MailtrapClient(
+        string apiKey,
+        HttpClient httpClient,
+        string? emailHost = null,
+        string? bulkHost = null,
+        string? testHost = null)
+        : this(MailtrapClientOptions.Default with
+        {
+            Authentication = new MailtrapClientAuthenticationOptions(apiKey),
+            SendEndpoint = new MailtrapClientEndpointOptions(emailHost ?? Endpoints.SendDefaultUrl),
+            BulkEndpoint = new MailtrapClientEndpointOptions(bulkHost ?? Endpoints.BulkDefaultUrl),
+            TestEndpoint = new MailtrapClientEndpointOptions(testHost ?? Endpoints.TestDefaultUrl)
+        }, httpClient)
     { }
 
 
@@ -174,7 +182,7 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
             .CreateAsync(jsonContent)
             .ConfigureAwait(false);
 
-        // We cannot rely on pre-configured HttpClient.BaseAddress, since it can be external instance.
+        // We cannot rely on pre-configured HttpClient.BaseAddress, since it can be external instance with unknown BaseUrl.
         var uri = string
             .Join("/", _clientConfiguration.SendEndpoint.BaseUrl.ToString(), UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment)
             .ToAbsoluteUri();

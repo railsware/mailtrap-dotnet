@@ -4,8 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
-namespace Mailtrap.Authentication;
+namespace Mailtrap.Http.Request;
 
 
 internal class ApiKeyHttpRequestMessageAuthenticationProvider : IHttpRequestMessageAuthenticationProvider

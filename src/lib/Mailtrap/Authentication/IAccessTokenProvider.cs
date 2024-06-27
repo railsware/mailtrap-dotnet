@@ -14,7 +14,7 @@ namespace Mailtrap.Authentication;
 internal interface IAccessTokenProvider
 {
     /// <summary>
-    /// Returns access token
+    /// Returns API access token.
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>

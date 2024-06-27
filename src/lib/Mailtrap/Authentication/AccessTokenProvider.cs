@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="OptionsAccessTokenProvider.cs" company="Railsware Products Studio, LLC">
+// <copyright file="AccessTokenProvider.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,13 +8,18 @@
 namespace Mailtrap.Authentication;
 
 
-internal class OptionsAccessTokenProvider : IAccessTokenProvider
+/// <summary>
+/// Default implementation for <see cref="IAccessTokenProvider"/>. <br />
+/// Provides authentication token from <see cref="IOptions{MailtrapClientOptions}"/>.
+/// </summary>
+internal class AccessTokenProvider : IAccessTokenProvider
 {
     private readonly string _token;
 
-    internal OptionsAccessTokenProvider(IOptions<MailtrapClientOptions> options)
+    public AccessTokenProvider(IOptions<MailtrapClientOptions> options)
     {
         Ensure.NotNull(options, nameof(options));
+        Ensure.NotNullOrEmpty(options.Value.Authentication.ApiToken, nameof(options));
 
         _token = options.Value.Authentication.ApiToken;
     }
