@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Tests.Unit.Behaviors;
+namespace Mailtrap.Tests.Http.Request;
 
 
 [TestFixture]
@@ -17,6 +17,17 @@ internal sealed class HttpRequestMessageConfigurationPolicyTests
         var act = () => new HttpRequestMessageConfigurationPolicy(null!);
 
         act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public async Task ApplyPolicyAsync_ShouldThrowArgumentNullException_WhenRequestIsNull()
+    {
+        var authProviderMock = new Mock<IHttpRequestMessageAuthenticationProvider>();
+        var policy = new HttpRequestMessageConfigurationPolicy(authProviderMock.Object);
+
+        var act = () => policy.ApplyPolicyAsync(null!);
+
+        await act.Should().ThrowAsync<ArgumentNullException>().ConfigureAwait(false);
     }
 
     [Test]
