@@ -85,7 +85,7 @@ internal sealed class MailtrapClientEndpointOptionsTests
     [Test]
     public void ConstructorWithString_ShouldThrowArgumentException_WhenStringIsNotValidAbsoluteUri()
     {
-        var act = () => new MailtrapClientEndpointOptions("/api/send");
+        var act = () => new MailtrapClientEndpointOptions("api/send");
 
         act.Should().Throw<ArgumentException>();
     }
