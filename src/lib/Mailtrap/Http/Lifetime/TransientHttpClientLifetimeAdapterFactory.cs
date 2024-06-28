@@ -34,11 +34,7 @@ internal sealed class TransientHttpClientLifetimeAdapterFactory : IHttpClientLif
     {
         Ensure.NotNull(endpointConfiguration, nameof(endpointConfiguration));
 
-        var clientName = endpointConfiguration.HttpClientName;
-
-        var httpClient = string.IsNullOrEmpty(clientName)
-            ? _httpClientFactory.CreateClient()
-            : _httpClientFactory.CreateClient(clientName!);
+        var httpClient = _httpClientFactory.CreateClient(endpointConfiguration.HttpClientName ?? Options.DefaultName);
 
         return Task.FromResult<IHttpClientLifetimeAdapter>(new TransientHttpClientLifetimeAdapter(httpClient));
     }
