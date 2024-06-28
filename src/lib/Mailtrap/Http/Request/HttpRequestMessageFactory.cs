@@ -21,15 +21,19 @@ internal sealed class HttpRequestMessageFactory : IHttpRequestMessageFactory
     }
 
 
-    public async Task<HttpRequestMessage> CreateAsync(HttpMethod method, Uri uri, HttpContent content)
+    public async Task<HttpRequestMessage> CreateAsync(HttpMethod method, Uri uri, HttpContent content, CancellationToken cancellationToken = default)
     {
+        Ensure.NotNull(method, nameof(method));
+        Ensure.NotNull(uri, nameof(uri));
+        Ensure.NotNull(content, nameof(content));
+
         var request = new HttpRequestMessage(method, uri)
         {
             Content = content
         };
 
         await _requestConfigurationPolicy
-            .ApplyPolicyAsync(request)
+            .ApplyPolicyAsync(request, cancellationToken)
             .ConfigureAwait(false);
 
         return request;

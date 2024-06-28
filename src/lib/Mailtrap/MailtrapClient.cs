@@ -179,7 +179,7 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
         var jsonContent = JsonSerializer.Serialize(request, _jsonSerializerOptions);
 
         using var httpContent = await _httpRequestContentFactory
-            .CreateAsync(jsonContent)
+            .CreateAsync(jsonContent, cancellationToken)
             .ConfigureAwait(false);
 
         // We cannot rely on pre-configured HttpClient.BaseAddress, since it can be external instance with unknown BaseUrl.
@@ -188,7 +188,7 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
             .ToAbsoluteUri();
 
         using var httpRequest = await _httpRequestMessageFactory
-            .CreateAsync(HttpMethod.Post, uri, httpContent)
+            .CreateAsync(HttpMethod.Post, uri, httpContent, cancellationToken)
             .ConfigureAwait(false);
 
         // We are using lifetime wrapper for HttpClient, so it's totally OK to dispose it here.

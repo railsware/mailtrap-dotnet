@@ -8,7 +8,16 @@
 namespace Mailtrap.Http.Request;
 
 
+/// <summary>
+/// Configuration policy definition for <see cref="HttpRequestMessage"/>.
+/// </summary>
 internal interface IHttpRequestMessageConfigurationPolicy
 {
-    Task ApplyPolicyAsync(HttpRequestMessage httpRequestMessage, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Applies configuration policy to the provided <paramref name="request"/>.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task ApplyPolicyAsync(HttpRequestMessage request, CancellationToken cancellationToken = default);
 }

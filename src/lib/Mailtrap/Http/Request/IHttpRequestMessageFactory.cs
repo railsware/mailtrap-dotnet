@@ -19,6 +19,7 @@ public interface IHttpRequestMessageFactory
     /// <param name="method"></param>
     /// <param name="uri"></param>
     /// <param name="content"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<HttpRequestMessage> CreateAsync(HttpMethod method, Uri uri, HttpContent content);
+    Task<HttpRequestMessage> CreateAsync(HttpMethod method, Uri uri, HttpContent content, CancellationToken cancellationToken = default);
 }
