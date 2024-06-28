@@ -13,14 +13,11 @@ namespace Mailtrap.Extensions;
 /// </summary>
 internal static class HttpClientExtensions
 {
-    internal static HttpClient WithBaseAddress(this HttpClient httpClient, Uri? baseAddress, bool force = false)
+    internal static HttpClient WithBaseAddress(this HttpClient httpClient, Uri? baseAddress)
     {
         Ensure.NotNull(httpClient, nameof(httpClient));
 
-        if (force || httpClient.BaseAddress is null)
-        {
-            httpClient.BaseAddress = baseAddress;
-        }
+        httpClient.BaseAddress = baseAddress;
 
         return httpClient;
     }

@@ -25,7 +25,7 @@ public record MailtrapClientAuthenticationOptions
     /// <remarks>
     /// Required.
     /// </remarks>
-    public string ApiToken { get; }
+    public string ApiToken { get; set; }
 
 
     /// <summary>

@@ -35,7 +35,7 @@ public record MailtrapClientEndpointOptions
     /// <remarks>
     /// Required. Should be absolute URL.
     /// </remarks>
-    public Uri BaseUrl { get; }
+    public Uri BaseUrl { get; set; }
 
     /// <summary>
     /// <see cref="HttpClient"/> instance name to use for requests sent to this endpoint.
@@ -47,7 +47,7 @@ public record MailtrapClientEndpointOptions
     /// <remarks>
     /// Optional.
     /// </remarks>
-    public string? HttpClientName { get; }
+    public string? HttpClientName { get; set; }
 
 
     /// <summary>

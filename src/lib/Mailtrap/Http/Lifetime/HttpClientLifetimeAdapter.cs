@@ -8,6 +8,9 @@
 namespace Mailtrap.Http.Lifetime;
 
 
+/// <summary>
+/// Default abstract implementation of <see cref="IHttpClientLifetimeAdapter"/>.
+/// </summary>
 internal abstract class HttpClientLifetimeAdapter : IHttpClientLifetimeAdapter
 {
     public HttpClient HttpClient { get; }

@@ -12,6 +12,7 @@ namespace Mailtrap.Tests.Extensions;
 internal sealed class HttpClientExtensionsTests
 {
     private Uri _uri { get; } = new Uri("http://example.com");
+    private Uri _otherUri { get; } = new Uri("https://domain.com");
 
 
     [Test]
@@ -25,7 +26,7 @@ internal sealed class HttpClientExtensionsTests
     [Test]
     public void WithBaseAddress_ShouldSetBaseAddress_WhenItIsNull()
     {
-        using var client = new HttpClient();
+        var client = Mock.Of<HttpClient>();
 
         client.WithBaseAddress(_uri);
 
@@ -33,46 +34,25 @@ internal sealed class HttpClientExtensionsTests
     }
 
     [Test]
-    public void WithBaseAddress_ShouldNotOverrideBaseAddress_WhenItWasSet()
+    public void WithBaseAddress_ShouldOverrideBaseAddress_WhenItWasSetPreviously()
     {
-        var httpUri = new Uri("https://domain.com");
+        var client = Mock.Of<HttpClient>();
 
-        using var client = new HttpClient()
-        {
-            BaseAddress = httpUri
-        };
+        client.BaseAddress = _otherUri;
 
         client.WithBaseAddress(_uri);
-
-        client.BaseAddress.Should().Be(httpUri);
-    }
-
-    [Test]
-    public void WithBaseAddress_ShouldOverrideBaseAddress_WhenItWasSetAndForceFlag()
-    {
-        var httpUri = new Uri("https://domain.com");
-
-        using var client = new HttpClient()
-        {
-            BaseAddress = httpUri
-        };
-
-        client.WithBaseAddress(_uri, true);
 
         client.BaseAddress.Should().Be(_uri);
     }
 
     [Test]
-    public void WithBaseAddress_ShouldResetBaseAddress_WhenItWasSetAndForceFlag()
+    public void WithBaseAddress_ShouldResetBaseAddress_WhenItWasSetPreviously()
     {
-        var httpUri = new Uri("https://domain.com");
+        var client = Mock.Of<HttpClient>();
 
-        using var client = new HttpClient()
-        {
-            BaseAddress = httpUri
-        };
+        client.BaseAddress = _otherUri;
 
-        client.WithBaseAddress(null, true);
+        client.WithBaseAddress(null);
 
         client.BaseAddress.Should().BeNull();
     }

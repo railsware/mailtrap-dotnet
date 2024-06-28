@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IHttpClientLifetimeFactory.cs" company="Railsware Products Studio, LLC">
+// <copyright file="IHttpClientLifetimeAdapterFactory.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,9 +9,9 @@ namespace Mailtrap.Http.Lifetime;
 
 
 /// <summary>
-/// Factory to produce <see cref="IHttpClientLifetimeAdapter"/> instances
+/// Factory to produce <see cref="IHttpClientLifetimeAdapter"/> instances.
 /// </summary>
-public interface IHttpClientLifetimeFactory
+public interface IHttpClientLifetimeAdapterFactory
 {
     /// <summary>
     /// Asynchronously produces <see cref="IHttpClientLifetimeAdapter"/> instances,

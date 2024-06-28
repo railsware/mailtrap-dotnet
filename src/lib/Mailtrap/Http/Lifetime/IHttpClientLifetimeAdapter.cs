@@ -9,12 +9,12 @@ namespace Mailtrap.Http.Lifetime;
 
 
 /// <summary>
-/// <see cref="HttpClient"/> adapter interface to add disposal flexibility.
+/// <see cref="System.Net.Http.HttpClient"/> adapter interface to add disposal flexibility.
 /// </summary>
 public interface IHttpClientLifetimeAdapter : IDisposable
 {
     /// <summary>
-    /// Returns <see cref="HttpClient"/> instance.
+    /// Returns captured <see cref="System.Net.Http.HttpClient"/> instance.
     /// </summary>
     HttpClient HttpClient { get; }
 }

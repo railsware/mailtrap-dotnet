@@ -44,10 +44,10 @@ public static class ServiceCollectionExtensions
     {
         Ensure.NotNull(services, nameof(services));
 
-        services.TryAddSingleton<IHttpClientLifetimeFactory, TransientHttpClientLifetimeFactory>();
+        services.TryAddSingleton<IHttpClientLifetimeAdapterFactory, TransientHttpClientLifetimeAdapterFactory>();
 
         return services
-            .AddMailtrapServices<TransientHttpClientLifetimeFactory>()
+            .AddMailtrapServices<TransientHttpClientLifetimeAdapterFactory>()
             .AddHttpClient();
     }
 
@@ -62,9 +62,9 @@ public static class ServiceCollectionExtensions
     {
         Ensure.NotNull(services, nameof(services));
 
-        services.TryAddSingleton<IHttpClientLifetimeFactory, TransientHttpClientLifetimeFactory>();
+        services.TryAddSingleton<IHttpClientLifetimeAdapterFactory, TransientHttpClientLifetimeAdapterFactory>();
 
-        services.AddMailtrapServices<TransientHttpClientLifetimeFactory>();
+        services.AddMailtrapServices<TransientHttpClientLifetimeAdapterFactory>();
 
         if (configure is not null)
         {
@@ -85,7 +85,7 @@ public static class ServiceCollectionExtensions
         Ensure.NotNull(services, nameof(services));
 
         return services
-            .AddMailtrapServices<TransientHttpClientLifetimeFactory>()
+            .AddMailtrapServices<TransientHttpClientLifetimeAdapterFactory>()
             .AddHttpClient(httpClientName);
     }
 
@@ -96,7 +96,7 @@ public static class ServiceCollectionExtensions
     /// <param name="services">The <see cref="IServiceCollection"/> instance to configure</param>
     /// <returns>The <see cref="IServiceCollection"/> so additional calls can be chained</returns>
     public static IServiceCollection AddMailtrapServices<T>(this IServiceCollection services)
-        where T : class, IHttpClientLifetimeFactory
+        where T : class, IHttpClientLifetimeAdapterFactory
     {
         Ensure.NotNull(services, nameof(services));
 
@@ -110,7 +110,7 @@ public static class ServiceCollectionExtensions
         services.TryAddSingleton<IHttpRequestMessageFactory, HttpRequestMessageFactory>();
         services.TryAddSingleton<IHttpRequestMessageConfigurationPolicy, HttpRequestMessageConfigurationPolicy>();
 
-        services.TryAddSingleton<IHttpClientLifetimeFactory, T>();
+        services.TryAddSingleton<IHttpClientLifetimeAdapterFactory, T>();
 
         services.TryAddTransient<IMailtrapClient, MailtrapClient>();
 

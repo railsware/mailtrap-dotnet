@@ -15,7 +15,7 @@ namespace Mailtrap;
 public sealed class MailtrapClient : IMailtrapClient, IDisposable
 {
     private readonly MailtrapClientOptions _clientConfiguration;
-    private readonly IHttpClientLifetimeFactory _httpClientLifetimeFactory;
+    private readonly IHttpClientLifetimeAdapterFactory _httpClientLifetimeFactory;
     private readonly IHttpRequestMessageFactory _httpRequestMessageFactory;
     private readonly IHttpRequestContentFactory _httpRequestContentFactory;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
@@ -32,7 +32,7 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
     /// <param name="httpRequestContentBuilder"></param>
     public MailtrapClient(
         IMailtrapClientConfigurationProvider clientConfigurationProvider,
-        IHttpClientLifetimeFactory httpClientLifetimeFactory,
+        IHttpClientLifetimeAdapterFactory httpClientLifetimeFactory,
         IHttpRequestMessageFactory httpRequestMessageBuilder,
         IHttpRequestContentFactory httpRequestContentBuilder)
     {
@@ -72,7 +72,7 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
 
-        _httpClientLifetimeFactory = _serviceProvider.GetRequiredService<IHttpClientLifetimeFactory>();
+        _httpClientLifetimeFactory = _serviceProvider.GetRequiredService<IHttpClientLifetimeAdapterFactory>();
         _httpRequestMessageFactory = _serviceProvider.GetRequiredService<IHttpRequestMessageFactory>();
         _httpRequestContentFactory = _serviceProvider.GetRequiredService<IHttpRequestContentFactory>();
     }
@@ -96,13 +96,13 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
 
         serviceCollection.ConfigureMailtrapClient(options => options = _clientConfiguration);
 
-        serviceCollection.AddMailtrapServices<StaticHttpClientLifetimeFactory>();
+        serviceCollection.AddMailtrapServices<StaticHttpClientLifetimeAdapterFactory>();
 
         serviceCollection.AddSingleton(httpClient);
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
 
-        _httpClientLifetimeFactory = _serviceProvider.GetRequiredService<IHttpClientLifetimeFactory>();
+        _httpClientLifetimeFactory = _serviceProvider.GetRequiredService<IHttpClientLifetimeAdapterFactory>();
         _httpRequestMessageFactory = _serviceProvider.GetRequiredService<IHttpRequestMessageFactory>();
         _httpRequestContentFactory = _serviceProvider.GetRequiredService<IHttpRequestContentFactory>();
     }
@@ -182,7 +182,8 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
             .CreateAsync(jsonContent, cancellationToken)
             .ConfigureAwait(false);
 
-        // We cannot rely on pre-configured HttpClient.BaseAddress, since it can be external instance with unknown BaseUrl.
+        // We cannot rely on pre-configured HttpClient.BaseAddress,
+        // since it can be external instance with wrong URI configured.
         var uri = string
             .Join("/", _clientConfiguration.SendEndpoint.BaseUrl.ToString(), UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment)
             .ToAbsoluteUri();
