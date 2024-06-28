@@ -9,7 +9,7 @@ namespace Mailtrap.Configuration.Models;
 
 
 /// <summary>
-/// API client endpoint configuration
+/// A set of options to configure endpoint settings for Mailtrap API client.
 /// </summary>
 public record MailtrapClientEndpointOptions
 {
@@ -33,15 +33,15 @@ public record MailtrapClientEndpointOptions
     /// Base endpoint URL, e.g. https://api.mailtrap.io
     /// </summary>
     /// <remarks>
-    /// Required.
+    /// Required. Should be absolute URL.
     /// </remarks>
     public Uri BaseUrl { get; }
 
     /// <summary>
-    /// <see cref="HttpClient"/> instanse name to use for requests sent to this endpoint.
+    /// <see cref="HttpClient"/> instance name to use for requests sent to this endpoint.
     /// <para>
     /// Different endpoints can use same or different named <see cref="HttpClient"/> instances,
-    /// preconfigured with one of the <see cref="HttpClientFactoryServiceCollectionExtensions.AddHttpClient(IServiceCollection, string)"/> overloads
+    /// preconfigured with one of the <see cref="HttpClientFactoryServiceCollectionExtensions.AddHttpClient(IServiceCollection, string)"/> overloads.
     /// </para>
     /// </summary>
     /// <remarks>
@@ -53,8 +53,8 @@ public record MailtrapClientEndpointOptions
     /// <summary>
     /// Primary constructor with required parameters.
     /// </summary>
-    /// <param name="baseUrl"></param>
-    /// <param name="httpClientName"></param>
+    /// <param name="baseUrl">Required. Should be absolute URL.</param>
+    /// <param name="httpClientName">Optional.</param>
     /// <exception cref="ArgumentNullException">When <paramref name="baseUrl"/> is <see langword="null"/></exception>
     public MailtrapClientEndpointOptions(Uri baseUrl, string? httpClientName = default)
     {
@@ -67,7 +67,7 @@ public record MailtrapClientEndpointOptions
     /// <summary>
     /// Constructor overload taking <paramref name="baseUrl"/> parameter in <see langword="string"/> format.
     /// </summary>
-    /// <param name="baseUrl"></param>
+    /// <param name="baseUrl">Required. Should be absolute URL.</param>
     /// <param name="httpClientName"></param>
     /// <exception cref="ArgumentNullException">When <paramref name="baseUrl"/> is <see langword="null"/></exception>
     /// <exception cref="ArgumentException">When <paramref name="baseUrl"/> isn't a valid absolute URI</exception>

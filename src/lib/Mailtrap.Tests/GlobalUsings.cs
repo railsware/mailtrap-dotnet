@@ -32,3 +32,4 @@ global using Mailtrap.Email.Responses;
 global using Mailtrap.Email.Validators;
 global using Mailtrap.Http.Request;
 global using Mailtrap.Authentication;
+global using Mailtrap.Extensions;

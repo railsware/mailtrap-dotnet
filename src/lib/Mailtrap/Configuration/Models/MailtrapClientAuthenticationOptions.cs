@@ -9,7 +9,7 @@ namespace Mailtrap.Configuration.Models;
 
 
 /// <summary>
-/// A set of options to configure Mailtrap API client authentication.
+/// A set of options to configure authentication settings for Mailtrap API client.
 /// </summary>
 public record MailtrapClientAuthenticationOptions
 {
@@ -22,6 +22,9 @@ public record MailtrapClientAuthenticationOptions
     /// <summary>
     /// API Authentication token.
     /// </summary>
+    /// <remarks>
+    /// Required.
+    /// </remarks>
     public string ApiToken { get; }
 
 

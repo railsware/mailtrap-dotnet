@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Mailtrap.Configuration.Validators;
 
 namespace Mailtrap.Configuration;
 
@@ -15,6 +16,13 @@ internal sealed class MailtrapClientConfigurationProvider : IMailtrapClientConfi
     public MailtrapClientConfigurationProvider(IOptions<MailtrapClientOptions> options)
     {
         Ensure.NotNull(options, nameof(options));
+
+        var validationResult = MailtrapClientOptionsValidator.Instance.Validate(options.Value);
+
+        if (!validationResult.IsValid)
+        {
+            throw new ArgumentException($"Invalid request data:\n{validationResult.ToString("\n")}");
+        }
 
         Configuration = options.Value;
     }
