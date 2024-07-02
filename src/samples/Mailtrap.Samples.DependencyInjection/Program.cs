@@ -12,6 +12,7 @@ using Mailtrap.Email.Responses;
 using Mailtrap.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 
 HostApplicationBuilder hostBuilder = Host.CreateApplicationBuilder();
@@ -29,7 +30,10 @@ hostBuilder.Services.AddMailtrapClient(configureHttpClient: builder =>
     builder.AddDefaultLogger();
 });
 
+
 using IHost host = hostBuilder.Build();
+
+ILogger logger = host.Services.GetRequiredService<ILogger<Program>>();
 
 try
 {
@@ -43,5 +47,10 @@ try
     IMailtrapClient mailtrapClient = host.Services.GetRequiredService<IMailtrapClient>();
 
     SendEmailResponse? response = await mailtrapClient.SendAsync(request).ConfigureAwait(false);
+}
+catch (Exception ex)
+{
+    logger.LogError(ex, "An error occurred while sending an email.");
+    throw;
 }
 
