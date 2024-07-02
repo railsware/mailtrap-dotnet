@@ -18,7 +18,7 @@ internal sealed class TransientHttpClientLifetimeAdapterFactory : IHttpClientLif
     private readonly IHttpClientFactory _httpClientFactory;
 
 
-    internal TransientHttpClientLifetimeAdapterFactory(IHttpClientFactory httpClientFactory)
+    public TransientHttpClientLifetimeAdapterFactory(IHttpClientFactory httpClientFactory)
     {
         Ensure.NotNull(httpClientFactory, nameof(httpClientFactory));
 

@@ -8,6 +8,7 @@
 using System.Net;
 using Mailtrap;
 using Mailtrap.Email.Requests;
+using Mailtrap.Email.Responses;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -17,7 +18,7 @@ try
     // But for the sake of simplicity, we will use hardcoded value in this example.
     var apiKey = "<API_KEY>";
 
-    var request = SendEmailRequestBuilder
+    SendEmailRequest request = SendEmailRequestBuilder
         .Email()
         .From("john.doe@demomailtrap.com", "John Doe")
         .To("hero.bill@galaxy.net")
@@ -25,8 +26,6 @@ try
         .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
 
     await BasicUsage(apiKey, request).ConfigureAwait(false);
-
-    await CustomBaseUrl(apiKey, request).ConfigureAwait(false);
 
     await CustomHttpClient(apiKey, request).ConfigureAwait(false);
 
@@ -43,16 +42,7 @@ static async Task BasicUsage(string apiKey, SendEmailRequest request)
 {
     using var client = new MailtrapClient(apiKey);
 
-    var response = await client.SendAsync(request).ConfigureAwait(false);
-
-    Console.WriteLine("Email has been sent successfully. MessageId: {0}", response?.MessageIds?.FirstOrDefault());
-}
-
-static async Task CustomBaseUrl(string apiKey, SendEmailRequest request)
-{
-    using var client = new MailtrapClient(apiKey, emailHost: "https://mock.mailtrap.io/");
-
-    var response = await client.SendAsync(request).ConfigureAwait(false);
+    SendEmailResponse? response = await client.SendAsync(request).ConfigureAwait(false);
 
     Console.WriteLine("Email has been sent successfully. MessageId: {0}", response?.MessageIds?.FirstOrDefault());
 }
@@ -69,7 +59,7 @@ static async Task CustomHttpClient(string apiKey, SendEmailRequest request)
 
     using var client = new MailtrapClient(apiKey, httpClient);
 
-    var response = await client.SendAsync(request).ConfigureAwait(false);
+    SendEmailResponse? response = await client.SendAsync(request).ConfigureAwait(false);
 
     Console.WriteLine("Email has been sent successfully. MessageId: {0}", response?.MessageIds?.FirstOrDefault());
 }
@@ -85,9 +75,11 @@ static async Task CustomHttpClientConfiguration(string apiKey, SendEmailRequest 
                 Proxy = new WebProxy("proxy.mailtrap.io", 8080)
             };
         });
+
+        builder.AddDefaultLogger();
     });
 
-    var response = await client.SendAsync(request).ConfigureAwait(false);
+    SendEmailResponse? response = await client.SendAsync(request).ConfigureAwait(false);
 
     Console.WriteLine("Email has been sent successfully. MessageId: {0}", response?.MessageIds?.FirstOrDefault());
 }

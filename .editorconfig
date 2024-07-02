@@ -180,7 +180,7 @@ dotnet_diagnostic.IDE0072.severity = suggestion
 dotnet_diagnostic.IDE0058.severity = silent
 
 # CA1303: Do not pass literals as localized parameters
-dotnet_diagnostic.CA1303.severity = suggestion
+dotnet_diagnostic.CA1303.severity = silent
 
 # CA1805: Do not initialize unnecessarily
 dotnet_diagnostic.CA1805.severity = silent

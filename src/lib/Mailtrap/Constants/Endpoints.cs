@@ -10,10 +10,10 @@ namespace Mailtrap.Constants;
 
 internal static class Endpoints
 {
-    internal const string RootUrl = "https://mailtrap.io/";
-    internal const string ApiRootUrl = "https://api.mailtrap.io/";
+    internal const string RootUrl = "https://mailtrap.io";
+    internal const string ApiRootUrl = "https://api.mailtrap.io";
 
-    internal const string SendDefaultUrl = "https://send.api.mailtrap.io/";
-    internal const string TestDefaultUrl = "https://test.api.mailtrap.io/";
-    internal const string BulkDefaultUrl = "https://bulk.api.mailtrap.io/";
+    internal const string SendDefaultUrl = "https://send.api.mailtrap.io";
+    internal const string TestDefaultUrl = "https://test.api.mailtrap.io";
+    internal const string BulkDefaultUrl = "https://bulk.api.mailtrap.io";
 }

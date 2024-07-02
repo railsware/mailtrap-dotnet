@@ -5,9 +5,6 @@
 // -----------------------------------------------------------------------
 
 
-using Microsoft.Extensions.DependencyInjection.Extensions;
-
-
 namespace Mailtrap.Extensions.DependencyInjection;
 
 
@@ -17,69 +14,100 @@ namespace Mailtrap.Extensions.DependencyInjection;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Configures Mailtrap API client configuration options using provided configuration delegate.
+    /// Adds Mailtrap API client services to the <see cref="IServiceCollection"/>.<br />
+    /// Optionally configures <see cref="MailtrapClientOptions"/> and adds custom <see cref="HttpClient"/> configuration,
+    /// if provided.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure</param>
-    /// <param name="configure">Delegate to configure options</param>
-    /// <returns>The <see cref="IServiceCollection"/> so additional calls can be chained</returns>
-    public static IServiceCollection ConfigureMailtrapClient(this IServiceCollection services, Action<MailtrapClientOptions> configure)
-    {
-        Ensure.NotNull(services, nameof(services));
-        Ensure.NotNull(configure, nameof(configure));
-
-        return services.Configure(configure);
-    }
-
-    /// <summary>
-    /// Adds Mailtrap API client services with default <see cref="HttpClient"/> configuration.
-    /// <para>
-    /// Requires <see cref="ConfigureMailtrapClient(IServiceCollection, Action{MailtrapClientOptions})"/> or
-    /// <see cref="OptionsServiceCollectionExtensions.Configure{TOptions}(IServiceCollection, Action{TOptions})"/> to be called
-    /// to setup proper configuration to the client.
-    /// </para>
-    /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure</param>
-    /// <returns>The <see cref="IServiceCollection"/> so additional calls can be chained</returns>
-    public static IServiceCollection AddMailtrapClient(this IServiceCollection services)
+    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure.</param>
+    /// <param name="configuration"><see cref="IConfiguration" /> to configure <see cref="MailtrapClient"/>.</param>
+    /// <param name="configureHttpClient">Delegate to configure <see cref="HttpClient"/>.</param>
+    /// <returns>The <see cref="IServiceCollection"/> so additional calls can be chained.</returns>
+    public static IServiceCollection AddMailtrapClient(this IServiceCollection services,
+        IConfiguration? configuration = null,
+        Action<IHttpClientBuilder>? configureHttpClient = null)
     {
         Ensure.NotNull(services, nameof(services));
 
-        services.TryAddSingleton<IHttpClientLifetimeAdapterFactory, TransientHttpClientLifetimeAdapterFactory>();
-
-        return services
-            .AddMailtrapServices<TransientHttpClientLifetimeAdapterFactory>()
-            .AddHttpClient();
-    }
-
-    /// <summary>
-    /// Adds Mailtrap API client services with custom <see cref="HttpClient"/> configuration
-    /// provided by <paramref name="configure"/> delegate.
-    /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure</param>
-    /// <param name="configure">Delegate to configure <see cref="HttpClient"/></param>
-    /// <returns>The <see cref="IServiceCollection"/> so additional calls can be chained</returns>
-    public static IServiceCollection AddMailtrapClient(this IServiceCollection services, Action<IHttpClientBuilder>? configure = null)
-    {
-        Ensure.NotNull(services, nameof(services));
-
-        services.TryAddSingleton<IHttpClientLifetimeAdapterFactory, TransientHttpClientLifetimeAdapterFactory>();
+        if (configuration is not null)
+        {
+            services.Configure<MailtrapClientOptions>(configuration);
+        }
 
         services.AddMailtrapServices<TransientHttpClientLifetimeAdapterFactory>();
 
-        if (configure is not null)
+        if (configureHttpClient is null)
         {
-            services.ConfigureHttpClientDefaults(configure);
+            services.AddHttpClient();
+        }
+        else
+        {
+            services.ConfigureHttpClientDefaults(configureHttpClient);
         }
 
         return services;
     }
 
     /// <summary>
-    /// Adds Mailtrap API client services with custom named <see cref="HttpClient"/> configuration
+    /// Adds Mailtrap API client services to the <see cref="IServiceCollection"/>.<br />
+    /// Optionally configures <see cref="MailtrapClientOptions"/> and adds custom <see cref="HttpClient"/> configuration,
+    /// if provided.
+    /// </summary>
+    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure.</param>
+    /// <param name="configureMailtrap">Delegate to configure <see cref="MailtrapClient"/>.</param>
+    /// <param name="configureHttpClient">Delegate to configure <see cref="HttpClient"/>.</param>
+    /// <returns>The <see cref="IServiceCollection"/> so additional calls can be chained.</returns>
+    public static IServiceCollection AddMailtrapClient(this IServiceCollection services,
+        Action<MailtrapClientOptions> configureMailtrap,
+        Action<IHttpClientBuilder>? configureHttpClient = null)
+    {
+        Ensure.NotNull(services, nameof(services));
+        Ensure.NotNull(configureMailtrap, nameof(configureMailtrap));
+
+        if (configureMailtrap is not null)
+        {
+            services.Configure(configureMailtrap);
+        }
+
+        services.AddMailtrapServices<TransientHttpClientLifetimeAdapterFactory>();
+
+        if (configureHttpClient is null)
+        {
+            services.AddHttpClient();
+        }
+        else
+        {
+            services.ConfigureHttpClientDefaults(configureHttpClient);
+        }
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds Mailtrap API client services with provided <see cref="MailtrapClientOptions"/>.<br />
+    /// Optionally adds custom <see cref="HttpClient"/> configuration, if
+    /// provided by <paramref name="configureHttpClient"/> delegate.
+    /// </summary>
+    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure.</param>
+    /// <param name="mailtrapClientOptions">Delegate to configure <see cref="MailtrapClient"/>.</param>
+    /// <param name="configureHttpClient">Delegate to configure <see cref="HttpClient"/>.</param>
+    /// <returns>The <see cref="IServiceCollection"/> so additional calls can be chained.</returns>
+    public static IServiceCollection AddMailtrapClient(this IServiceCollection services,
+        MailtrapClientOptions mailtrapClientOptions,
+        Action<IHttpClientBuilder>? configureHttpClient = null)
+    {
+        Ensure.NotNull(services, nameof(services));
+        Ensure.NotNull(mailtrapClientOptions, nameof(mailtrapClientOptions));
+
+        return services.AddMailtrapClient(options => options.Init(mailtrapClientOptions), configureHttpClient);
+    }
+
+    /// <summary>
+    /// Adds Mailtrap API client services with custom named <see cref="HttpClient"/> configuration.
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> instance to configure</param>
     /// <param name="httpClientName"></param>
-    /// <returns></returns>
+    /// <returns>The <see cref="IHttpClientBuilder"/> instance for the named <see cref="HttpClient"/>,
+    /// so additional configuration calls can be chained.</returns>
     public static IHttpClientBuilder AddMailtrapClient(this IServiceCollection services, string httpClientName)
     {
         Ensure.NotNull(services, nameof(services));

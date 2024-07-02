@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.Configuration.Models;
 
 
@@ -45,4 +44,47 @@ public record MailtrapClientOptions
     /// Serialization settings.
     /// </summary>
     public MailtrapClientSerializationOptions Serialization { get; set; } = MailtrapClientSerializationOptions.Default;
+
+
+    /// <summary>
+    /// Primary constructor with authentication configuration.
+    /// </summary>
+    public MailtrapClientOptions(MailtrapClientAuthenticationOptions authentication)
+    {
+        Ensure.NotNull(authentication, nameof(authentication));
+
+        Authentication = authentication;
+    }
+
+    /// <summary>
+    /// Primary constructor with authentication configuration.
+    /// </summary>
+    public MailtrapClientOptions(string apiKey)
+        : this(new MailtrapClientAuthenticationOptions(apiKey)) { }
+
+    /// <summary>
+    /// Parameterles constructor.
+    /// </summary>
+    public MailtrapClientOptions()
+        : this(MailtrapClientAuthenticationOptions.Empty) { }
+
+
+
+    /// <summary>
+    /// Initializes current <see cref="MailtrapClientOptions"/> instance with values from <paramref name="source"/>.
+    /// </summary>
+    /// <remarks>
+    /// Performs a shallow copy.
+    /// </remarks>
+    /// <param name="source">Source <see cref="MailtrapClientOptions"/> instance to copy values from.</param>
+    public void Init(MailtrapClientOptions source)
+    {
+        Ensure.NotNull(source, nameof(source));
+
+        Authentication = source.Authentication;
+        Serialization = source.Serialization;
+        SendEndpoint = source.SendEndpoint;
+        BulkEndpoint = source.BulkEndpoint;
+        TestEndpoint = source.TestEndpoint;
+    }
 }

@@ -9,16 +9,17 @@ global using System.Diagnostics.CodeAnalysis;
 global using System.Text;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
-//global using System.Net;
+global using System.Net;
 global using System.Net.Mime;
 global using Microsoft.Extensions.Options;
+global using Microsoft.Extensions.Configuration;
 
 global using NUnit.Framework;
 global using FluentAssertions;
 global using FluentValidation;
 global using FluentValidation.TestHelper;
 global using Moq;
-//global using RichardSzalay.MockHttp;
+global using RichardSzalay.MockHttp;
 
 global using Mailtrap.Tests.Common;
 global using Mailtrap.Core;

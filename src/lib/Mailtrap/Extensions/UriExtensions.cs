@@ -39,4 +39,13 @@ internal static class UriExtensions
             ? result
             : throw new ArgumentException("Invalid URL format - relative URL is expected", nameof(url));
     }
+
+    internal static Uri Append(this Uri baseUrl, params string[] segments)
+    {
+        Ensure.NotNull(baseUrl, nameof(baseUrl));
+        Ensure.NotNull(segments, nameof(segments));
+
+        var url = baseUrl.AbsoluteUri + string.Join("/", segments);
+        return url.ToAbsoluteUri();
+    }
 }

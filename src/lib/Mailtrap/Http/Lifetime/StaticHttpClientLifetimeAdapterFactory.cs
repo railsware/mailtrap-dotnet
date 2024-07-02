@@ -18,7 +18,7 @@ internal sealed class StaticHttpClientLifetimeAdapterFactory : IHttpClientLifeti
     private readonly HttpClient _httpClient;
 
 
-    internal StaticHttpClientLifetimeAdapterFactory(HttpClient httpClient)
+    public StaticHttpClientLifetimeAdapterFactory(HttpClient httpClient)
     {
         Ensure.NotNull(httpClient, nameof(httpClient));
 

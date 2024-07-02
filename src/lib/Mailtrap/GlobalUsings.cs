@@ -7,8 +7,10 @@
 
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
-global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.Options;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.DependencyInjection.Extensions;
 global using FluentValidation;
 
 global using Mailtrap.Authentication;
@@ -23,6 +25,7 @@ global using Mailtrap.Email.Validators;
 global using Mailtrap.Extensions;
 global using Mailtrap.Http.Lifetime;
 global using Mailtrap.Http.Request;
+global using Mailtrap.Extensions.DependencyInjection;
 
 
 // Allowing test assembly to access internals for unit tests

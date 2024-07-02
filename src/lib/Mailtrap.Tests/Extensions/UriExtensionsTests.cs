@@ -13,6 +13,8 @@ internal sealed class UriExtensionsTests
 {
     private string _absoluteUrl { get; } = "https://example.com";
     private string _relativeUrl { get; } = "api/send";
+    private Uri _absoluteUri { get; } = new Uri("https://example.com");
+
 
 
     #region ToRelativeUri
@@ -111,6 +113,14 @@ internal sealed class UriExtensionsTests
     }
 
     [Test]
+    public void ToUri_ShouldThrowArgumentException_WhenUriIsInvalid()
+    {
+        var act = () => UriExtensions.ToUri("https:///file://1.html");
+
+        act.Should().Throw<ArgumentException>();
+    }
+
+    [Test]
     public void ToUri_ShouldNotThrowException_WhenUriIsRelative()
     {
         var act = () => UriExtensions.ToUri(_relativeUrl);
@@ -143,6 +153,47 @@ internal sealed class UriExtensionsTests
         uri.IsAbsoluteUri.Should().BeTrue();
         uri.ToString().Should().Be(_absoluteUrl + "/");
     }
+
+    #endregion
+
+
+    #region Append
+
+    [Test]
+    public void Append_ShouldThrowArgumentNullException_WhenUriIsNull()
+    {
+        var act = () => UriExtensions.Append(null!);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void Append_ShouldThrowArgumentNullException_WhenSegmentsIsNull()
+    {
+        var act = () => UriExtensions.Append(_absoluteUri, null!);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void Append_ShouldReturnSameUri_WhenSegmentsAreEmpty()
+    {
+        var result = _absoluteUri.Append();
+
+        result.Should().Be(_absoluteUri);
+    }
+
+    [Test]
+    public void Append_ShouldAppendSegmentsToUri()
+    {
+        var segment1 = "api";
+        var segment2 = "send";
+
+        var result = _absoluteUri.Append(segment1, segment2);
+
+        result.AbsoluteUri.Should().Be(_absoluteUri.AbsoluteUri + segment1 + "/" + segment2);
+    }
+
 
     #endregion
 }

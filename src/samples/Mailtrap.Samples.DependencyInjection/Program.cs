@@ -8,14 +8,15 @@
 using System.Net;
 using Mailtrap;
 using Mailtrap.Email.Requests;
+using Mailtrap.Email.Responses;
 using Mailtrap.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 
-var hostBuilder = Host.CreateApplicationBuilder();
+HostApplicationBuilder hostBuilder = Host.CreateApplicationBuilder();
 
-hostBuilder.Services.AddMailtrapClient(builder =>
+hostBuilder.Services.AddMailtrapClient(configureHttpClient: builder =>
 {
     builder.ConfigurePrimaryHttpMessageHandler(() =>
     {
@@ -24,18 +25,23 @@ hostBuilder.Services.AddMailtrapClient(builder =>
             Proxy = new WebProxy("proxy.mailtrap.io", 8080)
         };
     });
+
+    builder.AddDefaultLogger();
 });
 
-using var host = hostBuilder.Build();
+using IHost host = hostBuilder.Build();
 
-var request = SendEmailRequestBuilder
-    .Email()
-    .From("john.doe@demomailtrap.com", "John Doe")
-    .To("hero.bill@galaxy.net")
-    .Subject("Invitation to Earth")
-    .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
+try
+{
+    SendEmailRequest request = SendEmailRequestBuilder
+        .Email()
+        .From("john.doe@demomailtrap.com", "John Doe")
+        .To("hero.bill@galaxy.net")
+        .Subject("Invitation to Earth")
+        .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
 
-var mailtrapClient = host.Services.GetRequiredService<IMailtrapClient>();
+    IMailtrapClient mailtrapClient = host.Services.GetRequiredService<IMailtrapClient>();
 
-await mailtrapClient.SendAsync(request).ConfigureAwait(false);
+    SendEmailResponse? response = await mailtrapClient.SendAsync(request).ConfigureAwait(false);
+}
 
