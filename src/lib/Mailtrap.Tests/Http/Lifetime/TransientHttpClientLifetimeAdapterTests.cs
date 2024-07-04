@@ -4,8 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
-namespace Mailtrap.Tests.Http.Request;
+namespace Mailtrap.Tests.Http.Lifetime;
 
 
 [TestFixture]

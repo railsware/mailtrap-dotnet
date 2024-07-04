@@ -7,7 +7,7 @@
 
 using System.Net.Http.Json;
 
-namespace Mailtrap.Tests.Unit.Providers;
+namespace Mailtrap.Tests;
 
 
 [TestFixture]
@@ -89,7 +89,7 @@ internal sealed class MailtrapClientTests
     [Test]
     public void Constructor2_ShouldThrowArgumentNullException_WhenConfigurationIsNull()
     {
-        IConfiguration? options = null;
+        MailtrapClientOptions? options = null;
 
         var act = () => new MailtrapClient(options!);
 
@@ -99,7 +99,7 @@ internal sealed class MailtrapClientTests
     [Test]
     public void Constructor3_ShouldThrowArgumentNullException_WhenConfigurationIsNull()
     {
-        IConfiguration? options = null;
+        MailtrapClientOptions? options = null;
         var httpClient = Mock.Of<HttpClient>();
 
         var act = () => new MailtrapClient(options!, httpClient);
@@ -110,38 +110,6 @@ internal sealed class MailtrapClientTests
     [Test]
     public void Constructor3_ShouldThrowArgumentNullException_WhenHttpClientIsNull()
     {
-        var config = Mock.Of<IConfiguration>();
-        HttpClient? httpClient = null;
-
-        var act = () => new MailtrapClient(config, httpClient!);
-
-        act.Should().Throw<ArgumentNullException>();
-    }
-
-    [Test]
-    public void Constructor4_ShouldThrowArgumentNullException_WhenConfigurationIsNull()
-    {
-        MailtrapClientOptions? options = null;
-
-        var act = () => new MailtrapClient(options!);
-
-        act.Should().Throw<ArgumentNullException>();
-    }
-
-    [Test]
-    public void Constructor5_ShouldThrowArgumentNullException_WhenConfigurationIsNull()
-    {
-        MailtrapClientOptions? options = null;
-        var httpClient = Mock.Of<HttpClient>();
-
-        var act = () => new MailtrapClient(options!, httpClient);
-
-        act.Should().Throw<ArgumentNullException>();
-    }
-
-    [Test]
-    public void Constructor5_ShouldThrowArgumentNullException_WhenHttpClientIsNull()
-    {
         HttpClient? httpClient = null;
 
         var act = () => new MailtrapClient(MailtrapClientOptions.Default, httpClient!);
@@ -150,7 +118,7 @@ internal sealed class MailtrapClientTests
     }
 
     [Test]
-    public void Constructor6_ShouldThrowArgumentNullException_WhenApiKeyIsNull()
+    public void Constructor4_ShouldThrowArgumentNullException_WhenApiKeyIsNull()
     {
         string? apiKey = null;
 
@@ -160,7 +128,7 @@ internal sealed class MailtrapClientTests
     }
 
     [Test]
-    public void Constructor7_ShouldThrowArgumentNullException_WhenApiKeyIsNull()
+    public void Constructor5_ShouldThrowArgumentNullException_WhenApiKeyIsNull()
     {
         string? apiKey = null;
         var httpClient = Mock.Of<HttpClient>();
@@ -171,7 +139,7 @@ internal sealed class MailtrapClientTests
     }
 
     [Test]
-    public void Constructor7_ShouldThrowArgumentNullException_WhenHttpClientIsNull()
+    public void Constructor5_ShouldThrowArgumentNullException_WhenHttpClientIsNull()
     {
         HttpClient? httpClient = null;
 
@@ -179,6 +147,7 @@ internal sealed class MailtrapClientTests
 
         act.Should().Throw<ArgumentNullException>();
     }
+
 
     [Test]
     public async Task Dispose_ShouldDisposeInternals_WhenShortcutConstructorIsUsed()

@@ -51,67 +51,6 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
 
     /// <summary>
     /// Constructor to create a new instance of <see cref="MailtrapClient"/> 
-    /// with provided <paramref name="configuration"/> section
-    /// and optional <see cref="HttpClient"/> configuration delegate.
-    /// </summary>
-    /// <param name="configuration"></param>
-    /// <param name="configureHttpClient"></param>
-    /// <exception cref="ArgumentNullException">
-    /// When <paramref name="configuration"/> is <see langword="null"/>.
-    /// </exception>
-    public MailtrapClient(IConfiguration configuration, Action<IHttpClientBuilder>? configureHttpClient = null)
-    {
-        Ensure.NotNull(configuration, nameof(configuration));
-
-        var serviceCollection = new ServiceCollection();
-
-        serviceCollection.AddMailtrapClient(configuration, configureHttpClient);
-
-        _serviceProvider = serviceCollection.BuildServiceProvider();
-
-        _clientConfiguration = _serviceProvider.GetRequiredService<IMailtrapClientConfigurationProvider>().Configuration;
-
-        _jsonSerializerOptions = _clientConfiguration.Serialization.ToJsonSerializerOptions();
-
-        _httpClientLifetimeFactory = _serviceProvider.GetRequiredService<IHttpClientLifetimeAdapterFactory>();
-        _httpRequestMessageFactory = _serviceProvider.GetRequiredService<IHttpRequestMessageFactory>();
-        _httpRequestContentFactory = _serviceProvider.GetRequiredService<IHttpRequestContentFactory>();
-    }
-
-    /// <summary>
-    /// Constructor to create a new instance of <see cref="MailtrapClient"/> 
-    /// using provided <paramref name="configuration"/> section
-    /// and preconfigured <see cref="HttpClient"/> instance.
-    /// </summary>
-    /// <param name="configuration"></param>
-    /// <param name="httpClient"></param>
-    /// <exception cref="ArgumentNullException">
-    /// When <paramref name="configuration"/> or <paramref name="httpClient"/> is <see langword="null"/>.
-    /// </exception>
-    public MailtrapClient(IConfiguration configuration, HttpClient httpClient)
-    {
-        Ensure.NotNull(configuration, nameof(configuration));
-        Ensure.NotNull(httpClient, nameof(httpClient));
-
-        var serviceCollection = new ServiceCollection();
-
-        serviceCollection.Configure<MailtrapClientOptions>(configuration);
-        serviceCollection.AddMailtrapServices<StaticHttpClientLifetimeAdapterFactory>();
-        serviceCollection.AddSingleton(httpClient);
-
-        _serviceProvider = serviceCollection.BuildServiceProvider();
-
-        _clientConfiguration = _serviceProvider.GetRequiredService<IMailtrapClientConfigurationProvider>().Configuration;
-
-        _jsonSerializerOptions = _clientConfiguration.Serialization.ToJsonSerializerOptions();
-
-        _httpClientLifetimeFactory = _serviceProvider.GetRequiredService<IHttpClientLifetimeAdapterFactory>();
-        _httpRequestMessageFactory = _serviceProvider.GetRequiredService<IHttpRequestMessageFactory>();
-        _httpRequestContentFactory = _serviceProvider.GetRequiredService<IHttpRequestContentFactory>();
-    }
-
-    /// <summary>
-    /// Constructor to create a new instance of <see cref="MailtrapClient"/> 
     /// with provided <paramref name="configuration"/>
     /// and optional <see cref="HttpClient"/> configuration delegate.
     /// </summary>
@@ -227,7 +166,7 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
             .ConfigureAwait(false);
 
         // We cannot rely on pre-configured HttpClient.BaseAddress,
-        // since it can be external instance with wrong URI configured.
+        // since it can be external instance with wrong URL configured.
         var sendUrl = _clientConfiguration.SendEndpoint.BaseUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
 
         using var httpRequest = await _httpRequestMessageFactory

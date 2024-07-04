@@ -63,10 +63,7 @@ public static class ServiceCollectionExtensions
         Ensure.NotNull(services, nameof(services));
         Ensure.NotNull(configureMailtrap, nameof(configureMailtrap));
 
-        if (configureMailtrap is not null)
-        {
-            services.Configure(configureMailtrap);
-        }
+        services.Configure(configureMailtrap);
 
         services.AddMailtrapServices<TransientHttpClientLifetimeAdapterFactory>();
 

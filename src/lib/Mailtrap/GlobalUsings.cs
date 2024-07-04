@@ -13,19 +13,20 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.DependencyInjection.Extensions;
 global using FluentValidation;
 
-global using Mailtrap.Authentication;
+global using Mailtrap.Constants;
+global using Mailtrap.Extensions;
+global using Mailtrap.Extensions.DependencyInjection;
 global using Mailtrap.Configuration;
 global using Mailtrap.Configuration.Models;
-global using Mailtrap.Constants;
+global using Mailtrap.Configuration.Validators;
+global using Mailtrap.Authentication;
+global using Mailtrap.Http.Lifetime;
+global using Mailtrap.Http.Request;
 global using Mailtrap.Core;
 global using Mailtrap.Email.Models;
 global using Mailtrap.Email.Requests;
 global using Mailtrap.Email.Responses;
 global using Mailtrap.Email.Validators;
-global using Mailtrap.Extensions;
-global using Mailtrap.Http.Lifetime;
-global using Mailtrap.Http.Request;
-global using Mailtrap.Extensions.DependencyInjection;
 
 
 // Allowing test assembly to access internals for unit tests

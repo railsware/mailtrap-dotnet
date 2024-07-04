@@ -10,6 +10,9 @@ namespace Mailtrap.Configuration;
 
 internal static class MailtrapClientSerializationOptionsExtensions
 {
+    /// <summary>
+    /// Converts <see cref="MailtrapClientSerializationOptions"/> instance to <see cref="JsonSerializerOptions"/>.
+    /// </summary>
     internal static JsonSerializerOptions ToJsonSerializerOptions(this MailtrapClientSerializationOptions options)
     {
         Ensure.NotNull(options, nameof(options));

@@ -1,11 +1,10 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="StaticHttpClientLifetimeAdapterTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="StaticHttpClientLifetimeAdapterFactoryTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
-
-namespace Mailtrap.Tests.Http.Request;
+namespace Mailtrap.Tests.Http.Lifetime;
 
 
 [TestFixture]

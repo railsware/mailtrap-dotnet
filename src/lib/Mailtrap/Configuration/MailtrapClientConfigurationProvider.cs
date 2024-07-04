@@ -4,11 +4,14 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Mailtrap.Configuration.Validators;
 
 namespace Mailtrap.Configuration;
 
 
+/// <summary>
+/// Implementation of <see cref="IMailtrapClientConfigurationProvider"/>
+/// that uses <see cref="IOptions{MailtrapClientOptions}"/> to provide Mailtrap API client configuration.
+/// </summary>
 internal sealed class MailtrapClientConfigurationProvider : IMailtrapClientConfigurationProvider
 {
     public MailtrapClientOptions Configuration { get; }
