@@ -13,7 +13,7 @@ internal static class JsonConverterTestExtensions
     internal static TResult? Read<TResult>(
         this JsonConverter<TResult> converter,
         string token,
-        JsonSerializerOptions? options = null)
+        JsonSerializerOptions? options = default)
     {
         options ??= JsonSerializerOptions.Default;
 
@@ -31,7 +31,7 @@ internal static class JsonConverterTestExtensions
     internal static string Write<T>(
         this JsonConverter<T> converter,
         T value,
-        JsonSerializerOptions? options = null)
+        JsonSerializerOptions? options = default)
     {
         options ??= JsonSerializerOptions.Default;
 

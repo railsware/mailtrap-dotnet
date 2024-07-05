@@ -59,7 +59,7 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="configuration"/> is <see langword="null"/>.
     /// </exception>
-    public MailtrapClient(MailtrapClientOptions configuration, Action<IHttpClientBuilder>? configure = null)
+    public MailtrapClient(MailtrapClientOptions configuration, Action<IHttpClientBuilder>? configure = default)
     {
         Ensure.NotNull(configuration, nameof(configuration));
 
@@ -69,7 +69,9 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
 
         var serviceCollection = new ServiceCollection();
 
-        serviceCollection.AddMailtrapClient(_clientConfiguration, configure);
+        var httpClientBuilder = serviceCollection.AddMailtrapClient(_clientConfiguration);
+
+        configure?.Invoke(httpClientBuilder);
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
 
@@ -99,7 +101,7 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
 
         var serviceCollection = new ServiceCollection();
 
-        serviceCollection.Configure<MailtrapClientOptions>(options => options = _clientConfiguration);
+        serviceCollection.Configure<MailtrapClientOptions>(options => options.Init(_clientConfiguration));
 
         serviceCollection.AddMailtrapServices<StaticHttpClientLifetimeAdapterFactory>();
 
@@ -121,7 +123,7 @@ public sealed class MailtrapClient : IMailtrapClient, IDisposable
     /// <param name="configure"></param>
     public MailtrapClient(
         string apiKey,
-        Action<IHttpClientBuilder>? configure = null)
+        Action<IHttpClientBuilder>? configure = default)
         : this(new MailtrapClientOptions(apiKey), configure)
     { }
 

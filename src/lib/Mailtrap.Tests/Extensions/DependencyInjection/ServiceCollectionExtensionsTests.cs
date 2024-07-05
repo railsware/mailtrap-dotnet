@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System.Net.Http.Headers;
 
 namespace Mailtrap.Tests.Extensions.DependencyInjection;
 
@@ -18,9 +17,43 @@ internal sealed class ServiceCollectionExtensionsTests
 
 
     [Test]
-    public void AddMailtrapClient_Configuration_ShouldThrowArgumentNullException_WhenServicesIsNull()
+    public void AddMailtrapClient_ShouldThrowArgumentNullException_WhenServicesIsNull()
     {
         var act = () => ServiceCollectionExtensions.AddMailtrapClient(null!);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void AddMailtrapClient_ShouldAddDefaultHttpClientAndMailtrapServices()
+    {
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection.AddMailtrapClient();
+
+        VerifyDefaultHttpClient(serviceCollection);
+
+        VerifyMailtrapServices(serviceCollection);
+    }
+
+
+    [Test]
+    public void AddMailtrapClient_Configuration_ShouldThrowArgumentNullException_WhenServicesIsNull()
+    {
+        var config = Mock.Of<IConfiguration>();
+
+        var act = () => ServiceCollectionExtensions.AddMailtrapClient(null!, config);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void AddMailtrapClient_Configuration_ShouldThrowArgumentNullException_WhenConfigurationIsNull()
+    {
+        var services = Mock.Of<ServiceCollection>();
+        IConfigurationSection? config = null;
+
+        var act = () => services.AddMailtrapClient(config!);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -42,10 +75,7 @@ internal sealed class ServiceCollectionExtensionsTests
 
         serviceCollection.AddMailtrapClient(configuration.GetSection("Mailtrap"));
 
-        serviceCollection.Should().Contain(s =>
-            s.ServiceType == typeof(IConfigureOptions<MailtrapClientOptions>) &&
-            s.Lifetime == ServiceLifetime.Singleton &&
-            s.ImplementationInstance != null);
+        VerifyOptions(serviceCollection);
 
         var services = serviceCollection.BuildServiceProvider();
 
@@ -58,7 +88,7 @@ internal sealed class ServiceCollectionExtensionsTests
     }
 
     [Test]
-    public void AddMailtrapClient_Configuration_ShouldAddDefaultHttpClient_WhenConfigureActionIsNotProvided()
+    public void AddMailtrapClient_Configuration_ShouldAddDefaultHttpClientAndMailtrapServices()
     {
         var inMemorySettings = new Dictionary<string, string>
         {
@@ -74,61 +104,25 @@ internal sealed class ServiceCollectionExtensionsTests
 
         serviceCollection.AddMailtrapClient(configuration.GetSection("Mailtrap"));
 
-        serviceCollection.Should().Contain(s =>
-            s.ServiceType == typeof(IHttpClientFactory) &&
-            s.Lifetime == ServiceLifetime.Singleton &&
-            s.ImplementationFactory != null);
-
-        var services = serviceCollection.BuildServiceProvider();
-
-        using var client = services.GetRequiredService<HttpClient>();
-
-        client.Should().NotBeNull();
+        VerifyMailtrap(serviceCollection);
     }
-
-    [Test]
-    public void AddMailtrapClient_Configuration_ShouldConfigureDefaultHttpClient_WhenConfigureActionIsProvided()
-    {
-        var inMemorySettings = new Dictionary<string, string>
-        {
-            ["Mailtrap:Authentication:ApiToken"] = _apiToken,
-            ["Mailtrap:SendEndpoint:BaseUrl"] = _baseUrl
-        };
-
-        var configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(inMemorySettings!)
-            .Build();
-
-        var serviceCollection = new ServiceCollection();
-
-        serviceCollection.AddMailtrapClient(configuration.GetSection("Mailtrap"), builder =>
-        {
-            builder.ConfigureHttpClient(client =>
-            {
-                client.BaseAddress = _baseUri;
-            });
-        });
-
-        serviceCollection.Should().Contain(s =>
-            s.ServiceType == typeof(IHttpClientFactory) &&
-            s.Lifetime == ServiceLifetime.Singleton &&
-            s.ImplementationFactory != null);
-
-        var services = serviceCollection.BuildServiceProvider();
-
-        using var client = services.GetRequiredService<HttpClient>();
-
-        client.Should().NotBeNull();
-
-        client.BaseAddress.Should().Be(_baseUri);
-    }
-
 
 
     [Test]
     public void AddMailtrapClient_Delegate_ShouldThrowArgumentNullException_WhenServicesIsNull()
     {
         var act = () => ServiceCollectionExtensions.AddMailtrapClient(null!, options => { });
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void AddMailtrapClient_Delegate_ShouldThrowArgumentNullException_WhenDelegateIsNull()
+    {
+        var services = Mock.Of<ServiceCollection>();
+        Action<MailtrapClientOptions>? config = null;
+
+        var act = () => services.AddMailtrapClient(config!);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -144,10 +138,7 @@ internal sealed class ServiceCollectionExtensionsTests
             options.SendEndpoint.BaseUrl = _baseUri;
         });
 
-        serviceCollection.Should().Contain(s =>
-            s.ServiceType == typeof(IConfigureOptions<MailtrapClientOptions>) &&
-            s.Lifetime == ServiceLifetime.Singleton &&
-            s.ImplementationInstance != null);
+        VerifyOptions(serviceCollection);
 
         var services = serviceCollection.BuildServiceProvider();
 
@@ -160,7 +151,7 @@ internal sealed class ServiceCollectionExtensionsTests
     }
 
     [Test]
-    public void AddMailtrapClient_Delegate_ShouldAddDefaultHttpClient_WhenConfigureActionIsNotProvided()
+    public void AddMailtrapClient_Delegate_ShouldAddDefaultHttpClientAndMailtrapServices()
     {
         var serviceCollection = new ServiceCollection();
 
@@ -171,54 +162,64 @@ internal sealed class ServiceCollectionExtensionsTests
                 options.SendEndpoint.BaseUrl = _baseUri;
             });
 
-        serviceCollection.Should().Contain(s =>
-            s.ServiceType == typeof(IHttpClientFactory) &&
-            s.Lifetime == ServiceLifetime.Singleton &&
-            s.ImplementationFactory != null);
+        VerifyMailtrap(serviceCollection);
+    }
 
-        var services = serviceCollection.BuildServiceProvider();
 
-        using var client = services.GetRequiredService<HttpClient>();
+    [Test]
+    public void AddMailtrapClient_Options_ShouldThrowArgumentNullException_WhenServicesIsNull()
+    {
+        var config = Mock.Of<MailtrapClientOptions>();
 
-        client.Should().NotBeNull();
+        var act = () => ServiceCollectionExtensions.AddMailtrapClient(null!, config);
+
+        act.Should().Throw<ArgumentNullException>();
     }
 
     [Test]
-    public void AddMailtrapClient_Delegate_ShouldConfigureDefaultHttpClient_WhenConfigureActionIsProvided()
+    public void AddMailtrapClient_Options_ShouldThrowArgumentNullException_WhenOptionsIsNull()
     {
+        var services = Mock.Of<ServiceCollection>();
+        MailtrapClientOptions? config = null;
+
+        var act = () => services.AddMailtrapClient(config!);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void AddMailtrapClient_Options_ShouldConfigureOptions_WhenConfigurationProvided()
+    {
+        var config = new MailtrapClientOptions(_apiToken);
+        config.SendEndpoint.BaseUrl = _baseUri;
+
         var serviceCollection = new ServiceCollection();
 
-        serviceCollection.AddMailtrapClient(
-            options =>
-            {
-                options.Authentication.ApiToken = _apiToken;
-                options.SendEndpoint.BaseUrl = _baseUri;
-            },
-            builder =>
-            {
-                builder.ConfigureHttpClient(httpClient =>
-                {
-                    httpClient.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue
-                    {
-                        NoCache = true
-                    };
-                });
-            });
+        serviceCollection.AddMailtrapClient(config);
 
-        serviceCollection.Should().Contain(s =>
-            s.ServiceType == typeof(IHttpClientFactory) &&
-            s.Lifetime == ServiceLifetime.Singleton &&
-            s.ImplementationFactory != null);
+        VerifyOptions(serviceCollection);
 
         var services = serviceCollection.BuildServiceProvider();
 
-        using var client = services.GetRequiredService<HttpClient>();
+        var options = services.GetRequiredService<IOptions<MailtrapClientOptions>>();
 
-        client.Should().NotBeNull();
+        options.Should().NotBeNull();
+        options.Value.Should().NotBeNull();
+        options.Value.Authentication.ApiToken.Should().Be(_apiToken);
+        options.Value.SendEndpoint.BaseUrl.Should().Be(_baseUri);
+    }
 
-        client.DefaultRequestHeaders.Should().ContainKey("Cache-Control");
-        client.DefaultRequestHeaders.CacheControl.Should().NotBeNull();
-        client.DefaultRequestHeaders.CacheControl!.NoCache.Should().BeTrue();
+    [Test]
+    public void AddMailtrapClient_Options_ShouldAddDefaultHttpClientAndMailtrapServices()
+    {
+        var config = new MailtrapClientOptions(_apiToken);
+        config.SendEndpoint.BaseUrl = _baseUri;
+
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection.AddMailtrapClient(config);
+
+        VerifyMailtrap(serviceCollection);
     }
 
 
@@ -239,6 +240,41 @@ internal sealed class ServiceCollectionExtensionsTests
 
         serviceCollection.AddMailtrapServices<T>();
 
+        VerifyMailtrapServices<T>(serviceCollection);
+    }
+
+
+
+    private static void VerifyOptions(ServiceCollection serviceCollection)
+    {
+        serviceCollection.Should().Contain(s =>
+            s.ServiceType == typeof(IConfigureOptions<MailtrapClientOptions>) &&
+            s.Lifetime == ServiceLifetime.Singleton &&
+            s.ImplementationInstance != null);
+    }
+
+    private static void VerifyDefaultHttpClient(ServiceCollection serviceCollection)
+    {
+        serviceCollection.Should().Contain(s =>
+            s.ServiceType == typeof(IHttpClientFactory) &&
+            s.Lifetime == ServiceLifetime.Singleton &&
+            s.ImplementationFactory != null);
+
+        var services = serviceCollection.BuildServiceProvider();
+
+        using var client = services.GetRequiredService<HttpClient>();
+
+        client.Should().NotBeNull();
+    }
+
+    private static void VerifyMailtrapServices(ServiceCollection serviceCollection)
+    {
+        VerifyMailtrapServices<TransientHttpClientLifetimeAdapterFactory>(serviceCollection);
+    }
+
+    private static void VerifyMailtrapServices<T>(ServiceCollection serviceCollection)
+        where T : class, IHttpClientLifetimeAdapterFactory
+    {
         serviceCollection.Should().Contain(s =>
             s.ServiceType == typeof(IOptions<>) &&
             s.Lifetime == ServiceLifetime.Singleton);
@@ -282,5 +318,14 @@ internal sealed class ServiceCollectionExtensionsTests
             s.ServiceType == typeof(IMailtrapClient) &&
             s.ImplementationType == typeof(MailtrapClient) &&
             s.Lifetime == ServiceLifetime.Transient);
+    }
+
+    private static void VerifyMailtrap(ServiceCollection serviceCollection)
+    {
+        VerifyOptions(serviceCollection);
+
+        VerifyMailtrapServices(serviceCollection);
+
+        VerifyDefaultHttpClient(serviceCollection);
     }
 }
