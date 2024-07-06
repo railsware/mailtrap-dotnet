@@ -44,6 +44,19 @@ internal sealed class MailtrapClientAuthenticationOptionsTests
     }
 
     [Test]
+    public void Copy_ShouldAssignTokenToProperty()
+    {
+        var token = "token";
+
+        var options = MailtrapClientAuthenticationOptions.Empty with
+        {
+            ApiToken = token
+        };
+
+        options.ApiToken.Should().Be(token);
+    }
+
+    [Test]
     public void Equals_ShouldWorkProperly_WhenContainNonEmptyValue()
     {
         var token = "token";

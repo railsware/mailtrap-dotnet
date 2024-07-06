@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Mailtrap.Configuration.Validators;
 
 namespace Mailtrap.Tests.Configuration.Validators;
 

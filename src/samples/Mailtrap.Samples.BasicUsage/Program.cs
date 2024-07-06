@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using Mailtrap;
 using Mailtrap.Email.Requests;
@@ -12,15 +13,29 @@ using Mailtrap.Email.Responses;
 using Microsoft.Extensions.DependencyInjection;
 
 
+[SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Example")]
 internal sealed class Program
 {
     private static async Task Main()
     {
         try
         {
-            // For sure you should not hardcode apiKey for security reasons, and use environment variables
-            // or configuration files instead. But for the sake of simplicity, we will use hardcoded value in this example.
+            // For sure you should not hardcode apiKey for security reasons,
+            // and use environment variables or configuration files instead.
+            // But for the sake of simplicity, we will use hardcoded value in this example.
             var apiKey = "<API_KEY>";
+
+            // Instance of MailtrapClientFactory should be used as singleton -
+            // since it is using HttpClientFactory under the hood to create
+            // transient HttpClient instances and pass them to MailtrapClient instances.
+            // Recreating it each time when MailtrapClient insatnce is needed can be resource consuming.
+
+            // Meanwile, instances of MailtrapClient, produced by the factory,
+            // can be freely used in any manner, long-living, unit-of-work, etc.
+
+            using MailtrapClientFactory factory = BasicUsage(apiKey);
+
+            IMailtrapClient client = factory.CreateClient();
 
             SendEmailRequest request = SendEmailRequestBuilder
                 .Email()
@@ -29,17 +44,9 @@ internal sealed class Program
                 .Subject("Invitation to Earth")
                 .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
 
-            // Instances of Mailtrap API Client, created using simplified constructors,
-            // should be used as singletons - since they are using HttpClientFactory under the hood.
-            // Creating/disposing instances of MailtrapClient for each request is not recommended,
-            // as it could lead to port exhaustion.
-            // But for simplicity, we will use it as unit-of-work in this particular example.
+            SendEmailResponse? response = await client.SendAsync(request).ConfigureAwait(false);
 
-            await BasicUsage(apiKey, request).ConfigureAwait(false);
-
-            await CustomHttpClient(apiKey, request).ConfigureAwait(false);
-
-            await CustomHttpClientConfiguration(apiKey, request).ConfigureAwait(false);
+            Console.WriteLine("Email has been sent successfully. MessageId: {0}", response?.MessageIds?.FirstOrDefault());
         }
         catch (Exception ex)
         {
@@ -50,16 +57,12 @@ internal sealed class Program
     }
 
 
-    private static async Task BasicUsage(string apiKey, SendEmailRequest request)
+    private static MailtrapClientFactory BasicUsage(string apiKey)
     {
-        using var client = new MailtrapClient(apiKey);
-
-        SendEmailResponse? response = await client.SendAsync(request).ConfigureAwait(false);
-
-        Console.WriteLine("Email has been sent successfully. MessageId: {0}", response?.MessageIds?.FirstOrDefault());
+        return new MailtrapClientFactory(apiKey);
     }
 
-    private static async Task CustomHttpClient(string apiKey, SendEmailRequest request)
+    private static MailtrapClientFactory CustomHttpClient(string apiKey)
     {
         using var httpMessageHandler = new HttpClientHandler()
         {
@@ -69,16 +72,12 @@ internal sealed class Program
 
         using var httpClient = new HttpClient(httpMessageHandler);
 
-        using var client = new MailtrapClient(apiKey, httpClient);
-
-        SendEmailResponse? response = await client.SendAsync(request).ConfigureAwait(false);
-
-        Console.WriteLine("Email has been sent successfully. MessageId: {0}", response?.MessageIds?.FirstOrDefault());
+        return new MailtrapClientFactory(apiKey, httpClient);
     }
 
-    private static async Task CustomHttpClientConfiguration(string apiKey, SendEmailRequest request)
+    private static MailtrapClientFactory CustomHttpClientConfiguration(string apiKey)
     {
-        using var client = new MailtrapClient(apiKey, builder =>
+        return new MailtrapClientFactory(apiKey, builder =>
         {
             builder.ConfigurePrimaryHttpMessageHandler(() =>
             {
@@ -91,9 +90,5 @@ internal sealed class Program
 
             builder.AddDefaultLogger();
         });
-
-        SendEmailResponse? response = await client.SendAsync(request).ConfigureAwait(false);
-
-        Console.WriteLine("Email has been sent successfully. MessageId: {0}", response?.MessageIds?.FirstOrDefault());
     }
 }

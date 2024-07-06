@@ -35,15 +35,9 @@ internal class Program
                 .Subject("Invitation to Earth")
                 .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
 
-            // Instances of Mailtrap API Client, created using simplified constructors,
-            // should be used as singletons - since they are using HttpClientFactory under the hood.
-            // Creating/disposing instances of MailtrapClient for each request is not recommended,
-            // as it could lead to port exhaustion.
-            // But for simplicity, we will use it as unit-of-work in this particular example.
+            using var factory = new MailtrapClientFactory(apiKey);
 
-            using var client = new MailtrapClient(apiKey);
-
-            SendEmailResponse? response = await client.SendAsync(request).ConfigureAwait(false);
+            SendEmailResponse? response = await factory.CreateClient().SendAsync(request).ConfigureAwait(false);
 
             Console.WriteLine("Email has been sent successfully. MessageId: {0}", response?.MessageIds?.FirstOrDefault());
         }
