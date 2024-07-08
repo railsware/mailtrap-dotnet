@@ -17,6 +17,6 @@ internal interface IAccessTokenProvider
     /// Returns API access token.
     /// </summary>
     /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <returns><see langword="string"/> containing API token.</returns>
     Task<string> GetAccessTokenAsync(CancellationToken cancellationToken = default);
 }

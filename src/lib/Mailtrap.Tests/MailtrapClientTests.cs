@@ -138,14 +138,14 @@ internal sealed class MailtrapClientTests
 
         var httpClientLifetimeAdapterMock = new Mock<IHttpClientLifetimeAdapter>();
         httpClientLifetimeAdapterMock
-            .Setup(a => a.HttpClient)
+            .Setup(a => a.Client)
             .Returns(mockHttp.ToHttpClient());
 
         using var cts = new CancellationTokenSource();
 
         var httpClientLifetimeAdapterFactoryMock = new Mock<IHttpClientLifetimeAdapterFactory>();
         httpClientLifetimeAdapterFactoryMock
-            .Setup(f => f.GetClientAsync(sendEndpointOptions, cts.Token))
+            .Setup(f => f.CreateAsync(sendEndpointOptions, cts.Token))
             .ReturnsAsync(httpClientLifetimeAdapterMock.Object);
 
         var request = SendEmailRequestBuilder
@@ -160,7 +160,7 @@ internal sealed class MailtrapClientTests
 
         var httpRequestContentFactoryMock = new Mock<IHttpRequestContentFactory>();
         httpRequestContentFactoryMock
-            .Setup(f => f.CreateAsync(requestJson, cts.Token))
+            .Setup(f => f.CreateStringContentAsync(requestJson, cts.Token))
             .ReturnsAsync(requestContent);
 
         using var requestMessage = new HttpRequestMessage(httpMethod, sendUrl)
@@ -183,11 +183,11 @@ internal sealed class MailtrapClientTests
         var result = await client.SendAsync(request, cts.Token).ConfigureAwait(false);
 
 
-        httpRequestContentFactoryMock.Verify(f => f.CreateAsync(requestJson, cts.Token), Times.Once);
+        httpRequestContentFactoryMock.Verify(f => f.CreateStringContentAsync(requestJson, cts.Token), Times.Once);
 
         httpRequestMessageFactoryMock.Verify(f => f.CreateAsync(httpMethod, sendUrl, requestContent, cts.Token), Times.Once);
 
-        httpClientLifetimeAdapterFactoryMock.Verify(f => f.GetClientAsync(sendEndpointOptions, cts.Token), Times.Once);
+        httpClientLifetimeAdapterFactoryMock.Verify(f => f.CreateAsync(sendEndpointOptions, cts.Token), Times.Once);
 
         configProviderMock.VerifyGet(p => p.Configuration, Times.Once);
 

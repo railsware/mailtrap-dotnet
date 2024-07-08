@@ -25,9 +25,9 @@ internal sealed class StaticHttpClientLifetimeAdapterFactoryTests
 
         var factory = new StaticHttpClientLifetimeAdapterFactory(client);
 
-        using var adapter = await factory.GetClientAsync(MailtrapClientEndpointOptions.SendDefault).ConfigureAwait(false);
+        using var adapter = await factory.CreateAsync(MailtrapClientEndpointOptions.SendDefault).ConfigureAwait(false);
 
-        adapter.HttpClient.Should().BeSameAs(client);
+        adapter.Client.Should().BeSameAs(client);
     }
 
     [Test]
@@ -37,9 +37,9 @@ internal sealed class StaticHttpClientLifetimeAdapterFactoryTests
 
         var factory = new StaticHttpClientLifetimeAdapterFactory(client);
 
-        using var adapter1 = await factory.GetClientAsync(MailtrapClientEndpointOptions.SendDefault).ConfigureAwait(false);
-        using var adapter2 = await factory.GetClientAsync(MailtrapClientEndpointOptions.SendDefault).ConfigureAwait(false);
+        using var adapter1 = await factory.CreateAsync(MailtrapClientEndpointOptions.SendDefault).ConfigureAwait(false);
+        using var adapter2 = await factory.CreateAsync(MailtrapClientEndpointOptions.SendDefault).ConfigureAwait(false);
 
-        adapter2.HttpClient.Should().BeSameAs(adapter1.HttpClient);
+        adapter2.Client.Should().BeSameAs(adapter1.Client);
     }
 }

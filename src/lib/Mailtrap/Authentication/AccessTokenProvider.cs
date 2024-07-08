@@ -16,6 +16,14 @@ internal class AccessTokenProvider : IAccessTokenProvider
 {
     private readonly string _token;
 
+
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    /// <param name="options"><see cref="IOptions{TOptions}"/> instance containing token.</param>
+    /// <exception cref="ArgumentNullException">
+    /// When provided <paramref name="options"/> is <see langword="null"/> or API token is empty.
+    /// </exception>
     public AccessTokenProvider(IOptions<MailtrapClientOptions> options)
     {
         Ensure.NotNull(options, nameof(options));
@@ -24,6 +32,8 @@ internal class AccessTokenProvider : IAccessTokenProvider
         _token = options.Value.Authentication.ApiToken;
     }
 
+
+    /// <inheritdoc/>
     public Task<string> GetAccessTokenAsync(CancellationToken cancellationToken = default)
         => Task.FromResult(_token);
 }

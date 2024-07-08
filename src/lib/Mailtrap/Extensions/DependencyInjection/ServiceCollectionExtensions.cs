@@ -111,11 +111,18 @@ public static class ServiceCollectionExtensions
 
         services.TryAddSingleton<IMailtrapClientConfigurationProvider, MailtrapClientConfigurationProvider>();
         services.TryAddSingleton<IAccessTokenProvider, AccessTokenProvider>();
-        services.TryAddSingleton<IHttpRequestMessageAuthenticationProvider, ApiKeyHttpRequestMessageAuthenticationProvider>();
 
-        services.TryAddSingleton<IHttpRequestContentFactory, HttpRequestContentFactory>();
         services.TryAddSingleton<IHttpRequestMessageFactory, HttpRequestMessageFactory>();
-        services.TryAddSingleton<IHttpRequestMessageConfigurationPolicy, HttpRequestMessageConfigurationPolicy>();
+        services.TryAddSingleton<IHttpRequestContentFactory, HttpRequestContentFactory>();
+
+        services.TryAddEnumerable(new ServiceDescriptor(
+            typeof(IHttpRequestMessagePolicy),
+            typeof(ApiKeyAuthenticationHttpRequestMessagePolicy),
+            ServiceLifetime.Singleton));
+        services.TryAddEnumerable(new ServiceDescriptor(
+            typeof(IHttpRequestMessagePolicy),
+            typeof(HeadersHttpRequestMessagePolicy),
+            ServiceLifetime.Singleton));
 
         services.TryAddSingleton<IHttpClientLifetimeAdapterFactory, T>();
 

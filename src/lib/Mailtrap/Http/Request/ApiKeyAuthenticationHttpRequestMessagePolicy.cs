@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ApiKeyHttpRequestMessageAuthenticationProvider.cs" company="Railsware Products Studio, LLC">
+// <copyright file="ApiKeyAuthenticationHttpRequestMessagePolicy.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,12 +8,16 @@
 namespace Mailtrap.Http.Request;
 
 
-internal class ApiKeyHttpRequestMessageAuthenticationProvider : IHttpRequestMessageAuthenticationProvider
+/// <summary>
+/// <see cref="IHttpRequestMessagePolicy"/> implementation that applies authentication headers to the request,
+/// required by Mailtrap API.
+/// </summary>
+internal class ApiKeyAuthenticationHttpRequestMessagePolicy : IHttpRequestMessagePolicy
 {
     private readonly IAccessTokenProvider _accessTokenProvider;
 
 
-    public ApiKeyHttpRequestMessageAuthenticationProvider(IAccessTokenProvider accessTokenProvider)
+    public ApiKeyAuthenticationHttpRequestMessagePolicy(IAccessTokenProvider accessTokenProvider)
     {
         Ensure.NotNull(accessTokenProvider, nameof(accessTokenProvider));
 
@@ -21,7 +25,7 @@ internal class ApiKeyHttpRequestMessageAuthenticationProvider : IHttpRequestMess
     }
 
 
-    public async Task AuthenticateAsync(HttpRequestMessage request, CancellationToken cancellationToken = default)
+    public async Task ApplyPolicyAsync(HttpRequestMessage request, CancellationToken cancellationToken = default)
     {
         Ensure.NotNull(request, nameof(request));
 

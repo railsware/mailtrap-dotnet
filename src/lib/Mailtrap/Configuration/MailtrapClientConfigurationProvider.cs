@@ -16,6 +16,14 @@ internal sealed class MailtrapClientConfigurationProvider : IMailtrapClientConfi
 {
     public MailtrapClientOptions Configuration { get; }
 
+
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    /// <param name="options"><see cref="IOptions{TOptions}"/> instance with api client settings.</param>
+    /// <exception cref="ArgumentException">
+    /// When provided <paramref name="options"/> is <see langword="null"/>.
+    /// </exception>
     public MailtrapClientConfigurationProvider(IOptions<MailtrapClientOptions> options)
     {
         Ensure.NotNull(options, nameof(options));

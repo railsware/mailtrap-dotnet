@@ -8,8 +8,20 @@
 namespace Mailtrap;
 
 
-/// <inheritdoc cref="IMailtrapClient"/>
-public sealed class MailtrapClient : IMailtrapClient
+/// <summary>
+/// <see cref="IMailtrapClient"/> implementation.
+/// </summary>
+/// <remarks>
+/// <para>
+/// Implementation is lightweight, utilising unit-of-work pattern under the hood,
+/// so can be used as transient.
+/// </para>
+/// <para>
+/// Meanwhile, it isn't thread safe, so singleton usage is not recommended,
+/// especially in multi-threaded environments.
+/// </para>
+/// </remarks>
+public class MailtrapClient : IMailtrapClient
 {
     private readonly MailtrapClientOptions _clientConfiguration;
     private readonly IHttpClientLifetimeAdapterFactory _httpClientLifetimeFactory;
@@ -19,7 +31,7 @@ public sealed class MailtrapClient : IMailtrapClient
 
 
     /// <summary>
-    /// Default constructor for DI use.
+    /// Default instance constructor.
     /// </summary>
     /// <param name="clientConfigurationProvider"></param>
     /// <param name="httpClientLifetimeFactory"></param>
@@ -66,7 +78,7 @@ public sealed class MailtrapClient : IMailtrapClient
         var jsonContent = JsonSerializer.Serialize(request, _jsonSerializerOptions);
 
         using var httpContent = await _httpRequestContentFactory
-            .CreateAsync(jsonContent, cancellationToken)
+            .CreateStringContentAsync(jsonContent, cancellationToken)
             .ConfigureAwait(false);
 
         // We cannot rely on pre-configured HttpClient.BaseAddress,
@@ -79,10 +91,10 @@ public sealed class MailtrapClient : IMailtrapClient
 
         // We are using lifetime wrapper for HttpClient, so it's totally OK to dispose it here.
         using var client = await _httpClientLifetimeFactory
-            .GetClientAsync(_clientConfiguration.SendEndpoint, cancellationToken)
+            .CreateAsync(_clientConfiguration.SendEndpoint, cancellationToken)
             .ConfigureAwait(false);
 
-        using var httpResponse = await client.HttpClient
+        using var httpResponse = await client.Client
             .SendAsync(httpRequest, cancellationToken)
             .ConfigureAwait(false);
 

@@ -149,14 +149,16 @@ internal sealed class Program
     // In case you need full control over client configuration pipeline, you can go even further.
     private static IHost BuildHostWithAdvancedClientConfigurations(HostApplicationBuilder hostBuilder)
     {
-        // Configuring Mailtrap API client.
+        var sendClientName = "SendClient";
+
+        // Configuring Mailtrap API client
         hostBuilder.Services.Configure<MailtrapClientOptions>(options =>
         {
             options.Authentication.ApiToken = "<API-KEY>";
 
             // Providing HttpClient name in configuration allows to use differently configured
-            // HttpClient instances for endpoints.                
-            options.SendEndpoint.HttpClientName = "SendClient";
+            // HttpClient instances for particular endpoint.
+            options.SendEndpoint.HttpClientName = sendClientName;
             options.SendEndpoint.BaseUrl = new Uri("https://api.mailtrap.io/v3-alpha/");
 
             // When HttpClient name is not specified, default HttpClient instance is used.
@@ -167,28 +169,26 @@ internal sealed class Program
         // Adding Mailtrap API client services to the container
         hostBuilder.Services.AddMailtrapServices();
 
-        // Configuring default HttpClient
+        // Configuring HttpClient defaults
         hostBuilder.Services.ConfigureHttpClientDefaults(builder =>
         {
             builder.AddStandardResilienceHandler();
+        });
 
-            builder.ConfigurePrimaryHttpMessageHandler(() =>
+        // Configuring named HttpClient for send endpoint
+        hostBuilder.Services
+            .AddHttpClient(sendClientName)
+            .ConfigurePrimaryHttpMessageHandler(() =>
             {
                 return new HttpClientHandler()
                 {
                     Proxy = new WebProxy("proxy.mailtrap.io", 8080),
                     CheckCertificateRevocationList = true
                 };
-            });
-        });
+            })
+            .AddExtendedHttpClientLogging();
 
-
-        // Configuring HttpClient for send endpoint
-        IHttpClientBuilder sendHttpClientBuilder = hostBuilder.Services
-            .AddHttpClient(hostBuilder.Configuration["Mailtrap:SendEndpoint:HttpClientName"]!);
-
-        sendHttpClientBuilder.AddStandardResilienceHandler();
-
+        // Finally, building the host
         return hostBuilder.Build();
     }
 }

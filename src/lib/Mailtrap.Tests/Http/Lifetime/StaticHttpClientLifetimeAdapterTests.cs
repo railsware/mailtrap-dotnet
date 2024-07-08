@@ -25,7 +25,7 @@ internal sealed class StaticHttpClientLifetimeAdapterTests
 
         using var adapter = new StaticHttpClientLifetimeAdapter(client);
 
-        adapter.HttpClient.Should().BeSameAs(client);
+        adapter.Client.Should().BeSameAs(client);
     }
 
     [Test]

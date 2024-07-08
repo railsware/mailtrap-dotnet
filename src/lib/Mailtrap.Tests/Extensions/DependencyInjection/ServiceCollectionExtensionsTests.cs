@@ -290,11 +290,6 @@ internal sealed class ServiceCollectionExtensionsTests
             s.Lifetime == ServiceLifetime.Singleton);
 
         serviceCollection.Should().Contain(s =>
-            s.ServiceType == typeof(IHttpRequestMessageAuthenticationProvider) &&
-            s.ImplementationType == typeof(ApiKeyHttpRequestMessageAuthenticationProvider) &&
-            s.Lifetime == ServiceLifetime.Singleton);
-
-        serviceCollection.Should().Contain(s =>
             s.ServiceType == typeof(IHttpRequestContentFactory) &&
             s.ImplementationType == typeof(HttpRequestContentFactory) &&
             s.Lifetime == ServiceLifetime.Singleton);
@@ -305,8 +300,13 @@ internal sealed class ServiceCollectionExtensionsTests
             s.Lifetime == ServiceLifetime.Singleton);
 
         serviceCollection.Should().Contain(s =>
-            s.ServiceType == typeof(IHttpRequestMessageConfigurationPolicy) &&
-            s.ImplementationType == typeof(HttpRequestMessageConfigurationPolicy) &&
+            s.ServiceType == typeof(IHttpRequestMessagePolicy) &&
+            s.ImplementationType == typeof(HeadersHttpRequestMessagePolicy) &&
+            s.Lifetime == ServiceLifetime.Singleton);
+
+        serviceCollection.Should().Contain(s =>
+            s.ServiceType == typeof(IHttpRequestMessagePolicy) &&
+            s.ImplementationType == typeof(ApiKeyAuthenticationHttpRequestMessagePolicy) &&
             s.Lifetime == ServiceLifetime.Singleton);
 
         serviceCollection.Should().Contain(s =>

@@ -27,9 +27,9 @@ internal sealed class HttpRequestMessageFactoryTests
     [Test]
     public async Task CreateAsync_ShouldThrowArgumentNullException_WhenMethodIsNull()
     {
-        var policyMock = new Mock<IHttpRequestMessageConfigurationPolicy>();
+        var policies = Enumerable.Empty<IHttpRequestMessagePolicy>();
 
-        var factory = new HttpRequestMessageFactory(policyMock.Object);
+        var factory = new HttpRequestMessageFactory(policies);
 
         var act = () => factory.CreateAsync(null!, _uri, _content);
 
@@ -39,9 +39,9 @@ internal sealed class HttpRequestMessageFactoryTests
     [Test]
     public async Task CreateAsync_ShouldThrowArgumentNullException_WhenUriIsNull()
     {
-        var policyMock = new Mock<IHttpRequestMessageConfigurationPolicy>();
+        var policies = Enumerable.Empty<IHttpRequestMessagePolicy>();
 
-        var factory = new HttpRequestMessageFactory(policyMock.Object);
+        var factory = new HttpRequestMessageFactory(policies);
 
         var act = () => factory.CreateAsync(_method, null!, _content);
 
@@ -51,9 +51,9 @@ internal sealed class HttpRequestMessageFactoryTests
     [Test]
     public async Task CreateAsync_ShouldThrowArgumentNullException_WhenContentIsNull()
     {
-        var policyMock = new Mock<IHttpRequestMessageConfigurationPolicy>();
+        var policies = Enumerable.Empty<IHttpRequestMessagePolicy>();
 
-        var factory = new HttpRequestMessageFactory(policyMock.Object);
+        var factory = new HttpRequestMessageFactory(policies);
 
         var act = () => factory.CreateAsync(_method, _uri, null!);
 
@@ -63,9 +63,9 @@ internal sealed class HttpRequestMessageFactoryTests
     [Test]
     public async Task CreateAsync_ShouldInitPropertiesCorrectly()
     {
-        var policyMock = new Mock<IHttpRequestMessageConfigurationPolicy>();
+        var policies = Enumerable.Empty<IHttpRequestMessagePolicy>();
 
-        var factory = new HttpRequestMessageFactory(policyMock.Object);
+        var factory = new HttpRequestMessageFactory(policies);
 
         using var message = await factory.CreateAsync(_method, _uri, _content).ConfigureAwait(false);
 
@@ -75,15 +75,26 @@ internal sealed class HttpRequestMessageFactoryTests
     }
 
     [Test]
-    public async Task CreateAsync_ShouldApplyPolicy()
+    public async Task CreateAsync_ShouldApplyPolicies()
     {
-        var policyMock = new Mock<IHttpRequestMessageConfigurationPolicy>();
+        var numberOfPolicies = 2;
 
-        var factory = new HttpRequestMessageFactory(policyMock.Object);
+        var policyMocks = new List<Mock<IHttpRequestMessagePolicy>>(numberOfPolicies);
+
+        for (var i = 0; i < numberOfPolicies; i++)
+        {
+            policyMocks.Add(new Mock<IHttpRequestMessagePolicy>());
+        }
+
+        var factory = new HttpRequestMessageFactory(policyMocks.Select(m => m.Object));
+
         using var cts = new CancellationTokenSource();
 
         using var message = await factory.CreateAsync(_method, _uri, _content, cts.Token).ConfigureAwait(false);
 
-        policyMock.Verify(x => x.ApplyPolicyAsync(message, cts.Token), Times.Once);
+        foreach (var policyMock in policyMocks)
+        {
+            policyMock.Verify(x => x.ApplyPolicyAsync(message, cts.Token), Times.Once);
+        }
     }
 }

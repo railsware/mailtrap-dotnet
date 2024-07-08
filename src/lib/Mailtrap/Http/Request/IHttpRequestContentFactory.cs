@@ -9,15 +9,15 @@ namespace Mailtrap.Http.Request;
 
 
 /// <summary>
-/// Factory to create <see cref="HttpContent"/> instances.
+/// Factory to spawn <see cref="HttpContent"/> instances.
 /// </summary>
 public interface IHttpRequestContentFactory
 {
     /// <summary>
-    /// Asynchronously creates a new <see cref="HttpContent"/> instance, using provided string.
+    /// Asynchronously creates a new <see cref="StringContent"/> instance, using provided string.
     /// </summary>
     /// <param name="content"></param>
     /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    Task<StringContent> CreateAsync(string content, CancellationToken cancellationToken = default);
+    /// <returns>New <see cref="StringContent"/> instance.</returns>
+    Task<StringContent> CreateStringContentAsync(string content, CancellationToken cancellationToken = default);
 }

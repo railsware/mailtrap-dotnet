@@ -9,7 +9,7 @@ namespace Mailtrap.Http.Request;
 
 
 /// <summary>
-/// Factory to create <see cref="HttpRequestMessage"/> instances.
+/// Factory to spawn <see cref="HttpRequestMessage"/> instances.
 /// </summary>
 public interface IHttpRequestMessageFactory
 {
@@ -20,6 +20,6 @@ public interface IHttpRequestMessageFactory
     /// <param name="uri"></param>
     /// <param name="content"></param>
     /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <returns>New <see cref="HttpRequestMessage"/> instance.</returns>
     Task<HttpRequestMessage> CreateAsync(HttpMethod method, Uri uri, HttpContent content, CancellationToken cancellationToken = default);
 }

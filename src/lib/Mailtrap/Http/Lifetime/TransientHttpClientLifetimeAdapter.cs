@@ -10,12 +10,15 @@ namespace Mailtrap.Http.Lifetime;
 
 /// <summary>
 /// Implementation of <see cref="IHttpClientLifetimeAdapter"/> that disposes
-/// captured <see cref="HttpClient"/> instance,
-/// assuming it is transient.
+/// captured <see cref="HttpClient"/> instance, assuming it is transient.
 /// </summary>
 internal sealed class TransientHttpClientLifetimeAdapter : HttpClientLifetimeAdapter
 {
+    /// <inheritdoc/>
     public TransientHttpClientLifetimeAdapter(HttpClient httpClient) : base(httpClient) { }
 
-    public override void Dispose() => HttpClient.Dispose();
+    /// <summary>
+    /// Disposes captured <see cref="HttpClient"/> instance.
+    /// </summary>
+    public override void Dispose() => Client.Dispose();
 }

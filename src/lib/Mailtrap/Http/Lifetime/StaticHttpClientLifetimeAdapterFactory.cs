@@ -11,13 +11,17 @@ namespace Mailtrap.Http.Lifetime;
 /// <summary>
 /// Implementation of <see cref="IHttpClientLifetimeAdapterFactory"/> that produces
 /// <see cref="StaticHttpClientLifetimeAdapter"/> instances,
-/// wrapping static <see cref="HttpClient"/>, provided in constructor.
+/// by wrapping external <see cref="HttpClient"/>, provided in constructor.
 /// </summary>
 internal sealed class StaticHttpClientLifetimeAdapterFactory : IHttpClientLifetimeAdapterFactory
 {
     private readonly HttpClient _httpClient;
 
 
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    /// <param name="httpClient">External <see cref="HttpClient"/> instance to wrap.</param>
     public StaticHttpClientLifetimeAdapterFactory(HttpClient httpClient)
     {
         Ensure.NotNull(httpClient, nameof(httpClient));
@@ -28,9 +32,9 @@ internal sealed class StaticHttpClientLifetimeAdapterFactory : IHttpClientLifeti
 
     /// <summary>
     /// Returns new instance of <see cref="StaticHttpClientLifetimeAdapter"/>,
-    /// by wrapping static <see cref="HttpClient"/> instance, provided in constructor.
+    /// by wrapping external <see cref="HttpClient"/> instance, provided in constructor.
     /// </summary>
-    public Task<IHttpClientLifetimeAdapter> GetClientAsync(MailtrapClientEndpointOptions _1, CancellationToken _2 = default)
+    public Task<IHttpClientLifetimeAdapter> CreateAsync(MailtrapClientEndpointOptions _1, CancellationToken _2 = default)
     {
         return Task.FromResult<IHttpClientLifetimeAdapter>(new StaticHttpClientLifetimeAdapter(_httpClient));
     }

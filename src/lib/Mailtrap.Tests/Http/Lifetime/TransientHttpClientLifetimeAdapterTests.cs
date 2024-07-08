@@ -25,7 +25,7 @@ internal sealed class TransientHttpClientLifetimeAdapterTests
 
         using var adapter = new TransientHttpClientLifetimeAdapter(client);
 
-        adapter.HttpClient.Should().BeSameAs(client);
+        adapter.Client.Should().BeSameAs(client);
     }
 
     [Test]

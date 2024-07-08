@@ -8,16 +8,19 @@
 namespace Mailtrap.Http.Request;
 
 
+/// <summary>
+/// <see cref="IHttpRequestMessageFactory"/> default implementation.
+/// </summary>
 internal sealed class HttpRequestMessageFactory : IHttpRequestMessageFactory
 {
-    private readonly IHttpRequestMessageConfigurationPolicy _requestConfigurationPolicy;
+    private readonly IList<IHttpRequestMessagePolicy> _requestPolicies;
 
 
-    public HttpRequestMessageFactory(IHttpRequestMessageConfigurationPolicy requestConfigurationPolicy)
+    public HttpRequestMessageFactory(IEnumerable<IHttpRequestMessagePolicy> requestPolicies)
     {
-        Ensure.NotNull(requestConfigurationPolicy, nameof(requestConfigurationPolicy));
+        Ensure.NotNull(requestPolicies, nameof(requestPolicies));
 
-        _requestConfigurationPolicy = requestConfigurationPolicy;
+        _requestPolicies = requestPolicies.ToList();
     }
 
 
@@ -32,9 +35,15 @@ internal sealed class HttpRequestMessageFactory : IHttpRequestMessageFactory
             Content = content
         };
 
-        await _requestConfigurationPolicy
-            .ApplyPolicyAsync(request, cancellationToken)
-            .ConfigureAwait(false);
+        // Usage of Task.WhenAll() can lead to UB,
+        // because different policies could set same properties,
+        // and create race conditions in case of simultaneous updates
+        foreach (var policy in _requestPolicies)
+        {
+            await policy
+                .ApplyPolicyAsync(request, cancellationToken)
+                .ConfigureAwait(false);
+        }
 
         return request;
     }

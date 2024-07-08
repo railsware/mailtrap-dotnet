@@ -33,7 +33,7 @@ internal sealed class Program
             // Meanwile, instances of MailtrapClient, produced by the factory,
             // can be freely used in any manner, long-living, unit-of-work, etc.
 
-            using MailtrapClientFactory factory = BasicUsage(apiKey);
+            using MailtrapClientFactory factory = AdvancedHttpClientConfiguration(apiKey);
 
             IMailtrapClient client = factory.CreateClient();
 
@@ -75,7 +75,7 @@ internal sealed class Program
         return new MailtrapClientFactory(apiKey, httpClient);
     }
 
-    private static MailtrapClientFactory CustomHttpClientConfiguration(string apiKey)
+    private static MailtrapClientFactory AdvancedHttpClientConfiguration(string apiKey)
     {
         return new MailtrapClientFactory(apiKey, builder =>
         {

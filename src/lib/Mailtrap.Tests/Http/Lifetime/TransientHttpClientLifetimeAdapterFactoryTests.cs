@@ -25,7 +25,7 @@ internal sealed class TransientHttpClientLifetimeAdapterFactoryTests
 
         var factory = new TransientHttpClientLifetimeAdapterFactory(clientFactory.Object);
 
-        var act = () => factory.GetClientAsync(null!);
+        var act = () => factory.CreateAsync(null!);
 
         await act.Should().ThrowAsync<ArgumentNullException>().ConfigureAwait(false);
     }
@@ -42,10 +42,10 @@ internal sealed class TransientHttpClientLifetimeAdapterFactoryTests
 
         var config = MailtrapClientEndpointOptions.SendDefault;
 
-        using var adapter = await factory.GetClientAsync(config).ConfigureAwait(false);
+        using var adapter = await factory.CreateAsync(config).ConfigureAwait(false);
 
         adapter.Should().NotBeNull();
-        adapter.HttpClient.Should().NotBeNull().And.BeSameAs(client);
+        adapter.Client.Should().NotBeNull().And.BeSameAs(client);
 
         clientFactory.Verify(f => f.CreateClient(Options.DefaultName), Times.Once);
     }
@@ -66,10 +66,10 @@ internal sealed class TransientHttpClientLifetimeAdapterFactoryTests
             HttpClientName = clientName
         };
 
-        using var adapter = await factory.GetClientAsync(config).ConfigureAwait(false);
+        using var adapter = await factory.CreateAsync(config).ConfigureAwait(false);
 
         adapter.Should().NotBeNull();
-        adapter.HttpClient.Should().NotBeNull().And.BeSameAs(client);
+        adapter.Client.Should().NotBeNull().And.BeSameAs(client);
 
         clientFactory.Verify(f => f.CreateClient(clientName), Times.Once);
     }

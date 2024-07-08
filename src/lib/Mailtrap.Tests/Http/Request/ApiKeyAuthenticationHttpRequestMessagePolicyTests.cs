@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ApiKeyHttpRequestMessageAuthenticationProviderTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="ApiKeyAuthenticationHttpRequestMessagePolicyTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,12 +9,12 @@ namespace Mailtrap.Tests.Http.Request;
 
 
 [TestFixture]
-internal sealed class ApiKeyHttpRequestMessageAuthenticationProviderTests
+internal sealed class ApiKeyAuthenticationHttpRequestMessagePolicyTests
 {
     [Test]
     public void Constructor_ShouldThrowArgumentNullException_WhenParameterIsNull()
     {
-        var act = () => new ApiKeyHttpRequestMessageAuthenticationProvider(null!);
+        var act = () => new ApiKeyAuthenticationHttpRequestMessagePolicy(null!);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -23,9 +23,9 @@ internal sealed class ApiKeyHttpRequestMessageAuthenticationProviderTests
     public async Task AuthenticateAsync_ShouldThrowArgumentNullException_WhenRequestIsNull()
     {
         var tokenProviderMock = new Mock<IAccessTokenProvider>();
-        var policy = new ApiKeyHttpRequestMessageAuthenticationProvider(tokenProviderMock.Object);
+        var policy = new ApiKeyAuthenticationHttpRequestMessagePolicy(tokenProviderMock.Object);
 
-        var act = () => policy.AuthenticateAsync(null!);
+        var act = () => policy.ApplyPolicyAsync(null!);
 
         await act.Should().ThrowAsync<ArgumentNullException>().ConfigureAwait(false);
     }
@@ -38,12 +38,12 @@ internal sealed class ApiKeyHttpRequestMessageAuthenticationProviderTests
         tokenProviderMock
             .Setup(x => x.GetAccessTokenAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(token);
-        var policy = new ApiKeyHttpRequestMessageAuthenticationProvider(tokenProviderMock.Object);
+        var policy = new ApiKeyAuthenticationHttpRequestMessagePolicy(tokenProviderMock.Object);
 
         using var request = new HttpRequestMessage();
         using var cts = new CancellationTokenSource();
 
-        await policy.AuthenticateAsync(request, cts.Token).ConfigureAwait(false);
+        await policy.ApplyPolicyAsync(request, cts.Token).ConfigureAwait(false);
 
         tokenProviderMock.Verify(x => x.GetAccessTokenAsync(cts.Token), Times.Once);
 

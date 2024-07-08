@@ -8,9 +8,12 @@
 namespace Mailtrap.Http.Request;
 
 
+/// <summary>
+/// <see cref="IHttpRequestContentFactory"/> default implementation.
+/// </summary>
 internal sealed class HttpRequestContentFactory : IHttpRequestContentFactory
 {
-    public Task<StringContent> CreateAsync(string content, CancellationToken _ = default)
+    public Task<StringContent> CreateStringContentAsync(string content, CancellationToken _ = default)
     {
         Ensure.NotNull(content, nameof(content));
 

@@ -18,6 +18,12 @@ internal sealed class TransientHttpClientLifetimeAdapterFactory : IHttpClientLif
     private readonly IHttpClientFactory _httpClientFactory;
 
 
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    /// <param name="httpClientFactory">
+    /// <see cref="IHttpClientFactory"/> to use for creating <see cref="HttpClient"/>.
+    /// </param>
     public TransientHttpClientLifetimeAdapterFactory(IHttpClientFactory httpClientFactory)
     {
         Ensure.NotNull(httpClientFactory, nameof(httpClientFactory));
@@ -28,9 +34,10 @@ internal sealed class TransientHttpClientLifetimeAdapterFactory : IHttpClientLif
 
     /// <summary>
     /// Returns new instance of <see cref="TransientHttpClientLifetimeAdapter"/>,
-    /// by wrapping transient <see cref="HttpClient"/> instance, obtained from <see cref="IHttpClientFactory"/>.
+    /// by wrapping transient <see cref="HttpClient"/> instance,
+    /// obtained from <see cref="IHttpClientFactory"/>.
     /// </summary>
-    public Task<IHttpClientLifetimeAdapter> GetClientAsync(MailtrapClientEndpointOptions endpointConfiguration, CancellationToken _ = default)
+    public Task<IHttpClientLifetimeAdapter> CreateAsync(MailtrapClientEndpointOptions endpointConfiguration, CancellationToken _ = default)
     {
         Ensure.NotNull(endpointConfiguration, nameof(endpointConfiguration));
 

@@ -16,7 +16,7 @@ internal sealed class HttpRequestContentFactoryTests
     {
         var factory = new HttpRequestContentFactory();
 
-        var act = () => factory.CreateAsync(null!);
+        var act = () => factory.CreateStringContentAsync(null!);
 
         await act.Should().ThrowAsync<ArgumentNullException>().ConfigureAwait(false);
     }
@@ -26,7 +26,7 @@ internal sealed class HttpRequestContentFactoryTests
     {
         var factory = new HttpRequestContentFactory();
 
-        var act = () => factory.CreateAsync(string.Empty);
+        var act = () => factory.CreateStringContentAsync(string.Empty);
 
         await act.Should().NotThrowAsync().ConfigureAwait(false);
     }
@@ -36,7 +36,7 @@ internal sealed class HttpRequestContentFactoryTests
     {
         var factory = new HttpRequestContentFactory();
 
-        using var content = await factory.CreateAsync(string.Empty).ConfigureAwait(false);
+        using var content = await factory.CreateStringContentAsync(string.Empty).ConfigureAwait(false);
 
         content.Should().NotBeNull();
         content.Headers.Should().ContainKey("Content-Type");
@@ -51,7 +51,7 @@ internal sealed class HttpRequestContentFactoryTests
 
         var json = "content";
 
-        using var content = await factory.CreateAsync(json).ConfigureAwait(false);
+        using var content = await factory.CreateStringContentAsync(json).ConfigureAwait(false);
 
         var result = await content.ReadAsStringAsync().ConfigureAwait(false);
 

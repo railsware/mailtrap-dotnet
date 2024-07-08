@@ -13,14 +13,18 @@ namespace Mailtrap.Http.Lifetime;
 /// </summary>
 internal abstract class HttpClientLifetimeAdapter : IHttpClientLifetimeAdapter
 {
-    public HttpClient HttpClient { get; }
+    public HttpClient Client { get; }
 
 
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    /// <param name="httpClient"><see cref="HttpClient"/> instance to wrap.</param>
     public HttpClientLifetimeAdapter(HttpClient httpClient)
     {
         Ensure.NotNull(httpClient, nameof(httpClient));
 
-        HttpClient = httpClient;
+        Client = httpClient;
     }
 
 

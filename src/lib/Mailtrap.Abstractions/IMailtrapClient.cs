@@ -9,15 +9,16 @@ namespace Mailtrap;
 
 
 /// <summary>
-/// Main Mailtrap API client entry point.
+/// Mailtrap API Client.
 /// </summary>
 public interface IMailtrapClient
 {
     /// <summary>
-    /// Sends provided <paramref name="request"/> to an API endpoint and returns result.
+    /// Sends email, defined by provided <paramref name="request"/>,
+    /// to an API endpoint and returns operation result.
     /// </summary>
     /// <remarks>
-    /// Request is checked for validity before send. Exception is thrown if validation fails.
+    /// Request is checked for validity before send. <see cref="ArgumentException"/> is thrown if validation fails.
     /// </remarks>
     /// <param name="request"><see cref="SendEmailRequest"/> object with email configuration.</param>
     /// <param name="cancellationToken"></param>
