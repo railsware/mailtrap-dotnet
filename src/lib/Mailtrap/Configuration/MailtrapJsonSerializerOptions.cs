@@ -10,7 +10,7 @@ namespace Mailtrap.Configuration;
 
 internal static class MailtrapJsonSerializerOptions
 {
-    internal static JsonSerializerOptions Default { get; } = new JsonSerializerOptions()
+    internal static JsonSerializerOptions Default { get; } = new JsonSerializerOptions(JsonSerializerOptions.Default)
     {
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
     };

@@ -16,10 +16,11 @@ internal sealed class EnsureTests
     public void NotNull_ShouldThrowArgumentNullException_WhenParamValueIsNull()
     {
         object? paramValue = null;
+        var message = "Message";
 
-        var act = () => Ensure.NotNull(paramValue, nameof(paramValue));
+        var act = () => Ensure.NotNull(paramValue, nameof(paramValue), message);
 
-        act.Should().Throw<ArgumentNullException>();
+        act.Should().Throw<ArgumentNullException>().WithMessage(message + "*");
     }
 
     [Test]
@@ -36,10 +37,11 @@ internal sealed class EnsureTests
     public void NotNullOrEmpty_ShouldThrowArgumentNullException_WhenParamValueIsNull()
     {
         string? paramValue = null;
+        var message = "Message";
 
-        var act = () => Ensure.NotNullOrEmpty(paramValue!, nameof(paramValue));
+        var act = () => Ensure.NotNullOrEmpty(paramValue!, nameof(paramValue), message);
 
-        act.Should().Throw<ArgumentNullException>();
+        act.Should().Throw<ArgumentNullException>().WithMessage(message + "*");
     }
 
     [Test]
