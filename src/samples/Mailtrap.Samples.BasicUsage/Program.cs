@@ -42,7 +42,7 @@ internal sealed class Program
                 .From("john.doe@demomailtrap.com", "John Doe")
                 .To("hero.bill@galaxy.net")
                 .Subject("Invitation to Earth")
-                .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
+                .Text("Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John.");
 
             SendEmailResponse? response = await client.SendAsync(request).ConfigureAwait(false);
 

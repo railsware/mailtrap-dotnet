@@ -22,7 +22,7 @@ internal sealed class TransientHttpClientLifetimeAdapterFactory : IHttpClientLif
     /// Default constructor.
     /// </summary>
     /// <param name="httpClientFactory">
-    /// <see cref="IHttpClientFactory"/> to use for creating <see cref="HttpClient"/>.
+    /// <see cref="IHttpClientFactory"/> to use for creating <see cref="HttpClient"/> instances.
     /// </param>
     public TransientHttpClientLifetimeAdapterFactory(IHttpClientFactory httpClientFactory)
     {
