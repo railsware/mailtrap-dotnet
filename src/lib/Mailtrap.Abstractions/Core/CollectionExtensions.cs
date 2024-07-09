@@ -13,6 +13,12 @@ namespace Mailtrap.Core;
 /// </summary>
 internal static class CollectionExtensions
 {
+    /// <summary>
+    /// Adds <paramref name="items"/> to the provided <paramref name="collection"/>.
+    /// </summary>
+    /// <typeparam name="T">Item type.</typeparam>
+    /// <param name="collection"></param>
+    /// <param name="items"></param>
     internal static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
     {
         Ensure.NotNull(collection, nameof(collection));
