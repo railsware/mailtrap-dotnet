@@ -86,6 +86,7 @@ dotnet_style_prefer_auto_properties = true:suggestion
 dotnet_style_prefer_conditional_expression_over_assignment = true:silent
 dotnet_style_prefer_conditional_expression_over_return = true:silent
 csharp_prefer_simple_default_expression = true:suggestion
+csharp_style_prefer_top_level_statements = false:silent
 
 # Expression-bodied members
 csharp_style_expression_bodied_methods = when_on_single_line:none
@@ -180,11 +181,13 @@ dotnet_diagnostic.IDE0072.severity = suggestion
 dotnet_diagnostic.IDE0058.severity = silent
 
 # CA1303: Do not pass literals as localized parameters
-dotnet_diagnostic.CA1303.severity = suggestion
+dotnet_diagnostic.CA1303.severity = silent
 
 # CA1805: Do not initialize unnecessarily
-dotnet_diagnostic.CA1805.severity = suggestion
+dotnet_diagnostic.CA1805.severity = silent
 
+# CA1848: Use the LoggerMessage delegates
+dotnet_diagnostic.CA1848.severity = silent
 
 # CA1062: Null-check validation
 dotnet_code_quality.CA1062.null_check_validation_methods = NotNull|NotNullOrEmpty

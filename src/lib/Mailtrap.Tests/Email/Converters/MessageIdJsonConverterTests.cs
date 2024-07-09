@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Tests.Email.Responses;
+namespace Mailtrap.Tests.Email.Converters;
 
 
 [TestFixture]
