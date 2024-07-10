@@ -8,6 +8,9 @@
 namespace Mailtrap.Constants;
 
 
+/// <summary>
+/// Contains predefined default API endpoints for Mailtrap.
+/// </summary>
 internal static class Endpoints
 {
     /// <summary>
