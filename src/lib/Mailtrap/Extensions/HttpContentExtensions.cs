@@ -19,6 +19,9 @@ internal static class HttpContentExtensions
     /// <typeparam name="T">Type of the content.</typeparam>
     /// <param name="content"></param>
     /// <returns><see cref="HttpContent"/> instance, so calls can be chained.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// When provided <paramref name="content"/> is <see langword="null"/>.
+    /// </exception>
     internal static T ApplyJsonContentTypeHeader<T>(this T content) where T : HttpContent
     {
         Ensure.NotNull(content, nameof(content));

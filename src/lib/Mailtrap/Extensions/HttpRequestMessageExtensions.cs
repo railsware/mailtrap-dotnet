@@ -19,6 +19,9 @@ internal static class HttpRequestMessageExtensions
     /// </summary>
     /// <param name="request"></param>
     /// <returns><see cref="HttpRequestMessage"/> instance so calls can be chained.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// When provided <paramref name="request"/> is <see langword="null"/>.
+    /// </exception>
     internal static HttpRequestMessage ConfigureAcceptHeader(this HttpRequestMessage request)
     {
         Ensure.NotNull(request, nameof(request));
@@ -37,6 +40,9 @@ internal static class HttpRequestMessageExtensions
     /// <param name="request"></param>
     /// <param name="apiKey"></param>
     /// <returns><see cref="HttpRequestMessage"/> instance so calls can be chained.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// When provided <paramref name="request"/> is <see langword="null"/>.
+    /// </exception>
     internal static HttpRequestMessage ConfigureApiAuthenticationHeader(this HttpRequestMessage request, string apiKey)
     {
         Ensure.NotNull(request, nameof(request));

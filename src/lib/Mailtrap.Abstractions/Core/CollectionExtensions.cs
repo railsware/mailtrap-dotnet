@@ -19,6 +19,9 @@ internal static class CollectionExtensions
     /// <typeparam name="T">Item type.</typeparam>
     /// <param name="collection"></param>
     /// <param name="items"></param>
+    /// <exception cref = "ArgumentNullException" >
+    /// When provided <paramref name="collection"/> or <paramref name="items"/> is <see langword="null"/>.
+    /// </exception>
     internal static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
     {
         Ensure.NotNull(collection, nameof(collection));

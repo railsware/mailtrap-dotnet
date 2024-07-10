@@ -13,6 +13,9 @@ namespace Mailtrap.Extensions;
 /// </summary>
 internal static class UriExtensions
 {
+    /// <exception cref = "ArgumentNullException" >
+    /// When provided <paramref name="url"/> is <see langword="null"/>.
+    /// </exception>
     internal static Uri ToUri(this string url)
     {
         Ensure.NotNullOrEmpty(url, nameof(url));
@@ -22,6 +25,9 @@ internal static class UriExtensions
             : throw new ArgumentException("Invalid URL format", nameof(url));
     }
 
+    /// <exception cref = "ArgumentNullException" >
+    /// When provided <paramref name="url"/> is <see langword="null"/>.
+    /// </exception>
     internal static Uri ToAbsoluteUri(this string url)
     {
         Ensure.NotNullOrEmpty(url, nameof(url));
@@ -31,6 +37,9 @@ internal static class UriExtensions
             : throw new ArgumentException("Invalid URL format - absolute URL is expected", nameof(url));
     }
 
+    /// <exception cref = "ArgumentNullException" >
+    /// When provided <paramref name="url"/> is <see langword="null"/>.
+    /// </exception>
     internal static Uri ToRelativeUri(this string url)
     {
         Ensure.NotNullOrEmpty(url, nameof(url));
@@ -40,6 +49,9 @@ internal static class UriExtensions
             : throw new ArgumentException("Invalid URL format - relative URL is expected", nameof(url));
     }
 
+    /// <exception cref = "ArgumentNullException" >
+    /// When provided <paramref name="baseUrl"/> or <paramref name="segments"/> is <see langword="null"/>.
+    /// </exception>
     internal static Uri Append(this Uri baseUrl, params string[] segments)
     {
         Ensure.NotNull(baseUrl, nameof(baseUrl));
