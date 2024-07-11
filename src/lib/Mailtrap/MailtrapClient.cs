@@ -12,14 +12,10 @@ namespace Mailtrap;
 /// <see cref="IMailtrapClient"/> implementation.
 /// </summary>
 /// <remarks>
-/// <para>
 /// Implementation is lightweight, utilising unit-of-work pattern under the hood,
-/// so can be used as transient.
-/// </para>
-/// <para>
+/// so can be used as transient.<br />
 /// Meanwhile, it isn't thread safe, so singleton usage is not recommended,
 /// especially in multi-threaded environments.
-/// </para>
 /// </remarks>
 public class MailtrapClient : IMailtrapClient
 {
@@ -65,7 +61,7 @@ public class MailtrapClient : IMailtrapClient
     public async Task<SendEmailResponse?> SendAsync(
         SendEmailRequest request,
         Endpoint endpoint = Endpoint.Send,
-        int? inboxId = null,
+        int? inboxId = default,
         CancellationToken cancellationToken = default)
     {
         Ensure.NotNull(request, nameof(request));
