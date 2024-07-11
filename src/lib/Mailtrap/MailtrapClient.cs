@@ -62,7 +62,11 @@ public class MailtrapClient : IMailtrapClient
 
 
     /// <inheritdoc />
-    public async Task<SendEmailResponse?> SendAsync(SendEmailRequest request, CancellationToken cancellationToken = default)
+    public async Task<SendEmailResponse?> SendAsync(
+        SendEmailRequest request,
+        Endpoint endpoint = Endpoint.Send,
+        int? inboxId = null,
+        CancellationToken cancellationToken = default)
     {
         Ensure.NotNull(request, nameof(request));
 
@@ -81,9 +85,11 @@ public class MailtrapClient : IMailtrapClient
             .CreateStringContentAsync(jsonContent, cancellationToken)
             .ConfigureAwait(false);
 
+        var endpointConfig = _clientConfiguration.GetEndpoint(inboxId is null ? endpoint : Endpoint.Test);
+
         // We cannot rely on pre-configured HttpClient.BaseAddress,
         // since it can be external instance with wrong URL configured.
-        var sendUrl = _clientConfiguration.SendEndpoint.BaseUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
+        var sendUrl = endpointConfig.BaseUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
 
         using var httpRequest = await _httpRequestMessageFactory
             .CreateAsync(HttpMethod.Post, sendUrl, httpContent, cancellationToken)
@@ -91,7 +97,7 @@ public class MailtrapClient : IMailtrapClient
 
         // We are using lifetime wrapper for HttpClient, so it's totally OK to dispose it here.
         using var client = await _httpClientLifetimeFactory
-            .CreateAsync(_clientConfiguration.SendEndpoint, cancellationToken)
+            .CreateAsync(endpointConfig, cancellationToken)
             .ConfigureAwait(false);
 
         using var httpResponse = await client.Client

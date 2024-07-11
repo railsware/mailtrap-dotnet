@@ -180,7 +180,7 @@ internal sealed class MailtrapClientTests
             httpRequestContentFactoryMock.Object);
 
 
-        var result = await client.SendAsync(request, cts.Token).ConfigureAwait(false);
+        var result = await client.SendAsync(request, cancellationToken: cts.Token).ConfigureAwait(false);
 
 
         httpRequestContentFactoryMock.Verify(f => f.CreateStringContentAsync(requestJson, cts.Token), Times.Once);
@@ -188,6 +188,97 @@ internal sealed class MailtrapClientTests
         httpRequestMessageFactoryMock.Verify(f => f.CreateAsync(httpMethod, sendUrl, requestContent, cts.Token), Times.Once);
 
         httpClientLifetimeAdapterFactoryMock.Verify(f => f.CreateAsync(sendEndpointOptions, cts.Token), Times.Once);
+
+        configProviderMock.VerifyGet(p => p.Configuration, Times.Once);
+
+        mockHttp.VerifyNoOutstandingExpectation();
+
+        result.Should()
+            .NotBeNull().And
+            .BeEquivalentTo(response);
+
+        result!.IsSuccess.Should().BeTrue();
+        result!.MessageIds.Should().ContainSingle(m => m == messageId);
+    }
+
+    [Test]
+    public async Task Send_ShouldUseTestEndpoint_WhenInboxIdProvided()
+    {
+        var sendEndpointOptions = new MailtrapClientEndpointOptions("https://send.api.mailtrap.io");
+        var testEndpointOptions = new MailtrapClientEndpointOptions("https://test.api.mailtrap.io");
+        var config = new MailtrapClientOptions("token")
+        {
+            SendEndpoint = sendEndpointOptions
+        };
+
+        var configProviderMock = new Mock<IMailtrapClientConfigurationProvider>();
+        configProviderMock
+            .Setup(p => p.Configuration)
+            .Returns(config);
+
+        var httpMethod = HttpMethod.Post;
+        var sendUrl = config.TestEndpoint.BaseUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
+        var messageId = new MessageId("1");
+        var response = new SendEmailResponse(true, [messageId]);
+        using var responseContent = JsonContent.Create(response);
+
+        using var mockHttp = new MockHttpMessageHandler();
+        mockHttp
+            .Expect(httpMethod, sendUrl.AbsoluteUri)
+            .Respond(HttpStatusCode.OK, responseContent);
+
+        var httpClientLifetimeAdapterMock = new Mock<IHttpClientLifetimeAdapter>();
+        httpClientLifetimeAdapterMock
+            .Setup(a => a.Client)
+            .Returns(mockHttp.ToHttpClient());
+
+        using var cts = new CancellationTokenSource();
+
+        var httpClientLifetimeAdapterFactoryMock = new Mock<IHttpClientLifetimeAdapterFactory>();
+        httpClientLifetimeAdapterFactoryMock
+            .Setup(f => f.CreateAsync(testEndpointOptions, cts.Token))
+            .ReturnsAsync(httpClientLifetimeAdapterMock.Object);
+
+        var request = SendEmailRequestBuilder
+            .Email()
+            .From("john.doe@demomailtrap.com", "John Doe")
+            .To("hero.bill@galaxy.net")
+            .Subject("Invitation to Earth")
+            .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
+        var jsonSerializerOptions = config.Serialization.ToJsonSerializerOptions();
+        var requestJson = JsonSerializer.Serialize(request, jsonSerializerOptions);
+        using var requestContent = new StringContent(requestJson);
+
+        var httpRequestContentFactoryMock = new Mock<IHttpRequestContentFactory>();
+        httpRequestContentFactoryMock
+            .Setup(f => f.CreateStringContentAsync(requestJson, cts.Token))
+            .ReturnsAsync(requestContent);
+
+        using var requestMessage = new HttpRequestMessage(httpMethod, sendUrl)
+        {
+            Content = requestContent
+        };
+
+        var httpRequestMessageFactoryMock = new Mock<IHttpRequestMessageFactory>();
+        httpRequestMessageFactoryMock
+            .Setup(f => f.CreateAsync(httpMethod, sendUrl, requestContent, cts.Token))
+            .ReturnsAsync(requestMessage);
+
+        var client = new MailtrapClient(
+            configProviderMock.Object,
+            httpClientLifetimeAdapterFactoryMock.Object,
+            httpRequestMessageFactoryMock.Object,
+            httpRequestContentFactoryMock.Object);
+
+
+        var result = await client.SendAsync(request, inboxId: 123, cancellationToken: cts.Token).ConfigureAwait(false);
+
+
+        httpRequestContentFactoryMock.Verify(f => f.CreateStringContentAsync(requestJson, cts.Token), Times.Once);
+
+        httpRequestMessageFactoryMock.Verify(f => f.CreateAsync(httpMethod, sendUrl, requestContent, cts.Token), Times.Once);
+
+        httpClientLifetimeAdapterFactoryMock.Verify(f => f.CreateAsync(testEndpointOptions, cts.Token), Times.Once);
 
         configProviderMock.VerifyGet(p => p.Configuration, Times.Once);
 
