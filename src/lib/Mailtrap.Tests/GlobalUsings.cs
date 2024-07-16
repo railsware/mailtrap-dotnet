@@ -24,7 +24,7 @@ global using FluentAssertions;
 global using Moq;
 global using RichardSzalay.MockHttp;
 
-global using Mailtrap.Tests.Common;
+global using Mailtrap.Tests.TestExtensions;
 global using Mailtrap.Core;
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;
