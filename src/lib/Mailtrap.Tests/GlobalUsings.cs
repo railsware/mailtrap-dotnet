@@ -14,6 +14,7 @@ global using Microsoft.Extensions.Options;
 
 global using NUnit.Framework;
 global using FluentAssertions;
+global using FluentValidation;
 global using FluentValidation.TestHelper;
 global using Moq;
 
@@ -31,3 +32,4 @@ global using Mailtrap.Email.Converters;
 global using Mailtrap.Email.Models;
 global using Mailtrap.Email.Requests;
 global using Mailtrap.Email.Responses;
+global using Mailtrap.Email.Validators;

@@ -75,7 +75,7 @@ public record Attachment
     /// Constructor for <see cref="Attachment"/> instance
     /// </summary>
     /// <param name="content">Required. Base64 encoded string with attachment content. Should contain at least 1 char.</param>
-    /// <param name="fileName">Required. Filename of the attachment. Empty string is allowed.</param>
+    /// <param name="fileName">Required. Filename of the attachment. Should contain at least 1 char.</param>
     /// <param name="disposition">Optional. Attachment's disposition type. Defaults to <see cref="DispositionType.Attachment"/> when not specified.</param>
     /// <param name="mimeType">Optional. MIME type of the attachement.</param>
     /// <param name="contentId">Optional. Attachment's content ID.</param>
@@ -88,7 +88,7 @@ public record Attachment
         string? contentId = default)
     {
         Ensure.NotNullOrEmpty(content, nameof(content));
-        Ensure.NotNull(fileName, nameof(fileName));
+        Ensure.NotNullOrEmpty(fileName, nameof(fileName));
 
         Content = content;
         FileName = fileName;
