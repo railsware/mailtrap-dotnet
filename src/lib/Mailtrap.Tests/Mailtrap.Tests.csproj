@@ -11,8 +11,4 @@
         <ProjectReference Include="$(LibSourceDirectory)Mailtrap\Mailtrap.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Email\Validators\" />
-    </ItemGroup>
-
 </Project>

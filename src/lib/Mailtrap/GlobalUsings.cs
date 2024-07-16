@@ -13,8 +13,11 @@ global using FluentValidation;
 global using Mailtrap.Core;
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;
+global using Mailtrap.Configuration;
 global using Mailtrap.Configuration.Models;
 global using Mailtrap.Configuration.Validators;
+global using Mailtrap.Email.Models;
+global using Mailtrap.Email.Requests;
 
 
 // Allowing test assembly to access internals for unit tests

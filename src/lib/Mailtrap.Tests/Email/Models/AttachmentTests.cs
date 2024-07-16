@@ -35,9 +35,17 @@ internal sealed class AttachmentTests
     }
 
     [Test]
-    public void Constructor_ShouldNotThrowException_WhenEmptyFileNameProvided()
+    public void Constructor_ShouldThrowArgumentNullException_WhenFileNameIsEmpty()
     {
         var act = () => new Attachment("Test Text", string.Empty);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void Constructor_ShouldNotThrowException_WhenEmptyFileNameProvided()
+    {
+        var act = () => new Attachment("Test Text", "filename.txt");
 
         act.Should().NotThrow();
     }
@@ -45,7 +53,7 @@ internal sealed class AttachmentTests
     [Test]
     public void Constructor_ShouldNotThrowException_WhenDispositionIsSetToNull()
     {
-        var act = () => new Attachment("Test Text", string.Empty, null);
+        var act = () => new Attachment("Test Text", "filename.txt", null);
 
         act.Should().NotThrow();
     }
@@ -53,7 +61,7 @@ internal sealed class AttachmentTests
     [Test]
     public void Constructor_ShouldDefaultDispositionToAttachment_WhenNotSpecified()
     {
-        var attachment = new Attachment("Test Text", string.Empty);
+        var attachment = new Attachment("Test Text", "filename.txt");
 
         attachment.Disposition.Should().Be(DispositionType.Attachment);
     }
@@ -61,7 +69,7 @@ internal sealed class AttachmentTests
     [Test]
     public void Constructor_ShouldDefaultDispositionToAttachment_WhenIsSetToNullExplicitly()
     {
-        var attachment = new Attachment("Test Text", string.Empty, null);
+        var attachment = new Attachment("Test Text", "filename.txt", null);
 
         attachment.Disposition.Should().Be(DispositionType.Attachment);
     }
@@ -69,7 +77,7 @@ internal sealed class AttachmentTests
     [Test]
     public void Constructor_ShouldDefaultOptionalPropertiesToNull_WhenNotSpecified()
     {
-        var attachment = new Attachment("Test Text", string.Empty);
+        var attachment = new Attachment("Test Text", "filename.txt");
 
         attachment.MimeType.Should().BeNull();
         attachment.ContentId.Should().BeNull();
