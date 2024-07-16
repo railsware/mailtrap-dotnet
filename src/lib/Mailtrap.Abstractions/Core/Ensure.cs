@@ -16,24 +16,46 @@ public static class Ensure
     /// <summary>
     /// Ensures provided <paramref name="paramValue"/> is not null.
     /// </summary>
-    /// <exception cref="ArgumentNullException"></exception>
-    public static void NotNull<T>(T paramValue, string paramName)
+    /// <exception cref="ArgumentNullException">
+    /// When <paramref name="paramValue"/> is <see langword="null"/>.
+    /// </exception>
+    public static void NotNull<T>(T paramValue, string paramName, string? message = default)
     {
-        if (paramValue is null)
+        if (paramValue is not null)
+        {
+            return;
+        }
+
+        if (message is null)
         {
             throw new ArgumentNullException(paramName);
+        }
+        else
+        {
+            throw new ArgumentNullException(paramName, message);
         }
     }
 
     /// <summary>
     /// Ensures provided string <paramref name="paramValue"/> is not null or empty string.
     /// </summary>
-    /// <exception cref="ArgumentNullException"></exception>
-    public static void NotNullOrEmpty(string paramValue, string paramName)
+    /// <exception cref="ArgumentNullException">
+    /// When <paramref name="paramValue"/> is <see langword="null"/>.
+    /// </exception>
+    public static void NotNullOrEmpty(string paramValue, string paramName, string? message = default)
     {
-        if (string.IsNullOrEmpty(paramValue))
+        if (!string.IsNullOrEmpty(paramValue))
+        {
+            return;
+        }
+
+        if (message is null)
         {
             throw new ArgumentNullException(paramName);
+        }
+        else
+        {
+            throw new ArgumentNullException(paramName, message);
         }
     }
 }
