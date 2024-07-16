@@ -12,7 +12,7 @@ namespace Mailtrap.Email.Models;
 /// Attachment disposition type.
 /// </summary>
 [JsonConverter(typeof(DispositionTypeJsonConverter))]
-public record DispositionType
+public sealed record DispositionType
 {
     /// <summary>
     /// Results in the attached file displayed automatically within the message.

@@ -5,8 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Tests.Core;
-
+namespace Mailtrap.Tests.Extensions;
 
 
 [TestFixture]
@@ -17,7 +16,7 @@ internal sealed class CollectionExtensionsTests
     {
         var itemsToAdd = new List<int> { 4, 5, 6 };
 
-        var act = () => Mailtrap.Core.CollectionExtensions.AddRange(null!, itemsToAdd);
+        var act = () => Mailtrap.Extensions.CollectionExtensions.AddRange(null!, itemsToAdd);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -27,7 +26,7 @@ internal sealed class CollectionExtensionsTests
     {
         var collection = new List<int> { 1, 2, 3 };
 
-        var act = () => Mailtrap.Core.CollectionExtensions.AddRange(collection, null!);
+        var act = () => Mailtrap.Extensions.CollectionExtensions.AddRange(collection, null!);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -38,7 +37,7 @@ internal sealed class CollectionExtensionsTests
         var collection = new List<int> { 1, 2, 3 };
         var itemsToAdd = new List<int> { 4, 5, 6 };
 
-        Mailtrap.Core.CollectionExtensions.AddRange(collection, itemsToAdd);
+        Mailtrap.Extensions.CollectionExtensions.AddRange(collection, itemsToAdd);
 
         collection.Should().ContainInOrder(1, 2, 3, 4, 5, 6);
     }
@@ -49,7 +48,7 @@ internal sealed class CollectionExtensionsTests
         var collection = new HashSet<int> { 1, 2, 3 };
         var itemsToAdd = new List<int> { 4, 5, 6 };
 
-        Mailtrap.Core.CollectionExtensions.AddRange(collection, itemsToAdd);
+        collection.AddRange(itemsToAdd);
 
         collection.Should().ContainInOrder(1, 2, 3, 4, 5, 6);
     }

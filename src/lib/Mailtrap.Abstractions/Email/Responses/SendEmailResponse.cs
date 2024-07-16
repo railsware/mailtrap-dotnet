@@ -11,7 +11,7 @@ namespace Mailtrap.Email.Responses;
 /// <summary>
 /// Mailtrap API send email call response object.
 /// </summary>
-public record SendEmailResponse : MailtrapApiResponse<IList<string>>
+public record SendEmailResponse : MailtrapResponse<IList<string>>
 {
     /// <summary>
     /// List of <see cref="MessageId"/> objects, representing IDs of emails sent
