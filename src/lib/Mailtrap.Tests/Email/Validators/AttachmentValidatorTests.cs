@@ -35,16 +35,6 @@ internal sealed class AttachmentValidatorTests
     #region FileName
 
     [Test]
-    public void Validation_ShouldNotFail_WhenFileNameIsEmpty()
-    {
-        var attachment = new Attachment(_testContent, string.Empty);
-
-        var result = AttachmentValidator.Instance.TestValidate(attachment);
-
-        result.ShouldNotHaveValidationErrorFor(a => a.FileName);
-    }
-
-    [Test]
     public void Validation_ShouldNotFail_WhenFileNameIsNotNullOrEmpty()
     {
         var attachment = new Attachment(_testContent, _testFileName);

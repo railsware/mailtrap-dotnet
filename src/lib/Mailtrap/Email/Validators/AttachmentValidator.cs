@@ -14,8 +14,8 @@ internal class AttachmentValidator : AbstractValidator<Attachment>
 
     public AttachmentValidator()
     {
-        RuleFor(a => a.Content).NotNull().MinimumLength(1);
-        RuleFor(a => a.FileName).NotNull();
+        RuleFor(a => a.Content).NotEmpty();
+        RuleFor(a => a.FileName).NotEmpty();
         RuleFor(a => a.MimeType).MinimumLength(1).When(a => a.MimeType is not null);
     }
 }

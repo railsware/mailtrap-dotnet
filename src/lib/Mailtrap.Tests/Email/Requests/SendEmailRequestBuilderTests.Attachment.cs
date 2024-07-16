@@ -142,13 +142,13 @@ internal sealed class SendEmailRequestBuilderTests_Attachment
     }
 
     [Test]
-    public void Attach_ShouldNotThrowException_WhenFileNameIsEmpty()
+    public void Attach_ShouldThrowArgumentNullException_WhenFileNameIsEmpty()
     {
         var request = SendEmailRequestBuilder.Email();
 
         var act = () => SendEmailRequestBuilder.Attach(request, Content, string.Empty);
 
-        act.Should().NotThrow();
+        act.Should().Throw<ArgumentNullException>();
     }
 
     [Test, Combinatorial]

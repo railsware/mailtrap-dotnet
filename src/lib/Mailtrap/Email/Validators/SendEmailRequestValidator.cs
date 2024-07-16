@@ -40,7 +40,7 @@ internal class SendEmailRequestValidator : AbstractValidator<SendEmailRequest>
         {
             RuleFor(r => r.Subject).NotNull().MinimumLength(1);
 
-            RuleFor(r => r.Category).MaximumLength(255); // TODO: Ensure this is corrrect
+            RuleFor(r => r.Category).MaximumLength(255);
 
             RuleFor(r => r.TextBody)
                 .NotNull()
@@ -70,7 +70,7 @@ internal class SendEmailRequestValidator : AbstractValidator<SendEmailRequest>
                 .WithMessage($"'{nameof(SendEmailRequest.HtmlBody)}' should be null, when '{nameof(SendEmailRequest.TemplateId)}' is specified.");
 
             RuleFor(r => r.Category)
-                .Null() // TODO: Ensure this is corrrect
+                .Null()
                 .WithMessage($"'{nameof(SendEmailRequest.Category)}' should be null, when '{nameof(SendEmailRequest.TemplateId)}' is specified.");
         });
     }

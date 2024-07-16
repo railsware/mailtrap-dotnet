@@ -30,7 +30,7 @@ public record MailtrapClientEndpointOptions
 
 
     /// <summary>
-    /// Base endpoint URL, e.g. https://api.mailtrap.io
+    /// Endpoint base URL, e.g. https://send.api.mailtrap.io
     /// </summary>
     /// <remarks>
     /// Required. Should be absolute URL.
@@ -40,8 +40,7 @@ public record MailtrapClientEndpointOptions
     /// <summary>
     /// <see cref="HttpClient"/> instance name to use for requests sent to this endpoint.
     /// <para>
-    /// Different endpoints can use same or different named <see cref="HttpClient"/> instances,
-    /// preconfigured with one of the <see cref="HttpClientFactoryServiceCollectionExtensions.AddHttpClient(IServiceCollection, string)"/> overloads.
+    /// Different endpoints can use same or different named <see cref="HttpClient"/> instances.
     /// </para>
     /// </summary>
     /// <remarks>

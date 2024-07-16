@@ -206,9 +206,11 @@ internal sealed class MailtrapClientTests
     {
         var sendEndpointOptions = new MailtrapClientEndpointOptions("https://send.api.mailtrap.io");
         var testEndpointOptions = new MailtrapClientEndpointOptions("https://test.api.mailtrap.io");
+
         var config = new MailtrapClientOptions("token")
         {
-            SendEndpoint = sendEndpointOptions
+            SendEndpoint = sendEndpointOptions,
+            TestEndpoint = testEndpointOptions
         };
 
         var configProviderMock = new Mock<IMailtrapClientConfigurationProvider>();
