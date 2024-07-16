@@ -74,7 +74,9 @@ public class MailtrapClientFactory : IMailtrapClientFactory
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="configuration"/> or <paramref name="httpClient"/> is <see langword="null"/>.
     /// </exception>
-    public MailtrapClientFactory(MailtrapClientOptions configuration, HttpClient httpClient)
+    public MailtrapClientFactory(
+        MailtrapClientOptions configuration,
+        HttpClient httpClient)
     {
         Ensure.NotNull(configuration, nameof(configuration));
         Ensure.NotNull(httpClient, nameof(httpClient));
