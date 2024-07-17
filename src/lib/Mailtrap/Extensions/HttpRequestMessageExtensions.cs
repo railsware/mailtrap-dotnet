@@ -35,7 +35,28 @@ internal static class HttpRequestMessageExtensions
     }
 
     /// <summary>
-    /// Adds the API key to the request headers.
+    /// Replaces the contents of the 'UserAgent' header in provided <see cref="HttpRequestMessage"/> instance
+    /// with Mailtrap implementation specific one.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns><see cref="HttpRequestMessage"/> instance so calls can be chained.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// When provided <paramref name="request"/> is <see langword="null"/>.
+    /// </exception>
+    internal static HttpRequestMessage ConfigureUserAgentHeader(this HttpRequestMessage request)
+    {
+        Ensure.NotNull(request, nameof(request));
+
+        var agentHeader = request.Headers.UserAgent;
+
+        agentHeader.Clear();
+        agentHeader.Add(new(HeaderValues.UserAgent, HeaderValues.UserAgentVersion));
+
+        return request;
+    }
+
+    /// <summary>
+    /// Sets the API key to the request's authorization header.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="apiKey"></param>
@@ -43,11 +64,11 @@ internal static class HttpRequestMessageExtensions
     /// <exception cref="ArgumentNullException">
     /// When provided <paramref name="request"/> is <see langword="null"/>.
     /// </exception>
-    internal static HttpRequestMessage ConfigureApiAuthenticationHeader(this HttpRequestMessage request, string apiKey)
+    internal static HttpRequestMessage ConfigureAuthorizationHeader(this HttpRequestMessage request, string apiKey)
     {
         Ensure.NotNull(request, nameof(request));
 
-        request.Headers.Add(HeaderNames.ApiKeyHeader, apiKey);
+        request.Headers.Authorization = new("Bearer", apiKey);
 
         return request;
     }

@@ -44,6 +44,6 @@ internal class ApiKeyAuthenticationHttpRequestMessagePolicy : IHttpRequestMessag
             .GetAccessTokenAsync(cancellationToken)
             .ConfigureAwait(false);
 
-        request.ConfigureApiAuthenticationHeader(token);
+        request.ConfigureAuthorizationHeader(token);
     }
 }

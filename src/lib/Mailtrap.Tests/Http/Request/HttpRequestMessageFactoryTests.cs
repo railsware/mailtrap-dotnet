@@ -77,7 +77,7 @@ internal sealed class HttpRequestMessageFactoryTests
     [Test]
     public async Task CreateAsync_ShouldApplyPolicies()
     {
-        var numberOfPolicies = 2;
+        var numberOfPolicies = 3;
 
         var policyMocks = new List<Mock<IHttpRequestMessagePolicy>>(numberOfPolicies);
 

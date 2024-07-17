@@ -31,6 +31,13 @@ internal sealed class HeadersHttpRequestMessagePolicyTests
         await policy.ApplyPolicyAsync(request).ConfigureAwait(false);
 
         request.Headers.Should().ContainKey("Accept");
-        request.Headers.Accept.Should().ContainSingle(h => h.MediaType == MimeTypes.Application.Json);
+        request.Headers.Accept.Should()
+            .NotBeNull().And
+            .ContainSingle(h => h.MediaType == MimeTypes.Application.Json);
+
+        request.Headers.Should().ContainKey("User-Agent");
+        request.Headers.UserAgent.Should()
+            .NotBeNull().And
+            .ContainSingle(h => h.Product!.Name == HeaderValues.UserAgent && h.Product!.Version == HeaderValues.UserAgentVersion);
     }
 }

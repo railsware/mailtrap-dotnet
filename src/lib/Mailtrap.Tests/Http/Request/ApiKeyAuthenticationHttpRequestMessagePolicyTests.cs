@@ -47,7 +47,8 @@ internal sealed class ApiKeyAuthenticationHttpRequestMessagePolicyTests
 
         tokenProviderMock.Verify(x => x.GetAccessTokenAsync(cts.Token), Times.Once);
 
-        request.Headers.Should().ContainKey(HeaderNames.ApiKeyHeader);
-        request.Headers.GetValues(HeaderNames.ApiKeyHeader).Should().ContainSingle(v => v == token);
+        request.Headers.Authorization.Should()
+            .NotBeNull().And
+            .BeEquivalentTo(new AuthenticationHeaderValue("Bearer", token));
     }
 }

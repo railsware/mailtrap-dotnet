@@ -22,7 +22,9 @@ internal sealed class HeadersHttpRequestMessagePolicy : IHttpRequestMessagePolic
     {
         Ensure.NotNull(request, nameof(request));
 
-        request.ConfigureAcceptHeader();
+        request
+            .ConfigureAcceptHeader()
+            .ConfigureUserAgentHeader();
 
         return Task.CompletedTask;
     }

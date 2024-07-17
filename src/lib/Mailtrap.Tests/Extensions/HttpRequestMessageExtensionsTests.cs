@@ -48,39 +48,82 @@ internal sealed class HttpRequestMessageExtensionsTests
 
 
 
-    #region ConfigureApiAuthenticationHeader
-
-    private string _apiKey { get; } = "token";
+    #region ConfigureUserAgentHeader
 
     [Test]
-    public void ConfigureApiAuthenticationHeader_ShouldThrowArgumentNullException_WhenMessageIsNull()
+    public void ConfigureUserAgentHeader_ShouldThrowArgumentNullException_WhenMessageIsNull()
     {
-        var act = () => HttpRequestMessageExtensions.ConfigureApiAuthenticationHeader(null!, _apiKey);
+        var act = () => HttpRequestMessageExtensions.ConfigureUserAgentHeader(null!);
 
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Test]
-    public void ConfigureApiAuthenticationHeader_ShouldApplyHeader_WhenWasUnspecified()
+    public void ConfigureUserAgentHeader_ShouldApplyUserAgentHeader_WhenNoHeadersSpecified()
     {
         using var message = new HttpRequestMessage();
 
-        message.ConfigureApiAuthenticationHeader(_apiKey);
+        message.ConfigureUserAgentHeader();
 
-        message.Headers.Should().ContainKey(HeaderNames.ApiKeyHeader);
-        message.Headers.GetValues(HeaderNames.ApiKeyHeader).Should().ContainSingle(m => m == _apiKey);
+        message.Headers.UserAgent.Should().ContainSingle(m =>
+            m.Product!.Name == HeaderValues.UserAgent &&
+            m.Product!.Version == HeaderValues.UserAgentVersion);
     }
 
     [Test]
-    public void ConfigureApiAuthenticationHeader_ShouldOverrideHeader_WhenWasSpecified()
+    public void ConfigureUserAgentHeader_ShouldOverrideUserAgentHeader_WhenOthersWereSpecified()
     {
         using var message = new HttpRequestMessage();
 
-        message.Headers.Add(HeaderNames.ApiKeyHeader, "other token");
+        message.Headers.UserAgent.Add(new("explorer", "1.0"));
+        message.Headers.UserAgent.Add(new("gecko", "4.0"));
 
-        message.ConfigureApiAuthenticationHeader(_apiKey);
+        message.ConfigureUserAgentHeader();
 
-        message.Headers.GetValues(HeaderNames.ApiKeyHeader).Should().ContainSingle(m => m == _apiKey);
+        message.Headers.UserAgent.Should().ContainSingle(m =>
+            m.Product!.Name == HeaderValues.UserAgent &&
+            m.Product!.Version == HeaderValues.UserAgentVersion);
+    }
+
+    #endregion
+
+
+
+    #region ConfigureAuthorizationHeader
+
+    private string _apiKey { get; } = "token";
+
+    [Test]
+    public void ConfigureAuthorizationHeader_ShouldThrowArgumentNullException_WhenMessageIsNull()
+    {
+        var act = () => HttpRequestMessageExtensions.ConfigureAuthorizationHeader(null!, _apiKey);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void ConfigureAuthorizationHeader_ShouldApplyHeader_WhenWasUnspecified()
+    {
+        using var message = new HttpRequestMessage();
+
+        message.ConfigureAuthorizationHeader(_apiKey);
+
+        message.Headers.Authorization.Should()
+            .NotBeNull().And
+            .BeEquivalentTo(new AuthenticationHeaderValue("Bearer", _apiKey));
+    }
+
+    [Test]
+    public void ConfigureAuthorizationHeader_ShouldOverrideHeader_WhenWasSpecified()
+    {
+        using var message = new HttpRequestMessage();
+
+        message.Headers.Authorization = new("other_scheme", "other_token");
+
+        message.ConfigureAuthorizationHeader(_apiKey);
+
+        message.Headers.Authorization.Should()
+            .BeEquivalentTo(new AuthenticationHeaderValue("Bearer", _apiKey));
     }
 
     #endregion

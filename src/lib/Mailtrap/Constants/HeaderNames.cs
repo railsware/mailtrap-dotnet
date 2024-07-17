@@ -13,6 +13,5 @@ namespace Mailtrap.Constants;
 /// </summary>
 internal static class HeaderNames
 {
-    internal static string ApiKeyHeader { get; } = "Api-Token";
     internal static string PreferHeader { get; } = "Prefer";
 }
