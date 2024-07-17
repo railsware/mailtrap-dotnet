@@ -50,7 +50,7 @@ internal static class HttpRequestMessageExtensions
         var agentHeader = request.Headers.UserAgent;
 
         agentHeader.Clear();
-        agentHeader.Add(new(HeaderValues.UserAgent, HeaderValues.UserAgentVersion));
+        agentHeader.Add(HeaderValues.UserAgent);
 
         return request;
     }

@@ -13,6 +13,7 @@ namespace Mailtrap.Constants;
 /// </summary>
 internal static class HeaderValues
 {
-    internal static string UserAgent { get; } = "mailtrap-dotnet";
-    internal static string UserAgentVersion { get; } = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+    internal static string UserAgentName { get; } = "mailtrap-dotnet";
+    internal static string UserAgentVersion { get; } = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
+    internal static ProductInfoHeaderValue UserAgent { get; } = new(UserAgentName, UserAgentVersion);
 }

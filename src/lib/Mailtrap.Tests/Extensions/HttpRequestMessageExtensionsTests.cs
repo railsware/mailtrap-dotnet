@@ -66,7 +66,7 @@ internal sealed class HttpRequestMessageExtensionsTests
         message.ConfigureUserAgentHeader();
 
         message.Headers.UserAgent.Should().ContainSingle(m =>
-            m.Product!.Name == HeaderValues.UserAgent &&
+            m.Product!.Name == HeaderValues.UserAgentName &&
             m.Product!.Version == HeaderValues.UserAgentVersion);
     }
 
@@ -81,7 +81,7 @@ internal sealed class HttpRequestMessageExtensionsTests
         message.ConfigureUserAgentHeader();
 
         message.Headers.UserAgent.Should().ContainSingle(m =>
-            m.Product!.Name == HeaderValues.UserAgent &&
+            m.Product!.Name == HeaderValues.UserAgentName &&
             m.Product!.Version == HeaderValues.UserAgentVersion);
     }
 

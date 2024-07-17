@@ -38,6 +38,8 @@ internal sealed class HeadersHttpRequestMessagePolicyTests
         request.Headers.Should().ContainKey("User-Agent");
         request.Headers.UserAgent.Should()
             .NotBeNull().And
-            .ContainSingle(h => h.Product!.Name == HeaderValues.UserAgent && h.Product!.Version == HeaderValues.UserAgentVersion);
+            .ContainSingle(h =>
+                h.Product!.Name == HeaderValues.UserAgentName &&
+                h.Product!.Version == HeaderValues.UserAgentVersion);
     }
 }
