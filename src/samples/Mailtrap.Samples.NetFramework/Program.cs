@@ -18,6 +18,9 @@ using Mailtrap.Email.Responses;
 namespace Mailtrap.Samples.NetFramework;
 
 
+/// <summary>
+/// Example to prove compatibility with legacy .NET Framework
+/// </summary>
 internal class Program
 {
     static async Task Main()

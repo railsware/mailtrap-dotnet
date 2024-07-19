@@ -9,7 +9,7 @@ namespace Mailtrap.Extensions;
 
 
 /// <summary>
-/// A set of helpers for <see cref="Uri"/>
+/// A set of helpers for <see cref="Uri"/>.
 /// </summary>
 internal static class UriExtensions
 {

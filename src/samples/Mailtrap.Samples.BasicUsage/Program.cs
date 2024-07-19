@@ -13,6 +13,9 @@ using Mailtrap.Email.Responses;
 using Microsoft.Extensions.DependencyInjection;
 
 
+/// <summary>
+/// Example demonstrating usage of factory to create  and consume MailtrapClient instances.
+/// </summary>
 [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Example")]
 internal sealed class Program
 {
@@ -28,12 +31,15 @@ internal sealed class Program
             // Instance of MailtrapClientFactory should be used as singleton -
             // since it is using HttpClientFactory under the hood to create
             // transient HttpClient instances and pass them to MailtrapClient instances.
-            // Recreating it each time when MailtrapClient insatnce is needed can be resource consuming.
+            // Recreating it each time when MailtrapClient instance is needed
+            // can be resource consuming.
 
-            // Meanwile, instances of MailtrapClient, produced by the factory,
+            // Instances of MailtrapClient, produced by the factory,
             // can be freely used in any manner, long-living, unit-of-work, etc.
+            // Meanwhile, they are not thread-safe and are not intended for multithreaded use,
+            // thus singletons should be used with caution.
 
-            using MailtrapClientFactory factory = AdvancedHttpClientConfiguration(apiKey);
+            using MailtrapClientFactory factory = BasicUsage(apiKey);
 
             IMailtrapClient client = factory.CreateClient();
 
@@ -57,12 +63,19 @@ internal sealed class Program
     }
 
 
+    /// <summary>
+    /// Simplest case
+    /// </summary>
     private static MailtrapClientFactory BasicUsage(string apiKey)
     {
         return new MailtrapClientFactory(apiKey);
     }
 
-    private static MailtrapClientFactory CustomHttpClient(string apiKey)
+
+    /// <summary>
+    /// Case with external standalone HttpClient instance
+    /// </summary>
+    private static MailtrapClientFactory StandaloneHttpClient(string apiKey)
     {
         using var httpMessageHandler = new HttpClientHandler()
         {
@@ -75,6 +88,9 @@ internal sealed class Program
         return new MailtrapClientFactory(apiKey, httpClient);
     }
 
+    /// <summary>
+    /// Case with advanced HttpClient configuration
+    /// </summary>
     private static MailtrapClientFactory AdvancedHttpClientConfiguration(string apiKey)
     {
         return new MailtrapClientFactory(apiKey, builder =>

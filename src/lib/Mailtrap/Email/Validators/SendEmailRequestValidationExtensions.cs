@@ -9,7 +9,7 @@ namespace Mailtrap.Email.Validators;
 
 
 /// <summary>
-/// A set of extensions for <see cref="SendEmailRequest"/> validation
+/// A set of extensions for <see cref="SendEmailRequest"/> validation.
 /// </summary>
 public static class SendEmailRequestValidationExtensions
 {
@@ -28,16 +28,22 @@ public static class SendEmailRequestValidationExtensions
     }
 
     /// <summary>
-    /// This helper validates provided <paramref name="request"/> and throws <see cref="ValidationException"/>
-    /// in case any validation issues arise.
+    /// This helper validates provided <see cref="SendEmailRequest"/> instance
+    /// and throws <see cref="ArgumentException"/> in case of any validation errors.
     /// </summary>
     /// <param name="request"></param>
-    /// <exception cref="ArgumentNullException" />
-    /// <exception cref="ValidationException" />
+    /// <exception cref="ArgumentNullException">
+    /// When provided <paramref name="request"/> is <see langword="null"/>.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// When validation fails.
+    /// </exception>
     public static void Validate(this SendEmailRequest request)
     {
         Ensure.NotNull(request, nameof(request));
 
-        SendEmailRequestValidator.Instance.ValidateAndThrow(request);
+        SendEmailRequestValidator.Instance
+            .Validate(request)
+            .EnsureValidity(nameof(request));
     }
 }

@@ -12,6 +12,7 @@ global using Microsoft.Extensions.Options;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.DependencyInjection.Extensions;
 global using FluentValidation;
+global using FluentValidation.Results;
 
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;

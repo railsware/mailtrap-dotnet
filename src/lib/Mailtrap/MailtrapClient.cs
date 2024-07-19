@@ -70,10 +70,7 @@ public class MailtrapClient : IMailtrapClient
             .ValidateAsync(request, cancellationToken)
             .ConfigureAwait(false);
 
-        if (!validationResult.IsValid)
-        {
-            throw new ArgumentException($"Invalid request data:\n{validationResult.ToString("\n")}", nameof(request));
-        }
+        validationResult.EnsureValidity(nameof(request));
 
         var jsonContent = JsonSerializer.Serialize(request, _jsonSerializerOptions);
 

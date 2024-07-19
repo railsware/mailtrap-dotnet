@@ -19,10 +19,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 
+/// <summary>
+/// Example demonstrating how to use Mailtrap API client with application host (which can be WebApp host as well).
+/// </summary>
 [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Example")]
 internal sealed class Program
 {
-    // This particular example demonstrates how to use Mailtrap API client with generic app host (which can be WebApp host as well).
     private static async Task Main(string[] args)
     {
         // Default host builder helper loads configuration from appsettings.json,
@@ -57,7 +59,9 @@ internal sealed class Program
     }
 
 
-    // The simplest example, which uses configuration section from appsettings.json.
+    /// <summary>
+    /// The simplest case, which uses configuration section from appsettings.json.
+    /// </summary>
     private static IHost BuildHostWithConfigurationSection(HostApplicationBuilder hostBuilder)
     {
         // Loading config section, which can look like:
@@ -80,7 +84,9 @@ internal sealed class Program
         return hostBuilder.Build();
     }
 
-    // Other simple one, which uses configuration delegate to configure Mailtrap API client.
+    /// <summary>
+    /// Other simple one, which uses configuration delegate to configure Mailtrap API client.
+    /// </summary>
     private static IHost BuildHostWithConfigurationDelegate(HostApplicationBuilder hostBuilder)
     {
         // For sure you should not hardcode apiKey for security reasons, and use environment variables
@@ -97,7 +103,9 @@ internal sealed class Program
         return hostBuilder.Build();
     }
 
-    // Optionally, we can provide preconfigured MaitrapiClientOptions instance.
+    /// <summary>
+    /// Optionally, we can provide preconfigured MaitrapiClientOptions instance.
+    /// </summary>
     private static IHost BuildHostWithExplicitConfiguration(HostApplicationBuilder hostBuilder)
     {
         var apiKey = "<API-KEY>";
@@ -110,8 +118,10 @@ internal sealed class Program
         return hostBuilder.Build();
     }
 
-    // More advanced scenario, where HttpClient is configured with custom fine-grane settings.
-    // It can be used with any of configuration approaches (appsettings.json, delegate, explicit options).
+    /// <summary>
+    /// More advanced scenario, where HttpClient is configured with custom fine-grane settings.<br/>
+    /// It can be used with any of configuration approaches (appsettings.json, delegate, explicit options).
+    /// </summary>
     private static IHost BuildHostWithAdvancedHttpClientConfiguration(HostApplicationBuilder hostBuilder)
     {
         IConfigurationSection config = hostBuilder.Configuration.GetSection("Mailtrap");
@@ -146,7 +156,9 @@ internal sealed class Program
         return hostBuilder.Build();
     }
 
-    // In case you need full control over client configuration pipeline, you can go even further.
+    /// <summary>
+    /// In case you need full control over client configuration pipeline, you can go even further.
+    /// </summary>
     private static IHost BuildHostWithAdvancedClientConfigurations(HostApplicationBuilder hostBuilder)
     {
         var sendClientName = "SendClient";

@@ -11,7 +11,7 @@ namespace Mailtrap.Email.Requests;
 /// <summary>
 /// A set of helper methods to streamline <see cref="SendEmailRequest"/> instance construction in a fluent style.
 /// </summary>
-public static partial class SendEmailRequestBuilder
+public static class SendEmailRequestBuilder
 {
     #region Create
 
