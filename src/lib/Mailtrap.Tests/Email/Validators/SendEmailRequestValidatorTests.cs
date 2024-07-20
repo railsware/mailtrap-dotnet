@@ -22,7 +22,7 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenNoRecipientsPresent()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
@@ -32,8 +32,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenOnlyToRecipientsPresent()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .To(_validEmail);
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
@@ -44,8 +44,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenOnlyCcRecipientsPresent()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Cc(_validEmail);
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
@@ -56,8 +56,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenOnlyBccRecipientsPresent()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Bcc(_validEmail);
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
@@ -74,8 +74,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenSenderEmailIsInvalid()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From(_invalidEmail);
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
@@ -86,8 +86,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenSenderEmailIsValid()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From(_validEmail);
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
@@ -105,7 +105,7 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenToLengthExceedsLimit()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         for (var i = 1; i <= 1001; i++)
         {
@@ -120,7 +120,7 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenToLengthWithinLimit()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         for (var i = 1; i <= 1000; i++)
         {
@@ -135,8 +135,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenAtLEastOneToEmailIsInvalid()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .To(_validEmail)
             .To(_invalidEmail);
 
@@ -151,8 +151,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenAllToEmailsAreValid()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .To(_validEmail)
             .To("other@domain.com");
 
@@ -172,7 +172,7 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenCcLengthExceedsLimit()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         for (var i = 1; i <= 1001; i++)
         {
@@ -187,7 +187,7 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenCcLengthWithinLimit()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         for (var i = 1; i <= 1000; i++)
         {
@@ -202,8 +202,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenAtLEastOneCcEmailIsInvalid()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Cc(_validEmail)
             .Cc(_invalidEmail);
 
@@ -215,8 +215,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenAllCcEmailsAreValid()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Cc(_validEmail)
             .Cc("other@domain.com");
 
@@ -236,7 +236,7 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenBccLengthExceedsLimit()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         for (var i = 1; i <= 1001; i++)
         {
@@ -251,7 +251,7 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenBccLengthWithinLimit()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         for (var i = 1; i <= 1000; i++)
         {
@@ -266,8 +266,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenAtLEastOneBccEmailIsInvalid()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Bcc(_validEmail)
             .Bcc(_invalidEmail);
 
@@ -279,8 +279,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenAllBccEmailsAreValid()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Bcc(_validEmail)
             .Bcc("other@domain.com");
 
@@ -300,8 +300,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenAtLEastOneAttachmentIsInvalid()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Attach("Any content", "file1.txt")
             .Attach("Any content", "file2.txt", mimeType: string.Empty);
 
@@ -313,8 +313,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenAllAttachmentsAreValid()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Attach("Any content", "file1.txt")
             .Attach("Any content", "file2.txt");
 
@@ -334,8 +334,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenTemplateIdIsSetAndSubjectProvided()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Template(_templateId)
             .Subject("Subject");
 
@@ -347,8 +347,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenTemplateIdIsSetAndTextProvided()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Template(_templateId)
             .Text("Content");
 
@@ -360,8 +360,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenTemplateIdIsSetAndHtmlProvided()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Template(_templateId)
             .Html("<h1>Header</h1>");
 
@@ -373,8 +373,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenTemplateIdIsSetAndCategoryProvided()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Template(_templateId)
             .Category(string.Empty);
 
@@ -386,8 +386,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenTemplateIdIsSetAndNoForbiddenPropertiesAreSet()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From(_validEmail)
             .To(_validEmail)
             .Template(_templateId);
@@ -406,7 +406,7 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenSubjectIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
@@ -416,8 +416,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenSubjectProvided()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Subject("Subject");
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
@@ -434,8 +434,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenCategoryExceedsAllowedLength()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Category(TestContext.CurrentContext.Random.GetString(256));
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
@@ -446,8 +446,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenCategoryFitsAllowedLength()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Category(TestContext.CurrentContext.Random.GetString(255));
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
@@ -464,7 +464,7 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenBothHtmlAndTextBodyAreNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
@@ -475,8 +475,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenBothHtmlAndTextBodyAreEmpty()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Text(string.Empty)
             .Html(string.Empty);
 
@@ -489,8 +489,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenTextBodyIsNotEmpty()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Text("Text");
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
@@ -502,8 +502,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenHtmlBodyIsNotEmpty()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Html("<h1>Html</h1>");
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
@@ -515,8 +515,8 @@ internal sealed class SendEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenBothHtmlAndTextBodyAreNotEmpty()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Text("Text")
             .Html("<h1>Html</h1>");
 

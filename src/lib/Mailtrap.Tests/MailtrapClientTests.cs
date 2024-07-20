@@ -104,7 +104,7 @@ internal sealed class MailtrapClientTests
 
         var client = factory.CreateClient();
 
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => client.SendAsync(request);
 
@@ -148,8 +148,8 @@ internal sealed class MailtrapClientTests
             .Setup(f => f.CreateAsync(sendEndpointOptions, cts.Token))
             .ReturnsAsync(httpClientLifetimeAdapterMock.Object);
 
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From("john.doe@demomailtrap.com", "John Doe")
             .To("hero.bill@galaxy.net")
             .Subject("Invitation to Earth")
@@ -241,8 +241,8 @@ internal sealed class MailtrapClientTests
             .Setup(f => f.CreateAsync(testEndpointOptions, cts.Token))
             .ReturnsAsync(httpClientLifetimeAdapterMock.Object);
 
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From("john.doe@demomailtrap.com", "John Doe")
             .To("hero.bill@galaxy.net")
             .Subject("Invitation to Earth")

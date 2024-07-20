@@ -14,6 +14,13 @@ namespace Mailtrap.Email.Requests;
 public record SendEmailRequest
 {
     /// <summary>
+    /// Creates a new instance of <see cref="SendEmailRequest" /> request.
+    /// </summary>
+    /// <returns>New <see cref="SendEmailRequest"/> instance.</returns>
+    public static SendEmailRequest Create() => new();
+
+
+    /// <summary>
     /// <see cref="EmailAddress"/> instance representing email's sender.
     /// </summary>
     /// <remarks>

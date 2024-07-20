@@ -13,18 +13,6 @@ namespace Mailtrap.Email.Requests;
 /// </summary>
 public static class SendEmailRequestBuilder
 {
-    #region Create
-
-    /// <summary>
-    /// Creates a new instance of <see cref="SendEmailRequest" /> request.
-    /// </summary>
-    /// <returns>New <see cref="SendEmailRequest"/> instance.</returns>
-    public static SendEmailRequest Email() => new();
-
-    #endregion
-
-
-
     #region From
 
     /// <summary>

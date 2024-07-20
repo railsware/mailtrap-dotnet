@@ -91,8 +91,8 @@ internal sealed class Program
     /// </summary>
     private static SendEmailRequest UsingFluentStyle()
     {
-        return SendEmailRequestBuilder
-            .Email()
+        return SendEmailRequest
+            .Create()
             .From("john.doe@demomailtrap.com", "John Doe")
             .To("hero.bill@galaxy.net")
             .Cc("star.lord@galaxy.net")
@@ -106,8 +106,8 @@ internal sealed class Program
     /// </summary>
     private static SendEmailRequest EmailFromTemplate()
     {
-        return SendEmailRequestBuilder
-            .Email()
+        return SendEmailRequest
+            .Create()
             .From("john.doe@demomailtrap.com", "John Doe")
             .To("hero.bill@galaxy.net")
             .Template("60dca11e-0bc2-42ea-91a8-5ff196acb3f9") // ID of template obtained from https://mailtrap.io/email_templates/
@@ -123,8 +123,8 @@ internal sealed class Program
     /// </summary>
     private static SendEmailRequest WithAttachments()
     {
-        SendEmailRequest request = SendEmailRequestBuilder
-            .Email()
+        SendEmailRequest request = SendEmailRequest
+            .Create()
             .From("john.doe@demomailtrap.com", "John Doe")
             .To("hero.bill@galaxy.net")
             .Subject("Invitation to Earth")
@@ -225,7 +225,7 @@ internal sealed class Program
     /// </summary>
     private static SendEmailRequest FluentStyleKitchenSink()
     {
-        SendEmailRequest request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         // Sender (Display name is optional)
         request.From("john.doe@demomailtrap.com", "John Doe");

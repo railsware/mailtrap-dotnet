@@ -75,8 +75,8 @@ internal sealed class MailtrapClientFactoryTests
 
         var client = factory.CreateClient();
 
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From("john.doe@demomailtrap.com", "John Doe")
             .To("hero.bill@galaxy.net")
             .Subject("Invitation to Earth")
@@ -149,8 +149,8 @@ internal sealed class MailtrapClientFactoryTests
 
         var client = factory.CreateClient();
 
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From("john.doe@demomailtrap.com", "John Doe")
             .To("hero.bill@galaxy.net")
             .Subject("Invitation to Earth")

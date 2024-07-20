@@ -24,7 +24,7 @@ internal sealed class SendEmailRequestValidationExtensionsTests
     [Test]
     public void IsValid_ShouldReturnFalse_WhenRequestIsInvalid()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         request.IsValid().Should().BeFalse();
     }
@@ -32,8 +32,8 @@ internal sealed class SendEmailRequestValidationExtensionsTests
     [Test]
     public void IsValid_ShouldReturnTrue_WhenRequestIsValid()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From("sender@domain.com")
             .To("recipient@domain.com")
             .Subject("Subject")
@@ -55,7 +55,7 @@ internal sealed class SendEmailRequestValidationExtensionsTests
     [Test]
     public void IsValid_ShouldThrowValidationException_WhenRequestIsInvalid()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => request!.Validate();
 
@@ -65,8 +65,8 @@ internal sealed class SendEmailRequestValidationExtensionsTests
     [Test]
     public void IsValid_ShouldNotThrowException_WhenRequestIsValid()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From("sender@domain.com")
             .To("recipient@domain.com")
             .Subject("Subject")

@@ -25,7 +25,7 @@ internal sealed class SendEmailRequestBuilderTests_Template
     [Test]
     public void Template_ShouldThrowArgumentNullException_WhenTemplateIdIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Template(request, null!);
 
@@ -35,7 +35,7 @@ internal sealed class SendEmailRequestBuilderTests_Template
     [Test]
     public void Template_ShouldThrowArgumentNullException_WhenTemplateIdIsEmpty()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Template(request, string.Empty);
 
@@ -45,8 +45,8 @@ internal sealed class SendEmailRequestBuilderTests_Template
     [Test]
     public void Template_ShouldAssignTemplateProperly()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Template(_templateId);
 
         request.TemplateId.Should().BeSameAs(_templateId);
@@ -57,8 +57,8 @@ internal sealed class SendEmailRequestBuilderTests_Template
     {
         var otherTemplate = "<ID2>";
 
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Template(_templateId)
             .Template(otherTemplate);
 

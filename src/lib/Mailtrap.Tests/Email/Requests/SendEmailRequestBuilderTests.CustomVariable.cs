@@ -35,7 +35,7 @@ internal sealed class SendEmailRequestBuilderTests_CustomVariable
     [Test]
     public void CustomVariable_ShouldThrowArgumentNullException_WhenParamsIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.CustomVariable(request, null!);
 
@@ -45,7 +45,7 @@ internal sealed class SendEmailRequestBuilderTests_CustomVariable
     [Test]
     public void CustomVariable_ShouldNotThrowException_WhenParamsIsEmpty()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.CustomVariable(request, []);
 
@@ -102,8 +102,8 @@ internal sealed class SendEmailRequestBuilderTests_CustomVariable
 
     private static SendEmailRequest CustomVariable_CreateAndValidate(params Variable[] headers)
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .CustomVariable(headers);
 
         request.CustomVariables.Should()
@@ -122,7 +122,7 @@ internal sealed class SendEmailRequestBuilderTests_CustomVariable
     [Test]
     public void CustomVariable_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.CustomVariable(null!, VariableKey, VariableValue);
 
@@ -132,7 +132,7 @@ internal sealed class SendEmailRequestBuilderTests_CustomVariable
     [Test]
     public void CustomVariable_ShouldThrowArgumentNullException_WhenVariableKeyIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.CustomVariable(request, null!, VariableValue);
 
@@ -142,7 +142,7 @@ internal sealed class SendEmailRequestBuilderTests_CustomVariable
     [Test]
     public void CustomVariable_ShouldThrowArgumentNullException_WhenVariableKeyIsEmpty()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.CustomVariable(request, string.Empty, VariableValue);
 
@@ -152,7 +152,7 @@ internal sealed class SendEmailRequestBuilderTests_CustomVariable
     [Test]
     public void CustomVariable_ShouldNotThrowException_WhenVariableValueIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.CustomVariable(request, VariableKey, null!);
 
@@ -162,7 +162,7 @@ internal sealed class SendEmailRequestBuilderTests_CustomVariable
     [Test]
     public void CustomVariable_ShouldNotThrowException_WhenVariableValueIsEmpty()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.CustomVariable(request, VariableKey, string.Empty);
 
@@ -213,8 +213,8 @@ internal sealed class SendEmailRequestBuilderTests_CustomVariable
 
     private static SendEmailRequest CustomVariable_CreateAndValidate(string key, string value)
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .CustomVariable(key, value);
 
         request.CustomVariables.Should().ContainSingle();

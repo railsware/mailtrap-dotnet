@@ -43,8 +43,8 @@ internal sealed class Program
 
             IMailtrapClient client = factory.CreateClient();
 
-            SendEmailRequest request = SendEmailRequestBuilder
-                .Email()
+            SendEmailRequest request = SendEmailRequest
+                .Create()
                 .From("john.doe@demomailtrap.com", "John Doe")
                 .To("hero.bill@galaxy.net")
                 .Subject("Invitation to Earth")
