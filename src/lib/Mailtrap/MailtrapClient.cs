@@ -81,7 +81,8 @@ public class MailtrapClient : IMailtrapClient
         var endpointConfig = _clientConfiguration.GetEndpoint(inboxId is null ? endpoint : Endpoint.Test);
 
         // We cannot rely on pre-configured HttpClient.BaseAddress,
-        // since it can be external instance with wrong URL configured.
+        // since it can be external instance with wrong URL configured,
+        // thus creating an absolute URL.
         var sendUrl = endpointConfig.BaseUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
 
         using var httpRequest = await _httpRequestMessageFactory

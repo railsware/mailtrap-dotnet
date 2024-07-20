@@ -49,6 +49,12 @@ internal sealed class Program
             // since send method will do that anyway and throw in case of validation failure.
             request.Validate();
 
+            // Alternatively, non-throw check can be used.
+            if (!request.IsValid())
+            {
+                throw new ArgumentException("Malformed email request.");
+            }
+
             SendEmailResponse? response = await mailtrapClient.SendAsync(request).ConfigureAwait(false);
         }
         catch (Exception ex)
@@ -215,9 +221,7 @@ internal sealed class Program
         // Add custom headers
         request.Headers.Add("X-Custom-Header-1", "Custom Value 1");
 
-        // It is better to validate request before sending,
-        // since send method will do that anyway and throw in case of validation failure.
-        return request.IsValid() ? request : throw new ArgumentException("Malformed email request.");
+        return request;
     }
 
     /// <summary>
