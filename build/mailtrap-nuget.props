@@ -22,7 +22,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
-    <PackageAssetsDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'package'))</PackageAssetsDirectory>
+    <PackageAssetsDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'assets'))</PackageAssetsDirectory>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,7 +38,7 @@
       <PackagePath>\</PackagePath>
     </None>
 
-    <None Include="$(PackageAssetsDirectory)icon.png">
+    <None Include="$(PackageAssetsDirectory)img/icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
       <Visible>false</Visible>

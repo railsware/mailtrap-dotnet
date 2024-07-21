@@ -1,0 +1,8 @@
+- name: Getting Started
+  href: getting-started/
+  
+- name: Reference
+  href: ../artifacts/api/
+
+- name: GitHub
+  href: https://github.com/railsware/mailtrap-dotnet

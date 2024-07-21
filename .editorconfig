@@ -199,8 +199,12 @@ dotnet_code_quality.CA1062.null_check_validation_methods = NotNull|NotNullOrEmpt
 charset = utf-8
 indent_size = 2
 
-# YAML config files
-[*.{yml,yaml}]
+# Config files (YAML, JSON)
+[*.{yml,yaml,json}]
+indent_size = 2
+
+# Markdown files
+[*.md]
 indent_size = 2
 
 # Shell scripts

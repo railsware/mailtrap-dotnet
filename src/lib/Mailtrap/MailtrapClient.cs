@@ -17,7 +17,7 @@ namespace Mailtrap;
 /// Meanwhile, it isn't thread safe, so singleton usage is not recommended,
 /// especially in multi-threaded environments.
 /// </remarks>
-public class MailtrapClient : IMailtrapClient
+internal class MailtrapClient : IMailtrapClient
 {
     private readonly MailtrapClientOptions _clientConfiguration;
     private readonly IHttpClientLifetimeAdapterFactory _httpClientLifetimeFactory;

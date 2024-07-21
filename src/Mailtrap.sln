@@ -36,6 +36,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{579935CA-55D2-42F6-A40F-A02E1C1E670F}"
 	ProjectSection(SolutionItems) = preProject
 		..\.editorconfig = ..\.editorconfig
+		..\docfx.json = ..\docfx.json
 		tests.runsettings = tests.runsettings
 	EndProjectSection
 EndProject
