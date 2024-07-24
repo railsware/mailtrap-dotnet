@@ -8,10 +8,10 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Mime;
 using Mailtrap;
+using Mailtrap.Email.Extensions;
 using Mailtrap.Email.Models;
 using Mailtrap.Email.Requests;
 using Mailtrap.Email.Responses;
-using Mailtrap.Email.Validators;
 using Mailtrap.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -144,8 +144,8 @@ internal sealed class Program
 
         request.Attach(
             content: fileContent,
-            filename: fileName,
-            dispositionType: DispositionType.Attachment,
+            fileName: fileName,
+            disposition: DispositionType.Attachment,
             mimeType: MediaTypeNames.Application.Pdf,
             contentId: "attachment_1");
 
@@ -157,8 +157,8 @@ internal sealed class Program
 
         request.Attach(
             content: fileContent,
-            filename: fileName,
-            dispositionType: DispositionType.Inline,
+            fileName: fileName,
+            disposition: DispositionType.Inline,
             mimeType: MediaTypeNames.Image.Png,
             contentId: "logo_1");
 
@@ -277,8 +277,8 @@ internal sealed class Program
 
         request.Attach(
             content: fileContent,
-            filename: fileName,
-            dispositionType: DispositionType.Attachment,
+            fileName: fileName,
+            disposition: DispositionType.Attachment,
             mimeType: MediaTypeNames.Application.Pdf,
             contentId: "attachment_1");
 

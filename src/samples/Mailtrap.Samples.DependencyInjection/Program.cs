@@ -89,14 +89,14 @@ internal sealed class Program
     /// </summary>
     private static IHost BuildHostWithConfigurationDelegate(HostApplicationBuilder hostBuilder)
     {
-        // For sure you should not hardcode apiKey for security reasons, and use environment variables
+        // For sure you should not hardcode APi token for security reasons, and use environment variables
         // or configuration files instead.
         // But in case when some non-standard configuration/secrets storage is used, this can be an option.
-        var apiKey = "<API-KEY>";
+        var apiToken = "<API-TOKEN>";
 
         hostBuilder.Services.AddMailtrapClient(options =>
         {
-            options.Authentication.ApiToken = apiKey;
+            options.Authentication.ApiToken = apiToken;
             options.Serialization.PrettyJson = true;
         });
 
@@ -108,9 +108,9 @@ internal sealed class Program
     /// </summary>
     private static IHost BuildHostWithExplicitConfiguration(HostApplicationBuilder hostBuilder)
     {
-        var apiKey = "<API-KEY>";
+        var apiToken = "<API-TOKEN>";
 
-        var settings = new MailtrapClientOptions(apiKey);
+        var settings = new MailtrapClientOptions(apiToken);
         settings.SendEndpoint.BaseUrl = new Uri("https://mock.mailtrap.io/v2/");
 
         hostBuilder.Services.AddMailtrapClient(settings);

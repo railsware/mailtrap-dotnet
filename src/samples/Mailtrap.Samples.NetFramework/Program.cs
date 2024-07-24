@@ -27,18 +27,18 @@ internal class Program
     {
         try
         {
-            // For sure you should not hardcode apiKey for security reasons, and use environment variables
+            // For sure you should not hardcode API token for security reasons, and use environment variables
             // or configuration files instead. But for the sake of simplicity, we will use hardcoded value in this example.
-            var apiKey = "<API_KEY>";
+            var apiToken = "<API_TOKEN>";
 
-            SendEmailRequest request = SendEmailRequestBuilder
-                .Email()
+            SendEmailRequest request = SendEmailRequest
+                .Create()
                 .From("john.doe@demomailtrap.com", "John Doe")
                 .To("hero.bill@galaxy.net")
                 .Subject("Invitation to Earth")
                 .Text("Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John.");
 
-            using var factory = new MailtrapClientFactory(apiKey);
+            using var factory = new MailtrapClientFactory(apiToken);
 
             SendEmailResponse? response = await factory.CreateClient().SendAsync(request).ConfigureAwait(false);
 

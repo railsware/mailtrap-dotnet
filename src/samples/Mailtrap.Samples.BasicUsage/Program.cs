@@ -23,10 +23,10 @@ internal sealed class Program
     {
         try
         {
-            // For sure you should not hardcode apiKey for security reasons,
+            // For sure you should not hardcode API token for security reasons,
             // and use environment variables or configuration files instead.
             // But for the sake of simplicity, we will use hardcoded value in this example.
-            var apiKey = "<API_KEY>";
+            var apiToken = "<API_TOKEN>";
 
             // Instance of MailtrapClientFactory should be used as singleton -
             // since it is using HttpClientFactory under the hood to create
@@ -39,7 +39,7 @@ internal sealed class Program
             // Meanwhile, they are not thread-safe and are not intended for multithreaded use,
             // thus singletons should be used with caution.
 
-            using MailtrapClientFactory factory = BasicUsage(apiKey);
+            using MailtrapClientFactory factory = BasicUsage(apiToken);
 
             IMailtrapClient client = factory.CreateClient();
 
@@ -66,16 +66,16 @@ internal sealed class Program
     /// <summary>
     /// Simplest case
     /// </summary>
-    private static MailtrapClientFactory BasicUsage(string apiKey)
+    private static MailtrapClientFactory BasicUsage(string apiToken)
     {
-        return new MailtrapClientFactory(apiKey);
+        return new MailtrapClientFactory(apiToken);
     }
 
 
     /// <summary>
     /// Case with external standalone HttpClient instance
     /// </summary>
-    private static MailtrapClientFactory StandaloneHttpClient(string apiKey)
+    private static MailtrapClientFactory StandaloneHttpClient(string apiToken)
     {
         using var httpMessageHandler = new HttpClientHandler()
         {
@@ -85,15 +85,15 @@ internal sealed class Program
 
         using var httpClient = new HttpClient(httpMessageHandler);
 
-        return new MailtrapClientFactory(apiKey, httpClient);
+        return new MailtrapClientFactory(apiToken, httpClient);
     }
 
     /// <summary>
     /// Case with advanced HttpClient configuration
     /// </summary>
-    private static MailtrapClientFactory AdvancedHttpClientConfiguration(string apiKey)
+    private static MailtrapClientFactory AdvancedHttpClientConfiguration(string apiToken)
     {
-        return new MailtrapClientFactory(apiKey, builder =>
+        return new MailtrapClientFactory(apiToken, builder =>
         {
             builder.ConfigurePrimaryHttpMessageHandler(() =>
             {
