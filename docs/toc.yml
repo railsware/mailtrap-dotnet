@@ -4,5 +4,8 @@
 - name: Reference
   href: ../artifacts/api/
 
+- name: Samples
+  href: https://github.com/railsware/mailtrap-dotnet/tree/main/src/samples
+
 - name: GitHub
   href: https://github.com/railsware/mailtrap-dotnet

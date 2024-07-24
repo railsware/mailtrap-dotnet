@@ -9,6 +9,7 @@
         }
       ],
       "dest": "../artifacts/api",
+      "filter": "filter.yml",
       "disableGitFeatures": false,
       "noRestore": true,
       "namespaceLayout": "flattened",
