@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Email.Validators;
+namespace Mailtrap.Email.Extensions;
 
 
 /// <summary>
@@ -14,12 +14,22 @@ namespace Mailtrap.Email.Validators;
 public static class SendEmailRequestValidationExtensions
 {
     /// <summary>
-    /// Allows to check safely if <see cref="SendEmailRequest"/> instance is valid
+    /// Allows to check if <paramref name="request"/> is valid
     /// and won't throw validation exceptions during send.
     /// </summary>
-    /// <param name="request"></param>
-    /// <returns>Flag indicating data validity</returns>
-    /// <exception cref="ArgumentNullException" />
+    /// 
+    /// <param name="request">
+    /// <see cref="SendEmailRequest"/> instance to validate.
+    /// </param>
+    /// 
+    /// <returns>
+    /// <see langword="true"/> if <paramref name="request"/> is valid.<br />
+    /// <see langword="false"/> otherwise.
+    /// </returns>
+    /// 
+    /// <exception cref="ArgumentNullException">
+    /// When provided <paramref name="request"/> is <see langword="null"/>.
+    /// </exception>
     public static bool IsValid(this SendEmailRequest request)
     {
         Ensure.NotNull(request, nameof(request));
@@ -28,13 +38,18 @@ public static class SendEmailRequestValidationExtensions
     }
 
     /// <summary>
-    /// This helper validates provided <see cref="SendEmailRequest"/> instance
-    /// and throws <see cref="ArgumentException"/> in case of any validation errors.
+    /// Validates provided <paramref name="request"/> and throws
+    /// <see cref="ArgumentException"/> in case of any validation errors.
     /// </summary>
-    /// <param name="request"></param>
+    /// 
+    /// <param name="request">
+    /// <see cref="SendEmailRequest"/> instance to validate.
+    /// </param>
+    /// 
     /// <exception cref="ArgumentNullException">
     /// When provided <paramref name="request"/> is <see langword="null"/>.
     /// </exception>
+    /// 
     /// <exception cref="ArgumentException">
     /// When validation fails.
     /// </exception>

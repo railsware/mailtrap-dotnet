@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Core;
+namespace Mailtrap.Core.Responses;
 
 
 /// <summary>
@@ -14,15 +14,24 @@ namespace Mailtrap.Core;
 public record MailtrapResponse<TError>
 {
     /// <summary>
-    /// Value indicating whether contains a success response data.
+    /// Gets a flag, indicating whether request succeeded or failed and response contains error(s).
     /// </summary>
+    ///
+    /// <value>
+    /// <see langword="false"/> when request failed and response contains error(s).<br/>
+    /// <see langword="true"/> when request succeeded.
+    /// </value>
     [JsonPropertyName("success")]
     [JsonPropertyOrder(1)]
     public bool IsSuccess { get; }
 
     /// <summary>
-    /// Error(s) associated with the response.
+    /// Gets error(s) object, associated with the response.
     /// </summary>
+    ///
+    /// <value>
+    /// <typeparamref name="TError"/> instance, containing error(s) details.
+    /// </value>
     [JsonPropertyName("errors")]
     [JsonPropertyOrder(2)]
     public TError? ErrorData { get; }
@@ -32,8 +41,14 @@ public record MailtrapResponse<TError>
     /// <summary>
     /// Initializes a new instance of the <see cref="MailtrapResponse{TError}"/> class.
     /// </summary>
-    /// <param name="isSuccess">A flag indicating whether the response describes success or failure.</param>
-    /// <param name="errorData">Errors to associate with the response.</param>
+    /// 
+    /// <param name="isSuccess">
+    /// Flag, indicating whether request succeeded or failed and response contains error(s).
+    /// </param>
+    /// 
+    /// <param name="errorData">
+    /// Error(s) to associate with the response.
+    /// </param>
     public MailtrapResponse(bool isSuccess, TError? errorData = default)
     {
         IsSuccess = isSuccess;

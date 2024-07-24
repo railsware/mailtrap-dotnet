@@ -4,8 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
-namespace Mailtrap.Tests.Email.Validators;
+namespace Mailtrap.Tests.Email.Extensions;
 
 
 [TestFixture]

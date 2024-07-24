@@ -26,7 +26,6 @@ global using Moq;
 global using RichardSzalay.MockHttp;
 
 global using Mailtrap.Tests.Common;
-global using Mailtrap.Core;
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;
 global using Mailtrap.Extensions.DependencyInjection;
@@ -36,8 +35,10 @@ global using Mailtrap.Configuration.Validators;
 global using Mailtrap.Authentication;
 global using Mailtrap.Http.Lifetime;
 global using Mailtrap.Http.Request;
+global using Mailtrap.Core.Responses;
 global using Mailtrap.Email.Converters;
 global using Mailtrap.Email.Models;
 global using Mailtrap.Email.Requests;
 global using Mailtrap.Email.Responses;
 global using Mailtrap.Email.Validators;
+global using Mailtrap.Email.Extensions;
