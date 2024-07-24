@@ -91,9 +91,9 @@ internal sealed class MailtrapClientFactoryTests
     [Test]
     public void Constructor_KeyAndDelegate_ShouldThrowArgumentNullException_WhenApiKeyIsNull()
     {
-        string? apiKey = null;
+        string? apiToken = null;
 
-        var act = () => new MailtrapClientFactory(apiKey!);
+        var act = () => new MailtrapClientFactory(apiToken!);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -112,10 +112,11 @@ internal sealed class MailtrapClientFactoryTests
     [Test]
     public void Constructor_KeyAndClient_ShouldThrowArgumentNullException_WhenApiKeyIsNull()
     {
-        string? apiKey = null;
+        string? apiToken = null;
+
         var httpClient = Mock.Of<HttpClient>();
 
-        var act = () => new MailtrapClientFactory(apiKey!, httpClient);
+        var act = () => new MailtrapClientFactory(apiToken!, httpClient);
 
         act.Should().Throw<ArgumentNullException>();
     }

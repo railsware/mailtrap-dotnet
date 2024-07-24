@@ -40,7 +40,7 @@ internal sealed class TransientHttpClientLifetimeAdapterFactoryTests
 
         var factory = new TransientHttpClientLifetimeAdapterFactory(clientFactory.Object);
 
-        var config = MailtrapClientEndpointOptions.SendDefault;
+        var config = MailtrapClientEndpointOptions.SendDefaultEndpointOptions;
 
         using var adapter = await factory.CreateAsync(config).ConfigureAwait(false);
 
@@ -61,7 +61,7 @@ internal sealed class TransientHttpClientLifetimeAdapterFactoryTests
 
         var factory = new TransientHttpClientLifetimeAdapterFactory(clientFactory.Object);
 
-        var config = MailtrapClientEndpointOptions.SendDefault with
+        var config = MailtrapClientEndpointOptions.SendDefaultEndpointOptions with
         {
             HttpClientName = clientName
         };

@@ -50,12 +50,12 @@ internal sealed class HttpRequestMessageExtensionsTests
 
     #region ConfigureApiAuthenticationHeader
 
-    private string _apiKey { get; } = "token";
+    private string _apiToken { get; } = "token";
 
     [Test]
     public void ConfigureApiAuthenticationHeader_ShouldThrowArgumentNullException_WhenMessageIsNull()
     {
-        var act = () => HttpRequestMessageExtensions.ConfigureApiAuthenticationHeader(null!, _apiKey);
+        var act = () => HttpRequestMessageExtensions.ConfigureApiAuthenticationHeader(null!, _apiToken);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -65,10 +65,10 @@ internal sealed class HttpRequestMessageExtensionsTests
     {
         using var message = new HttpRequestMessage();
 
-        message.ConfigureApiAuthenticationHeader(_apiKey);
+        message.ConfigureApiAuthenticationHeader(_apiToken);
 
         message.Headers.Should().ContainKey(HeaderNames.ApiKeyHeader);
-        message.Headers.GetValues(HeaderNames.ApiKeyHeader).Should().ContainSingle(m => m == _apiKey);
+        message.Headers.GetValues(HeaderNames.ApiKeyHeader).Should().ContainSingle(m => m == _apiToken);
     }
 
     [Test]
@@ -78,9 +78,9 @@ internal sealed class HttpRequestMessageExtensionsTests
 
         message.Headers.Add(HeaderNames.ApiKeyHeader, "other token");
 
-        message.ConfigureApiAuthenticationHeader(_apiKey);
+        message.ConfigureApiAuthenticationHeader(_apiToken);
 
-        message.Headers.GetValues(HeaderNames.ApiKeyHeader).Should().ContainSingle(m => m == _apiKey);
+        message.Headers.GetValues(HeaderNames.ApiKeyHeader).Should().ContainSingle(m => m == _apiToken);
     }
 
     #endregion

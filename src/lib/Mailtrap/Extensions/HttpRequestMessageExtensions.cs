@@ -25,11 +25,11 @@ internal static class HttpRequestMessageExtensions
         return request;
     }
 
-    internal static HttpRequestMessage ConfigureApiAuthenticationHeader(this HttpRequestMessage request, string apiKey)
+    internal static HttpRequestMessage ConfigureApiAuthenticationHeader(this HttpRequestMessage request, string apiToken)
     {
         Ensure.NotNull(request, nameof(request));
 
-        request.Headers.Add(HeaderNames.ApiKeyHeader, apiKey);
+        request.Headers.Add(HeaderNames.ApiKeyHeader, apiToken);
 
         return request;
     }
