@@ -44,6 +44,7 @@
       "_appTitle": "Official Mailtrap .NET Client Documentation",
       "_appLogoPath": "assets/img/mailtrap-logo.svg",
       "_appFaviconPath": "assets/img/icon.png",
+      "_disableBreadcrumb": true,
       "_enableSearch": true,
       "pdf": false
     }

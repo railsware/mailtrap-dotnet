@@ -8,6 +8,7 @@
     <Title>Mailtrap Client</Title>
     <PackageId>Mailtrap</PackageId>
     <PackageTags>mailtrap; sdk; client; email; smtp</PackageTags>
+    
     <UserSecretsId>b8a9306f-9380-44cf-ba12-15c6f129aec9</UserSecretsId>
   </PropertyGroup>
 

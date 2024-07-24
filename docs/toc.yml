@@ -1,5 +1,5 @@
-- name: Getting Started
-  href: getting-started/
+- name: Use Cases
+  href: use-cases/
   
 - name: Reference
   href: ../artifacts/api/
