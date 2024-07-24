@@ -1,0 +1,55 @@
+name: Build and Publish Documentation Site
+
+on:
+  workflow_dispatch:
+  push:
+    # We want documentation to be published only from a stable branch
+    branches:
+    - main
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  # actions: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency: 
+  group: "documentation"
+  cancel-in-progress: false
+
+jobs:
+  publish-docs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+    # https://github.com/marketplace/actions/checkout
+    - name: Checkout Sources
+      uses: actions/checkout@v4
+
+    # https://github.com/marketplace/actions/setup-net-core-sdk
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+
+    - name: Install DocFx Tool
+      run: dotnet tool update -g docfx
+
+    - name: Build Documentation Site
+      run: docfx ./docs/docfx.json
+
+    # https://github.com/marketplace/actions/upload-github-pages-artifact
+    - name: Upload Pages Artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: './artifacts/docs'  
+
+    # https://github.com/marketplace/actions/deploy-github-pages-site
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4

@@ -11,8 +11,7 @@
       "dest": "../artifacts/api",
       "filter": "filter.yml",
       "disableGitFeatures": false,
-      "noRestore": true,
-      "namespaceLayout": "flattened",
+      "noRestore": false,
       "enumSortOrder": "declaringOrder"
     }
   ],
