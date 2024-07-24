@@ -11,7 +11,7 @@ namespace Mailtrap.Http.Lifetime;
 /// <summary>
 /// Factory to produce <see cref="IHttpClientLifetimeAdapter"/> instances.
 /// </summary>
-public interface IHttpClientLifetimeAdapterFactory
+internal interface IHttpClientLifetimeAdapterFactory
 {
     /// <summary>
     /// Asynchronously produces <see cref="IHttpClientLifetimeAdapter"/> instances,

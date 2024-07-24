@@ -11,7 +11,7 @@ namespace Mailtrap.Configuration;
 /// <summary>
 /// Provides Mailtrap API client configuration.
 /// </summary>
-public interface IMailtrapClientConfigurationProvider
+internal interface IMailtrapClientConfigurationProvider
 {
     /// <summary>
     /// Mailtrap API client configuration.
