@@ -14,32 +14,19 @@ namespace Mailtrap.Extensions.DependencyInjection;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds Mailtrap API client services to the <see cref="IServiceCollection"/>.
+    /// Adds Mailtrap API client to the <paramref name="services"/> collection
+    /// and configures them using provided <paramref name="configuration"/> section.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure</param>
-    /// <returns>
-    /// The <see cref="IHttpClientBuilder"/> instance for configured <see cref="HttpClient"/>,
-    /// so additional configuration calls can be chained.
-    /// </returns>
-    public static IHttpClientBuilder AddMailtrapClient(this IServiceCollection services)
-    {
-        Ensure.NotNull(services, nameof(services));
-
-        return services
-            .AddMailtrapServices()
-            .AddHttpClient(Options.DefaultName);
-    }
-
-    /// <summary>
-    /// Adds Mailtrap API client services to the <see cref="IServiceCollection"/>
-    /// and configures them using configuration section.
-    /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure.</param>
-    /// <param name="configuration"><see cref="IConfiguration" /> to configure <see cref="MailtrapClient"/>.</param>
-    /// <returns>
-    /// The <see cref="IHttpClientBuilder"/> instance for configured <see cref="HttpClient"/>,
-    /// so additional configuration calls can be chained.
-    /// </returns>
+    /// 
+    /// <param name="services">
+    /// <inheritdoc cref="AddMailtrapClient(IServiceCollection)" path="/param[@name='services']"/>
+    /// </param>
+    /// 
+    /// <param name="configuration">
+    /// <see cref="IConfiguration"/> instance to configure settings for Mailtrap API client.
+    /// </param>
+    /// 
+    /// <inheritdoc cref="AddMailtrapClient(IServiceCollection)" path="/returns"/>
     public static IHttpClientBuilder AddMailtrapClient(this IServiceCollection services, IConfiguration configuration)
     {
         Ensure.NotNull(services, nameof(services));
@@ -51,57 +38,100 @@ public static class ServiceCollectionExtensions
     }
 
     /// <summary>
-    /// Adds Mailtrap API client services to the <see cref="IServiceCollection"/>
-    /// and configures them using configuration delegate.
+    /// Adds Mailtrap API client to the <paramref name="services"/> collection
+    /// and configures them using provided <paramref name="configure"/> delegate.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure.</param>
-    /// <param name="configureMailtrap">Delegate to configure <see cref="MailtrapClient"/>.</param>
-    /// <returns>
-    /// The <see cref="IHttpClientBuilder"/> instance for configured <see cref="HttpClient"/>,
-    /// so additional configuration calls can be chained.
-    /// </returns>
-    public static IHttpClientBuilder AddMailtrapClient(this IServiceCollection services, Action<MailtrapClientOptions> configureMailtrap)
+    /// 
+    /// <param name="services">
+    /// <inheritdoc cref="AddMailtrapClient(IServiceCollection)" path="/param[@name='services']"/>
+    /// </param>
+    /// 
+    /// <param name="configure">
+    /// Delegate to configure settings for Mailtrap API client.
+    /// </param>
+    /// 
+    /// <inheritdoc cref="AddMailtrapClient(IServiceCollection)" path="/returns"/>
+    public static IHttpClientBuilder AddMailtrapClient(this IServiceCollection services, Action<MailtrapClientOptions> configure)
     {
         Ensure.NotNull(services, nameof(services));
-        Ensure.NotNull(configureMailtrap, nameof(configureMailtrap));
+        Ensure.NotNull(configure, nameof(configure));
 
-        services.Configure(configureMailtrap);
+        services.Configure(configure);
 
         return services.AddMailtrapClient();
     }
 
     /// <summary>
-    /// Adds Mailtrap API client services with provided <see cref="MailtrapClientOptions"/>.
+    /// Adds Mailtrap API client to the <paramref name="services"/> collection
+    /// and configures them using provided <paramref name="options"/>.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure.</param>
-    /// <param name="mailtrapClientOptions">Options to configure <see cref="MailtrapClient"/>.</param>
-    /// <returns>
-    /// The <see cref="IHttpClientBuilder"/> instance for configured <see cref="HttpClient"/>,
-    /// so additional configuration calls can be chained.
-    /// </returns>
-    public static IHttpClientBuilder AddMailtrapClient(this IServiceCollection services, MailtrapClientOptions mailtrapClientOptions)
+    /// 
+    /// <param name="services">
+    /// <inheritdoc cref="AddMailtrapClient(IServiceCollection)" path="/param[@name='services']"/>
+    /// </param>
+    /// 
+    /// <param name="options">
+    /// Options to configure settings for Mailtrap API client.
+    /// </param>
+    /// 
+    /// <inheritdoc cref="AddMailtrapClient(IServiceCollection)" path="/returns"/>
+    public static IHttpClientBuilder AddMailtrapClient(this IServiceCollection services, MailtrapClientOptions options)
     {
         Ensure.NotNull(services, nameof(services));
-        Ensure.NotNull(mailtrapClientOptions, nameof(mailtrapClientOptions));
+        Ensure.NotNull(options, nameof(options));
 
-        return services.AddMailtrapClient(options => options.Init(mailtrapClientOptions));
+        return services.AddMailtrapClient(o => o.Init(options));
     }
 
     /// <summary>
     /// Adds required Mailtrap API client services to the <see cref="IServiceCollection"/>.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure</param>
-    /// <returns>The <see cref="IServiceCollection"/> so additional calls can be chained</returns>
+    /// 
+    /// <param name="services">
+    /// The <see cref="IServiceCollection"/> instance to configure.
+    /// </param>
+    /// 
+    /// <returns>
+    /// Updated <see cref="IServiceCollection"/> instance, so additional configuration calls can be chained.
+    /// </returns>
+    ///
+    /// <remarks>
+    /// This helper method exists for advanced scenarios, when you need to customize Mailtrap API client services setup
+    /// along with fine-tuning of <see cref="HttpClient"/> configuration.<br />
+    /// Please refer to examples for additional details.    
+    /// </remarks>
     public static IServiceCollection AddMailtrapServices(this IServiceCollection services)
     {
         return services.AddMailtrapServices<TransientHttpClientLifetimeAdapterFactory>();
     }
 
+
     /// <summary>
-    /// Adds required Mailtrap API client services to the <see cref="IServiceCollection"/>.
+    /// Adds Mailtrap API client to the <paramref name="services"/> collection.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure</param>
-    /// <returns>The <see cref="IServiceCollection"/> so additional calls can be chained</returns>
+    /// 
+    /// <param name="services">
+    /// <inheritdoc cref="AddMailtrapServices(IServiceCollection)" path="/param[@name='services']"/>
+    /// </param>
+    /// 
+    /// <returns>
+    /// The <see cref="IHttpClientBuilder"/> instance for configured <see cref="HttpClient"/>,
+    /// so additional configuration calls can be chained.
+    /// </returns>
+    internal static IHttpClientBuilder AddMailtrapClient(this IServiceCollection services)
+    {
+        Ensure.NotNull(services, nameof(services));
+
+        return services
+            .AddMailtrapServices()
+            .AddHttpClient(Options.DefaultName);
+    }
+
+    /// <inheritdoc cref="AddMailtrapServices(IServiceCollection)"/>
+    ///
+    /// <typeparam name="T">
+    /// Implementation of <see cref="IHttpClientLifetimeAdapterFactory"/> to use.
+    /// </typeparam>
     internal static IServiceCollection AddMailtrapServices<T>(this IServiceCollection services)
         where T : class, IHttpClientLifetimeAdapterFactory
     {

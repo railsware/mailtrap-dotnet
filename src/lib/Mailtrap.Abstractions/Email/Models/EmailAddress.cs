@@ -14,32 +14,54 @@ namespace Mailtrap.Email.Models;
 public record EmailAddress
 {
     /// <summary>
-    /// Sender's or recipient's email address.
+    /// Gets sender's or recipient's email address.
+    /// <para>
+    /// Required. Must be valid email address.
+    /// </para>
     /// </summary>
-    /// <remarks>
-    /// Required.
-    /// </remarks>
+    ///
+    /// <value>
+    /// Contains sender's or recipient's email address.
+    /// </value>    
     [JsonPropertyName("email")]
     [JsonPropertyOrder(1)]
     public string Email { get; }
 
     /// <summary>
-    /// Sender's or recipient's display name.
-    /// </summary>
-    /// <remarks>
+    /// Gets sender's or recipient's display name.
+    /// <para>
     /// Optional.
-    /// </remarks>
+    /// </para>
+    /// </summary>
+    /// 
+    /// <value>
+    /// Contains sender's or recipient's display name.
+    /// </value>
     [JsonPropertyName("name")]
     [JsonPropertyOrder(2)]
     public string? DisplayName { get; }
 
 
     /// <summary>
-    /// Primary constructor. Creates a new <see cref="EmailAddress"/> instance with provided parameters.
+    /// Default instance constructor.
     /// </summary>
-    /// <param name="email">Required.</param>
-    /// <param name="displayName">Optional.</param>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// 
+    /// <param name="email">
+    /// <para>
+    /// Sender's or recipient's email address.
+    /// </para>
+    /// <para>
+    /// Required. Must be valid email address.
+    /// </para>
+    /// </param>
+    /// 
+    /// <param name="displayName">
+    /// Optional sender's or recipient's display name.
+    /// </param>
+    /// 
+    /// <exception cref="ArgumentNullException">
+    /// When <paramref name="email"/> is <see langword="null"/> or <see cref="string.Empty"/>.
+    /// </exception>
     public EmailAddress(string email, string? displayName = default)
     {
         Ensure.NotNullOrEmpty(email, nameof(email));

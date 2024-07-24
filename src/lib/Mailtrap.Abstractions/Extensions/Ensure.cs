@@ -8,6 +8,7 @@
 namespace Mailtrap.Extensions;
 
 
+/// <exclude />
 /// <summary>
 /// A set of helper methods for input validation.
 /// </summary>

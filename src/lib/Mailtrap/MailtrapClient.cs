@@ -11,8 +11,9 @@ namespace Mailtrap;
 /// <summary>
 /// <see cref="IMailtrapClient"/> implementation.
 /// </summary>
+/// 
 /// <remarks>
-/// Implementation is lightweight, utilising unit-of-work pattern under the hood,
+/// Implementation is lightweight, utilizing unit-of-work pattern under the hood,
 /// so can be used as transient.<br />
 /// Meanwhile, it isn't thread safe, so singleton usage is not recommended,
 /// especially in multi-threaded environments.
