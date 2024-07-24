@@ -48,4 +48,14 @@ internal static class UriExtensions
         var url = baseUrl.AbsoluteUri + string.Join("/", segments);
         return url.ToAbsoluteUri();
     }
+
+    internal static Uri EnsureAbsoluteUri(this Uri url)
+    {
+        Ensure.NotNull(url, nameof(url));
+
+        return
+            url.IsAbsoluteUri
+            ? url
+            : throw new ArgumentException("Invalid URL format - absolute URL is expected", nameof(url));
+    }
 }

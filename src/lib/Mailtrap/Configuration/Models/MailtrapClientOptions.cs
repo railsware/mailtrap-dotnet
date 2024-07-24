@@ -9,47 +9,92 @@ namespace Mailtrap.Configuration.Models;
 
 
 /// <summary>
-/// A set of options to configure Mailtrap API client.
+/// A set of parameters to configure Mailtrap API client.
 /// </summary>
 public record MailtrapClientOptions
 {
     /// <summary>
-    /// Default configuration.
-    /// <para>
-    /// Includes default values for endpoints, serialization and empty authentication settings.
-    /// </para>
+    /// Gets default Mailtrap API client configuration.
     /// </summary>
+    ///
+    /// <value>
+    /// Static instance, containing default values for endpoints, serialization and empty authentication settings.
+    /// </value>
     public static MailtrapClientOptions Default { get; } = new();
 
     /// <summary>
-    /// Send email endpoint settings.
+    /// Gets or sets endpoint settings for transactional send.
     /// </summary>
-    public MailtrapClientEndpointOptions SendEndpoint { get; set; } = MailtrapClientEndpointOptions.SendDefault;
+    ///
+    /// <value>
+    /// Options instance, containing endpoint settings for transactional send.
+    /// <para>
+    /// Defaults to <see cref="MailtrapClientEndpointOptions.SendDefaultEndpointOptions"/>.
+    /// </para>
+    /// </value>
+    public MailtrapClientEndpointOptions SendEndpoint { get; set; } = MailtrapClientEndpointOptions.SendDefaultEndpointOptions;
 
     /// <summary>
-    /// Test email endpoint settings.
+    /// Gets or sets endpoint settings for bulk send.
     /// </summary>
-    public MailtrapClientEndpointOptions TestEndpoint { get; set; } = MailtrapClientEndpointOptions.TestDefault;
+    /// 
+    /// <value>
+    /// Options instance, containing endpoint settings for bulk send.
+    /// <para>
+    /// Defaults to <see cref="MailtrapClientEndpointOptions.BulkDefaultEndpointOptions"/>.
+    /// </para>
+    /// </value>
+    public MailtrapClientEndpointOptions BulkEndpoint { get; set; } = MailtrapClientEndpointOptions.BulkDefaultEndpointOptions;
+
 
     /// <summary>
-    /// Bulk email endpoint settings.
+    /// Gets or sets endpoint settings for test send.
     /// </summary>
-    public MailtrapClientEndpointOptions BulkEndpoint { get; set; } = MailtrapClientEndpointOptions.BulkDefault;
+    /// 
+    /// <value>
+    /// Options instance, containing endpoint settings for test send.
+    /// <para>
+    /// Defaults to <see cref="MailtrapClientEndpointOptions.TestDefaultEndpointOptions"/>.
+    /// </para>
+    /// </value>
+    public MailtrapClientEndpointOptions TestEndpoint { get; set; } = MailtrapClientEndpointOptions.TestDefaultEndpointOptions;
 
     /// <summary>
-    /// Authentication settings.
+    /// Gets or sets authentication settings.
     /// </summary>
+    ///
+    /// <value>
+    /// Options instance, containing authentication configuration.
+    /// <para>
+    /// Defaults to <see cref="MailtrapClientAuthenticationOptions.Empty"/>.
+    /// </para>
+    /// </value>
     public MailtrapClientAuthenticationOptions Authentication { get; set; } = MailtrapClientAuthenticationOptions.Empty;
 
     /// <summary>
-    /// Serialization settings.
+    /// Gets or sets serialization settings.
     /// </summary>
+    ///
+    /// <value>
+    /// Options instance, containing serialization configuration.
+    /// <para>
+    /// Defaults to <see cref="MailtrapClientSerializationOptions.Default"/>.
+    /// </para>
+    /// </value>
     public MailtrapClientSerializationOptions Serialization { get; set; } = MailtrapClientSerializationOptions.Default;
 
 
     /// <summary>
-    /// Primary constructor with authentication configuration.
+    /// Instance constructor accepting authentication configuration.
     /// </summary>
+    /// 
+    /// <param name="authentication">
+    /// <see cref="MailtrapClientAuthenticationOptions"/> instance to use.
+    /// </param>
+    /// 
+    /// <exception cref="ArgumentNullException">
+    /// When <paramref name="authentication"/> is <see langword="null"/>.
+    /// </exception>
     public MailtrapClientOptions(MailtrapClientAuthenticationOptions authentication)
     {
         Ensure.NotNull(authentication, nameof(authentication));
@@ -58,13 +103,24 @@ public record MailtrapClientOptions
     }
 
     /// <summary>
-    /// Primary constructor with authentication configuration.
+    /// Instance constructor accepting API token.
     /// </summary>
-    public MailtrapClientOptions(string apiKey)
-        : this(new MailtrapClientAuthenticationOptions(apiKey)) { }
+    /// 
+    /// <param name="apiToken">
+    /// API authentication token to use.
+    /// </param>
+    /// 
+    /// <exception cref="ArgumentNullException">
+    /// When <paramref name="apiToken"/> is <see langword="null"/>.
+    /// </exception>
+    public MailtrapClientOptions(string apiToken)
+        : this(new MailtrapClientAuthenticationOptions(apiToken)) { }
 
     /// <summary>
-    /// Parameterles constructor.
+    /// Default parameterless instance constructor.
+    /// <para>
+    /// Defaults authentication settings to <see cref="MailtrapClientAuthenticationOptions.Empty"/>.
+    /// </para>
     /// </summary>
     public MailtrapClientOptions()
         : this(MailtrapClientAuthenticationOptions.Empty) { }
@@ -74,10 +130,18 @@ public record MailtrapClientOptions
     /// <summary>
     /// Initializes current <see cref="MailtrapClientOptions"/> instance with values from <paramref name="source"/>.
     /// </summary>
+    /// 
+    /// <param name="source">
+    /// Source <see cref="MailtrapClientOptions"/> instance to copy values from.
+    /// </param>
+    /// 
+    /// <exception cref="ArgumentNullException">
+    /// When <paramref name="source"/> is <see langword="null"/>.
+    /// </exception>
+    ///
     /// <remarks>
     /// Performs a shallow copy.
     /// </remarks>
-    /// <param name="source">Source <see cref="MailtrapClientOptions"/> instance to copy values from.</param>
     public void Init(MailtrapClientOptions source)
     {
         Ensure.NotNull(source, nameof(source));

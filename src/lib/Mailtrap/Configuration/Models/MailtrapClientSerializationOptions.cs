@@ -9,17 +9,29 @@ namespace Mailtrap.Configuration.Models;
 
 
 /// <summary>
-/// A set of options to configure serialization settings for Mailtrap API client.
+/// A set of parameters to configure serialization settings for Mailtrap API client.
 /// </summary>
 public record MailtrapClientSerializationOptions
 {
     /// <summary>
-    /// Default set of settings
+    /// Gets default serialization settings.
     /// </summary>
+    ///
+    /// <value>
+    /// Static instance, containing default serialization configuration.
+    /// </value>
     public static MailtrapClientSerializationOptions Default { get; } = new();
 
     /// <summary>
-    /// Switch to enable JSON indentation for pretty output.
+    /// Gets of sets flag which controls JSON indentation for pretty or minified output.
     /// </summary>
+    ///
+    /// <value>
+    /// <see langword="false"/> when JSON should be minified.<br/>
+    /// <see langword="true"/> when JSON should be indented.
+    /// <para>
+    /// Default is <see langword="false"/>.
+    /// </para>
+    /// </value>
     public bool PrettyJson { get; set; } = false;
 }

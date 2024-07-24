@@ -21,9 +21,9 @@ internal sealed class MailtrapClientEndpointOptionsTests
     [Test]
     public void Defaults_ShouldReturnValidDefaults()
     {
-        MailtrapClientEndpointOptions.SendDefault.BaseUrl.Should().Be(Endpoints.SendDefaultUrl);
-        MailtrapClientEndpointOptions.BulkDefault.BaseUrl.Should().Be(Endpoints.BulkDefaultUrl);
-        MailtrapClientEndpointOptions.TestDefault.BaseUrl.Should().Be(Endpoints.TestDefaultUrl);
+        MailtrapClientEndpointOptions.SendDefaultEndpointOptions.BaseUrl.Should().Be(Endpoints.SendDefaultUrl);
+        MailtrapClientEndpointOptions.BulkDefaultEndpointOptions.BaseUrl.Should().Be(Endpoints.BulkDefaultUrl);
+        MailtrapClientEndpointOptions.TestDefaultEndpointOptions.BaseUrl.Should().Be(Endpoints.TestDefaultUrl);
     }
 
     #endregion
@@ -39,6 +39,14 @@ internal sealed class MailtrapClientEndpointOptionsTests
         var act = () => new MailtrapClientEndpointOptions(uri!);
 
         act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void ConstructorWithUri_ShouldThrowArgumentException_WhenUriIsNotValidAbsoluteUri()
+    {
+        var act = () => new MailtrapClientEndpointOptions(new Uri("api/send", UriKind.Relative));
+
+        act.Should().Throw<ArgumentException>();
     }
 
     [Test]

@@ -9,67 +9,123 @@ namespace Mailtrap.Configuration.Models;
 
 
 /// <summary>
-/// A set of options to configure endpoint settings for Mailtrap API client.
+/// A set of parameters to configure endpoint settings for Mailtrap API client.
 /// </summary>
 public record MailtrapClientEndpointOptions
 {
     /// <summary>
-    /// Default send endpoint.
+    /// Gets default endpoint settings for transactional send.
     /// </summary>
-    public static MailtrapClientEndpointOptions SendDefault { get; } = new(Endpoints.SendDefaultUrl);
+    /// 
+    /// <value>
+    /// Static instance, containing default endpoint settings for transactional send.
+    /// </value>
+    public static MailtrapClientEndpointOptions SendDefaultEndpointOptions { get; } = new(Endpoints.SendDefaultUrl);
 
     /// <summary>
-    /// Default bulk endpoint.
+    /// Gets default endpoint settings for bulk send.
     /// </summary>
-    public static MailtrapClientEndpointOptions BulkDefault { get; } = new(Endpoints.BulkDefaultUrl);
+    /// 
+    /// <value>
+    /// Static instance, instance containing default endpoint settings for bulk send.
+    /// </value>
+    public static MailtrapClientEndpointOptions BulkDefaultEndpointOptions { get; } = new(Endpoints.BulkDefaultUrl);
 
     /// <summary>
-    /// Default test endpoint.
+    /// Gets default endpoint settings for test send.
     /// </summary>
-    public static MailtrapClientEndpointOptions TestDefault { get; } = new(Endpoints.TestDefaultUrl);
+    /// 
+    /// <value>
+    /// Static instance, instance containing default endpoint settings for test send.
+    /// </value>
+    public static MailtrapClientEndpointOptions TestDefaultEndpointOptions { get; } = new(Endpoints.TestDefaultUrl);
 
 
     /// <summary>
-    /// Endpoint base URL, e.g. https://send.api.mailtrap.io
+    /// Gets or sets endpoint base URL.
+    /// <para>
+    /// Required. Must be absolute URL.
+    /// </para>
     /// </summary>
-    /// <remarks>
-    /// Required. Should be absolute URL.
-    /// </remarks>
+    ///
+    /// <value>
+    /// Contains endpoint base URL.<br/>
+    /// E.g. https://send.api.mailtrap.io
+    /// </value>
     public Uri BaseUrl { get; set; }
 
     /// <summary>
-    /// <see cref="HttpClient"/> instance name to use for requests sent to this endpoint.
+    /// Gets or sets <see cref="HttpClient"/> instance configuration name to use for requests routed to this endpoint.
     /// <para>
-    /// Different endpoints can use same or different named <see cref="HttpClient"/> instances.
+    /// Optional.
     /// </para>
     /// </summary>
+    ///
+    /// <value>
+    /// Contains <see cref="HttpClient" /> configuration name.
+    /// </value>
+    ///
     /// <remarks>
-    /// Optional.
+    /// Different endpoints can use same or different named <see cref="HttpClient"/> configurations.<br/>
+    /// Endpoint will use default <see cref="HttpClient"/> configuration, if unset.
     /// </remarks>
     public string? HttpClientName { get; set; }
 
 
     /// <summary>
-    /// Primary constructor with required parameters.
+    /// Instance constructor overload taking <see cref="Uri"/> as <paramref name="baseUrl"/> parameter.
     /// </summary>
-    /// <param name="baseUrl">Required. Should be absolute URL.</param>
-    /// <param name="httpClientName">Optional.</param>
-    /// <exception cref="ArgumentNullException">When <paramref name="baseUrl"/> is <see langword="null"/></exception>
+    /// 
+    /// <param name="baseUrl">
+    /// Base URL of the endpoint.
+    /// <para>
+    /// Required. Must be absolute URL. 
+    /// </para>
+    /// </param>
+    /// 
+    /// <param name="httpClientName">
+    /// Optional name of <see cref="HttpClient"/> instance configuration to use with endpoint.
+    /// </param>
+    /// 
+    /// <exception cref="ArgumentNullException">
+    /// When <paramref name="baseUrl"/> is <see langword="null"/>.
+    /// </exception>
+    ///
+    /// <exception cref="ArgumentException">
+    /// When <paramref name="baseUrl"/> isn't an absolute URI.
+    /// </exception>
     public MailtrapClientEndpointOptions(Uri baseUrl, string? httpClientName = default)
     {
         Ensure.NotNull(baseUrl, nameof(baseUrl));
+
+        baseUrl.EnsureAbsoluteUri();
 
         BaseUrl = baseUrl;
         HttpClientName = httpClientName;
     }
 
     /// <summary>
-    /// Constructor overload taking <paramref name="baseUrl"/> parameter in <see langword="string"/> format.
+    /// Instance constructor overload taking <see langword="string"/> as <paramref name="baseUrl"/> parameter.
     /// </summary>
-    /// <param name="baseUrl">Required. Should be absolute URL.</param>
-    /// <param name="httpClientName"></param>
-    /// <exception cref="ArgumentNullException">When <paramref name="baseUrl"/> is <see langword="null"/></exception>
-    /// <exception cref="ArgumentException">When <paramref name="baseUrl"/> isn't a valid absolute URI</exception>
+    /// 
+    /// <param name="baseUrl">
+    /// Base URL of the endpoint.
+    /// <para>
+    /// Required. Must be absolute URL. 
+    /// </para>
+    /// </param>
+    /// 
+    /// <param name="httpClientName">
+    /// Optional name of <see cref="HttpClient"/> instance configuration to use with endpoint.
+    /// </param>
+    /// 
+    /// <exception cref="ArgumentNullException">
+    /// When <paramref name="baseUrl"/> is <see langword="null"/>.
+    /// </exception>
+    /// 
+    /// <exception cref="ArgumentException">
+    /// When <paramref name="baseUrl"/> isn't a valid absolute URI.
+    /// </exception>
     public MailtrapClientEndpointOptions(string baseUrl, string? httpClientName = default)
         : this(baseUrl.ToAbsoluteUri(), httpClientName) { }
 }

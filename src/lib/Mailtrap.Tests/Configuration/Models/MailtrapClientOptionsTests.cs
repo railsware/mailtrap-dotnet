@@ -16,9 +16,9 @@ internal sealed class MailtrapClientOptionsTests
     {
         MailtrapClientOptions.Default.Serialization.Should().Be(MailtrapClientSerializationOptions.Default);
         MailtrapClientOptions.Default.Authentication.Should().Be(MailtrapClientAuthenticationOptions.Empty);
-        MailtrapClientOptions.Default.SendEndpoint.Should().Be(MailtrapClientEndpointOptions.SendDefault);
-        MailtrapClientOptions.Default.BulkEndpoint.Should().Be(MailtrapClientEndpointOptions.BulkDefault);
-        MailtrapClientOptions.Default.TestEndpoint.Should().Be(MailtrapClientEndpointOptions.TestDefault);
+        MailtrapClientOptions.Default.SendEndpoint.Should().Be(MailtrapClientEndpointOptions.SendDefaultEndpointOptions);
+        MailtrapClientOptions.Default.BulkEndpoint.Should().Be(MailtrapClientEndpointOptions.BulkDefaultEndpointOptions);
+        MailtrapClientOptions.Default.TestEndpoint.Should().Be(MailtrapClientEndpointOptions.TestDefaultEndpointOptions);
     }
 
     [Test]
@@ -44,9 +44,9 @@ internal sealed class MailtrapClientOptionsTests
     [Test]
     public void Constructor_ShouldThrowArgumentNullException_WhenApiKeyIsNull()
     {
-        string? apiKey = null;
+        string? token = null;
 
-        var act = () => new MailtrapClientOptions(apiKey!);
+        var act = () => new MailtrapClientOptions(token!);
 
         act.Should().Throw<ArgumentNullException>();
     }

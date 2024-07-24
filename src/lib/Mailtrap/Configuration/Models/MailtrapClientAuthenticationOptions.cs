@@ -9,30 +9,47 @@ namespace Mailtrap.Configuration.Models;
 
 
 /// <summary>
-/// A set of options to configure authentication settings for Mailtrap API client.
+/// A set of parameters to configure authentication settings for Mailtrap API client.
 /// </summary>
 public record MailtrapClientAuthenticationOptions
 {
     /// <summary>
-    /// Default empty configuration.
+    /// Gets default empty configuration.
     /// </summary>
+    ///
+    /// <value>
+    /// Static instance, containing empty authentication configuration.
+    /// </value>
     public static MailtrapClientAuthenticationOptions Empty { get; } = new(string.Empty);
 
 
     /// <summary>
-    /// API Authentication token.
+    /// Gets or sets API authentication token.
+    /// <para>
+    /// Required. Must be non-empty string.
+    /// </para>
     /// </summary>
-    /// <remarks>
-    /// Required.
-    /// </remarks>
+    /// 
+    /// <value>
+    /// Contains API authentication token.
+    /// </value>
     public string ApiToken { get; set; }
 
 
     /// <summary>
-    /// Default constructor.
+    /// Default instance constructor.
     /// </summary>
-    /// <param name="apiToken">Required.</param>
-    /// <exception cref="ArgumentNullException">When <paramref name="apiToken"/> is <see langword="null"/></exception>
+    /// 
+    /// <param name="apiToken">
+    /// API authentication token.
+    /// <para>
+    /// Required. Must be non-empty string.
+    /// </para>
+    /// </param>
+    /// 
+    /// <exception cref="ArgumentNullException">
+    /// When <paramref name="apiToken"/> is <see langword="null"/>.
+    /// </exception>
     public MailtrapClientAuthenticationOptions(string apiToken)
     {
         Ensure.NotNull(apiToken, nameof(apiToken));
