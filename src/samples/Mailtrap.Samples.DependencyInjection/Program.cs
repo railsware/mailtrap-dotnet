@@ -104,7 +104,7 @@ internal sealed class Program
     }
 
     /// <summary>
-    /// Optionally, we can provide preconfigured MaitrapiClientOptions instance.
+    /// Optionally, we can provide preconfigured MailtrapiClientOptions instance.
     /// </summary>
     private static IHost BuildHostWithExplicitConfiguration(HostApplicationBuilder hostBuilder)
     {

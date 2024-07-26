@@ -38,6 +38,11 @@
       "default",
       "modern"
     ],
+    "markdownEngineProperties": {
+      "markdigExtensions": [
+        "Alerts"
+      ]
+    },
     "globalMetadata": {
       "_appName": "",
       "_appTitle": "Official Mailtrap .NET Client Documentation",

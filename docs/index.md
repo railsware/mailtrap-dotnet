@@ -14,7 +14,7 @@ Please ensure your project targets .NET implementation which implements [**.NET 
 
 1. Obtain [API token](https://mailtrap.io/api-tokens)
 
-1. Install Maitrap package from NuGet  
+1. Install Mailtrap package from NuGet  
    ```console
    dotnet add package Mailtrap
    ```
@@ -30,7 +30,7 @@ a) If you are using a hosting model from Microsoft in your app ([IHostBuilder](h
    {
       services.AddMailtrapClient(options =>
       {
-         // Definitely, harcoding a token isn't a good idea.
+         // Definitely, hardcoding a token isn't a good idea.
          // This example uses it for simplicity, but in real-world scenarios
          // you should consider more secure approaches for storing secrets.
          
@@ -53,13 +53,13 @@ a) If you are using a hosting model from Microsoft in your app ([IHostBuilder](h
    }
    ```
 
-   b) If you want to use Mailtrap API client without DI container, than you can use `MaitrapClientFactory` for spawning `IMaitrapClient` instances:
+   b) If you want to use Mailtrap API client without DI container, than you can use `MailtrapClientFactory` for spawning `IMailtrapClient` instances:
    ```csharp
    using Mailtrap;
 
    ...
 
-   // Definitely, harcoding a token isn't a good idea.
+   // Definitely, hardcoding a token isn't a good idea.
    // This example uses it for simplicity, but in real-world scenarios
    // you should consider more secure approaches for storing secrets.
    using var factory = new MailtrapClientFactory("<YOUR-API-TOKEN>");
@@ -68,14 +68,14 @@ a) If you are using a hosting model from Microsoft in your app ([IHostBuilder](h
    ```
 
    Factory is intended to be used as singleton in the typical scenario, while produced `IMailtrapClient` instances are lightweight and can be used in any manner.  
-   Menawhile, long-living instances of `IMailtrapClient` should be used with extra caution in multithreaded applications, since they are not thread safe by design.
+   Meanwhile, long-living instances of `IMailtrapClient` should be used with extra caution in multithreaded applications, since they are not thread safe by design.
 
 
 
 ### Use
 Finally, when you have obtained `IMailtrapClient` instance, you can use it:
    ```csharp
-   using Maitrap.Email.Requests;
+   using Mailtrap.Email.Requests;
 
    ...
 
@@ -92,7 +92,7 @@ Finally, when you have obtained `IMailtrapClient` instance, you can use it:
          .SendAsync(request)
          .ConfigureAwait(false);
 
-      MessageId messageId = response.MessageIds.FirstorDefault();
+      MessageId messageId = response.MessageIds.FirstOrDefault();
    }
    catch (ArgumentException aex)
    {
@@ -104,7 +104,7 @@ Finally, when you have obtained `IMailtrapClient` instance, you can use it:
    }
    catch (HttpRequestException hrex)
    {
-      // handle HTTP erros
+      // handle HTTP errors
    }
    catch (OperationCancelledException ocex)
    {
@@ -124,9 +124,9 @@ Also a bunch of samples is available in the [Source Repository](https://github.c
 Detailed API reference is available [here](/api/Mailtrap.html).
 
 
-## Contributing
-We belive in the power of OSS and welcome contribution to the library.  
-Please to [Contributing Guide](https://github.com/railsware/mailtrap-dotnet/tree/main?tab=contrib-ov-file#readme) for details.
+<!-- ## Contributing
+We believe in the power of OSS and welcome contribution to the library.  
+Please to [Contributing Guide](https://github.com/railsware/mailtrap-dotnet/tree/main?tab=contrib-ov-file#readme) for details. -->
 
 ## License
 Licensed under the [MIT License](https://github.com/railsware/mailtrap-dotnet/tree/main?tab=MIT-1-ov-file#readme).

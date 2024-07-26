@@ -23,6 +23,8 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
     <PackageAssetsDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'assets'))</PackageAssetsDirectory>
+
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,12 +36,12 @@
 
   <ItemGroup>
     <None Include="README.md">
-      <Pack>True</Pack>
+      <Pack>true</Pack>
       <PackagePath>\</PackagePath>
     </None>
 
     <None Include="$(PackageAssetsDirectory)img/icon.png">
-      <Pack>True</Pack>
+      <Pack>true</Pack>
       <PackagePath>\</PackagePath>
       <Visible>false</Visible>
     </None>
