@@ -1,0 +1,56 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../src/lib",
+          "files": "**/*.csproj",
+          "exclude": [ "**/bin/**", "**/obj/**", "**/*.[Tt]ests.csproj" ]
+        }
+      ],
+      "dest": "../artifacts/api",
+      "filter": "filter.yml",
+      "disableGitFeatures": false,
+      "noRestore": false,
+      "enumSortOrder": "declaringOrder"
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": "**/*.{yml,md}"
+      },
+      {
+        "src": "../artifacts/api",
+        "files": "**/*.{yml,md}",
+        "dest": "api"
+      }
+    ],
+    "resource": [
+      {
+        "src": "../assets",
+        "files": "**",
+        "dest": "assets"
+      }
+    ],
+    "output": "../artifacts/docs",
+    "template": [
+      "default",
+      "modern"
+    ],
+    "markdownEngineProperties": {
+      "markdigExtensions": [
+        "Alerts"
+      ]
+    },
+    "globalMetadata": {
+      "_appName": "",
+      "_appTitle": "Official Mailtrap .NET Client Documentation",
+      "_appLogoPath": "assets/img/mailtrap-logo.svg",
+      "_appFaviconPath": "assets/img/icon.png",
+      "_disableBreadcrumb": true,
+      "_enableSearch": true,
+      "pdf": false
+    }
+  }
+}
