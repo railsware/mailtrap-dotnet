@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ApiKeyAuthenticationHttpRequestMessagePolicyTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="ApiTokenAuthenticationHttpRequestMessagePolicyTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,12 +9,12 @@ namespace Mailtrap.Tests.Http.Request;
 
 
 [TestFixture]
-internal sealed class ApiKeyAuthenticationHttpRequestMessagePolicyTests
+internal sealed class ApiTokenAuthenticationHttpRequestMessagePolicyTests
 {
     [Test]
     public void Constructor_ShouldThrowArgumentNullException_WhenParameterIsNull()
     {
-        var act = () => new ApiKeyAuthenticationHttpRequestMessagePolicy(null!);
+        var act = () => new ApiTokenAuthenticationHttpRequestMessagePolicy(null!);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -23,7 +23,7 @@ internal sealed class ApiKeyAuthenticationHttpRequestMessagePolicyTests
     public async Task AuthenticateAsync_ShouldThrowArgumentNullException_WhenRequestIsNull()
     {
         var tokenProviderMock = new Mock<IAccessTokenProvider>();
-        var policy = new ApiKeyAuthenticationHttpRequestMessagePolicy(tokenProviderMock.Object);
+        var policy = new ApiTokenAuthenticationHttpRequestMessagePolicy(tokenProviderMock.Object);
 
         var act = () => policy.ApplyPolicyAsync(null!);
 
@@ -38,7 +38,7 @@ internal sealed class ApiKeyAuthenticationHttpRequestMessagePolicyTests
         tokenProviderMock
             .Setup(x => x.GetAccessTokenAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(token);
-        var policy = new ApiKeyAuthenticationHttpRequestMessagePolicy(tokenProviderMock.Object);
+        var policy = new ApiTokenAuthenticationHttpRequestMessagePolicy(tokenProviderMock.Object);
 
         using var request = new HttpRequestMessage();
         using var cts = new CancellationTokenSource();

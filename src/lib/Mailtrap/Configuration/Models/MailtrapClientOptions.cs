@@ -60,11 +60,11 @@ public record MailtrapClientOptions
     /// <summary>
     /// Primary constructor with authentication configuration.
     /// </summary>
-    public MailtrapClientOptions(string apiKey)
-        : this(new MailtrapClientAuthenticationOptions(apiKey)) { }
+    public MailtrapClientOptions(string apiToken)
+        : this(new MailtrapClientAuthenticationOptions(apiToken)) { }
 
     /// <summary>
-    /// Parameterles constructor.
+    /// Parameterless constructor.
     /// </summary>
     public MailtrapClientOptions()
         : this(MailtrapClientAuthenticationOptions.Empty) { }

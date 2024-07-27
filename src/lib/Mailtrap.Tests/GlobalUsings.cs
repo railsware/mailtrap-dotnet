@@ -27,7 +27,6 @@ global using Mailtrap.Configuration;
 global using Mailtrap.Configuration.Models;
 global using Mailtrap.Configuration.Validators;
 global using Mailtrap.Authentication;
-global using Mailtrap.Http.Lifetime;
 global using Mailtrap.Http.Request;
 global using Mailtrap.Email.Converters;
 global using Mailtrap.Email.Models;

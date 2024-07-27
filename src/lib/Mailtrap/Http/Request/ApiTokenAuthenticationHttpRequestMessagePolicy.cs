@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ApiKeyAuthenticationHttpRequestMessagePolicy.cs" company="Railsware Products Studio, LLC">
+// <copyright file="ApiTokenAuthenticationHttpRequestMessagePolicy.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -12,7 +12,7 @@ namespace Mailtrap.Http.Request;
 /// <see cref="IHttpRequestMessagePolicy"/> implementation that applies authentication headers to the request,
 /// required by Mailtrap API.
 /// </summary>
-internal class ApiKeyAuthenticationHttpRequestMessagePolicy : IHttpRequestMessagePolicy
+internal class ApiTokenAuthenticationHttpRequestMessagePolicy : IHttpRequestMessagePolicy
 {
     private readonly IAccessTokenProvider _accessTokenProvider;
 
@@ -24,7 +24,7 @@ internal class ApiKeyAuthenticationHttpRequestMessagePolicy : IHttpRequestMessag
     /// <exception cref="ArgumentNullException">
     /// When provided <paramref name="accessTokenProvider"/> is <see langword="null"/>.
     /// </exception>
-    public ApiKeyAuthenticationHttpRequestMessagePolicy(IAccessTokenProvider accessTokenProvider)
+    public ApiTokenAuthenticationHttpRequestMessagePolicy(IAccessTokenProvider accessTokenProvider)
     {
         Ensure.NotNull(accessTokenProvider, nameof(accessTokenProvider));
 

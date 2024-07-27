@@ -32,7 +32,7 @@ internal sealed class MailtrapClientConfigurationProvider : IMailtrapClientConfi
 
         if (!validationResult.IsValid)
         {
-            throw new ArgumentException($"Invalid request data:\n{validationResult.ToString("\n")}");
+            throw new ArgumentException($"Validation failed:\n{validationResult.ToString("\n")}");
         }
 
         Configuration = options.Value;

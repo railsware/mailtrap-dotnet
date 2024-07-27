@@ -59,16 +59,16 @@ internal static class HttpRequestMessageExtensions
     /// Sets the API key to the request's authorization header.
     /// </summary>
     /// <param name="request"></param>
-    /// <param name="apiKey"></param>
+    /// <param name="apiToken"></param>
     /// <returns><see cref="HttpRequestMessage"/> instance so calls can be chained.</returns>
     /// <exception cref="ArgumentNullException">
     /// When provided <paramref name="request"/> is <see langword="null"/>.
     /// </exception>
-    internal static HttpRequestMessage ConfigureAuthorizationHeader(this HttpRequestMessage request, string apiKey)
+    internal static HttpRequestMessage ConfigureAuthorizationHeader(this HttpRequestMessage request, string apiToken)
     {
         Ensure.NotNull(request, nameof(request));
 
-        request.Headers.Authorization = new("Bearer", apiKey);
+        request.Headers.Authorization = new("Bearer", apiToken);
 
         return request;
     }

@@ -91,12 +91,12 @@ internal sealed class HttpRequestMessageExtensionsTests
 
     #region ConfigureAuthorizationHeader
 
-    private string _apiKey { get; } = "token";
+    private string _apiToken { get; } = "token";
 
     [Test]
     public void ConfigureAuthorizationHeader_ShouldThrowArgumentNullException_WhenMessageIsNull()
     {
-        var act = () => HttpRequestMessageExtensions.ConfigureAuthorizationHeader(null!, _apiKey);
+        var act = () => HttpRequestMessageExtensions.ConfigureAuthorizationHeader(null!, _apiToken);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -106,11 +106,11 @@ internal sealed class HttpRequestMessageExtensionsTests
     {
         using var message = new HttpRequestMessage();
 
-        message.ConfigureAuthorizationHeader(_apiKey);
+        message.ConfigureAuthorizationHeader(_apiToken);
 
         message.Headers.Authorization.Should()
             .NotBeNull().And
-            .BeEquivalentTo(new AuthenticationHeaderValue("Bearer", _apiKey));
+            .BeEquivalentTo(new AuthenticationHeaderValue("Bearer", _apiToken));
     }
 
     [Test]
@@ -120,10 +120,10 @@ internal sealed class HttpRequestMessageExtensionsTests
 
         message.Headers.Authorization = new("other_scheme", "other_token");
 
-        message.ConfigureAuthorizationHeader(_apiKey);
+        message.ConfigureAuthorizationHeader(_apiToken);
 
         message.Headers.Authorization.Should()
-            .BeEquivalentTo(new AuthenticationHeaderValue("Bearer", _apiKey));
+            .BeEquivalentTo(new AuthenticationHeaderValue("Bearer", _apiToken));
     }
 
     #endregion
