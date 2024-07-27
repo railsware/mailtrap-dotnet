@@ -60,4 +60,21 @@ internal static class UriExtensions
         var url = baseUrl.AbsoluteUri + string.Join("/", segments);
         return url.ToAbsoluteUri();
     }
+
+    /// <exception cref = "ArgumentNullException" >
+    /// When provided <paramref name="url"/> is <see langword="null"/>.
+    /// </exception>
+    /// 
+    /// <exception cref = "ArgumentException" >
+    /// When provided <paramref name="url"/> isn't a valid absolute URI.
+    /// </exception>
+    internal static Uri EnsureAbsoluteUri(this Uri url)
+    {
+        Ensure.NotNull(url, nameof(url));
+
+        return
+            url.IsAbsoluteUri
+            ? url
+            : throw new ArgumentException("Invalid URL format - absolute URL is expected", nameof(url));
+    }
 }

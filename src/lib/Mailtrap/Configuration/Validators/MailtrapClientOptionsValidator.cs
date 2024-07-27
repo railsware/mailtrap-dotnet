@@ -19,16 +19,13 @@ internal class MailtrapClientOptionsValidator : AbstractValidator<MailtrapClient
             .SetValidator(MailtrapClientAuthenticationOptionsValidator.Instance);
 
         RuleFor(o => o.TestEndpoint)
-            .NotNull()
-            .SetValidator(MailtrapClientEndpointOptionsValidator.Instance);
+            .NotNull();
 
         RuleFor(o => o.SendEndpoint)
-            .NotNull()
-            .SetValidator(MailtrapClientEndpointOptionsValidator.Instance);
+            .NotNull();
 
         RuleFor(o => o.BulkEndpoint)
-            .NotNull()
-            .SetValidator(MailtrapClientEndpointOptionsValidator.Instance);
+            .NotNull();
 
         RuleFor(o => o.Serialization)
             .NotNull();

@@ -11,9 +11,6 @@ namespace Mailtrap.Tests.Configuration.Validators;
 [TestFixture]
 internal sealed class MailtrapClientOptionsValidatorTests
 {
-    private MailtrapClientEndpointOptions _endpoint { get; } = new(new Uri("api/send", UriKind.Relative));
-
-
     [Test]
     public void Validation_ShouldFail_WhenAuthenticationIsNotInitialized()
     {
@@ -51,19 +48,6 @@ internal sealed class MailtrapClientOptionsValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldFail_WhenSendEndpointUrlIsNotAbsoluteUrl()
-    {
-        var options = MailtrapClientOptions.Default with
-        {
-            SendEndpoint = _endpoint
-        };
-
-        var result = MailtrapClientOptionsValidator.Instance.TestValidate(options);
-
-        result.ShouldHaveValidationErrorFor(r => r.SendEndpoint.BaseUrl);
-    }
-
-    [Test]
     public void Validation_ShouldFail_WhenBulkEndpointIsNull()
     {
         var options = MailtrapClientOptions.Default with
@@ -77,19 +61,6 @@ internal sealed class MailtrapClientOptionsValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldFail_WhenBulkEndpointUrlIsNotAbsoluteUrl()
-    {
-        var options = MailtrapClientOptions.Default with
-        {
-            BulkEndpoint = _endpoint
-        };
-
-        var result = MailtrapClientOptionsValidator.Instance.TestValidate(options);
-
-        result.ShouldHaveValidationErrorFor(r => r.BulkEndpoint.BaseUrl);
-    }
-
-    [Test]
     public void Validation_ShouldFail_WhenTestEndpointIsNull()
     {
         var options = MailtrapClientOptions.Default with
@@ -100,19 +71,6 @@ internal sealed class MailtrapClientOptionsValidatorTests
         var result = MailtrapClientOptionsValidator.Instance.TestValidate(options);
 
         result.ShouldHaveValidationErrorFor(r => r.TestEndpoint);
-    }
-
-    [Test]
-    public void Validation_ShouldFail_WhenTestEndpointUrlIsNotAbsoluteUrl()
-    {
-        var options = MailtrapClientOptions.Default with
-        {
-            TestEndpoint = _endpoint
-        };
-
-        var result = MailtrapClientOptionsValidator.Instance.TestValidate(options);
-
-        result.ShouldHaveValidationErrorFor(r => r.TestEndpoint.BaseUrl);
     }
 
     [Test]

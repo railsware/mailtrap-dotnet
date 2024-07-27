@@ -47,7 +47,7 @@ public record MailtrapClientEndpointOptions
     {
         Ensure.NotNull(baseUrl, nameof(baseUrl));
 
-        BaseUrl = baseUrl;
+        BaseUrl = baseUrl.EnsureAbsoluteUri();
     }
 
     /// <summary>
