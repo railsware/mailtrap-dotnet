@@ -8,7 +8,6 @@
 namespace Mailtrap.Tests.Core;
 
 
-
 [TestFixture]
 internal sealed class CollectionExtensionsTests
 {
