@@ -23,6 +23,8 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
     <PackageAssetsDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'assets'))</PackageAssetsDirectory>
+
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
   </PropertyGroup>
 
   <ItemGroup>
