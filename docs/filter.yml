@@ -1,0 +1,15 @@
+﻿### YamlMime:ManagedReference
+
+apiRules:
+- exclude:
+      uidRegex: ^System\.Object
+      type: Type
+- include:
+      uidRegex: ^System\.Object\.GetHashCode
+      type: Method
+- include:
+      uidRegex: ^System\.Object\.ToString
+      type: Method
+- include:
+      uidRegex: ^System\.Object\.Equals
+      type: Method
