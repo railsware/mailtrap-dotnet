@@ -34,7 +34,7 @@ a) If you are using a hosting model from Microsoft in your app ([IHostBuilder](h
          // This example uses it for simplicity, but in real-world scenarios
          // you should consider more secure approaches for storing secrets.
          
-         // Environment variables can be an option, as well as more robust solutions:
+         // Environment variables can be an option, as well as other solutions:
          // https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets
          // or https://learn.microsoft.com/en-us/aspnet/core/security/key-vault-configuration
          options.Authentication.ApiToken = "<YOUR-API-TOKEN>";
@@ -126,7 +126,7 @@ Detailed API reference is available [here](/api/Mailtrap.html).
 
 <!-- ## Contributing
 We believe in the power of OSS and welcome contribution to the library.  
-Please to [Contributing Guide](https://github.com/railsware/mailtrap-dotnet/tree/main?tab=contrib-ov-file#readme) for details. -->
+Please refer to [Contributing Guide](https://github.com/railsware/mailtrap-dotnet/tree/main?tab=contrib-ov-file#readme) for details. -->
 
 ## License
 Licensed under the [MIT License](https://github.com/railsware/mailtrap-dotnet/tree/main?tab=MIT-1-ov-file#readme).

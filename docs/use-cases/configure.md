@@ -27,7 +27,7 @@ Hosting model supports a number of configuration providers out-of-the-box:
  - command line arguments
  - etc.
 
- More details can be found [here](https://learn.microsoft.com/en-us/dotnet/core/extensions/configuration)
+More details can be found [here](https://learn.microsoft.com/en-us/dotnet/core/extensions/configuration)
 
 Assuming you have Mailtrap configuration in `appsettings.json`
 ```json
@@ -165,30 +165,9 @@ IConfigurationSection config = hostBuilder.Configuration.GetSection("Mailtrap");
 // Adding Mailtrap API client to the container
 IHttpClientBuilder httpClientBuilder = hostBuilder.Services.AddMailtrapClient(config);
 
-// Adding standard resilience policies
-httpClientBuilder.AddStandardResilienceHandler();
-
-// Configuring default headers
-httpClientBuilder.ConfigureHttpClient(client =>
-{
-    client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue
-    {
-        NoCache = true
-    };
-});
-
-// Adding proxy
-httpClientBuilder.ConfigurePrimaryHttpMessageHandler(() =>
-{
-    return new HttpClientHandler()
-    {
-        Proxy = new WebProxy("proxy.mailtrap.io", 8080),
-        CheckCertificateRevocationList = true
-    };
-});
-
-// Configure detailed HTTP request logging
-httpClientBuilder.AddExtendedHttpClientLogging();
+// Do any required HttpClient configuration
+// httpClientBuilder.AddStandardResilienceHandler();
+// etc.
 
 // Building the host
 IHost host = hostBuilder.Build();
@@ -200,8 +179,22 @@ Additional samples can be found on [GitHub](https://github.com/railsware/mailtra
 
 ## Standalone factory
 While DI pattern is recommended approach to configure and use Mailtrap API client, alternatively `MailtrapClientFactory` can be used to spawn client instances, when usage of DI container isn't possible or desired.  
+In most cases factory configuration is similar to DI container one.
 
-### 
+### Basic usage
+In the simplest scenario getting client is as simple as the following:
+```csharp
+using Mailtrap;
+
+...
+
+using var factory = new MailtrapClientFactory("<API_TOKEN>");
+
+IMailtrapClient client = factory.CreateClient();
+```
+
+Please consider that default `MailtrapClientFactory` implements `IDisposable` and must be disposed properly after use.  
+
 
 ### See Also
 Additional samples can be found on [GitHub](https://github.com/railsware/mailtrap-dotnet/blob/docs/main/src/samples/Mailtrap.Samples.BasicUsage/Program.cs)
