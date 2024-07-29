@@ -11,8 +11,8 @@ on:
 permissions:
   contents: read  # required for actions/checkout
   pages: write    # required for GitHub Pages publish  
+  id-token: write # required for requesting JWT
   # actions: write  # required for workflow cancellation
-  # id-token: write # required for requesting JWT
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
