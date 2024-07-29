@@ -10,11 +10,13 @@ This client allows you to quickly and easily integrate .NET application with the
 Please ensure your project targets .NET implementation which implements [**.NET Standard 2.0**](https://dotnet.microsoft.com/en-us/platform/dotnet-standard#versions) specification.
 
 ### Setup
-1. Register new or log into existing account at [mailtrap.io](https://mailtrap.io/register/signup?ref=maitrap-dotnet)
+- Register new or log into existing account at [mailtrap.io](https://mailtrap.io/register/signup?ref=maitrap-dotnet)
 
-1. Obtain [API token](https://mailtrap.io/api-tokens)
+- Obtain [API token](https://mailtrap.io/api-tokens)
 
-1. Install Mailtrap package from NuGet  
+- Install Mailtrap package from NuGet  
+   > **TODO**  
+   > This is an example command, to be updated once the package is published.  
    ```console
    dotnet add package Mailtrap
    ```
@@ -68,7 +70,6 @@ a) If you are using a hosting model from Microsoft in your app ([IHostBuilder](h
    ```
 
    Factory is intended to be used as singleton in the typical scenario, while produced `IMailtrapClient` instances are lightweight and can be used in any manner.  
-   Meanwhile, long-living instances of `IMailtrapClient` should be used with extra caution in multithreaded applications, since they are not thread safe by design.
 
 
 

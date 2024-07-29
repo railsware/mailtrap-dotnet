@@ -16,7 +16,7 @@ This article covers different configuration options for Mailtrap API client.
 
 
 ## Dependency Injection
-When using hosting model from MS, Mailtrap API client uses [Options Pattern](https://learn.microsoft.com/en-us/dotnet/core/extensions/options) for its configuration under the hood.  
+When using hosting model from MS, Mailtrap API client uses [Options Pattern](https://learn.microsoft.com/en-us/dotnet/core/extensions/options) for configuration under the hood.  
 You can use any of available approaches to configure `IOptions<MailtrapClientOptions>` in the DI container and client will consume them.  
 Meanwhile, library provides few handy shortcut extensions to simplify configuring Mailtrap API client in `IServiceCollection`.  
 
