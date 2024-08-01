@@ -2,7 +2,8 @@
 
 Welcome to the documentation portal for official .NET client for [Mailtrap](https://mailtrap.io/)!
 
-This client allows you to quickly and easily integrate .NET application with the Mailtrap API.
+This client allows you to quickly and easily integrate Mailtrap API into your .NET application.
+
 
 ## Quick Start
 
@@ -72,7 +73,6 @@ a) If you are using a hosting model from Microsoft in your app ([IHostBuilder](h
    Factory is intended to be used as singleton in the typical scenario, while produced `IMailtrapClient` instances are lightweight and can be used in any manner.  
 
 
-
 ### Use
 Finally, when you have obtained `IMailtrapClient` instance, you can use it:
    ```csharp
@@ -118,16 +118,17 @@ Finally, when you have obtained `IMailtrapClient` instance, you can use it:
    ```
 
 ### What's next
-Please visit [Use Cases](use-cases/configure.md) page for more usage examples.  
+Please visit [Use Cases](use-cases/configure.md) page for more configuration and usage examples.  
 
 Also a bunch of samples is available in the [Source Repository](https://github.com/railsware/mailtrap-dotnet/tree/main/src/samples).  
 
-Detailed API reference is available [here](/api/Mailtrap.html).
+Detailed API reference is available [here](api/Mailtrap.html).
 
 
 <!-- ## Contributing
 We believe in the power of OSS and welcome contribution to the library.  
 Please refer to [Contributing Guide](https://github.com/railsware/mailtrap-dotnet/tree/main?tab=contrib-ov-file#readme) for details. -->
+
 
 ## License
 Licensed under the [MIT License](https://github.com/railsware/mailtrap-dotnet/tree/main?tab=MIT-1-ov-file#readme).
