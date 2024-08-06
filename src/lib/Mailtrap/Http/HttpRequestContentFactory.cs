@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Http.Request;
+namespace Mailtrap.Http;
 
 
 /// <summary>
@@ -14,15 +14,16 @@ namespace Mailtrap.Http.Request;
 internal sealed class HttpRequestContentFactory : IHttpRequestContentFactory
 {
     /// <inheritdoc/>
+    /// 
     /// <exception cref="ArgumentNullException">
     /// When provided <paramref name="content"/> is <see langword="null"/>.
     /// </exception>
-    public Task<StringContent> CreateStringContentAsync(string content, CancellationToken _ = default)
+    public StringContent CreateStringContent(string content)
     {
         Ensure.NotNull(content, nameof(content));
 
         var httpRequestContent = new StringContent(content).ApplyJsonContentTypeHeader();
 
-        return Task.FromResult(httpRequestContent);
+        return httpRequestContent;
     }
 }

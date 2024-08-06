@@ -5,38 +5,38 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Tests.Http.Request;
+namespace Mailtrap.Tests.Http;
 
 
 [TestFixture]
 internal sealed class HttpRequestContentFactoryTests
 {
     [Test]
-    public async Task CreateAsync_ShouldThrowArgumentNullException_WhenContentIsNull()
+    public void Create_ShouldThrowArgumentNullException_WhenContentIsNull()
     {
         var factory = new HttpRequestContentFactory();
 
-        var act = () => factory.CreateStringContentAsync(null!);
+        var act = () => factory.CreateStringContent(null!);
 
-        await act.Should().ThrowAsync<ArgumentNullException>().ConfigureAwait(false);
+        act.Should().Throw<ArgumentNullException>();
     }
 
     [Test]
-    public async Task CreateAsync_ShouldNotThrowException_WhenContentIsEmpty()
+    public void Create_ShouldNotThrowException_WhenContentIsEmpty()
     {
         var factory = new HttpRequestContentFactory();
 
-        var act = () => factory.CreateStringContentAsync(string.Empty);
+        var act = () => factory.CreateStringContent(string.Empty);
 
-        await act.Should().NotThrowAsync().ConfigureAwait(false);
+        act.Should().NotThrow();
     }
 
     [Test]
-    public async Task CreateAsync_ShouldApplyHeaders()
+    public void Create_ShouldApplyHeaders()
     {
         var factory = new HttpRequestContentFactory();
 
-        using var content = await factory.CreateStringContentAsync(string.Empty).ConfigureAwait(false);
+        using var content = factory.CreateStringContent(string.Empty);
 
         content.Should().NotBeNull();
         content.Headers.Should().ContainKey("Content-Type");
@@ -45,13 +45,13 @@ internal sealed class HttpRequestContentFactoryTests
     }
 
     [Test]
-    public async Task CreateAsync_ShouldSetContentPropely()
+    public async Task Create_ShouldSetContentProperly()
     {
         var factory = new HttpRequestContentFactory();
 
         var json = "content";
 
-        using var content = await factory.CreateStringContentAsync(json).ConfigureAwait(false);
+        using var content = factory.CreateStringContent(json);
 
         var result = await content.ReadAsStringAsync().ConfigureAwait(false);
 
