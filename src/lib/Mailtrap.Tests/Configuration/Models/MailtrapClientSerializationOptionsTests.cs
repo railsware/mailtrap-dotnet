@@ -18,6 +18,15 @@ internal sealed class MailtrapClientSerializationOptionsTests
     }
 
     [Test]
+    public void Default_ShouldReturnNewObjectEveryTime_WhenCalled()
+    {
+        var options1 = MailtrapClientSerializationOptions.Default;
+        var options2 = MailtrapClientSerializationOptions.Default;
+
+        options1.Should().NotBeSameAs(options2);
+    }
+
+    [Test]
     public void Constructor_ShouldInitValidDefaults()
     {
         new MailtrapClientSerializationOptions().PrettyJson.Should().BeFalse();

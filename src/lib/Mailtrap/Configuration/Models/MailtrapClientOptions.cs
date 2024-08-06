@@ -19,7 +19,11 @@ public record MailtrapClientOptions
     /// Includes default values for endpoints, serialization and empty authentication settings.
     /// </para>
     /// </summary>
-    public static MailtrapClientOptions Default { get; } = new();
+    ///
+    /// <remarks>
+    /// Returns new object every time, thus it's safe to mutate returned value.
+    /// </remarks>
+    public static MailtrapClientOptions Default => new();
 
     /// <summary>
     /// Send email endpoint settings.
@@ -50,24 +54,17 @@ public record MailtrapClientOptions
     /// <summary>
     /// Primary constructor with authentication configuration.
     /// </summary>
-    public MailtrapClientOptions(MailtrapClientAuthenticationOptions authentication)
+    public MailtrapClientOptions(string apiToken)
     {
-        Ensure.NotNull(authentication, nameof(authentication));
+        Ensure.NotNullOrEmpty(apiToken, nameof(apiToken));
 
-        Authentication = authentication;
+        Authentication.ApiToken = apiToken;
     }
 
     /// <summary>
-    /// Primary constructor with authentication configuration.
+    /// Parameterless instance constructor.
     /// </summary>
-    public MailtrapClientOptions(string apiKey)
-        : this(new MailtrapClientAuthenticationOptions(apiKey)) { }
-
-    /// <summary>
-    /// Parameterles constructor.
-    /// </summary>
-    public MailtrapClientOptions()
-        : this(MailtrapClientAuthenticationOptions.Empty) { }
+    public MailtrapClientOptions() { }
 
 
 

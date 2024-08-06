@@ -16,17 +16,29 @@ public record MailtrapClientEndpointOptions
     /// <summary>
     /// Default send endpoint.
     /// </summary>
-    public static MailtrapClientEndpointOptions SendDefault { get; } = new(Endpoints.SendDefaultUrl);
+    ///
+    /// <remarks>
+    /// Returns new object every time, thus it's safe to mutate returned value.
+    /// </remarks>
+    public static MailtrapClientEndpointOptions SendDefault => new(Endpoints.SendDefaultUrl);
 
     /// <summary>
     /// Default bulk endpoint.
     /// </summary>
-    public static MailtrapClientEndpointOptions BulkDefault { get; } = new(Endpoints.BulkDefaultUrl);
+    ///
+    /// <remarks>
+    /// Returns new object every time, thus it's safe to mutate returned value.
+    /// </remarks>
+    public static MailtrapClientEndpointOptions BulkDefault => new(Endpoints.BulkDefaultUrl);
 
     /// <summary>
     /// Default test endpoint.
     /// </summary>
-    public static MailtrapClientEndpointOptions TestDefault { get; } = new(Endpoints.TestDefaultUrl);
+    ///
+    /// <remarks>
+    /// Returns new object every time, thus it's safe to mutate returned value.
+    /// </remarks>
+    public static MailtrapClientEndpointOptions TestDefault => new(Endpoints.TestDefaultUrl);
 
 
     /// <summary>

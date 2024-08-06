@@ -16,7 +16,11 @@ public record MailtrapClientSerializationOptions
     /// <summary>
     /// Default set of settings
     /// </summary>
-    public static MailtrapClientSerializationOptions Default { get; } = new();
+    ///
+    /// <remarks>
+    /// Returns new object every time, thus it's safe to mutate returned value.
+    /// </remarks>
+    public static MailtrapClientSerializationOptions Default => new();
 
     /// <summary>
     /// Switch to enable JSON indentation for pretty output.

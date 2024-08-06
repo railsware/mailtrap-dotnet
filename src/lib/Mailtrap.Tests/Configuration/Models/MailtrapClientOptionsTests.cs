@@ -22,31 +22,28 @@ internal sealed class MailtrapClientOptionsTests
     }
 
     [Test]
-    public void Constructor_ShouldThrowArgumentNullException_WhenAuthenticationSettingsIsNull()
+    public void Default_ShouldReturnNewObjectEveryTime_WhenCalled()
     {
-        MailtrapClientAuthenticationOptions? options = null;
+        var options1 = MailtrapClientOptions.Default;
+        var options2 = MailtrapClientOptions.Default;
 
-        var act = () => new MailtrapClientOptions(options!);
+        options1.Should().NotBeSameAs(options2);
+    }
+
+    [Test]
+    public void Constructor_ShouldThrowArgumentNullException_WhenApiTokenIsNull()
+    {
+        string? token = null;
+
+        var act = () => new MailtrapClientOptions(token!);
 
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Test]
-    public void Constructor_ShouldAssignAuthenticationSettings()
+    public void Constructor_ShouldThrowArgumentNullException_WhenApiTokenIsEmpty()
     {
-        var auth = new MailtrapClientAuthenticationOptions("token");
-
-        var options = new MailtrapClientOptions(auth);
-
-        options.Authentication.Should().BeSameAs(auth);
-    }
-
-    [Test]
-    public void Constructor_ShouldThrowArgumentNullException_WhenApiKeyIsNull()
-    {
-        string? apiKey = null;
-
-        var act = () => new MailtrapClientOptions(apiKey!);
+        var act = () => new MailtrapClientOptions(string.Empty);
 
         act.Should().Throw<ArgumentNullException>();
     }
