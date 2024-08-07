@@ -16,7 +16,7 @@ internal sealed class OperationResultResponseTests
     {
         var response = new OperationResultResponse<string>(true);
 
-        response.IsSuccess.Should().BeTrue();
+        response.Success.Should().BeTrue();
         response.ErrorData.Should().BeNull();
     }
 
@@ -26,7 +26,7 @@ internal sealed class OperationResultResponseTests
         var errorMessage = "Error";
         var response = new OperationResultResponse<string>(false, errorMessage);
 
-        response.IsSuccess.Should().BeFalse();
+        response.Success.Should().BeFalse();
         response.ErrorData.Should()
             .BeOfType<string>().And
             .Be(errorMessage);

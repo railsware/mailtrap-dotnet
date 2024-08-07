@@ -18,7 +18,7 @@ public record OperationResultResponse<TError>
     /// </summary>
     [JsonPropertyName("success")]
     [JsonPropertyOrder(1)]
-    public bool IsSuccess { get; }
+    public bool Success { get; }
 
     /// <summary>
     /// Error(s) associated with the response.
@@ -33,16 +33,16 @@ public record OperationResultResponse<TError>
     /// Initializes a new instance of the <see cref="OperationResultResponse{TError}"/> class.
     /// </summary>
     /// 
-    /// <param name="isSuccess">
+    /// <param name="success">
     /// A flag indicating whether the response describes success or failure.
     /// </param>
     /// 
     /// <param name="errorData">
     /// Errors to associate with the response.
     /// </param>
-    public OperationResultResponse(bool isSuccess, TError? errorData = default)
+    public OperationResultResponse(bool success, TError? errorData = default)
     {
-        IsSuccess = isSuccess;
+        Success = success;
         ErrorData = errorData;
     }
 }
