@@ -18,7 +18,7 @@ This article covers different configuration options for Mailtrap API client.
 
 
 
-## Configuration model
+## Configuration Model
 Regardless of the configuration approach used for Mailtrap API client setup, which can be found in this article, all of them are using unified configuration model @Mailtrap.Configuration.Models.MailtrapClientOptions under the hood.
 
 Model contains 3 main settings groups:
@@ -57,7 +57,50 @@ var config = new MailtrapClientOptions("<API_TOKEN>")
     }
 };
 ```
+### Authentication Configuration
+@Mailtrap.Configuration.Models.MailtrapClientAuthenticationOptions class represents authorization and authentication configuration used by Mailtrap API client.
 
+@Mailtrap.Configuration.Models.MailtrapClientAuthenticationOptions.ApiToken is used to set a token to authorize client requests to Mailtrap API.  
+This is the only required setting, that needs to be set explicitly, since by default it is set to empty string, which isn't a valid value and will throw an exception if left unchanged.
+
+### Endpoint Configuration
+@Mailtrap.Configuration.Models.MailtrapClientOptions contains few separate endpoint configurations for different email send channels/API features.
+- @Mailtrap.Configuration.Models.MailtrapClientOptions.SendEndpoint
+- @Mailtrap.Configuration.Models.MailtrapClientOptions.BulkEndpoint
+- @Mailtrap.Configuration.Models.MailtrapClientOptions.TestEndpoint
+- etc.
+
+All of those are @Mailtrap.Configuration.Models.MailtrapClientEndpointOptions instances, which can be configured individually.
+
+@Mailtrap.Configuration.Models.MailtrapClientEndpointOptions.BaseUrl is used to specify base URL for endpoint. It should be a valid absolute URI.
+
+
+### Serialization Configuration
+@Mailtrap.Configuration.Models.MailtrapClientSerializationOptions class represents serialization configuration used by Mailtrap API client.
+
+@Mailtrap.Configuration.Models.MailtrapClientSerializationOptions.PrettyJson flag can be opted-in to produce non-minified JSON for outgoing HTTP requests, which can be helpful for debugging and log analysis.
+
+By default it is set to `false`, and JSON that is sent in HTTP requests is minified:
+```json
+{"to":[{"email":"john_doe@example.com","name":"John Doe"}],"from":{"email":"sales@example.com","name":"Example Sales Team"},...}
+```
+
+But when opted-in, outgoing HTTP request body will contain human-friendly JSON:
+```json
+{
+  "to": [
+    {
+      "email": "john_doe@example.com",
+      "name": "John Doe"
+    }
+  ],
+  "from": {
+    "email": "sales@example.com",
+    "name": "Example Sales Team"
+  },
+  ...
+}
+```
 
 
 ## Dependency Injection
@@ -65,7 +108,7 @@ When using hosting model from MS, Mailtrap API client uses [Options Pattern](htt
 Any of available approaches to configure `IOptions<MailtrapClientOptions>` in the DI container can be used and client will consume them.  
 Meanwhile, library provides few handy shortcut extensions to simplify configuring Mailtrap API client in @Microsoft.Extensions.DependencyInjection.IServiceCollection.  
 
-### Configuration by @Microsoft.Extensions.Configuration.IConfiguration abstraction
+### Configuration with @Microsoft.Extensions.Configuration.IConfiguration abstraction
 Hosting model supports a number of configuration providers out-of-the-box:
  - configuration files
  - environment variables
@@ -148,7 +191,7 @@ hostBuilder.Services
 IHost host = hostBuilder.Build();
 ```
 
-### Configuration by delegate
+### Configuration with delegate
 Mailtrap API client settings can be set up programmatically, using extension overload accepting configuration delegate:
 ```csharp
 using Microsoft.Extensions.Hosting;
@@ -170,7 +213,7 @@ hostBuilder.Services.AddMailtrapClient((MailtrapClientOptions options) =>
 IHost host = hostBuilder.Build();
 ```
 
-### Configuration by @Mailtrap.Configuration.Models.MailtrapClientOptions instance
+### Configuration with @Mailtrap.Configuration.Models.MailtrapClientOptions instance
 Similarly to the previous section, configuration can be done by passing pre-created instance of @Mailtrap.Configuration.Models.MailtrapClientOptions:
 ```csharp
 using Microsoft.Extensions.Hosting;
@@ -191,7 +234,7 @@ hostBuilder.Services.AddMailtrapClient(config);
 IHost host = hostBuilder.Build();
 ```
 
-### @System.Net.Http.HttpClient configuration
+### Advanced @System.Net.Http.HttpClient configuration
 All `AddMailtrapClient` extension method overloads return @Microsoft.Extensions.DependencyInjection.IHttpClientBuilder?displayProperty=name instance.  
 Thus a fine-grain tuning of the @System.Net.Http.HttpClient configuration can be done:
 ```csharp
@@ -243,12 +286,12 @@ using var factory = new MailtrapClientFactory("<API_TOKEN>");
 IMailtrapClient client = factory.CreateClient();
 ```
 
-> [!NOTE]  
+> [!IMPORTANT]  
 > Please consider that @Mailtrap.MailtrapClientFactory implements @System.IDisposable interface and must be disposed properly after use.  
 
 
-### Configuring with @Mailtrap.Configuration.Models.MailtrapClientOptions instance
-Alternatively, the same way as with DI container, factory can be configured using pre-created instance of @Mailtrap.Configuration.Models.MailtrapClientOptions:
+### Configuration with @Mailtrap.Configuration.Models.MailtrapClientOptions instance
+Alternatively, the same way as with DI container, factory can be configured using pre-created instance of @Mailtrap.Configuration.Models.MailtrapClientOptions with additional parameters set to non-default values:
 ```csharp
 using Mailtrap;
 
@@ -267,7 +310,7 @@ IMailtrapClient client = factory.CreateClient();
 ```
 
 ### Advanced @System.Net.Http.HttpClient configuration
-Optionally, a delegate for advanced HTTP pipeline configuration can be passed as a second parameter to factory constructor:
+Optionally, a delegate for advanced HTTP pipeline configuration, which takes @Microsoft.Extensions.DependencyInjection.IHttpClientBuilder as a parameter, can be passed as a second parameter to factory constructor:
 ```csharp
 using Mailtrap;
 
@@ -301,6 +344,8 @@ using var factory = new MailtrapClientFactory("<API_TOKEN>", httpClient);
 // Spawning Mailtrap API client
 IMailtrapClient client = factory.CreateClient();
 ```
+> [!IMPORTANT]
+> Please consider that in the latter scenario the caller is responsible of the @System.Net.Http.HttpClient lifetime control and proper disposal.
 
 
 ### See Also

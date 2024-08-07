@@ -72,7 +72,7 @@ a) If you are using a hosting model from Microsoft in your app ([`IHostBuilder`]
 
    Factory is intended to be used as singleton in the typical scenario, while produced @Mailtrap.IMailtrapClient instances are lightweight and can be used in any manner.
 
-   > [!NOTE]
+   > [!IMPORTANT]
    > Please consider that @Mailtrap.MailtrapClientFactory implements @System.IDisposable interface and must be disposed properly after use.  
 
 
@@ -89,9 +89,11 @@ try
       .To("hero.bill@galaxy.net")
       .Subject("Invitation to Earth")
       .Text("Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John.");
+
    SendEmailResponse response = await mailtrapClient
       .SendAsync(request)
       .ConfigureAwait(false);
+      
    MessageId messageId = response.MessageIds.FirstOrDefault();
 }
 catch (ArgumentException aex)
