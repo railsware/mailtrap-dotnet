@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Tests.Common;
+namespace Mailtrap.Tests.TestExtensions;
 
 
 internal static class JsonConverterTestExtensions

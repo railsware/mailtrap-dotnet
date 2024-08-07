@@ -19,7 +19,7 @@ global using FluentValidation;
 global using FluentValidation.TestHelper;
 global using Moq;
 
-global using Mailtrap.Tests.Common;
+global using Mailtrap.Tests.TestExtensions;
 global using Mailtrap.Core.Responses;
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;
