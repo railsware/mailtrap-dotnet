@@ -9,22 +9,22 @@ namespace Mailtrap.Email.Models;
 
 
 /// <summary>
-/// Enum of available send channels/endpoints.
+/// A predefined set of channels/endpoints available for sending emails.
 /// </summary>
 public enum Endpoint
 {
     /// <summary>
-    /// Send endpoint.
+    /// Endpoint for transactional send.
     /// </summary>
     Send = 0,
 
     /// <summary>
-    /// Bulk endpoint.
+    /// Endpoint for bulk send.
     /// </summary>
     Bulk,
 
     /// <summary>
-    /// Test endpoint.
+    /// Endpoint for test send.
     /// </summary>
     Test
 }
