@@ -11,7 +11,7 @@ namespace Mailtrap.Http;
 /// <summary>
 /// Factory to spawn <see cref="HttpContent"/> instances.
 /// </summary>
-public interface IHttpRequestContentFactory
+internal interface IHttpRequestContentFactory
 {
     /// <summary>
     /// Asynchronously creates a new <see cref="StringContent"/> instance, using provided string.
@@ -23,5 +23,5 @@ public interface IHttpRequestContentFactory
     /// <returns>
     /// New <see cref="StringContent"/> instance.
     /// </returns>    
-    StringContent CreateStringContent(string content);
+    public StringContent CreateStringContent(string content);
 }
