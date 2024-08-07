@@ -12,7 +12,6 @@ global using System.Net.Http.Headers;
 global using Microsoft.Extensions.Options;
 global using FluentValidation;
 
-global using Mailtrap.Core;
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;
 global using Mailtrap.Configuration;

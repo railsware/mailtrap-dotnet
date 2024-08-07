@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Core;
+namespace Mailtrap.Extensions;
 
 
 /// <summary>
@@ -16,6 +16,7 @@ public static class Ensure
     /// <summary>
     /// Ensures provided <paramref name="paramValue"/> is not null.
     /// </summary>
+    /// 
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="paramValue"/> is <see langword="null"/>.
     /// </exception>
@@ -39,8 +40,9 @@ public static class Ensure
     /// <summary>
     /// Ensures provided string <paramref name="paramValue"/> is not null or empty string.
     /// </summary>
+    /// 
     /// <exception cref="ArgumentNullException">
-    /// When <paramref name="paramValue"/> is <see langword="null"/>.
+    /// When <paramref name="paramValue"/> is <see langword="null"/> or <see cref="string.Empty"/>.
     /// </exception>
     public static void NotNullOrEmpty(string paramValue, string paramName, string? message = default)
     {

@@ -1,17 +1,17 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MailtrapApiResponse.cs" company="Railsware Products Studio, LLC">
+// <copyright file="OperationResultResponse.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Core;
+namespace Mailtrap.Core.Responses;
 
 
 /// <summary>
-/// Generic Mailtrap API response object.
+/// Generic Mailtrap API response object containing operation result and optional error data.
 /// </summary>
-public record MailtrapApiResponse<TError>
+public record OperationResultResponse<TError>
 {
     /// <summary>
     /// Value indicating whether contains a success response data.
@@ -30,11 +30,17 @@ public record MailtrapApiResponse<TError>
 
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MailtrapApiResponse{TError}"/> class.
+    /// Initializes a new instance of the <see cref="OperationResultResponse{TError}"/> class.
     /// </summary>
-    /// <param name="isSuccess">A flag indicating whether the response describes success or failure.</param>
-    /// <param name="errorData">Errors to associate with the response.</param>
-    public MailtrapApiResponse(bool isSuccess, TError? errorData = default)
+    /// 
+    /// <param name="isSuccess">
+    /// A flag indicating whether the response describes success or failure.
+    /// </param>
+    /// 
+    /// <param name="errorData">
+    /// Errors to associate with the response.
+    /// </param>
+    public OperationResultResponse(bool isSuccess, TError? errorData = default)
     {
         IsSuccess = isSuccess;
         ErrorData = errorData;

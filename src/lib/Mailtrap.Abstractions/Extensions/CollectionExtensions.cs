@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Core;
+namespace Mailtrap.Extensions;
 
 
 /// <summary>
@@ -16,9 +16,17 @@ internal static class CollectionExtensions
     /// <summary>
     /// Adds <paramref name="items"/> to the provided <paramref name="collection"/>.
     /// </summary>
-    /// <typeparam name="T">Item type.</typeparam>
-    /// <param name="collection"></param>
-    /// <param name="items"></param>
+    /// 
+    /// <typeparam name="T">
+    /// Item type.
+    /// </typeparam>
+    /// 
+    /// <param name="collection">
+    /// </param>
+    /// 
+    /// <param name="items">
+    /// </param>
+    /// 
     /// <exception cref = "ArgumentNullException" >
     /// When provided <paramref name="collection"/> or <paramref name="items"/> is <see langword="null"/>.
     /// </exception>

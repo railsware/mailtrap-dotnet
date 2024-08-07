@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IMailtrapApiClient.cs" company="Railsware Products Studio, LLC">
+// <copyright file="IEmailClient.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,9 +9,9 @@ namespace Mailtrap;
 
 
 /// <summary>
-/// Main Mailtrap API client entry point.
+/// Mailtrap API client for emails.
 /// </summary>
-public interface IMailtrapApiClient
+public interface IEmailClient
 {
     /// <summary>
     /// Sends provided <paramref name="request"/> to an API endpoint and returns result.
@@ -40,5 +40,5 @@ public interface IMailtrapApiClient
     /// <exception cref="TaskCanceledException"/>
     /// <exception cref="OperationCanceledException"/>
     /// <exception cref="HttpRequestException"/>
-    Task<SendEmailResponse?> SendAsync(SendEmailRequest request, CancellationToken cancellationToken = default);
+    Task<SendEmailResponse?> Send(SendEmailRequest request, CancellationToken cancellationToken = default);
 }
