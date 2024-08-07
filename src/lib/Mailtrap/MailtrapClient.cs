@@ -11,8 +11,9 @@ namespace Mailtrap;
 /// <summary>
 /// <see cref="IMailtrapClient"/> implementation.
 /// </summary>
+/// 
 /// <remarks>
-/// Implementation is lightweight, utilising unit-of-work pattern under the hood,
+/// Implementation is lightweight, utilizing unit-of-work pattern under the hood,
 /// so can be used as transient.<br />
 /// Meanwhile, it isn't thread safe, so singleton usage is not recommended,
 /// especially in multi-threaded environments.
@@ -20,45 +21,46 @@ namespace Mailtrap;
 public class MailtrapClient : IMailtrapClient
 {
     private readonly MailtrapClientOptions _clientConfiguration;
-    private readonly IHttpClientLifetimeAdapterFactory _httpClientLifetimeFactory;
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
+    private readonly HttpClient _httpClient;
     private readonly IHttpRequestMessageFactory _httpRequestMessageFactory;
     private readonly IHttpRequestContentFactory _httpRequestContentFactory;
-    private readonly JsonSerializerOptions _jsonSerializerOptions;
 
 
     /// <summary>
     /// Default instance constructor.
     /// </summary>
-    /// <param name="clientConfigurationProvider"></param>
-    /// <param name="httpClientLifetimeFactory"></param>
+    /// 
+    /// <param name="options"></param>
+    /// <param name="httpClient"></param>
     /// <param name="httpRequestMessageFactory"></param>
     /// <param name="httpRequestContentFactory"></param>
+    /// 
     /// <exception cref="ArgumentNullException">
     /// When any of the parameters provided is <see langword="null"/>.
     /// </exception>
     public MailtrapClient(
-        IMailtrapClientConfigurationProvider clientConfigurationProvider,
-        IHttpClientLifetimeAdapterFactory httpClientLifetimeFactory,
+        IOptions<MailtrapClientOptions> options,
+        HttpClient httpClient,
         IHttpRequestMessageFactory httpRequestMessageFactory,
         IHttpRequestContentFactory httpRequestContentFactory)
     {
-        Ensure.NotNull(clientConfigurationProvider, nameof(clientConfigurationProvider));
-        Ensure.NotNull(httpClientLifetimeFactory, nameof(httpClientLifetimeFactory));
+        Ensure.NotNull(options, nameof(options));
+        Ensure.NotNull(httpClient, nameof(httpClient));
         Ensure.NotNull(httpRequestMessageFactory, nameof(httpRequestMessageFactory));
         Ensure.NotNull(httpRequestContentFactory, nameof(httpRequestContentFactory));
 
-        _clientConfiguration = clientConfigurationProvider.Configuration;
-
+        _clientConfiguration = options.Value;
         _jsonSerializerOptions = _clientConfiguration.Serialization.ToJsonSerializerOptions();
 
-        _httpClientLifetimeFactory = httpClientLifetimeFactory;
+        _httpClient = httpClient;
         _httpRequestMessageFactory = httpRequestMessageFactory;
         _httpRequestContentFactory = httpRequestContentFactory;
     }
 
 
     /// <inheritdoc />
-    public async Task<SendEmailResponse?> SendAsync(
+    public async Task<SendEmailResponse?> SendEmail(
         SendEmailRequest request,
         Endpoint endpoint = Endpoint.Send,
         int? inboxId = default,
@@ -77,9 +79,7 @@ public class MailtrapClient : IMailtrapClient
 
         var jsonContent = JsonSerializer.Serialize(request, _jsonSerializerOptions);
 
-        using var httpContent = await _httpRequestContentFactory
-            .CreateStringContentAsync(jsonContent, cancellationToken)
-            .ConfigureAwait(false);
+        using var httpContent = _httpRequestContentFactory.CreateStringContent(jsonContent);
 
         var endpointConfig = _clientConfiguration.GetEndpoint(inboxId is null ? endpoint : Endpoint.Test);
 
@@ -87,16 +87,14 @@ public class MailtrapClient : IMailtrapClient
         // since it can be external instance with wrong URL configured.
         var sendUrl = endpointConfig.BaseUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
 
-        using var httpRequest = await _httpRequestMessageFactory
-            .CreateAsync(HttpMethod.Post, sendUrl, httpContent, cancellationToken)
-            .ConfigureAwait(false);
+        if (inboxId is not null)
+        {
+            sendUrl = sendUrl.Append(inboxId.Value.ToString(CultureInfo.InvariantCulture));
+        }
 
-        // We are using lifetime wrapper for HttpClient, so it's totally OK to dispose it here.
-        using var client = await _httpClientLifetimeFactory
-            .CreateAsync(endpointConfig, cancellationToken)
-            .ConfigureAwait(false);
+        using var httpRequest = _httpRequestMessageFactory.Create(HttpMethod.Post, sendUrl, httpContent);
 
-        using var httpResponse = await client.Client
+        using var httpResponse = await _httpClient
             .SendAsync(httpRequest, cancellationToken)
             .ConfigureAwait(false);
 
@@ -105,9 +103,11 @@ public class MailtrapClient : IMailtrapClient
         httpResponse.EnsureSuccessStatusCode();
 
         var body = await httpResponse.Content
-            .ReadAsStringAsync()
+            .ReadAsStreamAsync()
             .ConfigureAwait(false);
 
-        return JsonSerializer.Deserialize<SendEmailResponse>(body, _jsonSerializerOptions);
+        return await JsonSerializer
+            .DeserializeAsync<SendEmailResponse>(body, _jsonSerializerOptions, cancellationToken)
+            .ConfigureAwait(false);
     }
 }

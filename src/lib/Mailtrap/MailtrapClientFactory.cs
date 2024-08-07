@@ -85,7 +85,7 @@ public class MailtrapClientFactory : IMailtrapClientFactory
 
         serviceCollection.Configure<MailtrapClientOptions>(options => options.Init(configuration));
 
-        serviceCollection.AddMailtrapServices<StaticHttpClientLifetimeAdapterFactory>();
+        serviceCollection.AddMailtrapServices();
 
         serviceCollection.AddSingleton(httpClient);
 

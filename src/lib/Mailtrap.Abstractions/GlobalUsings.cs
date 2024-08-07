@@ -28,5 +28,4 @@ global using RequestVariable = System.Collections.Generic.KeyValuePair<string, s
 // Allowing test assembly to access internals for unit tests
 using System.Runtime.CompilerServices;
 
-
 [assembly: InternalsVisibleTo("Mailtrap.Tests")]

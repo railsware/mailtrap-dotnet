@@ -6,6 +6,7 @@
 
 
 global using System.Diagnostics.CodeAnalysis;
+global using System.Globalization;
 global using System.Text;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
@@ -28,7 +29,6 @@ global using RichardSzalay.MockHttp;
 global using Mailtrap.Tests.TestExtensions;
 global using Mailtrap.Core.Responses;
 global using Mailtrap.Tests.TestExtensions;
-global using Mailtrap.Core;
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;
 global using Mailtrap.Extensions.DependencyInjection;

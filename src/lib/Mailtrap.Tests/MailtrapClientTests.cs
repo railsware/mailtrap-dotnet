@@ -14,16 +14,15 @@ internal sealed class MailtrapClientTests
     #region Constructor
 
     [Test]
-    public void Constructor_DI_ShouldThrowArgumentNullException_WhenConfigurationProviderIsNull()
+    public void Constructor_DI_ShouldThrowArgumentNullException_WhenConfigurationIsNull()
     {
-        var configProviderMock = Mock.Of<IMailtrapClientConfigurationProvider>();
-        var httpClientLifetimeAdapterFactoryMock = Mock.Of<IHttpClientLifetimeAdapterFactory>();
+        var httpClientMock = Mock.Of<HttpClient>();
         var httpRequestMessageFactoryMock = Mock.Of<IHttpRequestMessageFactory>();
         var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
 
         var act = () => new MailtrapClient(
             null!,
-            httpClientLifetimeAdapterFactoryMock,
+            httpClientMock,
             httpRequestMessageFactoryMock,
             httpRequestContentFactoryMock);
 
@@ -31,15 +30,14 @@ internal sealed class MailtrapClientTests
     }
 
     [Test]
-    public void Constructor_DI_ShouldThrowArgumentNullException_WhenHttpClientLifetimeAdapterFactoryIsNull()
+    public void Constructor_DI_ShouldThrowArgumentNullException_WhenHttpClientIsNull()
     {
-        var configProviderMock = Mock.Of<IMailtrapClientConfigurationProvider>();
-        var httpClientLifetimeAdapterFactoryMock = Mock.Of<IHttpClientLifetimeAdapterFactory>();
+        var optionsMock = Mock.Of<IOptions<MailtrapClientOptions>>();
         var httpRequestMessageFactoryMock = Mock.Of<IHttpRequestMessageFactory>();
         var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
 
         var act = () => new MailtrapClient(
-            configProviderMock,
+            optionsMock,
             null!,
             httpRequestMessageFactoryMock,
             httpRequestContentFactoryMock);
@@ -50,14 +48,13 @@ internal sealed class MailtrapClientTests
     [Test]
     public void Constructor_DI_ShouldThrowArgumentNullException_WhenHttpRequestMessageFactoryIsNull()
     {
-        var configProviderMock = Mock.Of<IMailtrapClientConfigurationProvider>();
-        var httpClientLifetimeAdapterFactoryMock = Mock.Of<IHttpClientLifetimeAdapterFactory>();
-        var httpRequestMessageFactoryMock = Mock.Of<IHttpRequestMessageFactory>();
+        var optionsMock = Mock.Of<IOptions<MailtrapClientOptions>>();
+        var httpClientMock = Mock.Of<HttpClient>();
         var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
 
         var act = () => new MailtrapClient(
-            configProviderMock,
-            httpClientLifetimeAdapterFactoryMock,
+            optionsMock,
+            httpClientMock,
             null!,
             httpRequestContentFactoryMock);
 
@@ -67,14 +64,13 @@ internal sealed class MailtrapClientTests
     [Test]
     public void Constructor_DI_ShouldThrowArgumentNullException_WhenHttpRequestContentFactoryIsNull()
     {
-        var configProviderMock = Mock.Of<IMailtrapClientConfigurationProvider>();
-        var httpClientLifetimeAdapterFactoryMock = Mock.Of<IHttpClientLifetimeAdapterFactory>();
+        var optionsMock = Mock.Of<IOptions<MailtrapClientOptions>>();
+        var httpClientMock = Mock.Of<HttpClient>();
         var httpRequestMessageFactoryMock = Mock.Of<IHttpRequestMessageFactory>();
-        var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
 
         var act = () => new MailtrapClient(
-            configProviderMock,
-            httpClientLifetimeAdapterFactoryMock,
+            optionsMock,
+            httpClientMock,
             httpRequestMessageFactoryMock,
             null!);
 
@@ -91,7 +87,7 @@ internal sealed class MailtrapClientTests
 
         var client = factory.CreateClient();
 
-        var act = () => client.SendAsync(null!);
+        var act = () => client.SendEmail(null!);
 
         await act.Should().ThrowAsync<ArgumentNullException>().ConfigureAwait(false);
     }
@@ -105,7 +101,7 @@ internal sealed class MailtrapClientTests
 
         var request = SendEmailRequestBuilder.Email();
 
-        var act = () => client.SendAsync(request);
+        var act = () => client.SendEmail(request);
 
         await act.Should().ThrowAsync<ArgumentException>().ConfigureAwait(false);
     }
@@ -113,15 +109,16 @@ internal sealed class MailtrapClientTests
     [Test]
     public async Task Send_ShouldCallPostWithRequestInformation()
     {
+        // Arrange
         var sendEndpointOptions = new MailtrapClientEndpointOptions("https://localhost");
         var config = new MailtrapClientOptions("token")
         {
             SendEndpoint = sendEndpointOptions
         };
 
-        var configProviderMock = new Mock<IMailtrapClientConfigurationProvider>();
-        configProviderMock
-            .Setup(p => p.Configuration)
+        var optionsMock = new Mock<IOptions<MailtrapClientOptions>>();
+        optionsMock
+            .Setup(p => p.Value)
             .Returns(config);
 
         var httpMethod = HttpMethod.Post;
@@ -135,17 +132,7 @@ internal sealed class MailtrapClientTests
             .Expect(httpMethod, sendUrl.AbsoluteUri)
             .Respond(HttpStatusCode.OK, responseContent);
 
-        var httpClientLifetimeAdapterMock = new Mock<IHttpClientLifetimeAdapter>();
-        httpClientLifetimeAdapterMock
-            .Setup(a => a.Client)
-            .Returns(mockHttp.ToHttpClient());
-
         using var cts = new CancellationTokenSource();
-
-        var httpClientLifetimeAdapterFactoryMock = new Mock<IHttpClientLifetimeAdapterFactory>();
-        httpClientLifetimeAdapterFactoryMock
-            .Setup(f => f.CreateAsync(sendEndpointOptions, cts.Token))
-            .ReturnsAsync(httpClientLifetimeAdapterMock.Object);
 
         var request = SendEmailRequestBuilder
             .Email()
@@ -159,8 +146,8 @@ internal sealed class MailtrapClientTests
 
         var httpRequestContentFactoryMock = new Mock<IHttpRequestContentFactory>();
         httpRequestContentFactoryMock
-            .Setup(f => f.CreateStringContentAsync(requestJson, cts.Token))
-            .ReturnsAsync(requestContent);
+            .Setup(f => f.CreateStringContent(requestJson))
+            .Returns(requestContent);
 
         using var requestMessage = new HttpRequestMessage(httpMethod, sendUrl)
         {
@@ -169,26 +156,26 @@ internal sealed class MailtrapClientTests
 
         var httpRequestMessageFactoryMock = new Mock<IHttpRequestMessageFactory>();
         httpRequestMessageFactoryMock
-            .Setup(f => f.CreateAsync(httpMethod, sendUrl, requestContent, cts.Token))
-            .ReturnsAsync(requestMessage);
+            .Setup(f => f.Create(httpMethod, sendUrl, requestContent))
+            .Returns(requestMessage);
 
         var client = new MailtrapClient(
-            configProviderMock.Object,
-            httpClientLifetimeAdapterFactoryMock.Object,
+            optionsMock.Object,
+            mockHttp.ToHttpClient(),
             httpRequestMessageFactoryMock.Object,
             httpRequestContentFactoryMock.Object);
 
 
-        var result = await client.SendAsync(request, cancellationToken: cts.Token).ConfigureAwait(false);
+        // Act
+        var result = await client.SendEmail(request, cancellationToken: cts.Token).ConfigureAwait(false);
 
 
-        httpRequestContentFactoryMock.Verify(f => f.CreateStringContentAsync(requestJson, cts.Token), Times.Once);
+        // Assert
+        httpRequestContentFactoryMock.Verify(f => f.CreateStringContent(requestJson), Times.Once);
 
-        httpRequestMessageFactoryMock.Verify(f => f.CreateAsync(httpMethod, sendUrl, requestContent, cts.Token), Times.Once);
+        httpRequestMessageFactoryMock.Verify(f => f.Create(httpMethod, sendUrl, requestContent), Times.Once);
 
-        httpClientLifetimeAdapterFactoryMock.Verify(f => f.CreateAsync(sendEndpointOptions, cts.Token), Times.Once);
-
-        configProviderMock.VerifyGet(p => p.Configuration, Times.Once);
+        optionsMock.VerifyGet(p => p.Value, Times.Once);
 
         mockHttp.VerifyNoOutstandingExpectation();
 
@@ -196,13 +183,14 @@ internal sealed class MailtrapClientTests
             .NotBeNull().And
             .BeEquivalentTo(response);
 
-        result!.IsSuccess.Should().BeTrue();
+        result!.Success.Should().BeTrue();
         result!.MessageIds.Should().ContainSingle(m => m == messageId);
     }
 
     [Test]
     public async Task Send_ShouldUseTestEndpoint_WhenInboxIdProvided()
     {
+        // Arrange
         var sendEndpointOptions = new MailtrapClientEndpointOptions("https://send.api.mailtrap.io");
         var testEndpointOptions = new MailtrapClientEndpointOptions("https://test.api.mailtrap.io");
 
@@ -212,13 +200,17 @@ internal sealed class MailtrapClientTests
             TestEndpoint = testEndpointOptions
         };
 
-        var configProviderMock = new Mock<IMailtrapClientConfigurationProvider>();
-        configProviderMock
-            .Setup(p => p.Configuration)
+        var optionsMock = new Mock<IOptions<MailtrapClientOptions>>();
+        optionsMock
+            .Setup(p => p.Value)
             .Returns(config);
 
+        var inboxId = 1244;
         var httpMethod = HttpMethod.Post;
-        var sendUrl = config.TestEndpoint.BaseUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
+        var sendUrl = config.TestEndpoint.BaseUrl.Append(
+            UrlSegments.ApiRootSegment,
+            UrlSegments.SendEmailSegment,
+            inboxId.ToString(CultureInfo.InvariantCulture));
         var messageId = new MessageId("1");
         var response = new SendEmailResponse(true, [messageId]);
         using var responseContent = JsonContent.Create(response);
@@ -228,17 +220,7 @@ internal sealed class MailtrapClientTests
             .Expect(httpMethod, sendUrl.AbsoluteUri)
             .Respond(HttpStatusCode.OK, responseContent);
 
-        var httpClientLifetimeAdapterMock = new Mock<IHttpClientLifetimeAdapter>();
-        httpClientLifetimeAdapterMock
-            .Setup(a => a.Client)
-            .Returns(mockHttp.ToHttpClient());
-
         using var cts = new CancellationTokenSource();
-
-        var httpClientLifetimeAdapterFactoryMock = new Mock<IHttpClientLifetimeAdapterFactory>();
-        httpClientLifetimeAdapterFactoryMock
-            .Setup(f => f.CreateAsync(testEndpointOptions, cts.Token))
-            .ReturnsAsync(httpClientLifetimeAdapterMock.Object);
 
         var request = SendEmailRequestBuilder
             .Email()
@@ -252,8 +234,8 @@ internal sealed class MailtrapClientTests
 
         var httpRequestContentFactoryMock = new Mock<IHttpRequestContentFactory>();
         httpRequestContentFactoryMock
-            .Setup(f => f.CreateStringContentAsync(requestJson, cts.Token))
-            .ReturnsAsync(requestContent);
+            .Setup(f => f.CreateStringContent(requestJson))
+            .Returns(requestContent);
 
         using var requestMessage = new HttpRequestMessage(httpMethod, sendUrl)
         {
@@ -262,26 +244,26 @@ internal sealed class MailtrapClientTests
 
         var httpRequestMessageFactoryMock = new Mock<IHttpRequestMessageFactory>();
         httpRequestMessageFactoryMock
-            .Setup(f => f.CreateAsync(httpMethod, sendUrl, requestContent, cts.Token))
-            .ReturnsAsync(requestMessage);
+            .Setup(f => f.Create(httpMethod, sendUrl, requestContent))
+            .Returns(requestMessage);
 
         var client = new MailtrapClient(
-            configProviderMock.Object,
-            httpClientLifetimeAdapterFactoryMock.Object,
+            optionsMock.Object,
+            mockHttp.ToHttpClient(),
             httpRequestMessageFactoryMock.Object,
             httpRequestContentFactoryMock.Object);
 
 
-        var result = await client.SendAsync(request, inboxId: 123, cancellationToken: cts.Token).ConfigureAwait(false);
+        // Act
+        var result = await client.SendEmail(request, inboxId: inboxId, cancellationToken: cts.Token).ConfigureAwait(false);
 
 
-        httpRequestContentFactoryMock.Verify(f => f.CreateStringContentAsync(requestJson, cts.Token), Times.Once);
+        // Assert
+        httpRequestContentFactoryMock.Verify(f => f.CreateStringContent(requestJson), Times.Once);
 
-        httpRequestMessageFactoryMock.Verify(f => f.CreateAsync(httpMethod, sendUrl, requestContent, cts.Token), Times.Once);
+        httpRequestMessageFactoryMock.Verify(f => f.Create(httpMethod, sendUrl, requestContent), Times.Once);
 
-        httpClientLifetimeAdapterFactoryMock.Verify(f => f.CreateAsync(testEndpointOptions, cts.Token), Times.Once);
-
-        configProviderMock.VerifyGet(p => p.Configuration, Times.Once);
+        optionsMock.VerifyGet(p => p.Value, Times.Once);
 
         mockHttp.VerifyNoOutstandingExpectation();
 
@@ -289,7 +271,7 @@ internal sealed class MailtrapClientTests
             .NotBeNull().And
             .BeEquivalentTo(response);
 
-        result!.IsSuccess.Should().BeTrue();
+        result!.Success.Should().BeTrue();
         result!.MessageIds.Should().ContainSingle(m => m == messageId);
     }
 }

@@ -14,9 +14,39 @@ namespace Mailtrap.Extensions.DependencyInjection;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
+    /// Adds required Mailtrap API client services to the <see cref="IServiceCollection"/>.
+    /// </summary>
+    /// 
+    /// <param name="services">
+    /// The <see cref="IServiceCollection"/> instance to configure.
+    /// </param>
+    /// 
+    /// <returns>
+    /// Updated <see cref="IServiceCollection"/> instance so additional calls can be chained.
+    /// </returns>
+    internal static IServiceCollection AddMailtrapServices(this IServiceCollection services)
+    {
+        Ensure.NotNull(services, nameof(services));
+
+        services.AddOptions();
+
+        services.TryAddSingleton<IHttpRequestMessageFactory, HttpRequestMessageFactory>();
+        services.TryAddSingleton<IHttpRequestContentFactory, HttpRequestContentFactory>();
+
+        services.TryAddTransient<IMailtrapClient, MailtrapClient>();
+        services.TryAddTransient<IEmailClient>(services => services.GetRequiredService<IMailtrapClient>());
+
+        return services;
+    }
+
+    /// <summary>
     /// Adds Mailtrap API client services to the <see cref="IServiceCollection"/>.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure</param>
+    /// 
+    /// <param name="services">
+    /// The <see cref="IServiceCollection"/> instance to configure.
+    /// </param>
+    /// 
     /// <returns>
     /// The <see cref="IHttpClientBuilder"/> instance for configured <see cref="HttpClient"/>,
     /// so additional configuration calls can be chained.
@@ -27,15 +57,22 @@ public static class ServiceCollectionExtensions
 
         return services
             .AddMailtrapServices()
-            .AddHttpClient(Options.DefaultName);
+            .AddHttpClient<MailtrapClient>();
     }
 
     /// <summary>
     /// Adds Mailtrap API client services to the <see cref="IServiceCollection"/>
     /// and configures them using configuration section.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure.</param>
-    /// <param name="configuration"><see cref="IConfiguration" /> to configure <see cref="MailtrapClient"/>.</param>
+    /// 
+    /// <param name="services">
+    /// The <see cref="IServiceCollection"/> instance to configure.
+    /// </param>
+    /// 
+    /// <param name="configuration"
+    /// ><see cref="IConfiguration" /> to configure <see cref="MailtrapClient"/>.
+    /// </param>
+    /// 
     /// <returns>
     /// The <see cref="IHttpClientBuilder"/> instance for configured <see cref="HttpClient"/>,
     /// so additional configuration calls can be chained.
@@ -54,8 +91,15 @@ public static class ServiceCollectionExtensions
     /// Adds Mailtrap API client services to the <see cref="IServiceCollection"/>
     /// and configures them using configuration delegate.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure.</param>
-    /// <param name="configureMailtrap">Delegate to configure <see cref="MailtrapClient"/>.</param>
+    /// 
+    /// <param name="services">
+    /// The <see cref="IServiceCollection"/> instance to configure.
+    /// </param>
+    /// 
+    /// <param name="configureMailtrap">
+    /// Delegate to configure <see cref="MailtrapClient"/>.
+    /// </param>
+    /// 
     /// <returns>
     /// The <see cref="IHttpClientBuilder"/> instance for configured <see cref="HttpClient"/>,
     /// so additional configuration calls can be chained.
@@ -73,8 +117,15 @@ public static class ServiceCollectionExtensions
     /// <summary>
     /// Adds Mailtrap API client services with provided <see cref="MailtrapClientOptions"/>.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure.</param>
-    /// <param name="mailtrapClientOptions">Options to configure <see cref="MailtrapClient"/>.</param>
+    /// 
+    /// <param name="services">
+    /// The <see cref="IServiceCollection"/> instance to configure.
+    /// </param>
+    /// 
+    /// <param name="mailtrapClientOptions">
+    /// Options to configure <see cref="MailtrapClient"/>.
+    /// </param>
+    /// 
     /// <returns>
     /// The <see cref="IHttpClientBuilder"/> instance for configured <see cref="HttpClient"/>,
     /// so additional configuration calls can be chained.
@@ -85,49 +136,5 @@ public static class ServiceCollectionExtensions
         Ensure.NotNull(mailtrapClientOptions, nameof(mailtrapClientOptions));
 
         return services.AddMailtrapClient(options => options.Init(mailtrapClientOptions));
-    }
-
-    /// <summary>
-    /// Adds required Mailtrap API client services to the <see cref="IServiceCollection"/>.
-    /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure</param>
-    /// <returns>The <see cref="IServiceCollection"/> so additional calls can be chained</returns>
-    public static IServiceCollection AddMailtrapServices(this IServiceCollection services)
-    {
-        return services.AddMailtrapServices<TransientHttpClientLifetimeAdapterFactory>();
-    }
-
-    /// <summary>
-    /// Adds required Mailtrap API client services to the <see cref="IServiceCollection"/>.
-    /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> instance to configure</param>
-    /// <returns>The <see cref="IServiceCollection"/> so additional calls can be chained</returns>
-    internal static IServiceCollection AddMailtrapServices<T>(this IServiceCollection services)
-        where T : class, IHttpClientLifetimeAdapterFactory
-    {
-        Ensure.NotNull(services, nameof(services));
-
-        services.AddOptions();
-
-        services.TryAddSingleton<IMailtrapClientConfigurationProvider, MailtrapClientConfigurationProvider>();
-        services.TryAddSingleton<IAccessTokenProvider, AccessTokenProvider>();
-
-        services.TryAddSingleton<IHttpRequestMessageFactory, HttpRequestMessageFactory>();
-        services.TryAddSingleton<IHttpRequestContentFactory, HttpRequestContentFactory>();
-
-        services.TryAddEnumerable(new ServiceDescriptor(
-            typeof(IHttpRequestMessagePolicy),
-            typeof(ApiKeyAuthenticationHttpRequestMessagePolicy),
-            ServiceLifetime.Singleton));
-        services.TryAddEnumerable(new ServiceDescriptor(
-            typeof(IHttpRequestMessagePolicy),
-            typeof(HeadersHttpRequestMessagePolicy),
-            ServiceLifetime.Singleton));
-
-        services.TryAddSingleton<IHttpClientLifetimeAdapterFactory, T>();
-
-        services.TryAddTransient<IMailtrapClient, MailtrapClient>();
-
-        return services;
     }
 }

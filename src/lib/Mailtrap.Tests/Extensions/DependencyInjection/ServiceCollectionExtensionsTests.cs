@@ -226,21 +226,19 @@ internal sealed class ServiceCollectionExtensionsTests
     [Test]
     public void AddMailtrapServices_ShouldThrowArgumentNullException_WhenServicesIsNull()
     {
-        var act = () => ServiceCollectionExtensions.AddMailtrapServices<StaticHttpClientLifetimeAdapterFactory>(null!);
+        var act = () => ServiceCollectionExtensions.AddMailtrapServices(null!);
 
         act.Should().Throw<ArgumentNullException>();
     }
 
-    [TestCase(TypeArgs = [typeof(TransientHttpClientLifetimeAdapterFactory)])]
-    [TestCase(TypeArgs = [typeof(StaticHttpClientLifetimeAdapterFactory)])]
-    public void AddMailtrapServices_ShouldAddRequiredServices<T>()
-        where T : class, IHttpClientLifetimeAdapterFactory
+    [Test]
+    public void AddMailtrapServices_ShouldAddRequiredServices()
     {
         var serviceCollection = new ServiceCollection();
 
-        serviceCollection.AddMailtrapServices<T>();
+        serviceCollection.AddMailtrapServices();
 
-        VerifyMailtrapServices<T>(serviceCollection);
+        VerifyMailtrapServices(serviceCollection);
     }
 
 
@@ -269,24 +267,8 @@ internal sealed class ServiceCollectionExtensionsTests
 
     private static void VerifyMailtrapServices(ServiceCollection serviceCollection)
     {
-        VerifyMailtrapServices<TransientHttpClientLifetimeAdapterFactory>(serviceCollection);
-    }
-
-    private static void VerifyMailtrapServices<T>(ServiceCollection serviceCollection)
-        where T : class, IHttpClientLifetimeAdapterFactory
-    {
         serviceCollection.Should().Contain(s =>
             s.ServiceType == typeof(IOptions<>) &&
-            s.Lifetime == ServiceLifetime.Singleton);
-
-        serviceCollection.Should().Contain(s =>
-            s.ServiceType == typeof(IMailtrapClientConfigurationProvider) &&
-            s.ImplementationType == typeof(MailtrapClientConfigurationProvider) &&
-            s.Lifetime == ServiceLifetime.Singleton);
-
-        serviceCollection.Should().Contain(s =>
-            s.ServiceType == typeof(IAccessTokenProvider) &&
-            s.ImplementationType == typeof(AccessTokenProvider) &&
             s.Lifetime == ServiceLifetime.Singleton);
 
         serviceCollection.Should().Contain(s =>
@@ -297,21 +279,6 @@ internal sealed class ServiceCollectionExtensionsTests
         serviceCollection.Should().Contain(s =>
             s.ServiceType == typeof(IHttpRequestMessageFactory) &&
             s.ImplementationType == typeof(HttpRequestMessageFactory) &&
-            s.Lifetime == ServiceLifetime.Singleton);
-
-        serviceCollection.Should().Contain(s =>
-            s.ServiceType == typeof(IHttpRequestMessagePolicy) &&
-            s.ImplementationType == typeof(HeadersHttpRequestMessagePolicy) &&
-            s.Lifetime == ServiceLifetime.Singleton);
-
-        serviceCollection.Should().Contain(s =>
-            s.ServiceType == typeof(IHttpRequestMessagePolicy) &&
-            s.ImplementationType == typeof(ApiKeyAuthenticationHttpRequestMessagePolicy) &&
-            s.Lifetime == ServiceLifetime.Singleton);
-
-        serviceCollection.Should().Contain(s =>
-            s.ServiceType == typeof(IHttpClientLifetimeAdapterFactory) &&
-            s.ImplementationType == typeof(T) &&
             s.Lifetime == ServiceLifetime.Singleton);
 
         serviceCollection.Should().Contain(s =>

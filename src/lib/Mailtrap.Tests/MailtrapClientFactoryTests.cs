@@ -81,7 +81,7 @@ internal sealed class MailtrapClientFactoryTests
             .Subject("Invitation to Earth")
             .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
 
-        var _ = await client.SendAsync(request).ConfigureAwait(false);
+        var _ = await client.SendEmail(request).ConfigureAwait(false);
 
         mockHttp.VerifyNoOutstandingExpectation();
     }
@@ -155,7 +155,7 @@ internal sealed class MailtrapClientFactoryTests
             .Subject("Invitation to Earth")
             .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
 
-        var _ = await client.SendAsync(request).ConfigureAwait(false);
+        var _ = await client.SendEmail(request).ConfigureAwait(false);
 
         mockHttp.VerifyNoOutstandingExpectation();
     }
