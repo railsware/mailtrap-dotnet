@@ -22,7 +22,6 @@ public sealed record SendEmailResponse : OperationResultResponse<IList<string>>
     /// </value>
     [JsonPropertyName("message_ids")]
     [JsonPropertyOrder(3)]
-    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<MessageId>? MessageIds { get; }
 
 

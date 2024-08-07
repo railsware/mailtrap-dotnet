@@ -16,7 +16,7 @@ internal sealed class SendEmailResponseTests
     {
         var response = new SendEmailResponse(true);
 
-        response.IsSuccess.Should().BeTrue();
+        response.Success.Should().BeTrue();
         response.MessageIds.Should().BeEmpty();
         response.ErrorData.Should().BeEmpty();
     }
@@ -29,7 +29,7 @@ internal sealed class SendEmailResponseTests
         var response = new SendEmailResponse(true, messageIds, errorData);
 
         // Assert
-        response.IsSuccess.Should().BeTrue();
+        response.Success.Should().BeTrue();
 
         response.MessageIds.Should()
             .NotBeNull().And
@@ -56,7 +56,7 @@ internal sealed class SendEmailResponseTests
         var response = JsonSerializer.Deserialize<SendEmailResponse>(responseText, MailtrapJsonSerializerOptions.NotIndented);
 
         response.Should().NotBeNull();
-        response!.IsSuccess.Should().BeTrue();
+        response!.Success.Should().BeTrue();
         response!.ErrorData.Should().BeEmpty();
         response!.MessageIds.Should()
             .NotBeNull().And
@@ -80,7 +80,7 @@ internal sealed class SendEmailResponseTests
         var response = JsonSerializer.Deserialize<SendEmailResponse>(responseText, MailtrapJsonSerializerOptions.NotIndented);
 
         response.Should().NotBeNull();
-        response!.IsSuccess.Should().BeFalse();
+        response!.Success.Should().BeFalse();
         response!.MessageIds.Should().BeEmpty();
         response!.ErrorData.Should()
             .NotBeNull().And
