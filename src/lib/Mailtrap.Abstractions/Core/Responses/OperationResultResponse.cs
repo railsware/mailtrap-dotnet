@@ -14,15 +14,24 @@ namespace Mailtrap.Core.Responses;
 public record OperationResultResponse<TError>
 {
     /// <summary>
-    /// Value indicating whether contains a success response data.
+    /// Gets a flag, indicating whether request succeeded or failed and response contains error(s).
     /// </summary>
+    ///
+    /// <value>
+    /// <see langword="false"/> when request failed and response contains error(s).<br/>
+    /// <see langword="true"/> when request succeeded.
+    /// </value>
     [JsonPropertyName("success")]
     [JsonPropertyOrder(1)]
     public bool Success { get; }
 
     /// <summary>
-    /// Error(s) associated with the response.
+    /// Gets error(s) object, associated with the response.
     /// </summary>
+    ///
+    /// <value>
+    /// <typeparamref name="TError"/> instance, containing error(s) details.
+    /// </value>
     [JsonPropertyName("errors")]
     [JsonPropertyOrder(2)]
     public TError? ErrorData { get; }
@@ -34,11 +43,11 @@ public record OperationResultResponse<TError>
     /// </summary>
     /// 
     /// <param name="success">
-    /// A flag indicating whether the response describes success or failure.
+    /// Flag, indicating whether request succeeded or failed and response contains error(s).
     /// </param>
     /// 
     /// <param name="errorData">
-    /// Errors to associate with the response.
+    /// Error(s) to associate with the response.
     /// </param>
     public OperationResultResponse(bool success, TError? errorData = default)
     {

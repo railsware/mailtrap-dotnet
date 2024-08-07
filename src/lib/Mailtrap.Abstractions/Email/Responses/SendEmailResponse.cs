@@ -9,26 +9,40 @@ namespace Mailtrap.Email.Responses;
 
 
 /// <summary>
-/// Mailtrap API send email call response object.
+/// Represents send email response object.
 /// </summary>
-public record SendEmailResponse : OperationResultResponse<IList<string>>
+public sealed record SendEmailResponse : OperationResultResponse<IList<string>>
 {
     /// <summary>
-    /// List of <see cref="MessageId"/> objects, representing IDs of emails sent
+    /// Gets a collection of <see cref="MessageId"/> objects, representing IDs of emails that have been sent.
     /// </summary>
+    ///
+    /// <value>
+    /// A collection of <see cref="MessageId"/> objects, representing IDs of emails that have been sent.
+    /// </value>
     [JsonPropertyName("message_ids")]
     [JsonPropertyOrder(3)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<MessageId>? MessageIds { get; }
 
 
     /// <summary>
-    /// Primary constructor with required parameters.
+    /// Default instance constructor.
     /// </summary>
-    /// <param name="isSuccess">A flag indicating whether the response describes success or failure.</param>
-    /// <param name="messageIds">A collection of <see cref="MessageId"/> objects</param>
-    /// <param name="errorData">Errors to associate with the response.</param>
-    public SendEmailResponse(bool isSuccess, IList<MessageId>? messageIds = default, IList<string>? errorData = default)
-        : base(isSuccess, errorData ?? [])
+    /// 
+    /// <param name="success">
+    /// Flag, indicating whether request succeeded or failed and response contains error(s).
+    /// </param>
+    /// 
+    /// <param name="messageIds">
+    /// A collection of <see cref="MessageId"/> objects.
+    /// </param>
+    /// 
+    /// <param name="errorData">
+    /// Errors to associate with the response.
+    /// </param>
+    public SendEmailResponse(bool success, IList<MessageId>? messageIds = default, IList<string>? errorData = default)
+        : base(success, errorData ?? [])
     {
         MessageIds = messageIds ?? [];
     }

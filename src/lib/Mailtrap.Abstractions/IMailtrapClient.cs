@@ -9,6 +9,6 @@ namespace Mailtrap;
 
 
 /// <summary>
-/// Main Mailtrap API client entry point.
+/// Mailtrap API client.
 /// </summary>
 public interface IMailtrapClient : IEmailClient { }
