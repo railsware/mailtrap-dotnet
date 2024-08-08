@@ -2,13 +2,14 @@
 
 Welcome to the documentation portal for official .NET client for [Mailtrap](https://mailtrap.io/)!
 
-This client allows you to quickly and easily integrate Mailtrap API into your .NET application.
+This client allows you to quickly and easily integrate your .NET application with Mailtrap API.
 
 
 ## Quick Start
+The following few simple steps will bring Mailtrap API functionality into your .NET project.
 
 ### Prerequisites
-Please ensure your project targets .NET implementation which implements [**.NET Standard 2.0**](https://dotnet.microsoft.com/platform/dotnet-standard#versions) specification.
+Please ensure your project targets .NET implementation which supports [**.NET Standard 2.0**](https://dotnet.microsoft.com/platform/dotnet-standard#versions) specification.
 
 ### Setup
 - Register new or log into existing account at [mailtrap.io](https://mailtrap.io/register/signup?ref=maitrap-dotnet)
@@ -23,64 +24,71 @@ Please ensure your project targets .NET implementation which implements [**.NET 
   ```
 
 ### Configure
-a) If you are using a hosting model from Microsoft in your app ([`IHostBuilder`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.ihostbuilder), [`IWebHostBuilder`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder), etc.), you can simply add Mailtrap API client to host DI container:
-   ```csharp
-   using Mailtrap.Extensions.DependencyInjection;
+Mailtrap API client supports few configuration options.
+
+#### Option 1 - DI Container.
+If you are using a hosting model from Microsoft in your app ([`IHostBuilder`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.ihostbuilder), [`IWebHostBuilder`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder), etc.), you can simply add Mailtrap API client to host DI container:
+```csharp
+using Mailtrap.Extensions.DependencyInjection;
    
-   ...
+...
    
-   hostBuilder.ConfigureServices((context, services) =>
+hostBuilder.ConfigureServices((context, services) =>
+{
+   services.AddMailtrapClient(options =>
    {
-      services.AddMailtrapClient(options =>
-      {
-         // Definitely, hardcoding a token isn't a good idea.
-         // This example uses it for simplicity, but in real-world scenarios
-         // you should consider more secure approaches for storing secrets.
+      // Definitely, hardcoding a token isn't a good idea.
+      // This example uses it for simplicity, but in real-world scenarios
+      // you should consider more secure approaches for storing secrets.
          
-         // Environment variables can be an option, as well as other solutions:
-         // https://learn.microsoft.com/aspnet/core/security/app-secrets
-         // or https://learn.microsoft.com/aspnet/core/security/key-vault-configuration
-         options.Authentication.ApiToken = "<YOUR-API-TOKEN>";
-      });
-   });   
-   ```
-   And after that you can inject @Mailtrap.IMailtrapClient instances in any application service:
-   ```csharp
-   using Mailtrap;
+      // Environment variables can be an option, as well as other solutions:
+      // https://learn.microsoft.com/aspnet/core/security/app-secrets
+      // or https://learn.microsoft.com/aspnet/core/security/key-vault-configuration
+      options.Authentication.ApiToken = "<API_TOKEN>";
+   });
+});   
+```
+And after that you can inject @Mailtrap.IMailtrapClient instances in any application service:
+```csharp
+using Mailtrap;
    
-   ...
+...
 
-   public SomeCoolApplicationService(IMailtrapClient client)
-   {
-      mailtrapClient = client;
-   }
-   ```
+public SomeCoolApplicationService(IMailtrapClient client)
+{
+   mailtrapClient = client;
+}
+```
 
-   b) If you want to use Mailtrap API client without DI container, than you can use @Mailtrap.MailtrapClientFactory for spawning @Mailtrap.IMailtrapClient instances:
-   ```csharp
-   using Mailtrap;
+#### Option 2 - Factory.
+If you want to use Mailtrap API client without DI container, than you can use @Mailtrap.MailtrapClientFactory for spawning @Mailtrap.IMailtrapClient instances:
+```csharp
+using Mailtrap;
 
-   ...
+...
 
-   // Definitely, hardcoding a token isn't a good idea.
-   // This example uses it for simplicity, but in real-world scenarios
-   // you should consider more secure approaches for storing secrets.
-   using var factory = new MailtrapClientFactory("<YOUR-API-TOKEN>");
+// Definitely, hardcoding a token isn't a good idea.
+// This example uses it for simplicity, but in real-world scenarios
+// you should consider more secure approaches for storing secrets.
+using var factory = new MailtrapClientFactory("<API_TOKEN>");
 
-   IMailtrapClient mailtrapClient = factory.CreateClient();
-   ```
+IMailtrapClient mailtrapClient = factory.CreateClient();
+```
 
-   Factory is intended to be used as singleton in the typical scenario, while produced @Mailtrap.IMailtrapClient instances are lightweight and can be used in any manner.
+Factory is intended to be used as singleton in the typical scenario, while produced @Mailtrap.IMailtrapClient instances are lightweight and can be used in any manner.
 
-   > [!IMPORTANT]
-   > Please consider that @Mailtrap.MailtrapClientFactory implements @System.IDisposable interface and must be disposed properly after use.  
+> [!IMPORTANT]
+> Please consider that @Mailtrap.MailtrapClientFactory implements @System.IDisposable interface and must be disposed properly after use.  
 
+The detailed configuration guide with more advanced setup scenarios can be found [here](xref:configure).
 
 ### Use
 Finally, when you have obtained @Mailtrap.IMailtrapClient instance, you can use it to make API calls:
 ```csharp
 using Mailtrap.Email.Requests;
+
 ...
+
 try 
 {
    SendEmailRequest request = SendEmailRequest
@@ -94,7 +102,7 @@ try
       .SendAsync(request)
       .ConfigureAwait(false);
       
-   MessageId messageId = response.MessageIds.FirstOrDefault();
+   MessageId messageId = response.MessageIds.FirstOrDefault(MessageId.Empty);
 }
 catch (ArgumentException aex)
 {

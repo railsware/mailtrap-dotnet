@@ -32,9 +32,10 @@ It is set to empty string by default which will cause configuration validation t
 There is a dedicated [constructor](xref:Mailtrap.Configuration.Models.MailtrapClientOptions.%23ctor(System.String)), that takes string containing API token as a single parameter to streamline settings object instantiation:
 ```csharp
 using Mailtrap.Configuration.Models;
+
 ...
+
 var config = new MailtrapClientOptions("<API_TOKEN>");
-...
 ```  
 
 Other parameters have reasonable defaults:
