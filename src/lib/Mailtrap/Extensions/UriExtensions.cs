@@ -50,15 +50,17 @@ internal static class UriExtensions
     }
 
     /// <exception cref = "ArgumentNullException" >
-    /// When provided <paramref name="baseUrl"/> or <paramref name="segments"/> is <see langword="null"/>.
+    /// When provided <paramref name="baseUri"/> or <paramref name="segments"/> is <see langword="null"/>.
     /// </exception>
-    internal static Uri Append(this Uri baseUrl, params string[] segments)
+    internal static Uri Append(this Uri baseUri, params string[] segments)
     {
-        Ensure.NotNull(baseUrl, nameof(baseUrl));
+        Ensure.NotNull(baseUri, nameof(baseUri));
         Ensure.NotNull(segments, nameof(segments));
 
-        var url = baseUrl.AbsoluteUri + string.Join("/", segments);
-        return url.ToAbsoluteUri();
+        var baseUrl = baseUri.AbsoluteUri;
+        var delimiter = baseUrl.Last() == '/' ? string.Empty : "/";
+
+        return $"{baseUrl}{delimiter}{string.Join("/", segments)}".ToAbsoluteUri();
     }
 
     /// <exception cref = "ArgumentNullException" >

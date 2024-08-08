@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Tests.Configuration;
+namespace Mailtrap.Tests.Configuration.Extensions;
 
 
 [TestFixture]
@@ -14,9 +14,7 @@ internal sealed class MailtrapClientSerializationOptionsExtensionsTests
     [Test]
     public void ToJsonSerializerOptions_ShouldThrowArgumentNullException_WhenOptionsAreNull()
     {
-        MailtrapClientSerializationOptions? options = null;
-
-        var act = () => options!.ToJsonSerializerOptions();
+        var act = () => MailtrapClientSerializationOptionsExtensions.ToJsonSerializerOptions(null!);
 
         act.Should().Throw<ArgumentNullException>();
     }
