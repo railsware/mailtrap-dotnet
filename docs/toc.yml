@@ -1,8 +1,8 @@
-- name: Use Cases
-  href: use-cases/
+- name: Cookbook
+  href: cookbook/
   
 - name: Reference
-  href: ../artifacts/api/
+  uid: Mailtrap
 
 - name: Samples
   href: https://github.com/railsware/mailtrap-dotnet/tree/main/src/samples
