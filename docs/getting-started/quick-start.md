@@ -62,6 +62,7 @@ public SomeCoolApplicationService(IMailtrapClient client)
 }
 ```
 
+
 ### [Factory](#tab/factory)
 If you want to use Mailtrap API client without DI container, than you can use @Mailtrap.MailtrapClientFactory for spawning @Mailtrap.IMailtrapClient instances:
 ```csharp
