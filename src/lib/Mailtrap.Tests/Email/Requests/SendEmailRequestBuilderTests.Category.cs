@@ -25,7 +25,7 @@ internal sealed class SendEmailRequestBuilderTests_Category
     [Test]
     public void Category_ShouldNotThrowException_WhenCategoryIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Category(request, null!);
 
@@ -35,7 +35,7 @@ internal sealed class SendEmailRequestBuilderTests_Category
     [Test]
     public void Category_ShouldNotThrowException_WhenCategoryIsEmpty()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Category(request, string.Empty);
 
@@ -45,8 +45,8 @@ internal sealed class SendEmailRequestBuilderTests_Category
     [Test]
     public void Category_ShouldAssignCategoryProperly()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Category(_category);
 
         request.Category.Should().BeSameAs(_category);
@@ -57,8 +57,8 @@ internal sealed class SendEmailRequestBuilderTests_Category
     {
         var otherCategory = "Updated Category";
 
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Category(_category)
             .Category(otherCategory);
 

@@ -165,4 +165,14 @@ public sealed record SendEmailRequest
     [JsonPropertyName("template_variables")]
     [JsonPropertyOrder(13)]
     public object? TemplateVariables { get; set; }
+
+
+    /// <summary>
+    /// Factory method that creates a new instance of <see cref="SendEmailRequest" /> request.
+    /// </summary>
+    /// 
+    /// <returns>
+    /// New <see cref="SendEmailRequest"/> instance.
+    /// </returns>
+    public static SendEmailRequest Create() => new();
 }

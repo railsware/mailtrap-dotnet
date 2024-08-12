@@ -12,10 +12,20 @@ namespace Mailtrap.Tests.Email.Requests;
 internal sealed class SendEmailRequestTests
 {
     [Test]
+    public void Create_ShouldReturnNewInstance_WhenCalled()
+    {
+        var result = SendEmailRequest.Create();
+
+        result.Should()
+            .NotBeNull().And
+            .BeOfType<SendEmailRequest>();
+    }
+
+    [Test]
     public void ShouldSerializeCorrectly()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From("john.doe@demomailtrap.com", "John Doe")
             .To("bill.hero@galaxy.com")
             .Subject("Invitation to Earth")
@@ -45,8 +55,8 @@ internal sealed class SendEmailRequestTests
     [Test]
     public void ShouldSerializeCorrectly_2()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From("john.doe@demomailtrap.com", "John Doe")
             .To("bill.hero@galaxy.com")
             .Template("ID")

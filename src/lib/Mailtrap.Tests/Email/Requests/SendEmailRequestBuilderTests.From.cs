@@ -29,7 +29,7 @@ internal sealed class SendEmailRequestBuilderTests_From
     [Test]
     public void From_ShouldThrowArgumentNullException_WhenSenderIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.From(request, null!);
 
@@ -39,8 +39,8 @@ internal sealed class SendEmailRequestBuilderTests_From
     [Test]
     public void From_ShouldAssignSenderProperly()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From(_sender);
 
         request.From.Should().BeSameAs(_sender);
@@ -51,8 +51,8 @@ internal sealed class SendEmailRequestBuilderTests_From
     {
         var otherSender = new EmailAddress("sender2@domain.com", "Sender 2");
 
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From(_sender)
             .From(otherSender);
 
@@ -67,7 +67,7 @@ internal sealed class SendEmailRequestBuilderTests_From
     [Test]
     public void From_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.From(null!, SenderEmail);
 
@@ -77,7 +77,7 @@ internal sealed class SendEmailRequestBuilderTests_From
     [Test]
     public void From_ShouldThrowArgumentNullException_WhenSenderEmailIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.From(request, null!, SenderDisplayName);
 
@@ -87,7 +87,7 @@ internal sealed class SendEmailRequestBuilderTests_From
     [Test]
     public void From_ShouldThrowArgumentNullException_WhenSenderEmailIsEmpty()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.From(request, string.Empty, SenderDisplayName);
 
@@ -97,7 +97,7 @@ internal sealed class SendEmailRequestBuilderTests_From
     [Test]
     public void From_ShouldNotThrowException_WhenSenderDisplayNameIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.From(request, SenderEmail, null);
 
@@ -107,7 +107,7 @@ internal sealed class SendEmailRequestBuilderTests_From
     [Test]
     public void From_ShouldNotThrowException_WhenSenderDisplayNameIsEmpty()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.From(request, SenderEmail, string.Empty);
 
@@ -117,8 +117,8 @@ internal sealed class SendEmailRequestBuilderTests_From
     [Test]
     public void From_ShouldInitializeSenderProperly_WhenOnlyEmailProvided()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From(SenderEmail);
 
         request.From.Should().NotBeNull();
@@ -129,8 +129,8 @@ internal sealed class SendEmailRequestBuilderTests_From
     [Test]
     public void From_ShouldInitializeSenderProperly_WhenFullInfoProvided()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From(SenderEmail, SenderDisplayName);
 
         request.From.Should().NotBeNull();
@@ -143,8 +143,8 @@ internal sealed class SendEmailRequestBuilderTests_From
     {
         var otherSenderEmail = "sender2@domain.com";
 
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From(_sender)
             .From(otherSenderEmail);
 

@@ -31,7 +31,7 @@ internal sealed class SendEmailRequestBuilderTests_To
     [Test]
     public void To_ShouldThrowArgumentNullException_WhenParamsIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.To(request, null!);
 
@@ -41,7 +41,7 @@ internal sealed class SendEmailRequestBuilderTests_To
     [Test]
     public void To_ShouldNotThrowException_WhenParamsIsEmpty()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.To(request, []);
 
@@ -84,8 +84,8 @@ internal sealed class SendEmailRequestBuilderTests_To
 
     private static SendEmailRequest To_CreateAndValidate(params EmailAddress[] recipients)
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .To(recipients);
 
         request.To.Should()
@@ -103,7 +103,7 @@ internal sealed class SendEmailRequestBuilderTests_To
     [Test]
     public void To_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.To(null!, RecipientEmail);
 
@@ -113,7 +113,7 @@ internal sealed class SendEmailRequestBuilderTests_To
     [Test]
     public void To_ShouldThrowArgumentNullException_WhenRecipientEmailIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.To(request, null!, RecipientDisplayName);
 
@@ -123,7 +123,7 @@ internal sealed class SendEmailRequestBuilderTests_To
     [Test]
     public void To_ShouldThrowArgumentNullException_WhenRecipientEmailIsEmpty()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.To(request, string.Empty, RecipientDisplayName);
 
@@ -133,7 +133,7 @@ internal sealed class SendEmailRequestBuilderTests_To
     [Test]
     public void To_ShouldNotThrowException_WhenRecipientDisplayNameIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.To(request, RecipientEmail, null);
 
@@ -143,7 +143,7 @@ internal sealed class SendEmailRequestBuilderTests_To
     [Test]
     public void To_ShouldNotThrowException_WhenRecipientDisplayNameIsEmpty()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.To(request, RecipientEmail, string.Empty);
 
@@ -153,8 +153,8 @@ internal sealed class SendEmailRequestBuilderTests_To
     [Test]
     public void To_ShouldAddRecipientToCollection_WhenOnlyEmailProvided()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .To(RecipientEmail);
 
         request.To.Should().ContainSingle();
@@ -167,8 +167,8 @@ internal sealed class SendEmailRequestBuilderTests_To
     [Test]
     public void To_ShouldAddRecipientToCollection_WhenFullInfoProvided()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .To(RecipientEmail, RecipientDisplayName);
 
         request.To.Should().ContainSingle();
