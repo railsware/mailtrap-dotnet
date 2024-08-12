@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Tests.Email.Validators;
+namespace Mailtrap.Tests.Email.Extensions;
 
 
 [TestFixture]
@@ -59,7 +59,7 @@ internal sealed class SendEmailRequestValidationExtensionsTests
 
         var act = () => request!.Validate();
 
-        act.Should().Throw<ValidationException>();
+        act.Should().Throw<ArgumentException>();
     }
 
     [Test]

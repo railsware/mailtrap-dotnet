@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Configuration;
+namespace Mailtrap.Configuration.Extensions;
 
 
 internal static class MailtrapClientSerializationOptionsExtensions
