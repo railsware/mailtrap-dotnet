@@ -11,7 +11,7 @@ namespace Mailtrap.Email.Requests;
 /// <summary>
 /// Request object for send email API calls.
 /// </summary>
-public record SendEmailRequest
+public sealed record SendEmailRequest
 {
     /// <summary>
     /// <see cref="EmailAddress"/> instance representing email's sender.

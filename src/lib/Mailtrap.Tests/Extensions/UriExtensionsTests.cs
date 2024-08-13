@@ -14,6 +14,7 @@ internal sealed class UriExtensionsTests
     private string _absoluteUrl { get; } = "https://example.com";
     private string _relativeUrl { get; } = "api/send";
     private Uri _absoluteUri { get; } = new Uri("https://example.com");
+    private Uri _relativeUri { get; } = new Uri("api", UriKind.Relative);
 
 
 
@@ -194,6 +195,36 @@ internal sealed class UriExtensionsTests
         result.AbsoluteUri.Should().Be(_absoluteUri.AbsoluteUri + segment1 + "/" + segment2);
     }
 
+
+    #endregion
+
+
+
+    #region EnsureAbsoluteUri
+
+    [Test]
+    public void EnsureAbsoluteUri_ShouldThrowArgumentNullException_WhenUriIsNull()
+    {
+        var act = () => UriExtensions.EnsureAbsoluteUri(null!);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void EnsureAbsoluteUri_ShouldThrowArgumentException_WhenUriIsNotAbsoluteUri()
+    {
+        var act = () => UriExtensions.EnsureAbsoluteUri(_relativeUri);
+
+        act.Should().Throw<ArgumentException>();
+    }
+
+    [Test]
+    public void EnsureAbsoluteUri_ShouldNotThrowException_WhenUriIsAbsoluteUri()
+    {
+        var act = () => UriExtensions.EnsureAbsoluteUri(_absoluteUri);
+
+        act.Should().NotThrow();
+    }
 
     #endregion
 }
