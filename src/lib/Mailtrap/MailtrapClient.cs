@@ -66,6 +66,11 @@ internal sealed class MailtrapClient : IMailtrapClient
     {
         Ensure.NotNull(request, nameof(request));
 
+        if (inboxId is null && endpoint == SendEndpoint.Test)
+        {
+            throw new ArgumentNullException(nameof(inboxId), "Inbox ID must be provided when using test endpoint.");
+        }
+
         request.Validate();
 
         var jsonContent = JsonSerializer.Serialize(request, _jsonSerializerOptions);
@@ -78,8 +83,6 @@ internal sealed class MailtrapClient : IMailtrapClient
             .SendAsync(httpRequest, cancellationToken)
             .ConfigureAwait(false);
 
-        // For now just throwing standard HttpRequestException for anything except success.
-        // More robust exception handling with custom Exception types can be added later on.
         httpResponse.EnsureSuccessStatusCode();
 
         var body = await httpResponse.Content

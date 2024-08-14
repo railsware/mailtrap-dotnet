@@ -59,6 +59,30 @@ internal sealed class MailtrapClientOptionsTests
     }
 
     [Test]
+    public void Init_ShouldThrowArgumentNullException_WhenSourceIsNull()
+    {
+        var act = () => MailtrapClientOptions.Default.Init(null!);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void Init_ShouldCopyFieldsFromSource()
+    {
+        var source = MailtrapClientOptions.Default;
+        var target = new MailtrapClientOptions("token");
+
+        target.Init(source);
+
+        target.Should().BeEquivalentTo(source);
+        target.Authentication.Should().BeSameAs(source.Authentication);
+        target.Serialization.Should().BeSameAs(source.Serialization);
+        target.SendEndpoint.Should().BeSameAs(source.SendEndpoint);
+        target.BulkEndpoint.Should().BeSameAs(source.BulkEndpoint);
+        target.TestEndpoint.Should().BeSameAs(source.TestEndpoint);
+    }
+
+    [Test]
     public void GetSendEndpointConfiguration_ShouldThrowArgumentNullException_WhenEndpointIsNull()
     {
         var act = () => MailtrapClientOptions.Default.GetSendEndpointConfiguration(null!);

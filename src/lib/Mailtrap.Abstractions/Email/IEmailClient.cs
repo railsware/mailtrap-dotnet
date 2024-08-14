@@ -49,11 +49,12 @@ public interface IEmailClient
     /// </returns>
     /// 
     /// <exception cref="ArgumentNullException">
-    /// When <paramref name="request"/> is <see langword="null"/>.
+    /// When <paramref name="request"/> is <see langword="null"/>.<br/>
+    /// When <paramref name="endpoint"/> is <see cref="SendEndpoint.Test"/>, but <paramref name="inboxId"/> is <see langword="null"/>.
     /// </exception>
     /// 
     /// <exception cref="ArgumentException">
-    /// When <paramref name="request"/> contains invalid data and fails validation.
+    /// When <paramref name="request"/> contains invalid data and fails validation.    /// 
     /// </exception>
     /// 
     /// <exception cref="JsonException">
@@ -79,6 +80,9 @@ public interface IEmailClient
     /// </para>
     /// <para>
     /// By default email is sent to the transactional endpoint.
+    /// </para>
+    /// <para>
+    /// Parameter <paramref name="inboxId"/> is required when <paramref name="endpoint"/> is set to <see cref="SendEndpoint.Test"/>.
     /// </para>
     /// <para>
     /// Parameter <paramref name="endpoint"/> is ignored, in case <paramref name="inboxId"/> is specified.<br />

@@ -263,8 +263,10 @@ try
 
     if (request.IsValid())
     {
+        using var cts = new CancellationTokenSource();
+
         SendEmailResponse response = await _mailtrapClient
-            .SendAsync(request)
+            .SendAsync(request) // By default will send transactional email
             .ConfigureAwait(false);
       
         MessageId messageId = response.MessageIds.FirstOrDefault(MessageId.Empty);
@@ -296,5 +298,40 @@ catch (Exception ex)
 }   
 ```
 
+Additionally, you can specify the channel/endpoint to route email to (transactional, bulk or test):
+```csharp
+var response = await _mailtrapClient
+    .SendAsync(
+        request,
+        endpoint: SendEndpoint.Bulk) // This one will be sent as bulk
+    .ConfigureAwait(false);
+```
+Endpoint is defined by @Mailtrap.Email.Models.SendEndpoint enum.  
+
+> [!IMPORTANT]  
+> @Mailtrap.Email.Models.SendEndpoint.Transactional send is used by default, when parameter `endpoint` is not specified.  
+> The only exception is when `inboxId` is provided also - in this case endpoint defaults to @Mailtrap.Email.Models.SendEndpoint.Test, regardless of the value provided.
+
+### Test endpoint
+When using @Mailtrap.Email.Models.SendEndpoint.Test endpoint you must provide `inboxId` value as well:
+```csharp
+var inboxId = 1234;
+var response = await _mailtrapClient
+    .SendAsync(
+        request,
+        endpoint: SendEndpoint.Test,
+        inboxId: inboxId) // Required, when test endpoint is used
+    .ConfigureAwait(false);
+```
+Considering, that endpoint will be defaulted to @Mailtrap.Email.Models.SendEndpoint.Test anyway, when `inboxId` is specified, you can safely omit the `endpoint` parameter:
+```csharp
+var inboxId = 1234;
+var response = await _mailtrapClient
+    .SendAsync(request, inboxId: inboxId) // Will be routed to test
+    .ConfigureAwait(false);
+```
+
+
+
 ## See also
-More examples available in the [samples folder](https://github.com/railsware/mailtrap-dotnet/tree/main/src/samples) on GitHub.
+More examples available in the [samples folder](https://github.com/railsware/mailtrap-dotnet/tree/main/examples) on GitHub.

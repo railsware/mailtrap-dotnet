@@ -91,6 +91,18 @@ internal sealed class MailtrapClientTests
     }
 
     [Test]
+    public async Task Send_ShouldThrowArgumentNullException_WhenEndpointIsTestButInboxIdIsNull()
+    {
+        var client = CreateMailtrapClient();
+
+        var request = SendEmailRequest.Create();
+
+        var act = () => client.SendEmail(request, SendEndpoint.Test);
+
+        await act.Should().ThrowAsync<ArgumentNullException>().ConfigureAwait(false);
+    }
+
+    [Test]
     public async Task Send_ShouldThrowArgumentException_WhenRequestContainsInvalidData()
     {
         var client = CreateMailtrapClient();
@@ -99,7 +111,23 @@ internal sealed class MailtrapClientTests
 
         var act = () => client.SendEmail(request);
 
-        await act.Should().ThrowAsync<ArgumentException>().ConfigureAwait(false);
+        await act.Should()
+            .ThrowAsync<ArgumentException>()
+            .ConfigureAwait(false);
+    }
+
+    [Test]
+    public async Task Send_ShouldThrowArgumentException_WhenEndpointIsNone()
+    {
+        var client = CreateMailtrapClient();
+        var request = CreateValidRequest();
+
+        var act = () => client.SendEmail(request, SendEndpoint.None);
+
+        await act.Should()
+            .ThrowAsync<ArgumentException>()
+            .WithMessage("Unsupported endpoint type.*")
+            .ConfigureAwait(false);
     }
 
     [Test]
@@ -120,12 +148,7 @@ internal sealed class MailtrapClientTests
         var httpMethod = HttpMethod.Post;
         var sendUrl = config.SendEndpoint.BaseUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
 
-        var request = SendEmailRequest
-            .Create()
-            .From("john.doe@demomailtrap.com", "John Doe")
-            .To("hero.bill@galaxy.net")
-            .Subject("Invitation to Earth")
-            .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
+        var request = CreateValidRequest();
         var jsonSerializerOptions = config.Serialization.AsJsonSerializerOptions();
 
         var messageId = new MessageId("1");
@@ -218,12 +241,7 @@ internal sealed class MailtrapClientTests
             UrlSegments.SendEmailSegment,
             inboxId.ToString(CultureInfo.InvariantCulture));
 
-        var request = SendEmailRequest
-            .Create()
-            .From("john.doe@demomailtrap.com", "John Doe")
-            .To("hero.bill@galaxy.net")
-            .Subject("Invitation to Earth")
-            .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
+        var request = CreateValidRequest();
         var jsonSerializerOptions = config.Serialization.AsJsonSerializerOptions();
 
         var messageId = new MessageId("1");
@@ -293,5 +311,15 @@ internal sealed class MailtrapClientTests
         var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
 
         return new MailtrapClient(options, httpClientMock, httpRequestMessageFactoryMock, httpRequestContentFactoryMock);
+    }
+
+    private static SendEmailRequest CreateValidRequest()
+    {
+        return SendEmailRequest
+            .Create()
+            .From("john.doe@demomailtrap.com", "John Doe")
+            .To("hero.bill@galaxy.net")
+            .Subject("Invitation to Earth")
+            .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
     }
 }
