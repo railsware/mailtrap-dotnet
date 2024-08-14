@@ -14,11 +14,13 @@ internal sealed class MailtrapClientOptionsTests
     [Test]
     public void Default_ShouldReturnValidDefaults()
     {
-        MailtrapClientOptions.Default.Serialization.Should().Be(MailtrapClientSerializationOptions.Default);
-        MailtrapClientOptions.Default.Authentication.Should().Be(MailtrapClientAuthenticationOptions.Empty);
-        MailtrapClientOptions.Default.SendEndpoint.Should().Be(MailtrapClientEndpointOptions.SendDefault);
-        MailtrapClientOptions.Default.BulkEndpoint.Should().Be(MailtrapClientEndpointOptions.BulkDefault);
-        MailtrapClientOptions.Default.TestEndpoint.Should().Be(MailtrapClientEndpointOptions.TestDefault);
+        var options = MailtrapClientOptions.Default;
+
+        options.Serialization.Should().Be(MailtrapClientSerializationOptions.Default);
+        options.Authentication.Should().Be(MailtrapClientAuthenticationOptions.Empty);
+        options.SendEndpoint.Should().Be(MailtrapClientEndpointOptions.SendDefault);
+        options.BulkEndpoint.Should().Be(MailtrapClientEndpointOptions.BulkDefault);
+        options.TestEndpoint.Should().Be(MailtrapClientEndpointOptions.TestDefault);
     }
 
     [Test]

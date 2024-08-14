@@ -14,7 +14,9 @@ internal sealed class MailtrapClientSerializationOptionsTests
     [Test]
     public void Default_ShouldReturnValidDefaults()
     {
-        MailtrapClientSerializationOptions.Default.PrettyJson.Should().BeFalse();
+        var options = MailtrapClientSerializationOptions.Default;
+
+        options.PrettyJson.Should().BeFalse();
     }
 
     [Test]
