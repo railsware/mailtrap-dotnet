@@ -136,13 +136,14 @@ internal sealed class MailtrapClientTests
         mockHttp
             .Expect(httpMethod, sendUrl.AbsoluteUri)
             .WithJsonContent(request, jsonSerializerOptions)
-            //.WithHeaders("Authorization", $"Bearer {config.Authentication.ApiToken}")
-            //.WithHeaders("Accept", MimeTypes.Application.Json)
-            //.WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
-            //.With(r =>
-            //    r.Content?.Headers.Contains("Content-Type") == true &&
-            //    r.Content?.Headers.ContentType?.MediaType == MimeTypes.Application.Json)
             .Respond(HttpStatusCode.OK, responseContent);
+
+        //.WithHeaders("Authorization", $"Bearer {config.Authentication.ApiToken}")
+        //.WithHeaders("Accept", MimeTypes.Application.Json)
+        //.WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+        //.With(r =>
+        //    r.Content?.Headers.Contains("Content-Type") == true &&
+        //    r.Content?.Headers.ContentType?.MediaType == MimeTypes.Application.Json)
 
         using var cts = new CancellationTokenSource();
 
