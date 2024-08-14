@@ -3,5 +3,6 @@
   <Import Project="..\Directory.Build.props" />
 
   <Import Project="$(BuildConfigurationDirectory)mailtrap-assembly.props" />
-
+  <Import Project="$(BuildConfigurationDirectory)mailtrap-example.props" />
+  
 </Project>
