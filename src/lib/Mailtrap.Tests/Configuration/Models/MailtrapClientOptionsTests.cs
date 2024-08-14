@@ -60,4 +60,45 @@ internal sealed class MailtrapClientOptionsTests
 
         options.Authentication.ApiToken.Should().Be(token);
     }
+
+    [Test]
+    public void GetSendEndpointConfiguration_ShouldThrowArgumentNullException_WhenEndpointIsNull()
+    {
+        var act = () => MailtrapClientOptions.Default.GetSendEndpointConfiguration(null!);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void GetSendEndpointConfiguration_ShouldThrowArgumentException_WhenUnsupportedEndpointValueProvided()
+    {
+        var act = () => MailtrapClientOptions.Default.GetSendEndpointConfiguration(SendEndpoint.None);
+
+        act.Should().Throw<ArgumentException>();
+    }
+
+
+    [Test]
+    public void GetSendEndpointConfiguration_ShouldReturnProperValue_ForSendEndpoint()
+    {
+        var config = MailtrapClientOptions.Default.GetSendEndpointConfiguration(SendEndpoint.Transactional);
+
+        config.Should().BeSameAs(MailtrapClientOptions.Default.SendEndpoint);
+    }
+
+    [Test]
+    public void GetSendEndpointConfiguration_ShouldReturnProperValue_ForBulkEndpoint()
+    {
+        var config = MailtrapClientOptions.Default.GetSendEndpointConfiguration(SendEndpoint.Bulk);
+
+        config.Should().BeSameAs(MailtrapClientOptions.Default.BulkEndpoint);
+    }
+
+    [Test]
+    public void GetSendEndpointConfiguration_ShouldReturnProperValue_ForTestEndpoint()
+    {
+        var config = MailtrapClientOptions.Default.GetSendEndpointConfiguration(SendEndpoint.Test);
+
+        config.Should().BeSameAs(MailtrapClientOptions.Default.TestEndpoint);
+    }
 }

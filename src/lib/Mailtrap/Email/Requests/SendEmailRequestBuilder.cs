@@ -13,14 +13,6 @@ namespace Mailtrap.Email.Requests;
 /// </summary>
 public static class SendEmailRequestBuilder
 {
-    #region Create
-
-
-
-    #endregion
-
-
-
     #region From
 
     /// <summary>
@@ -165,7 +157,7 @@ public static class SendEmailRequestBuilder
     #region Attachments
 
     /// <summary>
-    /// Adds provided collection of attachments to the request's attacments collection.
+    /// Adds provided collection of attachments to the request's attachments collection.
     /// </summary>
     /// <exception cref="ArgumentNullException">
     /// If <paramref name="request"/> or <paramref name="attachments"/> is <see langword="null"/>.
@@ -180,7 +172,7 @@ public static class SendEmailRequestBuilder
     }
 
     /// <summary>
-    /// Adds provided attachment to the request's attacments collection.
+    /// Adds provided attachment to the request's attachments collection.
     /// </summary>
     /// <exception cref="ArgumentNullException">
     /// If <paramref name="request"/> is <see langword="null"/>

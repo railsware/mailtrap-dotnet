@@ -74,10 +74,14 @@ public record MailtrapClientOptions
     /// <summary>
     /// Initializes current <see cref="MailtrapClientOptions"/> instance with values from <paramref name="source"/>.
     /// </summary>
+    /// 
+    /// <param name="source">
+    /// Source <see cref="MailtrapClientOptions"/> instance to copy values from.
+    /// </param>
+    /// 
     /// <remarks>
     /// Performs a shallow copy.
     /// </remarks>
-    /// <param name="source">Source <see cref="MailtrapClientOptions"/> instance to copy values from.</param>
     public void Init(MailtrapClientOptions source)
     {
         Ensure.NotNull(source, nameof(source));
@@ -87,5 +91,36 @@ public record MailtrapClientOptions
         SendEndpoint = source.SendEndpoint;
         BulkEndpoint = source.BulkEndpoint;
         TestEndpoint = source.TestEndpoint;
+    }
+
+
+    /// <summary>
+    /// Gets specific endpoint settings from the configuration.
+    /// </summary>
+    /// 
+    /// <param name="endpoint">
+    /// Endpoint, which settings are needed.
+    /// </param>
+    /// 
+    /// <returns>
+    /// <see cref="MailtrapClientEndpointOptions"/> for specific endpoint.
+    /// </returns>
+    /// 
+    /// <exception cref="ArgumentNullException">
+    /// When provided <paramref name="endpoint"/> is <see langword="null"/>.
+    /// </exception>
+    /// 
+    /// <exception cref="ArgumentException">
+    /// When provided <paramref name="endpoint"/> contains unsupported value.
+    /// </exception>
+    internal MailtrapClientEndpointOptions GetSendEndpointConfiguration(SendEndpoint endpoint)
+    {
+        Ensure.NotNull(endpoint, nameof(endpoint));
+
+        return
+            endpoint == Email.Models.SendEndpoint.Transactional ? SendEndpoint :
+            endpoint == Email.Models.SendEndpoint.Bulk ? BulkEndpoint :
+            endpoint == Email.Models.SendEndpoint.Test ? TestEndpoint :
+            throw new ArgumentException("Unsupported endpoint type.", nameof(endpoint));
     }
 }

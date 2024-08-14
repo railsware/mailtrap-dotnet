@@ -49,7 +49,7 @@ internal sealed class MailtrapClient : IMailtrapClient
         Ensure.NotNull(httpRequestContentFactory, nameof(httpRequestContentFactory));
 
         _clientConfiguration = options.Value;
-        _jsonSerializerOptions = _clientConfiguration.Serialization.ToJsonSerializerOptions();
+        _jsonSerializerOptions = _clientConfiguration.Serialization.AsJsonSerializerOptions();
 
         _httpClient = httpClient;
         _httpRequestMessageFactory = httpRequestMessageFactory;
@@ -60,22 +60,18 @@ internal sealed class MailtrapClient : IMailtrapClient
     /// <inheritdoc />
     public async Task<SendEmailResponse?> SendEmail(
         SendEmailRequest request,
-        Endpoint endpoint = Endpoint.Send,
+        SendEndpoint? endpoint = default,
         int? inboxId = default,
         CancellationToken cancellationToken = default)
     {
         Ensure.NotNull(request, nameof(request));
 
-        var validationResult = await SendEmailRequestValidator.Instance
-            .ValidateAsync(request, cancellationToken)
-            .ConfigureAwait(false);
-
-        validationResult.EnsureValidity(nameof(request));
+        request.Validate();
 
         var jsonContent = JsonSerializer.Serialize(request, _jsonSerializerOptions);
         using var httpContent = _httpRequestContentFactory.CreateStringContent(jsonContent);
 
-        var sendUrl = GetUrlForSend(endpoint, inboxId);
+        var sendUrl = GetUrlForSend(inboxId, endpoint);
         using var httpRequest = _httpRequestMessageFactory.Create(HttpMethod.Post, sendUrl, httpContent);
 
         using var httpResponse = await _httpClient
@@ -96,9 +92,11 @@ internal sealed class MailtrapClient : IMailtrapClient
     }
 
 
-    private Uri GetUrlForSend(Endpoint endpoint, int? inboxId)
+    private Uri GetUrlForSend(int? inboxId, SendEndpoint? endpoint)
     {
-        var endpointConfig = _clientConfiguration.GetEndpoint(inboxId is null ? endpoint : Endpoint.Test);
+        var finalEndpoint = inboxId is null ? (endpoint ?? SendEndpoint.Transactional) : SendEndpoint.Test;
+
+        var endpointConfig = _clientConfiguration.GetSendEndpointConfiguration(finalEndpoint);
 
         // We cannot rely on pre-configured HttpClient.BaseAddress,
         // since it can be external instance with wrong URL configured.

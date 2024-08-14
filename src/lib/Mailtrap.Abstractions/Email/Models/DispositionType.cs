@@ -33,6 +33,7 @@ public sealed record DispositionType
         _value = value;
     }
 
+
     // Overriding ToString only.
     // Valid equality and HashCode implementations are provided by the record OOB functionality.
     /// <inheritdoc />

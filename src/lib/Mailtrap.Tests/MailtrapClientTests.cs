@@ -136,7 +136,7 @@ internal sealed class MailtrapClientTests
             .To("hero.bill@galaxy.net")
             .Subject("Invitation to Earth")
             .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
-        var jsonSerializerOptions = config.Serialization.ToJsonSerializerOptions();
+        var jsonSerializerOptions = config.Serialization.AsJsonSerializerOptions();
         var requestJson = JsonSerializer.Serialize(request, jsonSerializerOptions);
         using var requestContent = new StringContent(requestJson);
 
@@ -224,7 +224,7 @@ internal sealed class MailtrapClientTests
             .To("hero.bill@galaxy.net")
             .Subject("Invitation to Earth")
             .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
-        var jsonSerializerOptions = config.Serialization.ToJsonSerializerOptions();
+        var jsonSerializerOptions = config.Serialization.AsJsonSerializerOptions();
         var requestJson = JsonSerializer.Serialize(request, jsonSerializerOptions);
         using var requestContent = new StringContent(requestJson);
 

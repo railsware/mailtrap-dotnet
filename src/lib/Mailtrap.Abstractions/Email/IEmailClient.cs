@@ -24,14 +24,20 @@ public interface IEmailClient
     /// </param>
     ///
     /// <param name="endpoint">
-    /// <see cref="Endpoint"/> to send email to.<br />
+    /// <para>
+    /// <see cref="SendEndpoint"/> to send email to.
+    /// </para>
+    /// <para>
     /// Default is transactional send.<br />
     /// Ignored, if <paramref name="inboxId"/> specified.
+    /// </para>
     /// </param>
     ///
     /// <param name="inboxId">
-    /// Optional inbox identifier.<br />
+    /// Optional inbox identifier.
+    /// <para>
     /// When specified, email will be routed to the test endpoint.
+    /// </para>
     /// </param>
     /// 
     /// <param name="cancellationToken">
@@ -72,13 +78,16 @@ public interface IEmailClient
     /// <see cref="ArgumentException"/> is thrown if validation fails.
     /// </para>
     /// <para>
+    /// By default email is sent to the transactional endpoint.
+    /// </para>
+    /// <para>
     /// Parameter <paramref name="endpoint"/> is ignored, in case <paramref name="inboxId"/> is specified.<br />
     /// Email will be always routed to the test endpoint in this case.
     /// </para>
     /// </remarks>
     Task<SendEmailResponse?> SendEmail(
         SendEmailRequest request,
-        Endpoint endpoint = Endpoint.Send,
+        SendEndpoint? endpoint = default,
         int? inboxId = default,
         CancellationToken cancellationToken = default);
 }

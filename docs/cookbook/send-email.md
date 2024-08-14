@@ -120,7 +120,7 @@ var request = SendEmailRequest
 ## Kitchen sink
 Just to give an overview of all possible settings:
 ```csharp
-using Mailtrap.Email.Extensions;
+using Mailtrap.Email.Requests;
 
 ...
 
@@ -199,7 +199,7 @@ request.Header(
 After creating a request instance, it is recommended to perform a validation on a client side to ensure sending won't throw validation exceptions and to minimize unnecessary HTTP round-trips.  
 There is a couple of extension methods defined in @Mailtrap.Email.Extensions.SendEmailRequestValidationExtensions which can help:  
 ```csharp
-using Mailtrap.Email.Extensions;
+using Mailtrap.Email.Requests;
 
 ...
 
@@ -219,7 +219,7 @@ else
 
 Alternatively, you can use extension that throws @System.ArgumentException if validation fails:
 ```csharp
-using Mailtrap.Email.Extensions;
+using Mailtrap.Email.Requests;
 
 ...
 
@@ -243,9 +243,9 @@ catch (ArgumentException aex)
 Finally, after you have formed a valid request, you can send it:
 ```csharp
 using Mailtrap;
+using Mailtrap.Email.Models;
 using Mailtrap.Email.Requests;
 using Mailtrap.Email.Responses;
-using Mailtrap.Email.Extensions;
 
 ...
 

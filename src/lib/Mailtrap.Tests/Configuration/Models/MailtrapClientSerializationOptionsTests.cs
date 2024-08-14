@@ -33,4 +33,20 @@ internal sealed class MailtrapClientSerializationOptionsTests
 
         options.PrettyJson.Should().BeTrue();
     }
+
+    [Test]
+    public void AsJsonSerializerOptions_ShouldProduceOptionsBasedOnDefault([Values(false, true)] bool prettyJson)
+    {
+        var options = new MailtrapClientSerializationOptions()
+        {
+            PrettyJson = prettyJson
+        }.AsJsonSerializerOptions();
+
+        var expected = new JsonSerializerOptions(MailtrapJsonSerializerOptions.Default)
+        {
+            WriteIndented = prettyJson
+        };
+
+        options.Should().BeEquivalentTo(expected);
+    }
 }

@@ -22,4 +22,16 @@ public record MailtrapClientSerializationOptions
     /// Switch to enable JSON indentation for pretty output.
     /// </summary>
     public bool PrettyJson { get; set; } = false;
+
+
+    /// <summary>
+    /// Converts <see cref="MailtrapClientSerializationOptions"/> instance to <see cref="JsonSerializerOptions"/>.
+    /// </summary>
+    internal JsonSerializerOptions AsJsonSerializerOptions()
+    {
+        return new JsonSerializerOptions(MailtrapJsonSerializerOptions.Default)
+        {
+            WriteIndented = PrettyJson
+        };
+    }
 }

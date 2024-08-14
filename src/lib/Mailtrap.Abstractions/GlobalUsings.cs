@@ -19,11 +19,6 @@ global using Mailtrap.Email.Requests;
 global using Mailtrap.Email.Responses;
 
 
-// Type aliases
-global using RequestHeader = System.Collections.Generic.KeyValuePair<string, string>;
-global using RequestVariable = System.Collections.Generic.KeyValuePair<string, string>;
-
-
 // Allowing test assembly to access internals for unit tests
 using System.Runtime.CompilerServices;
 
