@@ -49,39 +49,25 @@ public record MailtrapClientEndpointOptions
     /// </remarks>
     public Uri BaseUrl { get; set; }
 
-    /// <summary>
-    /// <see cref="HttpClient"/> instance name to use for requests sent to this endpoint.
-    /// <para>
-    /// Different endpoints can use same or different named <see cref="HttpClient"/> instances.
-    /// </para>
-    /// </summary>
-    /// <remarks>
-    /// Optional.
-    /// </remarks>
-    public string? HttpClientName { get; set; }
-
 
     /// <summary>
     /// Primary constructor with required parameters.
     /// </summary>
     /// <param name="baseUrl">Required. Should be absolute URL.</param>
-    /// <param name="httpClientName">Optional.</param>
     /// <exception cref="ArgumentNullException">When <paramref name="baseUrl"/> is <see langword="null"/></exception>
-    public MailtrapClientEndpointOptions(Uri baseUrl, string? httpClientName = default)
+    public MailtrapClientEndpointOptions(Uri baseUrl)
     {
         Ensure.NotNull(baseUrl, nameof(baseUrl));
 
-        BaseUrl = baseUrl;
-        HttpClientName = httpClientName;
+        BaseUrl = baseUrl.EnsureAbsoluteUri();
     }
 
     /// <summary>
     /// Constructor overload taking <paramref name="baseUrl"/> parameter in <see langword="string"/> format.
     /// </summary>
     /// <param name="baseUrl">Required. Should be absolute URL.</param>
-    /// <param name="httpClientName"></param>
     /// <exception cref="ArgumentNullException">When <paramref name="baseUrl"/> is <see langword="null"/></exception>
     /// <exception cref="ArgumentException">When <paramref name="baseUrl"/> isn't a valid absolute URI</exception>
-    public MailtrapClientEndpointOptions(string baseUrl, string? httpClientName = default)
-        : this(baseUrl.ToAbsoluteUri(), httpClientName) { }
+    public MailtrapClientEndpointOptions(string baseUrl)
+        : this(baseUrl.ToAbsoluteUri()) { }
 }

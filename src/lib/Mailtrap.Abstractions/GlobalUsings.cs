@@ -10,7 +10,9 @@ global using System.Text.Json;
 global using System.Text.Json.Serialization;
 global using System.Net.Mime;
 
-global using Mailtrap.Core;
+global using Mailtrap.Extensions;
+global using Mailtrap.Core.Responses;
+global using Mailtrap.Email;
 global using Mailtrap.Email.Models;
 global using Mailtrap.Email.Converters;
 global using Mailtrap.Email.Requests;

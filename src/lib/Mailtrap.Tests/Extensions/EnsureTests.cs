@@ -5,8 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Tests.Core;
-
+namespace Mailtrap.Tests.Extensions;
 
 
 [TestFixture]
@@ -30,7 +29,7 @@ internal sealed class EnsureTests
 
         var act = () => Ensure.NotNull(paramValue, nameof(paramValue));
 
-        act.Should().NotThrow<ArgumentNullException>();
+        act.Should().NotThrow();
     }
 
     [Test]
@@ -61,6 +60,6 @@ internal sealed class EnsureTests
 
         var act = () => Ensure.NotNullOrEmpty(paramValue, nameof(paramValue));
 
-        act.Should().NotThrow<ArgumentNullException>();
+        act.Should().NotThrow();
     }
 }

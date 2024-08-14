@@ -33,9 +33,7 @@ internal sealed class MailtrapClientOptionsTests
     [Test]
     public void Constructor_ShouldThrowArgumentNullException_WhenApiTokenIsNull()
     {
-        string? token = null;
-
-        var act = () => new MailtrapClientOptions(token!);
+        var act = () => new MailtrapClientOptions(null!);
 
         act.Should().Throw<ArgumentNullException>();
     }

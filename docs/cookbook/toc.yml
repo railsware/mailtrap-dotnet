@@ -1,0 +1,5 @@
+- name: Configuration
+  uid: configure
+
+- name: Sending Emails
+  uid: send-email

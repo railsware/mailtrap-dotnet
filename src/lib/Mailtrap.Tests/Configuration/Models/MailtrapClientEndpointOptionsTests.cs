@@ -12,7 +12,6 @@ namespace Mailtrap.Tests.Configuration.Models;
 internal sealed class MailtrapClientEndpointOptionsTests
 {
     private Uri _uri { get; } = new("https://domain.com");
-    private string _httpClientName { get; } = "bulk";
 
 
 
@@ -69,20 +68,11 @@ internal sealed class MailtrapClientEndpointOptionsTests
     }
 
     [Test]
-    public void ConstructorWithUri_ShouldDefaultHttpClientToNull_WhenNotSpecified()
+    public void ConstructorWithUri_ShouldAssignPropertiesCorrectly()
     {
         var options = new MailtrapClientEndpointOptions(_uri);
 
-        options.HttpClientName.Should().BeNull();
-    }
-
-    [Test]
-    public void ConstructorWithUri_ShouldAssignPropertiesCorrectly()
-    {
-        var options = new MailtrapClientEndpointOptions(_uri, _httpClientName);
-
         options.BaseUrl.Should().Be(_uri);
-        options.HttpClientName.Should().Be(_httpClientName);
     }
 
     #endregion
@@ -118,20 +108,11 @@ internal sealed class MailtrapClientEndpointOptionsTests
     }
 
     [Test]
-    public void ConstructorWithString_ShouldDefaultHttpClientToNull_WhenNotSpecified()
+    public void ConstructorWithString_ShouldAssignPropertiesCorrectly()
     {
         var options = new MailtrapClientEndpointOptions(_uri.ToString());
 
-        options.HttpClientName.Should().BeNull();
-    }
-
-    [Test]
-    public void ConstructorWithString_ShouldAssignPropertiesCorrectly()
-    {
-        var options = new MailtrapClientEndpointOptions(_uri.ToString(), _httpClientName);
-
         options.BaseUrl.Should().Be(_uri);
-        options.HttpClientName.Should().Be(_httpClientName);
     }
 
     #endregion
