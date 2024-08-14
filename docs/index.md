@@ -15,7 +15,7 @@ Section with detailed [setup instructions](xref:setup) and advanced [configurati
 - [Cookbook](xref:send-email)  
 Various use-cases and recipes for API features.
 
-- [Samples](https://github.com/railsware/mailtrap-dotnet/tree/main/src/samples)  
+- [Examples](https://github.com/railsware/mailtrap-dotnet/tree/main/examples)  
 Repository with sample projects with different usage scenarios.
 
 - [API Reference](xref:Mailtrap)  

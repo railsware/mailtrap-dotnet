@@ -7,8 +7,8 @@
 - name: Reference
   uid: Mailtrap
 
-- name: Samples
-  href: https://github.com/railsware/mailtrap-dotnet/tree/main/src/samples
+- name: Examples
+  href: https://github.com/railsware/mailtrap-dotnet/tree/main/examples
 
 - name: GitHub
   href: https://github.com/railsware/mailtrap-dotnet

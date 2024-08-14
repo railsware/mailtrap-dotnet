@@ -138,6 +138,6 @@ catch (Exception ex)
 
 [!INCLUDE [cookbook-link](../includes/cookbook-link.md)]
 
-[!INCLUDE [samples-link](../includes/samples-link.md)]
+[!INCLUDE [examples-link](../includes/examples-link.md)]
 
 [!INCLUDE [api-reference-link](../includes/api-reference-link.md)]
