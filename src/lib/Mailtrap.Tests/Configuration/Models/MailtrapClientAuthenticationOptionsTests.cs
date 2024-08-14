@@ -34,6 +34,15 @@ internal sealed class MailtrapClientAuthenticationOptionsTests
     }
 
     [Test]
+    public void Empty_ShouldReturnNewObjectEveryTime_WhenCalled()
+    {
+        var options1 = MailtrapClientAuthenticationOptions.Empty;
+        var options2 = MailtrapClientAuthenticationOptions.Empty;
+
+        options1.Should().NotBeSameAs(options2);
+    }
+
+    [Test]
     public void Constructor_ShouldAssignTokenToProperty()
     {
         var token = "token";

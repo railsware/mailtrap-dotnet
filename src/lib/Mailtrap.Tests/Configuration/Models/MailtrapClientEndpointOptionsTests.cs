@@ -25,6 +25,25 @@ internal sealed class MailtrapClientEndpointOptionsTests
         MailtrapClientEndpointOptions.TestDefault.BaseUrl.Should().Be(Endpoints.TestDefaultUrl);
     }
 
+    [Test]
+    public void Defaults_ShouldReturnNewObjectEveryTime_WhenCalled()
+    {
+        var options1 = MailtrapClientEndpointOptions.SendDefault;
+        var options2 = MailtrapClientEndpointOptions.SendDefault;
+
+        options1.Should().NotBeSameAs(options2);
+
+        options1 = MailtrapClientEndpointOptions.BulkDefault;
+        options2 = MailtrapClientEndpointOptions.BulkDefault;
+
+        options1.Should().NotBeSameAs(options2);
+
+        options1 = MailtrapClientEndpointOptions.TestDefault;
+        options2 = MailtrapClientEndpointOptions.TestDefault;
+
+        options1.Should().NotBeSameAs(options2);
+    }
+
     #endregion
 
 
