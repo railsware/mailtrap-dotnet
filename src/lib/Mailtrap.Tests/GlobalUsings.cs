@@ -26,6 +26,7 @@ global using Moq;
 global using RichardSzalay.MockHttp;
 
 global using Mailtrap.Tests.TestExtensions;
+global using Mailtrap.Core.Responses;
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;
 global using Mailtrap.Configuration;

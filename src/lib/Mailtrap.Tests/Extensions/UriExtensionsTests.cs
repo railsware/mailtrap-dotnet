@@ -239,4 +239,34 @@ internal sealed class UriExtensionsTests
     }
 
     #endregion
+
+
+
+    #region EnsureAbsoluteUri
+
+    [Test]
+    public void EnsureAbsoluteUri_ShouldThrowArgumentNullException_WhenUriIsNull()
+    {
+        var act = () => UriExtensions.EnsureAbsoluteUri(null!);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void EnsureAbsoluteUri_ShouldThrowArgumentException_WhenUriIsNotAbsoluteUri()
+    {
+        var act = () => UriExtensions.EnsureAbsoluteUri(_relativeUri);
+
+        act.Should().Throw<ArgumentException>();
+    }
+
+    [Test]
+    public void EnsureAbsoluteUri_ShouldNotThrowException_WhenUriIsAbsoluteUri()
+    {
+        var act = () => UriExtensions.EnsureAbsoluteUri(_absoluteUri);
+
+        act.Should().NotThrow();
+    }
+
+    #endregion
 }
