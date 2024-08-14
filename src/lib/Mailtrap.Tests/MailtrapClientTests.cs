@@ -119,16 +119,6 @@ internal sealed class MailtrapClientTests
 
         var httpMethod = HttpMethod.Post;
         var sendUrl = config.SendEndpoint.BaseUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
-        var messageId = new MessageId("1");
-        var response = new SendEmailResponse(true, [messageId]);
-        using var responseContent = JsonContent.Create(response);
-
-        using var mockHttp = new MockHttpMessageHandler();
-        mockHttp
-            .Expect(httpMethod, sendUrl.AbsoluteUri)
-            .Respond(HttpStatusCode.OK, responseContent);
-
-        using var cts = new CancellationTokenSource();
 
         var request = SendEmailRequest
             .Create()
@@ -137,6 +127,25 @@ internal sealed class MailtrapClientTests
             .Subject("Invitation to Earth")
             .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
         var jsonSerializerOptions = config.Serialization.AsJsonSerializerOptions();
+
+        var messageId = new MessageId("1");
+        var response = new SendEmailResponse(true, [messageId]);
+        using var responseContent = JsonContent.Create(response);
+
+        using var mockHttp = new MockHttpMessageHandler();
+        mockHttp
+            .Expect(httpMethod, sendUrl.AbsoluteUri)
+            .WithJsonContent(request, jsonSerializerOptions)
+            //.WithHeaders("Authorization", $"Bearer {config.Authentication.ApiToken}")
+            //.WithHeaders("Accept", MimeTypes.Application.Json)
+            //.WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            //.With(r =>
+            //    r.Content?.Headers.Contains("Content-Type") == true &&
+            //    r.Content?.Headers.ContentType?.MediaType == MimeTypes.Application.Json)
+            .Respond(HttpStatusCode.OK, responseContent);
+
+        using var cts = new CancellationTokenSource();
+
         var requestJson = JsonSerializer.Serialize(request, jsonSerializerOptions);
         using var requestContent = new StringContent(requestJson);
 
@@ -207,16 +216,6 @@ internal sealed class MailtrapClientTests
             UrlSegments.ApiRootSegment,
             UrlSegments.SendEmailSegment,
             inboxId.ToString(CultureInfo.InvariantCulture));
-        var messageId = new MessageId("1");
-        var response = new SendEmailResponse(true, [messageId]);
-        using var responseContent = JsonContent.Create(response);
-
-        using var mockHttp = new MockHttpMessageHandler();
-        mockHttp
-            .Expect(httpMethod, sendUrl.AbsoluteUri)
-            .Respond(HttpStatusCode.OK, responseContent);
-
-        using var cts = new CancellationTokenSource();
 
         var request = SendEmailRequest
             .Create()
@@ -225,6 +224,19 @@ internal sealed class MailtrapClientTests
             .Subject("Invitation to Earth")
             .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
         var jsonSerializerOptions = config.Serialization.AsJsonSerializerOptions();
+
+        var messageId = new MessageId("1");
+        var response = new SendEmailResponse(true, [messageId]);
+        using var responseContent = JsonContent.Create(response);
+
+        using var mockHttp = new MockHttpMessageHandler();
+        mockHttp
+            .Expect(httpMethod, sendUrl.AbsoluteUri)
+            .WithJsonContent(request, jsonSerializerOptions)
+            .Respond(HttpStatusCode.OK, responseContent);
+
+        using var cts = new CancellationTokenSource();
+
         var requestJson = JsonSerializer.Serialize(request, jsonSerializerOptions);
         using var requestContent = new StringContent(requestJson);
 
