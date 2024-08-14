@@ -16,7 +16,11 @@ public record MailtrapClientAuthenticationOptions
     /// <summary>
     /// Default empty configuration.
     /// </summary>
-    public static MailtrapClientAuthenticationOptions Empty { get; } = new(string.Empty);
+    ///
+    /// <remarks>
+    /// Returns new object every time, thus it's safe to mutate returned value.
+    /// </remarks>
+    public static MailtrapClientAuthenticationOptions Empty => new(string.Empty);
 
 
     /// <summary>
