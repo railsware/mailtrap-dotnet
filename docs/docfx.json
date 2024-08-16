@@ -18,7 +18,8 @@
   "build": {
     "content": [
       {
-        "files": "**/*.{yml,md}"
+        "files": "**/*.{yml,md}",
+        "exclude": "includes/**"
       },
       {
         "src": "../artifacts/api",

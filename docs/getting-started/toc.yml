@@ -1,0 +1,10 @@
+- uid: quick-start
+
+- uid: setup
+
+- name: Configuration
+  expanded: true
+  items:
+  - uid: configuration-model
+  - uid: configuration-client-di
+  - uid: configuration-client-factory
