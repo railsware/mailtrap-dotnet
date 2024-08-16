@@ -161,13 +161,6 @@ internal sealed class MailtrapClientTests
             .WithJsonContent(request, jsonSerializerOptions)
             .Respond(HttpStatusCode.OK, responseContent);
 
-        //.WithHeaders("Authorization", $"Bearer {config.Authentication.ApiToken}")
-        //.WithHeaders("Accept", MimeTypes.Application.Json)
-        //.WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
-        //.With(r =>
-        //    r.Content?.Headers.Contains("Content-Type") == true &&
-        //    r.Content?.Headers.ContentType?.MediaType == MimeTypes.Application.Json)
-
         using var cts = new CancellationTokenSource();
 
         var requestJson = JsonSerializer.Serialize(request, jsonSerializerOptions);

@@ -61,7 +61,7 @@ internal sealed class MailtrapClient : IMailtrapClient
     public async Task<SendEmailResponse?> SendEmail(
         SendEmailRequest request,
         SendEndpoint? endpoint = default,
-        int? inboxId = default,
+        long? inboxId = default,
         CancellationToken cancellationToken = default)
     {
         Ensure.NotNull(request, nameof(request));
@@ -95,7 +95,7 @@ internal sealed class MailtrapClient : IMailtrapClient
     }
 
 
-    private Uri GetUrlForSend(int? inboxId, SendEndpoint? endpoint)
+    private Uri GetUrlForSend(long? inboxId, SendEndpoint? endpoint)
     {
         var finalEndpoint = inboxId is null ? (endpoint ?? SendEndpoint.Transactional) : SendEndpoint.Test;
 

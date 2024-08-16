@@ -92,6 +92,6 @@ public interface IEmailClient
     Task<SendEmailResponse?> SendEmail(
         SendEmailRequest request,
         SendEndpoint? endpoint = default,
-        int? inboxId = default,
+        long? inboxId = default,
         CancellationToken cancellationToken = default);
 }
