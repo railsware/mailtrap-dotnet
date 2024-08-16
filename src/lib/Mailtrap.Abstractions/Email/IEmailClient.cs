@@ -54,7 +54,7 @@ public interface IEmailClient
     /// </exception>
     /// 
     /// <exception cref="ArgumentException">
-    /// When <paramref name="request"/> contains invalid data and fails validation.    /// 
+    /// When <paramref name="request"/> contains invalid data and fails validation.
     /// </exception>
     /// 
     /// <exception cref="JsonException">
