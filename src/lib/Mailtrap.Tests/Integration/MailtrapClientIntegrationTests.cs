@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Tests;
+namespace Mailtrap.Tests.Integration;
 
 
 [Ignore("Enable integration tests when factory or DI will be available to simplify setup.")]
