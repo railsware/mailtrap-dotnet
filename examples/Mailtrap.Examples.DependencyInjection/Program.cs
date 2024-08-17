@@ -43,8 +43,7 @@ internal sealed class Program
             SendEmailRequest request = SendEmailRequest
                 .Create()
                 .From("john.doe@demomailtrap.com", "John Doe")
-                //.To("hero.bill@galaxy.net")
-                .To("zhaparoff@gmail.com")
+                .To("hero.bill@galaxy.net")
                 .Subject("Invitation to Earth")
                 .Text("Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John.");
 
