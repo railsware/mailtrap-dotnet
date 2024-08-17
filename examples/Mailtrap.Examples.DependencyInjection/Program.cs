@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using Mailtrap;
 using Mailtrap.Configuration.Models;
+using Mailtrap.Email;
 using Mailtrap.Email.Requests;
 using Mailtrap.Email.Responses;
 using Mailtrap.Extensions.DependencyInjection;
@@ -42,13 +43,16 @@ internal sealed class Program
             SendEmailRequest request = SendEmailRequest
                 .Create()
                 .From("john.doe@demomailtrap.com", "John Doe")
-                .To("hero.bill@galaxy.net")
+                //.To("hero.bill@galaxy.net")
+                .To("zhaparoff@gmail.com")
                 .Subject("Invitation to Earth")
                 .Text("Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John.");
 
             IMailtrapClient mailtrapClient = host.Services.GetRequiredService<IMailtrapClient>();
 
-            SendEmailResponse? response = await mailtrapClient.SendAsync(request).ConfigureAwait(false);
+            ISendClient sendClient = mailtrapClient.Transactional();
+
+            SendEmailResponse? response = await sendClient.SendEmail(request).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -170,7 +174,6 @@ internal sealed class Program
 
             // Providing HttpClient name in configuration allows to use differently configured
             // HttpClient instances for particular endpoint.
-            options.SendEndpoint.HttpClientName = sendClientName;
             options.SendEndpoint.BaseUrl = new Uri("https://api.mailtrap.io/v3-alpha/");
 
             // When HttpClient name is not specified, default HttpClient instance is used.

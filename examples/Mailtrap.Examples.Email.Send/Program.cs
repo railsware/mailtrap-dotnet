@@ -8,10 +8,10 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Mime;
 using Mailtrap;
+using Mailtrap.Email;
 using Mailtrap.Email.Models;
 using Mailtrap.Email.Requests;
 using Mailtrap.Email.Responses;
-using Mailtrap.Email.Validators;
 using Mailtrap.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,6 +43,8 @@ internal sealed class Program
         {
             IMailtrapClient mailtrapClient = host.Services.GetRequiredService<IMailtrapClient>();
 
+            ISendClient sendClient = mailtrapClient.Bulk();
+
             SendEmailRequest request = BasicRequest();
 
             // It is better to validate request before sending,
@@ -55,7 +57,7 @@ internal sealed class Program
                 throw new ArgumentException("Malformed email request.");
             }
 
-            SendEmailResponse? response = await mailtrapClient.SendAsync(request).ConfigureAwait(false);
+            SendEmailResponse? response = await sendClient.SendEmail(request).ConfigureAwait(false);
         }
         catch (Exception ex)
         {

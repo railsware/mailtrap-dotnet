@@ -8,6 +8,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using Mailtrap;
+using Mailtrap.Email;
 using Mailtrap.Email.Requests;
 using Mailtrap.Email.Responses;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,6 +44,9 @@ internal sealed class Program
 
             IMailtrapClient client = factory.CreateClient();
 
+            var inboxId = 3322;
+            ISendClient sendClient = client.Test(inboxId);
+
             SendEmailRequest request = SendEmailRequest
                 .Create()
                 .From("john.doe@demomailtrap.com", "John Doe")
@@ -50,7 +54,7 @@ internal sealed class Program
                 .Subject("Invitation to Earth")
                 .Text("Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John.");
 
-            SendEmailResponse? response = await client.SendAsync(request).ConfigureAwait(false);
+            SendEmailResponse? response = await sendClient.SendEmail(request).ConfigureAwait(false);
 
             Console.WriteLine("Email has been sent successfully. MessageId: {0}", response?.MessageIds?.FirstOrDefault());
         }

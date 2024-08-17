@@ -23,6 +23,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CCDA3840-9EFE-458A-A018-462D227AC0E4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{09E18837-1DDE-4EAF-80EC-DA55557C81EB}"
+	ProjectSection(SolutionItems) = preProject
+		..\examples\.editorconfig = ..\examples\.editorconfig
+		..\examples\Directory.Build.props = ..\examples\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Abstractions", "lib\Mailtrap.Abstractions\Mailtrap.Abstractions.csproj", "{D18E67B4-9179-45A5-94DE-83A8AD7CAA64}"
 EndProject
