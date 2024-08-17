@@ -10,7 +10,7 @@ namespace Mailtrap.Email;
 
 internal sealed class SendClientFactory : ISendClientFactory
 {
-    private readonly HttpClient _httpClient;
+    private readonly IHttpClientFactory _httpClientFactory;
     private readonly IHttpRequestMessageFactory _httpRequestMessageFactory;
     private readonly IHttpRequestContentFactory _httpRequestContentFactory;
     private readonly MailtrapClientOptions _clientOptions;
@@ -20,7 +20,7 @@ internal sealed class SendClientFactory : ISendClientFactory
     /// Default instance constructor.
     /// </summary>
     /// 
-    /// <param name="httpClient"></param>
+    /// <param name="httpClientFactory"></param>
     /// <param name="httpRequestMessageFactory"></param>
     /// <param name="httpRequestContentFactory"></param>
     /// <param name="clientOptions"></param>
@@ -29,17 +29,17 @@ internal sealed class SendClientFactory : ISendClientFactory
     /// When any of the parameters provided is <see langword="null"/>.
     /// </exception>
     public SendClientFactory(
-        HttpClient httpClient,
+        IHttpClientFactory httpClientFactory,
         IHttpRequestMessageFactory httpRequestMessageFactory,
         IHttpRequestContentFactory httpRequestContentFactory,
         IOptions<MailtrapClientOptions> clientOptions)
     {
-        Ensure.NotNull(httpClient, nameof(httpClient));
+        Ensure.NotNull(httpClientFactory, nameof(httpClientFactory));
         Ensure.NotNull(httpRequestMessageFactory, nameof(httpRequestMessageFactory));
         Ensure.NotNull(httpRequestContentFactory, nameof(httpRequestContentFactory));
         Ensure.NotNull(clientOptions, nameof(clientOptions));
 
-        _httpClient = httpClient;
+        _httpClientFactory = httpClientFactory;
         _httpRequestMessageFactory = httpRequestMessageFactory;
         _httpRequestContentFactory = httpRequestContentFactory;
         _clientOptions = clientOptions.Value;
@@ -51,16 +51,16 @@ internal sealed class SendClientFactory : ISendClientFactory
     public ISendClient CreateBulkClient() => CreateSendClient(_clientOptions.BulkEndpoint);
 
     public ISendClient CreateTestClient(long inboxId) => new TestSendClient(
-        _httpClient,
+        _httpClientFactory,
         _httpRequestMessageFactory,
         _httpRequestContentFactory,
-        _clientOptions.SendEndpoint,
+        _clientOptions.TestEndpoint,
         _clientOptions.Serialization,
         inboxId);
 
 
     private SendClient CreateSendClient(MailtrapClientEndpointOptions sendEndpointOptions) => new(
-        _httpClient,
+        _httpClientFactory,
         _httpRequestMessageFactory,
         _httpRequestContentFactory,
         sendEndpointOptions,

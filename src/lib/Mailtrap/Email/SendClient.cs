@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MailtrapClient.cs" company="Railsware Products Studio, LLC">
+// <copyright file="SendClient.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -24,7 +24,7 @@ internal class SendClient : ISendClient
     /// Default instance constructor.
     /// </summary>
     /// 
-    /// <param name="httpClient"></param>
+    /// <param name="httpClientFactory"></param>
     /// <param name="httpRequestMessageFactory"></param>
     /// <param name="httpRequestContentFactory"></param>
     /// <param name="sendEndpointOptions"></param>
@@ -34,19 +34,19 @@ internal class SendClient : ISendClient
     /// When any of the parameters provided is <see langword="null"/>.
     /// </exception>
     public SendClient(
-        HttpClient httpClient,
+        IHttpClientFactory httpClientFactory,
         IHttpRequestMessageFactory httpRequestMessageFactory,
         IHttpRequestContentFactory httpRequestContentFactory,
         MailtrapClientEndpointOptions sendEndpointOptions,
         MailtrapClientSerializationOptions serializationOptions)
     {
-        Ensure.NotNull(httpClient, nameof(httpClient));
+        Ensure.NotNull(httpClientFactory, nameof(httpClientFactory));
         Ensure.NotNull(httpRequestMessageFactory, nameof(httpRequestMessageFactory));
         Ensure.NotNull(httpRequestContentFactory, nameof(httpRequestContentFactory));
         Ensure.NotNull(serializationOptions, nameof(serializationOptions));
         Ensure.NotNull(sendEndpointOptions, nameof(sendEndpointOptions));
 
-        _httpClient = httpClient;
+        _httpClient = httpClientFactory.CreateClient(Client.Name);
         _httpRequestMessageFactory = httpRequestMessageFactory;
         _httpRequestContentFactory = httpRequestContentFactory;
 
@@ -56,9 +56,7 @@ internal class SendClient : ISendClient
 
 
     /// <inheritdoc />
-    public async Task<SendEmailResponse?> SendEmail(
-        SendEmailRequest request,
-        CancellationToken cancellationToken = default)
+    public async Task<SendEmailResponse?> SendEmail(SendEmailRequest request, CancellationToken cancellationToken = default)
     {
         Ensure.NotNull(request, nameof(request));
 
@@ -83,9 +81,11 @@ internal class SendClient : ISendClient
             .ReadAsStreamAsync()
             .ConfigureAwait(false);
 
-        return await JsonSerializer
+        var response = await JsonSerializer
             .DeserializeAsync<SendEmailResponse>(body, _jsonSerializerOptions, cancellationToken)
             .ConfigureAwait(false);
+
+        return response;
     }
 
 

@@ -20,7 +20,7 @@ internal sealed class TestSendClient : SendClient
     /// Default instance constructor.
     /// </summary>
     /// 
-    /// <param name="httpClient"></param>
+    /// <param name="httpClientFactory"></param>
     /// <param name="httpRequestMessageFactory"></param>
     /// <param name="httpRequestContentFactory"></param>
     /// <param name="sendEndpointOptions"></param>
@@ -31,13 +31,13 @@ internal sealed class TestSendClient : SendClient
     /// When any of the parameters provided is <see langword="null"/>.
     /// </exception>
     public TestSendClient(
-        HttpClient httpClient,
+        IHttpClientFactory httpClientFactory,
         IHttpRequestMessageFactory httpRequestMessageFactory,
         IHttpRequestContentFactory httpRequestContentFactory,
         MailtrapClientEndpointOptions sendEndpointOptions,
         MailtrapClientSerializationOptions serializationOptions,
         long inboxId)
-        : base(httpClient, httpRequestMessageFactory, httpRequestContentFactory, sendEndpointOptions, serializationOptions)
+        : base(httpClientFactory, httpRequestMessageFactory, httpRequestContentFactory, sendEndpointOptions, serializationOptions)
     {
         _inboxId = inboxId;
     }

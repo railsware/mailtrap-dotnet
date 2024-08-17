@@ -10,7 +10,7 @@ namespace Mailtrap.Email;
 
 internal interface ISendClientFactory
 {
-    ISendClient CreateTransactionalClient();
-    ISendClient CreateBulkClient();
-    ISendClient CreateTestClient(long inboxId);
+    public ISendClient CreateTransactionalClient();
+    public ISendClient CreateBulkClient();
+    public ISendClient CreateTestClient(long inboxId);
 }
