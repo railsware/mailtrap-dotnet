@@ -31,7 +31,7 @@ public record MailtrapClientSerializationOptions
     /// <summary>
     /// Converts <see cref="MailtrapClientSerializationOptions"/> instance to <see cref="JsonSerializerOptions"/>.
     /// </summary>
-    internal JsonSerializerOptions AsJsonSerializerOptions()
+    internal JsonSerializerOptions ToJsonSerializerOptions()
     {
         return new JsonSerializerOptions(MailtrapJsonSerializerOptions.Default)
         {

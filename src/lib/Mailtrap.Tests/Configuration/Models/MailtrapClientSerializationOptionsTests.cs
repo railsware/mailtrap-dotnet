@@ -51,7 +51,7 @@ internal sealed class MailtrapClientSerializationOptionsTests
         var options = new MailtrapClientSerializationOptions()
         {
             PrettyJson = prettyJson
-        }.AsJsonSerializerOptions();
+        }.ToJsonSerializerOptions();
 
         var expected = new JsonSerializerOptions(MailtrapJsonSerializerOptions.Default)
         {
