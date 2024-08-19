@@ -48,10 +48,21 @@ internal sealed class Program
                 .Text("Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John.");
 
             IMailtrapClient mailtrapClient = host.Services.GetRequiredService<IMailtrapClient>();
+            SendEmailResponse? response = await mailtrapClient
+                .Transactional()
+                .SendEmail(request)
+                .ConfigureAwait(false);
 
-            ISendClient sendClient = mailtrapClient.Transactional();
+            ISendClient bulkClient = mailtrapClient.Bulk();
+            response = await bulkClient
+                .SendEmail(request)
+                .ConfigureAwait(false);
 
-            SendEmailResponse? response = await sendClient.SendEmail(request).ConfigureAwait(false);
+            var inboxId = 1234;
+            ISendClient testClient = mailtrapClient.Test(inboxId);
+            response = await testClient
+                .SendEmail(request)
+                .ConfigureAwait(false);
         }
         catch (Exception ex)
         {
