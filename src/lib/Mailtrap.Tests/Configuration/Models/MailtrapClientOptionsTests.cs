@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.Tests.Configuration.Models;
 
 
@@ -18,9 +17,9 @@ internal sealed class MailtrapClientOptionsTests
 
         options.Serialization.Should().Be(MailtrapClientSerializationOptions.Default);
         options.Authentication.Should().Be(MailtrapClientAuthenticationOptions.Empty);
-        options.SendEndpoint.Should().Be(MailtrapClientEndpointOptions.SendDefault);
-        options.BulkEndpoint.Should().Be(MailtrapClientEndpointOptions.BulkDefault);
-        options.TestEndpoint.Should().Be(MailtrapClientEndpointOptions.TestDefault);
+        options.SendApi.Should().Be(MailtrapClientEndpointOptions.SendDefault);
+        options.BulkApi.Should().Be(MailtrapClientEndpointOptions.BulkDefault);
+        options.TestApi.Should().Be(MailtrapClientEndpointOptions.TestDefault);
     }
 
     [Test]
@@ -77,9 +76,9 @@ internal sealed class MailtrapClientOptionsTests
         target.Should().BeEquivalentTo(source);
         target.Authentication.Should().BeSameAs(source.Authentication);
         target.Serialization.Should().BeSameAs(source.Serialization);
-        target.SendEndpoint.Should().BeSameAs(source.SendEndpoint);
-        target.BulkEndpoint.Should().BeSameAs(source.BulkEndpoint);
-        target.TestEndpoint.Should().BeSameAs(source.TestEndpoint);
+        target.SendApi.Should().BeSameAs(source.SendApi);
+        target.BulkApi.Should().BeSameAs(source.BulkApi);
+        target.TestApi.Should().BeSameAs(source.TestApi);
     }
 
     [Test]
@@ -105,7 +104,7 @@ internal sealed class MailtrapClientOptionsTests
 
         var endpoint = config.GetSendEndpointConfiguration(SendEndpoint.Transactional);
 
-        endpoint.Should().BeSameAs(config.SendEndpoint);
+        endpoint.Should().BeSameAs(config.SendApi);
     }
 
     [Test]
@@ -115,7 +114,7 @@ internal sealed class MailtrapClientOptionsTests
 
         var endpoint = config.GetSendEndpointConfiguration(SendEndpoint.Bulk);
 
-        endpoint.Should().BeSameAs(config.BulkEndpoint);
+        endpoint.Should().BeSameAs(config.BulkApi);
     }
 
     [Test]
@@ -125,6 +124,6 @@ internal sealed class MailtrapClientOptionsTests
 
         var endpoint = config.GetSendEndpointConfiguration(SendEndpoint.Test);
 
-        endpoint.Should().BeSameAs(config.TestEndpoint);
+        endpoint.Should().BeSameAs(config.TestApi);
     }
 }

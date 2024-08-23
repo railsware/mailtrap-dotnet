@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.Tests;
 
 
@@ -137,7 +136,7 @@ internal sealed class MailtrapClientTests
         var sendEndpointOptions = new MailtrapClientEndpointOptions("https://localhost");
         var config = new MailtrapClientOptions("token")
         {
-            SendEndpoint = sendEndpointOptions
+            SendApi = sendEndpointOptions
         };
 
         var optionsMock = new Mock<IOptions<MailtrapClientOptions>>();
@@ -146,7 +145,7 @@ internal sealed class MailtrapClientTests
             .Returns(config);
 
         var httpMethod = HttpMethod.Post;
-        var sendUrl = config.SendEndpoint.BaseUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
+        var sendUrl = config.SendApi.BaseUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
 
         var request = CreateValidRequest();
         var jsonSerializerOptions = config.Serialization.AsJsonSerializerOptions();
@@ -218,8 +217,8 @@ internal sealed class MailtrapClientTests
 
         var config = new MailtrapClientOptions("token")
         {
-            SendEndpoint = sendEndpointOptions,
-            TestEndpoint = testEndpointOptions
+            SendApi = sendEndpointOptions,
+            TestApi = testEndpointOptions
         };
 
         var optionsMock = new Mock<IOptions<MailtrapClientOptions>>();
@@ -229,7 +228,7 @@ internal sealed class MailtrapClientTests
 
         var inboxId = 1244;
         var httpMethod = HttpMethod.Post;
-        var sendUrl = config.TestEndpoint.BaseUrl.Append(
+        var sendUrl = config.TestApi.BaseUrl.Append(
             UrlSegments.ApiRootSegment,
             UrlSegments.SendEmailSegment,
             inboxId.ToString(CultureInfo.InvariantCulture));

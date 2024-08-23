@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.Tests.Integration;
 
 
@@ -19,7 +18,7 @@ internal sealed class MailtrapClientIntegrationTests
         var sendEndpointOptions = new MailtrapClientEndpointOptions("https://localhost");
         var config = new MailtrapClientOptions("token")
         {
-            SendEndpoint = sendEndpointOptions
+            SendApi = sendEndpointOptions
         };
 
         var optionsMock = new Mock<IOptions<MailtrapClientOptions>>();
@@ -28,7 +27,7 @@ internal sealed class MailtrapClientIntegrationTests
             .Returns(config);
 
         var httpMethod = HttpMethod.Post;
-        var sendUrl = config.SendEndpoint.BaseUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
+        var sendUrl = config.SendApi.BaseUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
 
         var request = CreateValidRequest();
         var jsonSerializerOptions = config.Serialization.AsJsonSerializerOptions();

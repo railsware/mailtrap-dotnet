@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.Http;
 
 
@@ -30,7 +29,7 @@ internal sealed class HttpRequestMessageFactory : IHttpRequestMessageFactory
     {
         Ensure.NotNull(options, nameof(options));
 
-        _token = options.Value.Authentication.ApiToken;
+        _token = options.Value.ApiToken;
     }
 
 

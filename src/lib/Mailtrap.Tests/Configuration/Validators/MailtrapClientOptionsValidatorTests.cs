@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.Tests.Configuration.Validators;
 
 
@@ -39,12 +38,12 @@ internal sealed class MailtrapClientOptionsValidatorTests
     {
         var options = MailtrapClientOptions.Default with
         {
-            SendEndpoint = null!
+            SendApi = null!
         };
 
         var result = MailtrapClientOptionsValidator.Instance.TestValidate(options);
 
-        result.ShouldHaveValidationErrorFor(r => r.SendEndpoint);
+        result.ShouldHaveValidationErrorFor(r => r.SendApi);
     }
 
     [Test]
@@ -52,12 +51,12 @@ internal sealed class MailtrapClientOptionsValidatorTests
     {
         var options = MailtrapClientOptions.Default with
         {
-            BulkEndpoint = null!
+            BulkApi = null!
         };
 
         var result = MailtrapClientOptionsValidator.Instance.TestValidate(options);
 
-        result.ShouldHaveValidationErrorFor(r => r.BulkEndpoint);
+        result.ShouldHaveValidationErrorFor(r => r.BulkApi);
     }
 
     [Test]
@@ -65,12 +64,12 @@ internal sealed class MailtrapClientOptionsValidatorTests
     {
         var options = MailtrapClientOptions.Default with
         {
-            TestEndpoint = null!
+            TestApi = null!
         };
 
         var result = MailtrapClientOptionsValidator.Instance.TestValidate(options);
 
-        result.ShouldHaveValidationErrorFor(r => r.TestEndpoint);
+        result.ShouldHaveValidationErrorFor(r => r.TestApi);
     }
 
     [Test]

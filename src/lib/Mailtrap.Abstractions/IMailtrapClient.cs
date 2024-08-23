@@ -11,4 +11,36 @@ namespace Mailtrap;
 /// <summary>
 /// Mailtrap API client.
 /// </summary>
-public interface IMailtrapClient : IEmailClient { }
+public interface IMailtrapClient
+{
+    /// <summary>
+    /// </summary>
+    /// 
+    /// <returns>
+    /// </returns>
+    public IEmailClient Email();
+
+    /// <summary>
+    /// </summary>
+    ///
+    /// <returns>
+    /// </returns>
+    public IEmailClient Transactional();
+
+    /// <summary>
+    /// </summary>
+    /// 
+    /// <returns>
+    /// </returns>
+    public IEmailClient Bulk();
+
+    /// <summary>
+    /// </summary>
+    ///
+    /// <param name="inboxId">
+    /// </param>
+    ///
+    /// <returns>
+    /// </returns>
+    public IEmailClient Test(long inboxId);
+}
