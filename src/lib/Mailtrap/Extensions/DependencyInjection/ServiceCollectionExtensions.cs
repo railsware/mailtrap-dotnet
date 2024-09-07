@@ -66,7 +66,7 @@ public static class ServiceCollectionExtensions
 
         return services
             .AddMailtrapServices()
-            .AddHttpClient<IEmailClientFactory>(Client.Name);
+            .AddHttpClient(Client.Name);
     }
 
     /// <summary>
