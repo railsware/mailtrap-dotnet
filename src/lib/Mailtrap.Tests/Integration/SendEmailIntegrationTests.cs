@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MailtrapClientIntegrationTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="SendEmailIntegrationTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -163,14 +163,16 @@ internal sealed class SendEmailIntegrationTests
     public async Task SendEmail_ShouldRouteToProperUrl_WhenTestClientIsUsed(MailtrapClientOptions config)
     {
         // Arrange
+        var random = TestContext.CurrentContext.Random;
+
         var request = CreateValidRequest();
         using var mockHttp = new MockHttpMessageHandler();
 
-        var messageId = new MessageId(TestContext.CurrentContext.Random.NextGuid().ToString());
+        var messageId = new MessageId(random.NextGuid().ToString());
         var response = new SendEmailResponse(true, [messageId]);
         using var responseContent = JsonContent.Create(response);
 
-        var inboxId = 123;
+        var inboxId = random.NextLong();
         var sendUri = Endpoints.TestDefaultUrl
             .Append(
                 UrlSegments.ApiRootSegment,
@@ -203,8 +205,9 @@ internal sealed class SendEmailIntegrationTests
 
     private static IEnumerable<SendEmailTestCase> TestCasesForDefault()
     {
-        var token = "token";
-        var inboxId = 123;
+        var random = TestContext.CurrentContext.Random;
+        var token = random.GetString();
+        var inboxId = random.NextLong();
         var sendUri = Endpoints.SendDefaultUrl
             .Append(
                 UrlSegments.ApiRootSegment,
@@ -240,8 +243,9 @@ internal sealed class SendEmailIntegrationTests
 
     private static IEnumerable<MailtrapClientOptions> TestCasesForNonDefault()
     {
-        var token = "token";
-        var inboxId = 321;
+        var random = TestContext.CurrentContext.Random;
+        var token = random.GetString();
+        var inboxId = random.NextLong();
 
         yield return new(token);
         yield return new(token) { PrettyJson = true };
