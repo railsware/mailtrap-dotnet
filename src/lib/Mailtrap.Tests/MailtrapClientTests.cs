@@ -4,314 +4,100 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+
 namespace Mailtrap.Tests;
 
 
 [TestFixture]
 internal sealed class MailtrapClientTests
 {
-    #region Constructor
+    private IEmailClient _emailClient;
 
-    [Test]
-    public void Constructor_DI_ShouldThrowArgumentNullException_WhenConfigurationIsNull()
+
+    [SetUp]
+    public void Setup()
     {
-        var httpClientMock = Mock.Of<HttpClient>();
-        var httpRequestMessageFactoryMock = Mock.Of<IHttpRequestMessageFactory>();
-        var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
-
-        var act = () => new MailtrapClient(
-            null!,
-            httpClientMock,
-            httpRequestMessageFactoryMock,
-            httpRequestContentFactoryMock);
-
-        act.Should().Throw<ArgumentNullException>();
+        _emailClient = Mock.Of<IEmailClient>();
     }
 
-    [Test]
-    public void Constructor_DI_ShouldThrowArgumentNullException_WhenHttpClientIsNull()
-    {
-        var optionsMock = Mock.Of<IOptions<MailtrapClientOptions>>();
-        var httpRequestMessageFactoryMock = Mock.Of<IHttpRequestMessageFactory>();
-        var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
-
-        var act = () => new MailtrapClient(
-            optionsMock,
-            null!,
-            httpRequestMessageFactoryMock,
-            httpRequestContentFactoryMock);
-
-        act.Should().Throw<ArgumentNullException>();
-    }
 
     [Test]
-    public void Constructor_DI_ShouldThrowArgumentNullException_WhenHttpRequestMessageFactoryIsNull()
+    public void Constructor_ShouldThrowArgumentNullException_WhenFactoryIsNull()
     {
-        var optionsMock = Mock.Of<IOptions<MailtrapClientOptions>>();
-        var httpClientMock = Mock.Of<HttpClient>();
-        var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
-
-        var act = () => new MailtrapClient(
-            optionsMock,
-            httpClientMock,
-            null!,
-            httpRequestContentFactoryMock);
-
-        act.Should().Throw<ArgumentNullException>();
-    }
-
-    [Test]
-    public void Constructor_DI_ShouldThrowArgumentNullException_WhenHttpRequestContentFactoryIsNull()
-    {
-        var optionsMock = Mock.Of<IOptions<MailtrapClientOptions>>();
-        var httpClientMock = Mock.Of<HttpClient>();
-        var httpRequestMessageFactoryMock = Mock.Of<IHttpRequestMessageFactory>();
-
-        var act = () => new MailtrapClient(
-            optionsMock,
-            httpClientMock,
-            httpRequestMessageFactoryMock,
-            null!);
-
-        act.Should().Throw<ArgumentNullException>();
-    }
-
-    #endregion
-
-
-    [Test]
-    public async Task Send_ShouldThrowArgumentNullException_WhenRequestIsNull()
-    {
-        var client = CreateMailtrapClient();
-
-        var act = () => client.SendEmail(null!);
-
-        await act.Should().ThrowAsync<ArgumentNullException>().ConfigureAwait(false);
-    }
-
-    [Test]
-    public async Task Send_ShouldThrowArgumentNullException_WhenEndpointIsTestButInboxIdIsNull()
-    {
-        var client = CreateMailtrapClient();
-
-        var request = SendEmailRequest.Create();
-
-        var act = () => client.SendEmail(request, SendEndpoint.Test);
-
-        await act.Should().ThrowAsync<ArgumentNullException>().ConfigureAwait(false);
-    }
-
-    [Test]
-    public async Task Send_ShouldThrowArgumentException_WhenRequestContainsInvalidData()
-    {
-        var client = CreateMailtrapClient();
-
-        var request = SendEmailRequest.Create();
-
-        var act = () => client.SendEmail(request);
-
-        await act.Should()
-            .ThrowAsync<ArgumentException>()
-            .ConfigureAwait(false);
-    }
-
-    [Test]
-    public async Task Send_ShouldThrowArgumentException_WhenEndpointIsNone()
-    {
-        var client = CreateMailtrapClient();
-        var request = CreateValidRequest();
-
-        var act = () => client.SendEmail(request, SendEndpoint.None);
-
-        await act.Should()
-            .ThrowAsync<ArgumentException>()
-            .WithMessage("Unsupported endpoint type.*")
-            .ConfigureAwait(false);
-    }
-
-    [Test]
-    public async Task Send_ShouldCallPostWithRequestInformation()
-    {
-        // Arrange
-        var sendEndpointOptions = new MailtrapClientEndpointOptions("https://localhost");
-        var config = new MailtrapClientOptions("token")
-        {
-            SendApi = sendEndpointOptions
-        };
-
-        var optionsMock = new Mock<IOptions<MailtrapClientOptions>>();
-        optionsMock
-            .Setup(p => p.Value)
-            .Returns(config);
-
-        var httpMethod = HttpMethod.Post;
-        var sendUrl = config.SendApi.BaseUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
-
-        var request = CreateValidRequest();
-        var jsonSerializerOptions = config.Serialization.AsJsonSerializerOptions();
-
-        var messageId = new MessageId("1");
-        var response = new SendEmailResponse(true, [messageId]);
-        using var responseContent = JsonContent.Create(response);
-
-        using var mockHttp = new MockHttpMessageHandler();
-        mockHttp
-            .Expect(httpMethod, sendUrl.AbsoluteUri)
-            .WithJsonContent(request, jsonSerializerOptions)
-            .Respond(HttpStatusCode.OK, responseContent);
-
-        using var cts = new CancellationTokenSource();
-
-        var requestJson = JsonSerializer.Serialize(request, jsonSerializerOptions);
-        using var requestContent = new StringContent(requestJson);
-
-        var httpRequestContentFactoryMock = new Mock<IHttpRequestContentFactory>();
-        httpRequestContentFactoryMock
-            .Setup(f => f.CreateStringContent(requestJson))
-            .Returns(requestContent);
-
-        using var requestMessage = new HttpRequestMessage(httpMethod, sendUrl)
-        {
-            Content = requestContent
-        };
-
-        var httpRequestMessageFactoryMock = new Mock<IHttpRequestMessageFactory>();
-        httpRequestMessageFactoryMock
-            .Setup(f => f.Create(httpMethod, sendUrl, requestContent))
-            .Returns(requestMessage);
-
-        var client = new MailtrapClient(
-            optionsMock.Object,
-            mockHttp.ToHttpClient(),
-            httpRequestMessageFactoryMock.Object,
-            httpRequestContentFactoryMock.Object);
-
-
         // Act
-        var result = await client.SendEmail(request, cancellationToken: cts.Token).ConfigureAwait(false);
-
+        var act = () => new MailtrapClient(null!);
 
         // Assert
-        httpRequestContentFactoryMock.Verify(f => f.CreateStringContent(requestJson), Times.Once);
+        act.Should().Throw<ArgumentNullException>();
+    }
 
-        httpRequestMessageFactoryMock.Verify(f => f.Create(httpMethod, sendUrl, requestContent), Times.Once);
 
-        optionsMock.VerifyGet(p => p.Value, Times.Once);
+    [Test]
+    public void Email_ShouldReturnDefaultEmailClient()
+    {
+        // Arrange
+        var emailClientFactoryMock = new Mock<IEmailClientFactory>();
+        emailClientFactoryMock
+            .Setup(f => f.CreateDefault())
+            .Returns(_emailClient);
+        var client = new MailtrapClient(emailClientFactoryMock.Object);
 
-        mockHttp.VerifyNoOutstandingExpectation();
+        // Act
+        var result = client.Email();
 
-        result.Should()
-            .NotBeNull().And
-            .BeEquivalentTo(response);
-
-        result!.Success.Should().BeTrue();
-        result!.MessageIds.Should().ContainSingle(m => m == messageId);
+        // Assert
+        result.Should().BeSameAs(_emailClient);
     }
 
     [Test]
-    public async Task Send_ShouldUseTestEndpoint_WhenInboxIdProvided()
+    public void Transactional_ShouldReturnNewEmailClient()
     {
         // Arrange
-        var sendEndpointOptions = new MailtrapClientEndpointOptions("https://send.api.mailtrap.io");
-        var testEndpointOptions = new MailtrapClientEndpointOptions("https://test.api.mailtrap.io");
-
-        var config = new MailtrapClientOptions("token")
-        {
-            SendApi = sendEndpointOptions,
-            TestApi = testEndpointOptions
-        };
-
-        var optionsMock = new Mock<IOptions<MailtrapClientOptions>>();
-        optionsMock
-            .Setup(p => p.Value)
-            .Returns(config);
-
-        var inboxId = 1244;
-        var httpMethod = HttpMethod.Post;
-        var sendUrl = config.TestApi.BaseUrl.Append(
-            UrlSegments.ApiRootSegment,
-            UrlSegments.SendEmailSegment,
-            inboxId.ToString(CultureInfo.InvariantCulture));
-
-        var request = CreateValidRequest();
-        var jsonSerializerOptions = config.Serialization.AsJsonSerializerOptions();
-
-        var messageId = new MessageId("1");
-        var response = new SendEmailResponse(true, [messageId]);
-        using var responseContent = JsonContent.Create(response);
-
-        using var mockHttp = new MockHttpMessageHandler();
-        mockHttp
-            .Expect(httpMethod, sendUrl.AbsoluteUri)
-            .WithJsonContent(request, jsonSerializerOptions)
-            .Respond(HttpStatusCode.OK, responseContent);
-
-        using var cts = new CancellationTokenSource();
-
-        var requestJson = JsonSerializer.Serialize(request, jsonSerializerOptions);
-        using var requestContent = new StringContent(requestJson);
-
-        var httpRequestContentFactoryMock = new Mock<IHttpRequestContentFactory>();
-        httpRequestContentFactoryMock
-            .Setup(f => f.CreateStringContent(requestJson))
-            .Returns(requestContent);
-
-        using var requestMessage = new HttpRequestMessage(httpMethod, sendUrl)
-        {
-            Content = requestContent
-        };
-
-        var httpRequestMessageFactoryMock = new Mock<IHttpRequestMessageFactory>();
-        httpRequestMessageFactoryMock
-            .Setup(f => f.Create(httpMethod, sendUrl, requestContent))
-            .Returns(requestMessage);
-
-        var client = new MailtrapClient(
-            optionsMock.Object,
-            mockHttp.ToHttpClient(),
-            httpRequestMessageFactoryMock.Object,
-            httpRequestContentFactoryMock.Object);
-
+        var emailClientFactoryMock = new Mock<IEmailClientFactory>();
+        emailClientFactoryMock
+            .Setup(f => f.CreateTransactional())
+            .Returns(_emailClient);
+        var client = new MailtrapClient(emailClientFactoryMock.Object);
 
         // Act
-        var result = await client.SendEmail(request, inboxId: inboxId, cancellationToken: cts.Token).ConfigureAwait(false);
-
+        var result = client.Transactional();
 
         // Assert
-        httpRequestContentFactoryMock.Verify(f => f.CreateStringContent(requestJson), Times.Once);
-
-        httpRequestMessageFactoryMock.Verify(f => f.Create(httpMethod, sendUrl, requestContent), Times.Once);
-
-        optionsMock.VerifyGet(p => p.Value, Times.Once);
-
-        mockHttp.VerifyNoOutstandingExpectation();
-
-        result.Should()
-            .NotBeNull().And
-            .BeEquivalentTo(response);
-
-        result!.Success.Should().BeTrue();
-        result!.MessageIds.Should().ContainSingle(m => m == messageId);
+        result.Should().BeSameAs(_emailClient);
     }
 
-
-    private static MailtrapClient CreateMailtrapClient()
+    [Test]
+    public void Bulk_ShouldReturnNewBulkEmailClient()
     {
-        var options = Options.Create(new MailtrapClientOptions("token"));
-        var httpClientMock = Mock.Of<HttpClient>();
-        var httpRequestMessageFactoryMock = Mock.Of<IHttpRequestMessageFactory>();
-        var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
+        // Arrange
+        var emailClientFactoryMock = new Mock<IEmailClientFactory>();
+        emailClientFactoryMock
+            .Setup(f => f.CreateBulk())
+            .Returns(_emailClient);
+        var client = new MailtrapClient(emailClientFactoryMock.Object);
 
-        return new MailtrapClient(options, httpClientMock, httpRequestMessageFactoryMock, httpRequestContentFactoryMock);
+        // Act
+        var result = client.Bulk();
+
+        // Assert
+        result.Should().BeSameAs(_emailClient);
     }
 
-    private static SendEmailRequest CreateValidRequest()
+    [Test]
+    public void Test_ShouldReturnNewEmailClientWithInboxId()
     {
-        return SendEmailRequest
-            .Create()
-            .From("john.doe@demomailtrap.com", "John Doe")
-            .To("hero.bill@galaxy.net")
-            .Subject("Invitation to Earth")
-            .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
+        // Arrange
+        var inboxId = 123;
+        var emailClientFactoryMock = new Mock<IEmailClientFactory>();
+        emailClientFactoryMock
+            .Setup(f => f.CreateTest(inboxId))
+            .Returns(_emailClient);
+        var client = new MailtrapClient(emailClientFactoryMock.Object);
+
+        // Act
+        var result = client.Test(inboxId);
+
+        // Assert
+        result.Should().BeSameAs(_emailClient);
     }
 }

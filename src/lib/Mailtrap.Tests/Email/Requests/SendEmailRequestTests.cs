@@ -83,4 +83,49 @@ internal sealed class SendEmailRequestTests
         //var deserialized = JsonSerializer.Deserialize<TemplatedEmailRequest>(serialized, MailtrapJsonSerializerOptions.NotIndented);
         //deserialized.Should().BeEquivalentTo(request);
     }
+
+    [Test]
+    public void IsValid_ShouldReturnFalse_WhenRequestIsInvalid()
+    {
+        var request = SendEmailRequest.Create();
+
+        request.IsValid().Should().BeFalse();
+    }
+
+    [Test]
+    public void IsValid_ShouldReturnTrue_WhenRequestIsValid()
+    {
+        var request = SendEmailRequest.Create()
+            .From("sender@domain.com")
+            .To("recipient@domain.com")
+            .Subject("Subject")
+            .Text("Content");
+
+        request.IsValid().Should().BeTrue();
+    }
+
+    [Test]
+    public void IsValid_ShouldThrowValidationException_WhenRequestIsInvalid()
+    {
+        var request = SendEmailRequest.Create();
+
+        var act = () => request!.Validate();
+
+        act.Should().Throw<ArgumentException>();
+    }
+
+    [Test]
+    public void IsValid_ShouldNotThrowException_WhenRequestIsValid()
+    {
+        var request = SendEmailRequest
+            .Create()
+            .From("sender@domain.com")
+            .To("recipient@domain.com")
+            .Subject("Subject")
+            .Text("Content");
+
+        var act = () => request!.Validate();
+
+        act.Should().NotThrow();
+    }
 }

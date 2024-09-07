@@ -14,13 +14,22 @@ namespace Mailtrap.Email;
 public interface IEmailClient
 {
     /// <summary>
-    /// Sends email, defined by provided <paramref name="request"/> and returns operation result.
+    /// Gets endpoint URL to send emails for the current instance.
+    /// </summary>
+    ///
+    /// <value>
+    /// <see cref="Uri"/> representing endpoint URL to send emails.
+    /// </value>
+    public Uri SendUri { get; }
+
+    /// <summary>
+    /// Sends email, represented by the <paramref name="request"/>, and returns send operation result.
     /// </summary>
     /// 
     /// <param name="request">
-    /// <see cref="SendEmailRequest"/> instance with email configuration.
+    /// <see cref="SendEmailRequest"/> instance, containing email data.
     /// </param>
-    ///
+    /// 
     /// <param name="cancellationToken">
     /// <see cref="CancellationToken"/> instance to control operation cancellation.
     /// </param>
@@ -28,20 +37,16 @@ public interface IEmailClient
     /// <returns>
     /// <see cref="SendEmailResponse"/> instance with response data.
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
-    /// When <paramref name="request"/> is <see langword="null"/>.<br/>
+    /// When <paramref name="request"/> is <see langword="null"/>.
     /// </exception>
-    /// 
+    ///
     /// <exception cref="ArgumentException">
-    /// When <paramref name="request"/> contains invalid data and fails validation.
+    /// When <paramref name="request"/> is invalid.
     /// </exception>
     /// 
-    /// <exception cref="JsonException">
-    /// When <paramref name="request"/> serialization or response deserialization fails.
-    /// </exception>
-    /// 
-    /// <exception cref="TaskCanceledException">
+    /// <exception cref="TaskCanceledException">_jsonSerializerOptions
     /// When operation is canceled by <paramref name="cancellationToken"/>.
     /// </exception>
     /// 
@@ -57,5 +62,5 @@ public interface IEmailClient
     /// Request is checked for validity before send.<br />
     /// <see cref="ArgumentException"/> is thrown if validation fails.
     /// </remarks>
-    Task<SendEmailResponse?> Send(SendEmailRequest request, CancellationToken cancellationToken = default);
+    public Task<SendEmailResponse?> Send(SendEmailRequest request, CancellationToken cancellationToken = default);
 }

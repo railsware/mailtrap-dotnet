@@ -37,9 +37,9 @@ internal sealed class MailtrapClient : IMailtrapClient
 
     public IEmailClient Email() => _defaultEmailClient;
 
-    public IEmailClient Transactional() => _emailClientFactory.Create();
+    public IEmailClient Transactional() => _emailClientFactory.CreateTransactional();
 
-    public IEmailClient Bulk() => _emailClientFactory.Create(isBulk: true);
+    public IEmailClient Bulk() => _emailClientFactory.CreateBulk();
 
-    public IEmailClient Test(long inboxId) => _emailClientFactory.Create(inboxId: inboxId);
+    public IEmailClient Test(long inboxId) => _emailClientFactory.CreateTest(inboxId);
 }

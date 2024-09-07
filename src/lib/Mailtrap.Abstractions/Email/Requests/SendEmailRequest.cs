@@ -11,7 +11,7 @@ namespace Mailtrap.Email.Requests;
 /// <summary>
 /// Request object for send email API calls.
 /// </summary>
-public sealed record SendEmailRequest
+public sealed record SendEmailRequest : IValidatable
 {
     /// <summary>
     /// <see cref="EmailAddress"/> instance representing email's sender.
@@ -175,4 +175,15 @@ public sealed record SendEmailRequest
     /// New <see cref="SendEmailRequest"/> instance.
     /// </returns>
     public static SendEmailRequest Create() => new();
+
+
+    /// <inheritdoc />
+    public bool IsValid() => SendEmailRequestValidator.Instance
+        .Validate(this)
+        .IsValid;
+
+    /// <inheritdoc />
+    public void Validate() => SendEmailRequestValidator.Instance
+        .Validate(this)
+        .EnsureValidity(nameof(SendEmailRequest));
 }

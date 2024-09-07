@@ -11,8 +11,8 @@ namespace Mailtrap.Email;
 internal interface IEmailClientFactory
 {
     public IEmailClient Create(bool isBulk = false, long? inboxId = null);
-    public IEmailClient CreateBulk();
     public IEmailClient CreateDefault();
-    public IEmailClient CreateTest(long inboxId);
     public IEmailClient CreateTransactional();
+    public IEmailClient CreateBulk();
+    public IEmailClient CreateTest(long inboxId);
 }

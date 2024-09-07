@@ -13,19 +13,21 @@ namespace Mailtrap.Email;
 /// </summary>
 internal sealed class EmailClient : IEmailClient
 {
-    private readonly HttpClient _httpClient;
+    private readonly IHttpClientFactory _httpClientFactory;
     private readonly IHttpRequestMessageFactory _httpRequestMessageFactory;
     private readonly IHttpRequestContentFactory _httpRequestContentFactory;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
-    private readonly Uri _requestUri;
-    private readonly HttpMethod _requestMethod;
+    private readonly HttpMethod _sendRequestMethod;
+
+
+    public Uri SendUri { get; }
 
 
     /// <summary>
     /// Default instance constructor.
     /// </summary>
     /// 
-    /// <param name="httpClient"></param>
+    /// <param name="httpClientFactory"></param>
     /// <param name="httpRequestMessageFactory"></param>
     /// <param name="httpRequestContentFactory"></param>
     /// <param name="jsonSerializerOptions"></param>
@@ -35,42 +37,42 @@ internal sealed class EmailClient : IEmailClient
     /// When any of the parameters provided is <see langword="null"/>.
     /// </exception>
     public EmailClient(
-        HttpClient httpClient,
+        IHttpClientFactory httpClientFactory,
         IHttpRequestMessageFactory httpRequestMessageFactory,
         IHttpRequestContentFactory httpRequestContentFactory,
         JsonSerializerOptions jsonSerializerOptions,
         Uri sendUri)
     {
-        Ensure.NotNull(httpClient, nameof(httpClient));
+        Ensure.NotNull(httpClientFactory, nameof(httpClientFactory));
         Ensure.NotNull(httpRequestMessageFactory, nameof(httpRequestMessageFactory));
         Ensure.NotNull(httpRequestContentFactory, nameof(httpRequestContentFactory));
         Ensure.NotNull(jsonSerializerOptions, nameof(jsonSerializerOptions));
+        Ensure.NotNull(sendUri, nameof(sendUri));
 
-        _httpClient = httpClient;
+        _httpClientFactory = httpClientFactory;
         _httpRequestMessageFactory = httpRequestMessageFactory;
         _httpRequestContentFactory = httpRequestContentFactory;
         _jsonSerializerOptions = jsonSerializerOptions;
-        _requestUri = sendUri;
 
-        _requestMethod = HttpMethod.Post;
+        _sendRequestMethod = HttpMethod.Post;
+
+        SendUri = sendUri;
     }
 
 
-    /// <inheritdoc />
-    public async Task<SendEmailResponse?> Send(
-        SendEmailRequest request,
-        CancellationToken cancellationToken = default)
+    public async Task<SendEmailResponse?> Send(SendEmailRequest request, CancellationToken cancellationToken = default)
     {
-        Ensure.NotNull(request, nameof(request));
+        ValidateRequest(request);
 
-        request.Validate();
+        // Should not dispose HttpClient here, it's managed by the factory.
+        // Also it can be a singleton instance, shared across requests.
+        var httpClient = _httpClientFactory.CreateClient(Client.Name);
 
         var jsonContent = JsonSerializer.Serialize(request, _jsonSerializerOptions);
         using var httpContent = _httpRequestContentFactory.CreateStringContent(jsonContent);
+        using var httpRequest = _httpRequestMessageFactory.Create(_sendRequestMethod, SendUri, httpContent);
 
-        using var httpRequest = _httpRequestMessageFactory.Create(_requestMethod, _requestUri, httpContent);
-
-        using var httpResponse = await _httpClient
+        using var httpResponse = await httpClient
             .SendAsync(httpRequest, cancellationToken)
             .ConfigureAwait(false);
 
@@ -83,5 +85,13 @@ internal sealed class EmailClient : IEmailClient
         return await JsonSerializer
             .DeserializeAsync<SendEmailResponse>(body, _jsonSerializerOptions, cancellationToken)
             .ConfigureAwait(false);
+    }
+
+
+    private static void ValidateRequest(SendEmailRequest request)
+    {
+        Ensure.NotNull(request, nameof(request));
+
+        request.Validate();
     }
 }

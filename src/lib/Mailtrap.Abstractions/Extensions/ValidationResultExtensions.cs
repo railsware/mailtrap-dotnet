@@ -8,10 +8,12 @@
 namespace Mailtrap.Extensions;
 
 
+/// <exclude/>
+/// 
 /// <summary>
 /// A set of helpers for <see cref="ValidationResult"/>.
 /// </summary>
-internal static class ValidationResultExtensions
+public static class ValidationResultExtensions
 {
     /// <summary>
     /// Ensures that provided <see cref="ValidationResult"/> instance is valid

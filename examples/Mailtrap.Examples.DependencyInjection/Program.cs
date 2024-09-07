@@ -9,7 +9,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http.Headers;
 using Mailtrap;
-using Mailtrap.Configuration.Models;
+using Mailtrap.Configuration;
 using Mailtrap.Email;
 using Mailtrap.Email.Requests;
 using Mailtrap.Email.Responses;
@@ -49,19 +49,24 @@ internal sealed class Program
 
             IMailtrapClient mailtrapClient = host.Services.GetRequiredService<IMailtrapClient>();
             SendEmailResponse? response = await mailtrapClient
-                .Transactional()
-                .SendEmail(request)
+                .Email() // Default client, depends on configuration
+                .Send(request)
                 .ConfigureAwait(false);
 
-            ISendClient bulkClient = mailtrapClient.Bulk();
+            IEmailClient transactionalClient = mailtrapClient.Transactional();
+            response = await transactionalClient
+                .Send(request)
+                .ConfigureAwait(false);
+
+            IEmailClient bulkClient = mailtrapClient.Bulk();
             response = await bulkClient
-                .SendEmail(request)
+                .Send(request)
                 .ConfigureAwait(false);
 
             var inboxId = 1234;
-            ISendClient testClient = mailtrapClient.Test(inboxId);
+            IEmailClient testClient = mailtrapClient.Test(inboxId);
             response = await testClient
-                .SendEmail(request)
+                .Send(request)
                 .ConfigureAwait(false);
         }
         catch (Exception ex)
@@ -80,15 +85,8 @@ internal sealed class Program
     {
         // Loading config section, which can look like:
         //"Mailtrap": {
-        //  "Authentication": {
         //    "ApiToken": "<API_KEY>"
-        //  },
-        //  "SendEndpoint": {
-        //    "BaseUrl": "https://api.mailtrap.io/v1/send"
-        //  },
-        //  "Serialization": {
         //    "PrettyJson": true
-        //  }
         //}
         IConfigurationSection config = hostBuilder.Configuration.GetSection("Mailtrap");
 
@@ -110,8 +108,8 @@ internal sealed class Program
 
         hostBuilder.Services.AddMailtrapClient(options =>
         {
-            options.Authentication.ApiToken = apiKey;
-            options.Serialization.PrettyJson = true;
+            options.ApiToken = apiKey;
+            options.PrettyJson = true;
         });
 
         return hostBuilder.Build();
@@ -125,7 +123,6 @@ internal sealed class Program
         var apiKey = "<API-KEY>";
 
         var settings = new MailtrapClientOptions(apiKey);
-        settings.SendEndpoint.BaseUrl = new Uri("https://mock.mailtrap.io/v2/");
 
         hostBuilder.Services.AddMailtrapClient(settings);
 
@@ -133,7 +130,7 @@ internal sealed class Program
     }
 
     /// <summary>
-    /// More advanced scenario, where HttpClient is configured with custom fine-grane settings.<br/>
+    /// More advanced scenario, where HttpClient is configured with custom fine-grain settings.<br/>
     /// It can be used with any of configuration approaches (appsettings.json, delegate, explicit options).
     /// </summary>
     private static IHost BuildHostWithAdvancedHttpClientConfiguration(HostApplicationBuilder hostBuilder)
@@ -167,53 +164,6 @@ internal sealed class Program
         // Configure detailed HTTP request logging
         httpClientBuilder.AddExtendedHttpClientLogging();
 
-        return hostBuilder.Build();
-    }
-
-    /// <summary>
-    /// In case you need full control over client configuration pipeline, you can go even further.
-    /// </summary>
-    private static IHost BuildHostWithAdvancedClientConfigurations(HostApplicationBuilder hostBuilder)
-    {
-        var sendClientName = "SendClient";
-
-        // Configuring Mailtrap API client
-        hostBuilder.Services.Configure<MailtrapClientOptions>(options =>
-        {
-            options.Authentication.ApiToken = "<API-KEY>";
-
-            // Providing HttpClient name in configuration allows to use differently configured
-            // HttpClient instances for particular endpoint.
-            options.SendEndpoint.BaseUrl = new Uri("https://api.mailtrap.io/v3-alpha/");
-
-            // When HttpClient name is not specified, default HttpClient instance is used.
-            options.BulkEndpoint.BaseUrl = new Uri("https://bulk.mailtrap.io/");
-        });
-
-
-        // Adding Mailtrap API client services to the container
-        hostBuilder.Services.AddMailtrapServices();
-
-        // Configuring HttpClient defaults
-        hostBuilder.Services.ConfigureHttpClientDefaults(builder =>
-        {
-            builder.AddStandardResilienceHandler();
-        });
-
-        // Configuring named HttpClient for send endpoint
-        hostBuilder.Services
-            .AddHttpClient(sendClientName)
-            .ConfigurePrimaryHttpMessageHandler(() =>
-            {
-                return new HttpClientHandler()
-                {
-                    Proxy = new WebProxy("proxy.mailtrap.io", 8080),
-                    CheckCertificateRevocationList = true
-                };
-            })
-            .AddExtendedHttpClientLogging();
-
-        // Finally, building the host
         return hostBuilder.Build();
     }
 }

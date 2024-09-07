@@ -16,7 +16,6 @@ global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.DependencyInjection.Extensions;
 global using FluentValidation;
-global using FluentValidation.Results;
 
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;
@@ -26,7 +25,6 @@ global using Mailtrap.Email;
 global using Mailtrap.Email.Models;
 global using Mailtrap.Email.Requests;
 global using Mailtrap.Email.Responses;
-global using Mailtrap.Email.Validators;
 
 
 // Type aliases

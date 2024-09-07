@@ -8,7 +8,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Mime;
 using Mailtrap;
-using Mailtrap.Email;
 using Mailtrap.Email.Models;
 using Mailtrap.Email.Requests;
 using Mailtrap.Email.Responses;
@@ -56,8 +55,8 @@ internal sealed class Program
             }
 
             SendEmailResponse? response = await mailtrapClient
-                .Transactional()
-                .SendEmail(request)
+                .Email()
+                .Send(request)
                 .ConfigureAwait(false);
         }
         catch (Exception ex)

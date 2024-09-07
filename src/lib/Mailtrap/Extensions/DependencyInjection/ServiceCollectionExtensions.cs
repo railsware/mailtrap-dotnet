@@ -38,6 +38,7 @@ public static class ServiceCollectionExtensions
 
         services.TryAddSingleton<IHttpRequestMessageFactory, HttpRequestMessageFactory>();
         services.TryAddSingleton<IHttpRequestContentFactory, HttpRequestContentFactory>();
+        services.TryAddSingleton<IEmailClientEndpointProvider, EmailClientEndpointProvider>();
         services.TryAddSingleton<IEmailClientFactory, EmailClientFactory>();
 
         services.TryAddTransient(services => services.GetRequiredService<IEmailClientFactory>().CreateDefault());
