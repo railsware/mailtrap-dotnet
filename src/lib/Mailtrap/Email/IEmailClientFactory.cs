@@ -8,9 +8,12 @@
 namespace Mailtrap.Email;
 
 
+/// <summary>
+/// Factory to spawn instances of <see cref="IEmailClient"/>.
+/// </summary>
 internal interface IEmailClientFactory
 {
-    public IEmailClient Create(bool isBulk = false, long? inboxId = null);
+    public IEmailClient Create(bool isBulk = false, long? inboxId = default);
     public IEmailClient CreateDefault();
     public IEmailClient CreateTransactional();
     public IEmailClient CreateBulk();

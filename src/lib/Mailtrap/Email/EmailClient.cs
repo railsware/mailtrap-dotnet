@@ -60,6 +60,7 @@ internal sealed class EmailClient : IEmailClient
     }
 
 
+    /// <inheritdoc/>
     public async Task<SendEmailResponse?> Send(SendEmailRequest request, CancellationToken cancellationToken = default)
     {
         ValidateRequest(request);

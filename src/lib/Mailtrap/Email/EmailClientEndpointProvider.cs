@@ -8,6 +8,9 @@
 namespace Mailtrap.Email;
 
 
+/// <summary>
+/// <see cref="IEmailClientEndpointProvider"/> implementation.
+/// </summary>
 internal sealed class EmailClientEndpointProvider : IEmailClientEndpointProvider
 {
     public Uri GetSendRequestUri(bool isBulk, long? inboxId)

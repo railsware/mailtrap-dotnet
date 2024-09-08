@@ -14,7 +14,7 @@ namespace Mailtrap.Email;
 public interface IEmailClient
 {
     /// <summary>
-    /// Gets endpoint URL to send emails for the current instance.
+    /// Gets <see cref="Uri"/> representing endpoint URL which is used to send emails for the current instance.
     /// </summary>
     ///
     /// <value>

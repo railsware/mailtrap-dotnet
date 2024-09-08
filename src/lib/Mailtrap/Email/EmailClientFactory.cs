@@ -8,6 +8,9 @@
 namespace Mailtrap.Email;
 
 
+/// <summary>
+/// <see cref="IEmailClientFactory"/> implementation.
+/// </summary>
 internal sealed class EmailClientFactory : IEmailClientFactory
 {
     private readonly MailtrapClientOptions _clientConfiguration;

@@ -35,11 +35,15 @@ internal sealed class MailtrapClient : IMailtrapClient
     }
 
 
+    /// <inheritdoc/>
     public IEmailClient Email() => _defaultEmailClient;
 
+    /// <inheritdoc/>
     public IEmailClient Transactional() => _emailClientFactory.CreateTransactional();
 
+    /// <inheritdoc/>
     public IEmailClient Bulk() => _emailClientFactory.CreateBulk();
 
+    /// <inheritdoc/>
     public IEmailClient Test(long inboxId) => _emailClientFactory.CreateTest(inboxId);
 }
