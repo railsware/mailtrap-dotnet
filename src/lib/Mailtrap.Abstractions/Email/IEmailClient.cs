@@ -46,7 +46,7 @@ public interface IEmailClient
     /// When <paramref name="request"/> is invalid.
     /// </exception>
     /// 
-    /// <exception cref="TaskCanceledException">_jsonSerializerOptions
+    /// <exception cref="TaskCanceledException">
     /// When operation is canceled by <paramref name="cancellationToken"/>.
     /// </exception>
     /// 
