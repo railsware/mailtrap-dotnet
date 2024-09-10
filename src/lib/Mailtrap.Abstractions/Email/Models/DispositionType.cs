@@ -19,7 +19,7 @@ public sealed record DispositionType
     /// </summary>
     /// 
     /// <value>
-    /// Static instance, when used results in the attached file displayed automatically within the message.
+    /// Static instance that results in the attached file displayed automatically within the message.
     /// </value>
     public static DispositionType Inline { get; } = new(DispositionTypeNames.Inline);
 
@@ -29,7 +29,7 @@ public sealed record DispositionType
     /// </summary>
     ///
     /// <value>
-    /// Static instance, when used results in the attached file require some action to be taken before it is displayed.
+    /// Static instance that results in the attached file require some action to be taken before it is displayed.
     /// </value>
     public static DispositionType Attachment { get; } = new(DispositionTypeNames.Attachment);
 
@@ -44,7 +44,9 @@ public sealed record DispositionType
 
     // Overriding ToString only.
     // Valid equality and HashCode implementations are provided by the record OOB functionality.
-    /// <inheritdoc />
+    /// <summary>
+    /// <inheritdoc cref="object.ToString" path="/summary"/>
+    /// </summary>
     ///
     /// <returns>
     /// String representation of the disposition type.
