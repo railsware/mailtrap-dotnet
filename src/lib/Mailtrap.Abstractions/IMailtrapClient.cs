@@ -28,25 +28,25 @@ public interface IMailtrapClient
     public IEmailClient Email();
 
     /// <summary>
-    /// Gets transactional email client.
+    /// Factory method to create transactional email client.
     /// </summary>
     ///
     /// <returns>
-    /// <see cref="IEmailClient"/> instance that can be used to send transactional emails.
+    /// New <see cref="IEmailClient"/> instance that can be used to send transactional emails.
     /// </returns>
     public IEmailClient Transactional();
 
     /// <summary>
-    /// Gets bulk email client.
+    /// Factory method to create bulk email client.
     /// </summary>
     /// 
     /// <returns>
-    /// <see cref="IEmailClient"/> instance that can be used to send bulk emails.
+    /// New <see cref="IEmailClient"/> instance that can be used to send bulk emails.
     /// </returns>
     public IEmailClient Bulk();
 
     /// <summary>
-    /// Gets test email client.
+    /// Factory method to create test email client.
     /// </summary>
     ///
     /// <param name="inboxId">
@@ -54,7 +54,7 @@ public interface IMailtrapClient
     /// </param>
     ///
     /// <returns>
-    /// <see cref="IEmailClient"/> instance that can be used to send test emails to the specified <paramref name="inboxId"/>.
+    /// New <see cref="IEmailClient"/> instance that can be used to send test emails to the specified <paramref name="inboxId"/>.
     /// </returns>
     public IEmailClient Test(long inboxId);
 }

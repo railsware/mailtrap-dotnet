@@ -28,8 +28,8 @@ IMailtrapClient client = factory.CreateClient();
 ```
 
 
-## Configuration with @Mailtrap.Configuration.Models.MailtrapClientOptions instance
-Alternatively, the same way as with DI container, factory can be configured using pre-created instance of @Mailtrap.Configuration.Models.MailtrapClientOptions with additional parameters set to non-default values:
+## Configuration with @Mailtrap.Configuration.MailtrapClientOptions instance
+Alternatively, the same way as with DI container, factory can be configured using pre-created instance of @Mailtrap.Configuration.MailtrapClientOptions with additional parameters set to non-default values:
 ```csharp
 using Mailtrap;
 
@@ -37,11 +37,10 @@ using Mailtrap;
 
 // Creating new instance of `MailtrapClientOptions`
 var config = new MailtrapClientOptions("<API_TOKEN>");
-config.SendEndpoint.BaseUrl = "https://api.mailtrap.io/v3-alpha/send";
-config.Serialization.PrettyJson = true;
+config.PrettyJson = true;
 
 // Creating factory instance        
-using var factory = new MailtrapClientFactory("<API_TOKEN>");
+using var factory = new MailtrapClientFactory(config);
 
 // Spawning Mailtrap API client
 IMailtrapClient client = factory.CreateClient();

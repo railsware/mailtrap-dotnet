@@ -24,15 +24,8 @@ More details can be found [here](https://learn.microsoft.com/dotnet/core/extensi
 Assuming the following Mailtrap configuration in `appsettings.json`
 ```json
 "Mailtrap": {
-  "Authentication": {
-    "ApiToken": "<API_TOKEN>"
-  },
-  "SendEndpoint": {
-    "BaseUrl": "https://api.mailtrap.io/v3/send"
-  },
-  "Serialization": {
-    "PrettyJson": true
-  }
+  "ApiToken": "<API_TOKEN>",
+  "PrettyJson": true
 }
 ```
 
@@ -78,7 +71,7 @@ hostBuilder.Services.Configure<MailtrapClientOptions>(config);
 // Do any additional custom configuration, overrides, etc.
 hostBuilder.Services.PostConfigure<MailtrapClientOptions>(options =>
 {
-    options.Authentication.ApiToken = Environment.GetEnvironmentVariable("MAILTRAP_TOKEN");
+    options.ApiToken = Environment.GetEnvironmentVariable("MAILTRAP_TOKEN");
 });
 
 // Adding Mailtrap API client core services to the container
@@ -87,7 +80,7 @@ hostBuilder.Services.AddMailtrapServices();
 
 // Adding and optionally configuring HttpClient
 hostBuilder.Services
-    .AddHttpClient(Options.DefaultName)
+    .AddHttpClient("Mailtrap")
     .AddStandardResilienceHandler()
     .AddExtendedHttpClientLogging();
 
@@ -110,8 +103,8 @@ HostApplicationBuilder hostBuilder = Host.CreateApplicationBuilder(args);
 // Adding Mailtrap API client to the container
 hostBuilder.Services.AddMailtrapClient((MailtrapClientOptions options) =>
 {
-    options.Authentication.ApiToken = "<API_TOKEN>";
-    options.Serialization.PrettyJson = true;
+    options.ApiToken = "<API_TOKEN>";
+    options.PrettyJson = true;
 });
 
 // Building the host
@@ -119,8 +112,8 @@ IHost host = hostBuilder.Build();
 ```
 
 
-## Configuration with @Mailtrap.Configuration.Models.MailtrapClientOptions instance
-Similarly to the previous section, configuration can be done by passing pre-created instance of @Mailtrap.Configuration.Models.MailtrapClientOptions:
+## Configuration with @Mailtrap.Configuration.MailtrapClientOptions instance
+Similarly to the previous section, configuration can be done by passing pre-created instance of @Mailtrap.Configuration.MailtrapClientOptions:
 ```csharp
 using Microsoft.Extensions.Hosting;
 using Mailtrap;

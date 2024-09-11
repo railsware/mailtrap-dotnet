@@ -77,8 +77,8 @@ var fileContent = Convert.ToBase64String(bytes);
 
 request.Attach(
     content: fileContent,
-    filename: fileName,
-    dispositionType: DispositionType.Attachment, // Downloadable
+    fileName: fileName,
+    disposition: DispositionType.Attachment, // Downloadable
     mimeType: MediaTypeNames.Application.Pdf);
 
 filePath = @"C:\files\logo.png";
@@ -88,8 +88,8 @@ fileContent = Convert.ToBase64String(bytes);
 
 request.Attach(
     content: fileContent,
-    filename: fileName,
-    dispositionType: DispositionType.Inline, // For embedding
+    fileName: fileName,
+    disposition: DispositionType.Inline, // For embedding
     mimeType: MediaTypeNames.Image.Png,
     contentId: "logo_1");
 ```
@@ -171,8 +171,8 @@ var fileContent = Convert.ToBase64String(bytes);
 
 request.Attach(
     content: fileContent,
-    filename: fileName,
-    dispositionType: DispositionType.Attachment,
+    fileName: fileName,
+    disposition: DispositionType.Attachment,
     mimeType: MediaTypeNames.Application.Pdf);
 
 // Add custom variables
@@ -197,7 +197,7 @@ request.Header(
 
 ## @Mailtrap.Email.Requests.SendEmailRequest validation
 After creating a request instance, it is recommended to perform a validation on a client side to ensure sending won't throw validation exceptions and to minimize unnecessary HTTP round-trips.  
-There is a couple of extension methods defined in @Mailtrap.Email.Extensions.SendEmailRequestValidationExtensions which can help:  
+@Mailtrap.Email.Requests.SendEmailRequest implements @Mailtrap.Core.IValidatable interface, which can be used to perform that task:  
 ```csharp
 using Mailtrap.Email.Requests;
 
@@ -266,7 +266,8 @@ try
         using var cts = new CancellationTokenSource();
 
         SendEmailResponse response = await _mailtrapClient
-            .SendAsync(request) // By default will send transactional email
+            .Email()  // Will send email to the channel defined by client configuration
+            .Send(request, cts.Token)
             .ConfigureAwait(false);
       
         MessageId messageId = response.MessageIds.FirstOrDefault(MessageId.Empty);
@@ -298,39 +299,37 @@ catch (Exception ex)
 }   
 ```
 
-Additionally, you can specify the channel/endpoint to route email to (transactional, bulk or test):
-```csharp
-var response = await _mailtrapClient
-    .SendAsync(
-        request,
-        endpoint: SendEndpoint.Bulk) // This one will be sent as bulk
-    .ConfigureAwait(false);
-```
-Endpoint is defined by @Mailtrap.Email.Models.SendEndpoint enum.  
-
 > [!IMPORTANT]  
-> @Mailtrap.Email.Models.SendEndpoint.Transactional send is used by default, when parameter `endpoint` is not specified.  
-> The only exception is when `inboxId` is provided also - in this case endpoint defaults to @Mailtrap.Email.Models.SendEndpoint.Test, regardless of the value provided.
+> @Mailtrap.IMailtrapClient.Email will use channel defined by client configuration.
 
-### Test endpoint
-When using @Mailtrap.Email.Models.SendEndpoint.Test endpoint you must provide `inboxId` value as well:
+
+Additionally, you can explicitly use specific channel/endpoint to route email to (transactional, bulk or test):
 ```csharp
-var inboxId = 1234;
-var response = await _mailtrapClient
-    .SendAsync(
-        request,
-        endpoint: SendEndpoint.Test,
-        inboxId: inboxId) // Required, when test endpoint is used
-    .ConfigureAwait(false);
-```
-Considering, that endpoint will be defaulted to @Mailtrap.Email.Models.SendEndpoint.Test anyway, when `inboxId` is specified, you can safely omit the `endpoint` parameter:
-```csharp
-var inboxId = 1234;
-var response = await _mailtrapClient
-    .SendAsync(request, inboxId: inboxId) // Will be routed to test
+var inboxId = 12345;
+IEmailClient emailClient = _mailtrapClient.Test(inboxId); // Emails will be routed to the test inbox
+// emailClient = _mailtrapClient.Transactional(); // Emails will be routed to transactional channel
+// emailClient = _mailtrapClient.Bulk(); // Emails will be routed to bulk channel
+
+var response = await emailClient
+    .Send(request)
     .ConfigureAwait(false);
 ```
 
+> [!TIP]  
+> @Mailtrap.IMailtrapClient.Transactional, @Mailtrap.IMailtrapClient.Bulk and @Mailtrap.IMailtrapClient.Test(System.Int64)
+> are factory methods that will create new @Mailtrap.Email.IEmailClient instance every time when called.  
+> Thus in case when you need to perform multiple `Send()` calls to the same endpoint it will be good idea
+> to spawn client once and then reuse it:
+> ```csharp
+> IEmailClient emailClient = _mailtrapClient.Bulk(); // Caching client instance
+> 
+> foreach(var request in requests)
+> {
+>     var response = await emailClient
+>         .Send(request)
+>         .ConfigureAwait(false);
+> }
+>```
 
 
 ## See also
