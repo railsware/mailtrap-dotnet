@@ -12,10 +12,20 @@ namespace Mailtrap.Tests.Email.Requests;
 internal sealed class SendEmailRequestTests
 {
     [Test]
+    public void Create_ShouldReturnNewInstance_WhenCalled()
+    {
+        var result = SendEmailRequest.Create();
+
+        result.Should()
+            .NotBeNull().And
+            .BeOfType<SendEmailRequest>();
+    }
+
+    [Test]
     public void ShouldSerializeCorrectly()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From("john.doe@demomailtrap.com", "John Doe")
             .To("bill.hero@galaxy.com")
             .Subject("Invitation to Earth")
@@ -45,8 +55,8 @@ internal sealed class SendEmailRequestTests
     [Test]
     public void ShouldSerializeCorrectly_2()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From("john.doe@demomailtrap.com", "John Doe")
             .To("bill.hero@galaxy.com")
             .Template("ID")
@@ -72,5 +82,50 @@ internal sealed class SendEmailRequestTests
         // Below would not work, considering weakly-typed nature of the template variables property.
         //var deserialized = JsonSerializer.Deserialize<TemplatedEmailRequest>(serialized, MailtrapJsonSerializerOptions.NotIndented);
         //deserialized.Should().BeEquivalentTo(request);
+    }
+
+    [Test]
+    public void IsValid_ShouldReturnFalse_WhenRequestIsInvalid()
+    {
+        var request = SendEmailRequest.Create();
+
+        request.IsValid().Should().BeFalse();
+    }
+
+    [Test]
+    public void IsValid_ShouldReturnTrue_WhenRequestIsValid()
+    {
+        var request = SendEmailRequest.Create()
+            .From("sender@domain.com")
+            .To("recipient@domain.com")
+            .Subject("Subject")
+            .Text("Content");
+
+        request.IsValid().Should().BeTrue();
+    }
+
+    [Test]
+    public void Validate_ShouldThrowValidationException_WhenRequestIsInvalid()
+    {
+        var request = SendEmailRequest.Create();
+
+        var act = () => request!.Validate();
+
+        act.Should().Throw<ArgumentException>();
+    }
+
+    [Test]
+    public void Validate_ShouldNotThrowException_WhenRequestIsValid()
+    {
+        var request = SendEmailRequest
+            .Create()
+            .From("sender@domain.com")
+            .To("recipient@domain.com")
+            .Subject("Subject")
+            .Text("Content");
+
+        var act = () => request!.Validate();
+
+        act.Should().NotThrow();
     }
 }

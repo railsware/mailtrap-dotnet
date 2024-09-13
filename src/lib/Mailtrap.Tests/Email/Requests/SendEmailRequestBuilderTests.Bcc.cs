@@ -31,7 +31,7 @@ internal sealed class SendEmailRequestBuilderTests_Bcc
     [Test]
     public void Bcc_ShouldThrowArgumentNullException_WhenParamsIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Bcc(request, null!);
 
@@ -41,7 +41,7 @@ internal sealed class SendEmailRequestBuilderTests_Bcc
     [Test]
     public void Bcc_ShouldNotThrowException_WhenParamsIsEmpty()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Bcc(request, []);
 
@@ -84,8 +84,8 @@ internal sealed class SendEmailRequestBuilderTests_Bcc
 
     private static SendEmailRequest Bcc_CreateAndValidate(params EmailAddress[] recipients)
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Bcc(recipients);
 
         request.Bcc.Should()
@@ -103,7 +103,7 @@ internal sealed class SendEmailRequestBuilderTests_Bcc
     [Test]
     public void Bcc_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Bcc(null!, RecipientEmail);
 
@@ -113,7 +113,7 @@ internal sealed class SendEmailRequestBuilderTests_Bcc
     [Test]
     public void Bcc_ShouldThrowArgumentNullException_WhenRecipientEmailIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Bcc(request, null!, RecipientDisplayName);
 
@@ -123,7 +123,7 @@ internal sealed class SendEmailRequestBuilderTests_Bcc
     [Test]
     public void Bcc_ShouldThrowArgumentNullException_WhenRecipientEmailIsEmpty()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Bcc(request, string.Empty, RecipientDisplayName);
 
@@ -133,7 +133,7 @@ internal sealed class SendEmailRequestBuilderTests_Bcc
     [Test]
     public void Bcc_ShouldNotThrowException_WhenRecipientDisplayNameIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Bcc(request, RecipientEmail, null);
 
@@ -143,7 +143,7 @@ internal sealed class SendEmailRequestBuilderTests_Bcc
     [TestCase]
     public void Bcc_ShouldNotThrowException_WhenRecipientDisplayNameIsEmpty()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Bcc(request, RecipientEmail, string.Empty);
 
@@ -153,8 +153,8 @@ internal sealed class SendEmailRequestBuilderTests_Bcc
     [Test]
     public void Bcc_ShouldAddRecipientToCollection_WhenOnlyEmailProvided()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Bcc(RecipientEmail);
 
         request.Bcc.Should().ContainSingle();
@@ -167,8 +167,8 @@ internal sealed class SendEmailRequestBuilderTests_Bcc
     [Test]
     public void Bcc_ShouldAddRecipientToCollection_WhenFullInfoProvided()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Bcc(RecipientEmail, RecipientDisplayName);
 
         request.Bcc.Should().ContainSingle();

@@ -12,7 +12,7 @@ namespace Mailtrap.Email.Models;
 /// Attachment disposition type.
 /// </summary>
 [JsonConverter(typeof(DispositionTypeJsonConverter))]
-public record DispositionType
+public sealed record DispositionType
 {
     /// <summary>
     /// Results in the attached file displayed automatically within the message.
@@ -32,6 +32,7 @@ public record DispositionType
     {
         _value = value;
     }
+
 
     // Overriding ToString only.
     // Valid equality and HashCode implementations are provided by the record OOB functionality.

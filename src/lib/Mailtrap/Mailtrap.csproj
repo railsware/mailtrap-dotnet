@@ -13,7 +13,6 @@
   <ItemGroup>
     <PackageReference Include="System.Net.Http.Json" />
     <PackageReference Include="Microsoft.Extensions.Http" />
-    <PackageReference Include="FluentValidation" />
   </ItemGroup>
 
   <ItemGroup>

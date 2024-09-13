@@ -25,7 +25,7 @@ internal sealed class SendEmailRequestBuilderTests_TemplateVariables
     [Test]
     public void TemplateVariables_ShouldNotThrowException_WhenTemplateVariablesIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.TemplateVariables(request, null);
 
@@ -35,8 +35,8 @@ internal sealed class SendEmailRequestBuilderTests_TemplateVariables
     [Test]
     public void TemplateVariables_ShouldAssignTemplateVariablesProperly()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .TemplateVariables(_templateVars);
 
         request.TemplateVariables.Should().BeSameAs(_templateVars);
@@ -47,8 +47,8 @@ internal sealed class SendEmailRequestBuilderTests_TemplateVariables
     {
         var otherTemplateVariables = new object();
 
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .TemplateVariables(_templateVars)
             .TemplateVariables(otherTemplateVariables);
 

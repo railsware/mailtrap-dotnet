@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 
+// Namespaces
 global using System.Reflection;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
@@ -14,10 +15,13 @@ global using FluentValidation;
 
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;
-global using Mailtrap.Configuration;
 global using Mailtrap.Configuration.Models;
 global using Mailtrap.Email.Models;
-global using Mailtrap.Email.Requests;
+
+
+// Type aliases
+global using RequestHeader = System.Collections.Generic.KeyValuePair<string, string>;
+global using RequestVariable = System.Collections.Generic.KeyValuePair<string, string>;
 
 
 // Allowing test assembly to access internals for unit tests

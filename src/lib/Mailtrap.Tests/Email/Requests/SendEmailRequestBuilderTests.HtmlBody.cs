@@ -25,7 +25,7 @@ internal sealed class SendEmailRequestBuilderTests_HtmlBody
     [Test]
     public void Html_ShouldNotThrowException_WhenHtmlIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Html(request, null!);
 
@@ -35,7 +35,7 @@ internal sealed class SendEmailRequestBuilderTests_HtmlBody
     [Test]
     public void Html_ShouldNotThrowException_WhenHtmlIsEmpty()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Html(request, string.Empty);
 
@@ -45,8 +45,8 @@ internal sealed class SendEmailRequestBuilderTests_HtmlBody
     [Test]
     public void Html_ShouldAssignHtmlBodyProperly()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Html(_html);
 
         request.HtmlBody.Should().BeSameAs(_html);
@@ -57,8 +57,8 @@ internal sealed class SendEmailRequestBuilderTests_HtmlBody
     {
         var otherHtml = "<h2>Header</h2><p>Congratulation!</p>";
 
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Html(_html)
             .Html(otherHtml);
 
