@@ -62,5 +62,5 @@ public interface IEmailClient
     /// Request is checked for validity before send.<br />
     /// <see cref="ArgumentException"/> is thrown if validation fails.
     /// </remarks>
-    public Task<SendEmailResponse?> Send(SendEmailRequest request, CancellationToken cancellationToken = default);
+    public Task<SendEmailResponse> Send(SendEmailRequest request, CancellationToken cancellationToken = default);
 }

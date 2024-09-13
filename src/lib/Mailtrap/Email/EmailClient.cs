@@ -61,7 +61,7 @@ internal sealed class EmailClient : IEmailClient
 
 
     /// <inheritdoc/>
-    public async Task<SendEmailResponse?> Send(SendEmailRequest request, CancellationToken cancellationToken = default)
+    public async Task<SendEmailResponse> Send(SendEmailRequest request, CancellationToken cancellationToken = default)
     {
         ValidateRequest(request);
 
@@ -83,9 +83,11 @@ internal sealed class EmailClient : IEmailClient
             .ReadAsStreamAsync()
             .ConfigureAwait(false);
 
-        return await JsonSerializer
+        var response = await JsonSerializer
             .DeserializeAsync<SendEmailResponse>(body, _jsonSerializerOptions, cancellationToken)
             .ConfigureAwait(false);
+
+        return response ?? SendEmailResponse.Empty;
     }
 
 

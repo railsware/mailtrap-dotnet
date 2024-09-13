@@ -204,6 +204,69 @@ internal sealed class EmailClientTests
         result!.MessageIds.Should().ContainSingle(m => m == messageId);
     }
 
+    [Test]
+    public async Task Send_ShouldReturnEmptyResponse_WhenNullResponseReturnedFromHttpCall()
+    {
+        // Arrange
+        var token = "token";
+        var sendUri = new Uri("https://localhost/api/send");
+        var httpMethod = HttpMethod.Post;
+
+        var config = new MailtrapClientOptions(token);
+
+        var request = CreateValidRequest();
+        var jsonSerializerOptions = config.ToJsonSerializerOptions();
+
+        using var responseContent = JsonContent.Create<SendEmailResponse?>(null);
+        using var mockHttp = new MockHttpMessageHandler();
+        mockHttp
+            .Expect(httpMethod, sendUri.AbsoluteUri)
+            .WithJsonContent(request, jsonSerializerOptions)
+            .Respond(HttpStatusCode.OK, responseContent);
+
+        var httpClientFactoryMock = new Mock<IHttpClientFactory>();
+        httpClientFactoryMock
+            .Setup(f => f.CreateClient(Client.Name))
+            .Returns(mockHttp.ToHttpClient());
+
+        using var cts = new CancellationTokenSource();
+
+        var requestJson = JsonSerializer.Serialize(request, jsonSerializerOptions);
+        using var requestContent = new StringContent(requestJson);
+
+        var httpRequestContentFactoryMock = new Mock<IHttpRequestContentFactory>();
+        httpRequestContentFactoryMock
+            .Setup(f => f.CreateStringContent(requestJson))
+            .Returns(requestContent);
+
+        using var requestMessage = new HttpRequestMessage(httpMethod, sendUri.AbsoluteUri)
+        {
+            Content = requestContent
+        };
+
+        var httpRequestMessageFactoryMock = new Mock<IHttpRequestMessageFactory>();
+        httpRequestMessageFactoryMock
+            .Setup(f => f.Create(httpMethod, sendUri, requestContent))
+            .Returns(requestMessage);
+
+        var client = new EmailClient(
+            httpClientFactoryMock.Object,
+            httpRequestMessageFactoryMock.Object,
+            httpRequestContentFactoryMock.Object,
+            jsonSerializerOptions,
+            sendUri);
+
+
+        // Act
+        var result = await client.Send(request, cts.Token).ConfigureAwait(false);
+
+
+        // Assert
+        result.Should()
+            .NotBeNull().And
+            .BeSameAs(SendEmailResponse.Empty);
+    }
+
 
     private static EmailClient CreateEmailClient()
     {
