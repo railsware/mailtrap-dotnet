@@ -46,7 +46,7 @@ hostBuilder.ConfigureServices((context, services) =>
       // Environment variables can be an option, as well as other solutions:
       // https://learn.microsoft.com/aspnet/core/security/app-secrets
       // or https://learn.microsoft.com/aspnet/core/security/key-vault-configuration
-      options.Authentication.ApiToken = "<API_TOKEN>";
+      options.ApiToken = "<API_TOKEN>";
    });
 });   
 ```
@@ -105,7 +105,8 @@ try
       .Text("Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John.");
 
    SendEmailResponse response = await mailtrapClient
-      .SendAsync(request)
+      .Email()
+      .Send(request)
       .ConfigureAwait(false);
       
    MessageId messageId = response.MessageIds.FirstOrDefault(MessageId.Empty);
