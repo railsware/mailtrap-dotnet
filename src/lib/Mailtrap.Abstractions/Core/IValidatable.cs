@@ -24,7 +24,7 @@ public interface IValidatable
     public void Validate();
 
     /// <summary>
-    /// Allows to check if current object is valid.
+    /// Allows to check if current instance is valid.
     /// </summary>
     /// 
     /// <returns>

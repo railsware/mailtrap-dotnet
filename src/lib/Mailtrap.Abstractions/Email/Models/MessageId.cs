@@ -15,24 +15,39 @@ namespace Mailtrap.Email.Models;
 public record MessageId
 {
     /// <summary>
-    /// Returns empty <see cref="MessageId"/> object.
+    /// Gets empty <see cref="MessageId"/> object.
     /// </summary>
+    ///
+    /// <value>
+    /// Static instance, representing an empty <see cref="MessageId"/> object.
+    /// </value>
     public static MessageId Empty { get; } = new(string.Empty);
 
 
     private readonly string _value;
 
     /// <summary>
-    /// Returns <see langword="true"/> if this <see cref="MessageId"/> object is empty,
-    /// <see langword="false"/> otherwise.
+    /// Boolean flag, that indicates whether current <see cref="MessageId"/> instance is empty.
     /// </summary>
+    /// 
+    /// <value>
+    /// <see langword="true"/> if current <see cref="MessageId"/> instance is empty.<br/>
+    /// <see langword="false"/> otherwise.
+    /// </value>
     public bool IsEmpty => string.IsNullOrEmpty(_value);
 
 
     /// <summary>
-    /// Construct a <see cref="MessageId"/> from the specified string value.
+    /// Constructs a <see cref="MessageId"/> instance from the specified string value.
     /// </summary>
-    /// <param name="value">The string value that represents a MessageId.</param>
+    /// 
+    /// <param name="value">
+    /// Value that represents ID of the message.
+    /// </param>
+    ///
+    /// <exception cref="ArgumentNullException">
+    /// When <paramref name="value"/> is <see langword="null"/>.
+    /// </exception>
     public MessageId(string value)
     {
         Ensure.NotNull(value, nameof(value));
@@ -41,13 +56,33 @@ public record MessageId
     }
 
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// <inheritdoc cref="object.ToString" path="/summary"/>
+    /// </summary>
+    ///
+    /// <returns>
+    /// String representation of the current <see cref="MessageId"/> instance.
+    /// </returns>
     public override string ToString() => _value;
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// <inheritdoc cref="object.GetHashCode" path="/summary"/>
+    /// </summary>
+    ///
+    /// <returns>
+    /// A hash code for the current <see cref="MessageId"/> instance.
+    /// </returns>
     public override int GetHashCode() => _value.GetHashCode();
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// <inheritdoc cref="object.Equals(object)" path="/summary"/>
+    /// </summary>
+    ///
+    /// <returns>
+    /// <see langword="true"/> if the current <see cref="MessageId"/> instance is equal
+    /// to the <paramref name="other"/> one.<br/>
+    /// <see langword="false"/> otherwise.
+    /// </returns>
     public virtual bool Equals(MessageId? other)
         => string.Equals(_value, other?._value, StringComparison.OrdinalIgnoreCase);
 }
