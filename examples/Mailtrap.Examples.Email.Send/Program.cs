@@ -146,8 +146,8 @@ internal sealed class Program
 
         request.Attach(
             content: fileContent,
-            filename: fileName,
-            dispositionType: DispositionType.Attachment,
+            fileName: fileName,
+            disposition: DispositionType.Attachment,
             mimeType: MediaTypeNames.Application.Pdf,
             contentId: "attachment_1");
 
@@ -159,8 +159,8 @@ internal sealed class Program
 
         request.Attach(
             content: fileContent,
-            filename: fileName,
-            dispositionType: DispositionType.Inline,
+            fileName: fileName,
+            disposition: DispositionType.Inline,
             mimeType: MediaTypeNames.Image.Png,
             contentId: "logo_1");
 
@@ -279,8 +279,8 @@ internal sealed class Program
 
         request.Attach(
             content: fileContent,
-            filename: fileName,
-            dispositionType: DispositionType.Attachment,
+            fileName: fileName,
+            disposition: DispositionType.Attachment,
             mimeType: MediaTypeNames.Application.Pdf,
             contentId: "attachment_1");
 
