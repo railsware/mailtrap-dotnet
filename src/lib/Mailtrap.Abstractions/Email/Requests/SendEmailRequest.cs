@@ -38,7 +38,7 @@ public sealed record SendEmailRequest : IValidatable
     /// </value>
     /// 
     /// <remarks>
-    /// Must contain not more than 1000 recipients.<br />
+    /// Must not contain more than 1000 recipients.<br />
     /// Each object in this collection must contain the recipient's email address.<br />
     /// Each object in this collection may optionally contain the recipient's name.<br />
     /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.
@@ -57,7 +57,7 @@ public sealed record SendEmailRequest : IValidatable
     /// </value>
     /// 
     /// <remarks>
-    /// Must contain not more than 1000 recipients.<br />
+    /// Must not contain more than 1000 recipients.<br />
     /// Each object in this collection must contain the recipient's email address.<br />
     /// Each object in this collection may optionally contain the recipient's name.<br />
     /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.
@@ -76,7 +76,7 @@ public sealed record SendEmailRequest : IValidatable
     /// </value>
     /// 
     /// <remarks>
-    /// Must contain not more than 1000 recipients.<br />
+    /// Must not contain more than 1000 recipients.<br />
     /// Each object in this collection must contain the recipient's email address.<br />
     /// Each object in this collection may optionally contain the recipient's name.<br />
     /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.
