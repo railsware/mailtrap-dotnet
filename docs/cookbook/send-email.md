@@ -267,7 +267,7 @@ try
         using var cts = new CancellationTokenSource();
 
         SendEmailResponse response = await _mailtrapClient
-            .Email()  // Will send email to the channel defined by client configuration
+            .Email()  // Will send email using API defined in client configuration
             .Send(request, cts.Token)
             .ConfigureAwait(false);
       
