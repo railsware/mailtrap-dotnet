@@ -24,7 +24,7 @@ public record MailtrapClientOptions
     /// Contains default configuration.
     /// </para>
     /// <para>
-    /// Includes default values for send channel, serialization and empty authentication settings.
+    /// Includes default values for send API, serialization and empty authentication settings.
     /// </para>
     /// </value>
     ///
@@ -63,7 +63,7 @@ public record MailtrapClientOptions
     public bool PrettyJson { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets flag which controls usage of Bulk channel for outgoing emails.
+    /// Gets or sets flag which controls usage of Bulk API for outgoing emails.
     /// </summary>
     /// 
     /// <value>

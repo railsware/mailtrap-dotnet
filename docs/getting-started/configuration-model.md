@@ -43,11 +43,11 @@ which isn't a valid value and will throw an exception if left unchanged.
 var config = new MailtrapClientOptions("<API_TOKEN>");
 ```
 
-## Default Send Channel
+## Default Send API
 A combination of @Mailtrap.Configuration.MailtrapClientOptions.UseBulkApi and @Mailtrap.Configuration.MailtrapClientOptions.InboxId parameters
-is used to define default channel for sending emails.  
+is used to define default API for sending emails.  
 
-By default, if these parameters are not specified, transactional channel will be used:
+By default, if these parameters are not specified, transactional API will be used:
 ```cs
 var config = new MailtrapClientOptions("<API_TOKEN>");
 
@@ -57,7 +57,7 @@ var config = new MailtrapClientOptions("<API_TOKEN>");
 var response = await _mailtrapClient.Email().Send(request);
 ```
 
-If @Mailtrap.Configuration.MailtrapClientOptions.InboxId contains valid Inbox ID, default send channel will be set to test,
+If @Mailtrap.Configuration.MailtrapClientOptions.InboxId contains valid Inbox ID, default send API will be set to test,
 and all emails sent through @Mailtrap.IMailtrapClient.Email will be routed to the specified test inbox.
 
 ```cs
@@ -73,7 +73,7 @@ var config = new MailtrapClientOptions("<API_TOKEN>")
 var response = await _mailtrapClient.Email().Send(request);
 ```
 
-In case Inbox is not specified (set to empty string or null), default send channel will be set to transactional or bulk,
+In case Inbox is not specified (set to empty string or null), default send API will be set to transactional or bulk,
 depending on the @Mailtrap.Configuration.MailtrapClientOptions.UseBulkApi flag.
 
 ```cs

@@ -301,10 +301,10 @@ catch (Exception ex)
 ```
 
 > [!IMPORTANT]  
-> @Mailtrap.IMailtrapClient.Email will use channel defined by client configuration.
+> @Mailtrap.IMailtrapClient.Email will use send API defined by client configuration.
 
 
-Additionally, you can always use specific channel/endpoint (transactional, bulk or test) explicitly, to route emails to:
+Additionally, you can always use specific send API (transactional, bulk or test) explicitly, to route emails to:
 ```csharp
 var inboxId = 12345;
 IEmailClient emailClient = _mailtrapClient.Test(inboxId); // Emails will be sent using Email Testing API
