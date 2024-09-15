@@ -46,12 +46,19 @@ internal sealed class Program
 
             // It is better to validate request before sending,
             // since send method will do that anyway and throw in case of validation failure.
-            request.Validate();
+            request.ValidateAndThrow();
 
             // Alternatively, non-throw check can be used.
             if (!request.IsValid())
             {
                 throw new ArgumentException("Malformed email request.");
+            }
+
+            // Or, if you need to know what exactly is wrong.
+            IReadOnlyList<string> errors = request.Validate();
+            if (errors.Count > 0)
+            {
+                throw new ArgumentException("Malformed email request:\n" + string.Join("\n", errors));
             }
 
             SendEmailResponse? response = await mailtrapClient

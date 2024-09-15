@@ -21,7 +21,12 @@ public interface IValidatable
     /// <exception cref="ArgumentException">
     /// When validation fails.
     /// </exception>
-    public void Validate();
+    public void ValidateAndThrow();
+
+    /// <summary>
+    /// Validates current instance and returns a list of validation errors.
+    /// </summary>
+    public IReadOnlyList<string> Validate();
 
     /// <summary>
     /// Allows to check if current object is valid.
