@@ -307,9 +307,9 @@ catch (Exception ex)
 Additionally, you can always use specific channel/endpoint (transactional, bulk or test) explicitly, to route emails to:
 ```csharp
 var inboxId = 12345;
-IEmailClient emailClient = _mailtrapClient.Test(inboxId); // Emails will be routed to the test inbox
-// IEmailClient emailClient = _mailtrapClient.Transactional(); // Emails will be routed to transactional channel
-// IEmailClient emailClient = _mailtrapClient.Bulk(); // Emails will be routed to bulk channel
+IEmailClient emailClient = _mailtrapClient.Test(inboxId); // Emails will be sent using Email Testing API
+// IEmailClient emailClient = _mailtrapClient.Transactional(); // Emails will be sent using Email Sending API
+// IEmailClient emailClient = _mailtrapClient.Bulk(); // Emails will be sent using Bulk Sending API
 
 var response = await emailClient
     .Send(request)
