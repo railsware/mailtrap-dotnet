@@ -21,7 +21,7 @@ using Mailtrap.Configuration;
 var config = new MailtrapClientOptions("<API_TOKEN>");
 ```  
 
-Other parameters receive reasonable defaults:
+Other parameters receive defaults:
  - JSON minification is disabled
  - Default method for sending emails is set to transactional
 
