@@ -12,7 +12,7 @@ Regardless of the configuration approach used for Mailtrap API client setup, all
 In the common case, the only required configuration setting is @Mailtrap.Configuration.MailtrapClientOptions.ApiToken.  
 Default is empty string, which will cause configuration validation to fail if left untouched.  
 
-There is a dedicated [constructor](xref:Mailtrap.Configuration.MailtrapClientOptions.%23ctor(System.String)), that takes string containing API token as a single parameter to streamline settings object instantiation:
+There is a dedicated [constructor](xref:Mailtrap.Configuration.MailtrapClientOptions.%23ctor(System.String)), that takes string containing API token as a single parameter:
 ```csharp
 using Mailtrap.Configuration;
 
