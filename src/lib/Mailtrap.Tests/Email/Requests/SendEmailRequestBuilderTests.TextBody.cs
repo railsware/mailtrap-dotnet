@@ -25,7 +25,7 @@ internal sealed class SendEmailRequestBuilderTests_TextBody
     [Test]
     public void Text_ShouldNotThrowException_WhenTextIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Text(request, null!);
 
@@ -35,7 +35,7 @@ internal sealed class SendEmailRequestBuilderTests_TextBody
     [Test]
     public void Text_ShouldNotThrowException_WhenTextIsEmpty()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Text(request, string.Empty);
 
@@ -45,8 +45,8 @@ internal sealed class SendEmailRequestBuilderTests_TextBody
     [Test]
     public void Text_ShouldAssignTextBodyProperly()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Text(_text);
 
         request.TextBody.Should().BeSameAs(_text);
@@ -57,8 +57,8 @@ internal sealed class SendEmailRequestBuilderTests_TextBody
     {
         var otherText = "Updated Text";
 
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Text(_text)
             .Text(otherText);
 

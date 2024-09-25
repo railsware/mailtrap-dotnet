@@ -32,10 +32,6 @@ internal class SendEmailRequestValidator : AbstractValidator<SendEmailRequest>
 
         RuleForEach(r => r.Attachments).SetValidator(AttachmentValidator.Instance);
 
-        // TODO: This probably can be skipped for optimization, if needed.
-        RuleFor(r => r.CustomVariables)
-            .Must(v => JsonSerializer.Serialize(v, MailtrapJsonSerializerOptions.NotIndented).Length <= 1000);
-
         When(r => string.IsNullOrEmpty(r.TemplateId), () =>
         {
             RuleFor(r => r.Subject).NotNull().MinimumLength(1);

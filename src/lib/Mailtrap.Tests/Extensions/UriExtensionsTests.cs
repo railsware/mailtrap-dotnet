@@ -195,6 +195,18 @@ internal sealed class UriExtensionsTests
         result.AbsoluteUri.Should().Be(_absoluteUri.AbsoluteUri + segment1 + "/" + segment2);
     }
 
+    [Test]
+    public void Append_ShouldAppendSegmentsProperly_WhenTrailingSlashIsMissingInTheOriginalUrl()
+    {
+        var segment1 = "api";
+        var segment2 = "send";
+
+        var result = _absoluteUri
+            .Append(segment1) // trailing slash is missing here
+            .Append(segment2);
+
+        result.AbsoluteUri.Should().Be(_absoluteUri.AbsoluteUri + segment1 + "/" + segment2);
+    }
 
     #endregion
 
