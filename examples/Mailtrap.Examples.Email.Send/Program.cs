@@ -8,6 +8,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Mime;
 using Mailtrap;
+using Mailtrap.Core.Validation;
 using Mailtrap.Email.Models;
 using Mailtrap.Email.Requests;
 using Mailtrap.Email.Responses;
@@ -45,20 +46,13 @@ internal sealed class Program
             SendEmailRequest request = BasicRequest();
 
             // It is better to validate request before sending,
-            // since send method will do that anyway and throw in case of validation failure.
-            request.ValidateAndThrow();
+            // since send method will do that anyway and throw an exception
+            // in case of validation failure.
+            ValidationResult validationResult = request.Validate();
 
-            // Alternatively, non-throw check can be used.
-            if (!request.IsValid())
+            if (!validationResult.IsValid)
             {
-                throw new ArgumentException("Malformed email request.");
-            }
-
-            // Or, if you need to know what exactly is wrong.
-            IReadOnlyList<string> errors = request.Validate();
-            if (errors.Count > 0)
-            {
-                throw new ArgumentException("Malformed email request:\n" + string.Join("\n", errors));
+                throw new ArgumentException("Malformed email request:\n" + validationResult.ToString("\n"));
             }
 
             SendEmailResponse? response = await mailtrapClient

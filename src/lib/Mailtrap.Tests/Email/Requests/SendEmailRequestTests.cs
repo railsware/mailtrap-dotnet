@@ -80,29 +80,14 @@ internal sealed class SendEmailRequestTests
     }
 
     [Test]
-    public void IsValid_ShouldReturnFalse_WhenRequestIsInvalid()
-    {
-        var request = SendEmailRequest.Create();
-
-        request.IsValid().Should().BeFalse();
-    }
-
-    [Test]
-    public void IsValid_ShouldReturnTrue_WhenRequestIsValid()
-    {
-        var request = CreateValidRequest();
-
-        request.IsValid().Should().BeTrue();
-    }
-
-    [Test]
-    public void Validate_ShouldReturnListOfErrors_WhenRequestIsInvalid()
+    public void Validate_ShouldReturnInvalidResult_WhenRequestIsInvalid()
     {
         var request = SendEmailRequest.Create();
 
         var result = request.Validate();
 
-        result.Should()
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should()
             .NotBeEmpty().And
             .Contain("'From' must not be empty.").And
             .Contain("'Subject' must not be empty.").And
@@ -111,33 +96,14 @@ internal sealed class SendEmailRequestTests
     }
 
     [Test]
-    public void Validate_ShouldReturnEmptyList_WhenRequestIsValid()
+    public void Validate_ShouldReturnValidResult_WhenRequestIsValid()
     {
         var request = CreateValidRequest();
 
         var result = request.Validate();
 
-        result.Should().BeEmpty();
-    }
-
-    [Test]
-    public void ValidateAndThrow_ShouldThrowValidationException_WhenRequestIsInvalid()
-    {
-        var request = SendEmailRequest.Create();
-
-        var act = () => request!.ValidateAndThrow();
-
-        act.Should().Throw<ArgumentException>();
-    }
-
-    [Test]
-    public void ValidateAndThrow_ShouldNotThrowException_WhenRequestIsValid()
-    {
-        var request = CreateValidRequest();
-
-        var act = () => request!.ValidateAndThrow();
-
-        act.Should().NotThrow();
+        result.IsValid.Should().BeTrue();
+        result.Errors.Should().BeEmpty();
     }
 
 

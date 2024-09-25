@@ -178,20 +178,10 @@ public sealed record SendEmailRequest : IValidatable
 
 
     /// <inheritdoc />
-    public bool IsValid() => SendEmailRequestValidator.Instance
-        .Validate(this)
-        .IsValid;
-
-    /// <inheritdoc />
-    public IReadOnlyList<string> Validate() => SendEmailRequestValidator.Instance
-        .Validate(this)
-        .Errors
-        .Select(e => e.ToString())
-        .ToList()
-        .AsReadOnly();
-
-    /// <inheritdoc />
-    public void ValidateAndThrow() => SendEmailRequestValidator.Instance
-        .Validate(this)
-        .EnsureValidity(nameof(SendEmailRequest));
+    public ValidationResult Validate()
+    {
+        return SendEmailRequestValidator.Instance
+            .Validate(this)
+            .ToMailtrapValidationResult();
+    }
 }

@@ -95,6 +95,8 @@ internal sealed class EmailClient : IEmailClient
     {
         Ensure.NotNull(request, nameof(request));
 
-        request.ValidateAndThrow();
+        request
+            .Validate()
+            .EnsureValidity(nameof(request));
     }
 }

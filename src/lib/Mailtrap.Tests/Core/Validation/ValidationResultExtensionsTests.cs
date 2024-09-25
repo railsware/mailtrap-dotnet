@@ -5,7 +5,10 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Tests.Extensions;
+using ValidationResult = Mailtrap.Core.Validation.ValidationResult;
+
+
+namespace Mailtrap.Tests.Core.Validation;
 
 
 [TestFixture]
@@ -25,13 +28,7 @@ internal sealed class ValidationResultExtensionsTests
     [Test]
     public void EnsureValidity_ShouldThrowArgumentException_WhenResultIsInvalid()
     {
-        var result = new ValidationResult
-        {
-            Errors =
-            [
-                new("Property", "Error")
-            ]
-        };
+        var result = new ValidationResult(["Error A", "Error B"]);
 
         var act = () => result.EnsureValidity(ParamName);
 

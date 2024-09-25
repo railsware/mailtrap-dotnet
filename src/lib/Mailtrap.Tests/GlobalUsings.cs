@@ -18,8 +18,8 @@ global using Microsoft.Extensions.Options;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 
-global using FluentValidation.Results;
 global using FluentValidation.TestHelper;
+global using FluentValidation.Results;
 
 global using NUnit.Framework;
 global using FluentAssertions;
@@ -29,6 +29,7 @@ global using RichardSzalay.MockHttp;
 global using Mailtrap.Tests.TestExtensions;
 global using Mailtrap.Core.Exceptions;
 global using Mailtrap.Core.Responses;
+global using Mailtrap.Core.Validation;
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;
 global using Mailtrap.Extensions.DependencyInjection;

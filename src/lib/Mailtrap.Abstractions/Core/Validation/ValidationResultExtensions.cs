@@ -5,11 +5,9 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Extensions;
+namespace Mailtrap.Core.Validation;
 
 
-/// <exclude/>
-/// 
 /// <summary>
 /// A set of helpers for <see cref="ValidationResult"/>.
 /// </summary>
@@ -39,7 +37,7 @@ public static class ValidationResultExtensions
 
         if (!validationResult.IsValid)
         {
-            throw new ArgumentException($"Validation failed:\n{validationResult.ToString("\n")}", paramName);
+            throw new ArgumentException($"Validation failed:{Environment.NewLine}{validationResult}", paramName);
         }
     }
 }

@@ -22,6 +22,7 @@ global using Mailtrap.Extensions;
 global using Mailtrap.Configuration;
 global using Mailtrap.Http;
 global using Mailtrap.Core.Exceptions;
+global using Mailtrap.Core.Validation;
 global using Mailtrap.Email;
 global using Mailtrap.Email.Models;
 global using Mailtrap.Email.Requests;
