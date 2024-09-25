@@ -22,7 +22,7 @@ public sealed record SendEmailResponse : OperationResultResponse<IList<string>>
     /// </value>
     [JsonPropertyName("message_ids")]
     [JsonPropertyOrder(3)]
-    public IList<MessageId>? MessageIds { get; }
+    public IList<MessageId> MessageIds { get; }
 
 
     /// <summary>

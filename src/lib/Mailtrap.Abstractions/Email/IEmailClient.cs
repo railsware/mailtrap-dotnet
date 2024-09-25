@@ -43,7 +43,11 @@ public interface IEmailClient
     /// </exception>
     ///
     /// <exception cref="ArgumentException">
-    /// When <paramref name="request"/> is invalid.
+    /// When <paramref name="request"/> contains invalid data.
+    /// </exception>
+    ///
+    /// <exception cref="JsonException">
+    /// When request serialization or API response deserialization fails for any reason.
     /// </exception>
     /// 
     /// <exception cref="TaskCanceledException">
@@ -58,9 +62,13 @@ public interface IEmailClient
     /// When request to the API fails for any reason.
     /// </exception>
     ///
+    /// <exception cref="InvalidResponseFormatException">
+    /// When response from the API has an invalid format.
+    /// </exception>
+    ///
     /// <remarks>
     /// Request is checked for validity before send.<br />
     /// <see cref="ArgumentException"/> is thrown if validation fails.
     /// </remarks>
-    public Task<SendEmailResponse?> Send(SendEmailRequest request, CancellationToken cancellationToken = default);
+    public Task<SendEmailResponse> Send(SendEmailRequest request, CancellationToken cancellationToken = default);
 }

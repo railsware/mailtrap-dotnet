@@ -13,7 +13,7 @@ namespace Mailtrap.Extensions;
 /// <summary>
 /// A set of helpers for <see cref="ValidationResult"/>.
 /// </summary>
-internal static class ValidationResultExtensions
+public static class ValidationResultExtensions
 {
     /// <summary>
     /// Ensures that provided <see cref="ValidationResult"/> instance is valid
@@ -33,7 +33,7 @@ internal static class ValidationResultExtensions
     /// <exception cref="ArgumentException">
     /// When <paramref name="validationResult"/> is not valid.
     /// </exception>
-    internal static void EnsureValidity(this ValidationResult validationResult, string paramName)
+    public static void EnsureValidity(this ValidationResult validationResult, string paramName)
     {
         Ensure.NotNull(validationResult, nameof(validationResult));
 

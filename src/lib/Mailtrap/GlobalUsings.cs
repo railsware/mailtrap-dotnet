@@ -6,6 +6,7 @@
 
 
 // Namespaces
+global using System.Globalization;
 global using System.Reflection;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
@@ -16,7 +17,12 @@ global using FluentValidation;
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;
 global using Mailtrap.Configuration;
+global using Mailtrap.Http;
+global using Mailtrap.Core.Exceptions;
+global using Mailtrap.Email;
 global using Mailtrap.Email.Models;
+global using Mailtrap.Email.Requests;
+global using Mailtrap.Email.Responses;
 
 
 // Type aliases
