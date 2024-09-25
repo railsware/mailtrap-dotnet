@@ -14,6 +14,16 @@ namespace Mailtrap.Email.Responses;
 public sealed record SendEmailResponse : OperationResultResponse<IList<string>>
 {
     /// <summary>
+    /// Gets an empty response object.
+    /// </summary>
+    ///
+    /// <value>
+    /// Empty response object.
+    /// </value>
+    public static SendEmailResponse Empty { get; } = new(false, errorData: ["Empty response."]);
+
+
+    /// <summary>
     /// Gets a collection of <see cref="MessageId"/> objects, representing IDs of emails that have been sent.
     /// </summary>
     ///

@@ -15,6 +15,8 @@ global using System.Text;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
 global using Microsoft.Extensions.Options;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
 
 global using FluentValidation.Results;
 global using FluentValidation.TestHelper;
@@ -29,6 +31,7 @@ global using Mailtrap.Core.Exceptions;
 global using Mailtrap.Core.Responses;
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;
+global using Mailtrap.Extensions.DependencyInjection;
 global using Mailtrap.Configuration;
 global using Mailtrap.Http;
 global using Mailtrap.Email;
