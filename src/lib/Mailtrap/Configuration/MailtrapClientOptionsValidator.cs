@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Configuration.Validators;
+namespace Mailtrap.Configuration;
 
 
 internal class MailtrapClientOptionsValidator : AbstractValidator<MailtrapClientOptions>
@@ -14,20 +14,6 @@ internal class MailtrapClientOptionsValidator : AbstractValidator<MailtrapClient
 
     public MailtrapClientOptionsValidator()
     {
-        RuleFor(o => o.Authentication)
-            .NotNull()
-            .SetValidator(MailtrapClientAuthenticationOptionsValidator.Instance);
-
-        RuleFor(o => o.TestEndpoint)
-            .NotNull();
-
-        RuleFor(o => o.SendEndpoint)
-            .NotNull();
-
-        RuleFor(o => o.BulkEndpoint)
-            .NotNull();
-
-        RuleFor(o => o.Serialization)
-            .NotNull();
+        RuleFor(o => o.ApiToken).NotEmpty();
     }
 }
