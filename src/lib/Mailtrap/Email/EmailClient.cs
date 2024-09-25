@@ -87,7 +87,7 @@ internal sealed class EmailClient : IEmailClient
             .DeserializeAsync<SendEmailResponse>(body, _jsonSerializerOptions, cancellationToken)
             .ConfigureAwait(false);
 
-        return response ?? SendEmailResponse.Empty;
+        return response ?? throw InvalidResponseFormatException.Create(SendUri.ToString());
     }
 
 
