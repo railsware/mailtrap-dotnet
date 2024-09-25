@@ -334,4 +334,4 @@ var response = await emailClient
 
 
 ## See also
-More examples available in the [samples folder](https://github.com/railsware/mailtrap-dotnet/tree/main/examples) on GitHub.
+More examples available [here](https://github.com/railsware/mailtrap-dotnet/tree/main/examples).
