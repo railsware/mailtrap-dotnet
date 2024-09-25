@@ -43,26 +43,6 @@ internal sealed class SendEmailResponseTests
     }
 
     [Test]
-    public void Empty_ShouldContainCorrectDefaults()
-    {
-        var response = SendEmailResponse.Empty;
-
-        response.Success.Should().BeFalse();
-        response.MessageIds.Should().BeEmpty();
-        response.ErrorData.Should()
-            .ContainSingle(s => string.Equals(s, "Empty response.", StringComparison.OrdinalIgnoreCase));
-    }
-
-    [Test]
-    public void Empty_ShouldReturnSameStaticInstance_WhenCalledMultipleTimes()
-    {
-        var response1 = SendEmailResponse.Empty;
-        var response2 = SendEmailResponse.Empty;
-
-        response2.Should().BeSameAs(response1);
-    }
-
-    [Test]
     public void ShouldDeserializeResponse_WhenSuccess()
     {
         var responseText =

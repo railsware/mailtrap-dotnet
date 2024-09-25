@@ -205,7 +205,7 @@ internal sealed class EmailClientTests
     }
 
     [Test]
-    public async Task Send_ShouldReturnEmptyResponse_WhenNullResponseReturnedFromHttpCall()
+    public async Task Send_ShouldThrowInvalidResponseFormatException_WhenNullResponseReturnedFromHttpCall()
     {
         // Arrange
         var token = "token";
@@ -258,13 +258,14 @@ internal sealed class EmailClientTests
 
 
         // Act
-        var result = await client.Send(request, cts.Token).ConfigureAwait(false);
+        var act = () => client.Send(request, cts.Token);
 
 
         // Assert
-        result.Should()
-            .NotBeNull().And
-            .BeSameAs(SendEmailResponse.Empty);
+        await act.Should()
+            .ThrowAsync<InvalidResponseFormatException>()
+            .WithMessage($"*{sendUri}*")
+            .ConfigureAwait(false);
     }
 
 
