@@ -1,0 +1,10 @@
+{
+    "profiles": {
+        "Mailtrap.Examples.ApiUsage": {
+            "commandName": "Project",
+            "environmentVariables": {
+                "DOTNET_ENVIRONMENT": "Development"
+            }
+        }
+    }
+}
