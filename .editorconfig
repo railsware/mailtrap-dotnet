@@ -193,10 +193,18 @@ dotnet_diagnostic.CA1848.severity = silent
 dotnet_code_quality.CA1062.null_check_validation_methods = NotNull|NotNullOrEmpty
 
 
-
-# XML files
-[*.{csproj,vbproj,proj,nativeproj,locproj,props,runsettings}]
+# Project files
+[*.*proj]
 charset = utf-8
+indent_size = 2
+
+# Other XML files
+[*.{targets,props,runsettings}]
+charset = utf-8
+indent_size = 2
+
+# JSON files
+[*.json]
 indent_size = 2
 
 # YAML config files
