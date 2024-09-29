@@ -80,8 +80,13 @@ public interface IInboxResource
     /// </returns>
     ///
     /// <remarks>
+    /// <para>
+    /// All emails in the inbox will be deleted as well.
+    /// </para>
+    /// <para>
     /// After deletion of the inbox, represented by the current resource instance, it will be no longer available.<br />
     /// Thus any further operations on it will result in an error.
+    /// </para>
     /// </remarks>
     public Task<Response<InboxDetails>> Delete(CancellationToken cancellationToken = default);
 

@@ -22,7 +22,8 @@ public sealed record AccountDetails
     /// </value>
     [JsonPropertyName("id")]
     [JsonPropertyOrder(1)]
-    public long? AccountId { get; }
+    [JsonRequired]
+    public long Id { get; }
 
     /// <summary>
     /// Gets the account name.

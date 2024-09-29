@@ -80,8 +80,13 @@ public interface IMessageResource
     /// </returns>
     ///
     /// <remarks>
+    /// <para>
+    /// All attachments, associated with the message, will be deleted as well.
+    /// </para>
+    /// <para>
     /// After deletion of the message, represented by the current resource instance, it will be no longer available.<br />
     /// Thus any further operations on it will result in an error.
+    /// </para>
     /// </remarks>
     public Task<Response<MessageDetails>> Delete(CancellationToken cancellationToken = default);
 

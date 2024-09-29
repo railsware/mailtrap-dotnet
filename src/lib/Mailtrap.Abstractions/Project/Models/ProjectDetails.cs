@@ -22,7 +22,8 @@ public sealed record ProjectDetails
     /// </value>
     [JsonPropertyName("id")]
     [JsonPropertyOrder(1)]
-    public long? Id { get; }
+    [JsonRequired]
+    public long Id { get; }
 
     /// <summary>
     /// Gets project name.

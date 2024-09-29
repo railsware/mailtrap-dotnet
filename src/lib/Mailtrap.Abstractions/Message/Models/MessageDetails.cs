@@ -22,7 +22,8 @@ public sealed record MessageDetails
     /// </value>
     [JsonPropertyName("id")]
     [JsonPropertyOrder(1)]
-    public long? Id { get; }
+    [JsonRequired]
+    public long Id { get; }
 
     /// <summary>
     /// Gets message inbox identifier.

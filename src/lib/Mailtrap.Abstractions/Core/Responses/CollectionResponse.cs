@@ -15,8 +15,8 @@ namespace Mailtrap.Core.Responses;
 /// <typeparam name="TData">
 /// Type of data associated with the response.
 /// </typeparam>
-public record CollectionResponse<TData> : Response<ICollection<TData>>
+public record CollectionResponse<TData> : Response<IList<TData>>
 {
     /// <inheritdoc cref="Response{TData}.Response(TData)"/>
-    public CollectionResponse(ICollection<TData> data) : base(data) { }
+    public CollectionResponse(IList<TData> data) : base(data) { }
 }

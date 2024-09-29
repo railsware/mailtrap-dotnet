@@ -51,5 +51,5 @@ public sealed record MessageFilter
     /// <remarks>
     /// Matches subject, email and name from TO field.
     /// </remarks>
-    public string? SearchFilter { get; }
+    public string? SearchFilter { get; set; }
 }

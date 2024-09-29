@@ -46,7 +46,7 @@ public interface IProjectResource
 
 
     /// <summary>
-    /// Deletes a project, represented by the current resource instance.
+    /// Deletes a project, represented by the current resource instance, with all its inboxes.
     /// </summary>
     ///
     /// <param name="cancellationToken">
@@ -58,8 +58,13 @@ public interface IProjectResource
     /// </returns>
     ///
     /// <remarks>
+    /// <para>
+    /// All inboxes, associated with the project, will be deleted as well.
+    /// </para>
+    /// <para>
     /// After deletion of the project, represented by the current resource instance, it will be no longer available.<br />
     /// Thus any further operations on it will result in an error.
+    /// </para>
     /// </remarks>
     public Task<Response<DeletedProjectDetails>> Delete(CancellationToken cancellationToken = default);
 }
