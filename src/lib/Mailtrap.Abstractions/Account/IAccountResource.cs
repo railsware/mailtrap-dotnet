@@ -14,6 +14,37 @@ namespace Mailtrap.Account;
 public interface IAccountResource
 {
     /// <summary>
+    /// Gets account access collection resource for the account, represented by this resource instance.
+    /// </summary>
+    /// 
+    /// <returns>
+    /// Account access collection resource for the account, represented by this resource instance.
+    /// </returns>
+    public IAccountAccessCollectionResource Accesses();
+
+    /// <summary>
+    /// Gets resource for specific account access, identified by <paramref name="accessId"/>.
+    /// </summary>
+    ///
+    /// <param name="accessId">
+    /// ID of account access to get resource for.
+    /// </param>
+    /// 
+    /// <returns>
+    /// Resource for the account access with specified ID.
+    /// </returns>
+    public IAccountAccessResource Access(long accessId);
+
+    /// <summary>
+    /// Gets permissions resource for the account, represented by this resource instance.
+    /// </summary>
+    /// 
+    /// <returns>
+    /// Permissions resource for the account, represented by this resource instance.
+    /// </returns>
+    public IPermissionsResource Permissions();
+
+    /// <summary>
     /// Gets billing resource for the account, represented by this resource instance.
     /// </summary>
     /// 

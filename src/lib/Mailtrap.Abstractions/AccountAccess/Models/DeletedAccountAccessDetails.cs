@@ -1,24 +1,24 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="DeletedProjectDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="DeletedAccountAccessDetails.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Project.Models;
+namespace Mailtrap.AccountAccess.Models;
 
 
 /// <summary>
-/// Represents details for deleted project.
+/// Represents details of deleted account access.
 /// </summary>
-public sealed record DeletedProjectDetails
+public sealed record DeletedAccountAccessDetails
 {
     /// <summary>
-    /// Gets the deleted project identifier.
+    /// Gets the deleted account access identifier.
     /// </summary>
     ///
     /// <value>
-    /// Deleted project identifier.
+    /// Deleted account access identifier.
     /// </value>
     [JsonPropertyName("id")]
     [JsonPropertyOrder(1)]

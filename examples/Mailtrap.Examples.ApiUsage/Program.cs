@@ -5,11 +5,14 @@
 // -----------------------------------------------------------------------
 
 
-using System.Diagnostics.CodeAnalysis;
 using Mailtrap;
 using Mailtrap.Account;
 using Mailtrap.Account.Models;
+using Mailtrap.AccountAccess.Models;
+using Mailtrap.AccountAccess.Requests;
 using Mailtrap.Billing.Models;
+using Mailtrap.Core.Models;
+
 // using Mailtrap.Extensions.DependencyInjection;
 using Mailtrap.Core.Responses;
 using Mailtrap.Email.Models;
@@ -36,7 +39,6 @@ using Microsoft.Extensions.Logging;
 /// <summary>
 /// Various examples of the Mailtrap API usage
 /// </summary>
-[SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Example")]
 internal sealed class Program
 {
     private static async Task Main(string[] args)
@@ -90,11 +92,42 @@ internal sealed class Program
 
     private static async Task ProcessAccount(IAccountResource accountResource, ILogger logger)
     {
+        await ProcessAccess(accountResource, logger).ConfigureAwait(false);
+
         await ProcessBilling(accountResource, logger).ConfigureAwait(false);
 
         await ProcessDomains(accountResource, logger).ConfigureAwait(false);
 
         await ProcessProjects(accountResource, logger).ConfigureAwait(false);
+    }
+
+    private static async Task ProcessAccess(IAccountResource accountResource, ILogger logger)
+    {
+        // Get accesses
+        var filter = new AccountAccessFilter();
+        filter.DomainIds.Add(123);
+
+        CollectionResponse<AccountAccessDetails> accesses = await accountResource
+            .Accesses()
+            .Fetch(filter)
+            .ConfigureAwait(false);
+
+        foreach (AccountAccessDetails access in accesses.Data)
+        {
+            var updateRequest = new UpdatePermissionsRequest();
+            updateRequest.Permissions.Add(new UpdatePermissionsRequestDetails
+            {
+                Id = access.Id,
+                Type = "account",
+                AccessLevel = AccessLevel.Admin
+            });
+            //await accountResource
+            //    .Access(access.Id)
+            //    .UpdatePermissions()
+        }
+
+
+        logger.LogInformation("Billing Usage: {BillingUsage}", accesses.Data);
     }
 
     private static async Task ProcessBilling(IAccountResource accountResource, ILogger logger)

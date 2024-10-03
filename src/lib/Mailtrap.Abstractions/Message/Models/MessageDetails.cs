@@ -34,7 +34,8 @@ public sealed record MessageDetails
     /// </value>
     [JsonPropertyName("inbox_id")]
     [JsonPropertyOrder(2)]
-    public long? InboxId { get; }
+    [JsonRequired]
+    public long InboxId { get; }
 
     /// <summary>
     /// Gets message subject.

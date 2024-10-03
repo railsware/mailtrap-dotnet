@@ -11,9 +11,15 @@ global using System.Text.Json.Serialization;
 global using System.Net.Mime;
 
 global using Mailtrap.Extensions;
+global using Mailtrap.Core.Models;
 global using Mailtrap.Core.Responses;
 global using Mailtrap.Account;
 global using Mailtrap.Account.Models;
+global using Mailtrap.AccountAccess;
+global using Mailtrap.AccountAccess.Models;
+global using Mailtrap.AccountAccess.Requests;
+global using Mailtrap.Permissions;
+global using Mailtrap.Permissions.Models;
 global using Mailtrap.Billing;
 global using Mailtrap.Billing.Models;
 global using Mailtrap.SendingDomain;

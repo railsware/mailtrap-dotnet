@@ -46,5 +46,5 @@ public sealed record AccountDetails
     [JsonPropertyName("access_levels")]
     [JsonPropertyOrder(3)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
-    public IList<AccountAccessLevel> AccessLevels { get; } = [];
+    public IList<AccessLevel> AccessLevels { get; } = [];
 }

@@ -158,7 +158,8 @@ public sealed record InboxDetails
     /// </value>
     [JsonPropertyName("project_id")]
     [JsonPropertyOrder(13)]
-    public long? ProjectId { get; }
+    [JsonRequired]
+    public long ProjectId { get; }
 
     /// <summary>
     /// Gets domain name.

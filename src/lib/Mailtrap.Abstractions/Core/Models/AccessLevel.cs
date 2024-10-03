@@ -1,17 +1,17 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="AccountAccessLevel.cs" company="Railsware Products Studio, LLC">
+// <copyright file="AccessLevel.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Account.Models;
+namespace Mailtrap.Core.Models;
 
 
 /// <summary>
-/// Account access level enumeration.
+/// Access level enumeration.
 /// </summary>
-public enum AccountAccessLevel
+public enum AccessLevel
 {
     /// <summary>
     /// None.
@@ -19,17 +19,22 @@ public enum AccountAccessLevel
     None = 0,
 
     /// <summary>
-    /// Account viewer.
+    /// Indeterminate.
+    /// </summary>
+    Indeterminate = 1,
+
+    /// <summary>
+    /// Viewer.
     /// </summary>
     Viewer = 10,
 
     /// <summary>
-    /// Account admin.
+    /// Admin.
     /// </summary>
     Admin = 100,
 
     /// <summary>
-    /// Account owner.
+    /// Owner.
     /// </summary>
     Owner = 1000
 }

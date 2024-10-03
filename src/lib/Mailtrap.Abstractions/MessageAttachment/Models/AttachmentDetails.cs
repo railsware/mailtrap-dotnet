@@ -11,7 +11,7 @@ namespace Mailtrap.MessageAttachment.Models;
 /// <summary>
 /// Represents attachment metadata for email sent to sandbox.
 /// </summary>
-public record AttachmentDetails
+public sealed record AttachmentDetails
 {
     /// <summary>
     /// Gets attachment identifier.
@@ -34,7 +34,8 @@ public record AttachmentDetails
     /// </value>
     [JsonPropertyName("message_id")]
     [JsonPropertyOrder(2)]
-    public long? MessageId { get; }
+    [JsonRequired]
+    public long MessageId { get; }
 
     /// <summary>
     /// Gets attachment file name.
