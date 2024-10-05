@@ -33,13 +33,9 @@ public sealed record UpdatePermissionsRequestDetails
     /// <value>
     /// Resource type.
     /// </value>
-    ///
-    /// <remarks>
-    /// Allowed values: 'account', 'billing', 'project', 'inbox', 'mailsend_domain'
-    /// </remarks>
     [JsonPropertyName("resource_type")]
     [JsonPropertyOrder(2)]
-    public string? Type { get; set; }
+    public AccountResourceType? Type { get; set; }
 
     /// <summary>
     /// Gets or sets the resource access level.

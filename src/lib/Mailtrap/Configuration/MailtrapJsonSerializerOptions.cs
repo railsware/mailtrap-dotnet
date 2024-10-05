@@ -12,7 +12,11 @@ internal static class MailtrapJsonSerializerOptions
 {
     internal static JsonSerializerOptions Default { get; } = new JsonSerializerOptions(JsonSerializerOptions.Default)
     {
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+        Converters =
+        {
+            new StringEnumJsonConverterFactory()
+        }
     };
 
     internal static JsonSerializerOptions NotIndented { get; } = new JsonSerializerOptions(Default)

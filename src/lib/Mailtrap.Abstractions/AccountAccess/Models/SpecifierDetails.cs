@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="AccountAccessSpecifier.cs" company="Railsware Products Studio, LLC">
+// <copyright file="SpecifierDetails.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,14 +11,14 @@ namespace Mailtrap.AccountAccess.Models;
 /// <summary>
 /// Represents account access specifier details.
 /// </summary>
-public sealed record AccountAccessSpecifier
+public sealed record SpecifierDetails
 {
     /// <summary>
-    /// Gets the specifier identifier.
+    /// Gets the specifier unique identifier (user, invite or token).
     /// </summary>
     ///
     /// <value>
-    /// Specifier identifier.
+    /// Specifier unique identifier (user, invite or token).
     /// </value>
     [JsonPropertyName("id")]
     [JsonPropertyOrder(1)]
@@ -26,23 +26,31 @@ public sealed record AccountAccessSpecifier
     public long Id { get; }
 
     /// <summary>
-    /// Gets the specifier email address.
+    /// Gets the specifier email address (user or invite).
     /// </summary>
     ///
     /// <value>
-    /// Specifier email address.
+    /// Specifier email address (user or invite).
     /// </value>
+    ///
+    /// <remarks>
+    /// Applicable to 'User' and 'Invite' specifier types only.
+    /// </remarks>
     [JsonPropertyName("email")]
     [JsonPropertyOrder(2)]
     public string? Email { get; }
 
     /// <summary>
-    /// Gets the specifier name.
+    /// Gets the specifier name (user or API token).
     /// </summary>
     ///
     /// <value>
-    /// Specifier name.
+    /// Specifier name (user or API token).
     /// </value>
+    ///
+    /// <remarks>
+    /// Applicable to 'User' and 'ApiToken' specifier types only.
+    /// </remarks>
     [JsonPropertyName("name")]
     [JsonPropertyOrder(3)]
     public string? Name { get; }
@@ -55,6 +63,10 @@ public sealed record AccountAccessSpecifier
     /// <value>
     /// Origin of the token.
     /// </value>
+    /// 
+    /// <remarks>
+    /// Applicable to 'ApiToken' specifier type only.
+    /// </remarks>
     [JsonPropertyName("author_name")]
     [JsonPropertyOrder(4)]
     public string? AuthorName { get; }
@@ -66,6 +78,10 @@ public sealed record AccountAccessSpecifier
     /// <value>
     /// Token value.
     /// </value>
+    /// 
+    /// <remarks>
+    /// Applicable to 'ApiToken' specifier type only.
+    /// </remarks>
     [JsonPropertyName("token")]
     [JsonPropertyOrder(5)]
     public string? Token { get; }
@@ -77,6 +93,10 @@ public sealed record AccountAccessSpecifier
     /// <value>
     /// Token expiration date and time.
     /// </value>
+    ///
+    /// <remarks>
+    /// Applicable to 'ApiToken' specifier type only.
+    /// </remarks>
     [JsonPropertyName("expires_at")]
     [JsonPropertyOrder(6)]
     public DateTimeOffset? ExpiresAt { get; }

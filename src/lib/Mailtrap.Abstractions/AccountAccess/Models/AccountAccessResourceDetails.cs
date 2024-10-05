@@ -34,7 +34,7 @@ public sealed record AccountAccessResourceDetails
     /// </value>
     [JsonPropertyName("resource_type")]
     [JsonPropertyOrder(2)]
-    public string? Type { get; }
+    public AccountResourceType? Type { get; }
 
     /// <summary>
     /// Gets the resource access level.

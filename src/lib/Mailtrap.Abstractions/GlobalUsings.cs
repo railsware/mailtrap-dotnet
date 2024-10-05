@@ -6,9 +6,12 @@
 
 
 // Namespaces
+global using System.Diagnostics.CodeAnalysis;
+global using System.Collections.Concurrent;
+global using System.Net.Mime;
+global using System.Runtime.CompilerServices;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
-global using System.Net.Mime;
 
 global using Mailtrap.Extensions;
 global using Mailtrap.Core.Models;
@@ -49,7 +52,4 @@ global using RequestVariable = System.Collections.Generic.KeyValuePair<string, s
 
 
 // Allowing test assembly to access internals for unit tests
-using System.Runtime.CompilerServices;
-
-
 [assembly: InternalsVisibleTo("Mailtrap.Tests")]

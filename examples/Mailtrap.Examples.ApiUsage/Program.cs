@@ -8,10 +8,9 @@
 using Mailtrap;
 using Mailtrap.Account;
 using Mailtrap.Account.Models;
+using Mailtrap.AccountAccess;
 using Mailtrap.AccountAccess.Models;
-using Mailtrap.AccountAccess.Requests;
 using Mailtrap.Billing.Models;
-using Mailtrap.Core.Models;
 
 // using Mailtrap.Extensions.DependencyInjection;
 using Mailtrap.Core.Responses;
@@ -104,30 +103,39 @@ internal sealed class Program
     private static async Task ProcessAccess(IAccountResource accountResource, ILogger logger)
     {
         // Get accesses
+        var domainId = 123;
         var filter = new AccountAccessFilter();
-        filter.DomainIds.Add(123);
+        filter.DomainIds.Add(domainId);
 
         CollectionResponse<AccountAccessDetails> accesses = await accountResource
             .Accesses()
             .Fetch(filter)
             .ConfigureAwait(false);
 
-        foreach (AccountAccessDetails access in accesses.Data)
+        var userId = 4322;
+
+        AccountAccessDetails? userAccess = accesses.Data.FirstOrDefault(a =>
+            SpecifierType.User.Equals(a.SpecifierType) &&
+            a.Specifier?.Id == userId);
+
+        if (userAccess is null)
         {
-            var updateRequest = new UpdatePermissionsRequest();
-            updateRequest.Permissions.Add(new UpdatePermissionsRequestDetails
-            {
-                Id = access.Id,
-                Type = "account",
-                AccessLevel = AccessLevel.Admin
-            });
-            //await accountResource
-            //    .Access(access.Id)
-            //    .UpdatePermissions()
+            logger.LogWarning("No access for user with ID {UserID}.", userId);
+            return;
         }
 
+        logger.LogInformation("User Access: {UserAccess}", userAccess);
 
-        logger.LogInformation("Billing Usage: {BillingUsage}", accesses.Data);
+        // Get resource for specific account access
+        IAccountAccessResource userAccessResource = accountResource.Access(userAccess.Id);
+
+        // var updateRequest = new UpdatePermissionsRequest();
+        //updateRequest.Permissions.Add(new UpdatePermissionsRequestDetails
+        //{
+        //    Id = access.Id,
+        //    Type = "account",
+        //    AccessLevel = AccessLevel.Admin
+        //});
     }
 
     private static async Task ProcessBilling(IAccountResource accountResource, ILogger logger)

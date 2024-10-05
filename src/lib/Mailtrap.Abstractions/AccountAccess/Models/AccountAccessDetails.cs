@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.AccountAccess.Models;
 
 
@@ -26,33 +25,33 @@ public sealed record AccountAccessDetails
     public long Id { get; }
 
     /// <summary>
-    /// Gets the specifier type for the account access.
+    /// Gets the specifier type that has access to account resources.
     /// </summary>
     ///
     /// <value>
-    /// Specifier type for the account access.
+    /// Specifier type that has access to account resources.
     /// </value>
     [JsonPropertyName("specifier_type")]
     [JsonPropertyOrder(2)]
-    public string? SpecifierType { get; }
+    public SpecifierType? SpecifierType { get; }
 
     /// <summary>
-    /// Gets the specifier details for the account access.
+    /// Gets the specifier details.
     /// </summary>
     ///
     /// <value>
-    /// Specifier details for the account access.
+    /// Specifier details.
     /// </value>
     [JsonPropertyName("specifier")]
     [JsonPropertyOrder(3)]
-    public AccountAccessSpecifier? Specifier { get; }
+    public SpecifierDetails? Specifier { get; }
 
     /// <summary>
-    /// Gets the collection of resources for the account access.
+    /// Gets the list of resources the specifier has access to.
     /// </summary>
     ///
     /// <value>
-    /// Contains a list of resources for the account access.
+    /// Contains a list of resources the specifier has access to.
     /// </value>
     [JsonPropertyName("resources")]
     [JsonPropertyOrder(4)]
@@ -60,11 +59,11 @@ public sealed record AccountAccessDetails
     public IList<AccountAccessResourceDetails> Resources { get; } = [];
 
     /// <summary>
-    /// Gets account access permissions.
+    /// Gets specifier permissions for resources.
     /// </summary>
     ///
     /// <value>
-    /// Account access permissions.
+    /// Specifier permissions for resources.
     /// </value>
     [JsonPropertyName("permissions")]
     [JsonPropertyOrder(5)]
