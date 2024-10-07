@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Mailtrap.Examples.DependencyInjection": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

@@ -18,8 +18,8 @@ global using Microsoft.Extensions.Options;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 
-global using FluentValidation.Results;
 global using FluentValidation.TestHelper;
+global using FluentValidation.Results;
 
 global using NUnit.Framework;
 global using FluentAssertions;
