@@ -29,7 +29,6 @@ global using RichardSzalay.MockHttp;
 global using Mailtrap.Tests.TestExtensions;
 global using Mailtrap.Core.Exceptions;
 global using Mailtrap.Core.Responses;
-global using Mailtrap.Core.Validation;
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;
 global using Mailtrap.Extensions.DependencyInjection;

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ValidationResultExtensionsTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="ValidationResultTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -12,18 +12,10 @@ namespace Mailtrap.Tests.Core.Validation;
 
 
 [TestFixture]
-internal sealed class ValidationResultExtensionsTests
+internal sealed class ValidationResultTests
 {
     private const string ParamName = "request";
 
-
-    [Test]
-    public void EnsureValidity_ShouldThrowArgumentNullException_WhenResultIsNull()
-    {
-        var act = () => ValidationResultExtensions.EnsureValidity(null!, ParamName);
-
-        act.Should().Throw<ArgumentNullException>();
-    }
 
     [Test]
     public void EnsureValidity_ShouldThrowArgumentException_WhenResultIsInvalid()

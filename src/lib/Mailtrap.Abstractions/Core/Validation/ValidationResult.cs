@@ -50,6 +50,26 @@ public sealed class ValidationResult
 
 
     /// <summary>
+    /// Ensures that the current instance is valid and throws an exception,
+    /// containing validation errors summary, if not.
+    /// </summary>
+    /// 
+    /// <param name="paramName">
+    /// Name of the parameter that have been validated.
+    /// </param>
+    ///
+    /// <exception cref="ArgumentException">
+    /// When the instance represents invalid result.
+    /// </exception>
+    public void EnsureValidity(string paramName)
+    {
+        if (!IsValid)
+        {
+            throw new ArgumentException($"Validation failed:{Environment.NewLine}{this}", paramName);
+        }
+    }
+
+    /// <summary>
     /// Generates a single <see langword="string"/>, that contains all error messages separated by default new line separator.
     /// </summary>
     /// 
