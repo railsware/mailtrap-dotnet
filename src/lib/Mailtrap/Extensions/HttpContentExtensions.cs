@@ -16,9 +16,19 @@ internal static class HttpContentExtensions
     /// <summary>
     /// Applies JSON content type header to the provided <paramref name="content"/> instance.
     /// </summary>
-    /// <typeparam name="T">Type of the content.</typeparam>
-    /// <param name="content"></param>
-    /// <returns><see cref="HttpContent"/> instance, so calls can be chained.</returns>
+    /// 
+    /// <typeparam name="T">
+    /// Type of the content.
+    /// </typeparam>
+    /// 
+    /// <param name="content">
+    /// Content instance to apply header to.
+    /// </param>
+    /// 
+    /// <returns>
+    /// Updated content instance, so calls can be chained.
+    /// </returns>
+    /// 
     /// <exception cref="ArgumentNullException">
     /// When provided <paramref name="content"/> is <see langword="null"/>.
     /// </exception>
