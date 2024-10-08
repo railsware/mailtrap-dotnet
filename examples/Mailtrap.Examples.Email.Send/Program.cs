@@ -52,7 +52,8 @@ internal sealed class Program
 
             if (!validationResult.IsValid)
             {
-                throw new ArgumentException("Malformed email request:\n" + validationResult.ToString("\n"));
+                logger.LogError("Malformed email request:\n{ValidationResult}", validationResult.ToString("\n"));
+                return;
             }
 
             SendEmailResponse? response = await mailtrapClient
@@ -199,7 +200,7 @@ internal sealed class Program
             "Best regards, John.";
 
         // Set category for better classification.
-        request.Category = "Invintation";
+        request.Category = "Invitation";
 
         // Add an attachment
         var filePath = @"C:\files\preview.pdf";
