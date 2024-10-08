@@ -24,12 +24,7 @@ internal sealed class SendEmailRequestTests
     [Test]
     public void ShouldSerializeCorrectly()
     {
-        var request = SendEmailRequest
-            .Create()
-            .From("john.doe@demomailtrap.com", "John Doe")
-            .To("bill.hero@galaxy.com")
-            .Subject("Invitation to Earth")
-            .Text("Dear Bill, It will be a great pleasure to see you on our blue planet next weekend. Best regards, John.");
+        var request = CreateValidRequest();
 
         var serialized = JsonSerializer.Serialize(request, MailtrapJsonSerializerOptions.NotIndented);
 
@@ -85,47 +80,40 @@ internal sealed class SendEmailRequestTests
     }
 
     [Test]
-    public void IsValid_ShouldReturnFalse_WhenRequestIsInvalid()
+    public void Validate_ShouldReturnInvalidResult_WhenRequestIsInvalid()
     {
         var request = SendEmailRequest.Create();
 
-        request.IsValid().Should().BeFalse();
+        var result = request.Validate();
+
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should()
+            .NotBeEmpty().And
+            .Contain("'From' must not be empty.").And
+            .Contain("'Subject' must not be empty.").And
+            .Contain("'Text Body' must not be empty.").And
+            .Contain("'Html Body' must not be empty.");
     }
 
     [Test]
-    public void IsValid_ShouldReturnTrue_WhenRequestIsValid()
+    public void Validate_ShouldReturnValidResult_WhenRequestIsValid()
     {
-        var request = SendEmailRequest.Create()
-            .From("sender@domain.com")
-            .To("recipient@domain.com")
-            .Subject("Subject")
-            .Text("Content");
+        var request = CreateValidRequest();
 
-        request.IsValid().Should().BeTrue();
+        var result = request.Validate();
+
+        result.IsValid.Should().BeTrue();
+        result.Errors.Should().BeEmpty();
     }
 
-    [Test]
-    public void Validate_ShouldThrowValidationException_WhenRequestIsInvalid()
+
+    private static SendEmailRequest CreateValidRequest()
     {
-        var request = SendEmailRequest.Create();
-
-        var act = () => request!.Validate();
-
-        act.Should().Throw<ArgumentException>();
-    }
-
-    [Test]
-    public void Validate_ShouldNotThrowException_WhenRequestIsValid()
-    {
-        var request = SendEmailRequest
+        return SendEmailRequest
             .Create()
-            .From("sender@domain.com")
-            .To("recipient@domain.com")
-            .Subject("Subject")
-            .Text("Content");
-
-        var act = () => request!.Validate();
-
-        act.Should().NotThrow();
+            .From("john.doe@demomailtrap.com", "John Doe")
+            .To("bill.hero@galaxy.com")
+            .Subject("Invitation to Earth")
+            .Text("Dear Bill, It will be a great pleasure to see you on our blue planet next weekend. Best regards, John.");
     }
 }

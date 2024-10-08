@@ -6,15 +6,17 @@
 
 
 // Namespaces
+global using System.Diagnostics.CodeAnalysis;
+global using System.Globalization;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
 global using System.Net.Mime;
 global using FluentValidation;
-global using FluentValidation.Results;
 
 global using Mailtrap.Extensions;
-global using Mailtrap.Core;
+global using Mailtrap.Core.Exceptions;
 global using Mailtrap.Core.Responses;
+global using Mailtrap.Core.Validation;
 global using Mailtrap.Email;
 global using Mailtrap.Email.Models;
 global using Mailtrap.Email.Converters;

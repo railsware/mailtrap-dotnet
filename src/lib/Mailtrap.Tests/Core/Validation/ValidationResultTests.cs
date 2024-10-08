@@ -1,37 +1,26 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ValidationResultExtensionsTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="ValidationResultTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Tests.Extensions;
+using ValidationResult = Mailtrap.Core.Validation.ValidationResult;
+
+
+namespace Mailtrap.Tests.Core.Validation;
 
 
 [TestFixture]
-internal sealed class ValidationResultExtensionsTests
+internal sealed class ValidationResultTests
 {
     private const string ParamName = "request";
 
 
     [Test]
-    public void EnsureValidity_ShouldThrowArgumentNullException_WhenResultIsNull()
-    {
-        var act = () => ValidationResultExtensions.EnsureValidity(null!, ParamName);
-
-        act.Should().Throw<ArgumentNullException>();
-    }
-
-    [Test]
     public void EnsureValidity_ShouldThrowArgumentException_WhenResultIsInvalid()
     {
-        var result = new ValidationResult
-        {
-            Errors =
-            [
-                new("Property", "Error")
-            ]
-        };
+        var result = new ValidationResult(["Error A", "Error B"]);
 
         var act = () => result.EnsureValidity(ParamName);
 

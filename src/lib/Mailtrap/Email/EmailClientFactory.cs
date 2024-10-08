@@ -38,6 +38,7 @@ internal sealed class EmailClientFactory : IEmailClientFactory
 
         MailtrapClientOptionsValidator.Instance
             .Validate(_clientConfiguration)
+            .ToMailtrapValidationResult()
             .EnsureValidity(nameof(clientOptions));
 
         _httpClientFactory = httpClientFactory;

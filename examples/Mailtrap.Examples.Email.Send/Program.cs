@@ -8,6 +8,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Mime;
 using Mailtrap;
+using Mailtrap.Core.Validation;
 using Mailtrap.Email.Models;
 using Mailtrap.Email.Requests;
 using Mailtrap.Email.Responses;
@@ -45,13 +46,14 @@ internal sealed class Program
             SendEmailRequest request = BasicRequest();
 
             // It is better to validate request before sending,
-            // since send method will do that anyway and throw in case of validation failure.
-            request.Validate();
+            // since send method will do that anyway and throw an exception
+            // in case of validation failure.
+            ValidationResult validationResult = request.Validate();
 
-            // Alternatively, non-throw check can be used.
-            if (!request.IsValid())
+            if (!validationResult.IsValid)
             {
-                throw new ArgumentException("Malformed email request.");
+                logger.LogError("Malformed email request:\n{ValidationResult}", validationResult.ToString("\n"));
+                return;
             }
 
             SendEmailResponse? response = await mailtrapClient
@@ -198,7 +200,7 @@ internal sealed class Program
             "Best regards, John.";
 
         // Set category for better classification.
-        request.Category = "Invintation";
+        request.Category = "Invitation";
 
         // Add an attachment
         var filePath = @"C:\files\preview.pdf";

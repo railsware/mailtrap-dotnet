@@ -178,12 +178,10 @@ public sealed record SendEmailRequest : IValidatable
 
 
     /// <inheritdoc />
-    public bool IsValid() => SendEmailRequestValidator.Instance
-        .Validate(this)
-        .IsValid;
-
-    /// <inheritdoc />
-    public void Validate() => SendEmailRequestValidator.Instance
-        .Validate(this)
-        .EnsureValidity(nameof(SendEmailRequest));
+    public ValidationResult Validate()
+    {
+        return SendEmailRequestValidator.Instance
+            .Validate(this)
+            .ToMailtrapValidationResult();
+    }
 }
