@@ -267,7 +267,7 @@ try
         using var cts = new CancellationTokenSource();
 
         SendEmailResponse response = await _mailtrapClient
-            .Email()  // Will send email to the channel defined by client configuration
+            .Email()  // Will send email using API defined in client configuration
             .Send(request, cts.Token)
             .ConfigureAwait(false);
       
@@ -301,15 +301,15 @@ catch (Exception ex)
 ```
 
 > [!IMPORTANT]  
-> @Mailtrap.IMailtrapClient.Email will use channel defined by client configuration.
+> @Mailtrap.IMailtrapClient.Email will use send API defined by client configuration.
 
 
-Additionally, you can always use specific channel/endpoint (transactional, bulk or test) explicitly, to route emails to:
+Additionally, you can always use specific send API (transactional, bulk or test) explicitly, to route emails to:
 ```csharp
 var inboxId = 12345;
-IEmailClient emailClient = _mailtrapClient.Test(inboxId); // Emails will be routed to the test inbox
-// IEmailClient emailClient = _mailtrapClient.Transactional(); // Emails will be routed to transactional channel
-// IEmailClient emailClient = _mailtrapClient.Bulk(); // Emails will be routed to bulk channel
+IEmailClient emailClient = _mailtrapClient.Test(inboxId); // Emails will be sent using Email Testing API
+// IEmailClient emailClient = _mailtrapClient.Transactional(); // Emails will be sent using Email Sending API
+// IEmailClient emailClient = _mailtrapClient.Bulk(); // Emails will be sent using Bulk Sending API
 
 var response = await emailClient
     .Send(request)
@@ -334,4 +334,4 @@ var response = await emailClient
 
 
 ## See also
-More examples available in the [samples folder](https://github.com/railsware/mailtrap-dotnet/tree/main/examples) on GitHub.
+More examples available [here](https://github.com/railsware/mailtrap-dotnet/tree/main/examples).

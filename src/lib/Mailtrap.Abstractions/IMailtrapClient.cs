@@ -23,7 +23,7 @@ public interface IMailtrapClient
     /// </summary>
     /// 
     /// <returns>
-    /// <see cref="IEmailClient"/> instance that can be used to send emails to the channel specified by configuration.
+    /// <see cref="IEmailClient"/> instance that can be used to send emails to the API specified by configuration.
     /// </returns>
     public IEmailClient Email();
 
