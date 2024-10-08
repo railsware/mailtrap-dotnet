@@ -196,9 +196,9 @@ request.Header(
 
 
 ## Request validation
-After creating a request instance, it is recommended to perform a validation on a client side to ensure sending won't throw validation exceptions and to minimize unnecessary HTTP round-trips. @Mailtrap.Email.Requests.SendEmailRequest implements @Mailtrap.Core.IValidatable interface, which can be used to perform that task.  
+After creating a request instance, it is recommended to perform a validation on a client side to ensure sending won't throw validation exceptions and to minimize unnecessary HTTP round-trips. @Mailtrap.Email.Requests.SendEmailRequest implements @Mailtrap.Core.Validation.IValidatable interface, which can be used to perform that task.  
 
-@Mailtrap.Email.Requests.SendEmailRequest.IsValid method validates the request and returns a @System.Boolean, indicating validation result:
+@Mailtrap.Core.Validation.IValidatable.Validate method verifies request data and returns a @Mailtrap.Core.Validation.ValidationResult instance that contains validation result:
 ```csharp
 using Mailtrap.Email.Requests;
 
@@ -206,9 +206,9 @@ using Mailtrap.Email.Requests;
 
 var request = new SendEmailRequest();
 
-var isRequestValid = request.IsValid(); // Returns a boolean flag
+var validationResult = request.Validate();
 
-if (isRequestValid)
+if (validationResult.IsValid)
 {
     // Send
 }
@@ -218,7 +218,7 @@ else
 }
 ```
 
-Alternatively, you can use @Mailtrap.Email.Requests.SendEmailRequest.Validate method, that throws @System.ArgumentException if validation fails:
+Additionally, you can use @Mailtrap.Core.Validation.ValidationResult.EnsureValidity(System.String) method as a gate, that throws @System.ArgumentException if validation fails:
 ```csharp
 using Mailtrap.Email.Requests;
 
@@ -228,7 +228,7 @@ try
 {
     var request = new SendEmailRequest();
 
-    request.Validate(); // Will throw if request isn't valid.
+    request.Validate().EnsureValidity(nameof(request)); // Will throw if request isn't valid.
 }
 catch (ArgumentException aex)
 {
@@ -262,7 +262,7 @@ try
         .Subject("Invitation to Earth")
         .Text("Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John.");
 
-    if (request.IsValid())
+    if (request.Validate().IsValid)
     {
         using var cts = new CancellationTokenSource();
 

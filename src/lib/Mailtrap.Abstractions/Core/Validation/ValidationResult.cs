@@ -14,18 +14,27 @@ namespace Mailtrap.Core.Validation;
 public sealed class ValidationResult
 {
     /// <summary>
-    /// A collection of errors.
+    /// Gets a list of errors.
     /// </summary>
+    ///
+    /// <value>
+    /// List of errors.
+    /// </value>
     public IList<string> Errors { get; }
 
     /// <summary>
-    /// Whether validation succeeded.
+    /// Gets a flag indicating whether validation succeeded or not.
     /// </summary>
+    ///
+    /// <value>
+    /// <see langword="true"/> if current instance contains no validation errors.<br/>
+    /// <see langword="false"/> otherwise.
+    /// </value>
     public bool IsValid => Errors.Count == 0;
 
 
     /// <summary>
-    /// Creates a new <see cref="ValidationResult"/> instance.
+    /// Parameterless instance constructor.
     /// </summary>
     public ValidationResult()
     {
