@@ -16,7 +16,8 @@ internal sealed class MailtrapJsonSerializerOptionsTests
     {
         var expected = new JsonSerializerOptions(JsonSerializerOptions.Default)
         {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            Converters = { new StringEnumJsonConverterFactory() }
         };
 
         MailtrapJsonSerializerOptions.Default.Should().BeEquivalentTo(expected);

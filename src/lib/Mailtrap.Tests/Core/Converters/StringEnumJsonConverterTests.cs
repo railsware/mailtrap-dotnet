@@ -62,4 +62,34 @@ internal sealed class StringEnumJsonConverterTests
 
         act.Should().Throw<JsonException>();
     }
+
+    [Test]
+    public void Write_ShouldWrite_WhenValueIsValid()
+    {
+        _converter
+            .Write(SpecifierType.Empty, _options)
+            .Should()
+            .Be(SpecifierType.Empty.ToString().Quoted());
+
+        _converter
+            .Write(SpecifierType.User, _options)
+            .Should()
+            .Be(SpecifierType.User.ToString().Quoted());
+
+        _converter
+            .Write(SpecifierType.Invite, _options)
+            .Should()
+            .Be(SpecifierType.Invite.ToString().Quoted());
+
+        _converter
+            .Write(SpecifierType.ApiToken, _options)
+            .Should()
+            .Be(SpecifierType.ApiToken.ToString().Quoted());
+
+        SpecifierType? specifierType = null;
+        _converter
+            .Write(specifierType!, _options)
+            .Should()
+            .Be("null");
+    }
 }

@@ -17,11 +17,15 @@ internal sealed class StringEnumJsonConverter<T> : JsonConverter<T> where T : St
     /// <exception cref="JsonException"></exception>
     public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        return reader.TokenType switch
+        if (reader.TokenType is not JsonTokenType.String)
         {
-            JsonTokenType.String => StringEnum<T>.Find(reader.GetString()),
-            _ => throw new JsonException($"Unsupported token type: {reader.TokenType}")
-        };
+            throw new JsonException($"Unsupported token type: {reader.TokenType}");
+        }
+
+        var stringValue = reader.GetString();
+        var value = StringEnum<T>.Find(stringValue);
+
+        return value is null ? throw new JsonException($"Unknown enum value: {stringValue}") : value;
     }
 
     /// <inheritdoc />
