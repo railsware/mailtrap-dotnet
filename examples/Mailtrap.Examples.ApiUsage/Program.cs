@@ -6,29 +6,32 @@
 
 
 using Mailtrap;
-using Mailtrap.Account;
-using Mailtrap.Account.Models;
-using Mailtrap.AccountAccess;
-using Mailtrap.AccountAccess.Models;
+using Mailtrap.AccountAccesses;
+using Mailtrap.AccountAccesses.Models;
+using Mailtrap.Accounts;
+using Mailtrap.Accounts.Models;
 using Mailtrap.Billing.Models;
 
 // using Mailtrap.Extensions.DependencyInjection;
 using Mailtrap.Core.Responses;
 using Mailtrap.Email.Models;
-using Mailtrap.Inbox;
-using Mailtrap.Inbox.Models;
-using Mailtrap.Inbox.Requests;
-using Mailtrap.Message;
-using Mailtrap.Message.Models;
-using Mailtrap.Message.Requests;
-using Mailtrap.MessageAttachment;
-using Mailtrap.MessageAttachment.Models;
-using Mailtrap.Project;
-using Mailtrap.Project.Models;
-using Mailtrap.Project.Requests;
-using Mailtrap.SendingDomain;
-using Mailtrap.SendingDomain.Models;
-using Mailtrap.SendingDomain.Requests;
+using Mailtrap.Inboxes;
+using Mailtrap.Inboxes.Models;
+using Mailtrap.Inboxes.Requests;
+using Mailtrap.MessageAttachments;
+using Mailtrap.MessageAttachments.Models;
+using Mailtrap.Messages;
+using Mailtrap.Messages.Models;
+using Mailtrap.Messages.Requests;
+using Mailtrap.Projects;
+using Mailtrap.Projects.Models;
+using Mailtrap.Projects.Requests;
+using Mailtrap.SendingDomains;
+using Mailtrap.SendingDomains.Models;
+using Mailtrap.SendingDomains.Requests;
+
+
+
 // using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -57,13 +60,13 @@ internal sealed class Program
             IMailtrapClient mailtrapClient = host.Services.GetRequiredService<IMailtrapClient>();
 
             // Get all accounts available for the token
-            CollectionResponse<AccountDetails> accounts = await mailtrapClient
+            CollectionResponse<Account> accounts = await mailtrapClient
                 .Accounts()
                 .GetAll()
                 .ConfigureAwait(false);
 
             var accountId = 123;
-            AccountDetails? account = accounts.Data.FirstOrDefault(a => a.Id == accountId);
+            Account? account = accounts.Data.FirstOrDefault(a => a.Id == accountId);
 
             if (account is null)
             {
@@ -107,14 +110,14 @@ internal sealed class Program
         var filter = new AccountAccessFilter();
         filter.DomainIds.Add(domainId);
 
-        CollectionResponse<AccountAccessDetails> accesses = await accountResource
+        CollectionResponse<AccountAccess> accesses = await accountResource
             .Accesses()
             .Fetch(filter)
             .ConfigureAwait(false);
 
         var userId = 4322;
 
-        AccountAccessDetails? userAccess = accesses.Data.FirstOrDefault(a =>
+        AccountAccess? userAccess = accesses.Data.FirstOrDefault(a =>
             SpecifierType.User.Equals(a.SpecifierType) &&
             a.Specifier?.Id == userId);
 
@@ -141,7 +144,7 @@ internal sealed class Program
     private static async Task ProcessBilling(IAccountResource accountResource, ILogger logger)
     {
         // Get billing usage for account
-        Response<BillingUsageDetails> billing = await accountResource
+        Response<BillingUsage> billing = await accountResource
             .Billing()
             .GetUsage()
             .ConfigureAwait(false);
@@ -279,11 +282,11 @@ internal sealed class Program
         IInboxCollectionResource inboxesResource = accountResource.Inboxes();
 
         // Get all inboxes for account
-        CollectionResponse<InboxDetails> inboxes = await inboxesResource
+        CollectionResponse<Inbox> inboxes = await inboxesResource
             .GetAll()
             .ConfigureAwait(false);
 
-        InboxDetails? inbox = inboxes.Data
+        Inbox? inbox = inboxes.Data
             .FirstOrDefault(i => string.Equals(i.Name, inboxName, StringComparison.OrdinalIgnoreCase));
 
         if (inbox is null)
@@ -298,7 +301,7 @@ internal sealed class Program
                     Name = inboxName
                 }
             };
-            Response<InboxDetails> createdInbox = await inboxesResource
+            Response<Inbox> createdInbox = await inboxesResource
                 .Create(createInboxRequest)
                 .ConfigureAwait(false);
 
@@ -315,7 +318,7 @@ internal sealed class Program
         IInboxResource inboxResource = accountResource.Inbox(inbox.Id);
 
         // Toggle email for inbox
-        Response<InboxDetails> updatedInbox = await inboxResource
+        Response<Inbox> updatedInbox = await inboxResource
             .ToggleEmailAddress()
             .ConfigureAwait(false);
 

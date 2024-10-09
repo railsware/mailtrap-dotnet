@@ -1,28 +1,28 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IBillingResource.cs" company="Railsware Products Studio, LLC">
+// <copyright file="IAttachmentResource.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Billing;
+namespace Mailtrap.MessageAttachments;
 
 
 /// <summary>
-/// Represents account billing resource.
+/// Represents message attachment resource.
 /// </summary>
-public interface IBillingResource
+public interface IAttachmentResource
 {
     /// <summary>
-    /// Gets current billing cycle usage for Email Testing and Email Sending.
+    /// Gets details of the message attachment, represented by the current resource instance.
     /// </summary>
-    /// 
+    ///
     /// <param name="cancellationToken">
     /// <see cref="CancellationToken"/> instance to control operation cancellation.
     /// </param>
     /// 
     /// <returns>
-    /// Response containing billing usage details.
+    /// Response containing requested message attachment details.
     /// </returns>
-    public Task<Response<BillingUsage>> GetUsage(CancellationToken cancellationToken = default);
+    public Task<Response<AttachmentDetails>> GetDetails(CancellationToken cancellationToken = default);
 }

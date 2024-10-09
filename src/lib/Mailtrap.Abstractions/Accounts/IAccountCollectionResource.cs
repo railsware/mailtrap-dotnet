@@ -1,28 +1,28 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IBillingResource.cs" company="Railsware Products Studio, LLC">
+// <copyright file="IAccountCollectionResource.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Billing;
+namespace Mailtrap.Accounts;
 
 
 /// <summary>
-/// Represents account billing resource.
+/// Represents account collection resource.
 /// </summary>
-public interface IBillingResource
+public interface IAccountCollectionResource
 {
     /// <summary>
-    /// Gets current billing cycle usage for Email Testing and Email Sending.
+    /// Gets details of all accounts to which the API token has access.
     /// </summary>
-    /// 
+    ///
     /// <param name="cancellationToken">
     /// <see cref="CancellationToken"/> instance to control operation cancellation.
     /// </param>
     /// 
     /// <returns>
-    /// Response containing billing usage details.
+    /// Response containing a collection of accounts details.
     /// </returns>
-    public Task<Response<BillingUsage>> GetUsage(CancellationToken cancellationToken = default);
+    public Task<CollectionResponse<Account>> GetAll(CancellationToken cancellationToken = default);
 }
