@@ -92,5 +92,5 @@ public sealed record SpamReport
     [JsonPropertyName("Details")]
     [JsonPropertyOrder(7)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
-    public IList<SpamReportDetail> Details { get; } = [];
+    public IList<SpamReportItem> Details { get; } = [];
 }

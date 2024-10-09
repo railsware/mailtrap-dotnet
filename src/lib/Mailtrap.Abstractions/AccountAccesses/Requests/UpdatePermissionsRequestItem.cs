@@ -1,11 +1,10 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="UpdatePermissionsRequestDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="UpdatePermissionsRequestItem.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
-
-namespace Mailtrap.AccountAccesses.Models;
+namespace Mailtrap.AccountAccesses.Requests;
 
 
 // TODO: add validation
@@ -13,7 +12,7 @@ namespace Mailtrap.AccountAccesses.Models;
 /// <summary>
 /// Represents permissions details for account access update request.
 /// </summary>
-public sealed record UpdatePermissionsRequestDetails
+public sealed record UpdatePermissionsRequestItem
 {
     /// <summary>
     /// Gets or sets the resource identifier.

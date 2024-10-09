@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ProjectRequest.cs" company="Railsware Products Studio, LLC">
+// <copyright file="ProjectRequestDto.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,21 +8,19 @@
 namespace Mailtrap.Projects.Requests;
 
 
-// TODO: Add validation
-
 /// <summary>
 /// Generic request object for project CRUD operations.
 /// </summary>
-public record ProjectRequest
+internal record ProjectRequestDto<T> where T : ProjectRequest
 {
     /// <summary>
-    /// Gets or sets project name.
+    /// Gets or sets project request payload.
     /// </summary>
     ///
     /// <value>
-    /// Project name.
+    /// Project request payload.
     /// </value>
-    [JsonPropertyName("name")]
+    [JsonPropertyName("project")]
     [JsonPropertyOrder(1)]
-    public string? Name { get; set; }
+    public T? Project { get; set; }
 }

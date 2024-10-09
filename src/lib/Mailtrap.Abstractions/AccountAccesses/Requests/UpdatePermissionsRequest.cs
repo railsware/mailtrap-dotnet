@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.AccountAccesses.Requests;
 
 
@@ -25,5 +24,5 @@ public sealed record UpdatePermissionsRequest
     [JsonPropertyName("permissions")]
     [JsonPropertyOrder(1)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
-    public IList<UpdatePermissionsRequestDetails> Permissions { get; } = [];
+    public IList<UpdatePermissionsRequestItem> Permissions { get; } = [];
 }

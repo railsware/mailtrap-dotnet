@@ -1,16 +1,14 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="CreateProjectRequest.cs" company="Railsware Products Studio, LLC">
+// <copyright file="CreateInboxRequestDto.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Projects.Requests;
+namespace Mailtrap.Inboxes.Requests;
 
-
-// TODO: Add validation
 
 /// <summary>
-/// Request object for creating project.
+/// Request object for inbox create operation.
 /// </summary>
-public sealed record CreateProjectRequest : ProjectRequest { }
+internal sealed record CreateInboxRequestDto : InboxRequestDto<CreateInboxRequest> { }

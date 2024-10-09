@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SpamReportDetail.cs" company="Railsware Products Studio, LLC">
+// <copyright file="SpamReportItem.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Mailtrap.Emails.Models;
 /// <summary>
 /// Represents spam report details for the particular rule.
 /// </summary>
-public sealed record SpamReportDetail
+public sealed record SpamReportItem
 {
     /// <summary>
     /// Gets the score for the particular spam rule.

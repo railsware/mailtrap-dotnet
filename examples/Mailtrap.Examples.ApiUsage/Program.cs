@@ -165,13 +165,7 @@ internal sealed class Program
             logger.LogWarning("No sending domain found. Creating.");
 
             // Create sending domain
-            var createDomainRequest = new CreateSendingDomainRequest
-            {
-                Domain = new CreateSendingDomainRequestDetails
-                {
-                    DomainName = domainName
-                }
-            };
+            var createDomainRequest = new CreateSendingDomainRequest(domainName);
             Response<SendingDomain> createdDomain = await domainsResource.Create(createDomainRequest);
 
             domain = createdDomain.Data;
@@ -211,10 +205,7 @@ internal sealed class Program
             // Create project
             var createProjectRequest = new CreateProjectRequest
             {
-                Project = new CreateProjectRequestDetails
-                {
-                    Name = projectName
-                }
+                Name = projectName
             };
             Response<Project> createdProject = await projectsResource.Create(createProjectRequest);
 
@@ -235,10 +226,7 @@ internal sealed class Program
         // Update project details
         var updateProjectRequest = new UpdateProjectRequest
         {
-            Project = new UpdateProjectRequestDetails
-            {
-                Name = "Updated Project Name"
-            }
+            Name = "Updated Project Name"
         };
         Response<Project> updatedProject = await projectResource.Update(updateProjectRequest);
 
@@ -274,10 +262,7 @@ internal sealed class Program
             // Create inbox
             var createInboxRequest = new CreateInboxRequest(projectId)
             {
-                Inbox = new CreateInboxRequestDetails
-                {
-                    Name = inboxName
-                }
+                Name = inboxName
             };
             Response<Inbox> createdInbox = await inboxesResource
                 .Create(createInboxRequest);
@@ -305,10 +290,7 @@ internal sealed class Program
         // Update inbox details
         var updateInboxRequest = new UpdateInboxRequest
         {
-            Inbox = new UpdateInboxRequestDetails
-            {
-                Name = "Updated Inbox Name"
-            }
+            Name = "Updated Inbox Name"
         };
         updatedInbox = await inboxResource.Update(updateInboxRequest);
 
@@ -391,10 +373,7 @@ internal sealed class Program
         // Update message details
         var updateMessageRequest = new UpdateEmailMessageRequest
         {
-            Message = new UpdateEmailMessageRequestDetails
-            {
-                IsRead = true
-            }
+            IsRead = true
         };
         Response<EmailMessage> updatedMessage = await messageResource.Update(updateMessageRequest);
         logger.LogInformation("Updated Message: {Message}", updatedMessage.Data);

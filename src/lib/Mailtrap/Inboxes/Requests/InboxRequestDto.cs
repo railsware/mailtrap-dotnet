@@ -1,28 +1,26 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="InboxRequestDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="InboxRequestDto.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Inboxes.Models;
+namespace Mailtrap.Inboxes.Requests;
 
-
-// TODO: add validation
 
 /// <summary>
-/// Represents basic inbox details for CRUD requests.
+/// Generic request object for inbox CRUD operations.
 /// </summary>
-public record InboxRequestDetails
+internal record InboxRequestDto<T> where T : InboxRequest
 {
     /// <summary>
-    /// Gets or sets inbox name.
+    /// Gets or sets inbox details.
     /// </summary>
     /// 
     /// <value>
-    /// Inbox name.
+    /// Inbox details.
     /// </value>
-    [JsonPropertyName("name")]
+    [JsonPropertyName("inbox")]
     [JsonPropertyOrder(1)]
-    public string? Name { get; set; }
+    public T? Inbox { get; set; }
 }

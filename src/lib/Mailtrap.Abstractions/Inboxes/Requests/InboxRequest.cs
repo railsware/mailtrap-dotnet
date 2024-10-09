@@ -11,18 +11,18 @@ namespace Mailtrap.Inboxes.Requests;
 // TODO: add validation
 
 /// <summary>
-/// Generic request object for inbox CRUD operations.
+/// Represents basic inbox details for CRUD requests.
 /// </summary>
-public record InboxRequest<T> where T : InboxRequestDetails
+public record InboxRequest
 {
     /// <summary>
-    /// Gets or sets inbox details.
+    /// Gets or sets inbox name.
     /// </summary>
     /// 
     /// <value>
-    /// Inbox details.
+    /// Inbox name.
     /// </value>
-    [JsonPropertyName("inbox")]
+    [JsonPropertyName("name")]
     [JsonPropertyOrder(1)]
-    public T? Inbox { get; set; }
+    public string? Name { get; set; }
 }

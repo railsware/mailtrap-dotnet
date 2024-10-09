@@ -16,13 +16,28 @@ namespace Mailtrap.SendingDomains.Requests;
 public sealed record CreateSendingDomainRequest
 {
     /// <summary>
-    /// Gets or sets sending domain request payload.
+    /// Gets or sets sending domain name.
     /// </summary>
     ///
     /// <value>
-    /// Sending domain request payload.
+    /// Sending domain name.
     /// </value>
-    [JsonPropertyName("sending_domain")]
+    [JsonPropertyName("domain_name")]
     [JsonPropertyOrder(1)]
-    public CreateSendingDomainRequestDetails? Domain { get; set; }
+    public string DomainName { get; }
+
+
+    /// <summary>
+    /// Primary instance constructor.
+    /// </summary>
+    /// 
+    /// <param name="domainName">
+    /// Name for the domain to create.
+    /// </param>
+    public CreateSendingDomainRequest(string domainName)
+    {
+        Ensure.NotNullOrEmpty(domainName, nameof(domainName));
+
+        DomainName = domainName;
+    }
 }

@@ -13,4 +13,4 @@ namespace Mailtrap.Projects.Requests;
 /// <summary>
 /// Request object for updating project details.
 /// </summary>
-public sealed record UpdateProjectRequest : ProjectRequest<UpdateProjectRequestDetails> { }
+public sealed record UpdateProjectRequest : ProjectRequest { }

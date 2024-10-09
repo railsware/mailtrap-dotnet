@@ -13,7 +13,7 @@ namespace Mailtrap.Inboxes.Requests;
 /// <summary>
 /// Request object for inbox create operation.
 /// </summary>
-public sealed record CreateInboxRequest : InboxRequest<CreateInboxRequestDetails>
+public sealed record CreateInboxRequest : InboxRequest
 {
     /// <summary>
     /// Gets or sets project identifier for inbox creation.

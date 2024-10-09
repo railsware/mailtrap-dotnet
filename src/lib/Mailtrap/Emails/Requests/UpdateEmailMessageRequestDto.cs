@@ -1,28 +1,26 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ProjectRequestDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="UpdateEmailMessageRequestDto.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Projects.Models;
+namespace Mailtrap.Emails.Requests;
 
-
-// TODO: add validation
 
 /// <summary>
-/// Represents basic project details for CRUD operations.
+/// Request object for updating message.
 /// </summary>
-public record ProjectRequestDetails
+internal sealed record UpdateEmailMessageRequestDto
 {
     /// <summary>
-    /// Gets or sets project name.
+    /// Gets or sets message details.
     /// </summary>
     ///
     /// <value>
-    /// Project name.
+    /// Message details.
     /// </value>
-    [JsonPropertyName("name")]
+    [JsonPropertyName("message")]
     [JsonPropertyOrder(1)]
-    public string? Name { get; set; }
+    public UpdateEmailMessageRequest? Message { get; set; }
 }
