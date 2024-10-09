@@ -24,5 +24,5 @@ public interface IAttachmentResource
     /// <returns>
     /// Response containing requested message attachment details.
     /// </returns>
-    public Task<Response<AttachmentDetails>> GetDetails(CancellationToken cancellationToken = default);
+    public Task<Response<MessageAttachment>> GetDetails(CancellationToken cancellationToken = default);
 }

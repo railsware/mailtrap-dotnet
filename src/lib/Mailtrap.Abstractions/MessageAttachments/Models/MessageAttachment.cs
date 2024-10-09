@@ -11,7 +11,7 @@ namespace Mailtrap.MessageAttachments.Models;
 /// <summary>
 /// Represents attachment metadata for email sent to sandbox.
 /// </summary>
-public sealed record AttachmentDetails
+public sealed record MessageAttachment
 {
     /// <summary>
     /// Gets attachment identifier.

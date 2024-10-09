@@ -11,7 +11,7 @@ namespace Mailtrap.MessageAttachments.Models;
 /// <summary>
 /// Represents a set of filtering parameters for the message attachment fetching.
 /// </summary>
-public sealed record AttachmentFilter
+public sealed record MessageAttachmentFilter
 {
     /// <summary>
     /// Gets or sets a disposition type of attachments that will be returned by fetch.<br />

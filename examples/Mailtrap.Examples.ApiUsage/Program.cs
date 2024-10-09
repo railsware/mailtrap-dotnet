@@ -484,16 +484,16 @@ internal sealed class Program
         // Get resource for attachments collection
         IAttachmentCollectionResource attachmentsResource = messageResource.Attachments();
 
-        var attachmentFilter = new AttachmentFilter
+        var attachmentFilter = new MessageAttachmentFilter
         {
             Disposition = DispositionType.Attachment
         };
 
-        CollectionResponse<AttachmentDetails> attachments = await attachmentsResource
+        CollectionResponse<MessageAttachment> attachments = await attachmentsResource
             .Fetch(attachmentFilter)
             .ConfigureAwait(false);
 
-        AttachmentDetails? attachment = attachments.Data.FirstOrDefault();
+        MessageAttachment? attachment = attachments.Data.FirstOrDefault();
 
         if (attachment is null)
         {
@@ -507,7 +507,7 @@ internal sealed class Program
             IAttachmentResource attachmentResource = messageResource.Attachment(attachment.Id);
 
             // Get attachment details
-            Response<AttachmentDetails> attachmentDetails = await attachmentResource
+            Response<MessageAttachment> attachmentDetails = await attachmentResource
                 .GetDetails()
                 .ConfigureAwait(false);
 

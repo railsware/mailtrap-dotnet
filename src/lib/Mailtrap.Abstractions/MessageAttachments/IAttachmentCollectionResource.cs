@@ -28,7 +28,7 @@ public interface IAttachmentCollectionResource
     /// <returns>
     /// Response containing a collection of message attachments.
     /// </returns>
-    public Task<CollectionResponse<AttachmentDetails>> Fetch(
-        AttachmentFilter? filter = default,
+    public Task<CollectionResponse<MessageAttachment>> Fetch(
+        MessageAttachmentFilter? filter = default,
         CancellationToken cancellationToken = default);
 }
