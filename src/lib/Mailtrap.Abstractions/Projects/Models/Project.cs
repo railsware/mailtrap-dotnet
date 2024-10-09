@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ProjectDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="Project.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Mailtrap.Projects.Models;
 /// <summary>
 /// Represents project details.
 /// </summary>
-public sealed record ProjectDetails
+public sealed record Project
 {
     /// <summary>
     /// Gets project identifier.

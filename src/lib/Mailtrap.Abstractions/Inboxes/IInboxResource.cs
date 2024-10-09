@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.Inboxes;
 
 
@@ -20,7 +19,7 @@ public interface IInboxResource
     /// <returns>
     /// Message collection resource for the inbox, represented by this resource instance.
     /// </returns>
-    public IMessageCollectionResource Messages();
+    public IEmailMessageCollectionResource Messages();
 
     /// <summary>
     /// Gets resource for specific message, identified by <paramref name="messageId"/>,
@@ -34,7 +33,7 @@ public interface IInboxResource
     /// <returns>
     /// Resource for the message with specified ID.
     /// </returns>
-    public IMessageResource Message(long messageId);
+    public IEmailMessageResource Message(long messageId);
 
 
     /// <summary>

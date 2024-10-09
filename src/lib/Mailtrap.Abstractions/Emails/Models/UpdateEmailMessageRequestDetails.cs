@@ -1,11 +1,11 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="UpdateMessageRequestDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="UpdateEmailMessageRequestDetails.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Messages.Models;
+namespace Mailtrap.Emails.Models;
 
 
 // TODO: add validation
@@ -13,7 +13,7 @@ namespace Mailtrap.Messages.Models;
 /// <summary>
 /// Represents message details for update.
 /// </summary>
-public sealed record UpdateMessageRequestDetails
+public sealed record UpdateEmailMessageRequestDetails
 {
     /// <summary>
     /// Gets or sets the flag, indicating if message is read.

@@ -24,7 +24,7 @@ public interface ISendingDomainCollectionResource
     /// <returns>
     /// Response containing a collection of sending domain details.
     /// </returns>
-    public Task<CollectionResponse<SendingDomainDetails>> GetAll(CancellationToken cancellationToken = default);
+    public Task<CollectionResponse<SendingDomain>> GetAll(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Creates new sending domain with details specified by <paramref name="request"/>.
@@ -41,5 +41,5 @@ public interface ISendingDomainCollectionResource
     /// <returns>
     /// Response containing created sending domain details.
     /// </returns>
-    public Task<Response<SendingDomainDetails>> Create(CreateSendingDomainRequest request, CancellationToken cancellationToken = default);
+    public Task<Response<SendingDomain>> Create(CreateSendingDomainRequest request, CancellationToken cancellationToken = default);
 }

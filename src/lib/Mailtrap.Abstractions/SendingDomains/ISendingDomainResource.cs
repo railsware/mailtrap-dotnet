@@ -24,7 +24,7 @@ public interface ISendingDomainResource
     /// <returns>
     /// Response containing domain attributes, DNS records, status, etc. for domain.
     /// </returns>
-    public Task<Response<SendingDomainDetails>> GetDetails(CancellationToken cancellationToken = default);
+    public Task<Response<SendingDomain>> GetDetails(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Sends setup instructions for sending domain, represented by this resource instance,

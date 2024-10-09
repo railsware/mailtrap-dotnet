@@ -1,17 +1,17 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MessageHeadersDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="EmailMessageHeaders.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Messages.Models;
+namespace Mailtrap.Emails.Models;
 
 
 /// <summary>
 /// Represents headers details for the message.
 /// </summary>
-public sealed record MessageHeadersDetails
+public sealed record EmailMessageHeaders
 {
     /// <summary>
     /// Gets a collection of the message headers.

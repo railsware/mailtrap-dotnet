@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SendingDomainDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="SendingDomain.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Mailtrap.SendingDomains.Models;
 /// <summary>
 /// Lists domain attributes, DNS records, status, etc.
 /// </summary>
-public sealed record SendingDomainDetails
+public sealed record SendingDomain
 {
     /// <summary>
     /// </summary>

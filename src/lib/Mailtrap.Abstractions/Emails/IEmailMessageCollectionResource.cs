@@ -1,17 +1,17 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IMessageCollectionResource.cs" company="Railsware Products Studio, LLC">
+// <copyright file="IEmailMessageCollectionResource.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Messages;
+namespace Mailtrap.Emails;
 
 
 /// <summary>
 /// Represents message collection resource.
 /// </summary>
-public interface IMessageCollectionResource
+public interface IEmailMessageCollectionResource
 {
     /// <summary>
     /// Fetches a collection of messages using provided filtering parameters.
@@ -33,7 +33,7 @@ public interface IMessageCollectionResource
     /// The response contains up to 30 messages.<br />
     /// Use <paramref name="filter"/> parameters to retrieve more.
     /// </remarks>
-    public Task<CollectionResponse<MessageDetails>> Fetch(
-        MessageFilter? filter = default,
+    public Task<CollectionResponse<EmailMessage>> Fetch(
+        EmailMessageFilter? filter = default,
         CancellationToken cancellationToken = default);
 }

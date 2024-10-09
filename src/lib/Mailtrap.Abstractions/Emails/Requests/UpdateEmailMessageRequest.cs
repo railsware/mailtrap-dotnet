@@ -1,26 +1,28 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ForwardedMessageDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="UpdateEmailMessageRequest.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Messages.Models;
+namespace Mailtrap.Emails.Requests;
 
+
+// TODO: add validation
 
 /// <summary>
-/// Details of the forwarded message.
+/// Request object for updating message.
 /// </summary>
-public sealed record ForwardedMessageDetails
+public sealed record UpdateEmailMessageRequest
 {
     /// <summary>
-    /// Gets forward result message.
+    /// Gets or sets message details.
     /// </summary>
     ///
     /// <value>
-    /// Forward result message.
+    /// Message details.
     /// </value>
     [JsonPropertyName("message")]
     [JsonPropertyOrder(1)]
-    public string? Message { get; }
+    public UpdateEmailMessageRequestDetails? Message { get; set; }
 }

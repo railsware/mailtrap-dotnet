@@ -1,17 +1,17 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MessageFilter.cs" company="Railsware Products Studio, LLC">
+// <copyright file="EmailMessageFilter.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Messages.Models;
+namespace Mailtrap.Emails.Models;
 
 
 /// <summary>
 /// Represents a set of filtering parameters for the message fetching.
 /// </summary>
-public sealed record MessageFilter
+public sealed record EmailMessageFilter
 {
     /// <summary>
     /// Gets or sets an ID of the last message that will be returned by fetch.<br />

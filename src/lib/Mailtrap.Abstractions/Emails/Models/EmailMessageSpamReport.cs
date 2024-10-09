@@ -1,26 +1,26 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MessageHtmlReportDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="EmailMessageSpamReport.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Messages.Models;
+namespace Mailtrap.Emails.Models;
 
 
 /// <summary>
-/// Represents HTML analysis report details for the message.
+/// Represents spam report details for the message.
 /// </summary>
-public sealed record MessageHtmlReportDetails
+public sealed record EmailMessageSpamReport
 {
     /// <summary>
-    /// Gets HTML analysis report.
+    /// Gets spam report.
     /// </summary>
     ///
     /// <value>
-    /// HTML analysis report.
+    /// Spam report.
     /// </value>
     [JsonPropertyName("report")]
     [JsonPropertyOrder(1)]
-    public HtmlAnalysisReport Report { get; } = new();
+    public SpamReport Report { get; } = new();
 }

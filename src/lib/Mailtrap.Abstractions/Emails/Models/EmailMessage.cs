@@ -1,17 +1,17 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MessageDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="EmailMessage.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Messages.Models;
+namespace Mailtrap.Emails.Models;
 
 
 /// <summary>
 /// Represents details of a message in inbox.
 /// </summary>
-public sealed record MessageDetails
+public sealed record EmailMessage
 {
     /// <summary>
     /// Gets message identifier.

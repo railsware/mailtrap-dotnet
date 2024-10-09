@@ -24,7 +24,7 @@ public interface IProjectCollectionResource
     /// <returns>
     /// Response containing a collection of project details.
     /// </returns>
-    public Task<CollectionResponse<ProjectDetails>> GetAll(CancellationToken cancellationToken = default);
+    public Task<CollectionResponse<Project>> GetAll(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Creates a new project with details specified by <paramref name="request"/>.
@@ -41,5 +41,5 @@ public interface IProjectCollectionResource
     /// <returns>
     /// Response containing created project details.
     /// </returns>
-    public Task<Response<ProjectDetails>> Create(CreateProjectRequest request, CancellationToken cancellationToken = default);
+    public Task<Response<Project>> Create(CreateProjectRequest request, CancellationToken cancellationToken = default);
 }

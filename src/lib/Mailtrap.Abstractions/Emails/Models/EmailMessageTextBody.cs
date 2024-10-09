@@ -1,17 +1,17 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MessageTextBodyDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="EmailMessageTextBody.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Messages.Models;
+namespace Mailtrap.Emails.Models;
 
 
 /// <summary>
 /// Represents text body details of a message.
 /// </summary>
-public sealed record MessageTextBodyDetails
+public sealed record EmailMessageTextBody
 {
     /// <summary>
     /// Gets plain text body of the message (if exists).

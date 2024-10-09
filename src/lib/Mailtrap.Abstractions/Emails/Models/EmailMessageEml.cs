@@ -1,24 +1,24 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MessageHtmlSourceDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="EmailMessageEml.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Messages.Models;
+namespace Mailtrap.Emails.Models;
 
 
 /// <summary>
-/// Represents HTML source details of a message.
+/// Represents message details in .eml format.
 /// </summary>
-public sealed record MessageHtmlSourceDetails
+public sealed record EmailMessageEml
 {
     /// <summary>
-    /// Gets HTML source of the message.
+    /// Gets message in .eml format.
     /// </summary>
     ///
     /// <value>
-    /// HTML source of the message.
+    /// Message in .eml format.
     /// </value>
-    public string? HtmlSource { get; }
+    public string? Eml { get; }
 }

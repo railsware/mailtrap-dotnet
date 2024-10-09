@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="DeletedProjectDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="DeletedProject.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Mailtrap.Projects.Models;
 /// <summary>
 /// Represents details for deleted project.
 /// </summary>
-public sealed record DeletedProjectDetails
+public sealed record DeletedProject
 {
     /// <summary>
     /// Gets the deleted project identifier.

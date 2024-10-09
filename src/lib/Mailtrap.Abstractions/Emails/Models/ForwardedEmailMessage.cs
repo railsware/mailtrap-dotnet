@@ -1,26 +1,26 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MessageSpamReportDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="ForwardedEmailMessage.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Messages.Models;
+namespace Mailtrap.Emails.Models;
 
 
 /// <summary>
-/// Represents spam report details for the message.
+/// Details of the forwarded message.
 /// </summary>
-public sealed record MessageSpamReportDetails
+public sealed record ForwardedEmailMessage
 {
     /// <summary>
-    /// Gets spam report.
+    /// Gets forward result message.
     /// </summary>
     ///
     /// <value>
-    /// Spam report.
+    /// Forward result message.
     /// </value>
-    [JsonPropertyName("report")]
+    [JsonPropertyName("message")]
     [JsonPropertyOrder(1)]
-    public SpamReport Report { get; } = new();
+    public string? Message { get; }
 }

@@ -1,24 +1,24 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MessageRawDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="EmailMessageHtmlBody.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Messages.Models;
+namespace Mailtrap.Emails.Models;
 
 
 /// <summary>
-/// Represents message details in a raw format.
+/// Represents HTML body details of a message.
 /// </summary>
-public sealed record MessageRawDetails
+public sealed record EmailMessageHtmlBody
 {
     /// <summary>
-    /// Gets message in a raw format.
+    /// Gets HTML body of the message (if exists).
     /// </summary>
     ///
     /// <value>
-    /// Message in a raw format.
+    /// HTML body of the message (if exists).
     /// </value>
-    public string? Raw { get; }
+    public string? HtmlBody { get; }
 }

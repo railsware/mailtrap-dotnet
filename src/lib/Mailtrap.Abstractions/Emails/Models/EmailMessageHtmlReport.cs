@@ -1,28 +1,26 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ForwardMessageRequest.cs" company="Railsware Products Studio, LLC">
+// <copyright file="EmailMessageHtmlReport.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Messages.Requests;
+namespace Mailtrap.Emails.Models;
 
-
-// TODO: add validation
 
 /// <summary>
-/// Request object for forwarding a message.
+/// Represents HTML analysis report details for the message.
 /// </summary>
-public sealed record ForwardMessageRequest
+public sealed record EmailMessageHtmlReport
 {
     /// <summary>
-    /// Gets or sets email to forward to.
+    /// Gets HTML analysis report.
     /// </summary>
     ///
     /// <value>
-    /// Email to forward to.
+    /// HTML analysis report.
     /// </value>
-    [JsonPropertyName("email")]
+    [JsonPropertyName("report")]
     [JsonPropertyOrder(1)]
-    public string? Email { get; set; }
+    public HtmlAnalysisReport Report { get; } = new();
 }
