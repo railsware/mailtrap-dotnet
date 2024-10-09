@@ -34,7 +34,7 @@ public interface IAccountAccessResource
     /// If you send a combination of resource_type and resource_id that already exists, the permission is updated.<br />
     /// Otherwise, if the combination doesn't exist, the permission is created.
     /// </remarks>
-    public Task<Response<UpdatedPermissionsDetails>> UpdatePermissions(
+    public Task<Response<UpdatedPermissions>> UpdatePermissions(
         UpdatePermissionsRequest request,
         CancellationToken cancellationToken = default);
 
@@ -63,5 +63,5 @@ public interface IAccountAccessResource
     /// Thus any further operations on it will result in an error.
     /// </para>
     /// </remarks>
-    public Task<Response<DeletedAccountAccessDetails>> Delete(CancellationToken cancellationToken = default);
+    public Task<Response<DeletedAccountAccess>> Delete(CancellationToken cancellationToken = default);
 }

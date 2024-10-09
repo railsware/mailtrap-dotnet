@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SpecifierDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="Specifier.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Mailtrap.AccountAccesses.Models;
 /// <summary>
 /// Represents account access specifier details.
 /// </summary>
-public sealed record SpecifierDetails
+public sealed record Specifier
 {
     /// <summary>
     /// Gets the specifier unique identifier (user, invite or token).

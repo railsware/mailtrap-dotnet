@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="AccountAccessResourceDetails.cs" company="Railsware Products Studio, LLC">
+// <copyright file="AccountAccessResource.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Mailtrap.AccountAccesses.Models;
 /// <summary>
 /// Represents resource details for account access.
 /// </summary>
-public sealed record AccountAccessResourceDetails
+public sealed record AccountAccessResource
 {
     /// <summary>
     /// Gets the resource identifier.

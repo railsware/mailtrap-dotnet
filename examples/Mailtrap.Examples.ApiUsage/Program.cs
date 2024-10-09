@@ -30,8 +30,6 @@ using Mailtrap.SendingDomains;
 using Mailtrap.SendingDomains.Models;
 using Mailtrap.SendingDomains.Requests;
 
-
-
 // using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

@@ -45,7 +45,7 @@ public sealed record AccountAccess
     /// </value>
     [JsonPropertyName("specifier")]
     [JsonPropertyOrder(3)]
-    public SpecifierDetails? Specifier { get; }
+    public Specifier? Specifier { get; }
 
     /// <summary>
     /// Gets the list of resources the specifier has access to.
@@ -57,7 +57,7 @@ public sealed record AccountAccess
     [JsonPropertyName("resources")]
     [JsonPropertyOrder(4)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
-    public IList<AccountAccessResourceDetails> Resources { get; } = [];
+    public IList<AccountAccessResource> Resources { get; } = [];
 
     /// <summary>
     /// Gets specifier permissions for resources.
