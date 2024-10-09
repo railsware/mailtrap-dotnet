@@ -192,6 +192,9 @@ dotnet_diagnostic.CA1848.severity = silent
 # CA1062: Null-check validation
 dotnet_code_quality.CA1062.null_check_validation_methods = NotNull|NotNullOrEmpty
 
+CA2007: Do not directly await a Task
+dotnet_code_quality.CA2007.output_kind = DynamicallyLinkedLibrary
+
 
 # Project files
 [*.*proj]

@@ -10,6 +10,9 @@
 # csharp_style_var_when_type_is_apparent = false:suggestion
 csharp_style_var_elsewhere = false:suggestion
 
+# CA2007: Do not directly await a Task
+dotnet_diagnostic.CA2007.severity = none
+
 # Workaround for https://github.com/dotnet/roslyn-analyzers/issues/5628
 [Program.cs]
-dotnet_diagnostic.ca1812.severity = none
+dotnet_diagnostic.CA1812.severity = none
