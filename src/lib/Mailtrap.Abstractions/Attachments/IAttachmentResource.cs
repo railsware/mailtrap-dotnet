@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.MessageAttachments;
+namespace Mailtrap.Attachments;
 
 
 /// <summary>
@@ -24,5 +24,5 @@ public interface IAttachmentResource
     /// <returns>
     /// Response containing requested message attachment details.
     /// </returns>
-    public Task<Response<MessageAttachment>> GetDetails(CancellationToken cancellationToken = default);
+    public Task<Response<EmailAttachment>> GetDetails(CancellationToken cancellationToken = default);
 }

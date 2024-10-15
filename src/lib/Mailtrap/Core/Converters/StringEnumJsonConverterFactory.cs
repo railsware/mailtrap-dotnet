@@ -20,18 +20,19 @@ internal sealed class StringEnumJsonConverterFactory : JsonConverterFactory
     /// <inheritdoc/>
     public override bool CanConvert(Type typeToConvert)
     {
-        return _stringEnumGenericType.IsAssignableFrom(typeToConvert);
+        var baseType = typeToConvert.BaseType;
+
+        // Converted type should derived from StringEnum<> generic type
+        return
+            baseType?.IsGenericType == true &&
+            baseType.GetGenericTypeDefinition() == _stringEnumGenericType;
     }
 
     /// <inheritdoc/>
     public override JsonConverter? CreateConverter(Type typeToConvert, JsonSerializerOptions options)
     {
         var converter = (JsonConverter)Activator.CreateInstance(
-            _converterGenericType.MakeGenericType(typeToConvert),
-            BindingFlags.Instance | BindingFlags.Public,
-            binder: null,
-            args: [options],
-            culture: null);
+            _converterGenericType.MakeGenericType(typeToConvert));
 
         return converter;
     }

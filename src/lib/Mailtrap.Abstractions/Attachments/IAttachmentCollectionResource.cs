@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.MessageAttachments;
+namespace Mailtrap.Attachments;
 
 
 /// <summary>
@@ -28,7 +28,7 @@ public interface IAttachmentCollectionResource
     /// <returns>
     /// Response containing a collection of message attachments.
     /// </returns>
-    public Task<CollectionResponse<MessageAttachment>> Fetch(
-        MessageAttachmentFilter? filter = default,
+    public Task<CollectionResponse<EmailAttachment>> Fetch(
+        EmailAttachmentFilter? filter = default,
         CancellationToken cancellationToken = default);
 }

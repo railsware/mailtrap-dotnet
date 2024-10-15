@@ -19,9 +19,9 @@ internal sealed class StringEnumJsonConverterTests
     public void Read_ShouldReadAndConvert_WhenTokenIsValidString()
     {
         _converter
-            .Read(SpecifierType.Empty.ToString().Quoted(), _options)
+            .Read(SpecifierType.None.ToString().Quoted(), _options)
             .Should()
-            .Be(SpecifierType.Empty);
+            .Be(SpecifierType.None);
 
         _converter
             .Read(SpecifierType.User.ToString().Quoted(), _options)
@@ -66,29 +66,40 @@ internal sealed class StringEnumJsonConverterTests
     [Test]
     public void Write_ShouldWrite_WhenValueIsValid()
     {
-        _converter
-            .Write(SpecifierType.Empty, _options)
+        var converter = new StringEnumJsonConverter<AccountResourceType>();
+        converter
+            .Write(AccountResourceType.None, _options)
             .Should()
-            .Be(SpecifierType.Empty.ToString().Quoted());
+            .Be(AccountResourceType.None.ToString().Quoted());
 
-        _converter
-            .Write(SpecifierType.User, _options)
+        converter
+            .Write(AccountResourceType.Account, _options)
             .Should()
-            .Be(SpecifierType.User.ToString().Quoted());
+            .Be(AccountResourceType.Account.ToString().Quoted());
 
-        _converter
-            .Write(SpecifierType.Invite, _options)
+        converter
+            .Write(AccountResourceType.Billing, _options)
             .Should()
-            .Be(SpecifierType.Invite.ToString().Quoted());
+            .Be(AccountResourceType.Billing.ToString().Quoted());
 
-        _converter
-            .Write(SpecifierType.ApiToken, _options)
+        converter
+            .Write(AccountResourceType.Project, _options)
             .Should()
-            .Be(SpecifierType.ApiToken.ToString().Quoted());
+            .Be(AccountResourceType.Project.ToString().Quoted());
 
-        SpecifierType? specifierType = null;
-        _converter
-            .Write(specifierType!, _options)
+        converter
+            .Write(AccountResourceType.Inbox, _options)
+            .Should()
+            .Be(AccountResourceType.Inbox.ToString().Quoted());
+
+        converter
+            .Write(AccountResourceType.SendingDomain, _options)
+            .Should()
+            .Be(AccountResourceType.SendingDomain.ToString().Quoted());
+
+        AccountResourceType? resourceType = null;
+        converter
+            .Write(resourceType!, _options)
             .Should()
             .Be("null");
     }

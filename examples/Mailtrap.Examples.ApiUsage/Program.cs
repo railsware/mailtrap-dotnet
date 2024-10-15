@@ -10,6 +10,8 @@ using Mailtrap.AccountAccesses;
 using Mailtrap.AccountAccesses.Models;
 using Mailtrap.Accounts;
 using Mailtrap.Accounts.Models;
+using Mailtrap.Attachments;
+using Mailtrap.Attachments.Models;
 using Mailtrap.Billing.Models;
 
 // using Mailtrap.Extensions.DependencyInjection;
@@ -21,8 +23,6 @@ using Mailtrap.Emails.Requests;
 using Mailtrap.Inboxes;
 using Mailtrap.Inboxes.Models;
 using Mailtrap.Inboxes.Requests;
-using Mailtrap.MessageAttachments;
-using Mailtrap.MessageAttachments.Models;
 using Mailtrap.Projects;
 using Mailtrap.Projects.Models;
 using Mailtrap.Projects.Requests;
@@ -400,14 +400,14 @@ internal sealed class Program
         // Get resource for attachments collection
         IAttachmentCollectionResource attachmentsResource = messageResource.Attachments();
 
-        var attachmentFilter = new MessageAttachmentFilter
+        var attachmentFilter = new EmailAttachmentFilter
         {
             Disposition = DispositionType.Attachment
         };
 
-        CollectionResponse<MessageAttachment> attachments = await attachmentsResource.Fetch(attachmentFilter);
+        CollectionResponse<EmailAttachment> attachments = await attachmentsResource.Fetch(attachmentFilter);
 
-        MessageAttachment? attachment = attachments.Data.FirstOrDefault();
+        EmailAttachment? attachment = attachments.Data.FirstOrDefault();
 
         if (attachment is null)
         {
@@ -421,7 +421,7 @@ internal sealed class Program
             IAttachmentResource attachmentResource = messageResource.Attachment(attachment.Id);
 
             // Get attachment details
-            Response<MessageAttachment> attachmentDetails = await attachmentResource.GetDetails();
+            Response<EmailAttachment> attachmentDetails = await attachmentResource.GetDetails();
 
             logger.LogInformation("Attachment: {Attachment}", attachmentDetails.Data);
         }

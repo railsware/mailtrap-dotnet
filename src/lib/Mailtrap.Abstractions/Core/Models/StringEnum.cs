@@ -20,8 +20,9 @@ public abstract record StringEnum<T> where T : StringEnum<T>, new()
 
 
     /// <summary>
+    /// Represents empty enum value.
     /// </summary>
-    public static T Empty { get; } = Define(string.Empty);
+    public static T None { get; } = Define(string.Empty);
 
 
     static StringEnum()
@@ -29,27 +30,6 @@ public abstract record StringEnum<T> where T : StringEnum<T>, new()
         // Explicitly initialize static fields in derived enum type upon type initialization.
         // This will ensure that s_values dictionary is populated with all valid enum entries.
         RuntimeHelpers.RunClassConstructor(typeof(T).TypeHandle);
-    }
-
-
-    /// <summary>
-    /// Defines new enum entry and adds it to the values dictionary.
-    /// </summary>
-    /// 
-    /// <param name="value">
-    /// Enum entry value.
-    /// </param>
-    protected static T Define(string value)
-    {
-        Ensure.NotNull(value, nameof(value));
-
-        var enumValue = new T { _value = value };
-
-        var added = s_values.TryAdd(value, enumValue);
-
-        return added
-            ? enumValue
-            : throw new ArgumentException($"Attempt to define a duplicate value '{value}' in '{typeof(T).Name}'.", nameof(value));
     }
 
     /// <summary>
@@ -76,6 +56,27 @@ public abstract record StringEnum<T> where T : StringEnum<T>, new()
     }
 
 
+    /// <summary>
+    /// Defines new enum entry and adds it to the values dictionary.
+    /// </summary>
+    /// 
+    /// <param name="value">
+    /// Enum entry value.
+    /// </param>
+    protected static T Define(string value)
+    {
+        Ensure.NotNull(value, nameof(value));
+
+        var enumValue = new T { _value = value };
+
+        var added = s_values.TryAdd(value, enumValue);
+
+        return added
+            ? enumValue
+            : throw new ArgumentException($"Attempt to define a duplicate value '{value}' in '{typeof(T).Name}'.", nameof(value));
+    }
+
+
     private string _value = string.Empty;
 
 
@@ -85,6 +86,7 @@ public abstract record StringEnum<T> where T : StringEnum<T>, new()
     /// <inheritdoc />
     public override int GetHashCode() => _value.GetHashCode();
 
+    // We can safely do a reference comparison here, because we know that all enum values are singletons.
     /// <inheritdoc />
-    public virtual bool Equals(T? other) => string.Equals(_value, other?._value, StringComparison.Ordinal);
+    public virtual bool Equals(T? other) => ReferenceEquals(this, other);
 }

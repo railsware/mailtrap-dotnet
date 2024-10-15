@@ -1,17 +1,17 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MessageAttachment.cs" company="Railsware Products Studio, LLC">
+// <copyright file="EmailAttachment.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.MessageAttachments.Models;
+namespace Mailtrap.Attachments.Models;
 
 
 /// <summary>
 /// Represents attachment metadata for email sent to sandbox.
 /// </summary>
-public sealed record MessageAttachment
+public sealed record EmailAttachment
 {
     /// <summary>
     /// Gets attachment identifier.
