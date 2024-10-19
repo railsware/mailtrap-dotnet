@@ -58,7 +58,7 @@ public class InvalidResponseFormatException : MailtrapException
     /// </returns>
     ///
     /// <exception cref="ArgumentNullException">
-    /// When the <paramref name="apiEndpoint"/> is <see langword="null"/> or empty.
+    /// When the <paramref name="apiEndpoint"/> is <see langword="null"/> or <see cref="string.Empty"/>.
     /// </exception>
     public static InvalidResponseFormatException Create(string apiEndpoint)
     {

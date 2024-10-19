@@ -9,7 +9,7 @@ namespace Mailtrap.Core.Validation;
 
 
 /// <summary>
-/// Defines validatable object.
+/// Defines a validatable object.
 /// </summary>
 public interface IValidatable
 {
@@ -18,7 +18,7 @@ public interface IValidatable
     /// </summary>
     ///
     /// <returns>
-    /// <see cref="ValidationResult"/> object, containing validation errors, if any.
+    /// Object containing validation errors, if any.
     /// </returns>
     public ValidationResult Validate();
 }
