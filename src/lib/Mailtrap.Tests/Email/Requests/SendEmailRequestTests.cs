@@ -12,14 +12,19 @@ namespace Mailtrap.Tests.Email.Requests;
 internal sealed class SendEmailRequestTests
 {
     [Test]
+    public void Create_ShouldReturnNewInstance_WhenCalled()
+    {
+        var result = SendEmailRequest.Create();
+
+        result.Should()
+            .NotBeNull().And
+            .BeOfType<SendEmailRequest>();
+    }
+
+    [Test]
     public void ShouldSerializeCorrectly()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
-            .From("john.doe@demomailtrap.com", "John Doe")
-            .To("bill.hero@galaxy.com")
-            .Subject("Invitation to Earth")
-            .Text("Dear Bill, It will be a great pleasure to see you on our blue planet next weekend. Best regards, John.");
+        var request = CreateValidRequest();
 
         var serialized = JsonSerializer.Serialize(request, MailtrapJsonSerializerOptions.NotIndented);
 
@@ -45,8 +50,8 @@ internal sealed class SendEmailRequestTests
     [Test]
     public void ShouldSerializeCorrectly_2()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .From("john.doe@demomailtrap.com", "John Doe")
             .To("bill.hero@galaxy.com")
             .Template("ID")
@@ -72,5 +77,43 @@ internal sealed class SendEmailRequestTests
         // Below would not work, considering weakly-typed nature of the template variables property.
         //var deserialized = JsonSerializer.Deserialize<TemplatedEmailRequest>(serialized, MailtrapJsonSerializerOptions.NotIndented);
         //deserialized.Should().BeEquivalentTo(request);
+    }
+
+    [Test]
+    public void Validate_ShouldReturnInvalidResult_WhenRequestIsInvalid()
+    {
+        var request = SendEmailRequest.Create();
+
+        var result = request.Validate();
+
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should()
+            .NotBeEmpty().And
+            .Contain("'From' must not be empty.").And
+            .Contain("'Subject' must not be empty.").And
+            .Contain("'Text Body' must not be empty.").And
+            .Contain("'Html Body' must not be empty.");
+    }
+
+    [Test]
+    public void Validate_ShouldReturnValidResult_WhenRequestIsValid()
+    {
+        var request = CreateValidRequest();
+
+        var result = request.Validate();
+
+        result.IsValid.Should().BeTrue();
+        result.Errors.Should().BeEmpty();
+    }
+
+
+    private static SendEmailRequest CreateValidRequest()
+    {
+        return SendEmailRequest
+            .Create()
+            .From("john.doe@demomailtrap.com", "John Doe")
+            .To("bill.hero@galaxy.com")
+            .Subject("Invitation to Earth")
+            .Text("Dear Bill, It will be a great pleasure to see you on our blue planet next weekend. Best regards, John.");
     }
 }

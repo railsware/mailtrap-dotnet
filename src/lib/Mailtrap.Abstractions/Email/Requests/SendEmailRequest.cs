@@ -9,27 +9,39 @@ namespace Mailtrap.Email.Requests;
 
 
 /// <summary>
-/// Request object for send email API calls.
+/// Represents request object used to send email.
 /// </summary>
-public sealed record SendEmailRequest
+public sealed record SendEmailRequest : IValidatable
 {
     /// <summary>
-    /// <see cref="EmailAddress"/> instance representing email's sender.
-    /// </summary>
-    /// <remarks>
+    /// <para>
+    /// Gets or sets <see cref="EmailAddress"/> instance representing email's sender.
+    /// </para>
+    /// <para>
     /// Required.
-    /// </remarks>
+    /// </para>
+    /// </summary>
+    /// 
+    /// <value>
+    /// Instance, representing email's sender address and name.
+    /// </value>
     [JsonPropertyName("from")]
     [JsonPropertyOrder(1)]
     public EmailAddress? From { get; set; }
 
     /// <summary>
-    /// A collection of <see cref="EmailAddress"/> who will receive a copy of your email.
+    /// Gets a collection of <see cref="EmailAddress"/> objects, defining who will receive a copy of email.
     /// </summary>
+    ///
+    /// <value>
+    /// A collection of <see cref="EmailAddress"/> objects.
+    /// </value>
+    /// 
     /// <remarks>
-    /// Must contain at least one recipient, but not more than 1000.<br />
+    /// Must not contain more than 1000 recipients.<br />
     /// Each object in this collection must contain the recipient's email address.<br />
-    /// Each object in this collection may optionally contain the recipient's name.
+    /// Each object in this collection may optionally contain the recipient's name.<br />
+    /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.
     /// </remarks>
     [JsonPropertyName("to")]
     [JsonPropertyOrder(2)]
@@ -37,12 +49,18 @@ public sealed record SendEmailRequest
     public IList<EmailAddress> To { get; } = [];
 
     /// <summary>
-    /// A collection of <see cref="EmailAddress"/> who will receive a carbon copy of your email.
+    /// Gets a collection of <see cref="EmailAddress"/> objects, defining who will receive a carbon copy of email.
     /// </summary>
+    ///
+    /// <value>
+    /// A collection of <see cref="EmailAddress"/> objects.
+    /// </value>
+    /// 
     /// <remarks>
-    /// Must contain less or equal to 1000 recipients.<br />
+    /// Must not contain more than 1000 recipients.<br />
     /// Each object in this collection must contain the recipient's email address.<br />
-    /// Each object in this collection may optionally contain the recipient's name.
+    /// Each object in this collection may optionally contain the recipient's name.<br />
+    /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.
     /// </remarks>
     [JsonPropertyName("cc")]
     [JsonPropertyOrder(3)]
@@ -50,12 +68,18 @@ public sealed record SendEmailRequest
     public IList<EmailAddress> Cc { get; } = [];
 
     /// <summary>
-    /// A collection of <see cref="EmailAddress"/> who will receive a blind carbon copy of your email.
+    /// Gets a collection of <see cref="EmailAddress"/> objects, defining who will receive a blind carbon copy of email.
     /// </summary>
+    ///
+    /// <value>
+    /// A collection of <see cref="EmailAddress"/> objects.
+    /// </value>
+    /// 
     /// <remarks>
-    /// Must contain less or equal to 1000 recipients.<br />
+    /// Must not contain more than 1000 recipients.<br />
     /// Each object in this collection must contain the recipient's email address.<br />
-    /// Each object in this collection may optionally contain the recipient's name.
+    /// Each object in this collection may optionally contain the recipient's name.<br />
+    /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.
     /// </remarks>
     [JsonPropertyName("bcc")]
     [JsonPropertyOrder(4)]
@@ -63,16 +87,25 @@ public sealed record SendEmailRequest
     public IList<EmailAddress> Bcc { get; } = [];
 
     /// <summary>
-    /// A collection of <see cref="Attachment"/> objects where you can specify any attachments you want to include.
+    /// Gets a collection of <see cref="Attachment"/> objects, where you can specify any attachments you want to include.
     /// </summary>
+    ///
+    /// <value>
+    /// A collection of <see cref="Attachment"/> objects.
+    /// </value>
     [JsonPropertyName("attachments")]
     [JsonPropertyOrder(5)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<Attachment> Attachments { get; } = [];
 
     /// <summary>
-    /// A collection containing key/value pairs of header names and the value to substitute for them.
+    /// Gets a dictionary of header names and values to substitute for them.
     /// </summary>
+    ///
+    /// <value>
+    /// A dictionary of header names and values.
+    /// </value>
+    /// 
     /// <remarks>
     /// The key/value pairs must be strings.<br/>
     /// You must ensure these are properly encoded if they contain unicode characters.<br />
@@ -85,10 +118,16 @@ public sealed record SendEmailRequest
     public IDictionary<string, string> Headers { get; } = new Dictionary<string, string>();
 
     /// <summary>
-    /// A collection of values that are specific to the entire send
+    /// Gets a dictionary of values that are specific to the entire send
     /// that will be carried along with the email and its activity data.
     /// </summary>
+    ///
+    /// <value>
+    /// A dictionary of variable keys and values.
+    /// </value>
+    /// 
     /// <remarks>
+    /// The key/value pairs must be strings.<br/>
     /// Total size of custom variables in JSON form must not exceed 1000 bytes.
     /// </remarks>
     [JsonPropertyName("custom_variables")]
@@ -97,44 +136,66 @@ public sealed record SendEmailRequest
     public IDictionary<string, string> CustomVariables { get; } = new Dictionary<string, string>();
 
     /// <summary>
-    /// The global or 'message level' subject of your email.<br />
+    /// Gets or sets the global or 'message level' subject of email.<br />
     /// This may be overridden by subject lines set in personalizations.
     /// </summary>
+    ///
+    /// <value>
+    /// Contains the subject of the email.
+    /// </value>
+    /// 
     /// <remarks>
-    /// Must be <see langword="null"/> if <see cref="TemplateId"/> is set.<br/>
-    /// Required in case <see cref="HtmlBody"/> and(or) <see cref="TextBody"/> is used. Should be non-empty string in this case.
+    /// Must be <see langword="null"/> if <see cref="TemplateId"/> is set.
+    /// <para>
+    /// Required in case <see cref="HtmlBody"/> and(or) <see cref="TextBody"/> is used.<br/>
+    /// Should be non-empty string in this case.
+    /// </para>
     /// </remarks>
     [JsonPropertyName("subject")]
     [JsonPropertyOrder(8)]
     public string? Subject { get; set; }
 
     /// <summary>
-    /// Text version of the body of the email.<br />
-    /// Can be used along with HtmlBody to create a fallback for non-html clients.
+    /// Gets or sets the text version of the body of the email.
     /// </summary>
+    ///
+    /// <value>
+    /// Contains the text body of the email.
+    /// </value>
+    /// 
     /// <remarks>
-    /// Must be <see langword="null"/> if <see cref="TemplateId"/> is set.<br/>
-    /// Required in the absence of <see cref="HtmlBody"/>.
+    /// Must be <see langword="null"/> if <see cref="TemplateId"/> is set.<br />
+    /// Otherwise, can be used along with <see cref="HtmlBody"/> to create a fall-back for non-html clients.<br />
+    /// Required in the absence of <see cref="TemplateId"/> and <see cref="HtmlBody"/>.
     /// </remarks>
     [JsonPropertyName("text")]
     [JsonPropertyOrder(9)]
     public string? TextBody { get; set; }
 
     /// <summary>
-    /// HTML version of the body of the email.<br />
-    /// Can be used along with HtmlBody to create a fallback for non-html clients.
+    /// Gets or sets HTML version of the body of the email.
     /// </summary>
+    ///
+    /// <value>
+    /// Contains the HTML body of the email.
+    /// </value>
+    /// 
     /// <remarks>
-    /// Must be <see langword="null"/> if <see cref="TemplateId"/> is set.<br/>
-    /// Required in the absence of <see cref="TextBody"/>.
+    /// Must be <see langword="null"/> if <see cref="TemplateId"/> is set.<br />
+    /// Required in the absence of <see cref="TemplateId"/> and <see cref="TextBody"/>.
     /// </remarks>
     [JsonPropertyName("html")]
     [JsonPropertyOrder(10)]
     public string? HtmlBody { get; set; }
 
     /// <summary>
-    /// The category of email.
+    /// Gets or sets the category of email.
     /// </summary>
+    ///
+    /// <value>
+    /// Contains the category of the email.
+    /// </value>
+    /// 
     /// <remarks>
     /// Should be <see langword="null"/> if <see cref="TemplateId"/> is set.<br/>
     /// Otherwise must be less or equal to 255 characters.
@@ -144,25 +205,54 @@ public sealed record SendEmailRequest
     public string? Category { get; set; }
 
     /// <summary>
-    /// UUID of email template.
-    /// <para>
-    /// Subject, text and html will be generated from template using optional template_variables.
-    /// </para>
+    /// Gets or sets UUID of email template.
     /// </summary>
+    ///
+    /// <value>
+    /// Contains the UUID of email template.
+    /// </value>
+    /// 
     /// <remarks>
-    /// If provided, then subject, text, html and category properties are forbidden and must be <see langword="null"/>.
+    /// If provided, then <see cref="Subject"/>, <see cref="Category"/>, <see cref="TextBody"/>  and <see cref="HtmlBody"/>
+    /// properties are forbidden and must be <see langword="null"/>.<br />
+    /// Email subject, text and html will be generated from template using optional <see cref="TemplateVariables"/>.
     /// </remarks>
     [JsonPropertyName("template_uuid")]
     [JsonPropertyOrder(12)]
     public string? TemplateId { get; set; }
 
     /// <summary>
-    /// Optional template variables that will be used to generate actual subject, text and html from email template.
+    /// Gets or sets optional template variables that will be used to generate actual subject, text and html
+    /// from email template.
     /// </summary>
+    ///
+    /// <value>
+    /// Contains template variables object.
+    /// </value>
+    /// 
     /// <remarks>
-    /// Optional. Will be used only in case <see cref="TemplateId"/> is set.
+    /// Will be used only in case <see cref="TemplateId"/> is set.
     /// </remarks>
     [JsonPropertyName("template_variables")]
     [JsonPropertyOrder(13)]
     public object? TemplateVariables { get; set; }
+
+
+    /// <summary>
+    /// Factory method that creates a new instance of <see cref="SendEmailRequest" /> request.
+    /// </summary>
+    /// 
+    /// <returns>
+    /// New <see cref="SendEmailRequest"/> instance.
+    /// </returns>
+    public static SendEmailRequest Create() => new();
+
+
+    /// <inheritdoc />
+    public ValidationResult Validate()
+    {
+        return SendEmailRequestValidator.Instance
+            .Validate(this)
+            .ToMailtrapValidationResult();
+    }
 }

@@ -25,7 +25,7 @@ internal sealed class SendEmailRequestBuilderTests_Subject
     [Test]
     public void Subject_ShouldThrowArgumentNullException_WhenSubjectIsNull()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Subject(request, null!);
 
@@ -35,7 +35,7 @@ internal sealed class SendEmailRequestBuilderTests_Subject
     [Test]
     public void Subject_ShouldThrowArgumentNullException_WhenSubjectIsEmpty()
     {
-        var request = SendEmailRequestBuilder.Email();
+        var request = SendEmailRequest.Create();
 
         var act = () => SendEmailRequestBuilder.Subject(request, string.Empty);
 
@@ -45,8 +45,8 @@ internal sealed class SendEmailRequestBuilderTests_Subject
     [Test]
     public void Subject_ShouldAssignSubjectProperly()
     {
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Subject(_subject);
 
         request.Subject.Should().BeSameAs(_subject);
@@ -57,8 +57,8 @@ internal sealed class SendEmailRequestBuilderTests_Subject
     {
         var otherSubject = "Updated subject";
 
-        var request = SendEmailRequestBuilder
-            .Email()
+        var request = SendEmailRequest
+            .Create()
             .Subject(_subject)
             .Subject(otherSubject);
 

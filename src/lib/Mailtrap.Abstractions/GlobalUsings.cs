@@ -6,14 +6,17 @@
 
 
 // Namespaces
+global using System.Runtime.CompilerServices;
 global using System.Diagnostics.CodeAnalysis;
+global using System.Globalization;
 global using System.Collections.Concurrent;
 global using System.Net.Mime;
-global using System.Runtime.CompilerServices;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
+global using FluentValidation;
 
 global using Mailtrap.Extensions;
+global using Mailtrap.Core.Exceptions;
 global using Mailtrap.Core.Models;
 global using Mailtrap.Core.Responses;
 global using Mailtrap.Accounts;
@@ -39,16 +42,13 @@ global using Mailtrap.Emails.Models;
 global using Mailtrap.Emails.Requests;
 global using Mailtrap.Attachments;
 global using Mailtrap.Attachments.Models;
+global using Mailtrap.Core.Validation;
 global using Mailtrap.Email;
 global using Mailtrap.Email.Models;
 global using Mailtrap.Email.Converters;
 global using Mailtrap.Email.Requests;
 global using Mailtrap.Email.Responses;
-
-
-// Type aliases
-global using RequestHeader = System.Collections.Generic.KeyValuePair<string, string>;
-global using RequestVariable = System.Collections.Generic.KeyValuePair<string, string>;
+global using Mailtrap.Email.Validators;
 
 
 // Allowing test assembly to access internals for unit tests
