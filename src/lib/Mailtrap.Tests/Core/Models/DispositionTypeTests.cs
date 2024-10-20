@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Tests.Email.Models;
+namespace Mailtrap.Tests.Core.Models;
 
 
 [TestFixture]

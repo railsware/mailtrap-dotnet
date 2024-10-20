@@ -5,14 +5,13 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Email.Models;
+namespace Mailtrap.Core.Models;
 
 
 /// <summary>
 /// Represents attachment disposition type.
 /// </summary>
-[JsonConverter(typeof(DispositionTypeJsonConverter))]
-public sealed record DispositionType
+public sealed record DispositionType : StringEnum<DispositionType>
 {
     /// <summary>
     /// Gets disposition type that results in the attached file displayed automatically within the message.
@@ -21,7 +20,7 @@ public sealed record DispositionType
     /// <value>
     /// Static instance that results in the attached file displayed automatically within the message.
     /// </value>
-    public static DispositionType Inline { get; } = new(DispositionTypeNames.Inline);
+    public static DispositionType Inline { get; } = Define(DispositionTypeNames.Inline);
 
     /// <summary>
     /// Gets disposition type that results in the attached file require some action to be taken before it is displayed,
@@ -31,25 +30,5 @@ public sealed record DispositionType
     /// <value>
     /// Static instance that results in the attached file require some action to be taken before it is displayed.
     /// </value>
-    public static DispositionType Attachment { get; } = new(DispositionTypeNames.Attachment);
-
-
-    private readonly string _value;
-
-    private DispositionType(string value)
-    {
-        _value = value;
-    }
-
-
-    // Overriding ToString only.
-    // Valid equality and HashCode implementations are provided by the record OOB functionality.
-    /// <summary>
-    /// <inheritdoc cref="object.ToString" path="/summary"/>
-    /// </summary>
-    ///
-    /// <returns>
-    /// String representation of the disposition type.
-    /// </returns>
-    public override string ToString() => _value;
+    public static DispositionType Attachment { get; } = Define(DispositionTypeNames.Attachment);
 }

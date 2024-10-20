@@ -16,7 +16,8 @@ global using System.Text.Json.Serialization;
 global using FluentValidation;
 
 global using Mailtrap.Extensions;
-global using Mailtrap.Core.Exceptions;
+global using Mailtrap.Exceptions;
+global using Mailtrap.Validation;
 global using Mailtrap.Core.Models;
 global using Mailtrap.Core.Responses;
 global using Mailtrap.Accounts;
@@ -42,7 +43,6 @@ global using Mailtrap.Emails.Models;
 global using Mailtrap.Emails.Requests;
 global using Mailtrap.Attachments;
 global using Mailtrap.Attachments.Models;
-global using Mailtrap.Core.Validation;
 global using Mailtrap.Email;
 global using Mailtrap.Email.Models;
 global using Mailtrap.Email.Converters;

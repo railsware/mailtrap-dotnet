@@ -5,8 +5,6 @@
 // -----------------------------------------------------------------------
 
 
-using Mailtrap.Core.Models;
-
 namespace Mailtrap.Tests.Core.Models;
 
 

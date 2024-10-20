@@ -19,9 +19,9 @@ global using FluentValidation;
 
 global using Mailtrap.Constants;
 global using Mailtrap.Extensions;
+global using Mailtrap.Exceptions;
 global using Mailtrap.Configuration;
 global using Mailtrap.Http;
-global using Mailtrap.Core.Exceptions;
 global using Mailtrap.Core.Models;
 global using Mailtrap.Core.Converters;
 global using Mailtrap.Email;

@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Tests.Core.Exceptions;
+namespace Mailtrap.Tests.Exceptions;
 
 
 [TestFixture]

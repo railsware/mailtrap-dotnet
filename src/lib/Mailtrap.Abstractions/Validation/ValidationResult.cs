@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Core.Validation;
+namespace Mailtrap.Validation;
 
 
 /// <summary>

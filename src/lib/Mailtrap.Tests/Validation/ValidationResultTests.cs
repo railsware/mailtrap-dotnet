@@ -5,10 +5,10 @@
 // -----------------------------------------------------------------------
 
 
-using ValidationResult = Mailtrap.Core.Validation.ValidationResult;
+using ValidationResult = Mailtrap.Validation.ValidationResult;
 
 
-namespace Mailtrap.Tests.Core.Validation;
+namespace Mailtrap.Tests.Validation;
 
 
 [TestFixture]
