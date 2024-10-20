@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Core.Converters;
+namespace Mailtrap.Converters;
 
 
 /// <summary>
