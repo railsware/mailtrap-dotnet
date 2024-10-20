@@ -2,6 +2,9 @@
 # https://aka.ms/editorconfigdocs
 
 
+root = false
+
+
 # C# files
 [*.cs]
 

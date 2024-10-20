@@ -26,7 +26,7 @@ public interface IAccountAccessResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing operation result details.
+    /// Operation result details.
     /// </returns>
     ///
     /// <remarks>
@@ -34,7 +34,7 @@ public interface IAccountAccessResource
     /// If you send a combination of resource_type and resource_id that already exists, the permission is updated.<br />
     /// Otherwise, if the combination doesn't exist, the permission is created.
     /// </remarks>
-    public Task<Response<UpdatedPermissions>> UpdatePermissions(
+    public Task<UpdatedPermissions> UpdatePermissions(
         UpdatePermissionsRequest request,
         CancellationToken cancellationToken = default);
 
@@ -47,7 +47,7 @@ public interface IAccountAccessResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing deleted account access details.
+    /// Deleted account access details.
     /// </returns>
     ///
     /// <remarks>
@@ -63,5 +63,5 @@ public interface IAccountAccessResource
     /// Thus any further operations on it will result in an error.
     /// </para>
     /// </remarks>
-    public Task<Response<DeletedAccountAccess>> Delete(CancellationToken cancellationToken = default);
+    public Task<DeletedAccountAccess> Delete(CancellationToken cancellationToken = default);
 }

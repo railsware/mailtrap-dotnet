@@ -22,7 +22,7 @@ public interface IBillingResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing billing usage details.
+    /// Billing usage details.
     /// </returns>
-    public Task<Response<BillingUsage>> GetUsage(CancellationToken cancellationToken = default);
+    public Task<BillingUsage> GetUsage(CancellationToken cancellationToken = default);
 }

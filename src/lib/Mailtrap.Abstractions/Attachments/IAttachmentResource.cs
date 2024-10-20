@@ -22,7 +22,7 @@ public interface IAttachmentResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing requested message attachment details.
+    /// Requested message attachment details.
     /// </returns>
-    public Task<Response<EmailAttachment>> GetDetails(CancellationToken cancellationToken = default);
+    public Task<EmailAttachment> GetDetails(CancellationToken cancellationToken = default);
 }

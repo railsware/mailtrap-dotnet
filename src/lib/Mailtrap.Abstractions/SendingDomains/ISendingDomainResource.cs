@@ -22,9 +22,9 @@ public interface ISendingDomainResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing domain attributes, DNS records, status, etc. for domain.
+    /// Attributes, DNS records, status, etc. for domain.
     /// </returns>
-    public Task<Response<SendingDomain>> GetDetails(CancellationToken cancellationToken = default);
+    public Task<SendingDomain> GetDetails(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Sends setup instructions for sending domain, represented by this resource instance,

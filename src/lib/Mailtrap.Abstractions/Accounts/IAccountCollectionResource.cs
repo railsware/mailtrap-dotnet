@@ -22,7 +22,7 @@ public interface IAccountCollectionResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing a collection of accounts details.
+    /// Collection of accounts details.
     /// </returns>
-    public Task<CollectionResponse<Account>> GetAll(CancellationToken cancellationToken = default);
+    public Task<IList<Account>> GetAll(CancellationToken cancellationToken = default);
 }

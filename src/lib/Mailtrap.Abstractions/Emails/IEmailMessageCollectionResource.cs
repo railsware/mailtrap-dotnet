@@ -26,14 +26,14 @@ public interface IEmailMessageCollectionResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing a collection of message details.
+    /// Collection of message details.
     /// </returns>
     ///
     /// <remarks>
     /// The response contains up to 30 messages.<br />
     /// Use <paramref name="filter"/> parameters to retrieve more.
     /// </remarks>
-    public Task<CollectionResponse<EmailMessage>> Fetch(
+    public Task<IList<EmailMessage>> Fetch(
         EmailMessageFilter? filter = default,
         CancellationToken cancellationToken = default);
 }

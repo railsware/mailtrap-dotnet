@@ -23,7 +23,7 @@ public interface IPermissionsResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing a collection of resources with their permission levels.
+    /// Collection of resources with their permission levels.
     /// </returns>
-    public Task<CollectionResponse<ResourcePermissions>> GetResources(CancellationToken cancellationToken = default);
+    public Task<IList<ResourcePermissions>> GetResources(CancellationToken cancellationToken = default);
 }

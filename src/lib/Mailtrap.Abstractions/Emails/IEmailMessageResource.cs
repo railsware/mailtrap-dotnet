@@ -46,9 +46,9 @@ public interface IEmailMessageResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing requested message details.
+    /// Requested message details.
     /// </returns>
-    public Task<Response<EmailMessage>> GetDetails(CancellationToken cancellationToken = default);
+    public Task<EmailMessage> GetDetails(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the message, represented by the current resource instance, with details specified by <paramref name="request"/>.
@@ -63,9 +63,9 @@ public interface IEmailMessageResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing updated message details.
+    /// Updated message details.
     /// </returns>
-    public Task<Response<EmailMessage>> Update(UpdateEmailMessageRequest request, CancellationToken cancellationToken = default);
+    public Task<EmailMessage> Update(UpdateEmailMessageRequest request, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes the message, represented by the current resource instance, with all its attachments.
@@ -76,7 +76,7 @@ public interface IEmailMessageResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing deleted message details.
+    /// Deleted message details.
     /// </returns>
     ///
     /// <remarks>
@@ -88,7 +88,7 @@ public interface IEmailMessageResource
     /// Thus any further operations on it will result in an error.
     /// </para>
     /// </remarks>
-    public Task<Response<EmailMessage>> Delete(CancellationToken cancellationToken = default);
+    public Task<EmailMessage> Delete(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Forwards the message, represented by the current resource instance, to the email specified by <paramref name="request"/>.
@@ -103,13 +103,13 @@ public interface IEmailMessageResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing forwarding result details.
+    /// Forwarding result details.
     /// </returns>
     ///
     /// <remarks>
     /// The email address for forwarding must be confirmed by the recipient in advance.
     /// </remarks>
-    public Task<Response<ForwardedEmailMessage>> Forward(ForwardEmailMessageRequest request, CancellationToken cancellationToken = default);
+    public Task<ForwardedEmailMessage> Forward(ForwardEmailMessageRequest request, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets a brief spam report for the message, represented by the current resource instance.
@@ -120,9 +120,9 @@ public interface IEmailMessageResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing message spam report details.
+    /// Spam report details for the message.
     /// </returns>
-    public Task<Response<EmailMessageSpamReport>> GetSpamReport(CancellationToken cancellationToken = default);
+    public Task<EmailMessageSpamReport> GetSpamReport(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets a brief HTML report for the message, represented by the current resource instance.
@@ -133,9 +133,9 @@ public interface IEmailMessageResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing message HTML analysis details.
+    /// HTML analysis details for the message.
     /// </returns>
-    public Task<Response<EmailMessageHtmlReport>> GetHtmlAnalysisReport(CancellationToken cancellationToken = default);
+    public Task<EmailMessageHtmlReport> GetHtmlAnalysisReport(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets a plain text body of the message (if exists), represented by the current resource instance.
@@ -146,9 +146,9 @@ public interface IEmailMessageResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing message plain text body.
+    /// Message plain text body.
     /// </returns>
-    public Task<Response<EmailMessageTextBody>> GetTextBody(CancellationToken cancellationToken = default);
+    public Task<EmailMessageTextBody> GetTextBody(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets HTML body of the message (if exists), represented by the current resource instance.
@@ -159,13 +159,13 @@ public interface IEmailMessageResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing message HTML body.
+    /// Message HTML body.
     /// </returns>
     ///
     /// <remarks>
     /// Not applicable for plain text messages.
     /// </remarks>
-    public Task<Response<EmailMessageHtmlBody>> GetHtmlBody(CancellationToken cancellationToken = default);
+    public Task<EmailMessageHtmlBody> GetHtmlBody(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets HTML source of the message, represented by the current resource instance.
@@ -176,9 +176,9 @@ public interface IEmailMessageResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing message HTML source.
+    /// Message HTML source.
     /// </returns>
-    public Task<Response<EmailMessageHtmlSource>> GetHtmlSource(CancellationToken cancellationToken = default);
+    public Task<EmailMessageHtmlSource> GetHtmlSource(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets the message, represented by the current resource instance, in a raw format.
@@ -189,9 +189,9 @@ public interface IEmailMessageResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing message in a raw format.
+    /// Message in a raw format.
     /// </returns>
-    public Task<Response<EmailMessageRaw>> AsRaw(CancellationToken cancellationToken = default);
+    public Task<EmailMessageRaw> AsRaw(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets the message, represented by the current resource instance, in .eml format.
@@ -202,9 +202,9 @@ public interface IEmailMessageResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing message in .eml format.
+    /// Message in .eml format.
     /// </returns>
-    public Task<Response<EmailMessageEml>> AsEml(CancellationToken cancellationToken = default);
+    public Task<EmailMessageEml> AsEml(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets headers of the message, represented by the current resource instance.
@@ -215,7 +215,7 @@ public interface IEmailMessageResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing message headers.
+    /// Message headers.
     /// </returns>
-    public Task<Response<EmailMessageHeaders>> GetHeaders(CancellationToken cancellationToken = default);
+    public Task<EmailMessageHeaders> GetHeaders(CancellationToken cancellationToken = default);
 }

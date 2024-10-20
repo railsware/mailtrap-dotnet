@@ -129,7 +129,7 @@ public interface IAccountResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing details of the account, represented by this resource instance.
+    /// Details of the account, represented by this resource instance.
     /// </returns>
-    public Task<Response<Account>> GetDetails(CancellationToken cancellationToken = default);
+    public Task<Account> GetDetails(CancellationToken cancellationToken = default);
 }

@@ -24,7 +24,7 @@ internal sealed class SendEmailResponseTests
     [Test]
     public void Constructor_ShouldAssignFieldsCorrectly()
     {
-        var messageIds = new List<MessageId> { new("1"), new("2") };
+        var messageIds = new List<long> { 1, 2 };
         var errorData = new List<string> { "Error 1", "Error 2" };
         var response = new SendEmailResponse(true, messageIds, errorData);
 
@@ -69,7 +69,7 @@ internal sealed class SendEmailResponseTests
             "{" +
                 "\"success\":true," +
                 "\"message_ids\":[" +
-                    "\"test_message_id\"" +
+                    "42" +
                 "]" +
             "}";
 
@@ -81,7 +81,7 @@ internal sealed class SendEmailResponseTests
         response!.MessageIds.Should()
             .NotBeNull().And
             .HaveCount(1);
-        response!.MessageIds!.First().ToString().Should().Be("test_message_id");
+        response!.MessageIds!.Single().Should().Be(42);
     }
 
     [Test]

@@ -22,9 +22,9 @@ public interface IProjectResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing requested project details.
+    /// Requested project details.
     /// </returns>
-    public Task<Response<Project>> GetDetails(CancellationToken cancellationToken = default);
+    public Task<Project> GetDetails(CancellationToken cancellationToken = default);
 
 
     /// <summary>
@@ -40,9 +40,9 @@ public interface IProjectResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing updated project details.
+    /// Updated project details.
     /// </returns>
-    public Task<Response<Project>> Update(UpdateProjectRequest request, CancellationToken cancellationToken = default);
+    public Task<Project> Update(UpdateProjectRequest request, CancellationToken cancellationToken = default);
 
 
     /// <summary>
@@ -54,7 +54,7 @@ public interface IProjectResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing deleted project details.
+    /// Deleted project details.
     /// </returns>
     ///
     /// <remarks>
@@ -66,5 +66,5 @@ public interface IProjectResource
     /// Thus any further operations on it will result in an error.
     /// </para>
     /// </remarks>
-    public Task<Response<DeletedProject>> Delete(CancellationToken cancellationToken = default);
+    public Task<DeletedProject> Delete(CancellationToken cancellationToken = default);
 }

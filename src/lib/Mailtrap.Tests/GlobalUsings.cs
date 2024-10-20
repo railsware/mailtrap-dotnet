@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------
 
 
-global using System.Diagnostics.CodeAnalysis;
 global using System.Globalization;
 global using System.Net;
 global using System.Net.Mime;
@@ -34,11 +33,9 @@ global using Mailtrap.Extensions.DependencyInjection;
 global using Mailtrap.Configuration;
 global using Mailtrap.Http;
 global using Mailtrap.Core.Converters;
-global using Mailtrap.Core.Responses;
 global using Mailtrap.Core.Models;
 global using Mailtrap.AccountAccesses.Models;
 global using Mailtrap.Email;
-global using Mailtrap.Email.Converters;
 global using Mailtrap.Email.Models;
 global using Mailtrap.Email.Requests;
 global using Mailtrap.Email.Responses;

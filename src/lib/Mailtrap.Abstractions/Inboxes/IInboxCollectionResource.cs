@@ -22,9 +22,9 @@ public interface IInboxCollectionResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing a collection of inbox details.
+    /// Collection of inbox details.
     /// </returns>
-    public Task<CollectionResponse<Inbox>> GetAll(CancellationToken cancellationToken = default);
+    public Task<IList<Inbox>> GetAll(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Creates a new inbox with details specified by <paramref name="request"/>.
@@ -39,7 +39,7 @@ public interface IInboxCollectionResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing created inbox details.
+    /// Created inbox details.
     /// </returns>
-    public Task<Response<Inbox>> Create(CreateInboxRequest request, CancellationToken cancellationToken = default);
+    public Task<Inbox> Create(CreateInboxRequest request, CancellationToken cancellationToken = default);
 }

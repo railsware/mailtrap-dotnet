@@ -141,7 +141,7 @@ internal sealed class EmailClientTests
         var request = CreateValidRequest();
         var jsonSerializerOptions = config.ToJsonSerializerOptions();
 
-        var messageId = new MessageId("1");
+        var messageId = 1;
         var response = new SendEmailResponse(true, [messageId]);
         using var responseContent = JsonContent.Create(response);
 

@@ -6,14 +6,7 @@
 
 
 // using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-
 using Mailtrap;
-// using Mailtrap.Extensions.DependencyInjection;
-using Mailtrap.Core.Models;
-using Mailtrap.Core.Responses;
 using Mailtrap.AccountAccesses;
 using Mailtrap.AccountAccesses.Models;
 using Mailtrap.Accounts;
@@ -21,6 +14,8 @@ using Mailtrap.Accounts.Models;
 using Mailtrap.Attachments;
 using Mailtrap.Attachments.Models;
 using Mailtrap.Billing.Models;
+// using Mailtrap.Extensions.DependencyInjection;
+using Mailtrap.Core.Models;
 using Mailtrap.Emails;
 using Mailtrap.Emails.Models;
 using Mailtrap.Emails.Requests;
@@ -33,6 +28,9 @@ using Mailtrap.Projects.Requests;
 using Mailtrap.SendingDomains;
 using Mailtrap.SendingDomains.Models;
 using Mailtrap.SendingDomains.Requests;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 
 /// <summary>
@@ -57,12 +55,12 @@ internal sealed class Program
             IMailtrapClient mailtrapClient = host.Services.GetRequiredService<IMailtrapClient>();
 
             // Get all accounts available for the token
-            CollectionResponse<Account> accounts = await mailtrapClient
+            IList<Account> accounts = await mailtrapClient
                 .Accounts()
                 .GetAll();
 
             var accountId = 123;
-            Account? account = accounts.Data.FirstOrDefault(a => a.Id == accountId);
+            Account? account = accounts.FirstOrDefault(a => a.Id == accountId);
 
             if (account is null)
             {
@@ -106,13 +104,13 @@ internal sealed class Program
         var filter = new AccountAccessFilter();
         filter.DomainIds.Add(domainId);
 
-        CollectionResponse<AccountAccess> accesses = await accountResource
+        IList<AccountAccess> accesses = await accountResource
             .Accesses()
             .Fetch(filter);
 
         var userId = 4322;
 
-        AccountAccess? userAccess = accesses.Data.FirstOrDefault(a =>
+        AccountAccess? userAccess = accesses.FirstOrDefault(a =>
             SpecifierType.User.Equals(a.SpecifierType) &&
             a.Specifier?.Id == userId);
 
@@ -139,11 +137,11 @@ internal sealed class Program
     private static async Task ProcessBilling(IAccountResource accountResource, ILogger logger)
     {
         // Get billing usage for account
-        Response<BillingUsage> billing = await accountResource
+        BillingUsage billing = await accountResource
             .Billing()
             .GetUsage();
 
-        logger.LogInformation("Billing Usage: {BillingUsage}", billing.Data);
+        logger.LogInformation("Billing Usage: {BillingUsage}", billing);
     }
 
     private static async Task ProcessDomains(IAccountResource accountResource, ILogger logger)
@@ -154,9 +152,9 @@ internal sealed class Program
         ISendingDomainCollectionResource domainsResource = accountResource.SendingDomains();
 
         // Get all sending domains for account
-        CollectionResponse<SendingDomain> domains = await domainsResource.GetAll();
+        IList<SendingDomain> domains = await domainsResource.GetAll();
 
-        SendingDomain? domain = domains.Data
+        SendingDomain? domain = domains
             .FirstOrDefault(d => string.Equals(d.DomainName, domainName, StringComparison.OrdinalIgnoreCase));
 
         if (domain is null)
@@ -165,9 +163,7 @@ internal sealed class Program
 
             // Create sending domain
             var createDomainRequest = new CreateSendingDomainRequest(domainName);
-            Response<SendingDomain> createdDomain = await domainsResource.Create(createDomainRequest);
-
-            domain = createdDomain.Data;
+            domain = await domainsResource.Create(createDomainRequest);
         }
         else
         {
@@ -192,9 +188,9 @@ internal sealed class Program
         IProjectCollectionResource projectsResource = accountResource.Projects();
 
         // Get all projects for account
-        CollectionResponse<Project> projects = await projectsResource.GetAll();
+        IList<Project> projects = await projectsResource.GetAll();
 
-        Project? project = projects.Data
+        Project? project = projects
             .FirstOrDefault(p => string.Equals(p.Name, projectName, StringComparison.OrdinalIgnoreCase));
 
         if (project is null)
@@ -206,9 +202,7 @@ internal sealed class Program
             {
                 Name = projectName
             };
-            Response<Project> createdProject = await projectsResource.Create(createProjectRequest);
-
-            project = createdProject.Data;
+            project = await projectsResource.Create(createProjectRequest);
         }
         else
         {
@@ -227,7 +221,7 @@ internal sealed class Program
         {
             Name = "Updated Project Name"
         };
-        Response<Project> updatedProject = await projectResource.Update(updateProjectRequest);
+        Project updatedProject = await projectResource.Update(updateProjectRequest);
 
         // Get project details
         // Just for demo purposes, response from the update already contains updated info
@@ -236,9 +230,9 @@ internal sealed class Program
 
         // Delete project
         // Beware that project resource becomes invalid after deletion and should not be used anymore
-        Response<DeletedProject> deletedProject = await projectResource.Delete();
+        DeletedProject deletedProject = await projectResource.Delete();
 
-        logger.LogInformation("Deleted Project: {Deleted Project}", deletedProject.Data);
+        logger.LogInformation("Deleted Project: {Deleted Project}", deletedProject);
     }
 
     private static async Task ProcessInboxes(IAccountResource accountResource, ILogger logger, long projectId)
@@ -249,9 +243,9 @@ internal sealed class Program
         IInboxCollectionResource inboxesResource = accountResource.Inboxes();
 
         // Get all inboxes for account
-        CollectionResponse<Inbox> inboxes = await inboxesResource.GetAll();
+        IList<Inbox> inboxes = await inboxesResource.GetAll();
 
-        Inbox? inbox = inboxes.Data
+        Inbox? inbox = inboxes
             .FirstOrDefault(i => string.Equals(i.Name, inboxName, StringComparison.OrdinalIgnoreCase));
 
         if (inbox is null)
@@ -263,10 +257,7 @@ internal sealed class Program
             {
                 Name = inboxName
             };
-            Response<Inbox> createdInbox = await inboxesResource
-                .Create(createInboxRequest);
-
-            inbox = createdInbox.Data;
+            inbox = await inboxesResource.Create(createInboxRequest);
         }
         else
         {
@@ -279,7 +270,7 @@ internal sealed class Program
         IInboxResource inboxResource = accountResource.Inbox(inbox.Id);
 
         // Toggle email for inbox
-        Response<Inbox> updatedInbox = await inboxResource.ToggleEmailAddress();
+        Inbox updatedInbox = await inboxResource.ToggleEmailAddress();
 
         await ProcessMessages(inboxResource, logger);
 
@@ -319,9 +310,9 @@ internal sealed class Program
             SearchFilter = "Greetings"
         };
 
-        CollectionResponse<EmailMessage> messages = await messagesResource.Fetch(messageFilter);
+        IList<EmailMessage> messages = await messagesResource.Fetch(messageFilter);
 
-        EmailMessage? message = messages.Data.FirstOrDefault();
+        EmailMessage? message = messages.FirstOrDefault();
 
         if (message is null)
         {
@@ -335,36 +326,36 @@ internal sealed class Program
         IEmailMessageResource messageResource = inboxResource.Message(message.Id);
 
         // Get message headers
-        Response<EmailMessageHeaders> headers = await messageResource.GetHeaders();
-        logger.LogInformation("Message headers: {Headers}", headers.Data.Headers);
+        EmailMessageHeaders headers = await messageResource.GetHeaders();
+        logger.LogInformation("Message headers: {Headers}", headers.Headers);
 
         // Get raw message content
-        Response<EmailMessageRaw> rawMessageContent = await messageResource.AsRaw();
-        logger.LogInformation("Raw message: {Message}", rawMessageContent.Data.Raw);
+        EmailMessageRaw rawMessageContent = await messageResource.AsRaw();
+        logger.LogInformation("Raw message: {Message}", rawMessageContent.Raw);
 
         // Get EML message content
-        Response<EmailMessageEml> emlMessageContent = await messageResource.AsEml();
-        logger.LogInformation("EML message: {Message}", emlMessageContent.Data.Eml);
+        EmailMessageEml emlMessageContent = await messageResource.AsEml();
+        logger.LogInformation("EML message: {Message}", emlMessageContent.Eml);
 
         // Get plain text message body
-        Response<EmailMessageTextBody> textMessageBody = await messageResource.GetTextBody();
-        logger.LogInformation("Plain text message body: {Message}", textMessageBody.Data.TextBody);
+        EmailMessageTextBody textMessageBody = await messageResource.GetTextBody();
+        logger.LogInformation("Plain text message body: {Message}", textMessageBody.TextBody);
 
         // Get HTML message body
-        Response<EmailMessageHtmlBody> htmlMessageBody = await messageResource.GetHtmlBody();
-        logger.LogInformation("HTML message body: {Message}", htmlMessageBody.Data.HtmlBody);
+        EmailMessageHtmlBody htmlMessageBody = await messageResource.GetHtmlBody();
+        logger.LogInformation("HTML message body: {Message}", htmlMessageBody.HtmlBody);
 
         // Get HTML message source
-        Response<EmailMessageHtmlSource> htmlMessageSource = await messageResource.GetHtmlSource();
-        logger.LogInformation("HTML message source: {Message}", htmlMessageSource.Data.HtmlSource);
+        EmailMessageHtmlSource htmlMessageSource = await messageResource.GetHtmlSource();
+        logger.LogInformation("HTML message source: {Message}", htmlMessageSource.HtmlSource);
 
         // Get HTML analysis report for message 
-        Response<EmailMessageHtmlReport> htmlReport = await messageResource.GetHtmlAnalysisReport();
-        logger.LogInformation("HTML analysis report: {Report}", htmlReport.Data.Report);
+        EmailMessageHtmlReport htmlReport = await messageResource.GetHtmlAnalysisReport();
+        logger.LogInformation("HTML analysis report: {Report}", htmlReport.Report);
 
         // Get spam report for message 
-        Response<EmailMessageSpamReport> spamReport = await messageResource.GetSpamReport();
-        logger.LogInformation("Spam report: {Report}", spamReport.Data.Report);
+        EmailMessageSpamReport spamReport = await messageResource.GetSpamReport();
+        logger.LogInformation("Spam report: {Report}", spamReport.Report);
 
         // Processing message attachments
         await ProcessAttachments(messageResource, logger);
@@ -374,20 +365,20 @@ internal sealed class Program
         {
             IsRead = true
         };
-        Response<EmailMessage> updatedMessage = await messageResource.Update(updateMessageRequest);
-        logger.LogInformation("Updated Message: {Message}", updatedMessage.Data);
+        EmailMessage updatedMessage = await messageResource.Update(updateMessageRequest);
+        logger.LogInformation("Updated Message: {Message}", updatedMessage);
 
         // Forward message
         var forwardMessageRequest = new ForwardEmailMessageRequest()
         {
             Email = "forward@domain.com"
         };
-        Response<ForwardedEmailMessage> forwardedMessage = await messageResource.Forward(forwardMessageRequest);
-        logger.LogInformation("Message forwarded: {Forward}", forwardedMessage.Data.Message);
+        ForwardedEmailMessage forwardedMessage = await messageResource.Forward(forwardMessageRequest);
+        logger.LogInformation("Message forwarded: {Forward}", forwardedMessage.Message);
 
         // Get message details
         updatedMessage = await messageResource.GetDetails();
-        logger.LogInformation("Message after forward: {Message}", updatedMessage.Data);
+        logger.LogInformation("Message after forward: {Message}", updatedMessage);
 
         // Delete message
         // Beware that resource becomes invalid after deletion and should not be used anymore
@@ -404,9 +395,9 @@ internal sealed class Program
             Disposition = DispositionType.Attachment
         };
 
-        CollectionResponse<EmailAttachment> attachments = await attachmentsResource.Fetch(attachmentFilter);
+        IList<EmailAttachment> attachments = await attachmentsResource.Fetch(attachmentFilter);
 
-        EmailAttachment? attachment = attachments.Data.FirstOrDefault();
+        EmailAttachment? attachment = attachments.FirstOrDefault();
 
         if (attachment is null)
         {
@@ -420,9 +411,9 @@ internal sealed class Program
             IAttachmentResource attachmentResource = messageResource.Attachment(attachment.Id);
 
             // Get attachment details
-            Response<EmailAttachment> attachmentDetails = await attachmentResource.GetDetails();
+            EmailAttachment attachmentDetails = await attachmentResource.GetDetails();
 
-            logger.LogInformation("Attachment: {Attachment}", attachmentDetails.Data);
+            logger.LogInformation("Attachment: {Attachment}", attachmentDetails);
         }
     }
 }

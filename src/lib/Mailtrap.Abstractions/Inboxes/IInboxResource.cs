@@ -45,9 +45,9 @@ public interface IInboxResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing requested inbox details.
+    /// Requested inbox details.
     /// </returns>
-    public Task<Response<Inbox>> GetDetails(CancellationToken cancellationToken = default);
+    public Task<Inbox> GetDetails(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the inbox, represented by the current resource instance, with details specified by <paramref name="request"/>.
@@ -62,9 +62,9 @@ public interface IInboxResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing updated inbox details.
+    /// Updated inbox details.
     /// </returns>
-    public Task<Response<Inbox>> Update(UpdateInboxRequest request, CancellationToken cancellationToken = default);
+    public Task<Inbox> Update(UpdateInboxRequest request, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes the inbox, represented by the current resource instance, with all its emails.
@@ -75,7 +75,7 @@ public interface IInboxResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing deleted inbox details.
+    /// Deleted inbox details.
     /// </returns>
     ///
     /// <remarks>
@@ -87,7 +87,7 @@ public interface IInboxResource
     /// Thus any further operations on it will result in an error.
     /// </para>
     /// </remarks>
-    public Task<Response<Inbox>> Delete(CancellationToken cancellationToken = default);
+    public Task<Inbox> Delete(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete all messages (emails) from the inbox, represented by the current resource instance.
@@ -98,9 +98,9 @@ public interface IInboxResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing affected inbox details.
+    /// Affected inbox details.
     /// </returns>
-    public Task<Response<Inbox>> Clean(CancellationToken cancellationToken = default);
+    public Task<Inbox> Clean(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Marks all messages (emails) in the inbox, represented by the current resource instance, as read.
@@ -111,7 +111,7 @@ public interface IInboxResource
     /// </param>
     ///
     /// <inheritdoc cref="Clean(CancellationToken)" path="/returns"/>
-    public Task<Response<Inbox>> MarkAsRead(CancellationToken cancellationToken = default);
+    public Task<Inbox> MarkAsRead(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Resets SMTP credentials of the inbox, represented by the current resource instance.
@@ -122,7 +122,7 @@ public interface IInboxResource
     /// </param>
     /// 
     /// <inheritdoc cref="Clean(CancellationToken)" path="/returns"/>
-    public Task<Response<Inbox>> ResetCredentials(CancellationToken cancellationToken = default);
+    public Task<Inbox> ResetCredentials(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Turns the email address of the inbox, represented by the current resource instance, ON or OFF.
@@ -133,7 +133,7 @@ public interface IInboxResource
     /// </param>
     /// 
     /// <inheritdoc cref="Clean(CancellationToken)" path="/returns"/>
-    public Task<Response<Inbox>> ToggleEmailAddress(CancellationToken cancellationToken = default);
+    public Task<Inbox> ToggleEmailAddress(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Resets username of email address of the inbox, represented by the current resource instance.
@@ -144,5 +144,5 @@ public interface IInboxResource
     /// </param>
     /// 
     /// <inheritdoc cref="Clean(CancellationToken)" path="/returns"/>
-    public Task<Response<Inbox>> ResetEmailAddress(CancellationToken cancellationToken = default);
+    public Task<Inbox> ResetEmailAddress(CancellationToken cancellationToken = default);
 }

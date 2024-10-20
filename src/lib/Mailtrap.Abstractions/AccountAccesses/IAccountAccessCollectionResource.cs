@@ -26,7 +26,7 @@ public interface IAccountAccessCollectionResource
     /// </param>
     /// 
     /// <returns>
-    /// Response containing a collection of account accesses with their permissions.
+    /// Collection of account accesses with their permissions.
     /// </returns>
     ///
     /// <remarks>
@@ -38,7 +38,7 @@ public interface IAccountAccessCollectionResource
     /// the endpoint will return account accesses for these resources.
     /// </para>
     /// </remarks> 
-    public Task<CollectionResponse<AccountAccess>> Fetch(
+    public Task<IList<AccountAccess>> Fetch(
         AccountAccessFilter? accountAccessFilter = default,
         CancellationToken cancellationToken = default);
 }
