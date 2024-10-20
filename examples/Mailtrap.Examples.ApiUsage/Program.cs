@@ -5,8 +5,9 @@
 // -----------------------------------------------------------------------
 
 
-// using Microsoft.Extensions.Configuration;
 using Mailtrap;
+// using Mailtrap.Extensions.DependencyInjection;
+using Mailtrap.Models;
 using Mailtrap.AccountAccesses;
 using Mailtrap.AccountAccesses.Models;
 using Mailtrap.Accounts;
@@ -14,8 +15,6 @@ using Mailtrap.Accounts.Models;
 using Mailtrap.Attachments;
 using Mailtrap.Attachments.Models;
 using Mailtrap.Billing.Models;
-// using Mailtrap.Extensions.DependencyInjection;
-using Mailtrap.Core.Models;
 using Mailtrap.Emails;
 using Mailtrap.Emails.Models;
 using Mailtrap.Emails.Requests;
@@ -31,6 +30,7 @@ using Mailtrap.SendingDomains.Requests;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+// using Microsoft.Extensions.Configuration;
 
 
 /// <summary>

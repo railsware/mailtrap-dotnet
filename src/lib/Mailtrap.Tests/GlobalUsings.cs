@@ -26,14 +26,14 @@ global using Moq;
 global using RichardSzalay.MockHttp;
 
 global using Mailtrap.Tests.TestExtensions;
+global using Mailtrap.Extensions;
+global using Mailtrap.Extensions.DependencyInjection;
 global using Mailtrap.Constants;
 global using Mailtrap.Exceptions;
 global using Mailtrap.Converters;
-global using Mailtrap.Extensions;
-global using Mailtrap.Extensions.DependencyInjection;
 global using Mailtrap.Configuration;
 global using Mailtrap.Http;
-global using Mailtrap.Core.Models;
+global using Mailtrap.Models;
 global using Mailtrap.AccountAccesses.Models;
 global using Mailtrap.Email;
 global using Mailtrap.Email.Models;
