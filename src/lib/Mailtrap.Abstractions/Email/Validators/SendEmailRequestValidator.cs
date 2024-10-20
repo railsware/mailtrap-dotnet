@@ -8,7 +8,7 @@
 namespace Mailtrap.Email.Validators;
 
 
-internal class SendEmailRequestValidator : AbstractValidator<SendEmailRequest>
+internal sealed class SendEmailRequestValidator : AbstractValidator<SendEmailRequest>
 {
     public static SendEmailRequestValidator Instance { get; } = new();
 

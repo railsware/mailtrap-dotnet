@@ -4,15 +4,14 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+
 namespace Mailtrap.AccountAccesses.Requests;
 
-
-// TODO: Add validation
 
 /// <summary>
 /// Request object for updating account access permissions.
 /// </summary>
-public sealed record UpdatePermissionsRequest
+public sealed record UpdatePermissionsRequest : IValidatable
 {
     /// <summary>
     /// Gets a collection of resources to update access permissions.
@@ -25,4 +24,50 @@ public sealed record UpdatePermissionsRequest
     [JsonPropertyOrder(1)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<UpdatePermissionsRequestItem> Permissions { get; } = [];
+
+
+    /// <summary>
+    /// Instance constructor.
+    /// </summary>
+    /// 
+    /// <param name="permissions">
+    /// Collection of resources with permissions to update.
+    /// </param>
+    /// 
+    /// <exception cref="ArgumentNullException">
+    /// When <paramref name="permissions"/> is <see langword="null"/>.
+    /// </exception>
+    public UpdatePermissionsRequest(params UpdatePermissionsRequestItem[] permissions)
+    {
+        Ensure.NotNull(permissions, nameof(permissions));
+
+        Permissions = permissions;
+    }
+
+    /// <summary>
+    /// Instance constructor.
+    /// </summary>
+    /// 
+    /// <param name="permissions">
+    /// Collection of resources with permissions to update.
+    /// </param>
+    /// 
+    /// <exception cref="ArgumentNullException">
+    /// When <paramref name="permissions"/> is <see langword="null"/>.
+    /// </exception>
+    public UpdatePermissionsRequest(IEnumerable<UpdatePermissionsRequestItem> permissions)
+    {
+        Ensure.NotNull(permissions, nameof(permissions));
+
+        Permissions = permissions.ToList();
+    }
+
+
+    /// <inheritdoc/>
+    public ValidationResult Validate()
+    {
+        return UpdatePermissionsRequestValidator.Instance
+            .Validate(this)
+            .ToMailtrapValidationResult();
+    }
 }

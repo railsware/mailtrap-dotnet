@@ -8,7 +8,7 @@
 namespace Mailtrap.Email.Validators;
 
 
-internal class AttachmentValidator : AbstractValidator<Attachment>
+internal sealed class AttachmentValidator : AbstractValidator<Attachment>
 {
     public static AttachmentValidator Instance { get; } = new();
 

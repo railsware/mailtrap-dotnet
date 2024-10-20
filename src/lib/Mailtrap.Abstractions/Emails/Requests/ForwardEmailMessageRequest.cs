@@ -8,15 +8,13 @@
 namespace Mailtrap.Emails.Requests;
 
 
-// TODO: add validation
-
 /// <summary>
 /// Request object for forwarding a message.
 /// </summary>
-public sealed record ForwardEmailMessageRequest
+public sealed record ForwardEmailMessageRequest : IValidatable
 {
     /// <summary>
-    /// Gets or sets email to forward to.
+    /// Gets email to forward to.
     /// </summary>
     ///
     /// <value>
@@ -24,5 +22,29 @@ public sealed record ForwardEmailMessageRequest
     /// </value>
     [JsonPropertyName("email")]
     [JsonPropertyOrder(1)]
-    public string? Email { get; set; }
+    public string Email { get; }
+
+
+    /// <summary>
+    /// Primary instance constructor.
+    /// </summary>
+    /// 
+    /// <param name="email">
+    /// Email address to forward email message to.
+    /// </param>
+    public ForwardEmailMessageRequest(string email)
+    {
+        Ensure.NotNullOrEmpty(email, nameof(email));
+
+        Email = email;
+    }
+
+
+    /// <inheritdoc />
+    public ValidationResult Validate()
+    {
+        return ForwardEmailMessageRequestValidator.Instance
+            .Validate(this)
+            .ToMailtrapValidationResult();
+    }
 }

@@ -4,18 +4,17 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+
 namespace Mailtrap.AccountAccesses.Requests;
 
-
-// TODO: add validation
 
 /// <summary>
 /// Represents permissions details for account access update request.
 /// </summary>
-public sealed record UpdatePermissionsRequestItem
+public sealed record UpdatePermissionsRequestItem : IValidatable
 {
     /// <summary>
-    /// Gets or sets the resource identifier.
+    /// Gets the resource identifier.
     /// </summary>
     ///
     /// <value>
@@ -23,10 +22,10 @@ public sealed record UpdatePermissionsRequestItem
     /// </value>
     [JsonPropertyName("resource_id")]
     [JsonPropertyOrder(1)]
-    public long? Id { get; set; }
+    public long ResourceId { get; }
 
     /// <summary>
-    /// Gets or sets the resource type.
+    /// Gets the resource type.
     /// </summary>
     ///
     /// <value>
@@ -34,10 +33,10 @@ public sealed record UpdatePermissionsRequestItem
     /// </value>
     [JsonPropertyName("resource_type")]
     [JsonPropertyOrder(2)]
-    public AccountResourceType? Type { get; set; }
+    public AccountResourceType ResourceType { get; }
 
     /// <summary>
-    /// Gets or sets the resource access level.
+    /// Gets the resource access level.
     /// </summary>
     ///
     /// <value>
@@ -49,10 +48,10 @@ public sealed record UpdatePermissionsRequestItem
     /// </remarks>
     [JsonPropertyName("access_level")]
     [JsonPropertyOrder(3)]
-    public AccessLevel? AccessLevel { get; set; }
+    public AccessLevel AccessLevel { get; }
 
     /// <summary>
-    /// Gets or sets the flag indicating whether to revoke resource permissions.<br />
+    /// Gets the flag indicating whether to revoke resource permissions.<br />
     /// If set to <see langword="true"/> will completely revoke access permissions from the resource, instead of update.
     /// </summary>
     ///
@@ -66,5 +65,77 @@ public sealed record UpdatePermissionsRequestItem
     /// </remarks>
     [JsonPropertyName("_destroy")]
     [JsonPropertyOrder(4)]
-    public bool Revoke { get; set; } = false;
+    public bool Revoke { get; }
+
+
+    /// <summary>
+    /// Primary instance constructor.
+    /// </summary>
+    /// 
+    /// <param name="resourceId">
+    /// ID of the resource to update permissions for.
+    /// </param>
+    /// 
+    /// <param name="resourceType">
+    /// Type of the resource to update permissions for.
+    /// </param>
+    /// 
+    /// <param name="accessLevel">
+    /// <para>
+    /// Target access level for the resource.
+    /// </para>
+    /// <para>
+    /// Allowed values: <see cref="AccessLevel.Viewer"/> or <see cref="AccessLevel.Admin"/>
+    /// </para>
+    /// </param>
+    /// 
+    /// <param name="revokePermissions">
+    /// If set to <see langword="true"/> will completely revoke access permissions from the resource, instead of update.
+    /// </param>
+    ///
+    /// <exception cref="ArgumentNullException">
+    /// When <paramref name="resourceType"/> is <see langword="null"/>.
+    /// </exception>
+    /// 
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="resourceId"/> is less than or equal to zero.
+    /// </exception>
+    public UpdatePermissionsRequestItem(
+        long resourceId,
+        AccountResourceType resourceType,
+        AccessLevel accessLevel,
+        bool revokePermissions = false)
+    {
+        Ensure.GreaterThanZero(resourceId, nameof(resourceId));
+        Ensure.NotNull(resourceType, nameof(resourceType));
+
+        if (AccountResourceType.None.Equals(resourceType))
+        {
+            throw new ArgumentException(
+                "'None' cannot be used as resource type for update permissions request.",
+                nameof(resourceType));
+        }
+
+        if (accessLevel is not AccessLevel.Viewer and not AccessLevel.Admin)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(accessLevel),
+                accessLevel,
+                "Allowed values are Viewer or Admin");
+        }
+
+        ResourceId = resourceId;
+        ResourceType = resourceType;
+        AccessLevel = accessLevel;
+        Revoke = revokePermissions;
+    }
+
+
+    /// <inheritdoc/>
+    public ValidationResult Validate()
+    {
+        return UpdatePermissionsRequestItemValidator.Instance
+            .Validate(this)
+            .ToMailtrapValidationResult();
+    }
 }

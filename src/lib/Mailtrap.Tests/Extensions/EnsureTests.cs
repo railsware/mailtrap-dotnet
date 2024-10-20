@@ -62,4 +62,35 @@ internal sealed class EnsureTests
 
         act.Should().NotThrow();
     }
+
+    [Test]
+    public void GreaterThanZero_ShouldThrowArgumentOutOfRangeException_WhenParamValueIsZero()
+    {
+        var paramValue = 0L;
+        var message = "Message";
+
+        var act = () => Ensure.GreaterThanZero(paramValue, nameof(paramValue), message);
+
+        act.Should().Throw<ArgumentOutOfRangeException>().WithMessage(message + "*");
+    }
+
+    [Test]
+    public void GreaterThanZero_ShouldThrowArgumentOutOfRangeException_WhenParamValueIsLessThanZero()
+    {
+        var paramValue = -1L;
+
+        var act = () => Ensure.GreaterThanZero(paramValue, nameof(paramValue));
+
+        act.Should().Throw<ArgumentOutOfRangeException>();
+    }
+
+    [Test]
+    public void GreaterThanZero_ShouldNotThrowException_WhenParamValueIsGreaterThanZero()
+    {
+        var paramValue = 1L;
+
+        var act = () => Ensure.GreaterThanZero(paramValue, nameof(paramValue));
+
+        act.Should().NotThrow();
+    }
 }

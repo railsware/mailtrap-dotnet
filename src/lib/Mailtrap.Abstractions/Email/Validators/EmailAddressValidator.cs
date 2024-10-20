@@ -8,7 +8,7 @@
 namespace Mailtrap.Email.Validators;
 
 
-internal class EmailAddressValidator : AbstractValidator<EmailAddress>
+internal sealed class EmailAddressValidator : AbstractValidator<EmailAddress>
 {
     public static EmailAddressValidator Instance { get; } = new();
 

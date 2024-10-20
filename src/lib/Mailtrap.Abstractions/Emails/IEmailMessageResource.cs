@@ -34,6 +34,10 @@ public interface IEmailMessageResource
     /// <returns>
     /// Resource for the attachment with specified ID.
     /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="attachmentId"/> is less than or equal to zero.
+    /// </exception>
     public IAttachmentResource Attachment(long attachmentId);
 
 

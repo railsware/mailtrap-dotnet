@@ -33,6 +33,10 @@ public interface IAccountResource
     /// <returns>
     /// Resource for the account access with specified ID.
     /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="accessId"/> is less than or equal to zero.
+    /// </exception>
     public IAccountAccessResource Access(long accessId);
 
     /// <summary>
@@ -73,6 +77,10 @@ public interface IAccountResource
     /// <returns>
     /// Resource for the sending domain with specified ID.
     /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="domainId"/> is less than or equal to zero.
+    /// </exception>
     public ISendingDomainResource SendingDomain(long domainId);
 
     /// <summary>
@@ -95,6 +103,10 @@ public interface IAccountResource
     /// <returns>
     /// Resource for the project with specified ID.
     /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="projectId"/> is less than or equal to zero.
+    /// </exception>
     public IProjectResource Project(long projectId);
 
     /// <summary>
@@ -117,6 +129,10 @@ public interface IAccountResource
     /// <returns>
     /// Resource for the inbox with specified ID.
     /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="inboxId"/> is less than or equal to zero.
+    /// </exception>
     public IInboxResource Inbox(long inboxId);
 
 

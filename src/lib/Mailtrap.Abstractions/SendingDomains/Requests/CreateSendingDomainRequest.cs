@@ -8,15 +8,13 @@
 namespace Mailtrap.SendingDomains.Requests;
 
 
-// TODO: Add validation
-
 /// <summary>
 /// Request object for creating sending domain.
 /// </summary>
 public sealed record CreateSendingDomainRequest
 {
     /// <summary>
-    /// Gets or sets sending domain name.
+    /// Gets sending domain name.
     /// </summary>
     ///
     /// <value>

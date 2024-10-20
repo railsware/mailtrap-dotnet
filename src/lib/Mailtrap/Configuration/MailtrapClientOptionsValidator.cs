@@ -8,7 +8,7 @@
 namespace Mailtrap.Configuration;
 
 
-internal class MailtrapClientOptionsValidator : AbstractValidator<MailtrapClientOptions>
+internal sealed class MailtrapClientOptionsValidator : AbstractValidator<MailtrapClientOptions>
 {
     public static MailtrapClientOptionsValidator Instance { get; } = new();
 

@@ -62,4 +62,28 @@ public static class Ensure
             throw new ArgumentNullException(paramName, message);
         }
     }
+
+    /// <summary>
+    /// Ensures provided <paramref name="paramValue"/> is greater than zero.
+    /// </summary>
+    /// 
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="paramValue"/> is equal or less than zero.
+    /// </exception>
+    public static void GreaterThanZero(long paramValue, string paramName, string? message = default)
+    {
+        if (paramValue > 0)
+        {
+            return;
+        }
+
+        if (message is null)
+        {
+            throw new ArgumentOutOfRangeException(paramName);
+        }
+        else
+        {
+            throw new ArgumentOutOfRangeException(paramName, paramValue, message);
+        }
+    }
 }

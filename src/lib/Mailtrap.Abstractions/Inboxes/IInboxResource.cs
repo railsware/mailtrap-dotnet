@@ -33,6 +33,10 @@ public interface IInboxResource
     /// <returns>
     /// Resource for the message with specified ID.
     /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="messageId"/> is less than or equal to zero.
+    /// </exception>
     public IEmailMessageResource Message(long messageId);
 
 

@@ -8,15 +8,13 @@
 namespace Mailtrap.Projects.Requests;
 
 
-// TODO: Add validation
-
 /// <summary>
 /// Generic request object for project CRUD operations.
 /// </summary>
 public record ProjectRequest
 {
     /// <summary>
-    /// Gets or sets project name.
+    /// Gets project name.
     /// </summary>
     ///
     /// <value>
@@ -24,5 +22,23 @@ public record ProjectRequest
     /// </value>
     [JsonPropertyName("name")]
     [JsonPropertyOrder(1)]
-    public string? Name { get; set; }
+    public string Name { get; }
+
+    /// <summary>
+    /// Primary instance constructor.
+    /// </summary>
+    /// 
+    /// <param name="name">
+    /// Name of the project.
+    /// </param>
+    ///
+    /// <exception cref="ArgumentNullException">
+    /// When <paramref name="name"/> is <see langword="null"/> or <see cref="string.Empty"/>.
+    /// </exception>
+    public ProjectRequest(string name)
+    {
+        Ensure.NotNullOrEmpty(name, nameof(name));
+
+        Name = name;
+    }
 }

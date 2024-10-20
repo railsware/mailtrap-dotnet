@@ -198,10 +198,7 @@ internal sealed class Program
             logger.LogWarning("No project found. Creating.");
 
             // Create project
-            var createProjectRequest = new CreateProjectRequest
-            {
-                Name = projectName
-            };
+            var createProjectRequest = new CreateProjectRequest(projectName);
             project = await projectsResource.Create(createProjectRequest);
         }
         else
@@ -217,10 +214,7 @@ internal sealed class Program
         IProjectResource projectResource = accountResource.Project(project.Id);
 
         // Update project details
-        var updateProjectRequest = new UpdateProjectRequest
-        {
-            Name = "Updated Project Name"
-        };
+        var updateProjectRequest = new UpdateProjectRequest("Updated Project Name");
         Project updatedProject = await projectResource.Update(updateProjectRequest);
 
         // Get project details
@@ -253,10 +247,7 @@ internal sealed class Program
             logger.LogWarning("No inbox found. Creating.");
 
             // Create inbox
-            var createInboxRequest = new CreateInboxRequest(projectId)
-            {
-                Name = inboxName
-            };
+            var createInboxRequest = new CreateInboxRequest(projectId, inboxName);
             inbox = await inboxesResource.Create(createInboxRequest);
         }
         else
@@ -361,18 +352,12 @@ internal sealed class Program
         await ProcessAttachments(messageResource, logger);
 
         // Update message details
-        var updateMessageRequest = new UpdateEmailMessageRequest
-        {
-            IsRead = true
-        };
+        var updateMessageRequest = new UpdateEmailMessageRequest(true);
         EmailMessage updatedMessage = await messageResource.Update(updateMessageRequest);
         logger.LogInformation("Updated Message: {Message}", updatedMessage);
 
         // Forward message
-        var forwardMessageRequest = new ForwardEmailMessageRequest()
-        {
-            Email = "forward@domain.com"
-        };
+        var forwardMessageRequest = new ForwardEmailMessageRequest("forward@domain.com");
         ForwardedEmailMessage forwardedMessage = await messageResource.Forward(forwardMessageRequest);
         logger.LogInformation("Message forwarded: {Forward}", forwardedMessage.Message);
 

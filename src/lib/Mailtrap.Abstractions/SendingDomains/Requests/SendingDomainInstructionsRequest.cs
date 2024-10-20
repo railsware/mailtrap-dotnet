@@ -8,15 +8,13 @@
 namespace Mailtrap.SendingDomains.Requests;
 
 
-// TODO: Add validation
-
 /// <summary>
 /// Request object for sending setup instructions for sending domain.
 /// </summary>
-public sealed record SendingDomainInstructionsRequest
+public sealed record SendingDomainInstructionsRequest : IValidatable
 {
     /// <summary>
-    /// Gets or sets email address to send setup instructions to.
+    /// Gets email address to send setup instructions to.
     /// </summary>
     ///
     /// <value>
@@ -39,5 +37,14 @@ public sealed record SendingDomainInstructionsRequest
         Ensure.NotNullOrEmpty(email, nameof(email));
 
         Email = email;
+    }
+
+
+    /// <inheritdoc/>
+    public ValidationResult Validate()
+    {
+        return SendingDomainInstructionsRequestValidator.Instance
+            .Validate(this)
+            .ToMailtrapValidationResult();
     }
 }

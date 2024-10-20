@@ -8,9 +8,11 @@
 namespace Mailtrap.Projects.Requests;
 
 
-// TODO: Add validation
-
 /// <summary>
 /// Request object for creating project.
 /// </summary>
-public sealed record CreateProjectRequest : ProjectRequest { }
+public sealed record CreateProjectRequest : ProjectRequest
+{
+    /// <inheritdoc />
+    public CreateProjectRequest(string name) : base(name) { }
+}

@@ -8,15 +8,13 @@
 namespace Mailtrap.Emails.Requests;
 
 
-// TODO: add validation
-
 /// <summary>
 /// Represents message details for update.
 /// </summary>
 public sealed record UpdateEmailMessageRequest
 {
     /// <summary>
-    /// Gets or sets the flag, indicating if message is read.
+    /// Gets the flag, indicating if message is read.
     /// </summary>
     ///
     /// <value>
@@ -25,5 +23,18 @@ public sealed record UpdateEmailMessageRequest
     /// </value>
     [JsonPropertyName("is_read")]
     [JsonPropertyOrder(1)]
-    public bool? IsRead { get; set; }
+    public bool IsRead { get; }
+
+
+    /// <summary>
+    /// Primary instance constructor.
+    /// </summary>
+    /// 
+    /// <param name="isRead">
+    /// Flag, indicating if message is read.
+    /// </param>
+    public UpdateEmailMessageRequest(bool isRead)
+    {
+        IsRead = isRead;
+    }
 }
