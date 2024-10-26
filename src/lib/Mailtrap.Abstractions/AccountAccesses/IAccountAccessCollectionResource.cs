@@ -17,7 +17,7 @@ public interface IAccountAccessCollectionResource
     /// Gets a collection of account accesses for which specifier_type is User or Invite.    
     /// </summary>
     /// 
-    /// <param name="accountAccessFilter">
+    /// <param name="filter">
     /// A set of filtering parameters.
     /// </param>
     ///
@@ -34,11 +34,11 @@ public interface IAccountAccessCollectionResource
     /// You must have account admin/owner permissions for this endpoint to work.
     /// </para>
     /// <para>
-    /// If you specify Domain IDs, Project IDs or Inbox IDs in <paramref name="accountAccessFilter"/>,
+    /// If you specify Domain IDs, Project IDs or Inbox IDs in <paramref name="filter"/>,
     /// the endpoint will return account accesses for these resources.
     /// </para>
     /// </remarks> 
     public Task<IList<AccountAccess>> Fetch(
-        AccountAccessFilter? accountAccessFilter = default,
+        AccountAccessFilter? filter = default,
         CancellationToken cancellationToken = default);
 }

@@ -16,71 +16,13 @@ internal sealed class EmailClientFactoryTests
     [Test]
     public void Constructor_ShouldThrowArgumentNullException_WhenOptionsIsNull()
     {
-        var httpClientFactoryMock = Mock.Of<IHttpClientFactory>();
-        var httpRequestMessageFactoryMock = Mock.Of<IHttpRequestMessageFactory>();
-        var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
         var emailClientEndpointProviderMock = Mock.Of<IEmailClientEndpointProvider>();
+        var restResourceCommandFactoryMock = Mock.Of<IRestResourceCommandFactory>();
 
         var act = () => new EmailClientFactory(
             null!,
-            httpClientFactoryMock,
-            httpRequestMessageFactoryMock,
-            httpRequestContentFactoryMock,
-            emailClientEndpointProviderMock);
-
-        act.Should().Throw<ArgumentNullException>();
-    }
-
-    [Test]
-    public void Constructor_ShouldThrowArgumentNullException_WhenHttpClientFactoryIsNull()
-    {
-        var optionsMock = Mock.Of<IOptions<MailtrapClientOptions>>();
-        var httpRequestMessageFactoryMock = Mock.Of<IHttpRequestMessageFactory>();
-        var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
-        var emailClientEndpointProviderMock = Mock.Of<IEmailClientEndpointProvider>();
-
-        var act = () => new EmailClientFactory(
-            optionsMock,
-            null!,
-            httpRequestMessageFactoryMock,
-            httpRequestContentFactoryMock,
-            emailClientEndpointProviderMock);
-
-        act.Should().Throw<ArgumentNullException>();
-    }
-
-    [Test]
-    public void Constructor_ShouldThrowArgumentNullException_WhenHttpRequestMessageFactoryIsNull()
-    {
-        var optionsMock = Mock.Of<IOptions<MailtrapClientOptions>>();
-        var httpClientFactoryMock = Mock.Of<IHttpClientFactory>();
-        var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
-        var emailClientEndpointProviderMock = Mock.Of<IEmailClientEndpointProvider>();
-
-        var act = () => new EmailClientFactory(
-            optionsMock,
-            httpClientFactoryMock,
-            null!,
-            httpRequestContentFactoryMock,
-            emailClientEndpointProviderMock);
-
-        act.Should().Throw<ArgumentNullException>();
-    }
-
-    [Test]
-    public void Constructor_ShouldThrowArgumentNullException_WhenHttpRequestContentFactoryIsNull()
-    {
-        var optionsMock = Mock.Of<IOptions<MailtrapClientOptions>>();
-        var httpClientFactoryMock = Mock.Of<IHttpClientFactory>();
-        var httpRequestMessageFactoryMock = Mock.Of<IHttpRequestMessageFactory>();
-        var emailClientEndpointProviderMock = Mock.Of<IEmailClientEndpointProvider>();
-
-        var act = () => new EmailClientFactory(
-            optionsMock,
-            httpClientFactoryMock,
-            httpRequestMessageFactoryMock,
-            null!,
-            emailClientEndpointProviderMock);
+            emailClientEndpointProviderMock,
+            restResourceCommandFactoryMock);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -89,15 +31,25 @@ internal sealed class EmailClientFactoryTests
     public void Constructor_ShouldThrowArgumentNullException_WhenEndpointProviderIsNull()
     {
         var optionsMock = Mock.Of<IOptions<MailtrapClientOptions>>();
-        var httpClientFactoryMock = Mock.Of<IHttpClientFactory>();
-        var httpRequestMessageFactoryMock = Mock.Of<IHttpRequestMessageFactory>();
-        var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
+        var restResourceCommandFactoryMock = Mock.Of<IRestResourceCommandFactory>();
 
         var act = () => new EmailClientFactory(
             optionsMock,
-            httpClientFactoryMock,
-            httpRequestMessageFactoryMock,
-            httpRequestContentFactoryMock,
+            null!,
+            restResourceCommandFactoryMock);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void Constructor_ShouldThrowArgumentNullException_WhenRestCommandFactoryIsNull()
+    {
+        var optionsMock = Mock.Of<IOptions<MailtrapClientOptions>>();
+        var emailClientEndpointProviderMock = Mock.Of<IEmailClientEndpointProvider>();
+
+        var act = () => new EmailClientFactory(
+            optionsMock,
+            emailClientEndpointProviderMock,
             null!);
 
         act.Should().Throw<ArgumentNullException>();
@@ -120,10 +72,8 @@ internal sealed class EmailClientFactoryTests
         var options = CreateOptions(isBulk, inboxId);
         var emailClientFactory = new EmailClientFactory(
             options,
-            Mock.Of<IHttpClientFactory>(),
-            Mock.Of<IHttpRequestMessageFactory>(),
-            Mock.Of<IHttpRequestContentFactory>(),
-            emailClientEndpointProviderMock.Object);
+            emailClientEndpointProviderMock.Object,
+            Mock.Of<IRestResourceCommandFactory>());
 
         // Act
         var result = emailClientFactory.Create(isBulk, inboxId);
@@ -131,7 +81,7 @@ internal sealed class EmailClientFactoryTests
         // Assert
         result.Should().NotBeNull();
         result.Should().BeOfType<EmailClient>();
-        result.SendUri.Should().Be(sendUri);
+        result.ResourceUri.Should().Be(sendUri);
     }
 
     [Test]
@@ -148,10 +98,8 @@ internal sealed class EmailClientFactoryTests
         var options = CreateOptions(isBulk, inboxId);
         var emailClientFactory = new EmailClientFactory(
             options,
-            Mock.Of<IHttpClientFactory>(),
-            Mock.Of<IHttpRequestMessageFactory>(),
-            Mock.Of<IHttpRequestContentFactory>(),
-            emailClientEndpointProviderMock.Object);
+            emailClientEndpointProviderMock.Object,
+            Mock.Of<IRestResourceCommandFactory>());
 
         // Act
         var result = emailClientFactory.CreateDefault();
@@ -159,7 +107,7 @@ internal sealed class EmailClientFactoryTests
         // Assert
         result.Should().NotBeNull();
         result.Should().BeOfType<EmailClient>();
-        result.SendUri.Should().Be(sendUri);
+        result.ResourceUri.Should().Be(sendUri);
     }
 
     [Test]
@@ -176,10 +124,8 @@ internal sealed class EmailClientFactoryTests
         var options = CreateOptions(isBulk, inboxId);
         var emailClientFactory = new EmailClientFactory(
             options,
-            Mock.Of<IHttpClientFactory>(),
-            Mock.Of<IHttpRequestMessageFactory>(),
-            Mock.Of<IHttpRequestContentFactory>(),
-            emailClientEndpointProviderMock.Object);
+            emailClientEndpointProviderMock.Object,
+            Mock.Of<IRestResourceCommandFactory>());
 
         // Act
         var result = emailClientFactory.CreateTransactional();
@@ -187,7 +133,7 @@ internal sealed class EmailClientFactoryTests
         // Assert
         result.Should().NotBeNull();
         result.Should().BeOfType<EmailClient>();
-        result.SendUri.Should().Be(sendUri);
+        result.ResourceUri.Should().Be(sendUri);
     }
 
     [Test]
@@ -204,10 +150,8 @@ internal sealed class EmailClientFactoryTests
         var options = CreateOptions(isBulk, inboxId);
         var emailClientFactory = new EmailClientFactory(
             options,
-            Mock.Of<IHttpClientFactory>(),
-            Mock.Of<IHttpRequestMessageFactory>(),
-            Mock.Of<IHttpRequestContentFactory>(),
-            emailClientEndpointProviderMock.Object);
+            emailClientEndpointProviderMock.Object,
+            Mock.Of<IRestResourceCommandFactory>());
 
         // Act
         var result = emailClientFactory.CreateBulk();
@@ -215,7 +159,7 @@ internal sealed class EmailClientFactoryTests
         // Assert
         result.Should().NotBeNull();
         result.Should().BeOfType<EmailClient>();
-        result.SendUri.Should().Be(sendUri);
+        result.ResourceUri.Should().Be(sendUri);
     }
 
     [Test]
@@ -232,10 +176,8 @@ internal sealed class EmailClientFactoryTests
         var options = CreateOptions(isBulk, inboxId);
         var emailClientFactory = new EmailClientFactory(
             options,
-            Mock.Of<IHttpClientFactory>(),
-            Mock.Of<IHttpRequestMessageFactory>(),
-            Mock.Of<IHttpRequestContentFactory>(),
-            emailClientEndpointProviderMock.Object);
+            emailClientEndpointProviderMock.Object,
+            Mock.Of<IRestResourceCommandFactory>());
 
         // Act
         var result = emailClientFactory.CreateTest(inboxId);
@@ -243,7 +185,7 @@ internal sealed class EmailClientFactoryTests
         // Assert
         result.Should().NotBeNull();
         result.Should().BeOfType<EmailClient>();
-        result.SendUri.Should().Be(sendUri);
+        result.ResourceUri.Should().Be(sendUri);
     }
 
 

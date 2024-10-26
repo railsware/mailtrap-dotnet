@@ -5,16 +5,16 @@
 // -----------------------------------------------------------------------
 
 
-using Mailtrap.Accounts;
-
 namespace Mailtrap;
 
 
 /// <summary>
 /// <see cref="IMailtrapClient"/> implementation.
 /// </summary>
-internal sealed class MailtrapClient : IMailtrapClient
+internal sealed class MailtrapClient : RestResource, IMailtrapClient
 {
+    private const string AccountsSegment = "accounts";
+
     private readonly IEmailClientFactory _emailClientFactory;
     private readonly IEmailClient _defaultEmailClient;
 
@@ -23,12 +23,15 @@ internal sealed class MailtrapClient : IMailtrapClient
     /// Default instance constructor.
     /// </summary>
     ///
-    /// <param name="emailClientFactory"></param>
-    /// 
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="emailClientFactory"/> is <see langword="null"/>.
     /// </exception>
-    public MailtrapClient(IEmailClientFactory emailClientFactory)
+    public MailtrapClient(
+        IEmailClientFactory emailClientFactory,
+        IRestResourceCommandFactory restResourceCommandFactory)
+        : base(
+            restResourceCommandFactory,
+            Endpoints.ApiDefaultUrl.Append(UrlSegments.ApiRootSegment))
     {
         Ensure.NotNull(emailClientFactory, nameof(emailClientFactory));
 
@@ -50,7 +53,9 @@ internal sealed class MailtrapClient : IMailtrapClient
     public IEmailClient Test(long inboxId) => _emailClientFactory.CreateTest(inboxId);
 
 
-    public IAccountCollectionResource Accounts() => throw new NotImplementedException();
+    public IAccountCollectionResource Accounts()
+        => new AccountCollectionResource(RestResourceCommandFactory, ResourceUri.Append(AccountsSegment));
 
-    public IAccountResource Account(long accountId) => throw new NotImplementedException();
+    public IAccountResource Account(long accountId)
+        => new AccountResource(RestResourceCommandFactory, ResourceUri.Append(AccountsSegment).Append(accountId));
 }

@@ -180,6 +180,12 @@ dotnet_diagnostic.IDE0072.severity = suggestion
 # IDE0058: Expression value is never used
 dotnet_diagnostic.IDE0058.severity = silent
 
+# CA1032: Implement standard exception constructors
+dotnet_diagnostic.CA1032.severity = silent
+
+# CA1062: Null-check validation
+dotnet_code_quality.CA1062.null_check_validation_methods = NotNull|NotNullOrEmpty
+
 # CA1303: Do not pass literals as localized parameters
 dotnet_diagnostic.CA1303.severity = silent
 
@@ -189,10 +195,7 @@ dotnet_diagnostic.CA1805.severity = silent
 # CA1848: Use the LoggerMessage delegates
 dotnet_diagnostic.CA1848.severity = silent
 
-# CA1062: Null-check validation
-dotnet_code_quality.CA1062.null_check_validation_methods = NotNull|NotNullOrEmpty
-
-CA2007: Do not directly await a Task
+# CA2007: Do not directly await a Task
 dotnet_code_quality.CA2007.output_kind = DynamicallyLinkedLibrary
 
 

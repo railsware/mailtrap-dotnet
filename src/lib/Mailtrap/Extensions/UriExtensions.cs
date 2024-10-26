@@ -57,10 +57,45 @@ internal static class UriExtensions
         Ensure.NotNull(baseUri, nameof(baseUri));
         Ensure.NotNull(segments, nameof(segments));
 
-        var baseUrl = baseUri.AbsoluteUri;
-        var delimiter = baseUrl.Last() == '/' ? string.Empty : "/";
+        var result = new UriBuilder(baseUri);
 
-        return $"{baseUrl}{delimiter}{string.Join("/", segments)}".ToAbsoluteUri();
+        result.Path = result.Path.Length > 1
+            ? $"{result.Path.TrimEnd('/')}/{string.Join("/", segments)}"
+            : string.Join("/", segments);
+
+        return result.Uri;
+    }
+
+    /// <exception cref = "ArgumentNullException" >
+    /// When provided <paramref name="baseUri"/> is <see langword="null"/>.<br />
+    /// When provided <paramref name="id"/> is less than or equal to zero.
+    /// </exception>
+    internal static Uri Append(this Uri baseUri, long id)
+    {
+        Ensure.NotNull(baseUri, nameof(baseUri));
+        Ensure.GreaterThanZero(id, nameof(id));
+
+        return baseUri.Append(id.ToUriSegment());
+    }
+
+    /// <exception cref = "ArgumentNullException" >
+    /// When provided <paramref name="uri"/> is <see langword="null"/>.<br />
+    /// When provided <paramref name="key"/> is <see langword="null"/> or <see cref="string.Empty"/>.<br />
+    /// When provided <paramref name="value"/> is <see langword="null"/> or <see cref="string.Empty"/>.
+    /// </exception>
+    internal static Uri AppendQueryParameter(this Uri uri, string key, string value)
+    {
+        Ensure.NotNull(uri, nameof(uri));
+        Ensure.NotNullOrEmpty(key, nameof(key));
+        Ensure.NotNullOrEmpty(value, nameof(value));
+
+        var result = new UriBuilder(uri);
+
+        result.Query = result.Query.Length > 1
+            ? $"{result.Query.Substring(1)}&{key}={value}"
+            : $"{key}={value}";
+
+        return result.Uri;
     }
 
     /// <exception cref = "ArgumentNullException" >
@@ -79,4 +114,7 @@ internal static class UriExtensions
             ? url
             : throw new ArgumentException("Invalid URL format - absolute URL is expected", nameof(url));
     }
+
+    internal static string ToUriSegment<T>(this T id) where T : IFormattable
+        => id.ToString(null, CultureInfo.InvariantCulture);
 }

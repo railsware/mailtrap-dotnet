@@ -134,18 +134,4 @@ public interface IAccountResource
     /// When <paramref name="inboxId"/> is less than or equal to zero.
     /// </exception>
     public IInboxResource Inbox(long inboxId);
-
-
-    /// <summary>
-    /// Gets details of the account, represented by this resource instance.
-    /// </summary>
-    /// 
-    /// <param name="cancellationToken">
-    /// <see cref="CancellationToken"/> instance to control operation cancellation.
-    /// </param>
-    /// 
-    /// <returns>
-    /// Details of the account, represented by this resource instance.
-    /// </returns>
-    public Task<Account> GetDetails(CancellationToken cancellationToken = default);
 }

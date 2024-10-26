@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.Extensions.DependencyInjection;
 
 
@@ -34,10 +33,19 @@ public static class ServiceCollectionExtensions
     {
         Ensure.NotNull(services, nameof(services));
 
-        services.AddOptions();
+        services.AddOptions()
+            .PostConfigure<MailtrapClientOptions>(options =>
+            {
+                MailtrapClientOptionsValidator.Instance
+                    .Validate(options)
+                    .ToMailtrapValidationResult()
+                    .EnsureValidity(nameof(MailtrapClientOptions));
+            });
 
         services.TryAddSingleton<IHttpRequestMessageFactory, HttpRequestMessageFactory>();
         services.TryAddSingleton<IHttpRequestContentFactory, HttpRequestContentFactory>();
+        services.TryAddSingleton<IHttpResponseHandlerFactory, HttpResponseHandlerFactory>();
+        services.TryAddSingleton<IRestResourceCommandFactory, RestResourceCommandFactory>();
         services.TryAddSingleton<IEmailClientEndpointProvider, EmailClientEndpointProvider>();
         services.TryAddSingleton<IEmailClientFactory, EmailClientFactory>();
 

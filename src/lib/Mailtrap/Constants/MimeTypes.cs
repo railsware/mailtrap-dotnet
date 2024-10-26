@@ -12,6 +12,15 @@ internal static class MimeTypes
 {
     internal static class Application
     {
-        internal static string Json { get; } = "application/json";
+        internal const string Root = "application";
+
+        internal const string Json = $"{Root}/json";
+    }
+
+    internal static class Message
+    {
+        internal const string Root = "message";
+
+        internal const string Eml = $"{Root}/rfc822";
     }
 }

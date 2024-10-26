@@ -12,56 +12,24 @@ namespace Mailtrap.Tests.Exceptions;
 internal sealed class InvalidResponseFormatExceptionTests
 {
     [Test]
-    public void Constructor_WithoutParams_ShouldProperlyInitializeProperties()
+    public void Constructor_ShouldThrowArgumentNullException_WhenApiEndpointIsNull()
     {
-        var ex = new InvalidResponseFormatException();
-
-        ex.Message.Should().Be("Response received from the 'Mailtrap' API call has an invalid format.");
-    }
-
-    [Test]
-    public void Constructor_WithMessageParam_ShouldProperlyInitializeProperties()
-    {
-        var message = "Test message";
-        var ex = new InvalidResponseFormatException(message);
-
-        ex.Message.Should().Be(message);
-    }
-
-    [Test]
-    public void Constructor_WithMessageAndInnerException_ShouldProperlyInitializeProperties()
-    {
-        var message = "Test message";
-        var innerEx = new ArgumentException();
-        var ex = new InvalidResponseFormatException(message, innerEx);
-
-        ex.Message.Should().Be(message);
-        ex.InnerException.Should().BeSameAs(innerEx);
-    }
-
-    [Test]
-    public void Create_ShouldThrowArgumentNullException_WhenApiEndpointIsNull()
-    {
-        var act = () => InvalidResponseFormatException.Create(null!);
+        var act = () => new InvalidResponseFormatException(null!);
 
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Test]
-    public void Create_ShouldThrowArgumentNullException_WhenApiEndpointIsEmpty()
+    public void Constructor_ShouldInitializePropertiesCorrectly()
     {
-        var act = () => InvalidResponseFormatException.Create(string.Empty);
+        var method = HttpMethod.Get;
+        var uri = new Uri("https://api.test.com");
+        using var request = new HttpRequestMessage(method, uri);
 
-        act.Should().Throw<ArgumentNullException>();
-    }
+        var ex = new InvalidResponseFormatException(request);
 
-    [Test]
-    public void Create_ShouldInitializeMessageProperly_WhenApiEndpointIsValid()
-    {
-        var api = "Test API";
-
-        var ex = InvalidResponseFormatException.Create(api);
-
-        ex.Message.Should().Be($"Response received from the '{api}' API call has an invalid format.");
+        ex.Message.Should().Be("Response received from the API call has an invalid format.");
+        ex.HttpMethod.Should().Be(method);
+        ex.ApiEndpoint.Should().Be(uri);
     }
 }

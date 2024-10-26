@@ -293,7 +293,7 @@ internal sealed class Program
     private static async Task ProcessMessages(IInboxResource inboxResource, ILogger logger)
     {
         // Get resource for message collection
-        IEmailMessageCollectionResource messagesResource = inboxResource.Messages();
+        IEmailCollectionResource messagesResource = inboxResource.Messages();
 
         // Fetch messages from the inbox
         var messageFilter = new EmailMessageFilter
@@ -314,31 +314,31 @@ internal sealed class Program
         logger.LogInformation("Message: {Message}", message);
 
         // Get resource for message
-        IEmailMessageResource messageResource = inboxResource.Message(message.Id);
+        IEmailResource messageResource = inboxResource.Message(message.Id);
 
         // Get message headers
         EmailMessageHeaders headers = await messageResource.GetHeaders();
         logger.LogInformation("Message headers: {Headers}", headers.Headers);
 
         // Get raw message content
-        EmailMessageRaw rawMessageContent = await messageResource.AsRaw();
-        logger.LogInformation("Raw message: {Message}", rawMessageContent.Raw);
+        string rawMessageContent = await messageResource.AsRaw();
+        logger.LogInformation("Raw message: {Message}", rawMessageContent);
 
         // Get EML message content
-        EmailMessageEml emlMessageContent = await messageResource.AsEml();
-        logger.LogInformation("EML message: {Message}", emlMessageContent.Eml);
+        string emlMessageContent = await messageResource.AsEml();
+        logger.LogInformation("EML message: {Message}", emlMessageContent);
 
         // Get plain text message body
-        EmailMessageTextBody textMessageBody = await messageResource.GetTextBody();
-        logger.LogInformation("Plain text message body: {Message}", textMessageBody.TextBody);
+        string textMessageBody = await messageResource.GetTextBody();
+        logger.LogInformation("Plain text message body: {Message}", textMessageBody);
 
         // Get HTML message body
-        EmailMessageHtmlBody htmlMessageBody = await messageResource.GetHtmlBody();
-        logger.LogInformation("HTML message body: {Message}", htmlMessageBody.HtmlBody);
+        string htmlMessageBody = await messageResource.GetHtmlBody();
+        logger.LogInformation("HTML message body: {Message}", htmlMessageBody);
 
         // Get HTML message source
-        EmailMessageHtmlSource htmlMessageSource = await messageResource.GetHtmlSource();
-        logger.LogInformation("HTML message source: {Message}", htmlMessageSource.HtmlSource);
+        string htmlMessageSource = await messageResource.GetHtmlSource();
+        logger.LogInformation("HTML message source: {Message}", htmlMessageSource);
 
         // Get HTML analysis report for message 
         EmailMessageHtmlReport htmlReport = await messageResource.GetHtmlAnalysisReport();
@@ -370,7 +370,7 @@ internal sealed class Program
         _ = await messageResource.Delete();
     }
 
-    private static async Task ProcessAttachments(IEmailMessageResource messageResource, ILogger logger)
+    private static async Task ProcessAttachments(IEmailResource messageResource, ILogger logger)
     {
         // Get resource for attachments collection
         IAttachmentCollectionResource attachmentsResource = messageResource.Attachments();

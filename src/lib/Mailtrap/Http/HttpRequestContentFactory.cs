@@ -13,16 +13,27 @@ namespace Mailtrap.Http;
 /// </summary>
 internal sealed class HttpRequestContentFactory : IHttpRequestContentFactory
 {
-    /// <inheritdoc/>
-    /// 
-    /// <exception cref="ArgumentNullException">
-    /// When provided <paramref name="content"/> is <see langword="null"/>.
-    /// </exception>
-    public StringContent CreateStringContent(string content)
-    {
-        Ensure.NotNull(content, nameof(content));
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
 
-        var httpRequestContent = new StringContent(content).ApplyJsonContentTypeHeader();
+
+    public HttpRequestContentFactory(IOptions<MailtrapClientOptions> clientOptions)
+    {
+        Ensure.NotNull(clientOptions, nameof(clientOptions));
+
+        _jsonSerializerOptions = clientOptions.Value.ToJsonSerializerOptions();
+    }
+
+
+    /// <inheritdoc/>
+    public StringContent? CreateStringContent<T>(T? content)
+    {
+        if (content == null)
+        {
+            return null;
+        }
+
+        var jsonContent = JsonSerializer.Serialize(content, _jsonSerializerOptions);
+        var httpRequestContent = new StringContent(jsonContent).ApplyJsonContentTypeHeader();
 
         return httpRequestContent;
     }

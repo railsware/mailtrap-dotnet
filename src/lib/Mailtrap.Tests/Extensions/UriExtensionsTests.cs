@@ -211,6 +211,78 @@ internal sealed class UriExtensionsTests
     #endregion
 
 
+    #region AppendQueryParameter
+
+    [Test]
+    public void AppendQueryParameter_ShouldThrowArgumentNullException_WhenUriIsNull()
+    {
+        var act = () => UriExtensions.AppendQueryParameter(null!, "key", "value");
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void AppendQueryParameter_ShouldThrowArgumentNullException_WhenKeyIsNull()
+    {
+        var act = () => UriExtensions.AppendQueryParameter(_absoluteUri, null!, "value");
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void AppendQueryParameter_ShouldThrowArgumentNullException_WhenKeyIsEmpty()
+    {
+        var act = () => UriExtensions.AppendQueryParameter(_absoluteUri, string.Empty, "value");
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void AppendQueryParameter_ShouldThrowArgumentNullException_WhenValueIsNull()
+    {
+        var act = () => UriExtensions.AppendQueryParameter(_absoluteUri, "key", null!);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void AppendQueryParameter_ShouldThrowArgumentNullException_WhenValueIsEmpty()
+    {
+        var act = () => UriExtensions.AppendQueryParameter(_absoluteUri, "key", string.Empty);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void AppendQueryParameter_ShouldAppendQueryParamToUri()
+    {
+        var key = "api";
+        var value = "send";
+
+        var result = _absoluteUri.AppendQueryParameter(key, value);
+
+        result.AbsoluteUri.Should().Be($"{_absoluteUri.AbsoluteUri}?{key}={value}");
+    }
+
+    [Test]
+    public void AppendQueryParameter_ShouldAppendQueryParamCorrectly_WhenCalledMultipleTimes()
+    {
+        var key1 = "api";
+        var value1 = "send";
+
+        var key2 = "bulk";
+        var value2 = "true";
+
+        var result = _absoluteUri
+            .AppendQueryParameter(key1, value1)
+            .AppendQueryParameter(key2, value2);
+
+        result.AbsoluteUri.Should().Be($"{_absoluteUri.AbsoluteUri}?{key1}={value1}&{key2}={value2}");
+    }
+
+    #endregion
+
+
 
     #region EnsureAbsoluteUri
 

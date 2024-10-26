@@ -14,38 +14,22 @@ namespace Mailtrap.Email;
 internal sealed class EmailClientFactory : IEmailClientFactory
 {
     private readonly MailtrapClientOptions _clientConfiguration;
-    private readonly IHttpClientFactory _httpClientFactory;
-    private readonly IHttpRequestMessageFactory _httpRequestMessageFactory;
-    private readonly IHttpRequestContentFactory _httpRequestContentFactory;
     private readonly IEmailClientEndpointProvider _emailClientEndpointProvider;
-    private readonly JsonSerializerOptions _jsonSerializationOptions;
+    private readonly IRestResourceCommandFactory _restResourceCommandFactory;
 
 
     public EmailClientFactory(
         IOptions<MailtrapClientOptions> clientOptions,
-        IHttpClientFactory httpClientFactory,
-        IHttpRequestMessageFactory httpRequestMessageFactory,
-        IHttpRequestContentFactory httpRequestContentFactory,
-        IEmailClientEndpointProvider emailClientEndpointProvider)
+        IEmailClientEndpointProvider emailClientEndpointProvider,
+        IRestResourceCommandFactory restResourceCommandFactory)
     {
         Ensure.NotNull(clientOptions, nameof(clientOptions));
-        Ensure.NotNull(httpClientFactory, nameof(httpClientFactory));
-        Ensure.NotNull(httpRequestMessageFactory, nameof(httpRequestMessageFactory));
-        Ensure.NotNull(httpRequestContentFactory, nameof(httpRequestContentFactory));
         Ensure.NotNull(emailClientEndpointProvider, nameof(emailClientEndpointProvider));
+        Ensure.NotNull(restResourceCommandFactory, nameof(restResourceCommandFactory));
 
         _clientConfiguration = clientOptions.Value;
-
-        MailtrapClientOptionsValidator.Instance
-            .Validate(_clientConfiguration)
-            .ToMailtrapValidationResult()
-            .EnsureValidity(nameof(clientOptions));
-
-        _httpClientFactory = httpClientFactory;
-        _httpRequestMessageFactory = httpRequestMessageFactory;
-        _httpRequestContentFactory = httpRequestContentFactory;
         _emailClientEndpointProvider = emailClientEndpointProvider;
-        _jsonSerializationOptions = _clientConfiguration.ToJsonSerializerOptions();
+        _restResourceCommandFactory = restResourceCommandFactory;
     }
 
 
@@ -53,7 +37,7 @@ internal sealed class EmailClientFactory : IEmailClientFactory
     {
         var sendUri = _emailClientEndpointProvider.GetSendRequestUri(isBulk, inboxId);
 
-        return new EmailClient(_httpClientFactory, _httpRequestMessageFactory, _httpRequestContentFactory, _jsonSerializationOptions, sendUri);
+        return new EmailClient(_restResourceCommandFactory, sendUri);
     }
 
     public IEmailClient CreateDefault() => Create(_clientConfiguration.UseBulkApi, _clientConfiguration.InboxId);

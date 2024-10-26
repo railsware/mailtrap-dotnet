@@ -5,6 +5,8 @@
 // -----------------------------------------------------------------------
 
 
+using Mailtrap.Rest.Commands;
+
 namespace Mailtrap.Tests.Email;
 
 
@@ -14,70 +16,11 @@ internal sealed class EmailClientTests
     #region Constructor
 
     [Test]
-    public void Constructor_ShouldThrowArgumentNullException_WhenHttpClientFactoryIsNull()
+    public void Constructor_ShouldThrowArgumentNullException_WhenResourceCommandFactoryIsNull()
     {
-        var httpRequestMessageFactoryMock = Mock.Of<IHttpRequestMessageFactory>();
-        var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
         var sendUri = new Uri("https://localhost/api/send");
 
-        var act = () => new EmailClient(
-            null!,
-            httpRequestMessageFactoryMock,
-            httpRequestContentFactoryMock,
-            JsonSerializerOptions.Default,
-            sendUri);
-
-        act.Should().Throw<ArgumentNullException>();
-    }
-
-    [Test]
-    public void Constructor_ShouldThrowArgumentNullException_WhenHttpRequestMessageFactoryIsNull()
-    {
-        var httpClientFactoryMock = Mock.Of<IHttpClientFactory>();
-        var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
-        var sendUri = new Uri("https://localhost/api/send");
-
-        var act = () => new EmailClient(
-            httpClientFactoryMock,
-            null!,
-            httpRequestContentFactoryMock,
-            JsonSerializerOptions.Default,
-            sendUri);
-
-        act.Should().Throw<ArgumentNullException>();
-    }
-
-    [Test]
-    public void Constructor_ShouldThrowArgumentNullException_WhenHttpRequestContentFactoryIsNull()
-    {
-        var httpClientFactoryMock = Mock.Of<IHttpClientFactory>();
-        var httpRequestMessageFactoryMock = Mock.Of<IHttpRequestMessageFactory>();
-        var sendUri = new Uri("https://localhost/api/send");
-
-        var act = () => new EmailClient(
-            httpClientFactoryMock,
-            httpRequestMessageFactoryMock,
-            null!,
-            JsonSerializerOptions.Default,
-            sendUri);
-
-        act.Should().Throw<ArgumentNullException>();
-    }
-
-    [Test]
-    public void Constructor_ShouldThrowArgumentNullException_WhenJsonSerializerOptionsIsNull()
-    {
-        var httpClientFactoryMock = Mock.Of<IHttpClientFactory>();
-        var httpRequestMessageFactoryMock = Mock.Of<IHttpRequestMessageFactory>();
-        var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
-        var sendUri = new Uri("https://localhost/api/send");
-
-        var act = () => new EmailClient(
-            httpClientFactoryMock,
-            httpRequestMessageFactoryMock,
-            httpRequestContentFactoryMock,
-            null!,
-            sendUri);
+        var act = () => new EmailClient(null!, sendUri);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -85,16 +28,9 @@ internal sealed class EmailClientTests
     [Test]
     public void Constructor_ShouldThrowArgumentNullException_WhenSendUriIsNull()
     {
-        var httpClientFactoryMock = Mock.Of<IHttpClientFactory>();
-        var httpRequestMessageFactoryMock = Mock.Of<IHttpRequestMessageFactory>();
-        var httpRequestContentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
+        var restResourceCommandFactoryMock = Mock.Of<IRestResourceCommandFactory>();
 
-        var act = () => new EmailClient(
-            httpClientFactoryMock,
-            httpRequestMessageFactoryMock,
-            httpRequestContentFactoryMock,
-            JsonSerializerOptions.Default,
-            null!);
+        var act = () => new EmailClient(restResourceCommandFactoryMock, null!);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -173,15 +109,15 @@ internal sealed class EmailClientTests
 
         var httpRequestMessageFactoryMock = new Mock<IHttpRequestMessageFactory>();
         httpRequestMessageFactoryMock
-            .Setup(f => f.Create(httpMethod, sendUri, requestContent))
+            .Setup(f => f.CreateWithContent(httpMethod, sendUri, requestContent))
             .Returns(requestMessage);
 
-        var client = new EmailClient(
-            httpClientFactoryMock.Object,
-            httpRequestMessageFactoryMock.Object,
-            httpRequestContentFactoryMock.Object,
-            jsonSerializerOptions,
-            sendUri);
+        var restResourceCommandFactoryMock = new Mock<IRestResourceCommandFactory>();
+        restResourceCommandFactoryMock
+            .Setup(f => f.CreatePost<SendEmailRequest, SendEmailResponse>(sendUri, request))
+            .Verifiable();
+
+        var client = new EmailClient(restResourceCommandFactoryMock.Object, sendUri);
 
         // Act
         var result = await client.Send(request, cts.Token).ConfigureAwait(false);
@@ -192,7 +128,7 @@ internal sealed class EmailClientTests
 
         httpRequestContentFactoryMock.Verify(f => f.CreateStringContent(requestJson), Times.Once);
 
-        httpRequestMessageFactoryMock.Verify(f => f.Create(httpMethod, sendUri, requestContent), Times.Once);
+        httpRequestMessageFactoryMock.Verify(f => f.CreateWithContent(httpMethod, sendUri, requestContent), Times.Once);
 
         mockHttp.VerifyNoOutstandingExpectation();
 
@@ -246,15 +182,15 @@ internal sealed class EmailClientTests
 
         var httpRequestMessageFactoryMock = new Mock<IHttpRequestMessageFactory>();
         httpRequestMessageFactoryMock
-            .Setup(f => f.Create(httpMethod, sendUri, requestContent))
+            .Setup(f => f.CreateWithContent(httpMethod, sendUri, request))
             .Returns(requestMessage);
 
-        var client = new EmailClient(
-            httpClientFactoryMock.Object,
-            httpRequestMessageFactoryMock.Object,
-            httpRequestContentFactoryMock.Object,
-            jsonSerializerOptions,
-            sendUri);
+        var restResourceCommandFactoryMock = new Mock<IRestResourceCommandFactory>();
+        restResourceCommandFactoryMock
+            .Setup(f => f.CreatePost<SendEmailRequest, SendEmailResponse>(sendUri, request))
+            .Returns(Mock.Of<PostRestResourceCommand<SendEmailRequest, SendEmailResponse>>());
+
+        var client = new EmailClient(restResourceCommandFactoryMock.Object, sendUri);
 
 
         // Act
@@ -270,14 +206,7 @@ internal sealed class EmailClientTests
 
 
     private static EmailClient CreateEmailClient()
-    {
-        return new EmailClient(
-            Mock.Of<IHttpClientFactory>(),
-            Mock.Of<IHttpRequestMessageFactory>(),
-            Mock.Of<IHttpRequestContentFactory>(),
-            JsonSerializerOptions.Default,
-            new Uri("https://localhost"));
-    }
+        => new(Mock.Of<IRestResourceCommandFactory>(), new Uri("https://localhost"));
 
     private static SendEmailRequest CreateValidRequest()
     {

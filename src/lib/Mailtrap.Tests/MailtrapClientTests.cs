@@ -12,6 +12,7 @@ namespace Mailtrap.Tests;
 internal sealed class MailtrapClientTests
 {
     private IEmailClient _emailClient;
+    private readonly IRestResourceCommandFactory _commandFactoryMock = Mock.Of<IRestResourceCommandFactory>();
 
 
     [SetUp]
@@ -22,10 +23,20 @@ internal sealed class MailtrapClientTests
 
 
     [Test]
-    public void Constructor_ShouldThrowArgumentNullException_WhenFactoryIsNull()
+    public void Constructor_ShouldThrowArgumentNullException_WhenEmailFactoryIsNull()
     {
         // Act
-        var act = () => new MailtrapClient(null!);
+        var act = () => new MailtrapClient(null!, _commandFactoryMock);
+
+        // Assert
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Test]
+    public void Constructor_ShouldThrowArgumentNullException_WhenCommandFactoryIsNull()
+    {
+        // Act
+        var act = () => new MailtrapClient(Mock.Of<IEmailClientFactory>(), null!);
 
         // Assert
         act.Should().Throw<ArgumentNullException>();
@@ -40,7 +51,7 @@ internal sealed class MailtrapClientTests
         emailClientFactoryMock
             .Setup(f => f.CreateDefault())
             .Returns(_emailClient);
-        var client = new MailtrapClient(emailClientFactoryMock.Object);
+        var client = new MailtrapClient(emailClientFactoryMock.Object, _commandFactoryMock);
 
         // Act
         var result = client.Email();
@@ -57,7 +68,7 @@ internal sealed class MailtrapClientTests
         emailClientFactoryMock
             .Setup(f => f.CreateTransactional())
             .Returns(_emailClient);
-        var client = new MailtrapClient(emailClientFactoryMock.Object);
+        var client = new MailtrapClient(emailClientFactoryMock.Object, _commandFactoryMock);
 
         // Act
         var result = client.Transactional();
@@ -74,7 +85,7 @@ internal sealed class MailtrapClientTests
         emailClientFactoryMock
             .Setup(f => f.CreateBulk())
             .Returns(_emailClient);
-        var client = new MailtrapClient(emailClientFactoryMock.Object);
+        var client = new MailtrapClient(emailClientFactoryMock.Object, _commandFactoryMock);
 
         // Act
         var result = client.Bulk();
@@ -92,7 +103,7 @@ internal sealed class MailtrapClientTests
         emailClientFactoryMock
             .Setup(f => f.CreateTest(inboxId))
             .Returns(_emailClient);
-        var client = new MailtrapClient(emailClientFactoryMock.Object);
+        var client = new MailtrapClient(emailClientFactoryMock.Object, _commandFactoryMock);
 
         // Act
         var result = client.Test(inboxId);

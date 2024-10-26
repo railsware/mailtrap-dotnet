@@ -14,14 +14,12 @@ namespace Mailtrap.Http;
 internal interface IHttpRequestContentFactory
 {
     /// <summary>
-    /// Asynchronously creates a new <see cref="StringContent"/> instance, using provided string.
+    /// Creates a new <see cref="StringContent"/> instance, using provided string.
     /// </summary>
     /// 
-    /// <param name="content">
-    /// </param>
-    /// 
     /// <returns>
-    /// New <see cref="StringContent"/> instance.
-    /// </returns>    
-    public StringContent CreateStringContent(string content);
+    /// New <see cref="StringContent"/> instance or <see langword="null"/>
+    /// when provided <paramref name="content"/> is <see langword="null"/>.
+    /// </returns>
+    public StringContent? CreateStringContent<T>(T? content);
 }

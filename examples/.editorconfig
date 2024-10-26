@@ -9,12 +9,18 @@ root = false
 [*.cs]
 
 # Types: permit var only when the type is clear
-# csharp_style_var_for_built_in_types = false:suggestion
 # csharp_style_var_when_type_is_apparent = false:suggestion
+# csharp_style_var_for_built_in_types = false:suggestion
 csharp_style_var_elsewhere = false:suggestion
 
 # CA2007: Do not directly await a Task
 dotnet_diagnostic.CA2007.severity = none
+
+# IDE007: Use var instead of explicit type
+dotnet_diagnostic.IDE0007.severity = suggestion
+
+# IDE008: Use explicit type instead of var
+dotnet_diagnostic.IDE0008.severity = warning
 
 # Workaround for https://github.com/dotnet/roslyn-analyzers/issues/5628
 [Program.cs]

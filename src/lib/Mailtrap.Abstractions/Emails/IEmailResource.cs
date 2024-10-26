@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IEmailMessageResource.cs" company="Railsware Products Studio, LLC">
+// <copyright file="IEmailResource.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Mailtrap.Emails;
 /// <summary>
 /// Represents message resource.
 /// </summary>
-public interface IEmailMessageResource
+public interface IEmailResource
 {
     /// <summary>
     /// Gets attachment collection resource for the message, represented by this resource instance.
@@ -152,7 +152,7 @@ public interface IEmailMessageResource
     /// <returns>
     /// Message plain text body.
     /// </returns>
-    public Task<EmailMessageTextBody> GetTextBody(CancellationToken cancellationToken = default);
+    public Task<string> GetTextBody(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets HTML body of the message (if exists), represented by the current resource instance.
@@ -169,7 +169,7 @@ public interface IEmailMessageResource
     /// <remarks>
     /// Not applicable for plain text messages.
     /// </remarks>
-    public Task<EmailMessageHtmlBody> GetHtmlBody(CancellationToken cancellationToken = default);
+    public Task<string> GetHtmlBody(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets HTML source of the message, represented by the current resource instance.
@@ -182,7 +182,7 @@ public interface IEmailMessageResource
     /// <returns>
     /// Message HTML source.
     /// </returns>
-    public Task<EmailMessageHtmlSource> GetHtmlSource(CancellationToken cancellationToken = default);
+    public Task<string> GetHtmlSource(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets the message, represented by the current resource instance, in a raw format.
@@ -195,7 +195,7 @@ public interface IEmailMessageResource
     /// <returns>
     /// Message in a raw format.
     /// </returns>
-    public Task<EmailMessageRaw> AsRaw(CancellationToken cancellationToken = default);
+    public Task<string> AsRaw(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets the message, represented by the current resource instance, in .eml format.
@@ -208,7 +208,7 @@ public interface IEmailMessageResource
     /// <returns>
     /// Message in .eml format.
     /// </returns>
-    public Task<EmailMessageEml> AsEml(CancellationToken cancellationToken = default);
+    public Task<string> AsEml(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets headers of the message, represented by the current resource instance.

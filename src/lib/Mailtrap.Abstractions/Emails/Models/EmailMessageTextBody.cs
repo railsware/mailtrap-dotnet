@@ -14,7 +14,7 @@ namespace Mailtrap.Emails.Models;
 public sealed record EmailMessageTextBody
 {
     /// <summary>
-    /// Gets plain text body of the message (if exists).
+    /// Gets or sets plain text body of the message (if exists).
     /// </summary>
     ///
     /// <value>

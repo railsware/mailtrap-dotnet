@@ -20,7 +20,7 @@ public interface IEmailClient
     /// <value>
     /// <see cref="Uri"/> representing endpoint URL to send emails.
     /// </value>
-    public Uri SendUri { get; }
+    public Uri ResourceUri { get; }
 
     /// <summary>
     /// Sends email, represented by the <paramref name="request"/>, and returns send operation result.

@@ -11,50 +11,44 @@ namespace Mailtrap.Tests.Http;
 [TestFixture]
 internal sealed class HttpRequestContentFactoryTests
 {
-    [Test]
-    public void Create_ShouldThrowArgumentNullException_WhenContentIsNull()
-    {
-        var factory = new HttpRequestContentFactory();
+    private readonly IOptions<MailtrapClientOptions> _options =
+        Options.Create(MailtrapClientOptions.Default);
 
-        var act = () => factory.CreateStringContent(null!);
-
-        act.Should().Throw<ArgumentNullException>();
-    }
 
     [Test]
-    public void Create_ShouldNotThrowException_WhenContentIsEmpty()
+    public void Create_ShouldReturnNull_WhenContentIsNull()
     {
-        var factory = new HttpRequestContentFactory();
+        var factory = new HttpRequestContentFactory(_options);
 
-        var act = () => factory.CreateStringContent(string.Empty);
+        using var content = factory.CreateStringContent<object>(null);
 
-        act.Should().NotThrow();
+        content.Should().BeNull();
     }
 
     [Test]
     public void Create_ShouldApplyHeaders()
     {
-        var factory = new HttpRequestContentFactory();
+        var factory = new HttpRequestContentFactory(_options);
 
         using var content = factory.CreateStringContent(string.Empty);
 
         content.Should().NotBeNull();
-        content.Headers.Should().ContainKey("Content-Type");
-        content.Headers.ContentType.Should().NotBeNull();
-        content.Headers.ContentType!.MediaType.Should().Be(MimeTypes.Application.Json);
+        content!.Headers.Should().ContainKey("Content-Type");
+        content!.Headers.ContentType.Should().NotBeNull();
+        content!.Headers.ContentType!.MediaType.Should().Be(MimeTypes.Application.Json);
     }
 
     [Test]
     public async Task Create_ShouldSetContentProperly()
     {
-        var factory = new HttpRequestContentFactory();
+        var factory = new HttpRequestContentFactory(_options);
 
         var json = "content";
 
         using var content = factory.CreateStringContent(json);
 
-        var result = await content.ReadAsStringAsync().ConfigureAwait(false);
+        var result = await content!.ReadAsStringAsync().ConfigureAwait(false);
 
-        result.Should().Be(json);
+        result.Should().Be(json.Quoted());
     }
 }

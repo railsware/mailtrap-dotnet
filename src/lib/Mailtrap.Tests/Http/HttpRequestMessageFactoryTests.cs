@@ -13,77 +13,92 @@ internal sealed class HttpRequestMessageFactoryTests
 {
     private HttpMethod _method { get; } = HttpMethod.Post;
     private Uri _uri { get; } = new("https://domain.com");
-    private StringContent _content { get; } = new("content");
+    private string _content { get; } = "content";
+    private IOptions<MailtrapClientOptions> _options { get; } =
+        Options.Create(new MailtrapClientOptions("token"));
 
 
     [Test]
     public void Constructor_ShouldThrowArgumentNullException_WhenOptionsIsNull()
     {
-        var act = () => new HttpRequestMessageFactory(null!);
+        var contentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
+
+        var act = () => new HttpRequestMessageFactory(null!, contentFactoryMock);
 
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Test]
-    public void Create_ShouldThrowArgumentNullException_WhenMethodIsNull()
+    public void Constructor_ShouldThrowArgumentNullException_WhenContentFactoryIsNull()
     {
-        var options = Options.Create(new MailtrapClientOptions("token"));
-
-        var factory = new HttpRequestMessageFactory(options);
-
-        var act = () => factory.Create(null!, _uri, _content);
+        var act = () => new HttpRequestMessageFactory(_options, null!);
 
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Test]
-    public void Create_ShouldThrowArgumentNullException_WhenUriIsNull()
+    public void CreateWithContent_ShouldThrowArgumentNullException_WhenMethodIsNull()
     {
-        var options = Options.Create(new MailtrapClientOptions("token"));
+        var contentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
+        var factory = new HttpRequestMessageFactory(_options, contentFactoryMock);
 
-        var factory = new HttpRequestMessageFactory(options);
-
-        var act = () => factory.Create(_method, null!, _content);
+        var act = () => factory.CreateWithContent(null!, _uri, _content);
 
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Test]
-    public void Create_ShouldThrowArgumentNullException_WhenContentIsNull()
+    public void CreateWithContent_ShouldThrowArgumentNullException_WhenUriIsNull()
     {
-        var options = Options.Create(new MailtrapClientOptions("token"));
+        var contentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
+        var factory = new HttpRequestMessageFactory(_options, contentFactoryMock);
 
-        var factory = new HttpRequestMessageFactory(options);
-
-        var act = () => factory.Create(_method, _uri, null!);
+        var act = () => factory.CreateWithContent(_method, null!, _content);
 
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Test]
-    public void Create_ShouldInitPropertiesCorrectly()
+    public void CreateWithContent_ShouldInitPropertiesCorrectly_WhenContentIsNull()
     {
-        var options = Options.Create(new MailtrapClientOptions("token"));
+        var contentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
+        var factory = new HttpRequestMessageFactory(_options, contentFactoryMock);
 
-        var factory = new HttpRequestMessageFactory(options);
-
-        using var message = factory.Create(_method, _uri, _content);
+        using var message = factory.CreateWithContent<object>(_method, _uri, null);
 
         message.Method.Should().Be(_method);
         message.RequestUri.Should().Be(_uri);
-        message.Content.Should().Be(_content);
+        message.Content.Should().BeNull();
     }
 
     [Test]
-    public void Create_ShouldApplyHeaders()
+    public void CreateWithContent_ShouldInitPropertiesCorrectly()
+    {
+        using var httpContent = new StringContent(_content);
+        var contentFactoryMock = new Mock<IHttpRequestContentFactory>();
+        contentFactoryMock
+            .Setup(f => f.CreateStringContent(_content))
+            .Returns(httpContent);
+        var factory = new HttpRequestMessageFactory(_options, contentFactoryMock.Object);
+
+        using var message = factory.CreateWithContent(_method, _uri, _content);
+
+        message.Method.Should().Be(_method);
+        message.RequestUri.Should().Be(_uri);
+        message.Content.Should().Be(httpContent);
+    }
+
+    [Test]
+    public void CreateWithContent_ShouldApplyHeaders()
     {
         var token = "token";
 
         var options = Options.Create(new MailtrapClientOptions(token));
+        var contentFactoryMock = Mock.Of<IHttpRequestContentFactory>();
 
-        var factory = new HttpRequestMessageFactory(options);
+        var factory = new HttpRequestMessageFactory(options, contentFactoryMock);
 
-        using var message = factory.Create(_method, _uri, _content);
+        using var message = factory.CreateWithContent(_method, _uri, _content);
 
         message.Headers.Should().ContainKey("Accept");
         message.Headers.Accept.Should()

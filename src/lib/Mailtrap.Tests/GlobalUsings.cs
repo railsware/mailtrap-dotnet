@@ -33,6 +33,7 @@ global using Mailtrap.Exceptions;
 global using Mailtrap.Converters;
 global using Mailtrap.Configuration;
 global using Mailtrap.Http;
+global using Mailtrap.Rest;
 global using Mailtrap.Models;
 global using Mailtrap.AccountAccesses.Models;
 global using Mailtrap.AccountAccesses.Requests;

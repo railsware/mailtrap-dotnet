@@ -11,13 +11,12 @@ namespace Mailtrap.Exceptions;
 /// <summary>
 /// Generic exception for the Mailtrap library.
 /// </summary>
-[ExcludeFromCodeCoverage] // Excluded from code coverage analysis because it's a wrapper over standard exception class.
-public class MailtrapException : Exception
+public abstract class MailtrapException : Exception
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="MailtrapException"/> class.
     /// </summary>
-    public MailtrapException() { }
+    protected MailtrapException() { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MailtrapException"/> class with a specified error message.
@@ -26,7 +25,7 @@ public class MailtrapException : Exception
     /// <param name="message">
     /// <inheritdoc cref="Exception(string)" path="/param[@name='message']"/>
     /// </param>
-    public MailtrapException(string message) : base(message) { }
+    protected MailtrapException(string message) : base(message) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MailtrapException"/> class
@@ -40,5 +39,5 @@ public class MailtrapException : Exception
     /// <param name="innerException">
     /// <inheritdoc cref="Exception(string, Exception)" path="/param[@name='innerException']"/>
     /// </param>
-    public MailtrapException(string message, Exception innerException) : base(message, innerException) { }
+    protected MailtrapException(string message, Exception innerException) : base(message, innerException) { }
 }

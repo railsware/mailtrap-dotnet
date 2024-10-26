@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IEmailMessageCollectionResource.cs" company="Railsware Products Studio, LLC">
+// <copyright file="IEmailCollectionResource.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Mailtrap.Emails;
 /// <summary>
 /// Represents message collection resource.
 /// </summary>
-public interface IEmailMessageCollectionResource
+public interface IEmailCollectionResource
 {
     /// <summary>
     /// Fetches a collection of messages using provided filtering parameters.

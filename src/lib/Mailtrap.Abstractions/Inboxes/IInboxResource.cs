@@ -19,7 +19,7 @@ public interface IInboxResource
     /// <returns>
     /// Message collection resource for the inbox, represented by this resource instance.
     /// </returns>
-    public IEmailMessageCollectionResource Messages();
+    public IEmailCollectionResource Messages();
 
     /// <summary>
     /// Gets resource for specific message, identified by <paramref name="messageId"/>,
@@ -37,7 +37,7 @@ public interface IInboxResource
     /// <exception cref="ArgumentOutOfRangeException">
     /// When <paramref name="messageId"/> is less than or equal to zero.
     /// </exception>
-    public IEmailMessageResource Message(long messageId);
+    public IEmailResource Message(long messageId);
 
 
     /// <summary>

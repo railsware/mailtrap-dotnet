@@ -34,6 +34,21 @@ internal static class HttpRequestMessageExtensions
         return request;
     }
 
+    internal static HttpRequestMessage AppendAcceptHeaders(this HttpRequestMessage request, params string[] acceptTypes)
+    {
+        Ensure.NotNull(request, nameof(request));
+        Ensure.NotNull(acceptTypes, nameof(acceptTypes));
+
+        var acceptHeader = request.Headers.Accept;
+
+        foreach (var contentType in acceptTypes)
+        {
+            acceptHeader.Add(new(contentType));
+        }
+
+        return request;
+    }
+
     /// <summary>
     /// Replaces the contents of the 'UserAgent' header in provided <see cref="HttpRequestMessage"/> instance
     /// with Mailtrap implementation specific one.
