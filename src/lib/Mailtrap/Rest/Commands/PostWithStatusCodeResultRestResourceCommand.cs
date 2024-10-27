@@ -8,8 +8,6 @@
 namespace Mailtrap.Rest.Commands;
 
 
-/// <summary>
-/// </summary>
 internal sealed class PostWithStatusCodeResultRestResourceCommand<TRequest>
     : PostRestResourceCommand<TRequest, HttpStatusCode>
     where TRequest : class

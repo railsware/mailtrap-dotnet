@@ -199,7 +199,7 @@ internal sealed class EmailClientTests
 
         // Assert
         await act.Should()
-            .ThrowAsync<InvalidResponseFormatException>()
+            .ThrowAsync<EmptyResponseException>()
             .WithMessage($"*{sendUri}*")
             .ConfigureAwait(false);
     }

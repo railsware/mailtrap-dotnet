@@ -22,7 +22,7 @@ public sealed record BillingPlanUsageMessageCounters
     /// </value>
     [JsonPropertyName("current")]
     [JsonPropertyOrder(1)]
-    public long Current { get; } = 0;
+    public long Current { get; set; } = 0;
 
     /// <summary>
     ///
@@ -33,5 +33,5 @@ public sealed record BillingPlanUsageMessageCounters
     /// </value>
     [JsonPropertyName("limit")]
     [JsonPropertyOrder(1)]
-    public long Limit { get; } = 0;
+    public long Limit { get; set; } = 0;
 }

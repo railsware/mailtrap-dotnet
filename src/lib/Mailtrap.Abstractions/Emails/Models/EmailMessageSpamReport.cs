@@ -22,5 +22,6 @@ public sealed record EmailMessageSpamReport
     /// </value>
     [JsonPropertyName("report")]
     [JsonPropertyOrder(1)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public SpamReport Report { get; } = new();
 }

@@ -8,8 +8,6 @@
 namespace Mailtrap.Rest.Commands;
 
 
-/// <summary>
-/// </summary>
 internal sealed class DeleteRestResourceCommand<TResponse> : RestResourceCommand<TResponse>
 {
     public DeleteRestResourceCommand(
@@ -21,10 +19,7 @@ internal sealed class DeleteRestResourceCommand<TResponse> : RestResourceCommand
             httpClientFactory,
             httpRequestMessageFactory,
             httpResponseHandlerFactory,
-            resourceUri)
+            resourceUri,
+            HttpMethod.Delete)
     { }
-
-
-    protected override HttpRequestMessage CreateHttpRequest()
-        => _httpRequestMessageFactory.CreateDelete(ResourceUri);
 }

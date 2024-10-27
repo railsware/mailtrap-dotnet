@@ -4,12 +4,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
 namespace Mailtrap.Rest.Commands;
 
 
-/// <summary>
-/// </summary>
 internal abstract class RestResourceCommandWithRequest<TRequest, TResponse>
     : RestResourceCommand<TResponse>
     where TRequest : class
@@ -22,12 +19,14 @@ internal abstract class RestResourceCommandWithRequest<TRequest, TResponse>
         IHttpRequestMessageFactory httpRequestMessageFactory,
         IHttpResponseHandlerFactory httpResponseHandlerFactory,
         Uri resourceUri,
+        HttpMethod httpMethod,
         TRequest request)
         : base(
             httpClientFactory,
             httpRequestMessageFactory,
             httpResponseHandlerFactory,
-            resourceUri)
+            resourceUri,
+            httpMethod)
     {
         ValidateRequest(request);
 
@@ -35,13 +34,26 @@ internal abstract class RestResourceCommandWithRequest<TRequest, TResponse>
     }
 
 
-    private static void ValidateRequest(TRequest request)
+    protected override HttpRequestMessage CreateHttpRequest()
+        => _httpRequestMessageFactory.CreateWithContent(HttpMethod, ResourceUri, _request);
+
+
+    private void ValidateRequest(TRequest request)
     {
         Ensure.NotNull(request, nameof(request));
 
-        if (request is IValidatable validatable)
+        if (request is not IValidatable validatable)
         {
-            validatable.Validate().EnsureValidity(nameof(request));
+            return;
         }
+
+        var validationResult = validatable.Validate();
+
+        if (validationResult.IsValid)
+        {
+            return;
+        }
+
+        throw new RequestValidationException(ResourceUri, HttpMethod, validationResult);
     }
 }

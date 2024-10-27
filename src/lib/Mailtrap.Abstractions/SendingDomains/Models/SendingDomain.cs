@@ -21,7 +21,7 @@ public sealed record SendingDomain
     [JsonPropertyName("id")]
     [JsonPropertyOrder(1)]
     [JsonRequired]
-    public long Id { get; }
+    public long Id { get; set; }
 
     /// <summary>
     /// </summary>
@@ -30,7 +30,7 @@ public sealed record SendingDomain
     /// </value>
     [JsonPropertyName("domain_name")]
     [JsonPropertyOrder(2)]
-    public string? DomainName { get; }
+    public string? DomainName { get; set; }
 
     /// <summary>
     /// </summary>
@@ -39,7 +39,7 @@ public sealed record SendingDomain
     /// </value>
     [JsonPropertyName("demo")]
     [JsonPropertyOrder(3)]
-    public bool? Demo { get; }
+    public bool? Demo { get; set; }
 
     /// <summary>
     /// </summary>
@@ -48,7 +48,7 @@ public sealed record SendingDomain
     /// </value>
     [JsonPropertyName("compliance_status")]
     [JsonPropertyOrder(4)]
-    public string? ComplianceStatus { get; }
+    public string? ComplianceStatus { get; set; } // TODO: Should be this a string enum?
 
     /// <summary>
     /// </summary>
@@ -57,7 +57,7 @@ public sealed record SendingDomain
     /// </value>
     [JsonPropertyName("dns_verified")]
     [JsonPropertyOrder(5)]
-    public bool? DnsVerified { get; }
+    public bool? DnsVerified { get; set; }
 
     /// <summary>
     /// Gets a list of DNS records for domain.
@@ -78,7 +78,7 @@ public sealed record SendingDomain
     /// </value>
     [JsonPropertyName("open_tracking_enabled")]
     [JsonPropertyOrder(7)]
-    public bool? OpenTrackingEnabled { get; }
+    public bool? OpenTrackingEnabled { get; set; }
 
     /// <summary>
     /// </summary>
@@ -87,7 +87,7 @@ public sealed record SendingDomain
     /// </value>
     [JsonPropertyName("click_tracking_enabled")]
     [JsonPropertyOrder(8)]
-    public bool? ClickTrackingEnabled { get; }
+    public bool? ClickTrackingEnabled { get; set; }
 
     /// <summary>
     /// </summary>
@@ -96,7 +96,7 @@ public sealed record SendingDomain
     /// </value>
     [JsonPropertyName("auto_unsubscribe_link_enabled")]
     [JsonPropertyOrder(9)]
-    public bool? AutoUnsubscribeLinkEnabled { get; }
+    public bool? AutoUnsubscribeLinkEnabled { get; set; }
 
     /// <summary>
     /// </summary>
@@ -105,7 +105,7 @@ public sealed record SendingDomain
     /// </value>
     [JsonPropertyName("custom_domain_tracking_enabled")]
     [JsonPropertyOrder(10)]
-    public bool? CustomDomainTrackingEnabled { get; }
+    public bool? CustomDomainTrackingEnabled { get; set; }
 
     /// <summary>
     /// </summary>
@@ -114,7 +114,7 @@ public sealed record SendingDomain
     /// </value>
     [JsonPropertyName("health_alerts_enabled")]
     [JsonPropertyOrder(11)]
-    public bool? HealthAlertsEnabled { get; }
+    public bool? HealthAlertsEnabled { get; set; }
 
     /// <summary>
     /// </summary>
@@ -123,7 +123,7 @@ public sealed record SendingDomain
     /// </value>
     [JsonPropertyName("critical_alerts_enabled")]
     [JsonPropertyOrder(12)]
-    public bool? CriticalAlertsEnabled { get; }
+    public bool? CriticalAlertsEnabled { get; set; }
 
     /// <summary>
     /// </summary>
@@ -132,7 +132,7 @@ public sealed record SendingDomain
     /// </value>
     [JsonPropertyName("alert_recipient_email")]
     [JsonPropertyOrder(13)]
-    public string? AlertRecipientEmail { get; }
+    public string? AlertRecipientEmail { get; set; }
 
     /// <summary>
     /// </summary>
@@ -141,5 +141,6 @@ public sealed record SendingDomain
     /// </value>
     [JsonPropertyName("permissions")]
     [JsonPropertyOrder(14)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public SendingDomainPermissions Permissions { get; } = new();
 }

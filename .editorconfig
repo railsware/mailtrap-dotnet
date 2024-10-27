@@ -180,6 +180,12 @@ dotnet_diagnostic.IDE0072.severity = suggestion
 # IDE0058: Expression value is never used
 dotnet_diagnostic.IDE0058.severity = silent
 
+# IDE0045: Use conditional expression for assignment
+dotnet_diagnostic.IDE0045.severity = suggestion
+
+# IDE0046: Use conditional expression for return
+dotnet_diagnostic.IDE0046.severity = suggestion
+
 # CA1032: Implement standard exception constructors
 dotnet_diagnostic.CA1032.severity = silent
 

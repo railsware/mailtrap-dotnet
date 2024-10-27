@@ -22,7 +22,7 @@ public sealed record SmtpDetails
     /// </value>
     [JsonPropertyName("mail_from_addr")]
     [JsonPropertyOrder(1)]
-    public string? MailFromAddress { get; }
+    public string? MailFromAddress { get; set; }
 
     /// <summary>
     /// Gets client IP address.
@@ -33,5 +33,5 @@ public sealed record SmtpDetails
     /// </value>
     [JsonPropertyName("client_ip")]
     [JsonPropertyOrder(2)]
-    public string? ClientIpAddress { get; }
+    public string? ClientIpAddress { get; set; }
 }

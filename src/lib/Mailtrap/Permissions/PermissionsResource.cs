@@ -16,6 +16,6 @@ internal sealed class PermissionsResource : RestResource, IPermissionsResource
     public PermissionsResource(IRestResourceCommandFactory restResourceCommandFactory, Uri resourceUri)
         : base(restResourceCommandFactory, resourceUri) { }
 
-    public async Task<IList<ResourcePermissions>> GetResources(CancellationToken cancellationToken = default)
+    public async Task<IList<ResourcePermissions>> GetForResources(CancellationToken cancellationToken = default)
         => await GetList<ResourcePermissions>(ResourceUri.Append(ResourcesSegment), cancellationToken).ConfigureAwait(false);
 }

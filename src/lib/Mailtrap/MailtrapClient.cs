@@ -26,12 +26,8 @@ internal sealed class MailtrapClient : RestResource, IMailtrapClient
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="emailClientFactory"/> is <see langword="null"/>.
     /// </exception>
-    public MailtrapClient(
-        IEmailClientFactory emailClientFactory,
-        IRestResourceCommandFactory restResourceCommandFactory)
-        : base(
-            restResourceCommandFactory,
-            Endpoints.ApiDefaultUrl.Append(UrlSegments.ApiRootSegment))
+    public MailtrapClient(IEmailClientFactory emailClientFactory, IRestResourceCommandFactory restResourceCommandFactory)
+        : base(restResourceCommandFactory, Endpoints.ApiDefaultUrl.Append(UrlSegments.ApiRootSegment))
     {
         Ensure.NotNull(emailClientFactory, nameof(emailClientFactory));
 
@@ -53,9 +49,11 @@ internal sealed class MailtrapClient : RestResource, IMailtrapClient
     public IEmailClient Test(long inboxId) => _emailClientFactory.CreateTest(inboxId);
 
 
+    /// <inheritdoc/>
     public IAccountCollectionResource Accounts()
         => new AccountCollectionResource(RestResourceCommandFactory, ResourceUri.Append(AccountsSegment));
 
+    /// <inheritdoc/>
     public IAccountResource Account(long accountId)
         => new AccountResource(RestResourceCommandFactory, ResourceUri.Append(AccountsSegment).Append(accountId));
 }

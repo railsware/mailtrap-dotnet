@@ -22,7 +22,7 @@ public sealed record BillingUsagePeriod
     /// </value>
     [JsonPropertyName("cycle_start")]
     [JsonPropertyOrder(1)]
-    public DateTimeOffset? Start { get; }
+    public DateTimeOffset? Start { get; set; }
 
     /// <summary>
     ///
@@ -33,5 +33,5 @@ public sealed record BillingUsagePeriod
     /// </value>
     [JsonPropertyName("cycle_end")]
     [JsonPropertyOrder(2)]
-    public DateTimeOffset? End { get; }
+    public DateTimeOffset? End { get; set; }
 }

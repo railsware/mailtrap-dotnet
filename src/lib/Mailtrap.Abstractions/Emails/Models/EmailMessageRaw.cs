@@ -20,5 +20,5 @@ public sealed record EmailMessageRaw
     /// <value>
     /// Message in a raw format.
     /// </value>
-    public string? Raw { get; }
+    public string? Raw { get; set; }
 }

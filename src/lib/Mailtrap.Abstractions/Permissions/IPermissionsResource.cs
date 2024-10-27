@@ -25,5 +25,5 @@ public interface IPermissionsResource
     /// <returns>
     /// Collection of resources with their permission levels.
     /// </returns>
-    public Task<IList<ResourcePermissions>> GetResources(CancellationToken cancellationToken = default);
+    public Task<IList<ResourcePermissions>> GetForResources(CancellationToken cancellationToken = default);
 }

@@ -22,7 +22,7 @@ public sealed record SpamReport
     /// </value>
     [JsonPropertyName("ResponseCode")]
     [JsonPropertyOrder(1)]
-    public int? ResponseCode { get; }
+    public int? ResponseCode { get; set; }
 
     /// <summary>
     /// Gets response message.
@@ -33,7 +33,7 @@ public sealed record SpamReport
     /// </value>
     [JsonPropertyName("ResponseMessage")]
     [JsonPropertyOrder(2)]
-    public string? ResponseMessage { get; }
+    public string? ResponseMessage { get; set; }
 
     /// <summary>
     /// Gets response version.
@@ -44,9 +44,8 @@ public sealed record SpamReport
     /// </value>
     [JsonPropertyName("ResponseVersion")]
     [JsonPropertyOrder(3)]
-    public string? ResponseVersion { get; }
+    public string? ResponseVersion { get; set; }
 
-    // TODO: Confirm type
     /// <summary>
     /// Gets spam score.
     /// </summary>
@@ -56,9 +55,8 @@ public sealed record SpamReport
     /// </value>
     [JsonPropertyName("Score")]
     [JsonPropertyOrder(4)]
-    public decimal? Score { get; }
+    public decimal? Score { get; set; } // TODO: Confirm type
 
-    // TODO: Confirm type
     /// <summary>
     /// Gets spam score threshold.
     /// </summary>
@@ -68,7 +66,7 @@ public sealed record SpamReport
     /// </value>
     [JsonPropertyName("Threshold")]
     [JsonPropertyOrder(5)]
-    public decimal? Threshold { get; }
+    public decimal? Threshold { get; set; } // TODO: Confirm type
 
     /// <summary>
     /// Gets a flag indicating that message is marked as spam.
@@ -80,7 +78,7 @@ public sealed record SpamReport
     /// </value>
     [JsonPropertyName("Spam")]
     [JsonPropertyOrder(6)]
-    public bool? Spam { get; }
+    public bool? Spam { get; set; }
 
     /// <summary>
     /// Gets a list of spam report details.

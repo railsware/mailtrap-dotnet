@@ -23,7 +23,7 @@ public sealed record SendingDomainPermissions
     /// </value>
     [JsonPropertyName("can_read")]
     [JsonPropertyOrder(1)]
-    public bool? CanRead { get; }
+    public bool? CanRead { get; set; }
 
     /// <summary>
     /// Gets the flag indicating whether user can update sending domain.
@@ -35,7 +35,7 @@ public sealed record SendingDomainPermissions
     /// </value>
     [JsonPropertyName("can_update")]
     [JsonPropertyOrder(2)]
-    public bool? CanUpdate { get; }
+    public bool? CanUpdate { get; set; }
 
     /// <summary>
     /// Gets the flag indicating whether user can destroy sending domain.
@@ -47,6 +47,6 @@ public sealed record SendingDomainPermissions
     /// </value>
     [JsonPropertyName("can_destroy")]
     [JsonPropertyOrder(3)]
-    public bool? CanDestroy { get; }
+    public bool? CanDestroy { get; set; }
 }
 

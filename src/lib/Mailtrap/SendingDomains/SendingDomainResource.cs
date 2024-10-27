@@ -11,6 +11,9 @@ namespace Mailtrap.SendingDomains;
 
 internal sealed class SendingDomainResource : RestResource, ISendingDomainResource
 {
+    private const string SendSetupInstructionsSegment = "send_setup_instructions";
+
+
     public SendingDomainResource(IRestResourceCommandFactory restResourceCommandFactory, Uri resourceUri)
         : base(restResourceCommandFactory, resourceUri) { }
 
@@ -22,10 +25,12 @@ internal sealed class SendingDomainResource : RestResource, ISendingDomainResour
     {
         Ensure.NotNull(request, nameof(request));
 
-        EnsureNotDeleted();
+        var uri = ResourceUri.Append(SendSetupInstructionsSegment);
+
+        EnsureNotDeleted(HttpMethod.Post, uri);
 
         await RestResourceCommandFactory
-            .CreatePostWithStatusCodeResult(ResourceUri, request)
+            .CreatePostWithStatusCodeResult(uri, request)
             .Execute(cancellationToken)
             .ConfigureAwait(false);
     }

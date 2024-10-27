@@ -23,7 +23,7 @@ public sealed record Specifier
     [JsonPropertyName("id")]
     [JsonPropertyOrder(1)]
     [JsonRequired]
-    public long Id { get; }
+    public long Id { get; set; }
 
     /// <summary>
     /// Gets the specifier email address (user or invite).
@@ -38,7 +38,7 @@ public sealed record Specifier
     /// </remarks>
     [JsonPropertyName("email")]
     [JsonPropertyOrder(2)]
-    public string? Email { get; }
+    public string? Email { get; set; }
 
     /// <summary>
     /// Gets the specifier name (user or API token).
@@ -53,7 +53,7 @@ public sealed record Specifier
     /// </remarks>
     [JsonPropertyName("name")]
     [JsonPropertyOrder(3)]
-    public string? Name { get; }
+    public string? Name { get; set; }
 
 
     /// <summary>
@@ -69,7 +69,7 @@ public sealed record Specifier
     /// </remarks>
     [JsonPropertyName("author_name")]
     [JsonPropertyOrder(4)]
-    public string? AuthorName { get; }
+    public string? AuthorName { get; set; }
 
     /// <summary>
     /// Gets the token value.
@@ -84,7 +84,7 @@ public sealed record Specifier
     /// </remarks>
     [JsonPropertyName("token")]
     [JsonPropertyOrder(5)]
-    public string? Token { get; }
+    public string? Token { get; set; }
 
     /// <summary>
     /// Gets the token expiration date and time.
@@ -99,5 +99,5 @@ public sealed record Specifier
     /// </remarks>
     [JsonPropertyName("expires_at")]
     [JsonPropertyOrder(6)]
-    public DateTimeOffset? ExpiresAt { get; }
+    public DateTimeOffset? ExpiresAt { get; set; }
 }

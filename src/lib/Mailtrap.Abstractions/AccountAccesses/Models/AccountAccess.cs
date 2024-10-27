@@ -23,7 +23,7 @@ public sealed record AccountAccess
     [JsonPropertyName("id")]
     [JsonPropertyOrder(1)]
     [JsonRequired]
-    public long Id { get; }
+    public long Id { get; set; }
 
     /// <summary>
     /// Gets the specifier type that has access to account resources.
@@ -34,7 +34,7 @@ public sealed record AccountAccess
     /// </value>
     [JsonPropertyName("specifier_type")]
     [JsonPropertyOrder(2)]
-    public SpecifierType? SpecifierType { get; }
+    public SpecifierType? SpecifierType { get; set; }
 
     /// <summary>
     /// Gets the specifier details.
@@ -45,7 +45,7 @@ public sealed record AccountAccess
     /// </value>
     [JsonPropertyName("specifier")]
     [JsonPropertyOrder(3)]
-    public Specifier? Specifier { get; }
+    public Specifier? Specifier { get; set; }
 
     /// <summary>
     /// Gets the list of resources the specifier has access to.
@@ -68,5 +68,6 @@ public sealed record AccountAccess
     /// </value>
     [JsonPropertyName("permissions")]
     [JsonPropertyOrder(5)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public AccountAccessPermissions Permissions { get; } = new();
 }

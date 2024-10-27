@@ -11,7 +11,8 @@ namespace Mailtrap.Projects.Requests;
 /// <summary>
 /// Generic request object for project CRUD operations.
 /// </summary>
-internal record ProjectRequestDto<T> where T : ProjectRequest
+internal record ProjectRequestDto<T> : IValidatable
+    where T : ProjectRequest
 {
     /// <summary>
     /// Gets or sets project request payload.
@@ -22,5 +23,22 @@ internal record ProjectRequestDto<T> where T : ProjectRequest
     /// </value>
     [JsonPropertyName("project")]
     [JsonPropertyOrder(1)]
-    public T? Project { get; set; }
+    public T Project { get; }
+
+
+    public ProjectRequestDto(T project)
+    {
+        Ensure.NotNull(project, nameof(project));
+
+        Project = project;
+    }
+
+
+    /// <inheritdoc/>
+    public ValidationResult Validate()
+    {
+        return ProjectRequestValidator.Instance
+            .Validate(Project)
+            .ToMailtrapValidationResult();
+    }
 }

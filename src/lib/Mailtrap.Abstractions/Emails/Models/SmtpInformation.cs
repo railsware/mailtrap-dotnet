@@ -23,7 +23,7 @@ public sealed record SmtpInformation
     /// </value>
     [JsonPropertyName("ok")]
     [JsonPropertyOrder(1)]
-    public bool? Ok { get; }
+    public bool? Ok { get; set; }
 
     /// <summary>
     /// Gets SMTP information details.
@@ -34,5 +34,6 @@ public sealed record SmtpInformation
     /// </value>
     [JsonPropertyName("data")]
     [JsonPropertyOrder(2)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public SmtpDetails Details { get; } = new();
 }

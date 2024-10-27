@@ -23,6 +23,6 @@ internal sealed class EmailClientEndpointProvider : IEmailClientEndpointProvider
 
         var result = rootUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
 
-        return inboxId is null ? result : result.Append(inboxId.Value.ToString(CultureInfo.InvariantCulture));
+        return inboxId is null ? result : result.Append(inboxId.Value);
     }
 }

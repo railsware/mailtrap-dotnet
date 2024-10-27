@@ -22,5 +22,6 @@ public sealed record EmailMessageHtmlReport
     /// </value>
     [JsonPropertyName("report")]
     [JsonPropertyOrder(1)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public HtmlAnalysisReport Report { get; } = new();
 }

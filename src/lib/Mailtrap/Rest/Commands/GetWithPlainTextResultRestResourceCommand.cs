@@ -1,17 +1,16 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="GetPlainTextRestResourceCommand.cs" company="Railsware Products Studio, LLC">
+// <copyright file="GetWithPlainTextResultRestResourceCommand.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
+
 namespace Mailtrap.Rest.Commands;
 
 
-/// <summary>
-/// </summary>
-internal sealed class GetPlainTextRestResourceCommand : GetRestResourceCommand<string>
+internal sealed class GetWithPlainTextResultRestResourceCommand : GetRestResourceCommand<string>
 {
-    public GetPlainTextRestResourceCommand(
+    public GetWithPlainTextResultRestResourceCommand(
         IHttpClientFactory httpClientFactory,
         IHttpRequestMessageFactory httpRequestMessageFactory,
         IHttpResponseHandlerFactory httpResponseHandlerFactory,

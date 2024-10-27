@@ -41,33 +41,8 @@ internal sealed class HttpRequestMessageFactory : IHttpRequestMessageFactory
         => CreateCore(method, uri);
 
     /// <inheritdoc/>
-    public HttpRequestMessage CreateGet(Uri uri)
-        => Create(HttpMethod.Get, uri);
-
-    /// <inheritdoc/>
-    public HttpRequestMessage CreatePatch(Uri uri)
-        => Create(new HttpMethod("PATCH"), uri);
-
-    /// <inheritdoc/>
-    public HttpRequestMessage CreateDelete(Uri uri)
-        => Create(HttpMethod.Delete, uri);
-
-
-    /// <inheritdoc/>
     public HttpRequestMessage CreateWithContent<T>(HttpMethod method, Uri uri, T? content = null) where T : class
         => CreateCore(method, uri, _httpRequestContentFactory.CreateStringContent(content));
-
-    /// <inheritdoc/>
-    public HttpRequestMessage CreatePost<T>(Uri uri, T content) where T : class
-        => CreateWithContent(HttpMethod.Post, uri, content);
-
-    /// <inheritdoc/>
-    public HttpRequestMessage CreatePut<T>(Uri uri, T content) where T : class
-        => CreateWithContent(HttpMethod.Put, uri, content);
-
-    /// <inheritdoc/>
-    public HttpRequestMessage CreatePatchWithContent<T>(Uri uri, T content) where T : class
-        => CreateWithContent(new HttpMethod("PATCH"), uri, content);
 
 
     private HttpRequestMessage CreateCore(HttpMethod method, Uri uri, HttpContent? content = null)

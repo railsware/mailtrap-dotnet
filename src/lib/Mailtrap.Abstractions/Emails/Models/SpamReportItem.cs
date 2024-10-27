@@ -22,7 +22,7 @@ public sealed record SpamReportItem
     /// </value>
     [JsonPropertyName("Pts")]
     [JsonPropertyOrder(1)]
-    public decimal? Score { get; }
+    public decimal? Score { get; set; }
 
     /// <summary>
     /// Gets the name of the rule.
@@ -33,7 +33,7 @@ public sealed record SpamReportItem
     /// </value>
     [JsonPropertyName("RuleName")]
     [JsonPropertyOrder(2)]
-    public string? RuleName { get; }
+    public string? RuleName { get; set; }
 
     /// <summary>
     /// Gets the description of the rule.
@@ -44,5 +44,5 @@ public sealed record SpamReportItem
     /// </value>
     [JsonPropertyName("Description")]
     [JsonPropertyOrder(3)]
-    public string? Description { get; }
+    public string? Description { get; set; }
 }

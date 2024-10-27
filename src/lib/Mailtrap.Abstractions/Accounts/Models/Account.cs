@@ -23,7 +23,7 @@ public sealed record Account
     [JsonPropertyName("id")]
     [JsonPropertyOrder(1)]
     [JsonRequired]
-    public long Id { get; }
+    public long Id { get; set; }
 
     /// <summary>
     /// Gets the account name.
@@ -34,7 +34,7 @@ public sealed record Account
     /// </value>
     [JsonPropertyName("name")]
     [JsonPropertyOrder(2)]
-    public string? Name { get; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// Gets the account access levels.

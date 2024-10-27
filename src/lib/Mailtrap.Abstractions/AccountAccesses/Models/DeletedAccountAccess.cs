@@ -23,5 +23,5 @@ public sealed record DeletedAccountAccess
     [JsonPropertyName("id")]
     [JsonPropertyOrder(1)]
     [JsonRequired]
-    public long Id { get; }
+    public long Id { get; set; }
 }

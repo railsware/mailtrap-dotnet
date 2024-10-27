@@ -22,7 +22,7 @@ public sealed record HtmlAnalysisReport
     /// </value>
     [JsonPropertyName("status")]
     [JsonPropertyOrder(1)]
-    public string? Status { get; }
+    public string? Status { get; set; }
 
     /// <summary>
     /// Gets the list of HTML analysis errors.

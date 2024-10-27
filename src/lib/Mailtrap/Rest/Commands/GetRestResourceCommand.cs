@@ -8,8 +8,6 @@
 namespace Mailtrap.Rest.Commands;
 
 
-/// <summary>
-/// </summary>
 internal class GetRestResourceCommand<TResponse> : RestResourceCommand<TResponse>
 {
     private readonly string[] _acceptContentTypes;
@@ -25,7 +23,8 @@ internal class GetRestResourceCommand<TResponse> : RestResourceCommand<TResponse
             httpClientFactory,
             httpRequestMessageFactory,
             httpResponseHandlerFactory,
-            resourceUri)
+            resourceUri,
+            HttpMethod.Get)
     {
         Ensure.NotNull(additionalAcceptContentTypes, nameof(additionalAcceptContentTypes));
 
@@ -34,5 +33,5 @@ internal class GetRestResourceCommand<TResponse> : RestResourceCommand<TResponse
 
 
     protected override HttpRequestMessage CreateHttpRequest()
-        => _httpRequestMessageFactory.CreateGet(ResourceUri).AppendAcceptHeaders(_acceptContentTypes);
+        => base.CreateHttpRequest().AppendAcceptHeaders(_acceptContentTypes);
 }

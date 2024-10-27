@@ -23,7 +23,7 @@ public sealed record EmailMessage
     [JsonPropertyName("id")]
     [JsonPropertyOrder(1)]
     [JsonRequired]
-    public long Id { get; }
+    public long Id { get; set; }
 
     /// <summary>
     /// Gets message inbox identifier.
@@ -35,7 +35,7 @@ public sealed record EmailMessage
     [JsonPropertyName("inbox_id")]
     [JsonPropertyOrder(2)]
     [JsonRequired]
-    public long InboxId { get; }
+    public long InboxId { get; set; }
 
     /// <summary>
     /// Gets message subject.
@@ -46,7 +46,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("subject")]
     [JsonPropertyOrder(3)]
-    public string? Subject { get; }
+    public string? Subject { get; set; }
 
     /// <summary>
     /// Gets email address of 'From' field of the message.
@@ -57,7 +57,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("from_email")]
     [JsonPropertyOrder(4)]
-    public string? FromEmail { get; }
+    public string? FromEmail { get; set; }
 
     /// <summary>
     /// Gets display name of 'From' field of the message.
@@ -68,7 +68,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("from_name")]
     [JsonPropertyOrder(5)]
-    public string? FromName { get; }
+    public string? FromName { get; set; }
 
     /// <summary>
     /// Gets email address of 'To' field of the message.
@@ -79,7 +79,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("to_email")]
     [JsonPropertyOrder(6)]
-    public string? ToEmail { get; }
+    public string? ToEmail { get; set; }
 
     /// <summary>
     /// Gets display name of 'To' field of the message.
@@ -90,7 +90,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("to_name")]
     [JsonPropertyOrder(7)]
-    public string? ToName { get; }
+    public string? ToName { get; set; }
 
     /// <summary>
     /// Gets size of the message.
@@ -101,7 +101,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("email_size")]
     [JsonPropertyOrder(8)]
-    public long? EmailSize { get; }
+    public long? EmailSize { get; set; }
 
     /// <summary>
     /// Gets flag indicating if the message was read.
@@ -113,7 +113,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("is_read")]
     [JsonPropertyOrder(9)]
-    public bool? IsRead { get; }
+    public bool? IsRead { get; set; }
 
     /// <summary>
     /// Gets timestamp when the message was created.
@@ -124,7 +124,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("created_at")]
     [JsonPropertyOrder(10)]
-    public DateTimeOffset? CreatedAt { get; }
+    public DateTimeOffset? CreatedAt { get; set; }
 
     /// <summary>
     /// Gets timestamp when the message was updated.
@@ -135,7 +135,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("updated_at")]
     [JsonPropertyOrder(11)]
-    public DateTimeOffset? UpdatedAt { get; }
+    public DateTimeOffset? UpdatedAt { get; set; }
 
     /// <summary>
     /// Gets timestamp when the message was sent.
@@ -146,7 +146,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("sent_at")]
     [JsonPropertyOrder(12)]
-    public DateTimeOffset? SentAt { get; }
+    public DateTimeOffset? SentAt { get; set; }
 
     /// <summary>
     /// Gets HTML body size of the message.
@@ -157,7 +157,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("html_body_size")]
     [JsonPropertyOrder(13)]
-    public long? HtmlBodySize { get; }
+    public long? HtmlBodySize { get; set; }
 
     /// <summary>
     /// Gets plain text body size of the message.
@@ -168,7 +168,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("text_body_size")]
     [JsonPropertyOrder(14)]
-    public long? TextBodySize { get; }
+    public long? TextBodySize { get; set; }
 
     /// <summary>
     /// Gets human-friendly size of the message.
@@ -180,9 +180,8 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("human_size")]
     [JsonPropertyOrder(15)]
-    public string? HumanSize { get; }
+    public string? HumanSize { get; set; }
 
-    // TODO: Should be URI?
     /// <summary>
     /// Gets path to the HTML representation of the message.
     /// </summary>
@@ -192,9 +191,8 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("html_path")]
     [JsonPropertyOrder(16)]
-    public string? HtmlPath { get; }
+    public string? HtmlPath { get; set; } // TODO: Should be URI?
 
-    // TODO: Should be URI?
     /// <summary>
     /// Gets path to the plain text representation of the message.
     /// </summary>
@@ -204,9 +202,8 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("txt_path")]
     [JsonPropertyOrder(17)]
-    public string? TextPath { get; }
+    public string? TextPath { get; set; } // TODO: Should be URI?
 
-    // TODO: Should be URI?
     /// <summary>
     /// Gets path to the raw representation of the message.
     /// </summary>
@@ -216,9 +213,8 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("raw_path")]
     [JsonPropertyOrder(18)]
-    public string? RawPath { get; }
+    public string? RawPath { get; set; } // TODO: Should be URI?
 
-    // TODO: Should be URI?
     /// <summary>
     /// Gets download path for the message.
     /// </summary>
@@ -228,9 +224,8 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("download_path")]
     [JsonPropertyOrder(19)]
-    public string? DownloadPath { get; }
+    public string? DownloadPath { get; set; } // TODO: Should be URI?
 
-    // TODO: Should be URI?
     /// <summary>
     /// Gets path to the message HTML source.
     /// </summary>
@@ -240,7 +235,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("html_source_path")]
     [JsonPropertyOrder(20)]
-    public string? HtmlSourcePath { get; }
+    public string? HtmlSourcePath { get; set; } // TODO: Should be URI?
 
     /// <summary>
     /// Gets flag indicating if the message contains blacklist report.
@@ -252,7 +247,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("blacklists_report_info")]
     [JsonPropertyOrder(21)]
-    public bool? HasBlacklistsReportInfo { get; }
+    public bool? HasBlacklistsReportInfo { get; set; }
 
     /// <summary>
     /// Gets SMTP information for the message.
@@ -263,5 +258,6 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("smtp_information")]
     [JsonPropertyOrder(22)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public SmtpInformation SmtpInformation { get; } = new();
 }

@@ -11,7 +11,7 @@ namespace Mailtrap.Projects.Requests;
 /// <summary>
 /// Generic request object for project CRUD operations.
 /// </summary>
-public record ProjectRequest
+public record ProjectRequest : IValidatable
 {
     /// <summary>
     /// Gets project name.
@@ -40,5 +40,14 @@ public record ProjectRequest
         Ensure.NotNullOrEmpty(name, nameof(name));
 
         Name = name;
+    }
+
+
+    /// <inheritdoc/>
+    public ValidationResult Validate()
+    {
+        return ProjectRequestValidator.Instance
+            .Validate(this)
+            .ToMailtrapValidationResult();
     }
 }

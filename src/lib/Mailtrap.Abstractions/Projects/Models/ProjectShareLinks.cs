@@ -22,7 +22,7 @@ public sealed record ProjectShareLinks
     /// </value>
     [JsonPropertyName("admin")]
     [JsonPropertyOrder(1)]
-    public string? Admin { get; }
+    public Uri? Admin { get; set; }
 
     /// <summary>
     /// Gets a sharing link for viewer.
@@ -33,5 +33,5 @@ public sealed record ProjectShareLinks
     /// </value>
     [JsonPropertyName("viewer")]
     [JsonPropertyOrder(2)]
-    public string? Viewer { get; }
+    public Uri? Viewer { get; set; }
 }

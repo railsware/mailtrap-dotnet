@@ -5,9 +5,8 @@
 // -----------------------------------------------------------------------
 
 
+using System.Diagnostics.CodeAnalysis;
 using Mailtrap;
-// using Mailtrap.Extensions.DependencyInjection;
-using Mailtrap.Models;
 using Mailtrap.AccountAccesses;
 using Mailtrap.AccountAccesses.Models;
 using Mailtrap.Accounts;
@@ -18,33 +17,37 @@ using Mailtrap.Billing.Models;
 using Mailtrap.Emails;
 using Mailtrap.Emails.Models;
 using Mailtrap.Emails.Requests;
+using Mailtrap.Extensions.DependencyInjection;
 using Mailtrap.Inboxes;
 using Mailtrap.Inboxes.Models;
 using Mailtrap.Inboxes.Requests;
+using Mailtrap.Models;
+using Mailtrap.Permissions.Models;
 using Mailtrap.Projects;
 using Mailtrap.Projects.Models;
 using Mailtrap.Projects.Requests;
 using Mailtrap.SendingDomains;
 using Mailtrap.SendingDomains.Models;
 using Mailtrap.SendingDomains.Requests;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-// using Microsoft.Extensions.Configuration;
 
 
 /// <summary>
 /// Various examples of the Mailtrap API usage
 /// </summary>
+[SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Example")]
 internal sealed class Program
 {
     private static async Task Main(string[] args)
     {
         HostApplicationBuilder hostBuilder = Host.CreateApplicationBuilder(args);
 
-        // IConfigurationSection config = hostBuilder.Configuration.GetSection("Mailtrap");
+        IConfigurationSection config = hostBuilder.Configuration.GetSection("Mailtrap");
 
-        // hostBuilder.Services.AddMailtrapClient(config);
+        hostBuilder.Services.AddMailtrapClient(config);
 
         using IHost host = hostBuilder.Build();
 
@@ -59,7 +62,7 @@ internal sealed class Program
                 .Accounts()
                 .GetAll();
 
-            var accountId = 123;
+            var accountId = 1917378;
             Account? account = accounts.FirstOrDefault(a => a.Id == accountId);
 
             if (account is null)
@@ -80,7 +83,7 @@ internal sealed class Program
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "An error occurred while sending email.");
+            logger.LogError(ex, "An error occurred during API call.");
             Environment.FailFast(ex.Message);
             throw;
         }
@@ -88,22 +91,26 @@ internal sealed class Program
 
     private static async Task ProcessAccount(IAccountResource accountResource, ILogger logger)
     {
-        await ProcessAccess(accountResource, logger);
+        // await ProcessAccess(accountResource, logger);
 
-        await ProcessBilling(accountResource, logger);
+        // await ProcessPermissions(accountResource, logger);
 
-        await ProcessDomains(accountResource, logger);
+        // await ProcessBilling(accountResource, logger);
+
+        // await ProcessDomains(accountResource, logger);
 
         await ProcessProjects(accountResource, logger);
     }
 
     private static async Task ProcessAccess(IAccountResource accountResource, ILogger logger)
     {
-        // Get accesses
-        var domainId = 123;
-        var filter = new AccountAccessFilter();
-        filter.DomainIds.Add(domainId);
+        // Paid account needed for some operations
 
+        var filter = new AccountAccessFilter();
+        var inboxId = 2854500;
+        filter.InboxIds.Add(inboxId);
+
+        // Fetch accesses
         IList<AccountAccess> accesses = await accountResource
             .Accesses()
             .Fetch(filter);
@@ -134,6 +141,16 @@ internal sealed class Program
         //});
     }
 
+    private static async Task ProcessPermissions(IAccountResource accountResource, ILogger logger)
+    {
+        // Get resource permissions for account
+        IList<ResourcePermissions> permissions = await accountResource
+            .Permissions()
+            .GetForResources();
+
+        logger.LogInformation("Resource Permissions: {ResourcePermissions}", permissions);
+    }
+
     private static async Task ProcessBilling(IAccountResource accountResource, ILogger logger)
     {
         // Get billing usage for account
@@ -146,7 +163,7 @@ internal sealed class Program
 
     private static async Task ProcessDomains(IAccountResource accountResource, ILogger logger)
     {
-        var domainName = "example.com";
+        var domainName = "demomailtrap.com";
 
         // Get resource for domains collection
         ISendingDomainCollectionResource domainsResource = accountResource.SendingDomains();
@@ -170,19 +187,21 @@ internal sealed class Program
             logger.LogInformation("Sending domain found.");
         }
 
-        logger.LogInformation("Sending Domain: {SendingDomain}", domain);
-
         // Get resource for specific sending domain
         ISendingDomainResource domainResource = accountResource.SendingDomain(domain.Id);
 
+        // Get details
+        domain = await domainResource.GetDetails();
+        logger.LogInformation("Sending Domain: {SendingDomain}", domain);
+
         // Sending domain instructions
-        var instructionsRequest = new SendingDomainInstructionsRequest("admin@domain.com");
+        var instructionsRequest = new SendingDomainInstructionsRequest("admin@demomailtrap.com");
         await domainResource.SendInstructions(instructionsRequest);
     }
 
     private static async Task ProcessProjects(IAccountResource accountResource, ILogger logger)
     {
-        var projectName = "Sample Project";
+        var projectName = "My Test Project";
 
         // Get resource for projects collection
         IProjectCollectionResource projectsResource = accountResource.Projects();
@@ -206,12 +225,15 @@ internal sealed class Program
             logger.LogInformation("Project found.");
         }
 
-        logger.LogInformation("Project: {Project}", project);
-
-        await ProcessInboxes(accountResource, logger, project.Id);
-
         // Get resource for specific project
         IProjectResource projectResource = accountResource.Project(project.Id);
+
+        // Get details
+        project = await projectResource.GetDetails();
+        logger.LogInformation("Project: {Project}", project);
+
+        // Process inboxes
+        await ProcessInboxes(accountResource, logger, project.Id);
 
         // Update project details
         var updateProjectRequest = new UpdateProjectRequest("Updated Project Name");
@@ -231,7 +253,7 @@ internal sealed class Program
 
     private static async Task ProcessInboxes(IAccountResource accountResource, ILogger logger, long projectId)
     {
-        var inboxName = "Sample Inbox";
+        var inboxName = "My Sample Inbox";
 
         // Get resource for inbox collection
         IInboxCollectionResource inboxesResource = accountResource.Inboxes();
@@ -255,14 +277,17 @@ internal sealed class Program
             logger.LogInformation("Inbox found.");
         }
 
-        logger.LogInformation("Inbox: {Inbox}", inbox);
-
         // Get resource for specific inbox
         IInboxResource inboxResource = accountResource.Inbox(inbox.Id);
+
+        // Get Details
+        inbox = await inboxResource.GetDetails();
+        logger.LogInformation("Inbox: {Inbox}", inbox);
 
         // Toggle email for inbox
         Inbox updatedInbox = await inboxResource.ToggleEmailAddress();
 
+        // Process messages
         await ProcessMessages(inboxResource, logger);
 
         // Mark all messages in the inbox as read

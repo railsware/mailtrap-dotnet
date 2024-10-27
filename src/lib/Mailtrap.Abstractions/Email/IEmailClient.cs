@@ -62,7 +62,7 @@ public interface IEmailClient
     /// When request to the API fails for any reason.
     /// </exception>
     ///
-    /// <exception cref="InvalidResponseFormatException">
+    /// <exception cref="EmptyResponseException">
     /// When response from the API has an invalid format.
     /// </exception>
     ///

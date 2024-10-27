@@ -23,7 +23,7 @@ public sealed record ResourcePermissions
     [JsonPropertyName("id")]
     [JsonPropertyOrder(1)]
     [JsonRequired]
-    public long Id { get; }
+    public long Id { get; set; }
 
     /// <summary>
     /// Gets the resource name.
@@ -34,7 +34,7 @@ public sealed record ResourcePermissions
     /// </value>
     [JsonPropertyName("name")]
     [JsonPropertyOrder(2)]
-    public string? Name { get; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// Gets the resource type.
@@ -45,7 +45,7 @@ public sealed record ResourcePermissions
     /// </value>
     [JsonPropertyName("type")]
     [JsonPropertyOrder(3)]
-    public string? Type { get; }
+    public string? Type { get; set; }
 
     /// <summary>
     /// Gets the resource access level.
@@ -56,7 +56,7 @@ public sealed record ResourcePermissions
     /// </value>
     [JsonPropertyName("access_level")]
     [JsonPropertyOrder(4)]
-    public AccessLevel? AccessLevel { get; }
+    public AccessLevel? AccessLevel { get; set; }
 
     /// <summary>
     /// Gets the collection of nested resources.

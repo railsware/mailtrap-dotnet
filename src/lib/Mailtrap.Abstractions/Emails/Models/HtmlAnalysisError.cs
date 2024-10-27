@@ -22,7 +22,7 @@ public sealed record HtmlAnalysisError
     /// </value>
     [JsonPropertyName("error_line")]
     [JsonPropertyOrder(1)]
-    public int? Line { get; }
+    public int? Line { get; set; }
 
     /// <summary>
     /// Gets HTML analysis rule name, that triggered the error.
@@ -33,7 +33,7 @@ public sealed record HtmlAnalysisError
     /// </value>
     [JsonPropertyName("rule_name")]
     [JsonPropertyOrder(2)]
-    public string? RuleName { get; }
+    public string? RuleName { get; set; }
 
     /// <summary>
     /// Gets email clients affected by error.
@@ -44,5 +44,6 @@ public sealed record HtmlAnalysisError
     /// </value>
     [JsonPropertyName("email_clients")]
     [JsonPropertyOrder(3)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public EmailClients Clients { get; } = new();
 }

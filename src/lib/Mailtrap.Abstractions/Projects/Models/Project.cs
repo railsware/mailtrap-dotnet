@@ -23,7 +23,7 @@ public sealed record Project
     [JsonPropertyName("id")]
     [JsonPropertyOrder(1)]
     [JsonRequired]
-    public long Id { get; }
+    public long Id { get; set; }
 
     /// <summary>
     /// Gets project name.
@@ -34,7 +34,7 @@ public sealed record Project
     /// </value>
     [JsonPropertyName("name")]
     [JsonPropertyOrder(2)]
-    public string? Name { get; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// Gets project sharing links.
@@ -45,7 +45,8 @@ public sealed record Project
     /// </value>
     [JsonPropertyName("share_links")]
     [JsonPropertyOrder(3)]
-    public ProjectShareLinks? ShareLinks { get; }
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
+    public ProjectShareLinks ShareLinks { get; } = new();
 
     /// <summary>
     /// Gets project permissions.
@@ -56,9 +57,9 @@ public sealed record Project
     /// </value>
     [JsonPropertyName("permissions")]
     [JsonPropertyOrder(4)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public ProjectPermissions Permissions { get; } = new();
 
-    // TODO: Change list type parameter, when 'Inbox' abstraction will be available.
     /// <summary>
     /// Gets a list of project's inboxes.
     /// </summary>
@@ -69,5 +70,5 @@ public sealed record Project
     [JsonPropertyName("inboxes")]
     [JsonPropertyOrder(5)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
-    public IList<object> Inboxes { get; } = [];
+    public IList<Inbox> Inboxes { get; } = [];
 }

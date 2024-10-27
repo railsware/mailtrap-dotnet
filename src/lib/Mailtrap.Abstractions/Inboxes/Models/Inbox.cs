@@ -23,7 +23,7 @@ public sealed record Inbox
     [JsonPropertyName("id")]
     [JsonPropertyOrder(1)]
     [JsonRequired]
-    public long Id { get; }
+    public long Id { get; set; }
 
     /// <summary>
     /// Gets inbox name.
@@ -34,7 +34,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("name")]
     [JsonPropertyOrder(2)]
-    public string? Name { get; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// Gets inbox user name.
@@ -45,7 +45,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("username")]
     [JsonPropertyOrder(3)]
-    public string? UserName { get; }
+    public string? UserName { get; set; }
 
     /// <summary>
     /// Gets inbox password.
@@ -56,7 +56,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("password")]
     [JsonPropertyOrder(4)]
-    public string? Password { get; }
+    public string? Password { get; set; }
 
     /// <summary>
     /// Gets maximum size of the inbox.
@@ -67,9 +67,8 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("max_size")]
     [JsonPropertyOrder(5)]
-    public long? MaxSize { get; }
+    public long? MaxSize { get; set; }
 
-    // TODO: Verify if we need some kind of enum instead of string
     /// <summary>
     /// Gets inbox status.
     /// </summary>
@@ -79,7 +78,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("status")]
     [JsonPropertyOrder(6)]
-    public string? Status { get; }
+    public string? Status { get; set; } // TODO: Should be this a string enum?
 
     /// <summary>
     /// Gets email user name for the inbox.
@@ -90,7 +89,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("email_username")]
     [JsonPropertyOrder(7)]
-    public string? EmailUsername { get; }
+    public string? EmailUsername { get; set; }
 
     /// <summary>
     /// Gets the flag indicating if email user name is enabled for the inbox.
@@ -102,7 +101,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("email_username_enabled")]
     [JsonPropertyOrder(8)]
-    public bool? EmailUsernameEnabled { get; }
+    public bool? EmailUsernameEnabled { get; set; }
 
     /// <summary>
     /// Gets inbox sent messages count.
@@ -113,7 +112,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("sent_messages_count")]
     [JsonPropertyOrder(9)]
-    public long? SentMessagesCount { get; }
+    public long? SentMessagesCount { get; set; }
 
     /// <summary>
     /// Gets inbox forwarded messages count.
@@ -124,7 +123,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("forwarded_messages_count")]
     [JsonPropertyOrder(10)]
-    public long? ForwardedMessagesCount { get; }
+    public long? ForwardedMessagesCount { get; set; }
 
     /// <summary>
     /// Gets the flag indicating if inbox is used.
@@ -136,7 +135,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("used")]
     [JsonPropertyOrder(11)]
-    public bool? Used { get; }
+    public bool? Used { get; set; }
 
     /// <summary>
     /// Gets email address used for forwarding.
@@ -147,7 +146,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("forward_from_email_address")]
     [JsonPropertyOrder(12)]
-    public string? ForwardFromEmailAddress { get; }
+    public string? ForwardFromEmailAddress { get; set; }
 
     /// <summary>
     /// Gets project identifier.
@@ -159,7 +158,7 @@ public sealed record Inbox
     [JsonPropertyName("project_id")]
     [JsonPropertyOrder(13)]
     [JsonRequired]
-    public long ProjectId { get; }
+    public long ProjectId { get; set; }
 
     /// <summary>
     /// Gets domain name.
@@ -170,7 +169,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("domain")]
     [JsonPropertyOrder(14)]
-    public string? Domain { get; }
+    public string? Domain { get; set; }
 
     /// <summary>
     /// Gets domain name for POP3.
@@ -181,7 +180,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("pop3_domain")]
     [JsonPropertyOrder(15)]
-    public string? Pop3Domain { get; }
+    public string? Pop3Domain { get; set; }
 
     /// <summary>
     /// Gets domain name for email.
@@ -192,7 +191,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("email_domain")]
     [JsonPropertyOrder(16)]
-    public string? EmailDomain { get; }
+    public string? EmailDomain { get; set; }
 
     /// <summary>
     /// Gets emails count.
@@ -203,7 +202,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("emails_count")]
     [JsonPropertyOrder(17)]
-    public long? EmailsCount { get; }
+    public long? EmailsCount { get; set; }
 
     /// <summary>
     /// Gets unread emails count.
@@ -214,7 +213,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("emails_unread_count")]
     [JsonPropertyOrder(18)]
-    public long? UnreadEmailsCount { get; }
+    public long? UnreadEmailsCount { get; set; }
 
     /// <summary>
     /// Gets the timestamp when the last message was sent.
@@ -225,7 +224,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("last_message_sent_at")]
     [JsonPropertyOrder(19)]
-    public DateTimeOffset? LastMessageSentAt { get; }
+    public DateTimeOffset? LastMessageSentAt { get; set; }
 
     /// <summary>
     /// Gets a list of SMTP ports.
@@ -260,7 +259,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("max_message_size")]
     [JsonPropertyOrder(22)]
-    public long? MaxMessageSize { get; }
+    public long? MaxMessageSize { get; set; }
 
     /// <summary>
     /// Gets inbox permissions.
@@ -271,5 +270,6 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("permissions")]
     [JsonPropertyOrder(23)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public InboxPermissions Permissions { get; } = new();
 }

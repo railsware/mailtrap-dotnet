@@ -16,24 +16,28 @@ internal abstract class RestResourceCommand<TResponse>
 
 
     public Uri ResourceUri { get; }
+    public HttpMethod HttpMethod { get; }
 
 
     public RestResourceCommand(
         IHttpClientFactory httpClientFactory,
         IHttpRequestMessageFactory httpRequestMessageFactory,
         IHttpResponseHandlerFactory httpResponseHandlerFactory,
-        Uri resourceUri)
+        Uri resourceUri,
+        HttpMethod httpMethod)
     {
         Ensure.NotNull(httpClientFactory, nameof(httpClientFactory));
         Ensure.NotNull(httpRequestMessageFactory, nameof(httpRequestMessageFactory));
         Ensure.NotNull(httpResponseHandlerFactory, nameof(httpResponseHandlerFactory));
         Ensure.NotNull(resourceUri, nameof(resourceUri));
+        Ensure.NotNull(httpMethod, nameof(httpMethod));
 
         _httpClientFactory = httpClientFactory;
         _httpRequestMessageFactory = httpRequestMessageFactory;
         _httpResponseHandlerFactory = httpResponseHandlerFactory;
 
         ResourceUri = resourceUri;
+        HttpMethod = httpMethod;
     }
 
 
@@ -56,7 +60,8 @@ internal abstract class RestResourceCommand<TResponse>
     }
 
 
-    protected abstract HttpRequestMessage CreateHttpRequest();
+    protected virtual HttpRequestMessage CreateHttpRequest()
+        => _httpRequestMessageFactory.Create(HttpMethod, ResourceUri);
 
     protected virtual IHttpResponseHandler<TResponse> CreateHttpResponseHandler(HttpResponseMessage httpResponseMessage)
         => _httpResponseHandlerFactory.CreateJsonContentHandler<TResponse>(httpResponseMessage);

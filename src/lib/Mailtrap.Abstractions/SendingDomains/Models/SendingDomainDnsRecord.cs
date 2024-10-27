@@ -20,7 +20,7 @@ public sealed record SendingDomainDnsRecord
     /// </value>
     [JsonPropertyName("key")]
     [JsonPropertyOrder(1)]
-    public string? Key { get; }
+    public string? Key { get; set; }
 
     /// <summary>
     /// </summary>
@@ -29,7 +29,7 @@ public sealed record SendingDomainDnsRecord
     /// </value>
     [JsonPropertyName("domain")]
     [JsonPropertyOrder(2)]
-    public string? Domain { get; }
+    public string? Domain { get; set; }
 
     /// <summary>
     /// </summary>
@@ -38,7 +38,7 @@ public sealed record SendingDomainDnsRecord
     /// </value>
     [JsonPropertyName("type")]
     [JsonPropertyOrder(3)]
-    public string? Type { get; }
+    public string? Type { get; set; }
 
     /// <summary>
     /// </summary>
@@ -47,7 +47,7 @@ public sealed record SendingDomainDnsRecord
     /// </value>
     [JsonPropertyName("value")]
     [JsonPropertyOrder(4)]
-    public string? Value { get; }
+    public string? Value { get; set; }
 
     /// <summary>
     /// </summary>
@@ -56,7 +56,7 @@ public sealed record SendingDomainDnsRecord
     /// </value>
     [JsonPropertyName("status")]
     [JsonPropertyOrder(5)]
-    public string? Status { get; }
+    public string? Status { get; set; }
 
     /// <summary>
     /// </summary>
@@ -65,6 +65,6 @@ public sealed record SendingDomainDnsRecord
     /// </value>
     [JsonPropertyName("name")]
     [JsonPropertyOrder(6)]
-    public string? Name { get; }
+    public string? Name { get; set; }
 }
 

@@ -28,16 +28,34 @@ internal sealed class JsonContentHttpResponseHandler<T> : IHttpResponseHandler<T
 
     public async Task<T> ProcessResponse(CancellationToken cancellationToken = default)
     {
-        _httpResponseMessage.EnsureSuccessStatusCode();
+        if (_httpResponseMessage.IsSuccessStatusCode)
+        {
+            var content = await _httpResponseMessage.Content
+                .ReadAsStreamAsync()
+                .ConfigureAwait(false);
 
-        var body = await _httpResponseMessage.Content
-            .ReadAsStreamAsync()
-            .ConfigureAwait(false);
+            var response = await JsonSerializer
+                .DeserializeAsync<T>(content, _jsonSerializerOptions, cancellationToken)
+                .ConfigureAwait(false);
 
-        var response = await JsonSerializer
-            .DeserializeAsync<T>(body, _jsonSerializerOptions, cancellationToken)
-            .ConfigureAwait(false);
+            return response ?? throw new EmptyResponseException(
+                _httpResponseMessage.RequestMessage.RequestUri,
+                _httpResponseMessage.RequestMessage.Method);
+        }
+        else
+        {
+            var content = await _httpResponseMessage.Content
+                .ReadAsStringAsync()
+                .ConfigureAwait(false);
 
-        return response ?? throw new InvalidResponseFormatException(_httpResponseMessage.RequestMessage);
+            var problem = JsonSerializer.Deserialize<Problem>(content, _jsonSerializerOptions);
+
+            throw new BadRequestException(
+                _httpResponseMessage.RequestMessage.RequestUri,
+                _httpResponseMessage.RequestMessage.Method,
+                _httpResponseMessage.StatusCode,
+                _httpResponseMessage.ReasonPhrase,
+                problem?.ToString());
+        }
     }
 }

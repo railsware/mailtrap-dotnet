@@ -23,7 +23,7 @@ public sealed record AccountAccessResource
     [JsonPropertyName("resource_id")]
     [JsonPropertyOrder(1)]
     [JsonRequired]
-    public long Id { get; }
+    public long Id { get; set; }
 
     /// <summary>
     /// Gets the resource type.
@@ -34,7 +34,7 @@ public sealed record AccountAccessResource
     /// </value>
     [JsonPropertyName("resource_type")]
     [JsonPropertyOrder(2)]
-    public AccountResourceType? Type { get; }
+    public AccountResourceType? Type { get; set; }
 
     /// <summary>
     /// Gets the resource access level.
@@ -45,5 +45,5 @@ public sealed record AccountAccessResource
     /// </value>
     [JsonPropertyName("access_level")]
     [JsonPropertyOrder(3)]
-    public AccessLevel? AccessLevel { get; }
+    public AccessLevel? AccessLevel { get; set; }
 }

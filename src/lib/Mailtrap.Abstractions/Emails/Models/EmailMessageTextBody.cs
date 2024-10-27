@@ -20,5 +20,5 @@ public sealed record EmailMessageTextBody
     /// <value>
     /// Plain text body of the message (if exists).
     /// </value>
-    public string? TextBody { get; }
+    public string? TextBody { get; set; }
 }

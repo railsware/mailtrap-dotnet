@@ -22,6 +22,7 @@ public record BillingPlanUsageStatistics
     /// </value>
     [JsonPropertyName("sent_messages_count")]
     [JsonPropertyOrder(1)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public BillingPlanUsageMessageCounters SentMessageCounters { get; } = new();
 }
 

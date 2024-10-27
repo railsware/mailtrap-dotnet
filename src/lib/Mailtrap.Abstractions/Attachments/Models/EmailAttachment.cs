@@ -23,7 +23,7 @@ public sealed record EmailAttachment
     [JsonPropertyName("id")]
     [JsonPropertyOrder(1)]
     [JsonRequired]
-    public long Id { get; }
+    public long Id { get; set; }
 
     /// <summary>
     /// Gets message identifier.
@@ -35,7 +35,7 @@ public sealed record EmailAttachment
     [JsonPropertyName("message_id")]
     [JsonPropertyOrder(2)]
     [JsonRequired]
-    public long MessageId { get; }
+    public long MessageId { get; set; }
 
     /// <summary>
     /// Gets attachment file name.
@@ -46,7 +46,7 @@ public sealed record EmailAttachment
     /// </value>
     [JsonPropertyName("filename")]
     [JsonPropertyOrder(3)]
-    public string? FileName { get; }
+    public string? FileName { get; set; }
 
     /// <summary>
     /// Gets disposition of the attachment.
@@ -57,7 +57,7 @@ public sealed record EmailAttachment
     /// </value>
     [JsonPropertyName("attachment_type")]
     [JsonPropertyOrder(4)]
-    public DispositionType? AttachmentType { get; }
+    public DispositionType? AttachmentType { get; set; }
 
     /// <summary>
     /// Gets MIME type of the attachment's content.
@@ -68,7 +68,7 @@ public sealed record EmailAttachment
     /// </value>
     [JsonPropertyName("content_type")]
     [JsonPropertyOrder(5)]
-    public string? ContentType { get; }
+    public string? ContentType { get; set; }
 
     /// <summary>
     /// Gets attachment content identifier.
@@ -79,7 +79,7 @@ public sealed record EmailAttachment
     /// </value>
     [JsonPropertyName("content_id")]
     [JsonPropertyOrder(6)]
-    public string? ContentId { get; }
+    public string? ContentId { get; set; }
 
     /// <summary>
     /// Gets transfer encoding of the attachment.
@@ -90,7 +90,7 @@ public sealed record EmailAttachment
     /// </value>
     [JsonPropertyName("transfer_encoding")]
     [JsonPropertyOrder(7)]
-    public string? TransferEncoding { get; }
+    public string? TransferEncoding { get; set; }
 
     /// <summary>
     /// Get attachment size.
@@ -101,7 +101,7 @@ public sealed record EmailAttachment
     /// </value>
     [JsonPropertyName("attachment_size")]
     [JsonPropertyOrder(8)]
-    public long? AttachmentSize { get; }
+    public long? AttachmentSize { get; set; }
 
     /// <summary>
     /// Gets the timestamp when attachment was created.
@@ -112,7 +112,7 @@ public sealed record EmailAttachment
     /// </value>
     [JsonPropertyName("created_at")]
     [JsonPropertyOrder(9)]
-    public DateTimeOffset? CreatedAt { get; }
+    public DateTimeOffset? CreatedAt { get; set; }
 
     /// <summary>
     /// Gets the timestamp when attachment was updated.
@@ -123,7 +123,7 @@ public sealed record EmailAttachment
     /// </value>
     [JsonPropertyName("updated_at")]
     [JsonPropertyOrder(10)]
-    public DateTimeOffset? UpdatedAt { get; }
+    public DateTimeOffset? UpdatedAt { get; set; }
 
     /// <summary>
     /// Gets attachment size in a human-readable format.
@@ -135,9 +135,8 @@ public sealed record EmailAttachment
     /// </value>
     [JsonPropertyName("attachment_human_size")]
     [JsonPropertyOrder(11)]
-    public string? AttachmentHumanSize { get; }
+    public string? AttachmentHumanSize { get; set; }
 
-    // TODO: Verify if we might use Uri data type for it instead of plain string.
     /// <summary>
     /// Gets download path for the attachment.
     /// </summary>
@@ -147,5 +146,5 @@ public sealed record EmailAttachment
     /// </value>
     [JsonPropertyName("download_path")]
     [JsonPropertyOrder(12)]
-    public string? DownloadPath { get; }
+    public string? DownloadPath { get; set; } // TODO: Should be URI?
 }

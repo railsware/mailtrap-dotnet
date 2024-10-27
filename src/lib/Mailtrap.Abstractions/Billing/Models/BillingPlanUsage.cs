@@ -23,6 +23,7 @@ public sealed record BillingPlanUsage<TUsageStatistics>
     /// </value>
     [JsonPropertyName("plan")]
     [JsonPropertyOrder(1)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public BillingPlan Plan { get; } = new();
 
     /// <summary>
@@ -34,6 +35,7 @@ public sealed record BillingPlanUsage<TUsageStatistics>
     /// </value>
     [JsonPropertyName("usage")]
     [JsonPropertyOrder(2)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public TUsageStatistics Usage { get; } = new();
 }
 

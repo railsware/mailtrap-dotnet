@@ -31,11 +31,11 @@ internal abstract class RestResource
     }
 
 
-    protected void EnsureNotDeleted()
+    protected void EnsureNotDeleted(HttpMethod httpMethod, Uri? uri = default)
     {
         if (_deleted)
         {
-            throw new ResourceDeletedException(ResourceUri);
+            throw new ResourceDeletedException(uri ?? ResourceUri, httpMethod);
         }
     }
 
@@ -75,7 +75,7 @@ internal abstract class RestResource
     {
         Ensure.NotNull(request, nameof(request));
 
-        EnsureNotDeleted();
+        EnsureNotDeleted(HttpMethodEx.Patch);
 
         return RestResourceCommandFactory
             .CreatePatchWithContent<TRequest, TResult>(ResourceUri, request)
@@ -93,7 +93,7 @@ internal abstract class RestResource
         // For now we just simply mark the resource as deleted after request completed successfully
         // without any concurrency considerations, except volatile constraint for the _deleted flag.
 
-        EnsureNotDeleted();
+        EnsureNotDeleted(HttpMethod.Delete);
 
         var result = await RestResourceCommandFactory
             .CreateDelete<TResult>(ResourceUri)
@@ -110,7 +110,7 @@ internal abstract class RestResource
     {
         if (ensureNotDeleted)
         {
-            EnsureNotDeleted();
+            EnsureNotDeleted(HttpMethod.Get);
         }
 
         return RestResourceCommandFactory

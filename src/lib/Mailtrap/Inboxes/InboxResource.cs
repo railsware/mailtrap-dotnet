@@ -57,9 +57,9 @@ internal sealed class InboxResource : RestResource, IInboxResource
 
     private async Task<Inbox> Patch(string segment, CancellationToken cancellationToken)
     {
-        EnsureNotDeleted();
-
         var uri = ResourceUri.Append(segment);
+
+        EnsureNotDeleted(HttpMethodEx.Patch, uri);
 
         var result = await RestResourceCommandFactory
             .CreatePatch<Inbox>(uri)

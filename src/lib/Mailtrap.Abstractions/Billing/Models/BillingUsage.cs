@@ -22,6 +22,7 @@ public sealed record BillingUsage
     /// </value>
     [JsonPropertyName("billing")]
     [JsonPropertyOrder(1)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public BillingUsagePeriod Billing { get; } = new();
 
     /// <summary>
@@ -33,6 +34,7 @@ public sealed record BillingUsage
     /// </value>
     [JsonPropertyName("testing")]
     [JsonPropertyOrder(2)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public BillingPlanUsage<TestingBillingPlanUsageStatistics> Testing { get; } = new();
 
     /// <summary>
@@ -44,6 +46,7 @@ public sealed record BillingUsage
     /// </value>
     [JsonPropertyName("sending")]
     [JsonPropertyOrder(3)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public BillingPlanUsage<BillingPlanUsageStatistics> Sending { get; } = new();
 }
 

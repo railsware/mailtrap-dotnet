@@ -20,5 +20,5 @@ public sealed record EmailMessageHtmlSource
     /// <value>
     /// HTML source of the message.
     /// </value>
-    public string? HtmlSource { get; }
+    public string? HtmlSource { get; set; }
 }

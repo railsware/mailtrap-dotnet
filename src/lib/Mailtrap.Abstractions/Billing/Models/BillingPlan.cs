@@ -22,6 +22,6 @@ public sealed record BillingPlan
     /// </value>
     [JsonPropertyName("name")]
     [JsonPropertyOrder(1)]
-    public string? Name { get; }
+    public string? Name { get; set; }
 }
 

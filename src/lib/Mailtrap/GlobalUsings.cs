@@ -45,6 +45,7 @@ global using Mailtrap.SendingDomains.Requests;
 global using Mailtrap.Projects;
 global using Mailtrap.Projects.Models;
 global using Mailtrap.Projects.Requests;
+global using Mailtrap.Projects.Validators;
 global using Mailtrap.Inboxes;
 global using Mailtrap.Inboxes.Models;
 global using Mailtrap.Inboxes.Requests;

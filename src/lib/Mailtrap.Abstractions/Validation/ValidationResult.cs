@@ -74,7 +74,7 @@ public sealed class ValidationResult
     {
         if (!IsValid)
         {
-            throw new ArgumentException($"Validation failed:{Environment.NewLine}{this}", paramName);
+            throw new ArgumentException($"Validation failed: {this}", paramName);
         }
     }
 
@@ -85,7 +85,7 @@ public sealed class ValidationResult
     /// <returns>
     /// Single <see langword="string"/>, that contains all error messages separated by default new line separator.
     /// </returns>
-    public override string ToString() => ToString(Environment.NewLine);
+    public override string ToString() => ToString(", ");
 
     /// <summary>
     /// Generates a single <see langword="string"/>, that contains all error messages separated by the specified <paramref name="separator"/>.

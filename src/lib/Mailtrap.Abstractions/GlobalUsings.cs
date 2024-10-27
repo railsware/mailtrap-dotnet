@@ -9,6 +9,7 @@
 global using System.Runtime.CompilerServices;
 global using System.Diagnostics.CodeAnalysis;
 global using System.Collections.Concurrent;
+global using System.Net;
 global using System.Net.Mime;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
@@ -35,6 +36,7 @@ global using Mailtrap.SendingDomains.Validators;
 global using Mailtrap.Projects;
 global using Mailtrap.Projects.Models;
 global using Mailtrap.Projects.Requests;
+global using Mailtrap.Projects.Validators;
 global using Mailtrap.Inboxes;
 global using Mailtrap.Inboxes.Models;
 global using Mailtrap.Inboxes.Requests;

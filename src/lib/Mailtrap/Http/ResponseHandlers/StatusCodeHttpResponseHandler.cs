@@ -21,12 +21,24 @@ internal sealed class StatusCodeHttpResponseHandler : IHttpResponseHandler<HttpS
     }
 
 
-    public Task<HttpStatusCode> ProcessResponse(CancellationToken cancellationToken = default)
+    public async Task<HttpStatusCode> ProcessResponse(CancellationToken cancellationToken = default)
     {
-        _httpResponseMessage.EnsureSuccessStatusCode();
+        if (_httpResponseMessage.IsSuccessStatusCode)
+        {
+            return _httpResponseMessage.StatusCode;
+        }
+        else
+        {
+            var content = await _httpResponseMessage.Content
+                .ReadAsStringAsync()
+                .ConfigureAwait(false);
 
-        var response = _httpResponseMessage.StatusCode;
-
-        return Task.FromResult(response);
+            throw new BadRequestException(
+                _httpResponseMessage.RequestMessage.RequestUri,
+                _httpResponseMessage.RequestMessage.Method,
+                _httpResponseMessage.StatusCode,
+                _httpResponseMessage.ReasonPhrase,
+                content);
+        }
     }
 }

@@ -8,8 +8,6 @@
 namespace Mailtrap.Rest.Commands;
 
 
-/// <summary>
-/// </summary>
 internal sealed class PutRestResourceCommand<TRequest, TResponse>
     : RestResourceCommandWithRequest<TRequest, TResponse>
     where TRequest : class
@@ -25,10 +23,7 @@ internal sealed class PutRestResourceCommand<TRequest, TResponse>
             httpRequestMessageFactory,
             httpResponseHandlerFactory,
             resourceUri,
+            HttpMethod.Put,
             request)
     { }
-
-
-    protected override HttpRequestMessage CreateHttpRequest()
-        => _httpRequestMessageFactory.CreatePut(ResourceUri, _request);
 }

@@ -20,5 +20,5 @@ public sealed record EmailMessageEml
     /// <value>
     /// Message in .eml format.
     /// </value>
-    public string? Eml { get; }
+    public string? Eml { get; set; }
 }

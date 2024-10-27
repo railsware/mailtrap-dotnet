@@ -20,7 +20,7 @@ public sealed record SendEmailResponse
     /// <value>
     /// Empty response object.
     /// </value>
-    public static SendEmailResponse Empty { get; } = new(false, errorData: ["Empty response."]);
+    public static SendEmailResponse Empty { get; } = new(success: false, errorData: ["Empty response."]);
 
     /// <summary>
     /// Gets a flag, indicating whether request succeeded or failed and response contains error(s).
@@ -43,7 +43,8 @@ public sealed record SendEmailResponse
     /// </value>
     [JsonPropertyName("errors")]
     [JsonPropertyOrder(2)]
-    public IList<string> ErrorData { get; } = [];
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
+    public IList<string> ErrorData { get; }
 
     /// <summary>
     /// Gets a collection of IDs of emails that have been sent.
@@ -54,6 +55,7 @@ public sealed record SendEmailResponse
     /// </value>
     [JsonPropertyName("message_ids")]
     [JsonPropertyOrder(3)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<long> MessageIds { get; }
 
 

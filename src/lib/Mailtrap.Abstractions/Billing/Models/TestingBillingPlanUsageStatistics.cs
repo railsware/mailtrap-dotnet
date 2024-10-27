@@ -22,6 +22,7 @@ public sealed record TestingBillingPlanUsageStatistics : BillingPlanUsageStatist
     /// </value>
     [JsonPropertyName("forwarded_messages_count")]
     [JsonPropertyOrder(2)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public BillingPlanUsageMessageCounters ForwardedMessageCounters { get; } = new();
 }
 

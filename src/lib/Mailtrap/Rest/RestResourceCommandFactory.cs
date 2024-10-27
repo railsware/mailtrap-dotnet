@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+
 namespace Mailtrap.Rest;
 
 
@@ -37,7 +38,7 @@ internal sealed class RestResourceCommandFactory : IRestResourceCommandFactory
             resourceUri,
             additionalAcceptContentTypes);
 
-    public GetPlainTextRestResourceCommand CreatePlainText(Uri resourceUri, params string[] additionalAcceptContentTypes)
+    public GetWithPlainTextResultRestResourceCommand CreatePlainText(Uri resourceUri, params string[] additionalAcceptContentTypes)
         => new(
             _httpClientFactory,
             _httpRequestMessageFactory,

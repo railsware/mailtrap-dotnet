@@ -23,7 +23,7 @@ public sealed record AccountAccessPermissions
     /// </value>
     [JsonPropertyName("can_read")]
     [JsonPropertyOrder(1)]
-    public bool? CanRead { get; }
+    public bool? CanRead { get; set; }
 
     /// <summary>
     /// Gets the flag indicating whether specifier can update resources.
@@ -35,7 +35,7 @@ public sealed record AccountAccessPermissions
     /// </value>
     [JsonPropertyName("can_update")]
     [JsonPropertyOrder(2)]
-    public bool? CanUpdate { get; }
+    public bool? CanUpdate { get; set; }
 
     /// <summary>
     /// Gets the flag indicating whether specifier can destroy resources.
@@ -47,7 +47,7 @@ public sealed record AccountAccessPermissions
     /// </value>
     [JsonPropertyName("can_destroy")]
     [JsonPropertyOrder(3)]
-    public bool? CanDestroy { get; }
+    public bool? CanDestroy { get; set; }
 
     /// <summary>
     /// Gets the flag indicating whether specifier can leave resources.
@@ -59,5 +59,5 @@ public sealed record AccountAccessPermissions
     /// </value>
     [JsonPropertyName("can_leave")]
     [JsonPropertyOrder(4)]
-    public bool? CanLeave { get; }
+    public bool? CanLeave { get; set; }
 }

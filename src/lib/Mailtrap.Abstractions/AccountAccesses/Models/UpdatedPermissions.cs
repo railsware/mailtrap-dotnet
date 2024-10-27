@@ -22,5 +22,5 @@ public sealed record UpdatedPermissions
     /// </value>
     [JsonPropertyName("message")]
     [JsonPropertyOrder(1)]
-    public string? Message { get; }
+    public string? Message { get; set; }
 }

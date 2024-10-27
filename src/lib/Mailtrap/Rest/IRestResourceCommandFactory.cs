@@ -11,7 +11,7 @@ namespace Mailtrap.Rest;
 internal interface IRestResourceCommandFactory
 {
     public GetRestResourceCommand<TResponse> CreateGet<TResponse>(Uri resourceUri, params string[] additionalAcceptContentTypes);
-    public GetPlainTextRestResourceCommand CreatePlainText(Uri resourceUri, params string[] additionalAcceptContentTypes);
+    public GetWithPlainTextResultRestResourceCommand CreatePlainText(Uri resourceUri, params string[] additionalAcceptContentTypes);
     public PatchRestResourceCommand<TResponse> CreatePatch<TResponse>(Uri resourceUri);
     public DeleteRestResourceCommand<TResponse> CreateDelete<TResponse>(Uri resourceUri);
 

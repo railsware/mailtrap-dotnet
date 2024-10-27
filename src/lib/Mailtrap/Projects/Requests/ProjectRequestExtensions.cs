@@ -10,19 +10,7 @@ namespace Mailtrap.Projects.Requests;
 
 internal static class ProjectRequestExtensions
 {
-    public static CreateProjectRequestDto ToDto(this CreateProjectRequest request)
-    {
-        return new CreateProjectRequestDto
-        {
-            Project = request
-        };
-    }
+    public static CreateProjectRequestDto ToDto(this CreateProjectRequest request) => new(request);
 
-    public static UpdateProjectRequestDto ToDto(this UpdateProjectRequest request)
-    {
-        return new UpdateProjectRequestDto
-        {
-            Project = request
-        };
-    }
+    public static UpdateProjectRequestDto ToDto(this UpdateProjectRequest request) => new(request);
 }

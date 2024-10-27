@@ -22,5 +22,5 @@ public sealed record ForwardedEmailMessage
     /// </value>
     [JsonPropertyName("message")]
     [JsonPropertyOrder(1)]
-    public string? Message { get; }
+    public string? Message { get; set; }
 }

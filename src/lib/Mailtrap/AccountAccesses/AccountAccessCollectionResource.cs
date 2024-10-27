@@ -26,22 +26,26 @@ internal sealed class AccountAccessCollectionResource : RestResource, IAccountAc
 
     private Uri CreateFetchUri(AccountAccessFilter? filter)
     {
+        if (filter is null)
+        {
+            return ResourceUri;
+        }
+
         var uri = ResourceUri;
 
-        // TODO: Ensure serialization is correct
-        if (filter?.ProjectIds is not null)
+        if (filter.ProjectIds.Count > 0)
         {
             var projects = JsonSerializer.Serialize(filter.ProjectIds);
             uri = uri.AppendQueryParameter(ProjectsQueryParameter, projects);
         }
 
-        if (filter?.InboxIds is not null)
+        if (filter.InboxIds.Count > 0)
         {
             var inboxes = JsonSerializer.Serialize(filter.InboxIds);
             uri = uri.AppendQueryParameter(InboxesQueryParameter, inboxes);
         }
 
-        if (filter?.DomainIds is not null)
+        if (filter.DomainIds.Count > 0)
         {
             var domains = JsonSerializer.Serialize(filter.DomainIds);
             uri = uri.AppendQueryParameter(DomainsQueryParameter, domains);

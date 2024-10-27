@@ -23,12 +23,24 @@ internal sealed class PlainTextContentHttpResponseHandler : IHttpResponseHandler
 
     public async Task<string> ProcessResponse(CancellationToken cancellationToken = default)
     {
-        _httpResponseMessage.EnsureSuccessStatusCode();
-
-        var response = await _httpResponseMessage.Content
+        var content = await _httpResponseMessage.Content
             .ReadAsStringAsync()
             .ConfigureAwait(false);
 
-        return response ?? throw new InvalidResponseFormatException(_httpResponseMessage.RequestMessage);
+        if (_httpResponseMessage.IsSuccessStatusCode)
+        {
+            return content ?? throw new EmptyResponseException(
+                _httpResponseMessage.RequestMessage.RequestUri,
+                _httpResponseMessage.RequestMessage.Method);
+        }
+        else
+        {
+            throw new BadRequestException(
+                _httpResponseMessage.RequestMessage.RequestUri,
+                _httpResponseMessage.RequestMessage.Method,
+                _httpResponseMessage.StatusCode,
+                _httpResponseMessage.ReasonPhrase,
+                content);
+        }
     }
 }
