@@ -43,7 +43,6 @@ public sealed record SendEmailResponse
     /// </value>
     [JsonPropertyName("errors")]
     [JsonPropertyOrder(2)]
-    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<string> ErrorData { get; }
 
     /// <summary>
@@ -55,7 +54,6 @@ public sealed record SendEmailResponse
     /// </value>
     [JsonPropertyName("message_ids")]
     [JsonPropertyOrder(3)]
-    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<long> MessageIds { get; }
 
 

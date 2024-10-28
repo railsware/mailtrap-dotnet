@@ -14,7 +14,7 @@ internal sealed class MailtrapJsonSerializerOptionsTests
     [Test]
     public void Default_ShouldContainProperValues()
     {
-        var expected = new JsonSerializerOptions(JsonSerializerOptions.Default)
+        var expected = new JsonSerializerOptions(JsonSerializerDefaults.Web)
         {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             Converters = { new StringEnumJsonConverterFactory() }

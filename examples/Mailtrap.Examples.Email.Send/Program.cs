@@ -151,8 +151,7 @@ internal sealed class Program
             content: fileContent,
             fileName: fileName,
             disposition: DispositionType.Attachment,
-            mimeType: MediaTypeNames.Application.Pdf,
-            contentId: "attachment_1");
+            mimeType: MediaTypeNames.Application.Pdf);
 
         filePath = @"C:\files\logo.png";
         fileName = "logo.png";

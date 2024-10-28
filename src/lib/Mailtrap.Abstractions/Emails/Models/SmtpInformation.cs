@@ -9,7 +9,7 @@ namespace Mailtrap.Emails.Models;
 
 
 /// <summary>
-/// Represents SMTP information of a message.
+/// Represents SMTP information for email message.
 /// </summary>
 public sealed record SmtpInformation
 {

@@ -6,6 +6,7 @@
 
 
 using System.Diagnostics.CodeAnalysis;
+using System.Net.Mime;
 using Mailtrap;
 using Mailtrap.AccountAccesses;
 using Mailtrap.AccountAccesses.Models;
@@ -14,6 +15,9 @@ using Mailtrap.Accounts.Models;
 using Mailtrap.Attachments;
 using Mailtrap.Attachments.Models;
 using Mailtrap.Billing.Models;
+using Mailtrap.Email;
+using Mailtrap.Email.Requests;
+using Mailtrap.Email.Responses;
 using Mailtrap.Emails;
 using Mailtrap.Emails.Models;
 using Mailtrap.Emails.Requests;
@@ -41,6 +45,11 @@ using Microsoft.Extensions.Logging;
 [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Example")]
 internal sealed class Program
 {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+    private static IMailtrapClient s_mailtrapClient;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+
+
     private static async Task Main(string[] args)
     {
         HostApplicationBuilder hostBuilder = Host.CreateApplicationBuilder(args);
@@ -55,10 +64,10 @@ internal sealed class Program
 
         try
         {
-            IMailtrapClient mailtrapClient = host.Services.GetRequiredService<IMailtrapClient>();
+            s_mailtrapClient = host.Services.GetRequiredService<IMailtrapClient>();
 
             // Get all accounts available for the token
-            IList<Account> accounts = await mailtrapClient
+            IList<Account> accounts = await s_mailtrapClient
                 .Accounts()
                 .GetAll();
 
@@ -76,7 +85,7 @@ internal sealed class Program
                 logger.LogInformation("Account: {Account}", account);
 
                 // Get resource for specific account
-                IAccountResource accountResource = mailtrapClient.Account(account.Id);
+                IAccountResource accountResource = s_mailtrapClient.Account(account.Id);
 
                 await ProcessAccount(accountResource, logger);
             }
@@ -93,11 +102,11 @@ internal sealed class Program
     {
         // await ProcessAccess(accountResource, logger);
 
-        // await ProcessPermissions(accountResource, logger);
+        await ProcessPermissions(accountResource, logger);
 
-        // await ProcessBilling(accountResource, logger);
+        await ProcessBilling(accountResource, logger);
 
-        // await ProcessDomains(accountResource, logger);
+        await ProcessDomains(accountResource, logger);
 
         await ProcessProjects(accountResource, logger);
     }
@@ -238,22 +247,17 @@ internal sealed class Program
         // Update project details
         var updateProjectRequest = new UpdateProjectRequest("Updated Project Name");
         Project updatedProject = await projectResource.Update(updateProjectRequest);
-
-        // Get project details
-        // Just for demo purposes, response from the update already contains updated info
-        updatedProject = await projectResource
-            .GetDetails();
+        logger.LogInformation("Updated Project: {Project}", updatedProject);
 
         // Delete project
         // Beware that project resource becomes invalid after deletion and should not be used anymore
         DeletedProject deletedProject = await projectResource.Delete();
-
-        logger.LogInformation("Deleted Project: {Deleted Project}", deletedProject);
+        logger.LogInformation("Deleted Project: {Project}", deletedProject);
     }
 
     private static async Task ProcessInboxes(IAccountResource accountResource, ILogger logger, long projectId)
     {
-        var inboxName = "My Sample Inbox";
+        var inboxName = "My Test Inbox";
 
         // Get resource for inbox collection
         IInboxCollectionResource inboxesResource = accountResource.Inboxes();
@@ -285,7 +289,8 @@ internal sealed class Program
         logger.LogInformation("Inbox: {Inbox}", inbox);
 
         // Toggle email for inbox
-        Inbox updatedInbox = await inboxResource.ToggleEmailAddress();
+        // Inbox updatedInbox = await inboxResource.ToggleEmailAddress();
+        Inbox updatedInbox = inbox;
 
         // Process messages
         await ProcessMessages(inboxResource, logger);
@@ -300,23 +305,41 @@ internal sealed class Program
         };
         updatedInbox = await inboxResource.Update(updateInboxRequest);
 
-        // Get inbox details
-        // Just for demo purposes, response from the update already contains updated info
-        updatedInbox = await inboxResource.GetDetails();
-
         // Reset email address for inbox
         updatedInbox = await inboxResource.ResetEmailAddress();
 
         // Reset credentials for inbox
         updatedInbox = await inboxResource.ResetCredentials();
 
+        logger.LogInformation("Updated Inbox: {Inbox}", updatedInbox);
+
         // Delete inbox
         // Beware that resource becomes invalid after deletion and should not be used anymore
-        updatedInbox = await inboxResource.Delete();
+        Inbox deletedInbox = await inboxResource.Delete();
+        logger.LogInformation("Deleted Inbox: {Inbox}", deletedInbox);
     }
 
     private static async Task ProcessMessages(IInboxResource inboxResource, ILogger logger)
     {
+        IEmailResource messageResource;
+        EmailMessage? message;
+
+        SendEmailResponse sendResponse = await Send(inboxResource, logger);
+
+        var messageId = sendResponse.MessageIds.FirstOrDefault();
+        if (messageId != 0)
+        {
+            // Get resource for message
+            messageResource = inboxResource.Message(messageId);
+
+            // Get message details
+            message = await messageResource.GetDetails();
+            logger.LogInformation("Message: {Message}", message);
+
+            // Processing message attachments
+            await ProcessAttachments(messageResource, logger);
+        }
+
         // Get resource for message collection
         IEmailCollectionResource messagesResource = inboxResource.Messages();
 
@@ -325,10 +348,25 @@ internal sealed class Program
         {
             SearchFilter = "Greetings"
         };
-
         IList<EmailMessage> messages = await messagesResource.Fetch(messageFilter);
 
-        EmailMessage? message = messages.FirstOrDefault();
+        if (messages.Count == 0)
+        {
+            logger.LogWarning("No greetings messages found.");
+        }
+        else
+        {
+            logger.LogInformation("Found {Count} greetings messages.", messages.Count);
+        }
+
+        // Another fetch
+        messageFilter = new EmailMessageFilter
+        {
+            SearchFilter = "hero.bill"
+        };
+        messages = await messagesResource.Fetch(messageFilter);
+
+        message = messages.FirstOrDefault();
 
         if (message is null)
         {
@@ -336,10 +374,12 @@ internal sealed class Program
             return;
         }
 
-        logger.LogInformation("Message: {Message}", message);
-
         // Get resource for message
-        IEmailResource messageResource = inboxResource.Message(message.Id);
+        messageResource = inboxResource.Message(message.Id);
+
+        // Get message details
+        message = await messageResource.GetDetails();
+        logger.LogInformation("Message: {Message}", message);
 
         // Get message headers
         EmailMessageHeaders headers = await messageResource.GetHeaders();
@@ -347,52 +387,100 @@ internal sealed class Program
 
         // Get raw message content
         string rawMessageContent = await messageResource.AsRaw();
-        logger.LogInformation("Raw message: {Message}", rawMessageContent);
+        logger.LogInformation("Raw message:\n{Message}", rawMessageContent);
 
         // Get EML message content
         string emlMessageContent = await messageResource.AsEml();
-        logger.LogInformation("EML message: {Message}", emlMessageContent);
+        logger.LogInformation("EML message:\n{Message}", emlMessageContent);
 
-        // Get plain text message body
-        string textMessageBody = await messageResource.GetTextBody();
-        logger.LogInformation("Plain text message body: {Message}", textMessageBody);
+        if (message.TextBodySize > 0)
+        {
+            // Get plain text message body
+            string textMessageBody = await messageResource.GetTextBody();
+            logger.LogInformation("Plain text message body:\n{Message}", textMessageBody);
+        }
 
-        // Get HTML message body
-        string htmlMessageBody = await messageResource.GetHtmlBody();
-        logger.LogInformation("HTML message body: {Message}", htmlMessageBody);
+        if (message.HtmlBodySize > 0)
+        {
+            // Get HTML message body
+            string htmlMessageBody = await messageResource.GetHtmlBody();
+            logger.LogInformation("HTML message body:\n{Message}", htmlMessageBody);
 
-        // Get HTML message source
-        string htmlMessageSource = await messageResource.GetHtmlSource();
-        logger.LogInformation("HTML message source: {Message}", htmlMessageSource);
+            // Get HTML message source
+            string htmlMessageSource = await messageResource.GetHtmlSource();
+            logger.LogInformation("HTML message source:\n{Message}", htmlMessageSource);
 
-        // Get HTML analysis report for message 
-        EmailMessageHtmlReport htmlReport = await messageResource.GetHtmlAnalysisReport();
-        logger.LogInformation("HTML analysis report: {Report}", htmlReport.Report);
+            // Get HTML analysis report for message 
+            EmailMessageHtmlReport htmlReport = await messageResource.GetHtmlAnalysisReport();
+            logger.LogInformation("HTML analysis report: {Report}", htmlReport.Report);
+        }
 
         // Get spam report for message 
         EmailMessageSpamReport spamReport = await messageResource.GetSpamReport();
         logger.LogInformation("Spam report: {Report}", spamReport.Report);
-
-        // Processing message attachments
-        await ProcessAttachments(messageResource, logger);
 
         // Update message details
         var updateMessageRequest = new UpdateEmailMessageRequest(true);
         EmailMessage updatedMessage = await messageResource.Update(updateMessageRequest);
         logger.LogInformation("Updated Message: {Message}", updatedMessage);
 
-        // Forward message
-        var forwardMessageRequest = new ForwardEmailMessageRequest("forward@domain.com");
-        ForwardedEmailMessage forwardedMessage = await messageResource.Forward(forwardMessageRequest);
-        logger.LogInformation("Message forwarded: {Forward}", forwardedMessage.Message);
-
-        // Get message details
-        updatedMessage = await messageResource.GetDetails();
-        logger.LogInformation("Message after forward: {Message}", updatedMessage);
+        // // Forward message - available for paid accounts only
+        // var forwardMessageRequest = new ForwardEmailMessageRequest("forward@domain.com");
+        // ForwardedEmailMessage forwardedMessage = await messageResource.Forward(forwardMessageRequest);
+        // logger.LogInformation("Message forwarded: {Forward}", forwardedMessage.Message);
 
         // Delete message
         // Beware that resource becomes invalid after deletion and should not be used anymore
-        _ = await messageResource.Delete();
+        EmailMessage deletedMessage = await messageResource.Delete();
+        logger.LogInformation("Deleted Message: {Message}", deletedMessage);
+    }
+
+    private static async Task<SendEmailResponse> Send(IInboxResource inboxResource, ILogger _)
+    {
+        Inbox inbox = await inboxResource.GetDetails();
+
+        IEmailClient emailClient = s_mailtrapClient.Test(inbox.Id);
+
+        SendEmailRequest sendEmailRequest = SendEmailRequest
+            .Create()
+            .From("john.doe@demomailtrap.com", "John Doe")
+            .To("hero.bill@galaxy.net")
+            .To("star.lord@galaxy.net")
+            .Subject("Greetings")
+            .Text("Hi guys,\n\nWelcome to our Milky Way Galaxy.\n\nBest regards, John.");
+
+        await emailClient.Send(sendEmailRequest);
+
+        sendEmailRequest = SendEmailRequest
+            .Create()
+            .From("john.doe@demomailtrap.com", "John Doe")
+            .To("hero.bill@galaxy.net")
+            .Cc("star.lord@galaxy.net")
+            .Subject("Invitation to Earth")
+            .Html("<h3>Dear Bill</h3>,<p>It will be a great pleasure to see you on our blue planet next weekend.</p><p>Best regards, <b>John.</b></p>");
+
+        await emailClient.Send(sendEmailRequest);
+
+        sendEmailRequest = SendEmailRequest
+            .Create()
+            .From("john.doe@demomailtrap.com", "John Doe")
+            .To("fury.nicolas@avengers.gov")
+            .Subject("Supervision request")
+            .Text("Dear Mr. Fury,\n\nKindly assist with supervision on few new guests that are arriving to Earth next weekend.\n\nBest regards, John.");
+
+        var file = "Attachment.txt";
+        var bytes = await File.ReadAllBytesAsync(file);
+        var fileContent = Convert.ToBase64String(bytes);
+
+        sendEmailRequest.Attach(
+            content: fileContent,
+            fileName: file,
+            disposition: DispositionType.Attachment,
+            mimeType: MediaTypeNames.Text.Plain);
+
+        SendEmailResponse response = await emailClient.Send(sendEmailRequest);
+
+        return response;
     }
 
     private static async Task ProcessAttachments(IEmailResource messageResource, ILogger logger)
@@ -412,18 +500,14 @@ internal sealed class Program
         if (attachment is null)
         {
             logger.LogWarning("No attachments found.");
+            return;
         }
-        else
-        {
-            logger.LogInformation("Attachment: {Attachment}", attachment);
 
-            // Get resource for specific attachment
-            IAttachmentResource attachmentResource = messageResource.Attachment(attachment.Id);
+        // Get resource for specific attachment
+        IAttachmentResource attachmentResource = messageResource.Attachment(attachment.Id);
 
-            // Get attachment details
-            EmailAttachment attachmentDetails = await attachmentResource.GetDetails();
-
-            logger.LogInformation("Attachment: {Attachment}", attachmentDetails);
-        }
+        // Get attachment details
+        attachment = await attachmentResource.GetDetails();
+        logger.LogInformation("Attachment: {Attachment}", attachment);
     }
 }

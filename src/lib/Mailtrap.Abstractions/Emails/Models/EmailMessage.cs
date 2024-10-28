@@ -238,16 +238,16 @@ public sealed record EmailMessage
     public string? HtmlSourcePath { get; set; } // TODO: Should be URI?
 
     /// <summary>
-    /// Gets flag indicating if the message contains blacklist report.
+    /// Gets blacklist report for the message.
     /// </summary>
     ///
     /// <value>
-    /// <see langword="true"/> if the message contains blacklist report.<br />
-    /// <see langword="false"/> otherwise.
+    /// Blacklist report for the message.
     /// </value>
     [JsonPropertyName("blacklists_report_info")]
     [JsonPropertyOrder(21)]
-    public bool? HasBlacklistsReportInfo { get; set; }
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
+    public BlacklistReport BlacklistsReportInfo { get; } = new();
 
     /// <summary>
     /// Gets SMTP information for the message.

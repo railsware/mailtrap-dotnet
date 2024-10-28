@@ -70,7 +70,7 @@ internal sealed class SendEmailRequestTests
                 "\"headers\":{}," +
                 "\"custom_variables\":{}," +
                 "\"template_uuid\":\"ID\"," +
-                "\"template_variables\":{\"Var1\":\"First Name\",\"Var2\":\"Last Name\"}" +
+                "\"template_variables\":{\"var1\":\"First Name\",\"var2\":\"Last Name\"}" +
             "}");
 
 

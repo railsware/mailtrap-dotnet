@@ -5,8 +5,6 @@
 // -----------------------------------------------------------------------
 
 
-using Mailtrap.Rest.Commands;
-
 namespace Mailtrap.Tests.Email;
 
 

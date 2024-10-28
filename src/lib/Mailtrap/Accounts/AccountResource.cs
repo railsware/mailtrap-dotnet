@@ -17,8 +17,6 @@ internal sealed class AccountResource : RestResource, IAccountResource
     private const string PermissionsSegment = "permissions";
     private const string AccessesSegment = "account_accesses";
     private const string SendingDomainsSegment = "sending_domains";
-    private const string ProjectsSegment = "projects";
-    private const string InboxesSegment = "inboxes";
 
 
     public AccountResource(IRestResourceCommandFactory restResourceCommandFactory, Uri resourceUri)
@@ -41,17 +39,17 @@ internal sealed class AccountResource : RestResource, IAccountResource
 
 
     public IProjectCollectionResource Projects()
-        => new ProjectCollectionResource(RestResourceCommandFactory, ResourceUri.Append(ProjectsSegment));
+        => new ProjectCollectionResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.ProjectsSegment));
 
     public IProjectResource Project(long projectId)
-        => new ProjectResource(RestResourceCommandFactory, ResourceUri.Append(ProjectsSegment).Append(projectId));
+        => new ProjectResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.ProjectsSegment).Append(projectId));
 
 
     public IInboxCollectionResource Inboxes()
-        => new InboxCollectionResource(RestResourceCommandFactory, ResourceUri.Append(InboxesSegment));
+        => new InboxCollectionResource(RestResourceCommandFactory, ResourceUri);
 
     public IInboxResource Inbox(long inboxId)
-        => new InboxResource(RestResourceCommandFactory, ResourceUri.Append(InboxesSegment).Append(inboxId));
+        => new InboxResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.InboxesSegment).Append(inboxId));
 
 
     public ISendingDomainCollectionResource SendingDomains()
