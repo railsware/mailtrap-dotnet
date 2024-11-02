@@ -1,9 +1,7 @@
 ﻿<Project>
 
   <PropertyGroup Label="Path Shortcuts">
-    <BaseSourceDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'src'))</BaseSourceDirectory>
-    <LibSourceDirectory>$([MSBuild]::NormalizeDirectory('$(BaseSourceDirectory)', 'lib'))</LibSourceDirectory>
-    <SamplesSourceDirectory>$([MSBuild]::NormalizeDirectory('$(BaseSourceDirectory)', 'samples'))</SamplesSourceDirectory>          
+    <LibSourceDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'src'))</LibSourceDirectory>
   </PropertyGroup>
 
   <PropertyGroup Label="Artifacts Output Configuration">
