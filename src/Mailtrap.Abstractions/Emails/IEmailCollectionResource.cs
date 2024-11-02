@@ -11,7 +11,7 @@ namespace Mailtrap.Emails;
 /// <summary>
 /// Represents message collection resource.
 /// </summary>
-public interface IEmailCollectionResource
+public interface IEmailCollectionResource : IRestResource
 {
     /// <summary>
     /// Fetches a collection of messages using provided filtering parameters.

@@ -11,7 +11,7 @@ namespace Mailtrap.Accounts;
 /// <summary>
 /// Represents account resource.
 /// </summary>
-public interface IAccountResource
+public interface IAccountResource : IRestResource
 {
     /// <summary>
     /// Gets account access collection resource for the account, represented by this resource instance.

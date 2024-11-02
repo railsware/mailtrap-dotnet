@@ -11,7 +11,7 @@ namespace Mailtrap.SendingDomains;
 /// <summary>
 /// Represents sending domain resource.
 /// </summary>
-public interface ISendingDomainResource
+public interface ISendingDomainResource : IRestResource
 {
     /// <summary>
     /// Gets domain data and status of sending domain, represented by this resource instance.

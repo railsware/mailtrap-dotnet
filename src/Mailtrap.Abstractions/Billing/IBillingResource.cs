@@ -11,7 +11,7 @@ namespace Mailtrap.Billing;
 /// <summary>
 /// Represents account billing resource.
 /// </summary>
-public interface IBillingResource
+public interface IBillingResource : IRestResource
 {
     /// <summary>
     /// Gets current billing cycle usage for Email Testing and Email Sending.

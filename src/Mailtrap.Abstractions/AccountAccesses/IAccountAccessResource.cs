@@ -11,7 +11,7 @@ namespace Mailtrap.AccountAccesses;
 /// <summary>
 /// Represents account access resource.
 /// </summary>
-public interface IAccountAccessResource
+public interface IAccountAccessResource : IRestResource
 {
     /// <summary>
     /// Manages user or token permissions for the account access, represented by the current resource instance.

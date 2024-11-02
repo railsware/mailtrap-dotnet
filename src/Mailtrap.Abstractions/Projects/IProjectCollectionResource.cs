@@ -11,7 +11,7 @@ namespace Mailtrap.Projects;
 /// <summary>
 /// Represents project collection resource.
 /// </summary>
-public interface IProjectCollectionResource
+public interface IProjectCollectionResource : IRestResource
 {
     /// <summary>
     /// Gets projects and their inboxes.

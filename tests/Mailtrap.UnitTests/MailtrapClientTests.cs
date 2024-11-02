@@ -11,15 +11,7 @@ namespace Mailtrap.UnitTests;
 [TestFixture]
 internal sealed class MailtrapClientTests
 {
-    private IEmailClient _emailClient;
     private readonly IRestResourceCommandFactory _commandFactoryMock = Mock.Of<IRestResourceCommandFactory>();
-
-
-    [SetUp]
-    public void Setup()
-    {
-        _emailClient = Mock.Of<IEmailClient>();
-    }
 
 
     [Test]
@@ -42,22 +34,33 @@ internal sealed class MailtrapClientTests
         act.Should().Throw<ArgumentNullException>();
     }
 
+    [Test]
+    public void ResourceUri_ShouldBeInitializedProperly()
+    {
+        // Arrange
+        var client = new MailtrapClient(Mock.Of<IEmailClientFactory>(), _commandFactoryMock);
+
+        // Assert
+        client.ResourceUri.Should().Be(new Uri("https://mailtrap.io").Append("api"));
+    }
+
 
     [Test]
     public void Email_ShouldReturnDefaultEmailClient()
     {
         // Arrange
         var emailClientFactoryMock = new Mock<IEmailClientFactory>();
+        var emailClient = Mock.Of<IEmailClient>();
         emailClientFactoryMock
             .Setup(f => f.CreateDefault())
-            .Returns(_emailClient);
+            .Returns(emailClient);
         var client = new MailtrapClient(emailClientFactoryMock.Object, _commandFactoryMock);
 
         // Act
         var result = client.Email();
 
         // Assert
-        result.Should().BeSameAs(_emailClient);
+        result.Should().BeSameAs(emailClient);
     }
 
     [Test]
@@ -65,16 +68,17 @@ internal sealed class MailtrapClientTests
     {
         // Arrange
         var emailClientFactoryMock = new Mock<IEmailClientFactory>();
+        var emailClient = Mock.Of<IEmailClient>();
         emailClientFactoryMock
             .Setup(f => f.CreateTransactional())
-            .Returns(_emailClient);
+            .Returns(emailClient);
         var client = new MailtrapClient(emailClientFactoryMock.Object, _commandFactoryMock);
 
         // Act
         var result = client.Transactional();
 
         // Assert
-        result.Should().BeSameAs(_emailClient);
+        result.Should().BeSameAs(emailClient);
     }
 
     [Test]
@@ -82,33 +86,72 @@ internal sealed class MailtrapClientTests
     {
         // Arrange
         var emailClientFactoryMock = new Mock<IEmailClientFactory>();
+        var emailClient = Mock.Of<IEmailClient>();
         emailClientFactoryMock
             .Setup(f => f.CreateBulk())
-            .Returns(_emailClient);
+            .Returns(emailClient);
         var client = new MailtrapClient(emailClientFactoryMock.Object, _commandFactoryMock);
 
         // Act
         var result = client.Bulk();
 
         // Assert
-        result.Should().BeSameAs(_emailClient);
+        result.Should().BeSameAs(emailClient);
     }
 
     [Test]
     public void Test_ShouldReturnNewEmailClientWithInboxId()
     {
         // Arrange
-        var inboxId = 123;
         var emailClientFactoryMock = new Mock<IEmailClientFactory>();
+        var inboxId = 123;
+        var emailClient = Mock.Of<IEmailClient>();
         emailClientFactoryMock
             .Setup(f => f.CreateTest(inboxId))
-            .Returns(_emailClient);
+            .Returns(emailClient);
         var client = new MailtrapClient(emailClientFactoryMock.Object, _commandFactoryMock);
 
         // Act
         var result = client.Test(inboxId);
 
         // Assert
-        result.Should().BeSameAs(_emailClient);
+        result.Should().BeSameAs(emailClient);
+    }
+
+    [Test]
+    public void Accounts_ShouldReturnAccountCollectionResource()
+    {
+        // Arrange
+        var client = new MailtrapClient(Mock.Of<IEmailClientFactory>(), _commandFactoryMock);
+
+        // Act
+        var result = client.Accounts();
+
+        // Assert
+        result.Should()
+            .NotBeNull().And
+            .BeOfType<AccountCollectionResource>();
+
+        result.ResourceUri.Should()
+            .Be(client.ResourceUri.Append("accounts"));
+    }
+
+    [Test]
+    public void Account_ShouldReturnAccountResource()
+    {
+        // Arrange
+        var client = new MailtrapClient(Mock.Of<IEmailClientFactory>(), _commandFactoryMock);
+        var accountId = TestContext.CurrentContext.Random.NextInt64();
+
+        // Act
+        var result = client.Account(accountId);
+
+        // Assert
+        result.Should()
+            .NotBeNull().And
+            .BeOfType<AccountResource>();
+
+        result.ResourceUri.Should()
+            .Be(client.ResourceUri.Append("accounts").Append(accountId));
     }
 }

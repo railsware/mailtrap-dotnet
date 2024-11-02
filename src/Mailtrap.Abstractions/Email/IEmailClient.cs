@@ -11,17 +11,8 @@ namespace Mailtrap.Email;
 /// <summary>
 /// Mailtrap API client for sending emails.
 /// </summary>
-public interface IEmailClient
+public interface IEmailClient : IRestResource
 {
-    /// <summary>
-    /// Gets <see cref="Uri"/> representing endpoint URL which is used to send emails for the current instance.
-    /// </summary>
-    ///
-    /// <value>
-    /// <see cref="Uri"/> representing endpoint URL to send emails.
-    /// </value>
-    public Uri ResourceUri { get; }
-
     /// <summary>
     /// Sends email, represented by the <paramref name="request"/>, and returns send operation result.
     /// </summary>

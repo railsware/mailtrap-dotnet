@@ -11,7 +11,7 @@ namespace Mailtrap.Attachments;
 /// <summary>
 /// Represents message attachment collection resource.
 /// </summary>
-public interface IAttachmentCollectionResource
+public interface IAttachmentCollectionResource : IRestResource
 {
     /// <summary>
     /// Fetches a collection of message attachments considering provided filtering parameters.

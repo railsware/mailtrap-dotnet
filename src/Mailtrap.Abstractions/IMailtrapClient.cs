@@ -11,7 +11,7 @@ namespace Mailtrap;
 /// <summary>
 /// Mailtrap API client.
 /// </summary>
-public interface IMailtrapClient
+public interface IMailtrapClient : IRestResource
 {
     /// <summary>
     /// Gets account collection resource.

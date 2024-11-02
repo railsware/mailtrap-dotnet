@@ -11,7 +11,7 @@ namespace Mailtrap.SendingDomains;
 /// <summary>
 /// Represents sending domain collection resource.
 /// </summary>
-public interface ISendingDomainCollectionResource
+public interface ISendingDomainCollectionResource : IRestResource
 {
     /// <summary>
     /// Gets sending domains and their statuses.

@@ -11,7 +11,7 @@ namespace Mailtrap.AccountAccesses;
 /// <summary>
 /// Represents account access collection resource.
 /// </summary>
-public interface IAccountAccessCollectionResource
+public interface IAccountAccessCollectionResource : IRestResource
 {
     /// <summary>
     /// Gets a collection of account accesses for which specifier_type is User or Invite.    

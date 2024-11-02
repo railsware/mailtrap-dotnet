@@ -11,7 +11,7 @@ namespace Mailtrap.Emails;
 /// <summary>
 /// Represents message resource.
 /// </summary>
-public interface IEmailResource
+public interface IEmailResource : IRestResource
 {
     /// <summary>
     /// Gets attachment collection resource for the message, represented by this resource instance.

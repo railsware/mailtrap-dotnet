@@ -11,7 +11,7 @@ namespace Mailtrap.Attachments;
 /// <summary>
 /// Represents message attachment resource.
 /// </summary>
-public interface IAttachmentResource
+public interface IAttachmentResource : IRestResource
 {
     /// <summary>
     /// Gets details of the message attachment, represented by the current resource instance.

@@ -10,7 +10,7 @@ namespace Mailtrap.Inboxes;
 /// <summary>
 /// Represents inbox resource.
 /// </summary>
-public interface IInboxResource
+public interface IInboxResource : IRestResource
 {
     /// <summary>
     /// Gets message collection resource for the inbox, represented by this resource instance.

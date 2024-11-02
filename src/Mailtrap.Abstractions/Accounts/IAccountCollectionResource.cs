@@ -11,7 +11,7 @@ namespace Mailtrap.Accounts;
 /// <summary>
 /// Represents account collection resource.
 /// </summary>
-public interface IAccountCollectionResource
+public interface IAccountCollectionResource : IRestResource
 {
     /// <summary>
     /// Gets details of all accounts to which the API token has access.

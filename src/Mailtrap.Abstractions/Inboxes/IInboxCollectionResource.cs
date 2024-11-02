@@ -11,7 +11,7 @@ namespace Mailtrap.Inboxes;
 /// <summary>
 /// Represents inbox collection resource.
 /// </summary>
-public interface IInboxCollectionResource
+public interface IInboxCollectionResource : IRestResource
 {
     /// <summary>
     /// Gets inbox details collection.

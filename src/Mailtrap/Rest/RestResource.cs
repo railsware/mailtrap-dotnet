@@ -11,7 +11,7 @@ namespace Mailtrap.Rest;
 /// <summary>
 /// Abstract REST resource implementation
 /// </summary>
-internal abstract class RestResource
+internal abstract class RestResource : IRestResource
 {
     private volatile bool _deleted;
 
