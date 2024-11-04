@@ -9,6 +9,7 @@ global using System.Net;
 global using System.Net.Http.Json;
 global using System.Text;
 global using Mailtrap.Accounts.Models;
+global using Mailtrap.Billing.Models;
 global using Mailtrap.Configuration;
 global using Mailtrap.Constants;
 global using Mailtrap.Email;

@@ -15,9 +15,11 @@ namespace Mailtrap.UnitTests.Accounts;
 internal sealed class AccountResourceTests
 {
     private readonly IRestResourceCommandFactory _commandFactoryMock = Mock.Of<IRestResourceCommandFactory>();
-    private readonly Uri _resourceUri = EndpointsTestConstants.ApiDefaultUrl.Append(
-        UrlSegmentsTestConstants.ApiRootSegment,
-        UrlSegmentsTestConstants.AccountsSegment);
+    private readonly Uri _resourceUri = EndpointsTestConstants.ApiDefaultUrl
+        .Append(
+            UrlSegmentsTestConstants.ApiRootSegment,
+            UrlSegmentsTestConstants.AccountsSegment)
+        .Append(TestContext.CurrentContext.Random.NextLong());
 
 
     #region Constructor
