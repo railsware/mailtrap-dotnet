@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+
 namespace Mailtrap.UnitTests.Models;
 
 
@@ -13,52 +14,52 @@ internal sealed class StringEnumTests
     [Test]
     public void Find_ShouldReturnNull_WhenInputIsNull()
     {
-        SpecifierType.Find(null).Should().BeNull();
+        DispositionType.Find(null).Should().BeNull();
     }
 
     [Test]
     public void Find_ShouldReturnNull_WhenThereIsNoSuchEnumValue()
     {
-        SpecifierType.Find("123").Should().BeNull();
+        DispositionType.Find("123").Should().BeNull();
     }
 
     [Test]
     public void Find_ShouldReturnEnumValue_WhenThereIsCorrespondingEnumValue()
     {
-        SpecifierType.Find(SpecifierType.ApiToken.ToString()).Should()
-            .Be(SpecifierType.ApiToken);
+        DispositionType.Find(DispositionType.Attachment.ToString()).Should()
+            .Be(DispositionType.Attachment);
     }
 
     [Test]
     public void GetHashCode_ShouldReturnHashCodeForInternalValue()
     {
-        var expected = SpecifierType.ApiToken.ToString().GetHashCode(StringComparison.Ordinal);
+        var expected = DispositionType.Attachment.ToString().GetHashCode(StringComparison.Ordinal);
 
-        SpecifierType.ApiToken.GetHashCode().Should().Be(expected);
+        DispositionType.Attachment.GetHashCode().Should().Be(expected);
     }
 
     [Test]
     public void Equals_ShouldReturnTrue_WhenEnumValuesAreTheSame()
     {
-        SpecifierType.ApiToken.Equals(SpecifierType.ApiToken).Should().BeTrue();
+        DispositionType.Attachment.Equals(DispositionType.Attachment).Should().BeTrue();
     }
 
     [Test]
     public void Equals_ShouldReturnFalse_WhenEnumValuesAreDifferent()
     {
-        SpecifierType.ApiToken.Equals(SpecifierType.User).Should().BeFalse();
+        DispositionType.Attachment.Equals(DispositionType.Inline).Should().BeFalse();
     }
 
     [Test]
     public void Equals_ShouldReturnFalse_WhenEnumValuesAreDifferent_2()
     {
-        SpecifierType.ApiToken.Equals(new SpecifierType()).Should().BeFalse();
+        DispositionType.Attachment.Equals(new DispositionType()).Should().BeFalse();
     }
 
     [Test]
     public void Equals_ShouldReturnFalse_WhenOtherIsNull()
     {
-        SpecifierType.ApiToken.Equals(null).Should().BeFalse();
+        DispositionType.Attachment.Equals(null).Should().BeFalse();
     }
 
 

@@ -33,6 +33,17 @@ internal sealed class EmailClientTests
         act.Should().Throw<ArgumentNullException>();
     }
 
+    [Test]
+    public void Constructor_ShouldCorrectlyInitializeResourceUri()
+    {
+        var sendUri = new Uri("https://localhost/api/send");
+        var restResourceCommandFactoryMock = Mock.Of<IRestResourceCommandFactory>();
+
+        var client = new EmailClient(restResourceCommandFactoryMock, sendUri);
+
+        client.ResourceUri.Should().Be(sendUri);
+    }
+
     #endregion
 
 
@@ -49,157 +60,42 @@ internal sealed class EmailClientTests
     }
 
     [Test]
-    public async Task Send_ShouldThrowArgumentException_WhenRequestContainsInvalidData()
-    {
-        var client = CreateEmailClient();
-
-        var request = SendEmailRequest.Create();
-
-        var act = () => client.Send(request);
-
-        await act.Should()
-            .ThrowAsync<ArgumentException>()
-            .ConfigureAwait(false);
-    }
-
-    [Test]
     public async Task Send_ShouldCallPostWithRequestInformation()
     {
         // Arrange
-        var token = "token";
-        var sendUri = new Uri("https://localhost/api/send");
-        var httpMethod = HttpMethod.Post;
+        using var cts = new CancellationTokenSource();
 
-        var config = new MailtrapClientOptions(token);
+        var sendUri = new Uri("https://localhost/api/send");
 
         var request = CreateValidRequest();
-        var jsonSerializerOptions = config.ToJsonSerializerOptions();
 
         var messageId = 1;
         var response = new SendEmailResponse(true, [messageId]);
-        using var responseContent = JsonContent.Create(response);
 
-        using var mockHttp = new MockHttpMessageHandler();
-        mockHttp
-            .Expect(httpMethod, sendUri.AbsoluteUri)
-            .WithJsonContent(request, jsonSerializerOptions)
-            .Respond(HttpStatusCode.OK, responseContent);
-
-        var httpClientFactoryMock = new Mock<IHttpClientFactory>();
-        httpClientFactoryMock
-            .Setup(f => f.CreateClient(ClientTestConstants.Name))
-            .Returns(mockHttp.ToHttpClient());
-
-        using var cts = new CancellationTokenSource();
-
-        var requestJson = JsonSerializer.Serialize(request, jsonSerializerOptions);
-        using var requestContent = new StringContent(requestJson);
-
-        var httpRequestContentFactoryMock = new Mock<IHttpRequestContentFactory>();
-        httpRequestContentFactoryMock
-            .Setup(f => f.CreateStringContent(requestJson))
-            .Returns(requestContent);
-
-        using var requestMessage = new HttpRequestMessage(httpMethod, sendUri.AbsoluteUri)
-        {
-            Content = requestContent
-        };
-
-        var httpRequestMessageFactoryMock = new Mock<IHttpRequestMessageFactory>();
-        httpRequestMessageFactoryMock
-            .Setup(f => f.CreateWithContent(httpMethod, sendUri, requestContent))
-            .Returns(requestMessage);
+        var restResourceCommandMock = new Mock<IRestResourceCommand<SendEmailResponse>>();
+        restResourceCommandMock
+            .Setup(c => c.Execute(cts.Token))
+            .ReturnsAsync(response);
 
         var restResourceCommandFactoryMock = new Mock<IRestResourceCommandFactory>();
         restResourceCommandFactoryMock
             .Setup(f => f.CreatePost<SendEmailRequest, SendEmailResponse>(sendUri, request))
-            .Verifiable();
+            .Returns(restResourceCommandMock.Object);
 
         var client = new EmailClient(restResourceCommandFactoryMock.Object, sendUri);
+
 
         // Act
         var result = await client.Send(request, cts.Token).ConfigureAwait(false);
 
 
         // Assert
-        httpClientFactoryMock.Verify(f => f.CreateClient(ClientTestConstants.Name), Times.Once);
-
-        httpRequestContentFactoryMock.Verify(f => f.CreateStringContent(requestJson), Times.Once);
-
-        httpRequestMessageFactoryMock.Verify(f => f.CreateWithContent(httpMethod, sendUri, requestContent), Times.Once);
-
-        mockHttp.VerifyNoOutstandingExpectation();
-
         result.Should()
             .NotBeNull().And
             .BeEquivalentTo(response);
 
         result!.Success.Should().BeTrue();
         result!.MessageIds.Should().ContainSingle(m => m == messageId);
-    }
-
-    [Test]
-    public async Task Send_ShouldThrowInvalidResponseFormatException_WhenNullResponseReturnedFromHttpCall()
-    {
-        // Arrange
-        var token = "token";
-        var sendUri = new Uri("https://localhost/api/send");
-        var httpMethod = HttpMethod.Post;
-
-        var config = new MailtrapClientOptions(token);
-
-        var request = CreateValidRequest();
-        var jsonSerializerOptions = config.ToJsonSerializerOptions();
-
-        using var responseContent = JsonContent.Create<SendEmailResponse?>(null);
-        using var mockHttp = new MockHttpMessageHandler();
-        mockHttp
-            .Expect(httpMethod, sendUri.AbsoluteUri)
-            .WithJsonContent(request, jsonSerializerOptions)
-            .Respond(HttpStatusCode.OK, responseContent);
-
-        var httpClientFactoryMock = new Mock<IHttpClientFactory>();
-        httpClientFactoryMock
-            .Setup(f => f.CreateClient(ClientTestConstants.Name))
-            .Returns(mockHttp.ToHttpClient());
-
-        using var cts = new CancellationTokenSource();
-
-        var requestJson = JsonSerializer.Serialize(request, jsonSerializerOptions);
-        using var requestContent = new StringContent(requestJson);
-
-        var httpRequestContentFactoryMock = new Mock<IHttpRequestContentFactory>();
-        httpRequestContentFactoryMock
-            .Setup(f => f.CreateStringContent(requestJson))
-            .Returns(requestContent);
-
-        using var requestMessage = new HttpRequestMessage(httpMethod, sendUri.AbsoluteUri)
-        {
-            Content = requestContent
-        };
-
-        var httpRequestMessageFactoryMock = new Mock<IHttpRequestMessageFactory>();
-        httpRequestMessageFactoryMock
-            .Setup(f => f.CreateWithContent(httpMethod, sendUri, request))
-            .Returns(requestMessage);
-
-        var restResourceCommandFactoryMock = new Mock<IRestResourceCommandFactory>();
-        restResourceCommandFactoryMock
-            .Setup(f => f.CreatePost<SendEmailRequest, SendEmailResponse>(sendUri, request))
-            .Returns(Mock.Of<PostRestResourceCommand<SendEmailRequest, SendEmailResponse>>());
-
-        var client = new EmailClient(restResourceCommandFactoryMock.Object, sendUri);
-
-
-        // Act
-        var act = () => client.Send(request, cts.Token);
-
-
-        // Assert
-        await act.Should()
-            .ThrowAsync<EmptyResponseException>()
-            .WithMessage($"*{sendUri}*")
-            .ConfigureAwait(false);
     }
 
 

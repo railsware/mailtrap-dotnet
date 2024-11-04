@@ -30,66 +30,66 @@ internal sealed class RestResourceCommandFactory : IRestResourceCommandFactory
     }
 
 
-    public GetRestResourceCommand<TResponse> CreateGet<TResponse>(Uri resourceUri, params string[] additionalAcceptContentTypes)
-        => new(
+    public IRestResourceCommand<TResponse> CreateGet<TResponse>(Uri resourceUri, params string[] additionalAcceptContentTypes)
+        => new GetRestResourceCommand<TResponse>(
             _httpClientFactory,
             _httpRequestMessageFactory,
             _httpResponseHandlerFactory,
             resourceUri,
             additionalAcceptContentTypes);
 
-    public GetWithPlainTextResultRestResourceCommand CreatePlainText(Uri resourceUri, params string[] additionalAcceptContentTypes)
-        => new(
+    public IRestResourceCommand<string> CreatePlainText(Uri resourceUri, params string[] additionalAcceptContentTypes)
+        => new GetWithPlainTextResultRestResourceCommand(
             _httpClientFactory,
             _httpRequestMessageFactory,
             _httpResponseHandlerFactory,
             resourceUri,
             additionalAcceptContentTypes);
 
-    public PatchRestResourceCommand<TResponse> CreatePatch<TResponse>(Uri resourceUri)
-        => new(
+    public IRestResourceCommand<TResponse> CreatePatch<TResponse>(Uri resourceUri)
+        => new PatchRestResourceCommand<TResponse>(
             _httpClientFactory,
             _httpRequestMessageFactory,
             _httpResponseHandlerFactory,
             resourceUri);
 
-    public DeleteRestResourceCommand<TResponse> CreateDelete<TResponse>(Uri resourceUri)
-        => new(
+    public IRestResourceCommand<TResponse> CreateDelete<TResponse>(Uri resourceUri)
+        => new DeleteRestResourceCommand<TResponse>(
             _httpClientFactory,
             _httpRequestMessageFactory,
             _httpResponseHandlerFactory,
             resourceUri);
 
-    public PostWithStatusCodeResultRestResourceCommand<TRequest> CreatePostWithStatusCodeResult<TRequest>(Uri resourceUri, TRequest request)
+    public IRestResourceCommand<HttpStatusCode> CreatePostWithStatusCodeResult<TRequest>(Uri resourceUri, TRequest request)
         where TRequest : class
-        => new(
+        => new PostWithStatusCodeResultRestResourceCommand<TRequest>(
             _httpClientFactory,
             _httpRequestMessageFactory,
             _httpResponseHandlerFactory,
             resourceUri,
             request);
 
-    public PostRestResourceCommand<TRequest, TResponse> CreatePost<TRequest, TResponse>(Uri resourceUri, TRequest request)
+    public IRestResourceCommand<TResponse> CreatePost<TRequest, TResponse>(Uri resourceUri, TRequest request)
         where TRequest : class
-        => new(
+        => new PostRestResourceCommand<TRequest, TResponse>(
             _httpClientFactory,
             _httpRequestMessageFactory,
             _httpResponseHandlerFactory,
             resourceUri,
             request);
 
-    public PutRestResourceCommand<TRequest, TResponse> CreatePut<TRequest, TResponse>(Uri resourceUri, TRequest request)
+    public IRestResourceCommand<TResponse> CreatePut<TRequest, TResponse>(Uri resourceUri, TRequest request)
         where TRequest : class
-        => new(
+        => new PutRestResourceCommand<TRequest, TResponse>(
             _httpClientFactory,
             _httpRequestMessageFactory,
             _httpResponseHandlerFactory,
             resourceUri,
             request);
 
-    public PatchWithContentRestResourceCommand<TRequest, TResponse> CreatePatchWithContent<TRequest, TResponse>(Uri resourceUri, TRequest request)
+    public IRestResourceCommand<TResponse> CreatePatchWithContent<TRequest, TResponse>(Uri resourceUri, TRequest request)
         where TRequest : class
-        => new(
+        => new PatchWithContentRestResourceCommand<TRequest, TResponse>(
             _httpClientFactory,
             _httpRequestMessageFactory,
             _httpResponseHandlerFactory,

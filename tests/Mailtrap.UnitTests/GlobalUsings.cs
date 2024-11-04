@@ -5,9 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-global using System.Net;
 global using System.Net.Http.Headers;
-global using System.Net.Http.Json;
 global using System.Net.Mime;
 global using System.Text;
 global using System.Text.Json;
@@ -43,6 +41,7 @@ global using Mailtrap.Rest.Commands;
 global using Mailtrap.SendingDomains;
 global using Mailtrap.SendingDomains.Requests;
 global using Mailtrap.UnitTests.TestConstants;
+global using Mailtrap.UnitTests.TestExtensions;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Options;

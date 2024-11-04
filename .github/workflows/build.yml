@@ -23,8 +23,8 @@ jobs:
     timeout-minutes: 15
 
     env:
-      SOLUTION_FILE_PATH: './src/Mailtrap.sln'
-      TEST_SETTINGS_FILE_PATH: './src/tests.runsettings'
+      SOLUTION_FILE_PATH: './Mailtrap.sln'
+      TEST_SETTINGS_FILE_PATH: './tests/tests.runsettings'
       TEST_RESULTS_DIR: './artifacts/test-results'
 
     strategy:

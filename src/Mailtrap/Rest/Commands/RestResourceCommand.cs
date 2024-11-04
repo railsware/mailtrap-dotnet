@@ -8,7 +8,7 @@
 namespace Mailtrap.Rest.Commands;
 
 
-internal abstract class RestResourceCommand<TResponse>
+internal abstract class RestResourceCommand<TResponse> : IRestResourceCommand<TResponse>
 {
     private readonly IHttpClientFactory _httpClientFactory;
     protected readonly IHttpResponseHandlerFactory _httpResponseHandlerFactory;

@@ -203,6 +203,7 @@ internal sealed class SendEmailIntegrationTests
     }
 
 
+
     private static IEnumerable<SendEmailTestCase> TestCasesForDefault()
     {
         var random = TestContext.CurrentContext.Random;

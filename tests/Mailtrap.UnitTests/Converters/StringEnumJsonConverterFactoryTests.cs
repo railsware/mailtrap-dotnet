@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Mailtrap.UnitTests.TestExtensions;
 
 namespace Mailtrap.UnitTests.Converters;
 
@@ -19,40 +18,47 @@ internal sealed class StringEnumJsonConverterFactoryTests
     public void Serialize_ShouldUseConverterFactory()
     {
         JsonSerializer
-            .Serialize(SpecifierType.User, _options)
+            .Serialize(DispositionType.Attachment, _options)
             .Should()
-            .Be(SpecifierType.User.ToString().Quoted());
+            .Be(DispositionType.Attachment.ToString().Quoted());
 
         JsonSerializer
-            .Serialize(AccountResourceType.Billing, _options)
+            .Serialize(DispositionType.Inline, _options)
             .Should()
-            .Be(AccountResourceType.Billing.ToString().Quoted());
+            .Be(DispositionType.Inline.ToString().Quoted());
     }
 
     [Test]
     public void Deserialize_ShouldUseConverterFactory()
     {
         JsonSerializer
-            .Deserialize<SpecifierType>(SpecifierType.Invite.ToString().Quoted(), _options)
+            .Deserialize<DispositionType>(DispositionType.Inline.ToString().Quoted(), _options)
             .Should()
-            .Be(SpecifierType.Invite);
+            .Be(DispositionType.Inline);
 
         JsonSerializer
-            .Deserialize<AccountResourceType>(AccountResourceType.Project.ToString().Quoted(), _options)
+            .Deserialize<DispositionType>(DispositionType.Attachment.ToString().Quoted(), _options)
             .Should()
-            .Be(AccountResourceType.Project);
+            .Be(DispositionType.Attachment);
+    }
+
+
+    private sealed record EnumTest : StringEnum<EnumTest>
+    {
+        public static EnumTest Value1 { get; } = Define("Value1");
+        public static EnumTest Value2 { get; } = Define("Value2");
     }
 
     [Test]
     public void Deserialize_ShouldThrow_WhenInvalidTypeSpecified()
     {
         var act1 = () => JsonSerializer
-            .Deserialize<bool>(SpecifierType.Invite.ToString().Quoted(), _options);
+            .Deserialize<bool>(DispositionType.Inline.ToString().Quoted(), _options);
 
         act1.Should().Throw<JsonException>();
 
         var act2 = () => JsonSerializer
-            .Deserialize<SpecifierType>(AccountResourceType.Project.ToString().Quoted(), _options);
+            .Deserialize<EnumTest>(DispositionType.Attachment.ToString().Quoted(), _options);
 
         act2.Should().Throw<JsonException>();
     }

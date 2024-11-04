@@ -5,15 +5,13 @@
 // -----------------------------------------------------------------------
 
 
-using Mailtrap.UnitTests.TestExtensions;
-
 namespace Mailtrap.UnitTests.Converters;
 
 
 [TestFixture]
 internal sealed class StringEnumJsonConverterTests
 {
-    private readonly StringEnumJsonConverter<SpecifierType> _converter = new();
+    private readonly StringEnumJsonConverter<DispositionType> _converter = new();
     private readonly JsonSerializerOptions _options = MailtrapJsonSerializerOptions.Default;
 
 
@@ -21,24 +19,19 @@ internal sealed class StringEnumJsonConverterTests
     public void Read_ShouldReadAndConvert_WhenTokenIsValidString()
     {
         _converter
-            .Read(SpecifierType.None.ToString().Quoted(), _options)
+            .Read(DispositionType.None.ToString().Quoted(), _options)
             .Should()
-            .Be(SpecifierType.None);
+            .Be(DispositionType.None);
 
         _converter
-            .Read(SpecifierType.User.ToString().Quoted(), _options)
+            .Read(DispositionType.Attachment.ToString().Quoted(), _options)
             .Should()
-            .Be(SpecifierType.User);
+            .Be(DispositionType.Attachment);
 
         _converter
-            .Read(SpecifierType.Invite.ToString().Quoted(), _options)
+            .Read(DispositionType.Inline.ToString().Quoted(), _options)
             .Should()
-            .Be(SpecifierType.Invite);
-
-        _converter
-            .Read(SpecifierType.ApiToken.ToString().Quoted(), _options)
-            .Should()
-            .Be(SpecifierType.ApiToken);
+            .Be(DispositionType.Inline);
     }
 
     [Test]
@@ -68,38 +61,23 @@ internal sealed class StringEnumJsonConverterTests
     [Test]
     public void Write_ShouldWrite_WhenValueIsValid()
     {
-        var converter = new StringEnumJsonConverter<AccountResourceType>();
+        var converter = new StringEnumJsonConverter<DispositionType>();
         converter
-            .Write(AccountResourceType.None, _options)
+            .Write(DispositionType.None, _options)
             .Should()
-            .Be(AccountResourceType.None.ToString().Quoted());
+            .Be(DispositionType.None.ToString().Quoted());
 
         converter
-            .Write(AccountResourceType.Account, _options)
+            .Write(DispositionType.Attachment, _options)
             .Should()
-            .Be(AccountResourceType.Account.ToString().Quoted());
+            .Be(DispositionType.Attachment.ToString().Quoted());
 
         converter
-            .Write(AccountResourceType.Billing, _options)
+            .Write(DispositionType.Inline, _options)
             .Should()
-            .Be(AccountResourceType.Billing.ToString().Quoted());
+            .Be(DispositionType.Inline.ToString().Quoted());
 
-        converter
-            .Write(AccountResourceType.Project, _options)
-            .Should()
-            .Be(AccountResourceType.Project.ToString().Quoted());
-
-        converter
-            .Write(AccountResourceType.Inbox, _options)
-            .Should()
-            .Be(AccountResourceType.Inbox.ToString().Quoted());
-
-        converter
-            .Write(AccountResourceType.SendingDomain, _options)
-            .Should()
-            .Be(AccountResourceType.SendingDomain.ToString().Quoted());
-
-        AccountResourceType? resourceType = null;
+        DispositionType? resourceType = null;
         converter
             .Write(resourceType!, _options)
             .Should()

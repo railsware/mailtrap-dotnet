@@ -5,8 +5,6 @@
 // -----------------------------------------------------------------------
 
 
-using Mailtrap.UnitTests.TestExtensions;
-
 namespace Mailtrap.UnitTests.Http;
 
 
