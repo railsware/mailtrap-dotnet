@@ -12,7 +12,7 @@ namespace Mailtrap.IntegrationTests.Accounts;
 internal sealed class AccountsIntegrationTests
 {
     [Test]
-    public async Task GetAll()
+    public async Task GetAll_Success()
     {
         // Arrange
         using var mockHttp = new MockHttpMessageHandler();

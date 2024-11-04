@@ -1,18 +1,18 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BillingIntegrationTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="PermissionsIntegrationTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.IntegrationTests.Billing;
+namespace Mailtrap.IntegrationTests.Permissions;
 
 
 [TestFixture]
-internal sealed class BillingIntegrationTests
+internal sealed class PermissionsIntegrationTests
 {
     [Test]
-    public async Task GetUsage_Success()
+    public async Task GetForResources_Success()
     {
         // Arrange
         using var mockHttp = new MockHttpMessageHandler();
@@ -24,13 +24,13 @@ internal sealed class BillingIntegrationTests
                 UrlSegmentsTestConstants.AccountsSegment)
             .Append(accountId)
             .Append(
-                UrlSegmentsTestConstants.BillingSegment,
-                UrlSegmentsTestConstants.BillingUsageSegment)
+                UrlSegmentsTestConstants.PermissionsSegment,
+                UrlSegmentsTestConstants.PermissionsForResourcesSegment)
             .AbsoluteUri;
         var token = TestContext.CurrentContext.Random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        var response = new BillingUsage();
+        var response = new List<ResourcePermissions>();
         using var responseContent = JsonContent.Create(response);
 
         mockHttp
@@ -54,8 +54,8 @@ internal sealed class BillingIntegrationTests
         // Act
         var result = await client
             .Account(accountId)
-            .Billing()
-            .GetUsage()
+            .Permissions()
+            .GetForResources()
             .ConfigureAwait(false);
 
 

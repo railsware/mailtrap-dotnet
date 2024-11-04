@@ -19,3 +19,4 @@ global using Mailtrap.Extensions;
 global using Mailtrap.Extensions.DependencyInjection;
 global using Mailtrap.IntegrationTests.TestConstants;
 global using Microsoft.Extensions.DependencyInjection;
+global using Mailtrap.Permissions.Models;

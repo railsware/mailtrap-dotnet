@@ -15,6 +15,7 @@ internal static class UrlSegmentsTestConstants
     internal static string BillingSegment { get; } = "billing";
     internal static string BillingUsageSegment { get; } = "usage";
     internal static string PermissionsSegment { get; } = "permissions";
+    internal static string PermissionsForResourcesSegment { get; } = "resources";
     internal static string AccountAccessesSegment { get; } = "account_accesses";
     internal static string ProjectsSegment { get; } = "projects";
     internal static string InboxesSegment { get; } = "inboxes";
