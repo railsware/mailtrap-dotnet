@@ -11,7 +11,7 @@ namespace Mailtrap.Permissions;
 /// <summary>
 /// Represents account permissions resource.
 /// </summary>
-public interface IPermissionsResource
+public interface IPermissionsResource : IRestResource
 {
     /// <summary>
     /// Get all resources in your account (Inboxes, Projects, Domains, Billing and Account itself)

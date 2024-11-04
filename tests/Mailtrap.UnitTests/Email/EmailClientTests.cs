@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+
 namespace Mailtrap.UnitTests.Email;
 
 
@@ -86,7 +87,7 @@ internal sealed class EmailClientTests
 
         var httpClientFactoryMock = new Mock<IHttpClientFactory>();
         httpClientFactoryMock
-            .Setup(f => f.CreateClient(Client.Name))
+            .Setup(f => f.CreateClient(ClientTestConstants.Name))
             .Returns(mockHttp.ToHttpClient());
 
         using var cts = new CancellationTokenSource();
@@ -121,7 +122,7 @@ internal sealed class EmailClientTests
 
 
         // Assert
-        httpClientFactoryMock.Verify(f => f.CreateClient(Client.Name), Times.Once);
+        httpClientFactoryMock.Verify(f => f.CreateClient(ClientTestConstants.Name), Times.Once);
 
         httpRequestContentFactoryMock.Verify(f => f.CreateStringContent(requestJson), Times.Once);
 
@@ -159,7 +160,7 @@ internal sealed class EmailClientTests
 
         var httpClientFactoryMock = new Mock<IHttpClientFactory>();
         httpClientFactoryMock
-            .Setup(f => f.CreateClient(Client.Name))
+            .Setup(f => f.CreateClient(ClientTestConstants.Name))
             .Returns(mockHttp.ToHttpClient());
 
         using var cts = new CancellationTokenSource();

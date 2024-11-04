@@ -108,7 +108,7 @@ internal sealed class HttpRequestMessageFactoryTests
         message.Headers.UserAgent.Should()
             .NotBeNull().And
             .ContainSingle(h =>
-                h.Product!.Name == HeaderValues.UserAgentName &&
+                h.Product!.Name == HeaderValuesTestConstants.UserAgentName &&
                 h.Product!.Version == HeaderValues.UserAgentVersion);
 
         message.Headers.Should().ContainKey("Authorization");

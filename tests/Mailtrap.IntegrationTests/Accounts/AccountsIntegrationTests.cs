@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="AccountCollectionIntegrationTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="AccountsIntegrationTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,16 +9,19 @@ namespace Mailtrap.IntegrationTests.Accounts;
 
 
 [TestFixture]
-internal sealed class AccountCollectionIntegrationTests
+internal sealed class AccountsIntegrationTests
 {
     [Test]
-    public async Task GetAll_ShouldRouteToProperUrl()
+    public async Task GetAll()
     {
         // Arrange
         using var mockHttp = new MockHttpMessageHandler();
         var httpMethod = HttpMethod.Get;
-        var resourceUri = new Uri("https://localhost/api/accounts");
-        var requestUri = resourceUri.AbsoluteUri;
+        var requestUri = EndpointsTestConstants.ApiDefaultUrl
+            .Append(
+                UrlSegmentsTestConstants.ApiRootSegment,
+                UrlSegmentsTestConstants.AccountsSegment)
+            .AbsoluteUri;
         var token = TestContext.CurrentContext.Random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
@@ -54,13 +57,12 @@ internal sealed class AccountCollectionIntegrationTests
 
         using var services = serviceCollection.BuildServiceProvider();
 
-        var commandFactory = services.GetRequiredService<IRestResourceCommandFactory>();
-
-        var resource = new AccountCollectionResource(commandFactory, resourceUri);
+        var client = services.GetRequiredService<IMailtrapClient>();
 
 
         // Act
-        var result = await resource
+        var result = await client
+            .Accounts()
             .GetAll()
             .ConfigureAwait(false);
 
