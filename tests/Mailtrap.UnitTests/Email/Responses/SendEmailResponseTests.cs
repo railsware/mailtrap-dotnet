@@ -23,7 +23,11 @@ internal sealed class SendEmailResponseTests
     [Test]
     public void Constructor_ShouldAssignFieldsCorrectly()
     {
-        var messageIds = new List<long> { 1, 2 };
+        var messageIds = new List<string>
+        {
+            TestContext.CurrentContext.Random.NextGuid().ToString(),
+            TestContext.CurrentContext.Random.NextGuid().ToString()
+        };
         var errorData = new List<string> { "Error 1", "Error 2" };
         var response = new SendEmailResponse(true, messageIds, errorData);
 
@@ -64,11 +68,12 @@ internal sealed class SendEmailResponseTests
     [Test]
     public void ShouldDeserializeResponse_WhenSuccess()
     {
+        var messageId = TestContext.CurrentContext.Random.NextGuid().ToString();
         var responseText =
             "{" +
                 "\"success\":true," +
                 "\"message_ids\":[" +
-                    "42" +
+                    messageId.Quoted() +
                 "]" +
             "}";
 
@@ -80,7 +85,7 @@ internal sealed class SendEmailResponseTests
         response!.MessageIds.Should()
             .NotBeNull().And
             .HaveCount(1);
-        response!.MessageIds!.Single().Should().Be(42);
+        response!.MessageIds!.Single().Should().Be(messageId);
     }
 
     [Test]

@@ -50,7 +50,7 @@ internal sealed class JsonContentHttpResponseHandler<T> : IHttpResponseHandler<T
 
             var problem = JsonSerializer.Deserialize<Problem>(content, _jsonSerializerOptions);
 
-            throw new BadRequestException(
+            throw new HttpRequestFailedException(
                 _httpResponseMessage.RequestMessage.RequestUri,
                 _httpResponseMessage.RequestMessage.Method,
                 _httpResponseMessage.StatusCode,

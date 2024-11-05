@@ -23,12 +23,20 @@ public abstract record StringEnum<T> where T : StringEnum<T>, new()
     /// </summary>
     public static T None { get; } = Define(string.Empty);
 
+    /// <summary>
+    /// Represents unknown enum value.
+    /// </summary>
+    public static T Unknown { get; } = Define(nameof(Unknown));
+
 
     static StringEnum()
     {
         // Explicitly initialize static fields in derived enum type upon type initialization.
         // This will ensure that s_values dictionary is populated with all valid enum entries.
         RuntimeHelpers.RunClassConstructor(typeof(T).TypeHandle);
+
+        s_values.TryAdd(None._value, None);
+        s_values.TryAdd(Unknown._value, Unknown);
     }
 
     /// <summary>
@@ -46,12 +54,12 @@ public abstract record StringEnum<T> where T : StringEnum<T>, new()
     /// <remarks>
     /// Search is case-sensitive.
     /// </remarks>    
-    public static T? Find(string? value)
+    public static T Find(string? value)
     {
         return
-            value is null ? null
-            : s_values.TryGetValue(value, out var result) ? result
-            : null;
+            string.IsNullOrEmpty(value) ? None :
+            s_values.TryGetValue(value!, out var result) ? result :
+            Unknown;
     }
 
 

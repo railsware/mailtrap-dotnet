@@ -35,7 +35,7 @@ internal sealed class PlainTextContentHttpResponseHandler : IHttpResponseHandler
         }
         else
         {
-            throw new BadRequestException(
+            throw new HttpRequestFailedException(
                 _httpResponseMessage.RequestMessage.RequestUri,
                 _httpResponseMessage.RequestMessage.Method,
                 _httpResponseMessage.StatusCode,

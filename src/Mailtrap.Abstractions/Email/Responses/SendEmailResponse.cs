@@ -54,7 +54,7 @@ public sealed record SendEmailResponse
     /// </value>
     [JsonPropertyName("message_ids")]
     [JsonPropertyOrder(3)]
-    public IList<long> MessageIds { get; }
+    public IList<string> MessageIds { get; }
 
 
     /// <summary>
@@ -74,7 +74,7 @@ public sealed record SendEmailResponse
     /// </param>
     public SendEmailResponse(
         bool success,
-        IList<long>? messageIds = default,
+        IList<string>? messageIds = default,
         IList<string>? errorData = default)
     {
         Success = success;
