@@ -12,22 +12,31 @@ namespace Mailtrap.UnitTests.Models;
 internal sealed class StringEnumTests
 {
     [Test]
-    public void Find_ShouldReturnNull_WhenInputIsNull()
+    public void Find_ShouldReturnNone_WhenInputIsNull()
     {
-        DispositionType.Find(null).Should().BeNull();
+        DispositionType.Find(null)
+            .Should().Be(DispositionType.None);
     }
 
     [Test]
-    public void Find_ShouldReturnNull_WhenThereIsNoSuchEnumValue()
+    public void Find_ShouldReturnNone_WhenInputIsEmpty()
     {
-        DispositionType.Find("123").Should().BeNull();
+        DispositionType.Find(string.Empty)
+            .Should().Be(DispositionType.None);
+    }
+
+    [Test]
+    public void Find_ShouldReturnUnknown_WhenThereIsNoSuchEnumValue()
+    {
+        DispositionType.Find("123")
+            .Should().Be(DispositionType.Unknown);
     }
 
     [Test]
     public void Find_ShouldReturnEnumValue_WhenThereIsCorrespondingEnumValue()
     {
-        DispositionType.Find(DispositionType.Attachment.ToString()).Should()
-            .Be(DispositionType.Attachment);
+        DispositionType.Find(DispositionType.Attachment.ToString())
+            .Should().Be(DispositionType.Attachment);
     }
 
     [Test]

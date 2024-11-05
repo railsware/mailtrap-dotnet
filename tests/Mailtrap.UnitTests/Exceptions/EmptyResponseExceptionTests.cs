@@ -1,14 +1,15 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ResourceDeletedExceptionTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="EmptyResponseExceptionTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
+
 
 namespace Mailtrap.UnitTests.Exceptions;
 
 
 [TestFixture]
-internal sealed class ResourceDeletedExceptionTests
+internal sealed class EmptyResponseExceptionTests
 {
     private readonly HttpMethod _httpMethod = HttpMethod.Get;
     private readonly Uri _requestUri = new("https://api.test.com");
@@ -17,7 +18,7 @@ internal sealed class ResourceDeletedExceptionTests
     [Test]
     public void Constructor_ShouldThrowArgumentNullException_WhenRequestUriIsNull()
     {
-        var act = () => new ResourceDeletedException(null!, _httpMethod);
+        var act = () => new EmptyResponseException(null!, _httpMethod);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -25,7 +26,7 @@ internal sealed class ResourceDeletedExceptionTests
     [Test]
     public void Constructor_ShouldThrowArgumentNullException_WhenMethodIsNull()
     {
-        var act = () => new ResourceDeletedException(_requestUri, null!);
+        var act = () => new EmptyResponseException(_requestUri, null!);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -33,9 +34,10 @@ internal sealed class ResourceDeletedExceptionTests
     [Test]
     public void Constructor_ShouldInitializePropertiesCorrectly()
     {
-        var ex = new ResourceDeletedException(_requestUri, _httpMethod);
+        var ex = new EmptyResponseException(_requestUri, _httpMethod);
 
-        ex.Message.Should().Be("Resource was deleted and can't be used anymore.");
+        ex.Message.Should().Be("Response received from the API call has no content.");
+        ex.HttpMethod.Should().Be(_httpMethod);
         ex.RequestUri.Should().Be(_requestUri);
     }
 }

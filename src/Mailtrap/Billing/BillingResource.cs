@@ -18,5 +18,5 @@ internal sealed class BillingResource : RestResource, IBillingResource
 
 
     public async Task<BillingUsage> GetUsage(CancellationToken cancellationToken = default)
-        => await Get<BillingUsage>(UsageSegment, false, cancellationToken).ConfigureAwait(false);
+        => await Get<BillingUsage>(UsageSegment, cancellationToken).ConfigureAwait(false);
 }

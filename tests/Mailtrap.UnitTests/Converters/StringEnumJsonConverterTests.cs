@@ -19,6 +19,16 @@ internal sealed class StringEnumJsonConverterTests
     public void Read_ShouldReadAndConvert_WhenTokenIsValidString()
     {
         _converter
+            .Read("null", _options)
+            .Should()
+            .Be(DispositionType.None);
+
+        _converter
+            .Read(string.Empty.Quoted(), _options)
+            .Should()
+            .Be(DispositionType.None);
+
+        _converter
             .Read(DispositionType.None.ToString().Quoted(), _options)
             .Should()
             .Be(DispositionType.None);
@@ -32,28 +42,17 @@ internal sealed class StringEnumJsonConverterTests
             .Read(DispositionType.Inline.ToString().Quoted(), _options)
             .Should()
             .Be(DispositionType.Inline);
-    }
 
-    [Test]
-    public void Read_ShouldThrowJsonException_WhenTokenIsNull()
-    {
-        var act = () => _converter.Read("null", _options);
-
-        act.Should().Throw<JsonException>();
+        _converter
+            .Read("abracadabra".Quoted(), _options)
+            .Should()
+            .Be(DispositionType.Unknown);
     }
 
     [Test]
     public void Read_ShouldThrowJsonException_WhenTokenIsOfUnsupportedType()
     {
         var act = () => _converter.Read("[]", _options);
-
-        act.Should().Throw<JsonException>();
-    }
-
-    [Test]
-    public void Read_ShouldThrowJsonException_WhenTokenIsUnsupportedValue()
-    {
-        var act = () => _converter.Read("abracadabra".Quoted(), _options);
 
         act.Should().Throw<JsonException>();
     }
@@ -77,9 +76,9 @@ internal sealed class StringEnumJsonConverterTests
             .Should()
             .Be(DispositionType.Inline.ToString().Quoted());
 
-        DispositionType? resourceType = null;
+        DispositionType? enumType = null;
         converter
-            .Write(resourceType!, _options)
+            .Write(enumType!, _options)
             .Should()
             .Be("null");
     }

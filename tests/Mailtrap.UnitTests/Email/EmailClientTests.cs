@@ -69,7 +69,7 @@ internal sealed class EmailClientTests
 
         var request = CreateValidRequest();
 
-        var messageId = 1;
+        var messageId = TestContext.CurrentContext.Random.NextGuid().ToString();
         var response = new SendEmailResponse(true, [messageId]);
 
         var restResourceCommandMock = new Mock<IRestResourceCommand<SendEmailResponse>>();

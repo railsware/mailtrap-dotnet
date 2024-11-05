@@ -23,8 +23,6 @@ internal sealed class AccountAccessResource : RestResource, IAccountAccessResour
 
         var uri = ResourceUri.Append(UpdatePermissionsSegment);
 
-        EnsureNotDeleted(HttpMethod.Put, uri);
-
         var result = await RestResourceCommandFactory
             .CreatePut<UpdatePermissionsRequest, UpdatedPermissions>(uri, request)
             .Execute(cancellationToken)

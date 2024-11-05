@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------
 
 
-using System.Diagnostics.CodeAnalysis;
 using System.Net.Mime;
 using Mailtrap;
 using Mailtrap.AccountAccesses;
@@ -17,7 +16,6 @@ using Mailtrap.Attachments.Models;
 using Mailtrap.Billing.Models;
 using Mailtrap.Email;
 using Mailtrap.Email.Requests;
-using Mailtrap.Email.Responses;
 using Mailtrap.Emails;
 using Mailtrap.Emails.Models;
 using Mailtrap.Emails.Requests;
@@ -42,7 +40,6 @@ using Microsoft.Extensions.Logging;
 /// <summary>
 /// Various examples of the Mailtrap API usage
 /// </summary>
-[SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Example")]
 internal sealed class Program
 {
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
@@ -321,16 +318,25 @@ internal sealed class Program
 
     private static async Task ProcessMessages(IInboxResource inboxResource, ILogger logger)
     {
+        await Send(inboxResource);
+
+        // Get resource for message collection
+        IEmailCollectionResource messagesResource = inboxResource.Messages();
+
+        // Fetch messages from the inbox
+        var messageFilter = new EmailMessageFilter
+        {
+            SearchFilter = "Supervision request"
+        };
+        IList<EmailMessage> messages = await messagesResource.Fetch(messageFilter);
+
         IEmailResource messageResource;
-        EmailMessage? message;
 
-        SendEmailResponse sendResponse = await Send(inboxResource, logger);
-
-        var messageId = sendResponse.MessageIds.FirstOrDefault();
-        if (messageId != 0)
+        EmailMessage? message = messages.FirstOrDefault();
+        if (message is not null)
         {
             // Get resource for message
-            messageResource = inboxResource.Message(messageId);
+            messageResource = inboxResource.Message(message.Id);
 
             // Get message details
             message = await messageResource.GetDetails();
@@ -340,15 +346,12 @@ internal sealed class Program
             await ProcessAttachments(messageResource, logger);
         }
 
-        // Get resource for message collection
-        IEmailCollectionResource messagesResource = inboxResource.Messages();
-
         // Fetch messages from the inbox
-        var messageFilter = new EmailMessageFilter
+        messageFilter = new EmailMessageFilter
         {
             SearchFilter = "Greetings"
         };
-        IList<EmailMessage> messages = await messagesResource.Fetch(messageFilter);
+        messages = await messagesResource.Fetch(messageFilter);
 
         if (messages.Count == 0)
         {
@@ -435,7 +438,7 @@ internal sealed class Program
         logger.LogInformation("Deleted Message: {Message}", deletedMessage);
     }
 
-    private static async Task<SendEmailResponse> Send(IInboxResource inboxResource, ILogger _)
+    private static async Task Send(IInboxResource inboxResource)
     {
         Inbox inbox = await inboxResource.GetDetails();
 
@@ -478,9 +481,7 @@ internal sealed class Program
             disposition: DispositionType.Attachment,
             mimeType: MediaTypeNames.Text.Plain);
 
-        SendEmailResponse response = await emailClient.Send(sendEmailRequest);
-
-        return response;
+        await emailClient.Send(sendEmailRequest);
     }
 
     private static async Task ProcessAttachments(IEmailResource messageResource, ILogger logger)

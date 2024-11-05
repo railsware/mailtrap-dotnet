@@ -42,13 +42,6 @@ internal sealed class StringEnumJsonConverterFactoryTests
             .Be(DispositionType.Attachment);
     }
 
-
-    private sealed record EnumTest : StringEnum<EnumTest>
-    {
-        public static EnumTest Value1 { get; } = Define("Value1");
-        public static EnumTest Value2 { get; } = Define("Value2");
-    }
-
     [Test]
     public void Deserialize_ShouldThrow_WhenInvalidTypeSpecified()
     {
@@ -56,10 +49,5 @@ internal sealed class StringEnumJsonConverterFactoryTests
             .Deserialize<bool>(DispositionType.Inline.ToString().Quoted(), _options);
 
         act1.Should().Throw<JsonException>();
-
-        var act2 = () => JsonSerializer
-            .Deserialize<EnumTest>(DispositionType.Attachment.ToString().Quoted(), _options);
-
-        act2.Should().Throw<JsonException>();
     }
 }

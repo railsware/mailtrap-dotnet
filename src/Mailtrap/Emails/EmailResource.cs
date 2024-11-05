@@ -50,8 +50,6 @@ internal sealed class EmailResource : RestResource, IEmailResource
 
         var uri = ResourceUri.Append(ForwardSegment);
 
-        EnsureNotDeleted(HttpMethod.Post, uri);
-
         var result = await RestResourceCommandFactory
             .CreatePost<ForwardEmailMessageRequest, ForwardedEmailMessage>(uri, request)
             .Execute(cancellationToken)
@@ -91,8 +89,6 @@ internal sealed class EmailResource : RestResource, IEmailResource
         params string[] additionalAcceptContentTypes)
     {
         var uri = ResourceUri.Append(segment);
-
-        EnsureNotDeleted(HttpMethod.Get, uri);
 
         var result = await RestResourceCommandFactory
             .CreatePlainText(uri, additionalAcceptContentTypes)

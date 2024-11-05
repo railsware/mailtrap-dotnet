@@ -33,7 +33,7 @@ internal sealed class StatusCodeHttpResponseHandler : IHttpResponseHandler<HttpS
                 .ReadAsStringAsync()
                 .ConfigureAwait(false);
 
-            throw new BadRequestException(
+            throw new HttpRequestFailedException(
                 _httpResponseMessage.RequestMessage.RequestUri,
                 _httpResponseMessage.RequestMessage.Method,
                 _httpResponseMessage.StatusCode,

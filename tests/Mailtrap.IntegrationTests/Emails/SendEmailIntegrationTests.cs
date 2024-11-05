@@ -21,7 +21,7 @@ internal sealed class SendEmailIntegrationTests
         var request = CreateValidRequest();
         using var mockHttp = new MockHttpMessageHandler();
 
-        var messageId = TestContext.CurrentContext.Random.NextLong();
+        var messageId = TestContext.CurrentContext.Random.NextGuid().ToString();
         var response = new SendEmailResponse(true, [messageId]);
         using var responseContent = JsonContent.Create(response);
 
@@ -55,7 +55,7 @@ internal sealed class SendEmailIntegrationTests
         var request = CreateValidRequest();
         using var mockHttp = new MockHttpMessageHandler();
 
-        var messageId = TestContext.CurrentContext.Random.NextLong();
+        var messageId = TestContext.CurrentContext.Random.NextGuid().ToString();
         var response = new SendEmailResponse(true, [messageId]);
         using var responseContent = JsonContent.Create(response);
 
@@ -88,7 +88,7 @@ internal sealed class SendEmailIntegrationTests
         var request = CreateValidRequest();
         using var mockHttp = new MockHttpMessageHandler();
 
-        var messageId = TestContext.CurrentContext.Random.NextLong();
+        var messageId = TestContext.CurrentContext.Random.NextGuid().ToString();
         var response = new SendEmailResponse(true, [messageId]);
         using var responseContent = JsonContent.Create(response);
 
@@ -127,7 +127,7 @@ internal sealed class SendEmailIntegrationTests
         var request = CreateValidRequest();
         using var mockHttp = new MockHttpMessageHandler();
 
-        var messageId = TestContext.CurrentContext.Random.NextInt64();
+        var messageId = TestContext.CurrentContext.Random.NextGuid().ToString();
         var response = new SendEmailResponse(true, [messageId]);
         using var responseContent = JsonContent.Create(response);
 
@@ -168,7 +168,7 @@ internal sealed class SendEmailIntegrationTests
         var request = CreateValidRequest();
         using var mockHttp = new MockHttpMessageHandler();
 
-        var messageId = random.NextLong();
+        var messageId = random.NextGuid().ToString();
         var response = new SendEmailResponse(true, [messageId]);
         using var responseContent = JsonContent.Create(response);
 

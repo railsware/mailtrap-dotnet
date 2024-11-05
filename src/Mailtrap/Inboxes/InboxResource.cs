@@ -60,8 +60,6 @@ internal sealed class InboxResource : RestResource, IInboxResource
     {
         var uri = ResourceUri.Append(segment);
 
-        EnsureNotDeleted(HttpMethodEx.Patch, uri);
-
         var result = await RestResourceCommandFactory
             .CreatePatch<Inbox>(uri)
             .Execute(cancellationToken)

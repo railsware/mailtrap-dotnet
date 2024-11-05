@@ -27,8 +27,6 @@ internal sealed class SendingDomainResource : RestResource, ISendingDomainResour
 
         var uri = ResourceUri.Append(SendSetupInstructionsSegment);
 
-        EnsureNotDeleted(HttpMethod.Post, uri);
-
         await RestResourceCommandFactory
             .CreatePostWithStatusCodeResult(uri, request)
             .Execute(cancellationToken)

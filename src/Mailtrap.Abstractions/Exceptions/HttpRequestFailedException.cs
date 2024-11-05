@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BadRequestException.cs" company="Railsware Products Studio, LLC">
+// <copyright file="HttpRequestFailedException.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Mailtrap.Exceptions;
 /// <summary>
 /// Exception which is thrown when the request sent to the Mailtrap API was not valid.
 /// </summary>
-public sealed class BadRequestException : MailtrapApiException
+public sealed class HttpRequestFailedException : MailtrapApiException
 {
     /// <summary>
     /// Gets HTTP status code that was returned.
@@ -61,7 +61,7 @@ public sealed class BadRequestException : MailtrapApiException
     /// <exception cref="ArgumentNullException">
     /// When the <paramref name="statusCode"/> is <see langword="null"/>.
     /// </exception>
-    public BadRequestException(
+    public HttpRequestFailedException(
         Uri requestUri,
         HttpMethod httpMethod,
         HttpStatusCode statusCode,
