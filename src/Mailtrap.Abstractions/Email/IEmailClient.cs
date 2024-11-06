@@ -53,8 +53,8 @@ public interface IEmailClient : IRestResource
     /// When request to the API fails for any reason.
     /// </exception>
     ///
-    /// <exception cref="EmptyResponseException">
-    /// When response from the API has an invalid format.
+    /// <exception cref="MailtrapApiException">
+    /// When request failed for any other reason.
     /// </exception>
     ///
     /// <remarks>
