@@ -25,8 +25,8 @@ internal sealed class HttpResponseHandlerFactory : IHttpResponseHandlerFactory
         => new JsonContentHttpResponseHandler<T>(_jsonSerializerOptions, httpResponseMessage);
 
     public IHttpResponseHandler<string> CreatePlainTextContentHandler(HttpResponseMessage httpResponseMessage)
-        => new PlainTextContentHttpResponseHandler(httpResponseMessage);
+        => new PlainTextContentHttpResponseHandler(_jsonSerializerOptions, httpResponseMessage);
 
     public IHttpResponseHandler<HttpStatusCode> CreateStatusCodeHandler(HttpResponseMessage httpResponseMessage)
-        => new StatusCodeHttpResponseHandler(httpResponseMessage);
+        => new StatusCodeHttpResponseHandler(_jsonSerializerOptions, httpResponseMessage);
 }
