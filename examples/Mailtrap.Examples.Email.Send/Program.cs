@@ -8,11 +8,12 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Mime;
 using Mailtrap;
-using Mailtrap.Core.Validation;
+using Mailtrap.Extensions.DependencyInjection;
+using Mailtrap.Models;
+using Mailtrap.Validation;
 using Mailtrap.Email.Models;
 using Mailtrap.Email.Requests;
 using Mailtrap.Email.Responses;
-using Mailtrap.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -150,8 +151,7 @@ internal sealed class Program
             content: fileContent,
             fileName: fileName,
             disposition: DispositionType.Attachment,
-            mimeType: MediaTypeNames.Application.Pdf,
-            contentId: "attachment_1");
+            mimeType: MediaTypeNames.Application.Pdf);
 
         filePath = @"C:\files\logo.png";
         fileName = "logo.png";
