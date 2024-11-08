@@ -146,5 +146,5 @@ public sealed record EmailAttachment
     /// </value>
     [JsonPropertyName("download_path")]
     [JsonPropertyOrder(12)]
-    public string? DownloadPath { get; set; } // TODO: Should be URI?
+    public string? DownloadPath { get; set; }
 }

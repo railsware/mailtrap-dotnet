@@ -191,7 +191,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("html_path")]
     [JsonPropertyOrder(16)]
-    public string? HtmlPath { get; set; } // TODO: Should be URI?
+    public string? HtmlPath { get; set; }
 
     /// <summary>
     /// Gets path to the plain text representation of the message.
@@ -202,7 +202,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("txt_path")]
     [JsonPropertyOrder(17)]
-    public string? TextPath { get; set; } // TODO: Should be URI?
+    public string? TextPath { get; set; }
 
     /// <summary>
     /// Gets path to the raw representation of the message.
@@ -213,7 +213,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("raw_path")]
     [JsonPropertyOrder(18)]
-    public string? RawPath { get; set; } // TODO: Should be URI?
+    public string? RawPath { get; set; }
 
     /// <summary>
     /// Gets download path for the message.
@@ -224,7 +224,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("download_path")]
     [JsonPropertyOrder(19)]
-    public string? DownloadPath { get; set; } // TODO: Should be URI?
+    public string? DownloadPath { get; set; }
 
     /// <summary>
     /// Gets path to the message HTML source.
@@ -235,7 +235,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("html_source_path")]
     [JsonPropertyOrder(20)]
-    public string? HtmlSourcePath { get; set; } // TODO: Should be URI?
+    public string? HtmlSourcePath { get; set; }
 
     /// <summary>
     /// Gets blacklist report for the message.

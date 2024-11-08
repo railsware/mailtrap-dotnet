@@ -55,7 +55,7 @@ public sealed record SpamReport
     /// </value>
     [JsonPropertyName("Score")]
     [JsonPropertyOrder(4)]
-    public decimal? Score { get; set; } // TODO: Confirm type
+    public decimal? Score { get; set; }
 
     /// <summary>
     /// Gets spam score threshold.
@@ -66,7 +66,7 @@ public sealed record SpamReport
     /// </value>
     [JsonPropertyName("Threshold")]
     [JsonPropertyOrder(5)]
-    public decimal? Threshold { get; set; } // TODO: Confirm type
+    public decimal? Threshold { get; set; }
 
     /// <summary>
     /// Gets a flag indicating that message is marked as spam.
