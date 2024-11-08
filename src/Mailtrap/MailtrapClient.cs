@@ -13,6 +13,8 @@ namespace Mailtrap;
 /// </summary>
 internal sealed class MailtrapClient : RestResource, IMailtrapClient
 {
+    private const string AccountsSegment = "accounts";
+
     private readonly IEmailClientFactory _emailClientFactory;
     private readonly IEmailClient _defaultEmailClient;
 
@@ -45,4 +47,13 @@ internal sealed class MailtrapClient : RestResource, IMailtrapClient
 
     /// <inheritdoc/>
     public IEmailClient Test(long inboxId) => _emailClientFactory.CreateTest(inboxId);
+
+
+    /// <inheritdoc/>
+    public IAccountCollectionResource Accounts()
+        => new AccountCollectionResource(RestResourceCommandFactory, ResourceUri.Append(AccountsSegment));
+
+    /// <inheritdoc/>
+    public IAccountResource Account(long accountId)
+        => new AccountResource(RestResourceCommandFactory, ResourceUri.Append(AccountsSegment).Append(accountId));
 }

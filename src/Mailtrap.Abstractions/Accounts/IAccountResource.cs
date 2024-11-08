@@ -1,14 +1,16 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="UrlSegments.cs" company="Railsware Products Studio, LLC">
+// <copyright file="IAccountResource.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Constants;
+namespace Mailtrap.Accounts;
 
 
-internal static class UrlSegments
+/// <summary>
+/// Represents account resource.
+/// </summary>
+public interface IAccountResource : IRestResource
 {
-    internal static string ApiRootSegment { get; } = "api";
 }

@@ -14,6 +14,28 @@ namespace Mailtrap;
 public interface IMailtrapClient : IRestResource
 {
     /// <summary>
+    /// Gets account collection resource.
+    /// </summary>
+    /// 
+    /// <returns>
+    /// Account collection resource.
+    /// </returns>
+    public IAccountCollectionResource Accounts();
+
+    /// <summary>
+    /// Gets resource for specific account, identified by <paramref name="accountId"/>.
+    /// </summary>
+    ///
+    /// <param name="accountId">
+    /// ID of account to get resource for.
+    /// </param>
+    /// 
+    /// <returns>
+    /// Resource for the account with specified ID.
+    /// </returns>
+    public IAccountResource Account(long accountId);
+
+    /// <summary>
     /// <para>
     /// Gets default email client.
     /// </para>

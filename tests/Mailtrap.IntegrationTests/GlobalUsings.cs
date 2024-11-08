@@ -5,10 +5,14 @@
 // -----------------------------------------------------------------------
 
 
-global using System.Globalization;
 global using System.Net;
 global using System.Net.Http.Json;
 global using System.Text;
+global using System.Text.Json;
+global using Mailtrap.AccountAccesses.Models;
+global using Mailtrap.AccountAccesses.Requests;
+global using Mailtrap.Accounts.Models;
+global using Mailtrap.Billing.Models;
 global using Mailtrap.Configuration;
 global using Mailtrap.Constants;
 global using Mailtrap.Email;
@@ -16,4 +20,10 @@ global using Mailtrap.Email.Requests;
 global using Mailtrap.Email.Responses;
 global using Mailtrap.Extensions;
 global using Mailtrap.Extensions.DependencyInjection;
+global using Mailtrap.Inboxes.Models;
+global using Mailtrap.Inboxes.Requests;
+global using Mailtrap.IntegrationTests.TestConstants;
+global using Mailtrap.Permissions.Models;
+global using Mailtrap.Projects.Models;
+global using Mailtrap.Projects.Requests;
 global using Microsoft.Extensions.DependencyInjection;

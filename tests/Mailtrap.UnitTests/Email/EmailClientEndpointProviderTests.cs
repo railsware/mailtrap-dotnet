@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+
 namespace Mailtrap.UnitTests.Email;
 
 
@@ -26,8 +27,10 @@ internal sealed class EmailClientEndpointProviderTests
         // Arrange
         var isBulk = false;
         long? inboxId = null;
-        var expectedUrl = Endpoints.SendDefaultUrl.Append(
-            UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
+        var expectedUrl = EndpointsTestConstants.SendDefaultUrl
+            .Append(
+                UrlSegmentsTestConstants.ApiRootSegment,
+                UrlSegmentsTestConstants.SendEmailSegment);
 
         // Act
         var result = _emailClientEndpointProvider.GetSendRequestUri(isBulk, inboxId);
@@ -42,8 +45,10 @@ internal sealed class EmailClientEndpointProviderTests
         // Arrange
         var isBulk = true;
         long? inboxId = null;
-        var expectedUrl = Endpoints.BulkDefaultUrl.Append(
-            UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
+        var expectedUrl = EndpointsTestConstants.BulkDefaultUrl
+            .Append(
+                UrlSegmentsTestConstants.ApiRootSegment,
+                UrlSegmentsTestConstants.SendEmailSegment);
 
         // Act
         var result = _emailClientEndpointProvider.GetSendRequestUri(isBulk, inboxId);
@@ -57,8 +62,11 @@ internal sealed class EmailClientEndpointProviderTests
     {
         // Arrange
         long inboxId = 12345;
-        var expectedUrl = Endpoints.TestDefaultUrl.Append(
-            UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment, inboxId.ToString(CultureInfo.InvariantCulture));
+        var expectedUrl = EndpointsTestConstants.TestDefaultUrl
+            .Append(
+                UrlSegmentsTestConstants.ApiRootSegment,
+                UrlSegmentsTestConstants.SendEmailSegment)
+            .Append(inboxId);
 
         // Act
         var result = _emailClientEndpointProvider.GetSendRequestUri(isBulk, inboxId);
