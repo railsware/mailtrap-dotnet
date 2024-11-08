@@ -8,39 +8,22 @@
 namespace Mailtrap.Http.ResponseHandlers;
 
 
-internal sealed class PlainTextContentHttpResponseHandler : IHttpResponseHandler<string>
+internal sealed class PlainTextContentHttpResponseHandler : HttpResponseHandler<string>
 {
-    private readonly HttpResponseMessage _httpResponseMessage;
+    public PlainTextContentHttpResponseHandler(
+        JsonSerializerOptions jsonSerializerOptions,
+        HttpResponseMessage httpResponseMessage)
+        : base(jsonSerializerOptions, httpResponseMessage) { }
 
 
-    public PlainTextContentHttpResponseHandler(HttpResponseMessage httpResponseMessage)
-    {
-        Ensure.NotNull(httpResponseMessage, nameof(httpResponseMessage));
-
-        _httpResponseMessage = httpResponseMessage;
-    }
-
-
-    public async Task<string> ProcessResponse(CancellationToken cancellationToken = default)
+    protected override async Task<string> ProcessSuccessResponse(CancellationToken cancellationToken)
     {
         var content = await _httpResponseMessage.Content
             .ReadAsStringAsync()
             .ConfigureAwait(false);
 
-        if (_httpResponseMessage.IsSuccessStatusCode)
-        {
-            return content ?? throw new EmptyResponseException(
-                _httpResponseMessage.RequestMessage.RequestUri,
-                _httpResponseMessage.RequestMessage.Method);
-        }
-        else
-        {
-            throw new HttpRequestFailedException(
-                _httpResponseMessage.RequestMessage.RequestUri,
-                _httpResponseMessage.RequestMessage.Method,
-                _httpResponseMessage.StatusCode,
-                _httpResponseMessage.ReasonPhrase,
-                content);
-        }
+        return content ?? throw new EmptyResponseException(
+            _httpResponseMessage.RequestMessage.RequestUri,
+            _httpResponseMessage.RequestMessage.Method);
     }
 }
