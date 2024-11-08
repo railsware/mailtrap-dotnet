@@ -78,7 +78,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("status")]
     [JsonPropertyOrder(6)]
-    public string? Status { get; set; } // TODO: Should be this a string enum?
+    public InboxStatus? Status { get; set; }
 
     /// <summary>
     /// Gets email user name for the inbox.

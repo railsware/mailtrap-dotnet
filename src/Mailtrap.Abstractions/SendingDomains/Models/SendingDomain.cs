@@ -48,7 +48,7 @@ public sealed record SendingDomain
     /// </value>
     [JsonPropertyName("compliance_status")]
     [JsonPropertyOrder(4)]
-    public string? ComplianceStatus { get; set; } // TODO: Should be this a string enum?
+    public SendingDomainComplianceStatus? ComplianceStatus { get; set; }
 
     /// <summary>
     /// </summary>
