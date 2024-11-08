@@ -5,9 +5,6 @@
 // -----------------------------------------------------------------------
 
 
-using AccountAccessResource = Mailtrap.AccountAccesses.AccountAccessResource;
-
-
 namespace Mailtrap.UnitTests.Accounts;
 
 
