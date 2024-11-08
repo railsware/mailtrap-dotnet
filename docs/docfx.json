@@ -3,9 +3,9 @@
     {
       "src": [
         {
-          "src": "../src/lib",
+          "src": "../src",
           "files": "**/*.csproj",
-          "exclude": [ "**/bin/**", "**/obj/**", "**/*.[Tt]ests.csproj" ]
+          "exclude": [ "**/bin/**", "**/obj/**" ]
         }
       ],
       "dest": "../artifacts/api",

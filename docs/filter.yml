@@ -1,15 +1,31 @@
 ﻿### YamlMime:ManagedReference
 
 apiRules:
+- include:
+    uidRegex: ^System\.Object\.GetHashCode
+    type: Member
+- include:
+    uidRegex: ^System\.Object\.ToString
+    type: Member
+- include:
+    uidRegex: ^System\.Object\.Equals
+    type: Member
 - exclude:
-      uidRegex: ^System\.Object
-      type: Type
+    uidRegex: ^System\.Object
+    type: Type
+
 - include:
-      uidRegex: ^System\.Object\.GetHashCode
-      type: Method
+    uidRegex: ^System\.Exception\.Message
+    type: Member
 - include:
-      uidRegex: ^System\.Object\.ToString
-      type: Method
+    uidRegex: ^System\.Exception\.InnerException
+    type: Member
 - include:
-      uidRegex: ^System\.Object\.Equals
-      type: Method
+    uidRegex: ^System\.Exception\.Source
+    type: Member
+- include:
+    uidRegex: ^System\.Exception\.ToString
+    type: Member
+- exclude:
+    uidRegex: ^System\.Exception
+    type: Type
