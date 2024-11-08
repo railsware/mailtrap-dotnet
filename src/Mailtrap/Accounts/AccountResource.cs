@@ -45,9 +45,9 @@ internal sealed class AccountResource : RestResource, IAccountResource
         => new ProjectResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.ProjectsSegment).Append(projectId));
 
 
+    // Passing account resource URI is expected, since we need to append both:
+    // inboxes and projects segments to it for different scenarios.
     public IInboxCollectionResource Inboxes()
-        // Passing account resource URI is expected, since we need to append both:
-        // inboxes and projects segments to it for different scenarios.
         => new InboxCollectionResource(RestResourceCommandFactory, ResourceUri);
 
     public IInboxResource Inbox(long inboxId)
