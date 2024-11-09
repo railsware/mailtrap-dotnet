@@ -24,27 +24,27 @@ internal sealed class StringEnumJsonConverterTests
             .Be(DispositionType.None);
 
         _converter
-            .Read(string.Empty.Quoted(), _options)
+            .Read(string.Empty.AddDoubleQuote(), _options)
             .Should()
             .Be(DispositionType.None);
 
         _converter
-            .Read(DispositionType.None.ToString().Quoted(), _options)
+            .Read(DispositionType.None.ToString().AddDoubleQuote(), _options)
             .Should()
             .Be(DispositionType.None);
 
         _converter
-            .Read(DispositionType.Attachment.ToString().Quoted(), _options)
+            .Read(DispositionType.Attachment.ToString().AddDoubleQuote(), _options)
             .Should()
             .Be(DispositionType.Attachment);
 
         _converter
-            .Read(DispositionType.Inline.ToString().Quoted(), _options)
+            .Read(DispositionType.Inline.ToString().AddDoubleQuote(), _options)
             .Should()
             .Be(DispositionType.Inline);
 
         _converter
-            .Read("abracadabra".Quoted(), _options)
+            .Read("abracadabra".AddDoubleQuote(), _options)
             .Should()
             .Be(DispositionType.Unknown);
     }
@@ -64,17 +64,17 @@ internal sealed class StringEnumJsonConverterTests
         converter
             .Write(DispositionType.None, _options)
             .Should()
-            .Be(DispositionType.None.ToString().Quoted());
+            .Be(DispositionType.None.ToString().AddDoubleQuote());
 
         converter
             .Write(DispositionType.Attachment, _options)
             .Should()
-            .Be(DispositionType.Attachment.ToString().Quoted());
+            .Be(DispositionType.Attachment.ToString().AddDoubleQuote());
 
         converter
             .Write(DispositionType.Inline, _options)
             .Should()
-            .Be(DispositionType.Inline.ToString().Quoted());
+            .Be(DispositionType.Inline.ToString().AddDoubleQuote());
 
         DispositionType? enumType = null;
         converter

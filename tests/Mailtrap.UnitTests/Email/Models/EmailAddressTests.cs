@@ -63,8 +63,8 @@ internal sealed class EmailAddressTests
         // TODO: Find more stable way to assert JSON serialization.
         serialized.Should().Be(
         "{" +
-            "email".Quoted() + ":" + email.Quoted() + "," +
-            "name".Quoted() + ":" + displayName.Quoted() +
+            "email".AddDoubleQuote() + ":" + email.AddDoubleQuote() + "," +
+            "name".AddDoubleQuote() + ":" + displayName.AddDoubleQuote() +
         "}");
 
         var deserialized = JsonSerializer.Deserialize<EmailAddress>(serialized, MailtrapJsonSerializerOptions.NotIndented);

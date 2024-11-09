@@ -25,7 +25,7 @@ internal sealed class DispositionTypeTests
 
         var serialized = JsonSerializer.Serialize(disposition, MailtrapJsonSerializerOptions.NotIndented);
 
-        serialized.Should().Be(DispositionType.Inline.ToString().Quoted());
+        serialized.Should().Be(DispositionType.Inline.ToString().AddDoubleQuote());
 
         var deserialized = JsonSerializer.Deserialize<DispositionType>(serialized, MailtrapJsonSerializerOptions.NotIndented);
 
@@ -39,7 +39,7 @@ internal sealed class DispositionTypeTests
 
         var serialized = JsonSerializer.Serialize(disposition, MailtrapJsonSerializerOptions.NotIndented);
 
-        serialized.Should().Be(DispositionType.Attachment.ToString().Quoted());
+        serialized.Should().Be(DispositionType.Attachment.ToString().AddDoubleQuote());
 
         var deserialized = JsonSerializer.Deserialize<DispositionType>(serialized, MailtrapJsonSerializerOptions.NotIndented);
 

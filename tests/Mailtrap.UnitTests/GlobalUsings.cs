@@ -46,3 +46,4 @@ global using Mailtrap.UnitTests.TestExtensions;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Options;
+global using Microsoft.VisualStudio.TestPlatform.CoreUtilities.Extensions;

@@ -73,7 +73,7 @@ internal sealed class SendEmailResponseTests
             "{" +
                 "\"success\":true," +
                 "\"message_ids\":[" +
-                    messageId.Quoted() +
+                    messageId.AddDoubleQuote() +
                 "]" +
             "}";
 
