@@ -41,7 +41,7 @@ internal sealed class MailtrapClientTests
         var client = new MailtrapClient(Mock.Of<IEmailClientFactory>(), _commandFactoryMock);
 
         // Assert
-        client.ResourceUri.Should().Be(new Uri("https://mailtrap.io").Append("api"));
+        client.ResourceUri.Should().Be(EndpointsTestConstants.ApiDefaultUrl.Append(UrlSegmentsTestConstants.ApiRootSegment));
     }
 
 
@@ -116,5 +116,42 @@ internal sealed class MailtrapClientTests
 
         // Assert
         result.Should().BeSameAs(emailClient);
+    }
+
+    [Test]
+    public void Accounts_ShouldReturnAccountCollectionResource()
+    {
+        // Arrange
+        var client = new MailtrapClient(Mock.Of<IEmailClientFactory>(), _commandFactoryMock);
+
+        // Act
+        var result = client.Accounts();
+
+        // Assert
+        result.Should()
+            .NotBeNull().And
+            .BeOfType<AccountCollectionResource>();
+
+        result.ResourceUri.Should()
+            .Be(client.ResourceUri.Append(UrlSegmentsTestConstants.AccountsSegment));
+    }
+
+    [Test]
+    public void Account_ShouldReturnAccountResource()
+    {
+        // Arrange
+        var client = new MailtrapClient(Mock.Of<IEmailClientFactory>(), _commandFactoryMock);
+        var accountId = TestContext.CurrentContext.Random.NextLong();
+
+        // Act
+        var result = client.Account(accountId);
+
+        // Assert
+        result.Should()
+            .NotBeNull().And
+            .BeOfType<AccountResource>();
+
+        result.ResourceUri.Should()
+            .Be(client.ResourceUri.Append(UrlSegmentsTestConstants.AccountsSegment).Append(accountId));
     }
 }

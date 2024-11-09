@@ -92,10 +92,10 @@ internal sealed class SendEmailIntegrationTests
         var response = new SendEmailResponse(true, [messageId]);
         using var responseContent = JsonContent.Create(response);
 
-        var sendUri = Endpoints.SendDefaultUrl
+        var sendUri = EndpointsTestConstants.SendDefaultUrl
             .Append(
-                UrlSegments.ApiRootSegment,
-                UrlSegments.SendEmailSegment)
+                UrlSegmentsTestConstants.ApiRootSegment,
+                UrlSegmentsTestConstants.SendEmailSegment)
             .AbsoluteUri;
         using var services = CreateServiceProvider(config, sendUri, request, mockHttp, responseContent);
 
@@ -131,10 +131,10 @@ internal sealed class SendEmailIntegrationTests
         var response = new SendEmailResponse(true, [messageId]);
         using var responseContent = JsonContent.Create(response);
 
-        var sendUri = Endpoints.BulkDefaultUrl
+        var sendUri = EndpointsTestConstants.BulkDefaultUrl
             .Append(
-                UrlSegments.ApiRootSegment,
-                UrlSegments.SendEmailSegment)
+                UrlSegmentsTestConstants.ApiRootSegment,
+                UrlSegmentsTestConstants.SendEmailSegment)
             .AbsoluteUri;
         using var services = CreateServiceProvider(config, sendUri, request, mockHttp, responseContent);
 
@@ -173,11 +173,11 @@ internal sealed class SendEmailIntegrationTests
         using var responseContent = JsonContent.Create(response);
 
         var inboxId = random.NextLong();
-        var sendUri = Endpoints.TestDefaultUrl
+        var sendUri = EndpointsTestConstants.TestDefaultUrl
             .Append(
-                UrlSegments.ApiRootSegment,
-                UrlSegments.SendEmailSegment,
-                inboxId.ToString(CultureInfo.InvariantCulture))
+                UrlSegmentsTestConstants.ApiRootSegment,
+                UrlSegmentsTestConstants.SendEmailSegment)
+            .Append(inboxId)
             .AbsoluteUri;
         using var services = CreateServiceProvider(config, sendUri, request, mockHttp, responseContent);
 
@@ -209,16 +209,20 @@ internal sealed class SendEmailIntegrationTests
         var random = TestContext.CurrentContext.Random;
         var token = random.GetString();
         var inboxId = random.NextLong();
-        var sendUri = Endpoints.SendDefaultUrl
+        var sendUri = EndpointsTestConstants.SendDefaultUrl
             .Append(
-                UrlSegments.ApiRootSegment,
-                UrlSegments.SendEmailSegment)
+                UrlSegmentsTestConstants.ApiRootSegment,
+                UrlSegmentsTestConstants.SendEmailSegment)
             .AbsoluteUri;
-        var testUri = Endpoints.TestDefaultUrl
+        var testUri = EndpointsTestConstants.TestDefaultUrl
             .Append(
-                UrlSegments.ApiRootSegment,
-                UrlSegments.SendEmailSegment,
-                inboxId.ToString(CultureInfo.InvariantCulture))
+                UrlSegmentsTestConstants.ApiRootSegment,
+                UrlSegmentsTestConstants.SendEmailSegment)
+            .Append(inboxId)
+            .AbsoluteUri;
+        var bulkUri = EndpointsTestConstants.BulkDefaultUrl.Append(
+                UrlSegmentsTestConstants.ApiRootSegment,
+                UrlSegmentsTestConstants.SendEmailSegment)
             .AbsoluteUri;
 
         yield return new(
@@ -231,7 +235,7 @@ internal sealed class SendEmailIntegrationTests
 
         yield return new(
             new MailtrapClientOptions(token) { UseBulkApi = true },
-            Endpoints.BulkDefaultUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment).AbsoluteUri);
+            bulkUri);
 
         yield return new(
             new MailtrapClientOptions(token) { InboxId = inboxId },
