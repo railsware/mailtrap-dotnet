@@ -12,36 +12,32 @@ namespace Mailtrap.IntegrationTests.Accounts;
 internal sealed class AccountsIntegrationTests
 {
     [Test]
-    public async Task GetAll_Success()
+    public async Task GetAll_Success([Values] AccessLevel accessLevel)
     {
         // Arrange
-        using var mockHttp = new MockHttpMessageHandler();
+        var random = TestContext.CurrentContext.Random;
+
         var httpMethod = HttpMethod.Get;
         var requestUri = EndpointsTestConstants.ApiDefaultUrl
             .Append(
                 UrlSegmentsTestConstants.ApiRootSegment,
                 UrlSegmentsTestConstants.AccountsSegment)
             .AbsoluteUri;
-        var token = TestContext.CurrentContext.Random.GetString();
+        var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        var account1 = new Account
-        {
-            Id = TestContext.CurrentContext.Random.NextLong(),
-            Name = TestContext.CurrentContext.Random.GetString(50)
-        };
-        account1.AccessLevels.Add(Models.AccessLevel.Owner);
+        var accountId = random.NextLong();
+        var accountName = random.GetString();
+        var accessLevelJson = JsonSerializer.Serialize(accessLevel);
+        var responseString =
+            $"[{{" +
+            $"\"id\":{accountId}," +
+            $"\"name\":{accountName.AddDoubleQuote()}," +
+            $"\"access_levels\":[{accessLevelJson}]" +
+            $"}}]";
+        using var responseContent = new StringContent(responseString);
 
-        var account2 = new Account
-        {
-            Id = TestContext.CurrentContext.Random.NextLong(),
-            Name = TestContext.CurrentContext.Random.GetString(50)
-        };
-        account1.AccessLevels.Add(Models.AccessLevel.Admin);
-
-        var response = new List<Account>([account1, account2]);
-        using var responseContent = JsonContent.Create(response);
-
+        using var mockHttp = new MockHttpMessageHandler();
         mockHttp
             .Expect(httpMethod, requestUri)
             .WithHeaders("Authorization", $"Bearer {clientConfig.ApiToken}")
@@ -72,6 +68,60 @@ internal sealed class AccountsIntegrationTests
 
         result.Should()
             .NotBeNull().And
-            .BeEquivalentTo(response);
+            .ContainSingle()
+       .Which.Should()
+            .NotBeNull().And
+            .Match<Account>(a =>
+                a.Id == accountId &&
+                a.Name == accountName &&
+                a.AccessLevels.Single() == accessLevel);
+    }
+
+    [Test]
+    public async Task GetAll_Unauthorized()
+    {
+        // Arrange
+        var random = TestContext.CurrentContext.Random;
+
+        var httpMethod = HttpMethod.Get;
+        var requestUri = EndpointsTestConstants.ApiDefaultUrl
+            .Append(
+                UrlSegmentsTestConstants.ApiRootSegment,
+                UrlSegmentsTestConstants.AccountsSegment)
+            .AbsoluteUri;
+        var token = random.GetString();
+        var clientConfig = new MailtrapClientOptions(token);
+
+        var errorDetails = "Incorrect API token";
+        var responseString = $"{{\"error\":{errorDetails.AddDoubleQuote()}}}";
+        using var responseContent = new StringContent(responseString);
+
+        using var mockHttp = new MockHttpMessageHandler();
+        mockHttp
+            .Expect(httpMethod, requestUri)
+            .WithHeaders("Authorization", $"Bearer {clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .Respond(HttpStatusCode.Unauthorized, responseContent);
+
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection
+            .AddMailtrapClient(clientConfig)
+            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
+
+        using var services = serviceCollection.BuildServiceProvider();
+
+        var client = services.GetRequiredService<IMailtrapClient>();
+
+        var act = () => client.Accounts().GetAll();
+
+
+        // Assert
+        await act.Should()
+            .ThrowAsync<HttpRequestFailedException>()
+            .WithMessage($"*{errorDetails}*");
+
+        mockHttp.VerifyNoOutstandingExpectation();
     }
 }

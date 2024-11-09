@@ -29,6 +29,11 @@ public enum AccessLevel
     Viewer = 10,
 
     /// <summary>
+    /// Viewer+.
+    /// </summary>
+    ViewerPlus = 50,
+
+    /// <summary>
     /// Admin.
     /// </summary>
     Admin = 100,

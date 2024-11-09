@@ -53,6 +53,5 @@ internal sealed class AccountCollectionResourceTests
     #endregion
 
 
-
     private AccountCollectionResource CreateResource() => new(_commandFactoryMock, _resourceUri);
 }
