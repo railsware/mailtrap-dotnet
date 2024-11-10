@@ -15,7 +15,6 @@ internal sealed class PermissionsIntegrationTests
     public async Task GetForResources_Success()
     {
         // Arrange
-        using var mockHttp = new MockHttpMessageHandler();
         var httpMethod = HttpMethod.Get;
         var accountId = TestContext.CurrentContext.Random.NextLong();
         var requestUri = EndpointsTestConstants.ApiDefaultUrl
@@ -32,6 +31,7 @@ internal sealed class PermissionsIntegrationTests
 
         using var responseContent = await "Permissions".LoadTestJsonToStringContent();
 
+        using var mockHttp = new MockHttpMessageHandler();
         mockHttp
             .Expect(httpMethod, requestUri)
             .WithHeaders("Authorization", $"Bearer {clientConfig.ApiToken}")
