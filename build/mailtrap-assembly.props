@@ -1,5 +1,5 @@
 <Project>
-  
+
   <PropertyGroup Label="Assembly Information">
     <NeutralLanguage>en-US</NeutralLanguage>
 
@@ -8,5 +8,5 @@
     <Company>Railsware Products Studio, LLC</Company>
     <Copyright>Copyright © 2024, Railsware Products Studio, LLC. All rights reserved.</Copyright>
   </PropertyGroup>
-  
+
 </Project>

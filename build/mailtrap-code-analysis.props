@@ -1,4 +1,4 @@
-﻿<Project>
+<Project>
 
   <PropertyGroup>
     <EnableNETAnalyzers Condition=" '$(EnableNETAnalyzers)' == '' ">true</EnableNETAnalyzers>
@@ -9,9 +9,9 @@
     <AnalysisLevel Condition=" '$(AnalysisLevel)' == '' ">latest</AnalysisLevel>
 
     <!-- None, Default, Minimum, Recommended, All-->
-    <!--<AnalysisMode>All</AnalysisMode>-->
+    <AnalysisMode>All</AnalysisMode>
 
-    <AnalysisModeDesign>All</AnalysisModeDesign>
+    <!--<AnalysisModeDesign>All</AnalysisModeDesign>
     <AnalysisModeDocumentation>All</AnalysisModeDocumentation>
     <AnalysisModeGlobalization>All</AnalysisModeGlobalization>
     <AnalysisModeInteroperability>All</AnalysisModeInteroperability>
@@ -22,7 +22,7 @@
     <AnalysisModeReliability>All</AnalysisModeReliability>
     <AnalysisModeSecurity>All</AnalysisModeSecurity>
     <AnalysisModeStyle>All</AnalysisModeStyle>
-    <AnalysisModeUsage>All</AnalysisModeUsage>
+    <AnalysisModeUsage>All</AnalysisModeUsage>-->
   </PropertyGroup>
 
 </Project>
