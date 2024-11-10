@@ -63,12 +63,11 @@
 
   <ItemGroup>
     <VSTestLogger Include="blame" />
-    <VSTestLogger Include="trx%3BLogFileName=TestResults-$(MSBuildProjectName).trx" />
-    <VSTestLogger Include="html%3BLogFileName=TestResults-$(MSBuildProjectName).html" />
+    <VSTestLogger Include="trx%3BLogFileName=$(MSBuildProjectName).trx" />
+    <VSTestLogger Include="html%3BLogFileName=$(MSBuildProjectName).html" />
   </ItemGroup>
 
   <PropertyGroup Condition="$(ContinuousIntegrationBuild) == 'true'">
-    <!--<VSTestResultsDirectory>$(MSBuildThisFileDirectory)\..</VSTestResultsDirectory>-->
     <VSTestLogger>@(VSTestLogger)</VSTestLogger>
   </PropertyGroup>
 
