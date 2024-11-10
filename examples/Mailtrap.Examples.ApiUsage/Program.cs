@@ -5,43 +5,19 @@
 // -----------------------------------------------------------------------
 
 
-using System.Net.Mime;
-using Mailtrap;
-using Mailtrap.AccountAccesses;
-using Mailtrap.AccountAccesses.Models;
-using Mailtrap.Accounts;
-using Mailtrap.Accounts.Models;
-using Mailtrap.Attachments;
-using Mailtrap.Attachments.Models;
-using Mailtrap.Billing.Models;
-using Mailtrap.Email;
-using Mailtrap.Email.Requests;
-using Mailtrap.Emails;
-using Mailtrap.Emails.Models;
-using Mailtrap.Emails.Requests;
-using Mailtrap.Extensions.DependencyInjection;
-using Mailtrap.Inboxes;
-using Mailtrap.Inboxes.Models;
-using Mailtrap.Inboxes.Requests;
-using Mailtrap.Models;
-using Mailtrap.Permissions.Models;
-using Mailtrap.Projects;
-using Mailtrap.Projects.Models;
-using Mailtrap.Projects.Requests;
-using Mailtrap.SendingDomains;
-using Mailtrap.SendingDomains.Models;
-using Mailtrap.SendingDomains.Requests;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
+using Mailtrap;
 
 /// <summary>
 /// Various examples of the Mailtrap API usage
 /// </summary>
 internal sealed class Program
 {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+    private static IServiceProvider s_services;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+
+
     public static async Task Main(string[] args)
     {
         HostApplicationBuilder hostBuilder = Host.CreateApplicationBuilder(args);
@@ -53,6 +29,8 @@ internal sealed class Program
         hostBuilder.Services.TryAddTransient<BillingReactor>();
 
         using IHost host = hostBuilder.Build();
+
+        s_services = host.Services;
 
         ILogger<Program> logger = host.Services.GetRequiredService<ILogger<Program>>();
 
@@ -418,7 +396,7 @@ internal sealed class Program
     {
         Inbox inbox = await inboxResource.GetDetails();
 
-        IEmailClient emailClient = s_mailtrapClient.Test(inbox.Id);
+        IEmailClient emailClient = s_services.GetRequiredService<IMailtrapClient>().Test(inbox.Id);
 
         SendEmailRequest sendEmailRequest = SendEmailRequest
             .Create()
