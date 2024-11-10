@@ -10,16 +10,16 @@ namespace Mailtrap.Examples.ApiUsage.Logic;
 
 internal sealed class AccountReactor : Reactor
 {
-    private readonly BillingReactor _billingProcessor;
+    private readonly BillingReactor _billingReactor;
 
 
     public AccountReactor(
+        BillingReactor billingReactor,
         IMailtrapClient mailtrapClient,
-        BillingReactor billingProcessor,
         ILogger<AccountReactor> logger)
         : base(mailtrapClient, logger)
     {
-        _billingProcessor = billingProcessor;
+        _billingReactor = billingReactor;
     }
 
 
@@ -41,6 +41,6 @@ internal sealed class AccountReactor : Reactor
 
         _logger.LogInformation("Account: {Account}", account);
 
-        await _billingProcessor.Process(accountId);
+        await _billingReactor.Process(accountId);
     }
 }
