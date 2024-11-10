@@ -141,10 +141,10 @@ internal sealed class MessageReactor : Reactor
         EmailMessage updatedMessage = await messageResource.Update(updateMessageRequest);
         _logger.LogInformation("Updated Message: {Message}", updatedMessage);
 
-        //// Forward message - available for paid accounts only
-        //var forwardMessageRequest = new ForwardEmailMessageRequest("forward@domain.com");
-        //ForwardedEmailMessage forwardedMessage = await messageResource.Forward(forwardMessageRequest);
-        //_logger.LogInformation("Message forwarded: {Forward}", forwardedMessage.Message);
+        // Forward message - available for paid accounts only
+        // var forwardMessageRequest = new ForwardEmailMessageRequest("forward@domain.com");
+        // ForwardedEmailMessage forwardedMessage = await messageResource.Forward(forwardMessageRequest);
+        // _logger.LogInformation("Message forwarded: {Forward}", forwardedMessage.Message);
 
         // Delete message
         // Beware that resource becomes invalid after deletion and should not be used anymore

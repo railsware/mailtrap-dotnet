@@ -51,7 +51,7 @@ internal sealed class AccountReactor : Reactor
         _logger.LogInformation("Account: {Account}", account);
 
         await _billingReactor.Process(accountId);
-        // await _accountAccessReactor.Process(accountId);
+        // await _accountAccessReactor.Process(accountId); // available for payed account only
         await _permissionsReactor.Process(accountId);
         await _projectReactor.Process(accountId);
     }
