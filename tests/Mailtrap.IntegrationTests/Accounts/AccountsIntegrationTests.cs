@@ -91,7 +91,7 @@ internal sealed class AccountsIntegrationTests
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        var responseString = await File.ReadAllTextAsync(Path.Combine("accounts", "getAll-unauthorized.json"));
+        var responseString = await File.ReadAllTextAsync(Path.Combine("Accounts", "getAll-unauthorized.json"));
         using var responseContent = new StringContent(responseString);
 
         using var mockHttp = new MockHttpMessageHandler();
