@@ -10,7 +10,7 @@ namespace Mailtrap.Examples.ApiUsage.Logic;
 
 internal sealed class BillingReactor : Reactor
 {
-    public BillingReactor(IMailtrapClient mailtrapClient, ILogger<AccountReactor> logger)
+    public BillingReactor(IMailtrapClient mailtrapClient, ILogger<BillingReactor> logger)
         : base(mailtrapClient, logger) { }
 
 
