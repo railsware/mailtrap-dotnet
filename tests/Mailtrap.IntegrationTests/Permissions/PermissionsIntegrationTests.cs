@@ -30,8 +30,7 @@ internal sealed class PermissionsIntegrationTests
         var token = TestContext.CurrentContext.Random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        using var responseStream = File.OpenRead(Path.Combine("Permissions", "GetForResources-success.json"));
-        using var responseContent = new StreamContent(responseStream);
+        using var responseContent = await "Permissions".LoadTestJsonToStringContent();
 
         mockHttp
             .Expect(httpMethod, requestUri)
