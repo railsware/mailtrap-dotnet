@@ -42,50 +42,26 @@ using Microsoft.Extensions.Logging;
 /// </summary>
 internal sealed class Program
 {
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-    private static IMailtrapClient s_mailtrapClient;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-
-
-    private static async Task Main(string[] args)
+    public static async Task Main(string[] args)
     {
         HostApplicationBuilder hostBuilder = Host.CreateApplicationBuilder(args);
 
         IConfigurationSection config = hostBuilder.Configuration.GetSection("Mailtrap");
 
         hostBuilder.Services.AddMailtrapClient(config);
+        hostBuilder.Services.TryAddTransient<AccountReactor>();
+        hostBuilder.Services.TryAddTransient<BillingReactor>();
 
         using IHost host = hostBuilder.Build();
 
-        ILogger logger = host.Services.GetRequiredService<ILogger<Program>>();
+        ILogger<Program> logger = host.Services.GetRequiredService<ILogger<Program>>();
 
         try
         {
-            s_mailtrapClient = host.Services.GetRequiredService<IMailtrapClient>();
-
-            // Get all accounts available for the token
-            IList<Account> accounts = await s_mailtrapClient
-                .Accounts()
-                .GetAll();
-
+            AccountReactor reactor = host.Services.GetRequiredService<AccountReactor>();
             var accountId = 1917378;
-            Account? account = accounts.FirstOrDefault(a => a.Id == accountId);
 
-            if (account is null)
-            {
-                logger.LogWarning("No account found.");
-
-                return;
-            }
-            else
-            {
-                logger.LogInformation("Account: {Account}", account);
-
-                // Get resource for specific account
-                IAccountResource accountResource = s_mailtrapClient.Account(account.Id);
-
-                await ProcessAccount(accountResource, logger);
-            }
+            await reactor.Process(accountId);
         }
         catch (Exception ex)
         {

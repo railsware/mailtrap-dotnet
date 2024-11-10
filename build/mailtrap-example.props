@@ -2,8 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-    <UseCommonOutputDirectory>false</UseCommonOutputDirectory>
-    <IsPackable>false</IsPackable>
+    <UseCommonOutputDirectory>false</UseCommonOutputDirectory>    
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 

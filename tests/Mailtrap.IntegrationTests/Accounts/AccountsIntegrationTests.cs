@@ -59,8 +59,7 @@ internal sealed class AccountsIntegrationTests
         // Act
         var result = await client
             .Accounts()
-            .GetAll()
-            .ConfigureAwait(false);
+            .GetAll();
 
 
         // Assert
@@ -92,8 +91,7 @@ internal sealed class AccountsIntegrationTests
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        var errorDetails = "Incorrect API token";
-        var responseString = $"{{\"error\":{errorDetails.AddDoubleQuote()}}}";
+        var responseString = await File.ReadAllTextAsync(Path.Combine("Accounts", "getAll-unauthorized.json"));
         using var responseContent = new StringContent(responseString);
 
         using var mockHttp = new MockHttpMessageHandler();
@@ -120,7 +118,7 @@ internal sealed class AccountsIntegrationTests
         // Assert
         await act.Should()
             .ThrowAsync<HttpRequestFailedException>()
-            .WithMessage($"*{errorDetails}*");
+            .WithMessage("*'Incorrect API token'*");
 
         mockHttp.VerifyNoOutstandingExpectation();
     }
