@@ -1,0 +1,17 @@
+[
+  {
+    "id": 4001,
+    "name": "My First Project",
+    "type": "project",
+    "access_level": 1,
+    "resources": [
+      {
+        "id": 3816,
+        "name": "My First Inbox",
+        "type": "inbox",
+        "access_level": 100,
+        "resources": []
+      }
+    ]
+  }
+]

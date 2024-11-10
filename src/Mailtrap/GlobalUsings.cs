@@ -30,6 +30,8 @@ global using Mailtrap.Extensions;
 global using Mailtrap.Http;
 global using Mailtrap.Http.ResponseHandlers;
 global using Mailtrap.Models;
+global using Mailtrap.Permissions;
+global using Mailtrap.Permissions.Models;
 global using Mailtrap.Rest;
 global using Mailtrap.Rest.Commands;
 global using Mailtrap.Validation;

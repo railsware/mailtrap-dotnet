@@ -71,6 +71,23 @@ internal sealed class AccountResourceTests
     #endregion
 
 
+    #region Permissions
+    [Test]
+    public void Permissions_ShouldReturnPermissionsResource()
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var result = client.Permissions();
+
+        // Assert
+        VerifyResource<IPermissionsResource, PermissionsResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.PermissionsSegment));
+    }
+    #endregion
+
+   
     private AccountResource CreateResource() => new(_commandFactoryMock, _resourceUri);
 
     private static void VerifyResource<TService, TImplementation>(TService result, Uri resourceUri)

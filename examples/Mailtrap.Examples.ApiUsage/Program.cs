@@ -14,11 +14,7 @@ internal sealed class Program
     {
         HostApplicationBuilder hostBuilder = Host.CreateApplicationBuilder(args);
 
-        IConfigurationSection config = hostBuilder.Configuration.GetSection("Mailtrap");
-
-        hostBuilder.Services.AddMailtrapClient(config);
-        hostBuilder.Services.TryAddTransient<AccountReactor>();
-        hostBuilder.Services.TryAddTransient<BillingReactor>();
+        RegisterServices(hostBuilder);
 
         using IHost host = hostBuilder.Build();
 
@@ -26,10 +22,11 @@ internal sealed class Program
 
         try
         {
-            AccountReactor reactor = host.Services.GetRequiredService<AccountReactor>();
             var accountId = 1917378;
 
-            await reactor.Process(accountId);
+            await host.Services
+                .GetRequiredService<AccountReactor>()
+                .Process(accountId);
         }
         catch (Exception ex)
         {
@@ -37,5 +34,17 @@ internal sealed class Program
             Environment.FailFast(ex.Message);
             throw;
         }
+    }
+
+
+    private static void RegisterServices(HostApplicationBuilder hostBuilder)
+    {
+        IConfigurationSection config = hostBuilder.Configuration.GetSection("Mailtrap");
+
+        hostBuilder.Services.AddMailtrapClient(config);
+
+        hostBuilder.Services.TryAddTransient<AccountReactor>();
+        hostBuilder.Services.TryAddTransient<BillingReactor>();
+        hostBuilder.Services.TryAddTransient<PermissionsReactor>();
     }
 }
