@@ -25,11 +25,9 @@ dotnet_diagnostic.IDE0008.severity = warning
 # IDE0051: Remove unused private member
 dotnet_diagnostic.IDE0051.severity = suggestion
 
-
-[Program.cs]
-
 # CA1031: Do not catch general exception types
 dotnet_diagnostic.CA1031.severity = none
 
 # Workaround for https://github.com/dotnet/roslyn-analyzers/issues/5628
+# CA1812
 dotnet_diagnostic.CA1812.severity = none

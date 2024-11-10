@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+
 namespace Mailtrap.UnitTests.Email.Responses;
 
 
@@ -73,7 +74,7 @@ internal sealed class SendEmailResponseTests
             "{" +
                 "\"success\":true," +
                 "\"message_ids\":[" +
-                    messageId.Quoted() +
+                    messageId.AddDoubleQuote() +
                 "]" +
             "}";
 

@@ -15,6 +15,8 @@ global using System.Text.Json.Serialization;
 global using FluentValidation;
 global using Mailtrap.Accounts;
 global using Mailtrap.Accounts.Models;
+global using Mailtrap.Billing;
+global using Mailtrap.Billing.Models;
 global using Mailtrap.Email;
 global using Mailtrap.Email.Models;
 global using Mailtrap.Email.Requests;

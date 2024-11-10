@@ -1,22 +1,23 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="AccountResourceTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="BillingResourceTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.UnitTests.Accounts;
+namespace Mailtrap.UnitTests.Billing;
 
 
 [TestFixture]
-internal sealed class AccountResourceTests
+internal sealed class BillingResourceTests
 {
     private readonly IRestResourceCommandFactory _commandFactoryMock = Mock.Of<IRestResourceCommandFactory>();
     private readonly Uri _resourceUri = EndpointsTestConstants.ApiDefaultUrl
         .Append(
             UrlSegmentsTestConstants.ApiRootSegment,
             UrlSegmentsTestConstants.AccountsSegment)
-        .Append(TestContext.CurrentContext.Random.NextLong());
+        .Append(TestContext.CurrentContext.Random.NextLong())
+        .Append(UrlSegmentsTestConstants.BillingSegment);
 
 
     #region Constructor
@@ -25,7 +26,7 @@ internal sealed class AccountResourceTests
     public void Constructor_ShouldThrowArgumentNullException_WhenCommandFactoryIsNull()
     {
         // Act
-        var act = () => new AccountResource(null!, _resourceUri);
+        var act = () => new BillingResource(null!, _resourceUri);
 
         // Assert
         act.Should().Throw<ArgumentNullException>();
@@ -35,7 +36,7 @@ internal sealed class AccountResourceTests
     public void Constructor_ShouldThrowArgumentNullException_WhenUriIsNull()
     {
         // Act
-        var act = () => new AccountResource(_commandFactoryMock, null!);
+        var act = () => new BillingResource(_commandFactoryMock, null!);
 
         // Assert
         act.Should().Throw<ArgumentNullException>();
@@ -54,33 +55,6 @@ internal sealed class AccountResourceTests
     #endregion
 
 
-    #region Billing
-    [Test]
-    public void Billing_ShouldReturnBillingResource()
-    {
-        // Arrange
-        var client = CreateResource();
 
-        // Act
-        var result = client.Billing();
-
-        // Assert
-        VerifyResource<IBillingResource, BillingResource>(
-            result, client.ResourceUri.Append(UrlSegmentsTestConstants.BillingSegment));
-    }
-    #endregion
-
-
-    private AccountResource CreateResource() => new(_commandFactoryMock, _resourceUri);
-
-    private static void VerifyResource<TService, TImplementation>(TService result, Uri resourceUri)
-        where TService : IRestResource
-        where TImplementation : TService
-    {
-        result.Should()
-            .NotBeNull().And
-            .BeOfType<TImplementation>();
-
-        result.ResourceUri.Should().Be(resourceUri);
-    }
+    private BillingResource CreateResource() => new(_commandFactoryMock, _resourceUri);
 }
