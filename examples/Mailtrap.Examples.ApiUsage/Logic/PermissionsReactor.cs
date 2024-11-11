@@ -21,7 +21,7 @@ internal sealed class PermissionsReactor : Reactor
         // Get resource permissions for account
         IList<ResourcePermissions> permissions = await accountResource
             .Permissions()
-            .GetForResources();
+            .GetAll();
 
         _logger.LogInformation("Resource Permissions: {ResourcePermissions}", permissions);
     }

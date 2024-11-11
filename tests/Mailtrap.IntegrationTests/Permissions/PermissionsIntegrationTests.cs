@@ -54,7 +54,7 @@ internal sealed class PermissionsIntegrationTests
         var result = await client
             .Account(accountId)
             .Permissions()
-            .GetForResources()
+            .GetAll()
             .ConfigureAwait(false);
 
 
