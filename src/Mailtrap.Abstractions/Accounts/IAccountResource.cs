@@ -14,6 +14,15 @@ namespace Mailtrap.Accounts;
 public interface IAccountResource : IRestResource
 {
     /// <summary>
+    /// Gets permissions resource for the account, represented by this resource instance.
+    /// </summary>
+    /// 
+    /// <returns>
+    /// Permissions resource for the account, represented by this resource instance.
+    /// </returns>
+    public IPermissionsResource Permissions();
+
+    /// <summary>
     /// Gets billing resource for the account, represented by this resource instance.
     /// </summary>
     /// 
