@@ -20,24 +20,24 @@ internal sealed class StringEnumJsonConverterFactoryTests
         JsonSerializer
             .Serialize(DispositionType.Attachment, _options)
             .Should()
-            .Be(DispositionType.Attachment.ToString().Quoted());
+            .Be(DispositionType.Attachment.ToString().AddDoubleQuote());
 
         JsonSerializer
             .Serialize(DispositionType.Inline, _options)
             .Should()
-            .Be(DispositionType.Inline.ToString().Quoted());
+            .Be(DispositionType.Inline.ToString().AddDoubleQuote());
     }
 
     [Test]
     public void Deserialize_ShouldUseConverterFactory()
     {
         JsonSerializer
-            .Deserialize<DispositionType>(DispositionType.Inline.ToString().Quoted(), _options)
+            .Deserialize<DispositionType>(DispositionType.Inline.ToString().AddDoubleQuote(), _options)
             .Should()
             .Be(DispositionType.Inline);
 
         JsonSerializer
-            .Deserialize<DispositionType>(DispositionType.Attachment.ToString().Quoted(), _options)
+            .Deserialize<DispositionType>(DispositionType.Attachment.ToString().AddDoubleQuote(), _options)
             .Should()
             .Be(DispositionType.Attachment);
     }
@@ -46,7 +46,7 @@ internal sealed class StringEnumJsonConverterFactoryTests
     public void Deserialize_ShouldThrow_WhenInvalidTypeSpecified()
     {
         var act1 = () => JsonSerializer
-            .Deserialize<bool>(DispositionType.Inline.ToString().Quoted(), _options);
+            .Deserialize<bool>(DispositionType.Inline.ToString().AddDoubleQuote(), _options);
 
         act1.Should().Throw<JsonException>();
     }

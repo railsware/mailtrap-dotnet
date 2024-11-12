@@ -13,4 +13,12 @@ namespace Mailtrap.Accounts;
 /// </summary>
 public interface IAccountResource : IRestResource
 {
+    /// <summary>
+    /// Gets billing resource for the account, represented by this resource instance.
+    /// </summary>
+    /// 
+    /// <returns>
+    /// Billing resource for the account, represented by this resource instance.
+    /// </returns>
+    public IBillingResource Billing();
 }

@@ -26,6 +26,9 @@
 
     <TreatTestAdapterErrorsAsWarnings>false</TreatTestAdapterErrorsAsWarnings>
 
+    <!-- Path relative to solution directory -->
+    <ResultsDirectory>../artifacts/test-results</ResultsDirectory>
+    
   </RunConfiguration>
 
 
@@ -35,7 +38,7 @@
       <!-- Documentation https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/VSTestIntegration.md#advanced-options-supported-via-runsettings -->
       <DataCollector friendlyName="XPlat Code Coverage">
         <Configuration>
-          <Exclude>[Mailtrap.Tests]*</Exclude>
+          <Exclude>[Mailtrap.*Tests].*</Exclude>
           <ExcludeByAttribute>Obsolete,GeneratedCodeAttribute</ExcludeByAttribute>
           <SingleHit>false</SingleHit>
           <UseSourceLink>true</UseSourceLink>
@@ -75,6 +78,7 @@ Included items must then not match any entries in the exclude list to remain inc
                 <ModulePath>.*\.exe$</ModulePath>
               </Include>
               <Exclude>
+                <ModulePath>^Mailtrap.*Tests.*</ModulePath>
                 <ModulePath>.*CPPUnitTestFramework.*</ModulePath>
                 <ModulePath>.*TestAdapter.*</ModulePath>
                 <ModulePath>.*nunit.*</ModulePath>
@@ -169,7 +173,7 @@ Included items must then not match any entries in the exclude list to remain inc
   </DataCollectionRunSettings>
 
   <!-- Section for parameters -->
-  <!-- Documentationhttps://learn.microsoft.com/en-us/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file?view=vs-2022#testrunparameters -->
+  <!-- Documentation https://learn.microsoft.com/en-us/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file?view=vs-2022#testrunparameters -->
   <!--<TestRunParameters>
         <Parameter name="webAppUrl" value="http://localhost" />
     </TestRunParameters>-->
@@ -180,22 +184,22 @@ Included items must then not match any entries in the exclude list to remain inc
   <!-- Documentation https://docs.microsoft.com/en-us/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file?view=vs-2022#loggerrunsettings-element -->
   <LoggerRunSettings>
     <Loggers>
+      <Logger friendlyName="blame" enabled="True" />
       <Logger friendlyName="console" enabled="True">
         <Configuration>
           <Verbosity>quiet</Verbosity>
         </Configuration>
       </Logger>
-      <Logger friendlyName="trx" enabled="True">
+      <Logger friendlyName="trx" enabled="False">
         <Configuration>
           <LogFileName>test-results.trx</LogFileName>
         </Configuration>
       </Logger>
-      <Logger friendlyName="html" enabled="True">
+      <Logger friendlyName="html" enabled="False">
         <Configuration>
           <LogFileName>test-results.html</LogFileName>
         </Configuration>
       </Logger>
-      <Logger friendlyName="blame" enabled="True" />
     </Loggers>
   </LoggerRunSettings>
 

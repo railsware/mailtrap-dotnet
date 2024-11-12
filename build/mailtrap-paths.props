@@ -1,4 +1,4 @@
-﻿<Project>
+<Project>
 
   <PropertyGroup Label="Path Shortcuts">
     <LibSourceDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'src'))</LibSourceDirectory>
@@ -7,10 +7,10 @@
   <PropertyGroup Label="Artifacts Output Configuration">
     <BaseOutputDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'artifacts'))</BaseOutputDirectory>
 
-    <UseCommonOutputDirectory>true</UseCommonOutputDirectory> 
+    <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
     <UseArtifactsOutput>true</UseArtifactsOutput>
     <ArtifactsPath>$(BaseOutputDirectory)</ArtifactsPath>
-    <ArtifactsPivots>$(Configuration)</ArtifactsPivots> 
+    <ArtifactsPivots>$(Configuration)</ArtifactsPivots>
   </PropertyGroup>
 
 </Project>

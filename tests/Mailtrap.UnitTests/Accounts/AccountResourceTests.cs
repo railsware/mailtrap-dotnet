@@ -54,5 +54,33 @@ internal sealed class AccountResourceTests
     #endregion
 
 
+    #region Billing
+    [Test]
+    public void Billing_ShouldReturnBillingResource()
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var result = client.Billing();
+
+        // Assert
+        VerifyResource<IBillingResource, BillingResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.BillingSegment));
+    }
+    #endregion
+
+
     private AccountResource CreateResource() => new(_commandFactoryMock, _resourceUri);
+
+    private static void VerifyResource<TService, TImplementation>(TService result, Uri resourceUri)
+        where TService : IRestResource
+        where TImplementation : TService
+    {
+        result.Should()
+            .NotBeNull().And
+            .BeOfType<TImplementation>();
+
+        result.ResourceUri.Should().Be(resourceUri);
+    }
 }

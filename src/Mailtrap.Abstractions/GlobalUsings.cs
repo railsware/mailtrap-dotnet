@@ -15,6 +15,8 @@ global using System.Text.Json.Serialization;
 global using FluentValidation;
 global using Mailtrap.Accounts;
 global using Mailtrap.Accounts.Models;
+global using Mailtrap.Billing;
+global using Mailtrap.Billing.Models;
 global using Mailtrap.Email;
 global using Mailtrap.Email.Models;
 global using Mailtrap.Email.Requests;
@@ -28,7 +30,7 @@ global using Mailtrap.Validation;
 
 
 // Allowing test assembly to access internals for unit tests
-global using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Mailtrap.UnitTests")]
 [assembly: InternalsVisibleTo("Mailtrap.IntegrationTests")]
