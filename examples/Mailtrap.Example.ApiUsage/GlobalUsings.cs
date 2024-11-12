@@ -5,29 +5,34 @@
 // -----------------------------------------------------------------------
 
 
-global using System.Net;
-global using System.Net.Http.Json;
-global using System.Text;
-global using System.Text.Json;
+global using System.Net.Mime;
+global using Mailtrap.AccountAccesses;
 global using Mailtrap.AccountAccesses.Models;
-global using Mailtrap.AccountAccesses.Requests;
+global using Mailtrap.Accounts;
 global using Mailtrap.Accounts.Models;
+global using Mailtrap.Attachments;
+global using Mailtrap.Attachments.Models;
 global using Mailtrap.Billing.Models;
-global using Mailtrap.Configuration;
-global using Mailtrap.Constants;
 global using Mailtrap.Email;
 global using Mailtrap.Email.Requests;
-global using Mailtrap.Email.Responses;
-global using Mailtrap.Exceptions;
-global using Mailtrap.Extensions;
+global using Mailtrap.Emails;
+global using Mailtrap.Emails.Models;
+global using Mailtrap.Emails.Requests;
+global using Mailtrap.Example.ApiUsage.Logic;
 global using Mailtrap.Extensions.DependencyInjection;
+global using Mailtrap.Inboxes;
 global using Mailtrap.Inboxes.Models;
 global using Mailtrap.Inboxes.Requests;
-global using Mailtrap.IntegrationTests.TestConstants;
-global using Mailtrap.IntegrationTests.TestExtensions;
 global using Mailtrap.Models;
 global using Mailtrap.Permissions.Models;
+global using Mailtrap.Projects;
 global using Mailtrap.Projects.Models;
 global using Mailtrap.Projects.Requests;
+global using Mailtrap.SendingDomains;
+global using Mailtrap.SendingDomains.Models;
+global using Mailtrap.SendingDomains.Requests;
+global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
-global using Microsoft.VisualStudio.TestPlatform.CoreUtilities.Extensions;
+global using Microsoft.Extensions.DependencyInjection.Extensions;
+global using Microsoft.Extensions.Hosting;
+global using Microsoft.Extensions.Logging;

@@ -31,8 +31,7 @@ internal sealed class BillingIntegrationTests
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        var responseString = await File.ReadAllTextAsync(Path.Combine("Billing", "getUsage-success.json"));
-        using var responseContent = new StringContent(responseString);
+        using var responseContent = await "Billing".LoadTestJsonToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -86,8 +85,7 @@ internal sealed class BillingIntegrationTests
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        var responseString = await File.ReadAllTextAsync(Path.Combine("Billing", "getUsage-forbidden.json"));
-        using var responseContent = new StringContent(responseString);
+        using var responseContent = await "Billing".LoadTestJsonToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp

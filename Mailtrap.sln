@@ -58,13 +58,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CD08E7CB-C
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Examples.DependencyInjection", "examples\Mailtrap.Examples.DependencyInjection\Mailtrap.Examples.DependencyInjection.csproj", "{4457969D-4981-4F27-A304-A242DEC9FD92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Example.DependencyInjection", "examples\Mailtrap.Example.DependencyInjection\Mailtrap.Example.DependencyInjection.csproj", "{4457969D-4981-4F27-A304-A242DEC9FD92}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Examples.ApiUsage", "examples\Mailtrap.Examples.ApiUsage\Mailtrap.Examples.ApiUsage.csproj", "{B94183D6-5D5C-4EC4-8F58-7D0D803EA197}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Example.ApiUsage", "examples\Mailtrap.Example.ApiUsage\Mailtrap.Example.ApiUsage.csproj", "{B94183D6-5D5C-4EC4-8F58-7D0D803EA197}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Examples.Email.Send", "examples\Mailtrap.Examples.Email.Send\Mailtrap.Examples.Email.Send.csproj", "{02122FD2-9990-44CB-B9E1-1C5CDD388629}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Example.Email.Send", "examples\Mailtrap.Example.Email.Send\Mailtrap.Example.Email.Send.csproj", "{02122FD2-9990-44CB-B9E1-1C5CDD388629}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.IntegrationTests", "tests\Mailtrap.IntegrationTests\Mailtrap.IntegrationTests.csproj", "{5CF5E1BC-D209-4EED-A34D-A96474D6189E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Example.Account", "examples\Mailtrap.Example.Account\Mailtrap.Example.Account.csproj", "{EAF0B25B-9DE8-422D-855E-4D0A59DEF316}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Example.Billing", "examples\Mailtrap.Example.Billing\Mailtrap.Example.Billing.csproj", "{14FDEACB-4933-423F-B6BA-7BF4E17E954A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Example.Permissions", "examples\Mailtrap.Example.Permissions\Mailtrap.Example.Permissions.csproj", "{AFAF16D5-6BEA-43AA-883D-A7B7B8B98D1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,6 +106,18 @@ Global
 		{5CF5E1BC-D209-4EED-A34D-A96474D6189E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CF5E1BC-D209-4EED-A34D-A96474D6189E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CF5E1BC-D209-4EED-A34D-A96474D6189E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAF0B25B-9DE8-422D-855E-4D0A59DEF316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAF0B25B-9DE8-422D-855E-4D0A59DEF316}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAF0B25B-9DE8-422D-855E-4D0A59DEF316}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAF0B25B-9DE8-422D-855E-4D0A59DEF316}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14FDEACB-4933-423F-B6BA-7BF4E17E954A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14FDEACB-4933-423F-B6BA-7BF4E17E954A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14FDEACB-4933-423F-B6BA-7BF4E17E954A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14FDEACB-4933-423F-B6BA-7BF4E17E954A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFAF16D5-6BEA-43AA-883D-A7B7B8B98D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFAF16D5-6BEA-43AA-883D-A7B7B8B98D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFAF16D5-6BEA-43AA-883D-A7B7B8B98D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFAF16D5-6BEA-43AA-883D-A7B7B8B98D1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +130,9 @@ Global
 		{B94183D6-5D5C-4EC4-8F58-7D0D803EA197} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
 		{02122FD2-9990-44CB-B9E1-1C5CDD388629} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
 		{5CF5E1BC-D209-4EED-A34D-A96474D6189E} = {CCDA3840-9EFE-458A-A018-462D227AC0E4}
+		{EAF0B25B-9DE8-422D-855E-4D0A59DEF316} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
+		{14FDEACB-4933-423F-B6BA-7BF4E17E954A} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
+		{AFAF16D5-6BEA-43AA-883D-A7B7B8B98D1B} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0FF614CC-FEBC-4C66-B3FC-FCB73EE511D7}

@@ -15,7 +15,6 @@ internal sealed class PermissionsIntegrationTests
     public async Task GetForResources_Success()
     {
         // Arrange
-        using var mockHttp = new MockHttpMessageHandler();
         var httpMethod = HttpMethod.Get;
         var accountId = TestContext.CurrentContext.Random.NextLong();
         var requestUri = EndpointsTestConstants.ApiDefaultUrl
@@ -30,9 +29,9 @@ internal sealed class PermissionsIntegrationTests
         var token = TestContext.CurrentContext.Random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        var response = new List<ResourcePermissions>();
-        using var responseContent = JsonContent.Create(response);
+        using var responseContent = await "Permissions".LoadTestJsonToStringContent();
 
+        using var mockHttp = new MockHttpMessageHandler();
         mockHttp
             .Expect(httpMethod, requestUri)
             .WithHeaders("Authorization", $"Bearer {clientConfig.ApiToken}")
@@ -55,7 +54,7 @@ internal sealed class PermissionsIntegrationTests
         var result = await client
             .Account(accountId)
             .Permissions()
-            .GetForResources()
+            .GetAll()
             .ConfigureAwait(false);
 
 
@@ -64,6 +63,6 @@ internal sealed class PermissionsIntegrationTests
 
         result.Should()
             .NotBeNull().And
-            .BeEquivalentTo(response);
+            .ContainSingle();
     }
 }
