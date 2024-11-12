@@ -18,12 +18,6 @@ internal sealed class JsonContentHttpResponseHandler<T> : HttpResponseHandler<T>
 
     protected override async Task<T> ProcessSuccessResponse(CancellationToken cancellationToken)
     {
-#if DEBUG
-        var _ = await _httpResponseMessage.Content
-            .ReadAsStringAsync()
-            .ConfigureAwait(false);
-#endif
-
         var content = await _httpResponseMessage.Content
             .ReadAsStreamAsync()
             .ConfigureAwait(false);
