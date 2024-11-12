@@ -31,7 +31,7 @@ global using Mailtrap.Validation;
 
 
 // Allowing test assembly to access internals for unit tests
-global using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Mailtrap.UnitTests")]
 [assembly: InternalsVisibleTo("Mailtrap.IntegrationTests")]

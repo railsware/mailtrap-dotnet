@@ -19,10 +19,11 @@ ILogger<Program> logger = host.Services.GetRequiredService<ILogger<Program>>();
 
 try
 {
-    AccountReactor reactor = host.Services.GetRequiredService<AccountReactor>();
     var accountId = 1917378;
 
-    await reactor.Process(accountId);
+    await host.Services
+        .GetRequiredService<AccountReactor>()
+        .Process(accountId);
 }
 catch (Exception ex)
 {

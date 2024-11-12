@@ -5,6 +5,9 @@
 // -----------------------------------------------------------------------
 
 
+using System.Runtime.CompilerServices;
+
+
 namespace Mailtrap.Models;
 
 
