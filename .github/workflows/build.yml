@@ -32,7 +32,7 @@ jobs:
       matrix:
         platform: [anycpu] 
         configuration: [Release]
-        dotnet: ['9.0.x']
+        dotnet: ['8.0.x']
 
     steps:
     # https://github.com/marketplace/actions/checkout
