@@ -59,11 +59,11 @@ public sealed record ResourceType : StringEnum<ResourceType>
     public static ResourceType SendingDomain { get; } = Define("mailsend_domain");
 
     /// <summary>
-    /// Gets the value representing "email campaign" resource type.
+    /// Gets the value representing "email campaigns" resource type.
     /// </summary>
     ///
     /// <value>
-    /// Represents "email campaign" resource type.
+    /// Represents "email campaigns" resource type.
     /// </value>
     public static ResourceType EmailCampaign { get; } = Define("email_campaign_permission_scope");
 }
