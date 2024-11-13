@@ -24,7 +24,7 @@ internal sealed class SpecifierTests
                 s.Id == 0 &&
                 s.Name == "John Doe" &&
                 s.Email == "user@example.com" &&
-                s.TwoFactorAuth == true &&
+                s.TwoFactorAuthEnabled == true &&
                 s.Token == null
             );
     }
@@ -42,7 +42,7 @@ internal sealed class SpecifierTests
                 s.Id == 2 &&
                 s.Name == null &&
                 s.Email == "invited.user@example.com" &&
-                s.TwoFactorAuth == null
+                s.TwoFactorAuthEnabled == null
             );
     }
 
@@ -59,7 +59,7 @@ internal sealed class SpecifierTests
                 s.Id == 42 &&
                 s.Name == "Token" &&
                 s.Email == null &&
-                s.TwoFactorAuth == null &&
+                s.TwoFactorAuthEnabled == null &&
                 s.AuthorName == "Author" &&
                 s.Token == "token" &&
                 s.ExpiresAt == new DateTimeOffset(2025, 1, 1, 0, 0, 0, TimeSpan.Zero)

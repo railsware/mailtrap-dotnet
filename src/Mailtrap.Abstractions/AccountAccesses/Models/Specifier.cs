@@ -115,5 +115,5 @@ public sealed record Specifier
     /// </remarks>
     [JsonPropertyName("two_factor_authentication_enabled")]
     [JsonPropertyOrder(7)]
-    public bool? TwoFactorAuth { get; set; }
+    public bool? TwoFactorAuthEnabled { get; set; }
 }
