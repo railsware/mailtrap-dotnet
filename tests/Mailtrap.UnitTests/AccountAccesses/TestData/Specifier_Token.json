@@ -1,0 +1,7 @@
+{
+  "id": 42,
+  "name": "Token",
+  "author_name": "Author",
+  "token": "token",
+  "expires_at": "2025-01-01T00:00:00Z"
+}

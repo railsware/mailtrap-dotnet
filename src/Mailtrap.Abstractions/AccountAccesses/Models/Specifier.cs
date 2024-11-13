@@ -100,4 +100,20 @@ public sealed record Specifier
     [JsonPropertyName("expires_at")]
     [JsonPropertyOrder(6)]
     public DateTimeOffset? ExpiresAt { get; set; }
+
+    /// <summary>
+    /// Gets the flag indicating if 2FA enabled for user.
+    /// </summary>
+    ///
+    /// <value>
+    /// <see langword="true"/> when 2FA enabled for user.<br/>
+    /// <see langword="false"/> otherwise.
+    /// </value>
+    ///
+    /// <remarks>
+    /// Applicable to 'User' specifier type only.
+    /// </remarks>
+    [JsonPropertyName("two_factor_authentication_enabled")]
+    [JsonPropertyOrder(7)]
+    public bool? TwoFactorAuth { get; set; }
 }
