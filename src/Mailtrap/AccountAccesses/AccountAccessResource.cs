@@ -17,14 +17,14 @@ internal sealed class AccountAccessResource : RestResource, IAccountAccessResour
         : base(restResourceCommandFactory, resourceUri) { }
 
 
-    public async Task<UpdatedPermissions> UpdatePermissions(UpdatePermissionsRequest request, CancellationToken cancellationToken = default)
+    public async Task<UpdatePermissionsResponse> UpdatePermissions(UpdatePermissionsRequest request, CancellationToken cancellationToken = default)
     {
         Ensure.NotNull(request, nameof(request));
 
         var uri = ResourceUri.Append(UpdatePermissionsSegment);
 
         var result = await RestResourceCommandFactory
-            .CreatePut<UpdatePermissionsRequest, UpdatedPermissions>(uri, request)
+            .CreatePut<UpdatePermissionsRequest, UpdatePermissionsResponse>(uri, request)
             .Execute(cancellationToken)
             .ConfigureAwait(false);
 

@@ -34,7 +34,7 @@ public interface IAccountAccessResource : IRestResource
     /// If you send a combination of resource_type and resource_id that already exists, the permission is updated.<br />
     /// Otherwise, if the combination doesn't exist, the permission is created.
     /// </remarks>
-    public Task<UpdatedPermissions> UpdatePermissions(
+    public Task<UpdatePermissionsResponse> UpdatePermissions(
         UpdatePermissionsRequest request,
         CancellationToken cancellationToken = default);
 

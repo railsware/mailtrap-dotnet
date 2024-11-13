@@ -5,13 +5,13 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.AccountAccesses.Models;
+namespace Mailtrap.AccountAccesses.Responses;
 
 
 /// <summary>
 /// Represents details of updated account access permissions.
 /// </summary>
-public sealed record UpdatedPermissions
+public sealed record UpdatePermissionsResponse
 {
     /// <summary>
     /// Gets the message about successful update of permissions.
