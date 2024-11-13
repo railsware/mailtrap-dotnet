@@ -48,11 +48,11 @@ public sealed record AccountAccess
     public Specifier? Specifier { get; set; }
 
     /// <summary>
-    /// Gets the list of resources the specifier has access to.
+    /// Gets the list of resources with permissions, the specifier has access to.
     /// </summary>
     ///
     /// <value>
-    /// Contains a list of resources the specifier has access to.
+    /// Contains a list of resources with permissions, the specifier has access to.
     /// </value>
     [JsonPropertyName("resources")]
     [JsonPropertyOrder(4)]
@@ -60,11 +60,11 @@ public sealed record AccountAccess
     public IList<ResourceAccess> Resources { get; } = [];
 
     /// <summary>
-    /// Gets specifier permissions for the account
+    /// Gets specifier permissions for the account.
     /// </summary>
     ///
     /// <value>
-    /// Specifier permissions for resources.
+    /// Specifier permissions for account.
     /// </value>
     [JsonPropertyName("permissions")]
     [JsonPropertyOrder(5)]
