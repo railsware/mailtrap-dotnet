@@ -60,7 +60,7 @@ public sealed record AccountAccess
     public IList<ResourceAccess> Resources { get; } = [];
 
     /// <summary>
-    /// Gets specifier permissions for resources.
+    /// Gets specifier permissions for the account
     /// </summary>
     ///
     /// <value>
