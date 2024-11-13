@@ -124,7 +124,7 @@ internal sealed class AccountResourceTests
 
     #endregion
 
-    
+
     private AccountResource CreateResource() => new(_commandFactoryMock, _resourceUri);
 
     private static void VerifyResource<TService, TImplementation>(TService result, Uri resourceUri)
