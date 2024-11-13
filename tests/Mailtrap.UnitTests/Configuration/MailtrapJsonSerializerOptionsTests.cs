@@ -9,7 +9,7 @@ namespace Mailtrap.UnitTests.Configuration;
 
 
 [TestFixture]
-[Ignore("Flaky")]
+[Explicit("Flaky. Seems like JsonSerializerOptions internal state depends on usage.")]
 internal sealed class MailtrapJsonSerializerOptionsTests
 {
     [Test]
