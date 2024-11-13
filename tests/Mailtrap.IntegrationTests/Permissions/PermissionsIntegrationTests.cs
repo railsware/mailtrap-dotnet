@@ -15,8 +15,10 @@ internal sealed class PermissionsIntegrationTests
     public async Task GetForResources_Success()
     {
         // Arrange
+        var random = TestContext.CurrentContext.Random;
+
         var httpMethod = HttpMethod.Get;
-        var accountId = TestContext.CurrentContext.Random.NextLong();
+        var accountId = random.NextLong();
         var requestUri = EndpointsTestConstants.ApiDefaultUrl
             .Append(
                 UrlSegmentsTestConstants.ApiRootSegment,
@@ -26,7 +28,7 @@ internal sealed class PermissionsIntegrationTests
                 UrlSegmentsTestConstants.PermissionsSegment,
                 UrlSegmentsTestConstants.PermissionsForResourcesSegment)
             .AbsoluteUri;
-        var token = TestContext.CurrentContext.Random.GetString();
+        var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
         using var responseContent = await "Permissions".LoadTestJsonToStringContent();

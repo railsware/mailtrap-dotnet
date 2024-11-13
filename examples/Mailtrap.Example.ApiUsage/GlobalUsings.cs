@@ -5,10 +5,12 @@
 // -----------------------------------------------------------------------
 
 
+global using Mailtrap.AccountAccesses;
+global using Mailtrap.AccountAccesses.Models;
 global using Mailtrap.Accounts;
 global using Mailtrap.Accounts.Models;
 global using Mailtrap.Billing.Models;
-global using Mailtrap.Examples.ApiUsage.Logic;
+global using Mailtrap.Example.ApiUsage.Logic;
 global using Mailtrap.Extensions.DependencyInjection;
 global using Mailtrap.Permissions.Models;
 global using Microsoft.Extensions.Configuration;
