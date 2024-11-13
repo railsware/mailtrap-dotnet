@@ -31,6 +31,6 @@ internal sealed class AccountAccessResource : RestResource, IAccountAccessResour
         return result;
     }
 
-    public async Task<DeletedAccountAccess> Delete(CancellationToken cancellationToken = default)
-        => await Delete<DeletedAccountAccess>(cancellationToken).ConfigureAwait(false);
+    public async Task<DeleteAccountAccessResponse> Delete(CancellationToken cancellationToken = default)
+        => await Delete<DeleteAccountAccessResponse>(cancellationToken).ConfigureAwait(false);
 }

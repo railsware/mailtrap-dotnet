@@ -260,7 +260,7 @@ internal sealed class AccountAccessesIntegrationTests
 
         result.Should()
             .NotBeNull().And
-            .Match<DeletedAccountAccess>(a => a.Id == accessId);
+            .Match<DeleteAccountAccessResponse>(a => a.Id == accessId);
     }
 
     [Test]

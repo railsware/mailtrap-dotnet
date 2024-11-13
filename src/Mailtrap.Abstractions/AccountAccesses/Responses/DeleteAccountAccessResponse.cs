@@ -5,13 +5,13 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.AccountAccesses.Models;
+namespace Mailtrap.AccountAccesses.Responses;
 
 
 /// <summary>
 /// Represents details of deleted account access.
 /// </summary>
-public sealed record DeletedAccountAccess
+public sealed record DeleteAccountAccessResponse
 {
     /// <summary>
     /// Gets the deleted account access identifier.

@@ -63,5 +63,5 @@ public interface IAccountAccessResource : IRestResource
     /// Thus any further operations on it will result in an error.
     /// </para>
     /// </remarks>
-    public Task<DeletedAccountAccess> Delete(CancellationToken cancellationToken = default);
+    public Task<DeleteAccountAccessResponse> Delete(CancellationToken cancellationToken = default);
 }

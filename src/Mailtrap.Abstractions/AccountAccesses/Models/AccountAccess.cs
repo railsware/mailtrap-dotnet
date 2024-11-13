@@ -69,5 +69,5 @@ public sealed record AccountAccess
     [JsonPropertyName("permissions")]
     [JsonPropertyOrder(5)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
-    public ResourceAccessPermissions Permissions { get; } = new();
+    public AccountAccessPermissions Permissions { get; } = new();
 }
