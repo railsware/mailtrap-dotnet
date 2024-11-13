@@ -9,7 +9,7 @@ namespace Mailtrap.AccountAccesses.Models;
 
 
 /// <summary>
-/// Represents account access specifier details.
+/// Represents account access specifier (principal) details.
 /// </summary>
 public sealed record Specifier
 {

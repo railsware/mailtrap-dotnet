@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="Billing.cs" company="Railsware Products Studio, LLC">
+// <copyright file="AccountAccess.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -63,7 +63,7 @@ try
     IAccountAccessResource userAccessResource = accountResource.Access(userAccess.Id);
 
     var updateRequest = new UpdatePermissionsRequest(
-        new UpdatePermissionsRequestItem(inboxId, AccountResourceType.Inbox, AccessLevel.Admin));
+        new UpdatePermissionsRequestItem(inboxId, ResourceType.Inbox, AccessLevel.Admin));
     await userAccessResource.UpdatePermissions(updateRequest);
 }
 catch (Exception ex)

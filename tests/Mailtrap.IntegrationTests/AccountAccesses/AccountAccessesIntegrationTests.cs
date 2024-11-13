@@ -167,7 +167,7 @@ internal sealed class AccountAccessesIntegrationTests
         var clientConfig = new MailtrapClientOptions(token);
 
         var permissions = new UpdatePermissionsRequestItem(
-            random.NextLong(), AccountResourceType.Account, AccessLevel.Admin);
+            random.NextLong(), ResourceType.Account, AccessLevel.Admin);
         var request = new UpdatePermissionsRequest(permissions);
 
         using var responseContent = await "AccountAccesses".LoadTestJsonToStringContent();

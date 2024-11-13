@@ -33,7 +33,7 @@ internal sealed class UpdatePermissionsRequestTests
     public void Validation_ShouldNotFail_WhenRequestIsValid()
     {
         var request = new UpdatePermissionsRequest(
-            new UpdatePermissionsRequestItem(42, AccountResourceType.Project, AccessLevel.Admin));
+            new UpdatePermissionsRequestItem(42, ResourceType.Project, AccessLevel.Admin));
 
         var result = request.Validate();
 

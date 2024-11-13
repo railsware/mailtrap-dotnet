@@ -1,17 +1,17 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="AccountResourceType.cs" company="Railsware Products Studio, LLC">
+// <copyright file="ResourceType.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.AccountAccesses.Models;
+namespace Mailtrap.Models;
 
 
 /// <summary>
-/// Represents access specifier type.
+/// Represents resource type from permissions management perspective.
 /// </summary>
-public sealed record AccountResourceType : StringEnum<AccountResourceType>
+public sealed record ResourceType : StringEnum<ResourceType>
 {
     /// <summary>
     /// Gets the value representing "account" resource type.
@@ -20,7 +20,7 @@ public sealed record AccountResourceType : StringEnum<AccountResourceType>
     /// <value>
     /// Represents "account" resource type.
     /// </value>
-    public static AccountResourceType Account { get; } = Define("account");
+    public static ResourceType Account { get; } = Define("account");
 
     /// <summary>
     /// Gets the value representing "billing" resource type.
@@ -29,7 +29,7 @@ public sealed record AccountResourceType : StringEnum<AccountResourceType>
     /// <value>
     /// Represents "billing" resource type.
     /// </value>
-    public static AccountResourceType Billing { get; } = Define("billing");
+    public static ResourceType Billing { get; } = Define("billing");
 
     /// <summary>
     /// Gets the value representing "project" resource type.
@@ -38,7 +38,7 @@ public sealed record AccountResourceType : StringEnum<AccountResourceType>
     /// <value>
     /// Represents "project" resource type.
     /// </value>
-    public static AccountResourceType Project { get; } = Define("project");
+    public static ResourceType Project { get; } = Define("project");
 
     /// <summary>
     /// Gets the value representing "inbox" resource type.
@@ -47,7 +47,7 @@ public sealed record AccountResourceType : StringEnum<AccountResourceType>
     /// <value>
     /// Represents "inbox" resource type.
     /// </value>
-    public static AccountResourceType Inbox { get; } = Define("inbox");
+    public static ResourceType Inbox { get; } = Define("inbox");
 
     /// <summary>
     /// Gets the value representing "sending domain" resource type.
@@ -56,5 +56,14 @@ public sealed record AccountResourceType : StringEnum<AccountResourceType>
     /// <value>
     /// Represents "sending domain" resource type.
     /// </value>
-    public static AccountResourceType SendingDomain { get; } = Define("mailsend_domain");
+    public static ResourceType SendingDomain { get; } = Define("mailsend_domain");
+
+    /// <summary>
+    /// Gets the value representing "email campaign" resource type.
+    /// </summary>
+    ///
+    /// <value>
+    /// Represents "email campaign" resource type.
+    /// </value>
+    public static ResourceType EmailCampaign { get; } = Define("email_campaign_permission_scope");
 }

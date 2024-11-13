@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="AccountAccessResource.cs" company="Railsware Products Studio, LLC">
+// <copyright file="ResourceAccess.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,9 +9,9 @@ namespace Mailtrap.AccountAccesses.Models;
 
 
 /// <summary>
-/// Represents resource details for account access.
+/// Represents access details for resource.
 /// </summary>
-public sealed record AccountAccessResource
+public sealed record ResourceAccess
 {
     /// <summary>
     /// Gets the resource identifier.
@@ -34,7 +34,7 @@ public sealed record AccountAccessResource
     /// </value>
     [JsonPropertyName("resource_type")]
     [JsonPropertyOrder(2)]
-    public AccountResourceType? Type { get; set; }
+    public ResourceType? Type { get; set; }
 
     /// <summary>
     /// Gets the resource access level.

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="AccountAccessPermissions.cs" company="Railsware Products Studio, LLC">
+// <copyright file="AccessPermissions.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,9 +9,9 @@ namespace Mailtrap.AccountAccesses.Models;
 
 
 /// <summary>
-/// Represents specifier permissions for resources.
+/// Represents access permissions for resource.
 /// </summary>
-public sealed record AccountAccessPermissions
+public sealed record ResourceAccessPermissions
 {
     /// <summary>
     /// Gets the flag indicating whether specifier can read resources.

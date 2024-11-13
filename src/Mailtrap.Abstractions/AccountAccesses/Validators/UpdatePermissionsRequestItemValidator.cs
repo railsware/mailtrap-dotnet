@@ -19,7 +19,7 @@ internal sealed class UpdatePermissionsRequestItemValidator : AbstractValidator<
 
         RuleFor(r => r.ResourceType)
             .NotEmpty()
-            .NotEqual(AccountResourceType.None);
+            .NotEqual(ResourceType.None);
 
         RuleFor(r => r.AccessLevel)
             .NotEmpty()

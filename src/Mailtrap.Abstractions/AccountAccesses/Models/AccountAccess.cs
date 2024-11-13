@@ -57,7 +57,7 @@ public sealed record AccountAccess
     [JsonPropertyName("resources")]
     [JsonPropertyOrder(4)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
-    public IList<AccountAccessResource> Resources { get; } = [];
+    public IList<ResourceAccess> Resources { get; } = [];
 
     /// <summary>
     /// Gets specifier permissions for resources.
@@ -69,5 +69,5 @@ public sealed record AccountAccess
     [JsonPropertyName("permissions")]
     [JsonPropertyOrder(5)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
-    public AccountAccessPermissions Permissions { get; } = new();
+    public ResourceAccessPermissions Permissions { get; } = new();
 }
