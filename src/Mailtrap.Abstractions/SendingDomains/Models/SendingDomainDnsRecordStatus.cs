@@ -9,7 +9,7 @@ namespace Mailtrap.SendingDomains.Models;
 
 
 /// <summary>
-/// Represents the status of the DNS record for domain.
+/// Represents the status of the DNS record for the sending domain.
 /// </summary>
 public sealed record SendingDomainDnsRecordStatus : StringEnum<SendingDomainDnsRecordStatus>
 {

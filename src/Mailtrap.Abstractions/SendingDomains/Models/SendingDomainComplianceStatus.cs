@@ -9,7 +9,7 @@ namespace Mailtrap.SendingDomains.Models;
 
 
 /// <summary>
-/// Represents compliance status of the domain.
+/// Represents compliance status of the sending domain.
 /// </summary>
 public sealed record SendingDomainComplianceStatus : StringEnum<SendingDomainComplianceStatus>
 {
