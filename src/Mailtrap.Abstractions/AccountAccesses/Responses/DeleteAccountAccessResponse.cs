@@ -1,17 +1,17 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="DeletedAccountAccess.cs" company="Railsware Products Studio, LLC">
+// <copyright file="DeleteAccountAccessResponse.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.AccountAccesses.Models;
+namespace Mailtrap.AccountAccesses.Responses;
 
 
 /// <summary>
 /// Represents details of deleted account access.
 /// </summary>
-public sealed record DeletedAccountAccess
+public sealed record DeleteAccountAccessResponse
 {
     /// <summary>
     /// Gets the deleted account access identifier.

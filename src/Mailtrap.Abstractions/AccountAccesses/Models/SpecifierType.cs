@@ -9,7 +9,7 @@ namespace Mailtrap.AccountAccesses.Models;
 
 
 /// <summary>
-/// Represents access specifier type.
+/// Represents access specifier (principal) type.
 /// </summary>
 public sealed record SpecifierType : StringEnum<SpecifierType>
 {

@@ -33,7 +33,7 @@ public sealed record UpdatePermissionsRequestItem : IValidatable
     /// </value>
     [JsonPropertyName("resource_type")]
     [JsonPropertyOrder(2)]
-    public AccountResourceType ResourceType { get; }
+    public ResourceType ResourceType { get; }
 
     /// <summary>
     /// Gets the resource access level.
@@ -102,14 +102,14 @@ public sealed record UpdatePermissionsRequestItem : IValidatable
     /// </exception>
     public UpdatePermissionsRequestItem(
         long resourceId,
-        AccountResourceType resourceType,
+        ResourceType resourceType,
         AccessLevel accessLevel,
         bool revokePermissions = false)
     {
         Ensure.GreaterThanZero(resourceId, nameof(resourceId));
         Ensure.NotNull(resourceType, nameof(resourceType));
 
-        if (AccountResourceType.None.Equals(resourceType))
+        if (ResourceType.None.Equals(resourceType))
         {
             throw new ArgumentException(
                 "'None' cannot be used as resource type for update permissions request.",

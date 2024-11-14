@@ -4,9 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
-using Mailtrap.Example.ApiUsage.Logic;
-
 HostApplicationBuilder hostBuilder = Host.CreateApplicationBuilder(args);
 
 IConfigurationSection config = hostBuilder.Configuration.GetSection("Mailtrap");

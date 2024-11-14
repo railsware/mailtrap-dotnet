@@ -13,7 +13,7 @@ internal sealed class UpdatePermissionsRequestItemTests
 {
     private const long ResourceId = 42;
     private const AccessLevel ResourceAccessLevel = AccessLevel.Viewer;
-    private readonly AccountResourceType _resourceType = AccountResourceType.Inbox;
+    private readonly ResourceType _resourceType = ResourceType.Inbox;
 
 
     [Test]
@@ -43,7 +43,7 @@ internal sealed class UpdatePermissionsRequestItemTests
     [Test]
     public void Constructor_ShouldThrowArgumentException_WhenResourceTypeIsNone()
     {
-        var act = () => new UpdatePermissionsRequestItem(ResourceId, AccountResourceType.None, ResourceAccessLevel);
+        var act = () => new UpdatePermissionsRequestItem(ResourceId, ResourceType.None, ResourceAccessLevel);
 
         act.Should().Throw<ArgumentException>();
     }

@@ -10,13 +10,13 @@ global using System.Collections.Concurrent;
 global using System.Diagnostics.CodeAnalysis;
 global using System.Net;
 global using System.Net.Mime;
-global using System.Runtime.CompilerServices;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
 global using FluentValidation;
 global using Mailtrap.AccountAccesses;
 global using Mailtrap.AccountAccesses.Models;
 global using Mailtrap.AccountAccesses.Requests;
+global using Mailtrap.AccountAccesses.Responses;
 global using Mailtrap.AccountAccesses.Validators;
 global using Mailtrap.Accounts;
 global using Mailtrap.Accounts.Models;
@@ -55,5 +55,7 @@ global using Mailtrap.Validation;
 
 
 // Allowing test assembly to access internals for unit tests
+using System.Runtime.CompilerServices;
+
 [assembly: InternalsVisibleTo("Mailtrap.UnitTests")]
 [assembly: InternalsVisibleTo("Mailtrap.IntegrationTests")]

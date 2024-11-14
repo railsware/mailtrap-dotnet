@@ -9,7 +9,7 @@ namespace Mailtrap.Permissions.Models;
 
 
 /// <summary>
-/// Represents resource hierarchy permissions.
+/// Represents resource permissions hierarchy.
 /// </summary>
 public sealed record ResourcePermissions
 {
@@ -45,7 +45,7 @@ public sealed record ResourcePermissions
     /// </value>
     [JsonPropertyName("type")]
     [JsonPropertyOrder(3)]
-    public string? Type { get; set; }
+    public ResourceType? Type { get; set; }
 
     /// <summary>
     /// Gets the resource access level.

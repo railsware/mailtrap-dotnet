@@ -46,12 +46,8 @@ internal sealed class AccountAccessReactor : Reactor
         // Get resource for specific account access
         IAccountAccessResource userAccessResource = accountResource.Access(userAccess.Id);
 
-        // var updateRequest = new UpdatePermissionsRequest();
-        //updateRequest.Permissions.Add(new UpdatePermissionsRequestDetails
-        //{
-        //    Id = access.Id,
-        //    Type = "account",
-        //    AccessLevel = AccessLevel.Admin
-        //});
+        var updateRequest = new UpdatePermissionsRequest(
+            new UpdatePermissionsRequestItem(inboxId, ResourceType.Inbox, AccessLevel.Admin));
+        await userAccessResource.UpdatePermissions(updateRequest);
     }
 }

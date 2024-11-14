@@ -9,16 +9,16 @@ namespace Mailtrap.AccountAccesses.Models;
 
 
 /// <summary>
-/// Represents specifier permissions for resources.
+/// Represents access permissions for the account.
 /// </summary>
 public sealed record AccountAccessPermissions
 {
     /// <summary>
-    /// Gets the flag indicating whether specifier can read resources.
+    /// Gets the flag indicating whether specifier can read account.
     /// </summary>
     ///
     /// <value>
-    /// <see langword="true"/> if specifier can read resources.<br />
+    /// <see langword="true"/> if specifier can read account.<br />
     /// <see langword="false"/> otherwise.
     /// </value>
     [JsonPropertyName("can_read")]
@@ -26,11 +26,11 @@ public sealed record AccountAccessPermissions
     public bool? CanRead { get; set; }
 
     /// <summary>
-    /// Gets the flag indicating whether specifier can update resources.
+    /// Gets the flag indicating whether specifier can update account.
     /// </summary>
     ///
     /// <value>
-    /// <see langword="true"/> if specifier can update resources.<br />
+    /// <see langword="true"/> if specifier can update account.<br />
     /// <see langword="false"/> otherwise.
     /// </value>
     [JsonPropertyName("can_update")]
@@ -38,11 +38,11 @@ public sealed record AccountAccessPermissions
     public bool? CanUpdate { get; set; }
 
     /// <summary>
-    /// Gets the flag indicating whether specifier can destroy resources.
+    /// Gets the flag indicating whether specifier can destroy account.
     /// </summary>
     ///
     /// <value>
-    /// <see langword="true"/> if specifier can destroy resources.<br />
+    /// <see langword="true"/> if specifier can destroy account.<br />
     /// <see langword="false"/> otherwise.
     /// </value>
     [JsonPropertyName("can_destroy")]
@@ -50,11 +50,11 @@ public sealed record AccountAccessPermissions
     public bool? CanDestroy { get; set; }
 
     /// <summary>
-    /// Gets the flag indicating whether specifier can leave resources.
+    /// Gets the flag indicating whether specifier can leave account.
     /// </summary>
     ///
     /// <value>
-    /// <see langword="true"/> if specifier can leave resources.<br />
+    /// <see langword="true"/> if specifier can leave account.<br />
     /// <see langword="false"/> otherwise.
     /// </value>
     [JsonPropertyName("can_leave")]

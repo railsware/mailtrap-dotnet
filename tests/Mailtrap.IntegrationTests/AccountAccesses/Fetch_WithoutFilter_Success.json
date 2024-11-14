@@ -1,0 +1,25 @@
+[
+  {
+    "id": 42,
+    "specifier_type": "User",
+    "specifier": {
+      "id": 0,
+      "email": "user@example.com",
+      "name": "string",
+      "two_factor_authentication_enabled": true
+    },
+    "resources": [
+      {
+        "resource_id": 0,
+        "resource_type": "account",
+        "access_level": 1000
+      }
+    ],
+    "permissions": {
+      "can_read": true,
+      "can_update": true,
+      "can_destroy": true,
+      "can_leave": true
+    }
+  }
+]

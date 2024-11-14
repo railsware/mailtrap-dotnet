@@ -8,6 +8,7 @@
 global using System.Net.Mime;
 global using Mailtrap.AccountAccesses;
 global using Mailtrap.AccountAccesses.Models;
+global using Mailtrap.AccountAccesses.Requests;
 global using Mailtrap.Accounts;
 global using Mailtrap.Accounts.Models;
 global using Mailtrap.Attachments;
