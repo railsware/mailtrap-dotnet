@@ -49,6 +49,6 @@ internal sealed class AccountReactor : Reactor
 
         await _billingReactor.Process(accountId);
         await _permissionsReactor.Process(accountId);
-        await _accountAccessReactor.Process(accountId); // available for paid account only
+        await _accountAccessReactor.Process(accountId);
     }
 }

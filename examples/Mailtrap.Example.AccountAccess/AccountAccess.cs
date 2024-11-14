@@ -34,8 +34,6 @@ try
     var accountId = 12345;
     IAccountResource accountResource = mailtrapClient.Account(accountId);
 
-    // Paid account needed for some operations
-
     var filter = new AccountAccessFilter();
     var inboxId = 45345;
     filter.InboxIds.Add(inboxId);
