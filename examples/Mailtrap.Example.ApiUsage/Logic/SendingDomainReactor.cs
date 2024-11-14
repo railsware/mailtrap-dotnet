@@ -18,14 +18,13 @@ internal sealed class SendingDomainReactor : Reactor
     {
         IAccountResource accountResource = _mailtrapClient.Account(accountId);
 
-        var domainName = "demomailtrap.com";
-
         // Get resource for domains collection
         ISendingDomainCollectionResource domainsResource = accountResource.SendingDomains();
 
         // Get all sending domains for account
         IList<SendingDomain> domains = await domainsResource.GetAll();
 
+        var domainName = "demomailtrap.com";
         SendingDomain? domain = domains
             .FirstOrDefault(d => string.Equals(d.DomainName, domainName, StringComparison.OrdinalIgnoreCase));
 

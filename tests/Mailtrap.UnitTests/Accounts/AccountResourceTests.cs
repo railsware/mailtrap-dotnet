@@ -58,6 +58,7 @@ internal sealed class AccountResourceTests
 
 
     #region Billing
+
     [Test]
     public void Billing_ShouldReturnBillingResource()
     {
@@ -71,10 +72,12 @@ internal sealed class AccountResourceTests
         VerifyResource<IBillingResource, BillingResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.BillingSegment));
     }
+
     #endregion
 
 
     #region Permissions
+
     [Test]
     public void Permissions_ShouldReturnPermissionsResource()
     {
@@ -88,6 +91,7 @@ internal sealed class AccountResourceTests
         VerifyResource<IPermissionsResource, PermissionsResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.PermissionsSegment));
     }
+
     #endregion
 
 
@@ -120,6 +124,66 @@ internal sealed class AccountResourceTests
         // Assert
         VerifyResource<IAccountAccessResource, AccountAccessResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.AccountAccessesSegment).Append(accessId));
+    }
+
+    [Test]
+    public void Access_ShouldThrowOutOfRangeException_WhenAccessIdIsEqualOrLessThanZero([Values(0, -1)] long accessId)
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var act = () => client.Access(accessId);
+
+        // Assert
+        act.Should().Throw<ArgumentOutOfRangeException>();
+    }
+
+    #endregion
+
+
+    #region Sending Domains
+
+    [Test]
+    public void SendingDomains_ShouldReturnSendingDomainCollectionResource()
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var result = client.SendingDomains();
+
+        // Assert
+        VerifyResource<ISendingDomainCollectionResource, SendingDomainCollectionResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.SendingDomainsSegment));
+    }
+
+    [Test]
+    public void SendingDomain_ShouldReturnSendingDomainResource()
+    {
+        // Arrange
+        var client = CreateResource();
+        var domainId = TestContext.CurrentContext.Random.NextLong();
+
+        // Act
+        var result = client.SendingDomain(domainId);
+
+        // Assert
+        VerifyResource<ISendingDomainResource, SendingDomainResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.SendingDomainsSegment).Append(domainId));
+    }
+
+    [Test]
+    public void SendingDomain_ShouldThrowOutOfRangeException_WhenDomainIdIsEqualOrLessThanZero([Values(0, -1)] long domainId)
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var act = () => client.SendingDomain(domainId);
+
+        // Assert
+        act.Should().Throw<ArgumentOutOfRangeException>();
     }
 
     #endregion
@@ -188,40 +252,6 @@ internal sealed class AccountResourceTests
         // Assert
         VerifyResource<IInboxResource, InboxResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.InboxesSegment).Append(inboxId));
-    }
-
-    #endregion
-
-
-    #region Sending Domains
-
-    [Test]
-    public void SendingDomains_ShouldReturnSendingDomainCollectionResource()
-    {
-        // Arrange
-        var client = CreateResource();
-
-        // Act
-        var result = client.SendingDomains();
-
-        // Assert
-        VerifyResource<ISendingDomainCollectionResource, SendingDomainCollectionResource>(
-            result, client.ResourceUri.Append(UrlSegmentsTestConstants.SendingDomainsSegment));
-    }
-
-    [Test]
-    public void SendingDomain_ShouldReturnSendingDomainResource()
-    {
-        // Arrange
-        var client = CreateResource();
-        var domainId = TestContext.CurrentContext.Random.NextLong();
-
-        // Act
-        var result = client.SendingDomain(domainId);
-
-        // Assert
-        VerifyResource<ISendingDomainResource, SendingDomainResource>(
-            result, client.ResourceUri.Append(UrlSegmentsTestConstants.SendingDomainsSegment).Append(domainId));
     }
 
     #endregion

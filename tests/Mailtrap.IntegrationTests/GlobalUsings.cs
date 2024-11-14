@@ -25,6 +25,7 @@ global using Mailtrap.Inboxes.Requests;
 global using Mailtrap.IntegrationTests.TestConstants;
 global using Mailtrap.IntegrationTests.TestExtensions;
 global using Mailtrap.Models;
+global using Mailtrap.SendingDomains.Requests;
 global using Mailtrap.Projects.Models;
 global using Mailtrap.Projects.Requests;
 global using Microsoft.Extensions.DependencyInjection;
