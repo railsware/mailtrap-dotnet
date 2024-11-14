@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Examples.ApiUsage.Logic;
+namespace Mailtrap.Example.ApiUsage.Logic;
 
 
 internal abstract class Reactor

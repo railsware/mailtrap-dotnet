@@ -5,6 +5,9 @@
 // -----------------------------------------------------------------------
 
 
+using AccountAccessResource = Mailtrap.AccountAccesses.AccountAccessResource;
+
+
 namespace Mailtrap.UnitTests.Accounts;
 
 
@@ -87,7 +90,41 @@ internal sealed class AccountResourceTests
     }
     #endregion
 
-   
+
+    #region Account Accesses
+
+    [Test]
+    public void Accesses_ShouldReturnAccessCollectionResource()
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var result = client.Accesses();
+
+        // Assert
+        VerifyResource<IAccountAccessCollectionResource, AccountAccessCollectionResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.AccountAccessesSegment));
+    }
+
+    [Test]
+    public void Access_ShouldReturnAccessResource()
+    {
+        // Arrange
+        var client = CreateResource();
+        var accessId = TestContext.CurrentContext.Random.NextLong();
+
+        // Act
+        var result = client.Access(accessId);
+
+        // Assert
+        VerifyResource<IAccountAccessResource, AccountAccessResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.AccountAccessesSegment).Append(accessId));
+    }
+
+    #endregion
+
+
     private AccountResource CreateResource() => new(_commandFactoryMock, _resourceUri);
 
     private static void VerifyResource<TService, TImplementation>(TService result, Uri resourceUri)
