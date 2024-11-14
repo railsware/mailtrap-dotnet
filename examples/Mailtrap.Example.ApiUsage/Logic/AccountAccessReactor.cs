@@ -18,8 +18,6 @@ internal sealed class AccountAccessReactor : Reactor
     {
         IAccountResource accountResource = _mailtrapClient.Account(accountId);
 
-        // Paid account needed for some operations
-
         var filter = new AccountAccessFilter();
         var inboxId = 2854500;
         filter.InboxIds.Add(inboxId);

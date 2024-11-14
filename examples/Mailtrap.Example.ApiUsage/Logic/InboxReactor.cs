@@ -71,7 +71,7 @@ internal sealed class InboxReactor : Reactor
         };
         updatedInbox = await inboxResource.Update(updateInboxRequest);
 
-        // Toggle email for inbox - available for payed accounts only.
+        // Toggle email for inbox
         // updatedInbox = await inboxResource.ToggleEmailAddress();
 
         // Reset email address for inbox
