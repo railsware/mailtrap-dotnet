@@ -13,12 +13,14 @@ internal sealed class AccountReactor : Reactor
     private readonly BillingReactor _billingReactor;
     private readonly PermissionsReactor _permissionsReactor;
     private readonly AccountAccessReactor _accountAccessReactor;
+    private readonly SendingDomainReactor _sendingDomainReactor;
 
 
     public AccountReactor(
         BillingReactor billingReactor,
         PermissionsReactor permissionsReactor,
         AccountAccessReactor accountAccessReactor,
+        SendingDomainReactor sendingDomainReactor,
         IMailtrapClient mailtrapClient,
         ILogger<AccountReactor> logger)
         : base(mailtrapClient, logger)
@@ -26,6 +28,7 @@ internal sealed class AccountReactor : Reactor
         _billingReactor = billingReactor;
         _permissionsReactor = permissionsReactor;
         _accountAccessReactor = accountAccessReactor;
+        _sendingDomainReactor = sendingDomainReactor;
     }
 
 
@@ -50,5 +53,6 @@ internal sealed class AccountReactor : Reactor
         await _billingReactor.Process(accountId);
         await _permissionsReactor.Process(accountId);
         await _accountAccessReactor.Process(accountId);
+        await _sendingDomainReactor.Process(accountId);
     }
 }

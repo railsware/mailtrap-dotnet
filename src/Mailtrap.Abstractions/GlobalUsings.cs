@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 
+// Namespaces
 global using System.Collections.Concurrent;
 global using System.Diagnostics.CodeAnalysis;
 global using System.Net;
@@ -32,6 +33,10 @@ global using Mailtrap.Models;
 global using Mailtrap.Permissions;
 global using Mailtrap.Permissions.Models;
 global using Mailtrap.Rest;
+global using Mailtrap.SendingDomains;
+global using Mailtrap.SendingDomains.Models;
+global using Mailtrap.SendingDomains.Requests;
+global using Mailtrap.SendingDomains.Validators;
 global using Mailtrap.Validation;
 
 
