@@ -74,6 +74,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Example.Permission
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mailtrap.Example.AccountAccess", "examples\Mailtrap.Example.AccountAccess\Mailtrap.Example.AccountAccess.csproj", "{B7957D47-EB36-405D-8899-50D208CEFA64}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mailtrap.Example.SendingDomain", "examples\Mailtrap.Example.SendingDomain\Mailtrap.Example.SendingDomain.csproj", "{45CBA5F5-DE15-4F1A-9078-949D91773D99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -124,6 +126,10 @@ Global
 		{B7957D47-EB36-405D-8899-50D208CEFA64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7957D47-EB36-405D-8899-50D208CEFA64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7957D47-EB36-405D-8899-50D208CEFA64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45CBA5F5-DE15-4F1A-9078-949D91773D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45CBA5F5-DE15-4F1A-9078-949D91773D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45CBA5F5-DE15-4F1A-9078-949D91773D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45CBA5F5-DE15-4F1A-9078-949D91773D99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -140,6 +146,7 @@ Global
 		{14FDEACB-4933-423F-B6BA-7BF4E17E954A} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
 		{AFAF16D5-6BEA-43AA-883D-A7B7B8B98D1B} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
 		{B7957D47-EB36-405D-8899-50D208CEFA64} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
+		{45CBA5F5-DE15-4F1A-9078-949D91773D99} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0FF614CC-FEBC-4C66-B3FC-FCB73EE511D7}

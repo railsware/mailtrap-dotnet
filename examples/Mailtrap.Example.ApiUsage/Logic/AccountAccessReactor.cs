@@ -18,11 +18,11 @@ internal sealed class AccountAccessReactor : Reactor
     {
         IAccountResource accountResource = _mailtrapClient.Account(accountId);
 
+        // Fetch accesses
         var filter = new AccountAccessFilter();
-        var inboxId = 2854500;
+        var inboxId = 654321;
         filter.InboxIds.Add(inboxId);
 
-        // Fetch accesses
         IList<AccountAccess> accesses = await accountResource
             .Accesses()
             .Fetch(filter);
@@ -44,6 +44,7 @@ internal sealed class AccountAccessReactor : Reactor
         // Get resource for specific account access
         IAccountAccessResource userAccessResource = accountResource.Access(userAccess.Id);
 
+        // Update access level for specific resource(s)
         var updateRequest = new UpdatePermissionsRequest(
             new UpdatePermissionsRequestItem(inboxId, ResourceType.Inbox, AccessLevel.Admin));
         await userAccessResource.UpdatePermissions(updateRequest);

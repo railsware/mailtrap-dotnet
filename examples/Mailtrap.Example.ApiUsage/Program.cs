@@ -19,7 +19,7 @@ ILogger<Program> logger = host.Services.GetRequiredService<ILogger<Program>>();
 
 try
 {
-    var accountId = 1917378;
+    var accountId = 12345;
 
     await host.Services
         .GetRequiredService<AccountReactor>()
