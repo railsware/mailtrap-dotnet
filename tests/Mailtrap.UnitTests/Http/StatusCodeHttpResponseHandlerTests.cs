@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="HttpResponseHandlerTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="StatusCodeHttpResponseHandlerTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,7 +9,7 @@ namespace Mailtrap.UnitTests.Http;
 
 
 [TestFixture]
-internal sealed class HttpResponseHandlerTests
+internal sealed class StatusCodeHttpResponseHandlerTests
 {
     [TestCase(HttpStatusCode.InternalServerError)]
     [TestCase(HttpStatusCode.BadGateway)]
@@ -42,6 +42,31 @@ internal sealed class HttpResponseHandlerTests
         using var httpMessage = new HttpResponseMessage(statusCode)
         {
             RequestMessage = new HttpRequestMessage(HttpMethod.Get, "http://test.com")
+        };
+
+        var handler = new StatusCodeHttpResponseHandler(
+            MailtrapClientOptions.Default.ToJsonSerializerOptions(), httpMessage);
+
+        var act = () => handler.ProcessResponse();
+
+
+        // Assert
+        await act.Should()
+            .ThrowAsync<HttpRequestFailedException>()
+            .Where(ex => ex.StatusCode == statusCode);
+    }
+
+    [Test]
+    public async Task ProcessResponse_ShouldThrowEmptyResponseException_WhenResponseContentIsNull()
+    {
+        // Arrange
+        var statusCode = HttpStatusCode.Forbidden;
+        var httpMethod = HttpMethod.Get;
+
+        using var httpMessage = new HttpResponseMessage(statusCode)
+        {
+            RequestMessage = new HttpRequestMessage(httpMethod, "http://test.com"),
+            Content = new StringContent("null")
         };
 
         var handler = new StatusCodeHttpResponseHandler(
