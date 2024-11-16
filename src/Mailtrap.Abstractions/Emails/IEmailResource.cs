@@ -113,7 +113,7 @@ public interface IEmailResource : IRestResource
     /// <remarks>
     /// The email address for forwarding must be confirmed by the recipient in advance.
     /// </remarks>
-    public Task<ForwardedEmailMessage> Forward(ForwardEmailMessageRequest request, CancellationToken cancellationToken = default);
+    public Task<ForwardEmailMessageResponse> Forward(ForwardEmailMessageRequest request, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets a brief spam report for the message, represented by the current resource instance.

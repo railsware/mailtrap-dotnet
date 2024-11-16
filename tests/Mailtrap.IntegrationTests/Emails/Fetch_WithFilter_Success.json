@@ -1,0 +1,32 @@
+[
+  {
+    "id": 42,
+    "inbox_id": 342,
+    "subject": "Test email",
+    "sent_at": "2022-08-19T11:34:33.839Z",
+    "from_email": "per667son25@feeney.biz",
+    "from_name": "Ela Marks",
+    "to_email": "per688son26@donnelly.info",
+    "to_name": "Edmund Maggio",
+    "email_size": 300,
+    "is_read": false,
+    "created_at": "2022-08-19T11:34:33.841Z",
+    "updated_at": "2022-08-19T11:34:33.841Z",
+    "html_body_size": 150,
+    "text_body_size": 100,
+    "human_size": "300 Bytes",
+    "html_path": "/api/accounts/336/inboxes/342/messages/92/body.html",
+    "txt_path": "/api/accounts/336/inboxes/342/messages/92/body.txt",
+    "raw_path": "/api/accounts/336/inboxes/342/messages/92/body.raw",
+    "download_path": "/api/accounts/336/inboxes/342/messages/92/body.eml",
+    "html_source_path": "/api/accounts/336/inboxes/342/messages/92/body.htmlsource",
+    "blacklists_report_info": false,
+    "smtp_information": {
+      "ok": true,
+      "data": {
+        "mail_from_addr": "per667son25@feeney.biz",
+        "client_ip": "75.180.183.201"
+      }
+    }
+  }
+]

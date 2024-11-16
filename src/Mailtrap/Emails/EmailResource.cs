@@ -44,14 +44,14 @@ internal sealed class EmailResource : RestResource, IEmailResource
         => await Delete<EmailMessage>(cancellationToken).ConfigureAwait(false);
 
 
-    public async Task<ForwardedEmailMessage> Forward(ForwardEmailMessageRequest request, CancellationToken cancellationToken = default)
+    public async Task<ForwardEmailMessageResponse> Forward(ForwardEmailMessageRequest request, CancellationToken cancellationToken = default)
     {
         Ensure.NotNull(request, nameof(request));
 
         var uri = ResourceUri.Append(ForwardSegment);
 
         var result = await RestResourceCommandFactory
-            .CreatePost<ForwardEmailMessageRequest, ForwardedEmailMessage>(uri, request)
+            .CreatePost<ForwardEmailMessageRequest, ForwardEmailMessageResponse>(uri, request)
             .Execute(cancellationToken)
             .ConfigureAwait(false);
 

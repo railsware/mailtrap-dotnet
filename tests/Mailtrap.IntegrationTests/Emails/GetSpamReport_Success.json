@@ -1,0 +1,17 @@
+{
+  "report": {
+    "ResponseCode": 2,
+    "ResponseMessage": "Not spam",
+    "ResponseVersion": "1.2",
+    "Score": 1.2,
+    "Spam": false,
+    "Threshold": 5,
+    "Details": [
+      {
+        "Pts": 0,
+        "RuleName": "HTML_MESSAGE",
+        "Description": "BODY: HTML included in message"
+      }
+    ]
+  }
+}

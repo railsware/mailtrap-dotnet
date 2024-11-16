@@ -246,8 +246,7 @@ public sealed record EmailMessage
     /// </value>
     [JsonPropertyName("blacklists_report_info")]
     [JsonPropertyOrder(21)]
-    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
-    public BlacklistReport BlacklistsReportInfo { get; } = new();
+    public BlacklistReport? BlacklistsReportInfo { get; }
 
     /// <summary>
     /// Gets SMTP information for the message.

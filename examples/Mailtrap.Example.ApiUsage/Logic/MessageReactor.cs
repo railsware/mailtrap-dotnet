@@ -5,6 +5,8 @@
 // -----------------------------------------------------------------------
 
 
+using Mailtrap.Emails.Responses;
+
 namespace Mailtrap.Example.ApiUsage.Logic;
 
 
@@ -143,7 +145,7 @@ internal sealed class MessageReactor : Reactor
 
         // Forward message
         var forwardMessageRequest = new ForwardEmailMessageRequest("forward@domain.com");
-        ForwardedEmailMessage forwardedMessage = await messageResource.Forward(forwardMessageRequest);
+        ForwardEmailMessageResponse forwardedMessage = await messageResource.Forward(forwardMessageRequest);
         _logger.LogInformation("Message forwarded: {Forward}", forwardedMessage.Message);
 
         // Delete message

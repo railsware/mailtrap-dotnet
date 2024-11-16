@@ -9,6 +9,7 @@ using Mailtrap;
 using Mailtrap.Emails;
 using Mailtrap.Emails.Models;
 using Mailtrap.Emails.Requests;
+using Mailtrap.Emails.Responses;
 using Mailtrap.Extensions.DependencyInjection;
 using Mailtrap.Inboxes;
 using Microsoft.Extensions.Configuration;
@@ -142,7 +143,7 @@ try
 
     // Forward message
     var forwardMessageRequest = new ForwardEmailMessageRequest("forward@domain.com");
-    ForwardedEmailMessage forwardedMessage = await messageResource.Forward(forwardMessageRequest);
+    ForwardEmailMessageResponse forwardedMessage = await messageResource.Forward(forwardMessageRequest);
     logger.LogInformation("Message forwarded: {Forward}", forwardedMessage.Message);
 
     // Delete message
