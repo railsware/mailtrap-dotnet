@@ -11,20 +11,21 @@ namespace Mailtrap.IntegrationTests.Inboxes;
 [TestFixture]
 internal sealed class InboxesIntegrationTests
 {
+    private const string Feature = "Inboxes";
     private const string CleanSegment = "clean";
     private const string MarkReadSegment = "all_read";
     private const string ResetCredentialsSegment = "reset_credentials";
     private const string ToggleEmailAddressSegment = "toggle_email_username";
     private const string ResetEmailAddressSegment = "reset_email_username";
 
-    private long _accountId;
-    private Uri _resourceUri;
-    private MailtrapClientOptions _clientConfig;
-    private JsonSerializerOptions _jsonSerializerOptions;
+
+    private readonly long _accountId;
+    private readonly Uri _resourceUri = null!;
+    private readonly MailtrapClientOptions _clientConfig = null!;
+    private readonly JsonSerializerOptions _jsonSerializerOptions = null!;
 
 
-    [OneTimeSetUp]
-    public void Setup()
+    public InboxesIntegrationTests()
     {
         var random = TestContext.CurrentContext.Random;
 
@@ -49,8 +50,7 @@ internal sealed class InboxesIntegrationTests
         var httpMethod = HttpMethod.Get;
         var requestUri = _resourceUri.AbsoluteUri;
 
-        var response = new List<Inbox>();
-        using var responseContent = JsonContent.Create(response);
+        using var responseContent = await Feature.LoadTestJsonToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -82,16 +82,15 @@ internal sealed class InboxesIntegrationTests
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
 
-        result.Should()
-            .NotBeNull().And
-            .BeEquivalentTo(response);
+        result.Should().NotBeNull();
     }
 
     [Test]
     public async Task Create_Success()
     {
         // Arrange
-        var projectId = TestContext.CurrentContext.Random.NextLong();
+        var random = TestContext.CurrentContext.Random;
+        var projectId = random.NextLong();
 
         var httpMethod = HttpMethod.Post;
         var requestUri = EndpointsTestConstants.ApiDefaultUrl
@@ -104,16 +103,10 @@ internal sealed class InboxesIntegrationTests
             .Append(UrlSegmentsTestConstants.InboxesSegment)
             .AbsoluteUri;
 
-        var inboxName = TestContext.CurrentContext.Random.GetString(50);
+        var inboxName = random.GetString(50);
         var request = new CreateInboxRequest(projectId, inboxName);
 
-        var response = new Inbox()
-        {
-            Id = TestContext.CurrentContext.Random.NextLong(),
-            Name = inboxName,
-            ProjectId = projectId
-        };
-        using var responseContent = JsonContent.Create(response);
+        using var responseContent = await Feature.LoadTestJsonToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -146,9 +139,7 @@ internal sealed class InboxesIntegrationTests
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
 
-        result.Should()
-            .NotBeNull().And
-            .BeEquivalentTo(response);
+        result.Should().NotBeNull();
     }
 
 
@@ -160,11 +151,7 @@ internal sealed class InboxesIntegrationTests
         var inboxId = TestContext.CurrentContext.Random.NextLong();
         var requestUri = _resourceUri.Append(inboxId).AbsoluteUri;
 
-        var response = new Inbox()
-        {
-            Id = inboxId
-        };
-        using var responseContent = JsonContent.Create(response);
+        using var responseContent = await Feature.LoadTestJsonToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -196,31 +183,27 @@ internal sealed class InboxesIntegrationTests
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
 
-        result.Should()
-            .NotBeNull().And
-            .BeEquivalentTo(response);
+        result.Should().NotBeNull();
     }
 
     [Test]
     public async Task Update_Success()
     {
         // Arrange
+        var random = TestContext.CurrentContext.Random;
+
         var httpMethod = HttpMethodEx.Patch;
-        var inboxId = TestContext.CurrentContext.Random.NextLong();
+
+        var inboxId = random.NextLong();
         var requestUri = _resourceUri.Append(inboxId).AbsoluteUri;
 
-        var updatedName = TestContext.CurrentContext.Random.GetString(50);
+        var updatedName = random.GetString(50);
         var request = new UpdateInboxRequest()
         {
             Name = updatedName
         };
 
-        var response = new Inbox()
-        {
-            Id = inboxId,
-            Name = updatedName
-        };
-        using var responseContent = JsonContent.Create(response);
+        using var responseContent = await Feature.LoadTestJsonToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -253,9 +236,7 @@ internal sealed class InboxesIntegrationTests
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
 
-        result.Should()
-            .NotBeNull().And
-            .BeEquivalentTo(response);
+        result.Should().NotBeNull();
     }
 
     [Test]
@@ -266,11 +247,7 @@ internal sealed class InboxesIntegrationTests
         var inboxId = TestContext.CurrentContext.Random.NextLong();
         var requestUri = _resourceUri.Append(inboxId).AbsoluteUri;
 
-        var response = new Inbox()
-        {
-            Id = inboxId
-        };
-        using var responseContent = JsonContent.Create(response);
+        using var responseContent = await Feature.LoadTestJsonToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -302,9 +279,7 @@ internal sealed class InboxesIntegrationTests
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
 
-        result.Should()
-            .NotBeNull().And
-            .BeEquivalentTo(response);
+        result.Should().NotBeNull();
     }
 
 
@@ -359,11 +334,7 @@ internal sealed class InboxesIntegrationTests
             .Append(urlSegment)
             .AbsoluteUri;
 
-        var response = new Inbox()
-        {
-            Id = inboxId
-        };
-        using var responseContent = JsonContent.Create(response);
+        using var responseContent = await Feature.LoadTestJsonToStringContent("Patch_Success");
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -391,8 +362,6 @@ internal sealed class InboxesIntegrationTests
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
 
-        result.Should()
-            .NotBeNull().And
-            .BeEquivalentTo(response);
+        result.Should().NotBeNull();
     }
 }

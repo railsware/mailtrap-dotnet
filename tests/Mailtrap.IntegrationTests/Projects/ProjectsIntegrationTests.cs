@@ -13,14 +13,14 @@ internal sealed class ProjectsIntegrationTests
 {
     private const string Feature = "Projects";
 
-    private long _accountId;
-    private Uri _resourceUri = null!;
-    private MailtrapClientOptions _clientConfig = null!;
-    private JsonSerializerOptions _jsonSerializerOptions = null!;
+
+    private readonly long _accountId;
+    private readonly Uri _resourceUri = null!;
+    private readonly MailtrapClientOptions _clientConfig = null!;
+    private readonly JsonSerializerOptions _jsonSerializerOptions = null!;
 
 
-    [OneTimeSetUp]
-    public void Setup()
+    public ProjectsIntegrationTests()
     {
         var random = TestContext.CurrentContext.Random;
 

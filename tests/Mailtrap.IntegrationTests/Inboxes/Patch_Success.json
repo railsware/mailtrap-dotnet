@@ -1,0 +1,39 @@
+{
+  "id": 3538,
+  "name": "Admin Inbox",
+  "username": "b3a87978452ae1",
+  "password": "6be9fcfc613a7c",
+  "max_size": 0,
+  "status": "active",
+  "email_username": "b7eae548c3-54c542",
+  "email_username_enabled": false,
+  "sent_messages_count": 52,
+  "forwarded_messages_count": 0,
+  "used": false,
+  "forward_from_email_address": "a3538-i4088@forward.mailtrap.info",
+  "project_id": 2293,
+  "domain": "localhost",
+  "pop3_domain": "localhost",
+  "email_domain": "localhost",
+  "api_domain": "localhost",
+  "emails_count": 0,
+  "emails_unread_count": 0,
+  "last_message_sent_at": null,
+  "smtp_ports": [
+    25,
+    465,
+    587,
+    2525
+  ],
+  "pop3_ports": [
+    1100,
+    9950
+  ],
+  "max_message_size": 5242880,
+  "permissions": {
+    "can_read": true,
+    "can_update": true,
+    "can_destroy": true,
+    "can_leave": true
+  }
+}

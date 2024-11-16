@@ -10,11 +10,11 @@ namespace Mailtrap.IntegrationTests.TestExtensions;
 
 internal static class JsonHelpers
 {
-    internal static async Task<StringContent> LoadTestJsonToStringContent(this string featureFolderName)
+    internal static async Task<StringContent> LoadTestJsonToStringContent(this string featureFolderName, string? fileName = null)
     {
         Ensure.NotNullOrEmpty(featureFolderName, nameof(featureFolderName));
 
-        var responseString = await File.ReadAllTextAsync(Path.Combine(featureFolderName, $"{TestContext.CurrentContext.Test.MethodName ?? "Test"}.json"));
+        var responseString = await File.ReadAllTextAsync(Path.Combine(featureFolderName, $"{fileName ?? TestContext.CurrentContext.Test.MethodName ?? "Test"}.json"));
 
         return new StringContent(responseString);
     }
