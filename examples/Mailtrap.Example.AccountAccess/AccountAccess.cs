@@ -34,11 +34,11 @@ try
     var accountId = 12345;
     IAccountResource accountResource = mailtrapClient.Account(accountId);
 
+    // Fetch accesses
     var filter = new AccountAccessFilter();
     var inboxId = 45345;
     filter.InboxIds.Add(inboxId);
 
-    // Fetch accesses
     IList<AccountAccess> accesses = await accountResource
         .Accesses()
         .Fetch(filter);
@@ -60,6 +60,7 @@ try
     // Get resource for specific account access
     IAccountAccessResource userAccessResource = accountResource.Access(userAccess.Id);
 
+    // Update access level for specific resource(s)
     var updateRequest = new UpdatePermissionsRequest(
         new UpdatePermissionsRequestItem(inboxId, ResourceType.Inbox, AccessLevel.Admin));
     await userAccessResource.UpdatePermissions(updateRequest);

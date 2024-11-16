@@ -12,7 +12,7 @@ namespace Mailtrap.IntegrationTests.Permissions;
 internal sealed class PermissionsIntegrationTests
 {
     [Test]
-    public async Task GetForResources_Success()
+    public async Task GetAll_Success()
     {
         // Arrange
         var random = TestContext.CurrentContext.Random;

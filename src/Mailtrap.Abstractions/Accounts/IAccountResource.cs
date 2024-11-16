@@ -56,4 +56,30 @@ public interface IAccountResource : IRestResource
     /// Billing resource for the account, represented by this resource instance.
     /// </returns>
     public IBillingResource Billing();
+
+    /// <summary>
+    /// Gets sending domain collection resource for the account, represented by this resource instance.
+    /// </summary>
+    /// 
+    /// <returns>
+    /// Sending domain collection resource for the account, represented by this resource instance.
+    /// </returns>
+    public ISendingDomainCollectionResource SendingDomains();
+
+    /// <summary>
+    /// Gets resource for specific sending domain, identified by <paramref name="domainId"/>.
+    /// </summary>
+    ///
+    /// <param name="domainId">
+    /// ID of sending domain to get resource for.
+    /// </param>
+    /// 
+    /// <returns>
+    /// Resource for the sending domain with specified ID.
+    /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="domainId"/> is less than or equal to zero.
+    /// </exception>
+    public ISendingDomainResource SendingDomain(long domainId);
 }

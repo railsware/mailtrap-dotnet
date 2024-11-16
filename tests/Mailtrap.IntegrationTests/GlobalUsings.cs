@@ -24,5 +24,6 @@ global using Mailtrap.Extensions.DependencyInjection;
 global using Mailtrap.IntegrationTests.TestConstants;
 global using Mailtrap.IntegrationTests.TestExtensions;
 global using Mailtrap.Models;
+global using Mailtrap.SendingDomains.Requests;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.VisualStudio.TestPlatform.CoreUtilities.Extensions;
