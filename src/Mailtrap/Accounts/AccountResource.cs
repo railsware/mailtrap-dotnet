@@ -38,6 +38,13 @@ internal sealed class AccountResource : RestResource, IAccountResource
         => new AccountAccessResource(RestResourceCommandFactory, ResourceUri.Append(AccessesSegment).Append(accessId));
 
 
+    public ISendingDomainCollectionResource SendingDomains()
+    => new SendingDomainCollectionResource(RestResourceCommandFactory, ResourceUri.Append(SendingDomainsSegment));
+
+    public ISendingDomainResource SendingDomain(long domainId)
+        => new SendingDomainResource(RestResourceCommandFactory, ResourceUri.Append(SendingDomainsSegment).Append(domainId));
+
+
     public IProjectCollectionResource Projects()
         => new ProjectCollectionResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.ProjectsSegment));
 
@@ -52,11 +59,4 @@ internal sealed class AccountResource : RestResource, IAccountResource
 
     public IInboxResource Inbox(long inboxId)
         => new InboxResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.InboxesSegment).Append(inboxId));
-
-
-    public ISendingDomainCollectionResource SendingDomains()
-        => new SendingDomainCollectionResource(RestResourceCommandFactory, ResourceUri.Append(SendingDomainsSegment));
-
-    public ISendingDomainResource SendingDomain(long domainId)
-        => new SendingDomainResource(RestResourceCommandFactory, ResourceUri.Append(SendingDomainsSegment).Append(domainId));
 }

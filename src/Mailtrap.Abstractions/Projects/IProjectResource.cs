@@ -66,5 +66,5 @@ public interface IProjectResource : IRestResource
     /// Thus any further operations on it will result in an error.
     /// </para>
     /// </remarks>
-    public Task<DeletedProject> Delete(CancellationToken cancellationToken = default);
+    public Task<DeleteProjectResponse> Delete(CancellationToken cancellationToken = default);
 }

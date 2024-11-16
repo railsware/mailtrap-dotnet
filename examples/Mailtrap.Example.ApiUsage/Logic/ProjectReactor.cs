@@ -68,7 +68,7 @@ internal sealed class ProjectReactor : Reactor
 
         // Delete project
         // Beware that project resource becomes invalid after deletion and should not be used anymore
-        DeletedProject deletedProject = await projectResource.Delete();
+        DeleteProjectResponse deletedProject = await projectResource.Delete();
         _logger.LogInformation("Deleted Project: {Project}", deletedProject);
     }
 }

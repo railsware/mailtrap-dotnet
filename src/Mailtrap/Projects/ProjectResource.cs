@@ -20,6 +20,6 @@ internal sealed class ProjectResource : RestResource, IProjectResource
     public async Task<Project> Update(UpdateProjectRequest request, CancellationToken cancellationToken = default)
         => await Update<UpdateProjectRequestDto, Project>(request.ToDto(), cancellationToken).ConfigureAwait(false);
 
-    public async Task<DeletedProject> Delete(CancellationToken cancellationToken = default)
-        => await Delete<DeletedProject>(cancellationToken).ConfigureAwait(false);
+    public async Task<DeleteProjectResponse> Delete(CancellationToken cancellationToken = default)
+        => await Delete<DeleteProjectResponse>(cancellationToken).ConfigureAwait(false);
 }

@@ -39,6 +39,7 @@ public interface IAccountResource : IRestResource
     /// </exception>
     public IAccountAccessResource Access(long accessId);
 
+
     /// <summary>
     /// Gets permissions resource for the account, represented by this resource instance.
     /// </summary>
@@ -48,6 +49,7 @@ public interface IAccountResource : IRestResource
     /// </returns>
     public IPermissionsResource Permissions();
 
+
     /// <summary>
     /// Gets billing resource for the account, represented by this resource instance.
     /// </summary>
@@ -56,6 +58,7 @@ public interface IAccountResource : IRestResource
     /// Billing resource for the account, represented by this resource instance.
     /// </returns>
     public IBillingResource Billing();
+
 
     /// <summary>
     /// Gets sending domain collection resource for the account, represented by this resource instance.
@@ -83,6 +86,7 @@ public interface IAccountResource : IRestResource
     /// </exception>
     public ISendingDomainResource SendingDomain(long domainId);
 
+
     /// <summary>
     /// Gets project collection resource for the account, represented by this resource instance.
     /// </summary>
@@ -108,6 +112,7 @@ public interface IAccountResource : IRestResource
     /// When <paramref name="projectId"/> is less than or equal to zero.
     /// </exception>
     public IProjectResource Project(long projectId);
+
 
     /// <summary>
     /// Gets inbox collection resource for the account, represented by this resource instance.

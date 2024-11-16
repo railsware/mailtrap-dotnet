@@ -32,6 +32,10 @@ public record ProjectRequest : IValidatable
     /// Name of the project.
     /// </param>
     ///
+    /// <remarks>
+    /// Project's <paramref name="name"/> must be min 2 characters and max 100 characters long.
+    /// </remarks>
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="name"/> is <see langword="null"/> or <see cref="string.Empty"/>.
     /// </exception>

@@ -48,6 +48,7 @@ global using Mailtrap.Permissions.Models;
 global using Mailtrap.Projects;
 global using Mailtrap.Projects.Models;
 global using Mailtrap.Projects.Requests;
+global using Mailtrap.Projects.Responses;
 global using Mailtrap.Projects.Validators;
 global using Mailtrap.Rest;
 global using Mailtrap.Rest.Commands;

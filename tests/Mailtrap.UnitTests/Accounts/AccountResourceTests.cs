@@ -220,6 +220,19 @@ internal sealed class AccountResourceTests
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.ProjectsSegment).Append(projectId));
     }
 
+    [Test]
+    public void Project_ShouldThrowOutOfRangeException_WhenProjectIdIsEqualOrLessThanZero([Values(0, -1)] long projectId)
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var act = () => client.Project(projectId);
+
+        // Assert
+        act.Should().Throw<ArgumentOutOfRangeException>();
+    }
+
     #endregion
 
 
