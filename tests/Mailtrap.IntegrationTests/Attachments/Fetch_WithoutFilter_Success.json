@@ -1,0 +1,16 @@
+[
+  {
+    "id": 42,
+    "message_id": 457,
+    "filename": "test.csv",
+    "attachment_type": "inline",
+    "content_type": "plain/text",
+    "content_id": null,
+    "transfer_encoding": null,
+    "attachment_size": 0,
+    "created_at": "2022-06-02T19:25:54.827Z",
+    "updated_at": "2022-06-02T19:25:54.827Z",
+    "attachment_human_size": "0 Bytes",
+    "download_path": "/api/accounts/3831/inboxes/4394/messages/457/attachments/67/download"
+  }
+]
