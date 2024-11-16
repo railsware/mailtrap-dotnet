@@ -11,7 +11,7 @@ namespace Mailtrap.Inboxes.Requests;
 /// <summary>
 /// Request object for inbox update operation.
 /// </summary>
-public sealed record UpdateInboxRequest : InboxRequest, IValidatable
+public sealed record UpdateInboxRequest : InboxRequest
 {
     /// <summary>
     /// Gets or sets inbox name.
@@ -34,13 +34,4 @@ public sealed record UpdateInboxRequest : InboxRequest, IValidatable
     [JsonPropertyName("email_username")]
     [JsonPropertyOrder(2)]
     public string? EmailUsername { get; set; }
-
-
-    /// <inheritdoc/>
-    public ValidationResult Validate()
-    {
-        return UpdateInboxRequestValidator.Instance
-            .Validate(this)
-            .ToMailtrapValidationResult();
-    }
 }
