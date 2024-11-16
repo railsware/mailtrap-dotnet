@@ -189,6 +189,53 @@ internal sealed class AccountResourceTests
     #endregion
 
 
+    #region Projects
+
+    [Test]
+    public void Projects_ShouldReturnProjectCollectionResource()
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var result = client.Projects();
+
+        // Assert
+        VerifyResource<IProjectCollectionResource, ProjectCollectionResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.ProjectsSegment));
+    }
+
+    [Test]
+    public void Project_ShouldReturnProjectResource()
+    {
+        // Arrange
+        var client = CreateResource();
+        var projectId = TestContext.CurrentContext.Random.NextLong();
+
+        // Act
+        var result = client.Project(projectId);
+
+        // Assert
+        VerifyResource<IProjectResource, ProjectResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.ProjectsSegment).Append(projectId));
+    }
+
+    [Test]
+    public void Project_ShouldThrowOutOfRangeException_WhenProjectIdIsEqualOrLessThanZero([Values(0, -1)] long projectId)
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var act = () => client.Project(projectId);
+
+        // Assert
+        act.Should().Throw<ArgumentOutOfRangeException>();
+    }
+
+    #endregion
+
+
     private AccountResource CreateResource() => new(_commandFactoryMock, _resourceUri);
 
     private static void VerifyResource<TService, TImplementation>(TService result, Uri resourceUri)

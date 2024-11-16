@@ -31,6 +31,8 @@ global using Mailtrap.Extensions.DependencyInjection;
 global using Mailtrap.Http;
 global using Mailtrap.Models;
 global using Mailtrap.Permissions;
+global using Mailtrap.Projects;
+global using Mailtrap.Projects.Requests;
 global using Mailtrap.Rest;
 global using Mailtrap.Rest.Commands;
 global using Mailtrap.SendingDomains;
