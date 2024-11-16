@@ -57,7 +57,7 @@ internal sealed class EmailsIntegrationTests
 
 
     [Test]
-    public async Task Fetch_WithoutFilter_Success()
+    public async Task Fetch_Success()
     {
         // Arrange
         var httpMethod = HttpMethod.Get;
@@ -105,7 +105,7 @@ internal sealed class EmailsIntegrationTests
     }
 
     [Test]
-    public async Task Fetch_WithFilter_Success()
+    public async Task Fetch_WithFilter1_Success()
     {
         // Arrange
         var httpMethod = HttpMethod.Get;
@@ -123,8 +123,7 @@ internal sealed class EmailsIntegrationTests
             SearchFilter = search
         };
 
-
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadTestJsonToStringContent(fileName: "Fetch_Success");
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -135,6 +134,125 @@ internal sealed class EmailsIntegrationTests
             .WithQueryString(LastIdQueryParameter, lastId.ToString(CultureInfo.InvariantCulture))
             .WithQueryString(PageQueryParameter, page.ToString(CultureInfo.InvariantCulture))
             .WithQueryString(SearchFilterQueryParameter, search)
+            .Respond(HttpStatusCode.OK, responseContent);
+
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection
+            .AddMailtrapClient(_clientConfig)
+            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
+
+        using var services = serviceCollection.BuildServiceProvider();
+
+        var client = services.GetRequiredService<IMailtrapClient>();
+
+
+        // Act
+        var result = await client
+            .Account(_accountId)
+            .Inbox(_inboxId)
+            .Messages()
+            .Fetch(filter)
+            .ConfigureAwait(false);
+
+
+        // Assert
+        mockHttp.VerifyNoOutstandingExpectation();
+
+        result.Should()
+            .NotBeNull().And
+            .ContainSingle()
+        .Which.Should()
+            .Match<EmailMessage>(m => m.Id == 42);
+    }
+
+    [Test]
+    public async Task Fetch_WithFilter2_Success()
+    {
+        // Arrange
+        var httpMethod = HttpMethod.Get;
+        var requestUri = _resourceUri.AbsoluteUri;
+
+        var random = TestContext.CurrentContext.Random;
+        var lastId = random.NextLong();
+        var page = random.Next();
+
+        var filter = new EmailMessageFilter
+        {
+            LastId = lastId,
+            Page = page,
+            SearchFilter = string.Empty
+        };
+
+        using var responseContent = await Feature.LoadTestJsonToStringContent(fileName: "Fetch_Success");
+
+        using var mockHttp = new MockHttpMessageHandler();
+        mockHttp
+            .Expect(httpMethod, requestUri)
+            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .WithQueryString(LastIdQueryParameter, lastId.ToString(CultureInfo.InvariantCulture))
+            .WithQueryString(PageQueryParameter, page.ToString(CultureInfo.InvariantCulture))
+            .Respond(HttpStatusCode.OK, responseContent);
+
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection
+            .AddMailtrapClient(_clientConfig)
+            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
+
+        using var services = serviceCollection.BuildServiceProvider();
+
+        var client = services.GetRequiredService<IMailtrapClient>();
+
+
+        // Act
+        var result = await client
+            .Account(_accountId)
+            .Inbox(_inboxId)
+            .Messages()
+            .Fetch(filter)
+            .ConfigureAwait(false);
+
+
+        // Assert
+        mockHttp.VerifyNoOutstandingExpectation();
+
+        result.Should()
+            .NotBeNull().And
+            .ContainSingle()
+        .Which.Should()
+            .Match<EmailMessage>(m => m.Id == 42);
+    }
+
+    [Test]
+    public async Task Fetch_WithFilter3_Success()
+    {
+        // Arrange
+        var httpMethod = HttpMethod.Get;
+        var requestUri = _resourceUri.AbsoluteUri;
+
+        var random = TestContext.CurrentContext.Random;
+        var lastId = random.NextLong();
+        var page = random.Next();
+
+        var filter = new EmailMessageFilter
+        {
+            LastId = lastId,
+            Page = page
+        };
+
+        using var responseContent = await Feature.LoadTestJsonToStringContent(fileName: "Fetch_Success");
+
+        using var mockHttp = new MockHttpMessageHandler();
+        mockHttp
+            .Expect(httpMethod, requestUri)
+            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .WithQueryString(LastIdQueryParameter, lastId.ToString(CultureInfo.InvariantCulture))
+            .WithQueryString(PageQueryParameter, page.ToString(CultureInfo.InvariantCulture))
             .Respond(HttpStatusCode.OK, responseContent);
 
         var serviceCollection = new ServiceCollection();

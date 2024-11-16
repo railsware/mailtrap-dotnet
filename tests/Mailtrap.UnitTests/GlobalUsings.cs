@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 
+global using System.Net;
 global using System.Net.Http.Headers;
 global using System.Net.Mime;
 global using System.Text;
@@ -32,6 +33,7 @@ global using Mailtrap.Exceptions;
 global using Mailtrap.Extensions;
 global using Mailtrap.Extensions.DependencyInjection;
 global using Mailtrap.Http;
+global using Mailtrap.Http.ResponseHandlers;
 global using Mailtrap.Inboxes;
 global using Mailtrap.Inboxes.Requests;
 global using Mailtrap.Models;
