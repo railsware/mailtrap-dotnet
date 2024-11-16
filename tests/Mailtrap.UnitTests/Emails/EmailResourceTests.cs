@@ -1,15 +1,15 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="InboxResourceTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="EmailResourceTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.UnitTests.Inboxes;
+namespace Mailtrap.UnitTests.Emails;
 
 
 [TestFixture]
-internal sealed class InboxResourceTests
+internal sealed class EmailResourceTests
 {
     private readonly IRestResourceCommandFactory _commandFactoryMock = Mock.Of<IRestResourceCommandFactory>();
     private readonly Uri _resourceUri = EndpointsTestConstants.ApiDefaultUrl
@@ -18,6 +18,8 @@ internal sealed class InboxResourceTests
             UrlSegmentsTestConstants.AccountsSegment)
         .Append(TestContext.CurrentContext.Random.NextLong())
         .Append(UrlSegmentsTestConstants.InboxesSegment)
+        .Append(TestContext.CurrentContext.Random.NextLong())
+        .Append(UrlSegmentsTestConstants.EmailsSegment)
         .Append(TestContext.CurrentContext.Random.NextLong());
 
 
@@ -27,7 +29,7 @@ internal sealed class InboxResourceTests
     public void Constructor_ShouldThrowArgumentNullException_WhenCommandFactoryIsNull()
     {
         // Act
-        var act = () => new InboxResource(null!, _resourceUri);
+        var act = () => new EmailResource(null!, _resourceUri);
 
         // Assert
         act.Should().Throw<ArgumentNullException>();
@@ -37,7 +39,7 @@ internal sealed class InboxResourceTests
     public void Constructor_ShouldThrowArgumentNullException_WhenUriIsNull()
     {
         // Act
-        var act = () => new InboxResource(_commandFactoryMock, null!);
+        var act = () => new EmailResource(_commandFactoryMock, null!);
 
         // Assert
         act.Should().Throw<ArgumentNullException>();
@@ -56,45 +58,45 @@ internal sealed class InboxResourceTests
     #endregion
 
 
-    #region Messages
+    #region Attachments
 
     [Test]
-    public void Messages_ShouldReturnEmailCollectionResource()
+    public void Attachments_ShouldReturnAttachmentCollectionResource()
     {
         // Arrange
         var client = CreateResource();
 
         // Act
-        var result = client.Messages();
+        var result = client.Attachments();
 
         // Assert
-        ResourceValidator.Validate<IEmailCollectionResource, EmailCollectionResource>(
-            result, client.ResourceUri.Append(UrlSegmentsTestConstants.EmailsSegment));
+        ResourceValidator.Validate<IAttachmentCollectionResource, AttachmentCollectionResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.AttachmentsSegment));
     }
 
     [Test]
-    public void Message_ShouldReturnMessageResource()
+    public void Attachment_ShouldReturnAttachmentResource()
     {
         // Arrange
         var client = CreateResource();
-        var emailId = TestContext.CurrentContext.Random.NextLong();
+        var attachmentId = TestContext.CurrentContext.Random.NextLong();
 
         // Act
-        var result = client.Message(emailId);
+        var result = client.Attachment(attachmentId);
 
         // Assert
-        ResourceValidator.Validate<IEmailResource, EmailResource>(
-            result, client.ResourceUri.Append(UrlSegmentsTestConstants.EmailsSegment).Append(emailId));
+        ResourceValidator.Validate<IAttachmentResource, AttachmentResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.AttachmentsSegment).Append(attachmentId));
     }
 
     [Test]
-    public void Message_ShouldThrowOutOfRangeException_WhenIdIsEqualOrLessThanZero([Values(0, -1)] long messageId)
+    public void Attachment_ShouldThrowOutOfRangeException_WhenIdIsEqualOrLessThanZero([Values(0, -1)] long messageId)
     {
         // Arrange
         var client = CreateResource();
 
         // Act
-        var act = () => client.Message(messageId);
+        var act = () => client.Attachment(messageId);
 
         // Assert
         act.Should().Throw<ArgumentOutOfRangeException>();
@@ -103,5 +105,5 @@ internal sealed class InboxResourceTests
     #endregion
 
 
-    private InboxResource CreateResource() => new(_commandFactoryMock, _resourceUri);
+    private EmailResource CreateResource() => new(_commandFactoryMock, _resourceUri);
 }
