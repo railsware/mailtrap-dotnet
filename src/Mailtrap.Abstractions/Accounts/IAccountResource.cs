@@ -82,4 +82,30 @@ public interface IAccountResource : IRestResource
     /// When <paramref name="domainId"/> is less than or equal to zero.
     /// </exception>
     public ISendingDomainResource SendingDomain(long domainId);
+
+    /// <summary>
+    /// Gets project collection resource for the account, represented by this resource instance.
+    /// </summary>
+    /// 
+    /// <returns>
+    /// Project collection resource for the account, represented by this resource instance.
+    /// </returns>
+    public IProjectCollectionResource Projects();
+
+    /// <summary>
+    /// Gets resource for specific project, identified by <paramref name="projectId"/>.
+    /// </summary>
+    ///
+    /// <param name="projectId">
+    /// ID of project to get resource for.
+    /// </param>
+    /// 
+    /// <returns>
+    /// Resource for the project with specified ID.
+    /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="projectId"/> is less than or equal to zero.
+    /// </exception>
+    public IProjectResource Project(long projectId);
 }
