@@ -19,7 +19,6 @@ global using Mailtrap.Attachments.Models;
 global using Mailtrap.Configuration;
 global using Mailtrap.Constants;
 global using Mailtrap.Email;
-global using Mailtrap.Email.Models;
 global using Mailtrap.Email.Requests;
 global using Mailtrap.Email.Responses;
 global using Mailtrap.Emails.Models;

@@ -577,7 +577,7 @@ internal sealed class EmailsIntegrationTests
             .AsRaw();
 
         string[] headers =
-        [   
+        [
             MediaTypeNames.Text.Plain,
             MimeTypes.Application.Json
         ];
