@@ -45,7 +45,7 @@ internal sealed class ProjectsIntegrationTests
         var httpMethod = HttpMethod.Get;
         var requestUri = _resourceUri.AbsoluteUri;
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -92,7 +92,7 @@ internal sealed class ProjectsIntegrationTests
         var projectName = TestContext.CurrentContext.Random.GetString(50);
         var request = new CreateProjectRequest(projectName);
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -179,7 +179,7 @@ internal sealed class ProjectsIntegrationTests
         var projectId = TestContext.CurrentContext.Random.NextLong();
         var requestUri = _resourceUri.Append(projectId).AbsoluteUri;
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -228,7 +228,7 @@ internal sealed class ProjectsIntegrationTests
         var updatedName = random.GetString(50);
         var request = new UpdateProjectRequest(updatedName);
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -318,7 +318,7 @@ internal sealed class ProjectsIntegrationTests
         var projectId = TestContext.CurrentContext.Random.NextLong();
         var requestUri = _resourceUri.Append(projectId).AbsoluteUri;
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp

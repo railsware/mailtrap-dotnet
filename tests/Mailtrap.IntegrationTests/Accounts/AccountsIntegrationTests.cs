@@ -11,6 +11,9 @@ namespace Mailtrap.IntegrationTests.Accounts;
 [TestFixture]
 internal sealed class AccountsIntegrationTests
 {
+    private const string Feature = "Accounts";
+
+
     [Test]
     public async Task GetAll_Success([Values] AccessLevel accessLevel)
     {
@@ -91,7 +94,7 @@ internal sealed class AccountsIntegrationTests
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        using var responseContent = await "Accounts".LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp

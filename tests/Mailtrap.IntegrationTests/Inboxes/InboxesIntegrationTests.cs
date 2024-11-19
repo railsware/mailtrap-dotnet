@@ -12,6 +12,7 @@ namespace Mailtrap.IntegrationTests.Inboxes;
 internal sealed class InboxesIntegrationTests
 {
     private const string Feature = "Inboxes";
+
     private const string CleanSegment = "clean";
     private const string MarkReadSegment = "all_read";
     private const string ResetCredentialsSegment = "reset_credentials";
@@ -50,7 +51,7 @@ internal sealed class InboxesIntegrationTests
         var httpMethod = HttpMethod.Get;
         var requestUri = _resourceUri.AbsoluteUri;
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -106,7 +107,7 @@ internal sealed class InboxesIntegrationTests
         var inboxName = random.GetString(50);
         var request = new CreateInboxRequest(projectId, inboxName);
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -151,7 +152,7 @@ internal sealed class InboxesIntegrationTests
         var inboxId = TestContext.CurrentContext.Random.NextLong();
         var requestUri = _resourceUri.Append(inboxId).AbsoluteUri;
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -203,7 +204,7 @@ internal sealed class InboxesIntegrationTests
             Name = updatedName
         };
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -247,7 +248,7 @@ internal sealed class InboxesIntegrationTests
         var inboxId = TestContext.CurrentContext.Random.NextLong();
         var requestUri = _resourceUri.Append(inboxId).AbsoluteUri;
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -334,7 +335,7 @@ internal sealed class InboxesIntegrationTests
             .Append(urlSegment)
             .AbsoluteUri;
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent("Patch_Success");
+        using var responseContent = await Feature.LoadFileToStringContent("Patch_Success");
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
