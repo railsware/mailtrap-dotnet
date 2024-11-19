@@ -49,11 +49,11 @@ public sealed record Project
     public ProjectShareLinks ShareLinks { get; } = new();
 
     /// <summary>
-    /// Gets project permissions.
+    /// Gets permissions for this project granted for the current token.
     /// </summary>
     ///
     /// <value>
-    /// Project permissions.
+    /// Permissions for this project granted for the current token.
     /// </value>
     [JsonPropertyName("permissions")]
     [JsonPropertyOrder(4)]

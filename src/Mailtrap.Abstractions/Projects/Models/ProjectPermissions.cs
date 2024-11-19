@@ -9,7 +9,7 @@ namespace Mailtrap.Projects.Models;
 
 
 /// <summary>
-/// Represents project permissions.
+/// Represents permissions for a project.
 /// </summary>
 public sealed record ProjectPermissions
 {
