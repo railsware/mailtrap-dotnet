@@ -69,7 +69,7 @@ internal sealed class AccountResourceTests
         var result = client.Billing();
 
         // Assert
-        VerifyResource<IBillingResource, BillingResource>(
+        ResourceValidator.Validate<IBillingResource, BillingResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.BillingSegment));
     }
 
@@ -88,7 +88,7 @@ internal sealed class AccountResourceTests
         var result = client.Permissions();
 
         // Assert
-        VerifyResource<IPermissionsResource, PermissionsResource>(
+        ResourceValidator.Validate<IPermissionsResource, PermissionsResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.PermissionsSegment));
     }
 
@@ -107,7 +107,7 @@ internal sealed class AccountResourceTests
         var result = client.Accesses();
 
         // Assert
-        VerifyResource<IAccountAccessCollectionResource, AccountAccessCollectionResource>(
+        ResourceValidator.Validate<IAccountAccessCollectionResource, AccountAccessCollectionResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.AccountAccessesSegment));
     }
 
@@ -122,7 +122,7 @@ internal sealed class AccountResourceTests
         var result = client.Access(accessId);
 
         // Assert
-        VerifyResource<IAccountAccessResource, AccountAccessResource>(
+        ResourceValidator.Validate<IAccountAccessResource, AccountAccessResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.AccountAccessesSegment).Append(accessId));
     }
 
@@ -154,7 +154,7 @@ internal sealed class AccountResourceTests
         var result = client.SendingDomains();
 
         // Assert
-        VerifyResource<ISendingDomainCollectionResource, SendingDomainCollectionResource>(
+        ResourceValidator.Validate<ISendingDomainCollectionResource, SendingDomainCollectionResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.SendingDomainsSegment));
     }
 
@@ -169,7 +169,7 @@ internal sealed class AccountResourceTests
         var result = client.SendingDomain(domainId);
 
         // Assert
-        VerifyResource<ISendingDomainResource, SendingDomainResource>(
+        ResourceValidator.Validate<ISendingDomainResource, SendingDomainResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.SendingDomainsSegment).Append(domainId));
     }
 
@@ -201,7 +201,7 @@ internal sealed class AccountResourceTests
         var result = client.Projects();
 
         // Assert
-        VerifyResource<IProjectCollectionResource, ProjectCollectionResource>(
+        ResourceValidator.Validate<IProjectCollectionResource, ProjectCollectionResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.ProjectsSegment));
     }
 
@@ -216,7 +216,7 @@ internal sealed class AccountResourceTests
         var result = client.Project(projectId);
 
         // Assert
-        VerifyResource<IProjectResource, ProjectResource>(
+        ResourceValidator.Validate<IProjectResource, ProjectResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.ProjectsSegment).Append(projectId));
     }
 
@@ -248,7 +248,7 @@ internal sealed class AccountResourceTests
         var result = client.Inboxes();
 
         // Assert
-        VerifyResource<IInboxCollectionResource, InboxCollectionResource>(
+        ResourceValidator.Validate<IInboxCollectionResource, InboxCollectionResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.InboxesSegment));
     }
 
@@ -263,7 +263,7 @@ internal sealed class AccountResourceTests
         var result = client.Inbox(inboxId);
 
         // Assert
-        VerifyResource<IInboxResource, InboxResource>(
+        ResourceValidator.Validate<IInboxResource, InboxResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.InboxesSegment).Append(inboxId));
     }
 
@@ -284,15 +284,4 @@ internal sealed class AccountResourceTests
 
 
     private AccountResource CreateResource() => new(_commandFactoryMock, _resourceUri);
-
-    private static void VerifyResource<TService, TImplementation>(TService result, Uri resourceUri)
-        where TService : IRestResource
-        where TImplementation : TService
-    {
-        result.Should()
-            .NotBeNull().And
-            .BeOfType<TImplementation>();
-
-        result.ResourceUri.Should().Be(resourceUri);
-    }
 }

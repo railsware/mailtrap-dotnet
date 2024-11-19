@@ -11,6 +11,9 @@ namespace Mailtrap.IntegrationTests.Billing;
 [TestFixture]
 internal sealed class BillingIntegrationTests
 {
+    private const string Feature = "Billing";
+
+
     [Test]
     public async Task GetUsage_Success()
     {
@@ -31,7 +34,7 @@ internal sealed class BillingIntegrationTests
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        using var responseContent = await "Billing".LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -85,7 +88,7 @@ internal sealed class BillingIntegrationTests
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        using var responseContent = await "Billing".LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp

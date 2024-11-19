@@ -11,6 +11,8 @@ namespace Mailtrap.IntegrationTests.AccountAccesses;
 [TestFixture]
 internal sealed class AccountAccessesIntegrationTests
 {
+    private const string Feature = "AccountAccesses";
+
     private const string ProjectsQueryParameter = "project_ids";
     private const string InboxesQueryParameter = "inbox_ids";
     private const string DomainsQueryParameter = "domain_ids";
@@ -35,7 +37,7 @@ internal sealed class AccountAccessesIntegrationTests
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        using var responseContent = await "AccountAccesses".LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -102,7 +104,7 @@ internal sealed class AccountAccessesIntegrationTests
         filter.InboxIds.Add(inboxId);
         filter.DomainIds.Add(domainId);
 
-        using var responseContent = await "AccountAccesses".LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -170,7 +172,7 @@ internal sealed class AccountAccessesIntegrationTests
             random.NextLong(), ResourceType.Account, AccessLevel.Admin);
         var request = new UpdatePermissionsRequest(permissions);
 
-        using var responseContent = await "AccountAccesses".LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -226,7 +228,7 @@ internal sealed class AccountAccessesIntegrationTests
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        using var responseContent = await "AccountAccesses".LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -283,7 +285,7 @@ internal sealed class AccountAccessesIntegrationTests
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        using var responseContent = await "AccountAccesses".LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp

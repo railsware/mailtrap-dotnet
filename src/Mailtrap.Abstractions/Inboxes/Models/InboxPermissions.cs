@@ -9,7 +9,7 @@ namespace Mailtrap.Inboxes.Models;
 
 
 /// <summary>
-/// Represents inbox permissions.
+/// Represents permissions for inbox.
 /// </summary>
 public sealed record InboxPermissions
 {

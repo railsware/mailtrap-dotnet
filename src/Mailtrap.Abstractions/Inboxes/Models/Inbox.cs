@@ -262,11 +262,11 @@ public sealed record Inbox
     public long? MaxMessageSize { get; set; }
 
     /// <summary>
-    /// Gets inbox permissions.
+    /// Gets permissions for this inbox granted for the current token.
     /// </summary>
     ///
     /// <value>
-    /// Inbox permissions.
+    /// Permissions for this inbox granted for the current token.
     /// </value>
     [JsonPropertyName("permissions")]
     [JsonPropertyOrder(23)]
