@@ -52,7 +52,7 @@ internal sealed class AttachmentsIntegrationTests
         var httpMethod = HttpMethod.Get;
         var requestUri = _resourceUri.AbsoluteUri;
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -107,7 +107,7 @@ internal sealed class AttachmentsIntegrationTests
             Disposition = disposition
         };
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -158,7 +158,7 @@ internal sealed class AttachmentsIntegrationTests
         var attachmentId = TestContext.CurrentContext.Random.NextLong();
         var requestUri = _resourceUri.Append(attachmentId).AbsoluteUri;
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp

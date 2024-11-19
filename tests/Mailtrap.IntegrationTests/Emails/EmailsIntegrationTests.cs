@@ -63,7 +63,7 @@ internal sealed class EmailsIntegrationTests
         var httpMethod = HttpMethod.Get;
         var requestUri = _resourceUri.AbsoluteUri;
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -123,7 +123,7 @@ internal sealed class EmailsIntegrationTests
             SearchFilter = search
         };
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent(fileName: "Fetch_Success");
+        using var responseContent = await Feature.LoadFileToStringContent(fileName: "Fetch_Success");
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -184,7 +184,7 @@ internal sealed class EmailsIntegrationTests
             SearchFilter = string.Empty
         };
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent(fileName: "Fetch_Success");
+        using var responseContent = await Feature.LoadFileToStringContent(fileName: "Fetch_Success");
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -243,7 +243,7 @@ internal sealed class EmailsIntegrationTests
             Page = page
         };
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent(fileName: "Fetch_Success");
+        using var responseContent = await Feature.LoadFileToStringContent(fileName: "Fetch_Success");
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -294,7 +294,7 @@ internal sealed class EmailsIntegrationTests
         var messageId = TestContext.CurrentContext.Random.NextLong();
         var requestUri = _resourceUri.Append(messageId).AbsoluteUri;
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -343,7 +343,7 @@ internal sealed class EmailsIntegrationTests
 
         var request = new UpdateEmailMessageRequest(false);
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -388,7 +388,7 @@ internal sealed class EmailsIntegrationTests
         var messageId = TestContext.CurrentContext.Random.NextLong();
         var requestUri = _resourceUri.Append(messageId).AbsoluteUri;
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -440,7 +440,7 @@ internal sealed class EmailsIntegrationTests
 
         var request = new ForwardEmailMessageRequest("john.doe@domain.com");
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -615,7 +615,7 @@ internal sealed class EmailsIntegrationTests
             .Append(urlSegment)
             .AbsoluteUri;
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -659,7 +659,7 @@ internal sealed class EmailsIntegrationTests
             .Append(urlSegment)
             .AbsoluteUri;
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent(filexExt: "txt");
+        using var responseContent = await Feature.LoadFileToStringContent(filexExt: "txt");
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
