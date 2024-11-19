@@ -27,9 +27,6 @@ internal sealed class InboxCollectionResource : RestResource, IInboxCollectionRe
     {
         Ensure.NotNull(request, nameof(request));
 
-        // Have no idea why inbox creation is accessible through Project resource path,
-        // while all other Inbox APIs through Account.
-        // But let eat bee for now.
         var uri = _projectsResourceUri.Append(request.ProjectId).Append(UrlSegments.InboxesSegment);
 
         var result = await RestResourceCommandFactory
