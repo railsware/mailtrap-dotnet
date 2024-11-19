@@ -127,7 +127,7 @@ internal sealed class AccountResourceTests
     }
 
     [Test]
-    public void Access_ShouldThrowOutOfRangeException_WhenAccessIdIsEqualOrLessThanZero([Values(0, -1)] long accessId)
+    public void Access_ShouldThrowOutOfRangeException_WhenIdIsEqualOrLessThanZero([Values(0, -1)] long accessId)
     {
         // Arrange
         var client = CreateResource();
@@ -174,7 +174,7 @@ internal sealed class AccountResourceTests
     }
 
     [Test]
-    public void SendingDomain_ShouldThrowOutOfRangeException_WhenDomainIdIsEqualOrLessThanZero([Values(0, -1)] long domainId)
+    public void SendingDomain_ShouldThrowOutOfRangeException_WhenIdIsEqualOrLessThanZero([Values(0, -1)] long domainId)
     {
         // Arrange
         var client = CreateResource();
@@ -221,13 +221,60 @@ internal sealed class AccountResourceTests
     }
 
     [Test]
-    public void Project_ShouldThrowOutOfRangeException_WhenProjectIdIsEqualOrLessThanZero([Values(0, -1)] long projectId)
+    public void Project_ShouldThrowOutOfRangeException_WhenIdIsEqualOrLessThanZero([Values(0, -1)] long projectId)
     {
         // Arrange
         var client = CreateResource();
 
         // Act
         var act = () => client.Project(projectId);
+
+        // Assert
+        act.Should().Throw<ArgumentOutOfRangeException>();
+    }
+
+    #endregion
+
+
+    #region Inboxes
+
+    [Test]
+    public void Inboxes_ShouldReturnInboxCollectionResource()
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var result = client.Inboxes();
+
+        // Assert
+        VerifyResource<IInboxCollectionResource, InboxCollectionResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.InboxesSegment));
+    }
+
+    [Test]
+    public void Inbox_ShouldReturnInboxResource()
+    {
+        // Arrange
+        var client = CreateResource();
+        var inboxId = TestContext.CurrentContext.Random.NextLong();
+
+        // Act
+        var result = client.Inbox(inboxId);
+
+        // Assert
+        VerifyResource<IInboxResource, InboxResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.InboxesSegment).Append(inboxId));
+    }
+
+    [Test]
+    public void Inbox_ShouldThrowOutOfRangeException_WhenIdIsEqualOrLessThanZero([Values(0, -1)] long inboxId)
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var act = () => client.Inbox(inboxId);
 
         // Assert
         act.Should().Throw<ArgumentOutOfRangeException>();

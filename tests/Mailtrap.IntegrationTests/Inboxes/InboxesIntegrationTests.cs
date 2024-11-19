@@ -1,17 +1,22 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ProjectsIntegrationTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="InboxesIntegrationTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.IntegrationTests.Projects;
+namespace Mailtrap.IntegrationTests.Inboxes;
 
 
 [TestFixture]
-internal sealed class ProjectsIntegrationTests
+internal sealed class InboxesIntegrationTests
 {
-    private const string Feature = "Projects";
+    private const string Feature = "Inboxes";
+    private const string CleanSegment = "clean";
+    private const string MarkReadSegment = "all_read";
+    private const string ResetCredentialsSegment = "reset_credentials";
+    private const string ToggleEmailAddressSegment = "toggle_email_username";
+    private const string ResetEmailAddressSegment = "reset_email_username";
 
 
     private readonly long _accountId;
@@ -20,7 +25,7 @@ internal sealed class ProjectsIntegrationTests
     private readonly JsonSerializerOptions _jsonSerializerOptions = null!;
 
 
-    public ProjectsIntegrationTests()
+    public InboxesIntegrationTests()
     {
         var random = TestContext.CurrentContext.Random;
 
@@ -30,7 +35,7 @@ internal sealed class ProjectsIntegrationTests
                 UrlSegmentsTestConstants.ApiRootSegment,
                 UrlSegmentsTestConstants.AccountsSegment)
             .Append(_accountId)
-            .Append(UrlSegmentsTestConstants.ProjectsSegment);
+            .Append(UrlSegmentsTestConstants.InboxesSegment);
 
         var token = random.GetString();
         _clientConfig = new MailtrapClientOptions(token);
@@ -69,56 +74,8 @@ internal sealed class ProjectsIntegrationTests
         // Act
         var result = await client
             .Account(_accountId)
-            .Projects()
+            .Inboxes()
             .GetAll()
-            .ConfigureAwait(false);
-
-
-        // Assert
-        mockHttp.VerifyNoOutstandingExpectation();
-
-        result.Should()
-            .NotBeNull().And
-            .HaveCount(2);
-    }
-
-    [Test]
-    public async Task Create_Success()
-    {
-        // Arrange
-        var httpMethod = HttpMethod.Post;
-        var requestUri = _resourceUri.AbsoluteUri;
-
-        var projectName = TestContext.CurrentContext.Random.GetString(50);
-        var request = new CreateProjectRequest(projectName);
-
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
-
-        using var mockHttp = new MockHttpMessageHandler();
-        mockHttp
-            .Expect(httpMethod, requestUri)
-            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
-            .WithHeaders("Accept", MimeTypes.Application.Json)
-            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
-            .WithJsonContent(request.ToDto(), _jsonSerializerOptions)
-            .Respond(HttpStatusCode.OK, responseContent);
-
-        var serviceCollection = new ServiceCollection();
-
-        serviceCollection
-            .AddMailtrapClient(_clientConfig)
-            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
-
-        using var services = serviceCollection.BuildServiceProvider();
-
-        var client = services.GetRequiredService<IMailtrapClient>();
-
-
-        // Act
-        var result = await client
-            .Account(_accountId)
-            .Projects()
-            .Create(request)
             .ConfigureAwait(false);
 
 
@@ -129,23 +86,36 @@ internal sealed class ProjectsIntegrationTests
     }
 
     [Test]
-    public async Task Create_ShouldFailValidation_WhenNameIsNotValid([Values(1, 101)] int length)
+    public async Task Create_Success()
     {
         // Arrange
-        var httpMethod = HttpMethod.Post;
-        var requestUri = _resourceUri.AbsoluteUri;
+        var random = TestContext.CurrentContext.Random;
+        var projectId = random.NextLong();
 
-        var projectName = TestContext.CurrentContext.Random.GetString(length);
-        var request = new CreateProjectRequest(projectName);
+        var httpMethod = HttpMethod.Post;
+        var requestUri = EndpointsTestConstants.ApiDefaultUrl
+            .Append(
+                UrlSegmentsTestConstants.ApiRootSegment,
+                UrlSegmentsTestConstants.AccountsSegment)
+            .Append(_accountId)
+            .Append(UrlSegmentsTestConstants.ProjectsSegment)
+            .Append(projectId)
+            .Append(UrlSegmentsTestConstants.InboxesSegment)
+            .AbsoluteUri;
+
+        var inboxName = random.GetString(50);
+        var request = new CreateInboxRequest(projectId, inboxName);
+
+        using var responseContent = await Feature.LoadTestJsonToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
-        var mockedRequest = mockHttp
+        mockHttp
             .Expect(httpMethod, requestUri)
             .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
             .WithHeaders("Accept", MimeTypes.Application.Json)
             .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
             .WithJsonContent(request.ToDto(), _jsonSerializerOptions)
-            .Respond(HttpStatusCode.NoContent);
+            .Respond(HttpStatusCode.OK, responseContent);
 
         var serviceCollection = new ServiceCollection();
 
@@ -159,25 +129,27 @@ internal sealed class ProjectsIntegrationTests
 
 
         // Act
-        var act = () => client
+        var result = await client
             .Account(_accountId)
-            .Projects()
-            .Create(request);
+            .Inboxes()
+            .Create(request)
+            .ConfigureAwait(false);
 
 
         // Assert
-        await act.Should().ThrowAsync<RequestValidationException>();
+        mockHttp.VerifyNoOutstandingExpectation();
 
-        mockHttp.GetMatchCount(mockedRequest).Should().Be(0);
+        result.Should().NotBeNull();
     }
+
 
     [Test]
     public async Task GetDetails_Success()
     {
         // Arrange
         var httpMethod = HttpMethod.Get;
-        var projectId = TestContext.CurrentContext.Random.NextLong();
-        var requestUri = _resourceUri.Append(projectId).AbsoluteUri;
+        var inboxId = TestContext.CurrentContext.Random.NextLong();
+        var requestUri = _resourceUri.Append(inboxId).AbsoluteUri;
 
         using var responseContent = await Feature.LoadTestJsonToStringContent();
 
@@ -203,7 +175,7 @@ internal sealed class ProjectsIntegrationTests
         // Act
         var result = await client
             .Account(_accountId)
-            .Project(projectId)
+            .Inbox(inboxId)
             .GetDetails()
             .ConfigureAwait(false);
 
@@ -211,8 +183,7 @@ internal sealed class ProjectsIntegrationTests
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
 
-        result.Should()
-            .NotBeNull();
+        result.Should().NotBeNull();
     }
 
     [Test]
@@ -222,11 +193,15 @@ internal sealed class ProjectsIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethodEx.Patch;
-        var projectId = random.NextLong();
-        var requestUri = _resourceUri.Append(projectId).AbsoluteUri;
+
+        var inboxId = random.NextLong();
+        var requestUri = _resourceUri.Append(inboxId).AbsoluteUri;
 
         var updatedName = random.GetString(50);
-        var request = new UpdateProjectRequest(updatedName);
+        var request = new UpdateInboxRequest()
+        {
+            Name = updatedName
+        };
 
         using var responseContent = await Feature.LoadTestJsonToStringContent();
 
@@ -253,7 +228,7 @@ internal sealed class ProjectsIntegrationTests
         // Act
         var result = await client
             .Account(_accountId)
-            .Project(projectId)
+            .Inbox(inboxId)
             .Update(request)
             .ConfigureAwait(false);
 
@@ -265,58 +240,12 @@ internal sealed class ProjectsIntegrationTests
     }
 
     [Test]
-    public async Task Update_ShouldFailValidation_WhenNameIsNotValid([Values(1, 101)] int length)
-    {
-        // Arrange
-        var random = TestContext.CurrentContext.Random;
-
-        var httpMethod = HttpMethodEx.Patch;
-        var projectId = random.NextLong();
-        var requestUri = _resourceUri.Append(projectId).AbsoluteUri;
-
-        var updatedName = random.GetString(length);
-        var request = new UpdateProjectRequest(updatedName);
-
-        using var mockHttp = new MockHttpMessageHandler();
-        var mockedRequest = mockHttp
-            .Expect(httpMethod, requestUri)
-            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
-            .WithHeaders("Accept", MimeTypes.Application.Json)
-            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
-            .WithJsonContent(request.ToDto(), _jsonSerializerOptions)
-            .Respond(HttpStatusCode.NoContent);
-
-        var serviceCollection = new ServiceCollection();
-
-        serviceCollection
-            .AddMailtrapClient(_clientConfig)
-            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
-
-        using var services = serviceCollection.BuildServiceProvider();
-
-        var client = services.GetRequiredService<IMailtrapClient>();
-
-
-        // Act
-        var act = () => client
-            .Account(_accountId)
-            .Project(projectId)
-            .Update(request);
-
-
-        // Assert
-        await act.Should().ThrowAsync<RequestValidationException>();
-
-        mockHttp.GetMatchCount(mockedRequest).Should().Be(0);
-    }
-
-    [Test]
     public async Task Delete_Success()
     {
         // Arrange
         var httpMethod = HttpMethod.Delete;
-        var projectId = TestContext.CurrentContext.Random.NextLong();
-        var requestUri = _resourceUri.Append(projectId).AbsoluteUri;
+        var inboxId = TestContext.CurrentContext.Random.NextLong();
+        var requestUri = _resourceUri.Append(inboxId).AbsoluteUri;
 
         using var responseContent = await Feature.LoadTestJsonToStringContent();
 
@@ -342,9 +271,92 @@ internal sealed class ProjectsIntegrationTests
         // Act
         var result = await client
             .Account(_accountId)
-            .Project(projectId)
+            .Inbox(inboxId)
             .Delete()
             .ConfigureAwait(false);
+
+
+        // Assert
+        mockHttp.VerifyNoOutstandingExpectation();
+
+        result.Should().NotBeNull();
+    }
+
+
+    [Test]
+    public async Task Clean_Success()
+    {
+        Task<Inbox> Act(IMailtrapClient client, long inboxId) => client.Account(_accountId).Inbox(inboxId).Clean();
+
+        await Patch_Success(CleanSegment, Act).ConfigureAwait(false);
+    }
+
+    [Test]
+    public async Task MarkAsRead_Success()
+    {
+        Task<Inbox> Act(IMailtrapClient client, long inboxId) => client.Account(_accountId).Inbox(inboxId).MarkAsRead();
+
+        await Patch_Success(MarkReadSegment, Act).ConfigureAwait(false);
+    }
+
+    [Test]
+    public async Task ResetCredentials_Success()
+    {
+        Task<Inbox> Act(IMailtrapClient client, long inboxId) => client.Account(_accountId).Inbox(inboxId).ResetCredentials();
+
+        await Patch_Success(ResetCredentialsSegment, Act).ConfigureAwait(false);
+    }
+
+    [Test]
+    public async Task ToggleEmailAddress_Success()
+    {
+        Task<Inbox> Act(IMailtrapClient client, long inboxId) => client.Account(_accountId).Inbox(inboxId).ToggleEmailAddress();
+
+        await Patch_Success(ToggleEmailAddressSegment, Act).ConfigureAwait(false);
+    }
+
+    [Test]
+    public async Task ResetEmailAddress_Success()
+    {
+        Task<Inbox> Act(IMailtrapClient client, long inboxId) => client.Account(_accountId).Inbox(inboxId).ResetEmailAddress();
+
+        await Patch_Success(ResetEmailAddressSegment, Act).ConfigureAwait(false);
+    }
+
+
+    private async Task Patch_Success(string urlSegment, Func<IMailtrapClient, long, Task<Inbox>> act)
+    {
+        // Arrange
+        var httpMethod = HttpMethodEx.Patch;
+        var inboxId = TestContext.CurrentContext.Random.NextLong();
+        var requestUri = _resourceUri
+            .Append(inboxId)
+            .Append(urlSegment)
+            .AbsoluteUri;
+
+        using var responseContent = await Feature.LoadTestJsonToStringContent("Patch_Success");
+
+        using var mockHttp = new MockHttpMessageHandler();
+        mockHttp
+            .Expect(httpMethod, requestUri)
+            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .Respond(HttpStatusCode.OK, responseContent);
+
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection
+            .AddMailtrapClient(_clientConfig)
+            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
+
+        using var services = serviceCollection.BuildServiceProvider();
+
+        var client = services.GetRequiredService<IMailtrapClient>();
+
+
+        // Act
+        var result = await act(client, inboxId).ConfigureAwait(false);
 
 
         // Assert

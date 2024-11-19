@@ -22,4 +22,10 @@ internal sealed class UrlSegmentsTests
     {
         UrlSegments.ProjectsSegment.Should().Be(UrlSegmentsTestConstants.ProjectsSegment);
     }
+
+    [Test]
+    public void InboxesSegment_ShouldContainCorrectValue()
+    {
+        UrlSegments.InboxesSegment.Should().Be(UrlSegmentsTestConstants.InboxesSegment);
+    }
 }

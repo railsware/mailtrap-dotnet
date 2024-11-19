@@ -39,15 +39,24 @@ internal sealed class AccountResource : RestResource, IAccountResource
 
 
     public ISendingDomainCollectionResource SendingDomains()
-        => new SendingDomainCollectionResource(RestResourceCommandFactory, ResourceUri.Append(SendingDomainsSegment));
+    => new SendingDomainCollectionResource(RestResourceCommandFactory, ResourceUri.Append(SendingDomainsSegment));
 
     public ISendingDomainResource SendingDomain(long domainId)
         => new SendingDomainResource(RestResourceCommandFactory, ResourceUri.Append(SendingDomainsSegment).Append(domainId));
 
 
     public IProjectCollectionResource Projects()
-    => new ProjectCollectionResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.ProjectsSegment));
+        => new ProjectCollectionResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.ProjectsSegment));
 
     public IProjectResource Project(long projectId)
         => new ProjectResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.ProjectsSegment).Append(projectId));
+
+
+    // Passing account resource URI is expected, since we need to append both:
+    // inboxes and projects segments to it for different scenarios.
+    public IInboxCollectionResource Inboxes()
+        => new InboxCollectionResource(RestResourceCommandFactory, ResourceUri);
+
+    public IInboxResource Inbox(long inboxId)
+        => new InboxResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.InboxesSegment).Append(inboxId));
 }
