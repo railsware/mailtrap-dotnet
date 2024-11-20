@@ -39,7 +39,7 @@ internal sealed class AccountResource : RestResource, IAccountResource
 
 
     public ISendingDomainCollectionResource SendingDomains()
-    => new SendingDomainCollectionResource(RestResourceCommandFactory, ResourceUri.Append(SendingDomainsSegment));
+        => new SendingDomainCollectionResource(RestResourceCommandFactory, ResourceUri.Append(SendingDomainsSegment));
 
     public ISendingDomainResource SendingDomain(long domainId)
         => new SendingDomainResource(RestResourceCommandFactory, ResourceUri.Append(SendingDomainsSegment).Append(domainId));
