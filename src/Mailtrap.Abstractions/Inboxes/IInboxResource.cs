@@ -14,6 +14,34 @@ namespace Mailtrap.Inboxes;
 public interface IInboxResource : IRestResource
 {
     /// <summary>
+    /// Gets message collection resource for the inbox, represented by this resource instance.
+    /// </summary>
+    /// 
+    /// <returns>
+    /// Message collection resource for the inbox, represented by this resource instance.
+    /// </returns>
+    public IEmailCollectionResource Messages();
+
+    /// <summary>
+    /// Gets resource for specific message, identified by <paramref name="messageId"/>,
+    /// in the inbox, represented by this resource instance.
+    /// </summary>
+    ///
+    /// <param name="messageId">
+    /// ID of message to get resource for.
+    /// </param>
+    /// 
+    /// <returns>
+    /// Resource for the message with specified ID.
+    /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="messageId"/> is less than or equal to zero.
+    /// </exception>
+    public IEmailResource Message(long messageId);
+
+
+    /// <summary>
     /// Gets details of the inbox, represented by the current resource instance.
     /// </summary>
     ///

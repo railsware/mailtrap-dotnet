@@ -1,0 +1,2 @@
+﻿This is an email attachment sample content.
+Just to test.

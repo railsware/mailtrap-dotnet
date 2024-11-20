@@ -10,6 +10,8 @@ namespace Mailtrap.Inboxes;
 
 internal sealed class InboxResource : RestResource, IInboxResource
 {
+    private const string EmailsSegment = "messages";
+
     private const string CleanSegment = "clean";
     private const string MarkReadSegment = "all_read";
     private const string ResetCredentialsSegment = "reset_credentials";
@@ -19,6 +21,13 @@ internal sealed class InboxResource : RestResource, IInboxResource
 
     public InboxResource(IRestResourceCommandFactory restResourceCommandFactory, Uri resourceUri)
         : base(restResourceCommandFactory, resourceUri) { }
+
+
+    public IEmailCollectionResource Messages()
+        => new EmailCollectionResource(RestResourceCommandFactory, ResourceUri.Append(EmailsSegment));
+
+    public IEmailResource Message(long messageId)
+        => new EmailResource(RestResourceCommandFactory, ResourceUri.Append(EmailsSegment).Append(messageId));
 
 
     public async Task<Inbox> GetDetails(CancellationToken cancellationToken = default)

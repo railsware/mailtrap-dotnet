@@ -56,5 +56,52 @@ internal sealed class InboxResourceTests
     #endregion
 
 
+    #region Messages
+
+    [Test]
+    public void Messages_ShouldReturnEmailCollectionResource()
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var result = client.Messages();
+
+        // Assert
+        ResourceValidator.Validate<IEmailCollectionResource, EmailCollectionResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.EmailsSegment));
+    }
+
+    [Test]
+    public void Message_ShouldReturnMessageResource()
+    {
+        // Arrange
+        var client = CreateResource();
+        var emailId = TestContext.CurrentContext.Random.NextLong();
+
+        // Act
+        var result = client.Message(emailId);
+
+        // Assert
+        ResourceValidator.Validate<IEmailResource, EmailResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.EmailsSegment).Append(emailId));
+    }
+
+    [Test]
+    public void Message_ShouldThrowOutOfRangeException_WhenIdIsEqualOrLessThanZero([Values(0, -1)] long messageId)
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var act = () => client.Message(messageId);
+
+        // Assert
+        act.Should().Throw<ArgumentOutOfRangeException>();
+    }
+
+    #endregion
+
+
     private InboxResource CreateResource() => new(_commandFactoryMock, _resourceUri);
 }

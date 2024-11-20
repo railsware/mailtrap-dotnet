@@ -9,6 +9,7 @@
 global using System.Globalization;
 global using System.Net;
 global using System.Net.Http.Headers;
+global using System.Net.Mime;
 global using System.Reflection;
 global using System.Text;
 global using System.Text.Json;
@@ -29,6 +30,10 @@ global using Mailtrap.Email;
 global using Mailtrap.Email.Models;
 global using Mailtrap.Email.Requests;
 global using Mailtrap.Email.Responses;
+global using Mailtrap.Emails;
+global using Mailtrap.Emails.Models;
+global using Mailtrap.Emails.Requests;
+global using Mailtrap.Emails.Responses;
 global using Mailtrap.Exceptions;
 global using Mailtrap.Extensions;
 global using Mailtrap.Http;
