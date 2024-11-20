@@ -10,11 +10,17 @@ namespace Mailtrap.Example.ApiUsage.Logic;
 
 internal sealed class ProjectReactor : Reactor
 {
+    private readonly InboxReactor _inboxReactor;
+
+
     public ProjectReactor(
+        InboxReactor inboxReactor,
         IMailtrapClient mailtrapClient,
         ILogger<ProjectReactor> logger)
         : base(mailtrapClient, logger)
-    { }
+    {
+        _inboxReactor = inboxReactor;
+    }
 
 
     public async Task Process(long accountId)
@@ -51,6 +57,9 @@ internal sealed class ProjectReactor : Reactor
         // Get details
         project = await projectResource.GetDetails();
         _logger.LogInformation("Project: {Project}", project);
+
+        // Process inboxes
+        await _inboxReactor.Process(accountId, project.Id);
 
         // Update project details
         var updateProjectRequest = new UpdateProjectRequest("Updated Project Name");

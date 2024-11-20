@@ -22,5 +22,6 @@ internal static class UrlSegmentsTestConstants
     internal static string SendingDomainsSegment { get; } = "sending_domains";
     internal static string SendingDomainsSendSetupInstructionsSegment { get; } = "send_setup_instructions";
     internal static string EmailsSegment { get; } = "messages";
+    internal static string AttachmentsSegment { get; } = "attachments";
     internal static string SendEmailSegment { get; } = "send";
 }

@@ -70,5 +70,5 @@ public sealed record Project
     [JsonPropertyName("inboxes")]
     [JsonPropertyOrder(5)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
-    public IList<object> Inboxes { get; } = []; // TODO: Change type when Inbox model is ready
+    public IList<Inbox> Inboxes { get; } = [];
 }

@@ -11,6 +11,9 @@ namespace Mailtrap.IntegrationTests.Permissions;
 [TestFixture]
 internal sealed class PermissionsIntegrationTests
 {
+    private const string Feature = "Permissions";
+
+
     [Test]
     public async Task GetAll_Success()
     {
@@ -31,7 +34,7 @@ internal sealed class PermissionsIntegrationTests
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        using var responseContent = await "Permissions".LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp

@@ -32,7 +32,7 @@ internal sealed class SendingDomainIntegrationTests
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -90,7 +90,7 @@ internal sealed class SendingDomainIntegrationTests
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -147,7 +147,7 @@ internal sealed class SendingDomainIntegrationTests
         var domainName = random.GetString();
         var request = new CreateSendingDomainRequest(domainName);
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -204,7 +204,7 @@ internal sealed class SendingDomainIntegrationTests
         var domainName = random.GetString();
         var request = new CreateSendingDomainRequest(domainName);
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -377,7 +377,7 @@ internal sealed class SendingDomainIntegrationTests
         var email = "admin@domain.com";
         var request = new SendingDomainInstructionsRequest(email);
 
-        using var responseContent = await Feature.LoadTestJsonToStringContent();
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp

@@ -59,14 +59,31 @@ internal abstract class HttpResponseHandler<T> : IHttpResponseHandler<T>
                 .ReadAsStringAsync()
                 .ConfigureAwait(false);
 
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                return new HttpRequestFailedException(
+                    _httpResponseMessage.RequestMessage.RequestUri,
+                    _httpResponseMessage.RequestMessage.Method,
+                    _httpResponseMessage.StatusCode,
+                    _httpResponseMessage.ReasonPhrase);
+            }
+
             var problem = JsonSerializer.Deserialize<Problem>(content, _jsonSerializerOptions);
+            if (problem is null)
+            {
+                return new HttpRequestFailedException(
+                    _httpResponseMessage.RequestMessage.RequestUri,
+                    _httpResponseMessage.RequestMessage.Method,
+                    _httpResponseMessage.StatusCode,
+                    _httpResponseMessage.ReasonPhrase);
+            }
 
             return new HttpRequestFailedException(
                 _httpResponseMessage.RequestMessage.RequestUri,
                 _httpResponseMessage.RequestMessage.Method,
                 _httpResponseMessage.StatusCode,
                 _httpResponseMessage.ReasonPhrase,
-                problem?.ToString());
+                problem.ToString());
         }
     }
 }

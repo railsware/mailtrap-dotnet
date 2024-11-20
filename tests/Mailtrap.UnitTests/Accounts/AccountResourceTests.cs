@@ -69,7 +69,7 @@ internal sealed class AccountResourceTests
         var result = client.Billing();
 
         // Assert
-        VerifyResource<IBillingResource, BillingResource>(
+        ResourceValidator.Validate<IBillingResource, BillingResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.BillingSegment));
     }
 
@@ -88,7 +88,7 @@ internal sealed class AccountResourceTests
         var result = client.Permissions();
 
         // Assert
-        VerifyResource<IPermissionsResource, PermissionsResource>(
+        ResourceValidator.Validate<IPermissionsResource, PermissionsResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.PermissionsSegment));
     }
 
@@ -107,7 +107,7 @@ internal sealed class AccountResourceTests
         var result = client.Accesses();
 
         // Assert
-        VerifyResource<IAccountAccessCollectionResource, AccountAccessCollectionResource>(
+        ResourceValidator.Validate<IAccountAccessCollectionResource, AccountAccessCollectionResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.AccountAccessesSegment));
     }
 
@@ -122,12 +122,12 @@ internal sealed class AccountResourceTests
         var result = client.Access(accessId);
 
         // Assert
-        VerifyResource<IAccountAccessResource, AccountAccessResource>(
+        ResourceValidator.Validate<IAccountAccessResource, AccountAccessResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.AccountAccessesSegment).Append(accessId));
     }
 
     [Test]
-    public void Access_ShouldThrowOutOfRangeException_WhenAccessIdIsEqualOrLessThanZero([Values(0, -1)] long accessId)
+    public void Access_ShouldThrowOutOfRangeException_WhenIdIsEqualOrLessThanZero([Values(0, -1)] long accessId)
     {
         // Arrange
         var client = CreateResource();
@@ -154,7 +154,7 @@ internal sealed class AccountResourceTests
         var result = client.SendingDomains();
 
         // Assert
-        VerifyResource<ISendingDomainCollectionResource, SendingDomainCollectionResource>(
+        ResourceValidator.Validate<ISendingDomainCollectionResource, SendingDomainCollectionResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.SendingDomainsSegment));
     }
 
@@ -169,12 +169,12 @@ internal sealed class AccountResourceTests
         var result = client.SendingDomain(domainId);
 
         // Assert
-        VerifyResource<ISendingDomainResource, SendingDomainResource>(
+        ResourceValidator.Validate<ISendingDomainResource, SendingDomainResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.SendingDomainsSegment).Append(domainId));
     }
 
     [Test]
-    public void SendingDomain_ShouldThrowOutOfRangeException_WhenDomainIdIsEqualOrLessThanZero([Values(0, -1)] long domainId)
+    public void SendingDomain_ShouldThrowOutOfRangeException_WhenIdIsEqualOrLessThanZero([Values(0, -1)] long domainId)
     {
         // Arrange
         var client = CreateResource();
@@ -201,7 +201,7 @@ internal sealed class AccountResourceTests
         var result = client.Projects();
 
         // Assert
-        VerifyResource<IProjectCollectionResource, ProjectCollectionResource>(
+        ResourceValidator.Validate<IProjectCollectionResource, ProjectCollectionResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.ProjectsSegment));
     }
 
@@ -216,12 +216,12 @@ internal sealed class AccountResourceTests
         var result = client.Project(projectId);
 
         // Assert
-        VerifyResource<IProjectResource, ProjectResource>(
+        ResourceValidator.Validate<IProjectResource, ProjectResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.ProjectsSegment).Append(projectId));
     }
 
     [Test]
-    public void Project_ShouldThrowOutOfRangeException_WhenProjectIdIsEqualOrLessThanZero([Values(0, -1)] long projectId)
+    public void Project_ShouldThrowOutOfRangeException_WhenIdIsEqualOrLessThanZero([Values(0, -1)] long projectId)
     {
         // Arrange
         var client = CreateResource();
@@ -236,16 +236,52 @@ internal sealed class AccountResourceTests
     #endregion
 
 
-    private AccountResource CreateResource() => new(_commandFactoryMock, _resourceUri);
+    #region Inboxes
 
-    private static void VerifyResource<TService, TImplementation>(TService result, Uri resourceUri)
-        where TService : IRestResource
-        where TImplementation : TService
+    [Test]
+    public void Inboxes_ShouldReturnInboxCollectionResource()
     {
-        result.Should()
-            .NotBeNull().And
-            .BeOfType<TImplementation>();
+        // Arrange
+        var client = CreateResource();
 
-        result.ResourceUri.Should().Be(resourceUri);
+        // Act
+        var result = client.Inboxes();
+
+        // Assert
+        ResourceValidator.Validate<IInboxCollectionResource, InboxCollectionResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.InboxesSegment));
     }
+
+    [Test]
+    public void Inbox_ShouldReturnInboxResource()
+    {
+        // Arrange
+        var client = CreateResource();
+        var inboxId = TestContext.CurrentContext.Random.NextLong();
+
+        // Act
+        var result = client.Inbox(inboxId);
+
+        // Assert
+        ResourceValidator.Validate<IInboxResource, InboxResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.InboxesSegment).Append(inboxId));
+    }
+
+    [Test]
+    public void Inbox_ShouldThrowOutOfRangeException_WhenIdIsEqualOrLessThanZero([Values(0, -1)] long inboxId)
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var act = () => client.Inbox(inboxId);
+
+        // Assert
+        act.Should().Throw<ArgumentOutOfRangeException>();
+    }
+
+    #endregion
+
+
+    private AccountResource CreateResource() => new(_commandFactoryMock, _resourceUri);
 }

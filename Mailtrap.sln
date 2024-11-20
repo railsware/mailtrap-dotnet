@@ -78,6 +78,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mailtrap.Example.SendingDom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mailtrap.Example.Project", "examples\Mailtrap.Example.Project\Mailtrap.Example.Project.csproj", "{5B624EB6-155E-419B-A42E-7C63BFAA80D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mailtrap.Example.Inbox", "examples\Mailtrap.Example.Inbox\Mailtrap.Example.Inbox.csproj", "{AB9CF980-EAC5-4BC4-AC85-FFA0770FF7DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -136,6 +138,10 @@ Global
 		{5B624EB6-155E-419B-A42E-7C63BFAA80D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B624EB6-155E-419B-A42E-7C63BFAA80D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B624EB6-155E-419B-A42E-7C63BFAA80D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB9CF980-EAC5-4BC4-AC85-FFA0770FF7DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB9CF980-EAC5-4BC4-AC85-FFA0770FF7DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB9CF980-EAC5-4BC4-AC85-FFA0770FF7DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB9CF980-EAC5-4BC4-AC85-FFA0770FF7DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -154,6 +160,7 @@ Global
 		{B7957D47-EB36-405D-8899-50D208CEFA64} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
 		{45CBA5F5-DE15-4F1A-9078-949D91773D99} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
 		{5B624EB6-155E-419B-A42E-7C63BFAA80D2} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
+		{AB9CF980-EAC5-4BC4-AC85-FFA0770FF7DA} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0FF614CC-FEBC-4C66-B3FC-FCB73EE511D7}
