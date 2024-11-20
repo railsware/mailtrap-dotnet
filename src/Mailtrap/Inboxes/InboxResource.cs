@@ -39,7 +39,6 @@ internal sealed class InboxResource : RestResource, IInboxResource
     public async Task<Inbox> Delete(CancellationToken cancellationToken = default)
         => await Delete<Inbox>(cancellationToken).ConfigureAwait(false);
 
-
     public async Task<Inbox> Clean(CancellationToken cancellationToken = default)
         => await Patch(CleanSegment, cancellationToken).ConfigureAwait(false);
 

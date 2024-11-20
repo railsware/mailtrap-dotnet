@@ -12,6 +12,7 @@ internal sealed class ForwardEmailMessageRequestValidator : AbstractValidator<Fo
 {
     public static ForwardEmailMessageRequestValidator Instance { get; } = new();
 
+
     public ForwardEmailMessageRequestValidator()
     {
         RuleFor(r => r.Email).NotNull().EmailAddress();

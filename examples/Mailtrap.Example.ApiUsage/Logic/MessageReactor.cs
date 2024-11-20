@@ -7,6 +7,7 @@
 
 using Mailtrap.Emails.Responses;
 
+
 namespace Mailtrap.Example.ApiUsage.Logic;
 
 
