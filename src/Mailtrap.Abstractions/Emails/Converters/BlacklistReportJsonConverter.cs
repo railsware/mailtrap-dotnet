@@ -21,7 +21,7 @@ internal sealed class BlacklistReportJsonConverter : JsonConverter<BlacklistRepo
     {
         return reader.TokenType switch
         {
-            JsonTokenType.False or JsonTokenType.True => null,
+            JsonTokenType.False or JsonTokenType.True => new BlacklistReport(),
             _ => s_defaultConverter.Read(ref reader, typeToConvert, options)
         };
     }
