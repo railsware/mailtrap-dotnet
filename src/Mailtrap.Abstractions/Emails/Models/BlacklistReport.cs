@@ -23,7 +23,7 @@ public sealed record BlacklistReport
     /// </value>
     [JsonPropertyName("result")]
     [JsonPropertyOrder(1)]
-    public string? Result { get; set; } // TODO: Should be enum?
+    public BlacklistReportResult Result { get; set; } = BlacklistReportResult.Unknown;
 
     /// <summary>
     /// Gets sending domain of the message.

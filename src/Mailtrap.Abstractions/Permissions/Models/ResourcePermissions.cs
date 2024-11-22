@@ -45,7 +45,7 @@ public sealed record ResourcePermissions
     /// </value>
     [JsonPropertyName("type")]
     [JsonPropertyOrder(3)]
-    public ResourceType? Type { get; set; }
+    public ResourceType Type { get; set; } = ResourceType.Unknown;
 
     /// <summary>
     /// Gets the resource access level.
@@ -56,7 +56,7 @@ public sealed record ResourcePermissions
     /// </value>
     [JsonPropertyName("access_level")]
     [JsonPropertyOrder(4)]
-    public AccessLevel? AccessLevel { get; set; }
+    public AccessLevel AccessLevel { get; set; } = AccessLevel.Indeterminate;
 
     /// <summary>
     /// Gets the collection of nested resources.
