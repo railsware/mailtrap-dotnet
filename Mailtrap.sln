@@ -1,0 +1,175 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{6FC6F44E-0A31-4279-AD98-79A1E42FE5AD}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		Directory.Solution.props = Directory.Solution.props
+		build\mailtrap-assembly.props = build\mailtrap-assembly.props
+		build\mailtrap-code-analysis.props = build\mailtrap-code-analysis.props
+		build\mailtrap-example.props = build\mailtrap-example.props
+		build\mailtrap-global.props = build\mailtrap-global.props
+		build\mailtrap-nuget.props = build\mailtrap-nuget.props
+		build\mailtrap-paths.props = build\mailtrap-paths.props
+		build\mailtrap-test.props = build\mailtrap-test.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FB54E80D-C1E8-4EB2-9F41-11A29DFCD315}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CCDA3840-9EFE-458A-A018-462D227AC0E4}"
+	ProjectSection(SolutionItems) = preProject
+		tests\.editorconfig = tests\.editorconfig
+		tests\Directory.Build.props = tests\Directory.Build.props
+		tests\tests.runsettings = tests\tests.runsettings
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{09E18837-1DDE-4EAF-80EC-DA55557C81EB}"
+	ProjectSection(SolutionItems) = preProject
+		examples\.editorconfig = examples\.editorconfig
+		examples\Directory.Build.props = examples\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Abstractions", "src\Mailtrap.Abstractions\Mailtrap.Abstractions.csproj", "{D18E67B4-9179-45A5-94DE-83A8AD7CAA64}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap", "src\Mailtrap\Mailtrap.csproj", "{5CFBF4CD-D0DE-4901-815C-06317C0AECE8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.UnitTests", "tests\Mailtrap.UnitTests\Mailtrap.UnitTests.csproj", "{D3695456-3359-4D97-AE3B-23E2212C8E5F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{579935CA-55D2-42F6-A40F-A02E1C1E670F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		global.json = global.json
+		NuGet.Config = NuGet.Config
+		spelling_exclusions.dic = spelling_exclusions.dic
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CD08E7CB-CD42-4721-B893-B23426FE71D8}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
+		LICENSE.md = LICENSE.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Example.DependencyInjection", "examples\Mailtrap.Example.DependencyInjection\Mailtrap.Example.DependencyInjection.csproj", "{4457969D-4981-4F27-A304-A242DEC9FD92}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Example.ApiUsage", "examples\Mailtrap.Example.ApiUsage\Mailtrap.Example.ApiUsage.csproj", "{B94183D6-5D5C-4EC4-8F58-7D0D803EA197}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Example.Email.Send", "examples\Mailtrap.Example.Email.Send\Mailtrap.Example.Email.Send.csproj", "{02122FD2-9990-44CB-B9E1-1C5CDD388629}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.IntegrationTests", "tests\Mailtrap.IntegrationTests\Mailtrap.IntegrationTests.csproj", "{5CF5E1BC-D209-4EED-A34D-A96474D6189E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Example.Account", "examples\Mailtrap.Example.Account\Mailtrap.Example.Account.csproj", "{EAF0B25B-9DE8-422D-855E-4D0A59DEF316}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Example.Billing", "examples\Mailtrap.Example.Billing\Mailtrap.Example.Billing.csproj", "{14FDEACB-4933-423F-B6BA-7BF4E17E954A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Example.Permissions", "examples\Mailtrap.Example.Permissions\Mailtrap.Example.Permissions.csproj", "{AFAF16D5-6BEA-43AA-883D-A7B7B8B98D1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mailtrap.Example.AccountAccess", "examples\Mailtrap.Example.AccountAccess\Mailtrap.Example.AccountAccess.csproj", "{B7957D47-EB36-405D-8899-50D208CEFA64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mailtrap.Example.SendingDomain", "examples\Mailtrap.Example.SendingDomain\Mailtrap.Example.SendingDomain.csproj", "{45CBA5F5-DE15-4F1A-9078-949D91773D99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mailtrap.Example.Project", "examples\Mailtrap.Example.Project\Mailtrap.Example.Project.csproj", "{5B624EB6-155E-419B-A42E-7C63BFAA80D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mailtrap.Example.Inbox", "examples\Mailtrap.Example.Inbox\Mailtrap.Example.Inbox.csproj", "{AB9CF980-EAC5-4BC4-AC85-FFA0770FF7DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mailtrap.Example.TestingMessage", "examples\Mailtrap.Example.TestingMessage\Mailtrap.Example.TestingMessage.csproj", "{F6357CAB-06C6-4603-99E7-1EDB79ACA8E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D18E67B4-9179-45A5-94DE-83A8AD7CAA64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D18E67B4-9179-45A5-94DE-83A8AD7CAA64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D18E67B4-9179-45A5-94DE-83A8AD7CAA64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D18E67B4-9179-45A5-94DE-83A8AD7CAA64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CFBF4CD-D0DE-4901-815C-06317C0AECE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CFBF4CD-D0DE-4901-815C-06317C0AECE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CFBF4CD-D0DE-4901-815C-06317C0AECE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CFBF4CD-D0DE-4901-815C-06317C0AECE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3695456-3359-4D97-AE3B-23E2212C8E5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3695456-3359-4D97-AE3B-23E2212C8E5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3695456-3359-4D97-AE3B-23E2212C8E5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3695456-3359-4D97-AE3B-23E2212C8E5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4457969D-4981-4F27-A304-A242DEC9FD92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4457969D-4981-4F27-A304-A242DEC9FD92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4457969D-4981-4F27-A304-A242DEC9FD92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4457969D-4981-4F27-A304-A242DEC9FD92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B94183D6-5D5C-4EC4-8F58-7D0D803EA197}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B94183D6-5D5C-4EC4-8F58-7D0D803EA197}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B94183D6-5D5C-4EC4-8F58-7D0D803EA197}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B94183D6-5D5C-4EC4-8F58-7D0D803EA197}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02122FD2-9990-44CB-B9E1-1C5CDD388629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02122FD2-9990-44CB-B9E1-1C5CDD388629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02122FD2-9990-44CB-B9E1-1C5CDD388629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02122FD2-9990-44CB-B9E1-1C5CDD388629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CF5E1BC-D209-4EED-A34D-A96474D6189E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CF5E1BC-D209-4EED-A34D-A96474D6189E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CF5E1BC-D209-4EED-A34D-A96474D6189E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CF5E1BC-D209-4EED-A34D-A96474D6189E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAF0B25B-9DE8-422D-855E-4D0A59DEF316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAF0B25B-9DE8-422D-855E-4D0A59DEF316}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAF0B25B-9DE8-422D-855E-4D0A59DEF316}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAF0B25B-9DE8-422D-855E-4D0A59DEF316}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14FDEACB-4933-423F-B6BA-7BF4E17E954A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14FDEACB-4933-423F-B6BA-7BF4E17E954A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14FDEACB-4933-423F-B6BA-7BF4E17E954A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14FDEACB-4933-423F-B6BA-7BF4E17E954A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFAF16D5-6BEA-43AA-883D-A7B7B8B98D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFAF16D5-6BEA-43AA-883D-A7B7B8B98D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFAF16D5-6BEA-43AA-883D-A7B7B8B98D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFAF16D5-6BEA-43AA-883D-A7B7B8B98D1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7957D47-EB36-405D-8899-50D208CEFA64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7957D47-EB36-405D-8899-50D208CEFA64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7957D47-EB36-405D-8899-50D208CEFA64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7957D47-EB36-405D-8899-50D208CEFA64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45CBA5F5-DE15-4F1A-9078-949D91773D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45CBA5F5-DE15-4F1A-9078-949D91773D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45CBA5F5-DE15-4F1A-9078-949D91773D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45CBA5F5-DE15-4F1A-9078-949D91773D99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B624EB6-155E-419B-A42E-7C63BFAA80D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B624EB6-155E-419B-A42E-7C63BFAA80D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B624EB6-155E-419B-A42E-7C63BFAA80D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B624EB6-155E-419B-A42E-7C63BFAA80D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB9CF980-EAC5-4BC4-AC85-FFA0770FF7DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB9CF980-EAC5-4BC4-AC85-FFA0770FF7DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB9CF980-EAC5-4BC4-AC85-FFA0770FF7DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB9CF980-EAC5-4BC4-AC85-FFA0770FF7DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6357CAB-06C6-4603-99E7-1EDB79ACA8E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6357CAB-06C6-4603-99E7-1EDB79ACA8E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6357CAB-06C6-4603-99E7-1EDB79ACA8E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6357CAB-06C6-4603-99E7-1EDB79ACA8E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D18E67B4-9179-45A5-94DE-83A8AD7CAA64} = {FB54E80D-C1E8-4EB2-9F41-11A29DFCD315}
+		{5CFBF4CD-D0DE-4901-815C-06317C0AECE8} = {FB54E80D-C1E8-4EB2-9F41-11A29DFCD315}
+		{D3695456-3359-4D97-AE3B-23E2212C8E5F} = {CCDA3840-9EFE-458A-A018-462D227AC0E4}
+		{4457969D-4981-4F27-A304-A242DEC9FD92} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
+		{B94183D6-5D5C-4EC4-8F58-7D0D803EA197} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
+		{02122FD2-9990-44CB-B9E1-1C5CDD388629} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
+		{5CF5E1BC-D209-4EED-A34D-A96474D6189E} = {CCDA3840-9EFE-458A-A018-462D227AC0E4}
+		{EAF0B25B-9DE8-422D-855E-4D0A59DEF316} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
+		{14FDEACB-4933-423F-B6BA-7BF4E17E954A} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
+		{AFAF16D5-6BEA-43AA-883D-A7B7B8B98D1B} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
+		{B7957D47-EB36-405D-8899-50D208CEFA64} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
+		{45CBA5F5-DE15-4F1A-9078-949D91773D99} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
+		{5B624EB6-155E-419B-A42E-7C63BFAA80D2} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
+		{AB9CF980-EAC5-4BC4-AC85-FFA0770FF7DA} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
+		{F6357CAB-06C6-4603-99E7-1EDB79ACA8E8} = {09E18837-1DDE-4EAF-80EC-DA55557C81EB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0FF614CC-FEBC-4C66-B3FC-FCB73EE511D7}
+	EndGlobalSection
+EndGlobal

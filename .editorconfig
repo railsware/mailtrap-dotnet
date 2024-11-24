@@ -86,6 +86,7 @@ dotnet_style_prefer_auto_properties = true:suggestion
 dotnet_style_prefer_conditional_expression_over_assignment = true:silent
 dotnet_style_prefer_conditional_expression_over_return = true:silent
 csharp_prefer_simple_default_expression = true:suggestion
+csharp_style_prefer_top_level_statements = false:silent
 
 # Expression-bodied members
 csharp_style_expression_bodied_methods = when_on_single_line:none
@@ -168,6 +169,24 @@ dotnet_naming_style.camel_case_underscore_style.required_prefix = _
 dotnet_naming_style.camel_case_underscore_style.capitalization  = camel_case
 
 
+
+# Maintainability
+
+# CA1501: Avoid excessive inheritance
+dotnet_diagnostic.CA1501.severity = warning
+
+# CA1502: Avoid excessive complexity
+dotnet_diagnostic.CA1502.severity = warning
+
+# CA1505: Avoid unmaintainable code
+dotnet_diagnostic.CA1505.severity = warning
+
+# CA1506: Avoid excessive class coupling
+dotnet_diagnostic.CA1506.severity = warning
+
+
+
+
 # Fine Tuning
 
 # IDE0010: Add missing cases to switch statement
@@ -179,21 +198,43 @@ dotnet_diagnostic.IDE0072.severity = suggestion
 # IDE0058: Expression value is never used
 dotnet_diagnostic.IDE0058.severity = silent
 
-# CA1303: Do not pass literals as localized parameters
-dotnet_diagnostic.CA1303.severity = suggestion
+# IDE0045: Use conditional expression for assignment
+dotnet_diagnostic.IDE0045.severity = suggestion
 
-# CA1805: Do not initialize unnecessarily
-dotnet_diagnostic.CA1805.severity = suggestion
+# IDE0046: Use conditional expression for return
+dotnet_diagnostic.IDE0046.severity = suggestion
 
+# CA1032: Implement standard exception constructors
+dotnet_diagnostic.CA1032.severity = silent
 
 # CA1062: Null-check validation
 dotnet_code_quality.CA1062.null_check_validation_methods = NotNull|NotNullOrEmpty
 
+# CA1303: Do not pass literals as localized parameters
+dotnet_diagnostic.CA1303.severity = silent
+
+# CA1805: Do not initialize unnecessarily
+dotnet_diagnostic.CA1805.severity = silent
+
+# CA1848: Use the LoggerMessage delegates
+dotnet_diagnostic.CA1848.severity = silent
+
+# CA2007: Do not directly await a Task
+dotnet_code_quality.CA2007.output_kind = DynamicallyLinkedLibrary
 
 
-# XML files
-[*.{csproj,vbproj,proj,nativeproj,locproj,props,runsettings}]
+# Project files
+[*.*proj]
 charset = utf-8
+indent_size = 2
+
+# Other XML files
+[*.{targets,props,runsettings}]
+charset = utf-8
+indent_size = 2
+
+# JSON files
+[*.json]
 indent_size = 2
 
 # YAML config files

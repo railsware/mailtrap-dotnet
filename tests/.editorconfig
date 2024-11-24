@@ -1,0 +1,18 @@
+# https://editorconfig.org
+# https://aka.ms/editorconfigdocs
+
+
+root = false
+
+
+# C# files
+[*.cs]
+
+# CA1506: Avoid excessive class coupling
+dotnet_diagnostic.CA1506.severity = none
+
+# CA1812: Avoid uninstantiated internal classes
+dotnet_diagnostic.CA1812.severity = suggestion
+
+# CA5394: Do not use insecure randomness
+dotnet_diagnostic.CA5394.severity = none

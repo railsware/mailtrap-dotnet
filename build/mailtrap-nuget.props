@@ -14,7 +14,7 @@
       https://devblogs.microsoft.com/dotnet/producing-packages-with-source-link/
     -->
     <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
-    <PublishRepositoryUrl>true</PublishRepositoryUrl> 
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <!-- Embed source files that are not tracked by the source control manager in the PDB -->
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
 
@@ -22,7 +22,9 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
-    <PackageAssetsDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'package'))</PackageAssetsDirectory>
+    <PackageAssetsDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'assets'))</PackageAssetsDirectory>
+
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,7 +40,7 @@
       <PackagePath>\</PackagePath>
     </None>
 
-    <None Include="$(PackageAssetsDirectory)icon.png">
+    <None Include="$(PackageAssetsDirectory)img\icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
       <Visible>false</Visible>

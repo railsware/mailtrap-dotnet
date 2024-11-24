@@ -2,13 +2,6 @@
   
   <Import Project="..\Directory.Build.props" />
 
-  <PropertyGroup Label="Assembly Information">
-    <NeutralLanguage>en-US</NeutralLanguage>
+  <Import Project="$(BuildConfigurationDirectory)mailtrap-assembly.props" />
 
-    <Product>Official Mailtrap .NET Client</Product>
-    <Authors>Railsware</Authors>
-    <Company>Railsware Products Studio, LLC</Company>
-    <Copyright>Copyright © 2024, Railsware Products Studio, LLC. All rights reserved.</Copyright>
-  </PropertyGroup>
-  
 </Project>
