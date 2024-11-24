@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-using Mailtrap.Emails.Responses;
+using Mailtrap.TestingMessages.Responses;
 
 
 namespace Mailtrap.Example.ApiUsage.Logic;
@@ -38,18 +38,18 @@ internal sealed class MessageReactor : Reactor
             .Inbox(inboxId);
 
         // Get resource for message collection
-        IEmailCollectionResource messagesResource = inboxResource.Messages();
+        ITestingMessageCollectionResource messagesResource = inboxResource.Messages();
 
         // Fetch messages from the inbox
-        var messageFilter = new EmailMessageFilter
+        var messageFilter = new TestingMessageFilter
         {
             SearchFilter = "Supervision request"
         };
-        IList<EmailMessage> messages = await messagesResource.Fetch(messageFilter);
+        IList<TestingMessage> messages = await messagesResource.Fetch(messageFilter);
 
-        IEmailResource messageResource;
+        ITestingMessageResource messageResource;
 
-        EmailMessage? message = messages.FirstOrDefault();
+        TestingMessage? message = messages.FirstOrDefault();
         if (message is not null)
         {
             // Get resource for message
@@ -64,7 +64,7 @@ internal sealed class MessageReactor : Reactor
         }
 
         // Fetch messages from the inbox
-        messageFilter = new EmailMessageFilter
+        messageFilter = new TestingMessageFilter
         {
             SearchFilter = "Greetings"
         };
@@ -80,7 +80,7 @@ internal sealed class MessageReactor : Reactor
         }
 
         // Another fetch
-        messageFilter = new EmailMessageFilter
+        messageFilter = new TestingMessageFilter
         {
             SearchFilter = "hero.bill"
         };
@@ -102,7 +102,7 @@ internal sealed class MessageReactor : Reactor
         _logger.LogInformation("Message: {Message}", message);
 
         // Get message headers
-        EmailMessageHeaders headers = await messageResource.GetHeaders();
+        TestingMessageHeaders headers = await messageResource.GetHeaders();
         _logger.LogInformation("Message headers: {Headers}", headers.Headers);
 
         // Get raw message content
@@ -131,27 +131,27 @@ internal sealed class MessageReactor : Reactor
             _logger.LogInformation("HTML message source:\n{Message}", htmlMessageSource);
 
             // Get HTML analysis report for message 
-            EmailMessageHtmlReport htmlReport = await messageResource.GetHtmlAnalysisReport();
+            TestingMessageHtmlReport htmlReport = await messageResource.GetHtmlAnalysisReport();
             _logger.LogInformation("HTML analysis report: {Report}", htmlReport.Report);
         }
 
         // Get spam report for message 
-        EmailMessageSpamReport spamReport = await messageResource.GetSpamReport();
+        TestingMessageSpamReport spamReport = await messageResource.GetSpamReport();
         _logger.LogInformation("Spam report: {Report}", spamReport.Report);
 
         // Update message details
-        var updateMessageRequest = new UpdateEmailMessageRequest(true);
-        EmailMessage updatedMessage = await messageResource.Update(updateMessageRequest);
+        var updateMessageRequest = new UpdateTestingMessageRequest(true);
+        TestingMessage updatedMessage = await messageResource.Update(updateMessageRequest);
         _logger.LogInformation("Updated Message: {Message}", updatedMessage);
 
         // Forward message
-        var forwardMessageRequest = new ForwardEmailMessageRequest("forward@domain.com");
-        ForwardEmailMessageResponse forwardedMessage = await messageResource.Forward(forwardMessageRequest);
+        var forwardMessageRequest = new ForwardTestingMessageRequest("forward@domain.com");
+        ForwardTestingMessageResponse forwardedMessage = await messageResource.Forward(forwardMessageRequest);
         _logger.LogInformation("Message forwarded: {Forward}", forwardedMessage.Message);
 
         // Delete message
         // Beware that resource becomes invalid after deletion and should not be used anymore
-        EmailMessage deletedMessage = await messageResource.Delete();
+        TestingMessage deletedMessage = await messageResource.Delete();
         _logger.LogInformation("Deleted Message: {Message}", deletedMessage);
     }
 }

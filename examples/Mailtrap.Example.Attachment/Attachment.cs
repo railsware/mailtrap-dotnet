@@ -8,9 +8,9 @@
 using Mailtrap;
 using Mailtrap.Attachments;
 using Mailtrap.Attachments.Models;
-using Mailtrap.Emails;
 using Mailtrap.Extensions.DependencyInjection;
 using Mailtrap.Models;
+using Mailtrap.TestingMessages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,7 +33,7 @@ try
     var accountId = 12345;
     var inboxId = 54321;
     var messageId = 1122334455;
-    IEmailResource messageResource = mailtrapClient
+    ITestingMessageResource messageResource = mailtrapClient
         .Account(accountId)
         .Inbox(inboxId)
         .Message(messageId);

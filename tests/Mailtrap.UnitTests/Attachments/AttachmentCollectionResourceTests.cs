@@ -19,7 +19,7 @@ internal sealed class AttachmentCollectionResourceTests
         .Append(TestContext.CurrentContext.Random.NextLong())
         .Append(UrlSegmentsTestConstants.InboxesSegment)
         .Append(TestContext.CurrentContext.Random.NextLong())
-        .Append(UrlSegmentsTestConstants.EmailsSegment)
+        .Append(UrlSegmentsTestConstants.MessagesSegment)
         .Append(TestContext.CurrentContext.Random.NextLong())
         .Append(UrlSegmentsTestConstants.AttachmentsSegment);
 

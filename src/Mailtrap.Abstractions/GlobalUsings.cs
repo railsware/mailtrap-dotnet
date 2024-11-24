@@ -29,11 +29,6 @@ global using Mailtrap.Email.Models;
 global using Mailtrap.Email.Requests;
 global using Mailtrap.Email.Responses;
 global using Mailtrap.Email.Validators;
-global using Mailtrap.Emails;
-global using Mailtrap.Emails.Models;
-global using Mailtrap.Emails.Requests;
-global using Mailtrap.Emails.Responses;
-global using Mailtrap.Emails.Validators;
 global using Mailtrap.Exceptions;
 global using Mailtrap.Extensions;
 global using Mailtrap.Inboxes;
@@ -52,8 +47,13 @@ global using Mailtrap.SendingDomains;
 global using Mailtrap.SendingDomains.Models;
 global using Mailtrap.SendingDomains.Requests;
 global using Mailtrap.SendingDomains.Validators;
+global using Mailtrap.TestingMessages;
+global using Mailtrap.TestingMessages.Converters;
+global using Mailtrap.TestingMessages.Models;
+global using Mailtrap.TestingMessages.Requests;
+global using Mailtrap.TestingMessages.Responses;
+global using Mailtrap.TestingMessages.Validators;
 global using Mailtrap.Validation;
-global using Mailtrap.Emails.Converters;
 
 
 // Allowing test assembly to access internals for unit tests

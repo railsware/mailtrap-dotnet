@@ -78,7 +78,7 @@ public sealed record Inbox
     /// </value>
     [JsonPropertyName("status")]
     [JsonPropertyOrder(6)]
-    public InboxStatus? Status { get; set; }
+    public InboxStatus Status { get; set; } = InboxStatus.Unknown;
 
     /// <summary>
     /// Gets email user name for the inbox.

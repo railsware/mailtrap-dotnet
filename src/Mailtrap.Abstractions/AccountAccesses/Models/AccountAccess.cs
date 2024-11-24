@@ -34,7 +34,7 @@ public sealed record AccountAccess
     /// </value>
     [JsonPropertyName("specifier_type")]
     [JsonPropertyOrder(2)]
-    public SpecifierType? SpecifierType { get; set; }
+    public SpecifierType SpecifierType { get; set; } = SpecifierType.Unknown;
 
     /// <summary>
     /// Gets the specifier details.

@@ -58,7 +58,7 @@ public sealed record SendingDomain
     /// </value>
     [JsonPropertyName("compliance_status")]
     [JsonPropertyOrder(4)]
-    public SendingDomainComplianceStatus? ComplianceStatus { get; set; }
+    public SendingDomainComplianceStatus ComplianceStatus { get; set; } = SendingDomainComplianceStatus.Unknown;
 
     /// <summary>
     /// Gets flag indicating if DNS was verified for the sending domain.

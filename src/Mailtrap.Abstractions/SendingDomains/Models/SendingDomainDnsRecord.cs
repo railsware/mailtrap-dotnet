@@ -66,7 +66,7 @@ public sealed record SendingDomainDnsRecord
     /// </value>
     [JsonPropertyName("status")]
     [JsonPropertyOrder(5)]
-    public SendingDomainDnsRecordStatus? Status { get; set; }
+    public SendingDomainDnsRecordStatus Status { get; set; } = SendingDomainDnsRecordStatus.Unknown;
 
     /// <summary>
     /// Gets DNS record name.

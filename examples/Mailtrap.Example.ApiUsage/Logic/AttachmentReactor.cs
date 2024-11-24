@@ -16,7 +16,7 @@ internal sealed class AttachmentReactor : Reactor
 
     public async Task Process(long accountId, long inboxId, long messageId)
     {
-        IEmailResource messageResource = _mailtrapClient
+        ITestingMessageResource messageResource = _mailtrapClient
             .Account(accountId)
             .Inbox(inboxId)
             .Message(messageId);

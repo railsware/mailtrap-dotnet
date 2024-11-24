@@ -34,7 +34,7 @@ public sealed record ResourceAccess
     /// </value>
     [JsonPropertyName("resource_type")]
     [JsonPropertyOrder(2)]
-    public ResourceType? Type { get; set; }
+    public ResourceType Type { get; set; } = ResourceType.Unknown;
 
     /// <summary>
     /// Gets the resource access level.
@@ -45,5 +45,5 @@ public sealed record ResourceAccess
     /// </value>
     [JsonPropertyName("access_level")]
     [JsonPropertyOrder(3)]
-    public AccessLevel? AccessLevel { get; set; }
+    public AccessLevel AccessLevel { get; set; } = AccessLevel.Indeterminate;
 }
