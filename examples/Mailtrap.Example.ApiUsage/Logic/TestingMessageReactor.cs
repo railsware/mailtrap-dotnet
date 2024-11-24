@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MessageReactor.cs" company="Railsware Products Studio, LLC">
+// <copyright file="TestingMessageReactor.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,17 +11,17 @@ using Mailtrap.TestingMessages.Responses;
 namespace Mailtrap.Example.ApiUsage.Logic;
 
 
-internal sealed class MessageReactor : Reactor
+internal sealed class TestingMessageReactor : Reactor
 {
     private readonly TestSendReactor _testSendReactor;
     private readonly AttachmentReactor _attachmentReactor;
 
 
-    public MessageReactor(
+    public TestingMessageReactor(
         TestSendReactor testSendReactor,
         AttachmentReactor attachmentReactor,
         IMailtrapClient mailtrapClient,
-        ILogger<MessageReactor> logger)
+        ILogger<TestingMessageReactor> logger)
         : base(mailtrapClient, logger)
     {
         _testSendReactor = testSendReactor;
