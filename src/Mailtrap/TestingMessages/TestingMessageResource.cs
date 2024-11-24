@@ -28,7 +28,7 @@ internal sealed class TestingMessageResource : RestResource, ITestingMessageReso
 
 
     public IAttachmentCollectionResource Attachments()
-    => new AttachmentCollectionResource(RestResourceCommandFactory, ResourceUri.Append(AttachmentsSegment));
+        => new AttachmentCollectionResource(RestResourceCommandFactory, ResourceUri.Append(AttachmentsSegment));
 
     public IAttachmentResource Attachment(long attachmentId)
         => new AttachmentResource(RestResourceCommandFactory, ResourceUri.Append(AttachmentsSegment).Append(attachmentId));
