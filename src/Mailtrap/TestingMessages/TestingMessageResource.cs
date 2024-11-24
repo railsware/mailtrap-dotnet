@@ -10,6 +10,8 @@ namespace Mailtrap.TestingMessages;
 
 internal sealed class TestingMessageResource : RestResource, ITestingMessageResource
 {
+    private const string AttachmentsSegment = "attachments";
+
     private const string ForwardSegment = "forward";
     private const string SpamReportSegment = "spam_report";
     private const string HtmlAnalysisReportSegment = "analyze";
@@ -23,6 +25,13 @@ internal sealed class TestingMessageResource : RestResource, ITestingMessageReso
 
     public TestingMessageResource(IRestResourceCommandFactory restResourceCommandFactory, Uri resourceUri)
         : base(restResourceCommandFactory, resourceUri) { }
+
+
+    public IAttachmentCollectionResource Attachments()
+        => new AttachmentCollectionResource(RestResourceCommandFactory, ResourceUri.Append(AttachmentsSegment));
+
+    public IAttachmentResource Attachment(long attachmentId)
+        => new AttachmentResource(RestResourceCommandFactory, ResourceUri.Append(AttachmentsSegment).Append(attachmentId));
 
 
     public async Task<TestingMessage> GetDetails(CancellationToken cancellationToken = default)

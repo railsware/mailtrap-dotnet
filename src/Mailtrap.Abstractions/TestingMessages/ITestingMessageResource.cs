@@ -14,6 +14,34 @@ namespace Mailtrap.TestingMessages;
 public interface ITestingMessageResource : IRestResource
 {
     /// <summary>
+    /// Gets attachment collection resource for the message, represented by this resource instance.
+    /// </summary>
+    /// 
+    /// <returns>
+    /// Attachment collection resource for the message, represented by this resource instance.
+    /// </returns>
+    public IAttachmentCollectionResource Attachments();
+
+    /// <summary>
+    /// Gets resource for specific attachment, identified by <paramref name="attachmentId"/>,
+    /// for the message, represented by this resource instance.
+    /// </summary>
+    ///
+    /// <param name="attachmentId">
+    /// ID of attachment to get resource for.
+    /// </param>
+    /// 
+    /// <returns>
+    /// Resource for the attachment with specified ID.
+    /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="attachmentId"/> is less than or equal to zero.
+    /// </exception>
+    public IAttachmentResource Attachment(long attachmentId);
+
+
+    /// <summary>
     /// Gets details of the message, represented by the current resource instance.
     /// </summary>
     ///

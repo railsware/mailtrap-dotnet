@@ -59,7 +59,7 @@ internal sealed class InboxResourceTests
     #region Messages
 
     [Test]
-    public void Messages_ShouldReturnEmailCollectionResource()
+    public void Messages_ShouldReturnTestingMessageCollectionResource()
     {
         // Arrange
         var client = CreateResource();
@@ -73,7 +73,7 @@ internal sealed class InboxResourceTests
     }
 
     [Test]
-    public void Message_ShouldReturnMessageResource()
+    public void Message_ShouldReturnTestingMessageResource()
     {
         // Arrange
         var client = CreateResource();

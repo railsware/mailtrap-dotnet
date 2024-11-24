@@ -21,6 +21,8 @@ global using Mailtrap.AccountAccesses.Requests;
 global using Mailtrap.AccountAccesses.Responses;
 global using Mailtrap.Accounts;
 global using Mailtrap.Accounts.Models;
+global using Mailtrap.Attachments;
+global using Mailtrap.Attachments.Models;
 global using Mailtrap.Billing;
 global using Mailtrap.Billing.Models;
 global using Mailtrap.Configuration;
