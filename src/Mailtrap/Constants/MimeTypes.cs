@@ -16,4 +16,11 @@ internal static class MimeTypes
 
         internal const string Json = $"{Root}/json";
     }
+
+    internal static class Message
+    {
+        internal const string Root = "message";
+
+        internal const string Eml = $"{Root}/rfc822";
+    }
 }

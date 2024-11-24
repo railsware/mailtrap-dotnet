@@ -10,11 +10,17 @@ namespace Mailtrap.Example.ApiUsage.Logic;
 
 internal sealed class InboxReactor : Reactor
 {
+    private readonly MessageReactor _messageReactor;
+
+
     public InboxReactor(
+        MessageReactor messageReactor,
         IMailtrapClient mailtrapClient,
         ILogger<InboxReactor> logger)
         : base(mailtrapClient, logger)
-    { }
+    {
+        _messageReactor = messageReactor;
+    }
 
 
     public async Task Process(long accountId, long projectId)
@@ -51,6 +57,9 @@ internal sealed class InboxReactor : Reactor
         // Get Details
         inbox = await inboxResource.GetDetails();
         _logger.LogInformation("Inbox: {Inbox}", inbox);
+
+        // Process messages
+        await _messageReactor.Process(accountId, inbox.Id);
 
         // Mark all messages in the inbox as read
         Inbox updatedInbox = await inboxResource.MarkAsRead();

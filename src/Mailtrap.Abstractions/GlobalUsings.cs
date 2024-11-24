@@ -45,6 +45,12 @@ global using Mailtrap.SendingDomains;
 global using Mailtrap.SendingDomains.Models;
 global using Mailtrap.SendingDomains.Requests;
 global using Mailtrap.SendingDomains.Validators;
+global using Mailtrap.TestingMessages;
+global using Mailtrap.TestingMessages.Converters;
+global using Mailtrap.TestingMessages.Models;
+global using Mailtrap.TestingMessages.Requests;
+global using Mailtrap.TestingMessages.Responses;
+global using Mailtrap.TestingMessages.Validators;
 global using Mailtrap.Validation;
 
 

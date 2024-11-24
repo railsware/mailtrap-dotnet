@@ -41,6 +41,8 @@ global using Mailtrap.Rest;
 global using Mailtrap.Rest.Commands;
 global using Mailtrap.SendingDomains;
 global using Mailtrap.SendingDomains.Requests;
+global using Mailtrap.TestingMessages;
+global using Mailtrap.TestingMessages.Requests;
 global using Mailtrap.UnitTests.TestConstants;
 global using Mailtrap.UnitTests.TestExtensions;
 global using Microsoft.Extensions.Configuration;
