@@ -68,8 +68,8 @@ internal sealed class InboxResourceTests
         var result = client.Messages();
 
         // Assert
-        ResourceValidator.Validate<IEmailCollectionResource, EmailCollectionResource>(
-            result, client.ResourceUri.Append(UrlSegmentsTestConstants.EmailsSegment));
+        ResourceValidator.Validate<ITestingMessageCollectionResource, TestingMessageCollectionResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.MessagesSegment));
     }
 
     [Test]
@@ -83,8 +83,8 @@ internal sealed class InboxResourceTests
         var result = client.Message(emailId);
 
         // Assert
-        ResourceValidator.Validate<IEmailResource, EmailResource>(
-            result, client.ResourceUri.Append(UrlSegmentsTestConstants.EmailsSegment).Append(emailId));
+        ResourceValidator.Validate<ITestingMessageResource, TestingMessageResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.MessagesSegment).Append(emailId));
     }
 
     [Test]
