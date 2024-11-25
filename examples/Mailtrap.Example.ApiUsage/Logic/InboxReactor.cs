@@ -10,11 +10,11 @@ namespace Mailtrap.Example.ApiUsage.Logic;
 
 internal sealed class InboxReactor : Reactor
 {
-    private readonly MessageReactor _messageReactor;
+    private readonly TestingMessageReactor _messageReactor;
 
 
     public InboxReactor(
-        MessageReactor messageReactor,
+        TestingMessageReactor messageReactor,
         IMailtrapClient mailtrapClient,
         ILogger<InboxReactor> logger)
         : base(mailtrapClient, logger)

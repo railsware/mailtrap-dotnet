@@ -14,16 +14,16 @@ namespace Mailtrap.Inboxes;
 public interface IInboxResource : IRestResource
 {
     /// <summary>
-    /// Gets message collection resource for the inbox, represented by this resource instance.
+    /// Gets testing message collection resource for the inbox, represented by this resource instance.
     /// </summary>
     /// 
     /// <returns>
-    /// Message collection resource for the inbox, represented by this resource instance.
+    /// Testing message collection resource for the inbox, represented by this resource instance.
     /// </returns>
     public ITestingMessageCollectionResource Messages();
 
     /// <summary>
-    /// Gets resource for specific message, identified by <paramref name="messageId"/>,
+    /// Gets resource for specific testing message, identified by <paramref name="messageId"/>,
     /// in the inbox, represented by this resource instance.
     /// </summary>
     ///
@@ -32,7 +32,7 @@ public interface IInboxResource : IRestResource
     /// </param>
     /// 
     /// <returns>
-    /// Resource for the message with specified ID.
+    /// Resource for the testing message with specified ID.
     /// </returns>
     ///
     /// <exception cref="ArgumentOutOfRangeException">
