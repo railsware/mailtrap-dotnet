@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Email.Requests;
+namespace Mailtrap.Emails.Requests;
 
 
 /// <summary>
@@ -447,7 +447,7 @@ public static class SendEmailRequestBuilder
     /// <remarks>
     /// Any existing headers with the same keys will be overridden.
     /// </remarks>
-    public static SendEmailRequest Header(this SendEmailRequest request, params RequestHeader[] headers)
+    public static SendEmailRequest Header(this SendEmailRequest request, params KeyValuePair<string, string>[] headers)
     {
         Ensure.NotNull(request, nameof(request));
         Ensure.NotNull(headers, nameof(headers));
@@ -529,7 +529,7 @@ public static class SendEmailRequestBuilder
     /// <remarks>
     /// Any existing variables with the same keys will be overridden.
     /// </remarks>
-    public static SendEmailRequest CustomVariable(this SendEmailRequest request, params RequestVariable[] variables)
+    public static SendEmailRequest CustomVariable(this SendEmailRequest request, params KeyValuePair<string, string>[] variables)
     {
         Ensure.NotNull(request, nameof(request));
         Ensure.NotNull(variables, nameof(variables));

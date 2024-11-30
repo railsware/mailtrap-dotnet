@@ -8,9 +8,9 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Mime;
 using Mailtrap;
-using Mailtrap.Email.Models;
-using Mailtrap.Email.Requests;
-using Mailtrap.Email.Responses;
+using Mailtrap.Emails.Models;
+using Mailtrap.Emails.Requests;
+using Mailtrap.Emails.Responses;
 using Mailtrap.Models;
 using Mailtrap.Validation;
 using Microsoft.Extensions.Configuration;

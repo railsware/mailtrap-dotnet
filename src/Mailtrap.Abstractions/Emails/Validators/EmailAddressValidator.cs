@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Email.Validators;
+namespace Mailtrap.Emails.Validators;
 
 
 internal sealed class EmailAddressValidator : AbstractValidator<EmailAddress>

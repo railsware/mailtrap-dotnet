@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------
 
 
-// Namespaces
 global using System.Globalization;
 global using System.Net;
 global using System.Net.Http.Headers;
@@ -28,10 +27,10 @@ global using Mailtrap.Billing.Models;
 global using Mailtrap.Configuration;
 global using Mailtrap.Constants;
 global using Mailtrap.Converters;
-global using Mailtrap.Email;
-global using Mailtrap.Email.Models;
-global using Mailtrap.Email.Requests;
-global using Mailtrap.Email.Responses;
+global using Mailtrap.Emails;
+global using Mailtrap.Emails.Models;
+global using Mailtrap.Emails.Requests;
+global using Mailtrap.Emails.Responses;
 global using Mailtrap.Exceptions;
 global using Mailtrap.Extensions;
 global using Mailtrap.Http;
@@ -61,16 +60,3 @@ global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.DependencyInjection.Extensions;
 global using Microsoft.Extensions.Options;
-
-
-// Type aliases
-global using RequestHeader = System.Collections.Generic.KeyValuePair<string, string>;
-global using RequestVariable = System.Collections.Generic.KeyValuePair<string, string>;
-
-
-// Allowing test assembly to access internals for unit tests
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("Mailtrap.UnitTests")]
-[assembly: InternalsVisibleTo("Mailtrap.IntegrationTests")]
-[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

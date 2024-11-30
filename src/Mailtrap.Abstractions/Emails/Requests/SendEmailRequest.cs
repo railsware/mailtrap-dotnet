@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Email.Requests;
+namespace Mailtrap.Emails.Requests;
 
 
 /// <summary>

@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------
 
 
-// Namespaces
 global using System.Collections.Concurrent;
 global using System.Diagnostics.CodeAnalysis;
 global using System.Net;
@@ -24,11 +23,11 @@ global using Mailtrap.Attachments;
 global using Mailtrap.Attachments.Models;
 global using Mailtrap.Billing;
 global using Mailtrap.Billing.Models;
-global using Mailtrap.Email;
-global using Mailtrap.Email.Models;
-global using Mailtrap.Email.Requests;
-global using Mailtrap.Email.Responses;
-global using Mailtrap.Email.Validators;
+global using Mailtrap.Emails;
+global using Mailtrap.Emails.Models;
+global using Mailtrap.Emails.Requests;
+global using Mailtrap.Emails.Responses;
+global using Mailtrap.Emails.Validators;
 global using Mailtrap.Exceptions;
 global using Mailtrap.Extensions;
 global using Mailtrap.Inboxes;
@@ -55,9 +54,3 @@ global using Mailtrap.TestingMessages.Responses;
 global using Mailtrap.TestingMessages.Validators;
 global using Mailtrap.Validation;
 
-
-// Allowing test assembly to access internals for unit tests
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("Mailtrap.UnitTests")]
-[assembly: InternalsVisibleTo("Mailtrap.IntegrationTests")]

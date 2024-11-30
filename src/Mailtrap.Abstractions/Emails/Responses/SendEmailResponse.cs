@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Email.Responses;
+namespace Mailtrap.Emails.Responses;
 
 
 /// <summary>

@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Email;
+namespace Mailtrap.Emails;
 
 
 /// <summary>

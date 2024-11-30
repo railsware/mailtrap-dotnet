@@ -15,4 +15,9 @@
     <PackageReference Include="FluentValidation" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Mailtrap.UnitTests" />
+    <InternalsVisibleTo Include="Mailtrap.IntegrationTests" />
+  </ItemGroup>
+
 </Project>
