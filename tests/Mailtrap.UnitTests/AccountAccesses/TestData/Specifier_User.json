@@ -1,0 +1,6 @@
+{
+  "id": 0,
+  "email": "user@example.com",
+  "name": "John Doe",
+  "two_factor_authentication_enabled": true
+}

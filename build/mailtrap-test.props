@@ -1,9 +1,8 @@
-﻿<Project>
+<Project>
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
+    <TargetFrameworks>net9.0</TargetFrameworks>
     <UseCommonOutputDirectory>false</UseCommonOutputDirectory>
-    <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
@@ -21,7 +20,7 @@
     <PackageReference Include="NUnit">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
-    
+
     <PackageReference Include="NUnit3TestAdapter">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
@@ -33,14 +32,43 @@
     </PackageReference>
 
     <PackageReference Include="FluentAssertions">
-       <TreatAsUsed>true</TreatAsUsed>
+      <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
-    
+
     <PackageReference Include="FluentAssertions.Analyzers" >
       <TreatAsUsed>true</TreatAsUsed>
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+
+    <PackageReference Include="Moq">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
+
+    <PackageReference Include="RichardSzalay.MockHttp">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(LibSourceDirectory)Mailtrap\Mailtrap.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="NUnit.Framework" />
+    <Using Include="FluentAssertions" />
+    <Using Include="Moq" />
+    <Using Include="RichardSzalay.MockHttp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <VSTestLogger Include="blame" />
+    <VSTestLogger Include="trx%3BLogFileName=$(MSBuildProjectName).trx" />
+    <VSTestLogger Include="html%3BLogFileName=$(MSBuildProjectName).html" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="$(ContinuousIntegrationBuild) == 'true'">
+    <VSTestLogger>@(VSTestLogger)</VSTestLogger>
+  </PropertyGroup>
 
 </Project>

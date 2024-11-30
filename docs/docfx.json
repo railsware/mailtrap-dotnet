@@ -3,9 +3,9 @@
     {
       "src": [
         {
-          "src": "../src/lib",
+          "src": "../src",
           "files": "**/*.csproj",
-          "exclude": [ "**/bin/**", "**/obj/**", "**/*.[Tt]ests.csproj" ]
+          "exclude": [ "**/bin/**", "**/obj/**" ]
         }
       ],
       "dest": "../artifacts/api",
@@ -18,7 +18,8 @@
   "build": {
     "content": [
       {
-        "files": "**/*.{yml,md}"
+        "files": "**/*.{yml,md}",
+        "exclude": "includes/**"
       },
       {
         "src": "../artifacts/api",
@@ -32,6 +33,9 @@
         "files": "**",
         "dest": "assets"
       }
+    ],
+    "xref": [
+      "https://learn.microsoft.com/en-us/dotnet/.xrefmap.json"
     ],
     "output": "../artifacts/docs",
     "template": [

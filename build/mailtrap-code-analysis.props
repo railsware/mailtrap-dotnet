@@ -1,7 +1,6 @@
-﻿<Project>
+<Project>
 
   <PropertyGroup>
-    <EnableNETAnalyzers Condition=" '$(EnableNETAnalyzers)' == '' ">true</EnableNETAnalyzers>
     <EnforceCodeStyleInBuild Condition=" '$(EnforceCodeStyleInBuild)' == '' ">true</EnforceCodeStyleInBuild>
     <TreatWarningsAsErrors Condition=" '$(TreatWarningsAsErrors)' == '' ">true</TreatWarningsAsErrors>
     <CodeAnalysisTreatWarningsAsErrors Condition=" '$(CodeAnalysisTreatWarningsAsErrors)' == '' ">true</CodeAnalysisTreatWarningsAsErrors>
@@ -9,9 +8,9 @@
     <AnalysisLevel Condition=" '$(AnalysisLevel)' == '' ">latest</AnalysisLevel>
 
     <!-- None, Default, Minimum, Recommended, All-->
-    <!--<AnalysisMode>All</AnalysisMode>-->
+    <AnalysisMode>All</AnalysisMode>
 
-    <AnalysisModeDesign>All</AnalysisModeDesign>
+    <!--<AnalysisModeDesign>All</AnalysisModeDesign>
     <AnalysisModeDocumentation>All</AnalysisModeDocumentation>
     <AnalysisModeGlobalization>All</AnalysisModeGlobalization>
     <AnalysisModeInteroperability>All</AnalysisModeInteroperability>
@@ -22,7 +21,14 @@
     <AnalysisModeReliability>All</AnalysisModeReliability>
     <AnalysisModeSecurity>All</AnalysisModeSecurity>
     <AnalysisModeStyle>All</AnalysisModeStyle>
-    <AnalysisModeUsage>All</AnalysisModeUsage>
+    <AnalysisModeUsage>All</AnalysisModeUsage>-->
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
 </Project>
