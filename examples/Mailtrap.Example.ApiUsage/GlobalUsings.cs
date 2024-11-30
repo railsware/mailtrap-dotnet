@@ -17,7 +17,6 @@ global using Mailtrap.Billing.Models;
 global using Mailtrap.Email;
 global using Mailtrap.Email.Requests;
 global using Mailtrap.Example.ApiUsage.Logic;
-global using Mailtrap.Extensions.DependencyInjection;
 global using Mailtrap.Inboxes;
 global using Mailtrap.Inboxes.Models;
 global using Mailtrap.Inboxes.Requests;
