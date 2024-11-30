@@ -164,7 +164,7 @@ csharp_space_between_parentheses = false
 csharp_space_between_square_brackets = false
 
 
-# Naming Rules
+### Naming Rules
 
 # name all constant fields using PascalCase
 dotnet_naming_rule.constant_fields_should_be_pascal_case.severity = suggestion
@@ -198,7 +198,7 @@ dotnet_naming_style.camel_case_underscore_style.capitalization  = camel_case
 dotnet_analyzer_diagnostic.severity = warning
 
 
-# Code Quality and Maintainability
+### Code Quality and Maintainability
 
 # CA1501: Avoid excessive inheritance
 dotnet_diagnostic.CA1501.severity = warning
@@ -241,7 +241,25 @@ dotnet_diagnostic.CA1515.severity = warning
 
 
 
-# Fine Tuning
+### Fine Tuning
+
+# CA1062: Null-check validation
+dotnet_code_quality.CA1062.null_check_validation_methods = NotNull|NotNullOrEmpty
+
+
+## Explicitly enabled
+
+# CA1005: Avoid excessive parameters on generic types
+dotnet_diagnostic.CA1005.severity = warning
+
+# CA1021: Avoid out parameters
+dotnet_diagnostic.CA1021.severity = warning
+
+# CA1045: Do not pass types by reference
+dotnet_diagnostic.CA1045.severity = warning
+
+
+## Relaxed
 
 # IDE0010: Add missing cases to switch statement
 dotnet_diagnostic.IDE0010.severity = suggestion
@@ -256,33 +274,17 @@ dotnet_diagnostic.IDE0045.severity = suggestion
 dotnet_diagnostic.IDE0046.severity = suggestion
 
 # IDE0058: Expression value is never used
-# dotnet_diagnostic.IDE0058.severity = silent
+dotnet_diagnostic.IDE0058.severity = suggestion
 
-
-# CA1005: Avoid excessive parameters on generic types
-dotnet_diagnostic.CA1005.severity = warning
-
-# CA1021: Avoid out parameters
-dotnet_diagnostic.CA1021.severity = warning
 
 # CA1032: Implement standard exception constructors
 dotnet_diagnostic.CA1032.severity = suggestion
-
-# CA1045: Do not pass types by reference
-dotnet_diagnostic.CA1045.severity = warning
 
 # CA1303: Do not pass literals as localized parameters
 dotnet_diagnostic.CA1303.severity = suggestion
 
 # CA1805: Do not initialize unnecessarily
-dotnet_diagnostic.CA1805.severity = warning
-
-# CA1812: Avoid uninstantiated internal classes
-dotnet_diagnostic.CA1812.severity = warning
+dotnet_diagnostic.CA1805.severity = suggestion
 
 # CA1848: Use the LoggerMessage delegates
 dotnet_diagnostic.CA1848.severity = suggestion
-
-# CA1062: Null-check validation
-dotnet_code_quality.CA1062.null_check_validation_methods = NotNull|NotNullOrEmpty
-
