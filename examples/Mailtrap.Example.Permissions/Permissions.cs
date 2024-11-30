@@ -6,7 +6,6 @@
 
 
 using Mailtrap;
-using Mailtrap.Extensions.DependencyInjection;
 using Mailtrap.Permissions.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

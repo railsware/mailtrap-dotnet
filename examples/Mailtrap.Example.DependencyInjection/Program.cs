@@ -13,7 +13,6 @@ using Mailtrap.Configuration;
 using Mailtrap.Email;
 using Mailtrap.Email.Requests;
 using Mailtrap.Email.Responses;
-using Mailtrap.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

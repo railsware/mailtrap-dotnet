@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+
 namespace Mailtrap.UnitTests.Extensions.DependencyInjection;
 
 
@@ -16,7 +17,7 @@ internal sealed class ServiceCollectionExtensionsTests
     [Test]
     public void AddMailtrapClient_ShouldThrowArgumentNullException_WhenServicesIsNull()
     {
-        var act = () => ServiceCollectionExtensions.AddMailtrapClient(null!);
+        var act = () => MaitrapClientServiceCollectionExtensions.AddMailtrapClient(null!);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -39,7 +40,7 @@ internal sealed class ServiceCollectionExtensionsTests
     {
         var config = Mock.Of<IConfiguration>();
 
-        var act = () => ServiceCollectionExtensions.AddMailtrapClient(null!, config);
+        var act = () => MaitrapClientServiceCollectionExtensions.AddMailtrapClient(null!, config);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -105,7 +106,7 @@ internal sealed class ServiceCollectionExtensionsTests
     [Test]
     public void AddMailtrapClient_Delegate_ShouldThrowArgumentNullException_WhenServicesIsNull()
     {
-        var act = () => ServiceCollectionExtensions.AddMailtrapClient(null!, options => { });
+        var act = () => MaitrapClientServiceCollectionExtensions.AddMailtrapClient(null!, options => { });
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -162,7 +163,7 @@ internal sealed class ServiceCollectionExtensionsTests
     {
         var config = Mock.Of<MailtrapClientOptions>();
 
-        var act = () => ServiceCollectionExtensions.AddMailtrapClient(null!, config);
+        var act = () => MaitrapClientServiceCollectionExtensions.AddMailtrapClient(null!, config);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -214,7 +215,7 @@ internal sealed class ServiceCollectionExtensionsTests
     [Test]
     public void AddMailtrapServices_ShouldThrowArgumentNullException_WhenServicesIsNull()
     {
-        var act = () => ServiceCollectionExtensions.AddMailtrapServices(null!);
+        var act = () => MaitrapClientServiceCollectionExtensions.AddMailtrapServices(null!);
 
         act.Should().Throw<ArgumentNullException>();
     }

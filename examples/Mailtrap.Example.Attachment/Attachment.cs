@@ -8,7 +8,6 @@
 using Mailtrap;
 using Mailtrap.Attachments;
 using Mailtrap.Attachments.Models;
-using Mailtrap.Extensions.DependencyInjection;
 using Mailtrap.Models;
 using Mailtrap.TestingMessages;
 using Microsoft.Extensions.Configuration;

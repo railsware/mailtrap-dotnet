@@ -11,7 +11,6 @@ using Mailtrap;
 using Mailtrap.Email.Models;
 using Mailtrap.Email.Requests;
 using Mailtrap.Email.Responses;
-using Mailtrap.Extensions.DependencyInjection;
 using Mailtrap.Models;
 using Mailtrap.Validation;
 using Microsoft.Extensions.Configuration;

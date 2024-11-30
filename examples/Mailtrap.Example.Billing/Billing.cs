@@ -7,7 +7,6 @@
 
 using Mailtrap;
 using Mailtrap.Billing.Models;
-using Mailtrap.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
