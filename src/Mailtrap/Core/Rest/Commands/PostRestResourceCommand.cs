@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Rest.Commands;
+namespace Mailtrap.Core.Rest.Commands;
 
 
 internal class PostRestResourceCommand<TRequest, TResponse>

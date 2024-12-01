@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Exceptions;
+namespace Mailtrap.Core.Exceptions;
 
 
 /// <summary>

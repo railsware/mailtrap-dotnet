@@ -4,7 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Mailtrap.Rest.Commands;
+
+namespace Mailtrap.Core.Rest.Commands;
 
 
 internal abstract class RestResourceCommandWithRequest<TRequest, TResponse>

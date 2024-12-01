@@ -8,11 +8,11 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Mime;
 using Mailtrap;
+using Mailtrap.Core.Models;
+using Mailtrap.Core.Validation;
 using Mailtrap.Emails.Models;
 using Mailtrap.Emails.Requests;
 using Mailtrap.Emails.Responses;
-using Mailtrap.Models;
-using Mailtrap.Validation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Extensions;
+namespace Mailtrap.Core.Extensions;
 
 
 /// <exclude/>

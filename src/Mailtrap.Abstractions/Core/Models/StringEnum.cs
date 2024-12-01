@@ -8,7 +8,7 @@
 using System.Runtime.CompilerServices;
 
 
-namespace Mailtrap.Models;
+namespace Mailtrap.Core.Models;
 
 
 /// <summary>
@@ -22,13 +22,22 @@ public abstract record StringEnum<T> where T : StringEnum<T>, new()
 
 
     /// <summary>
-    /// Represents empty enum value.
+    /// Gets empty enum value.
     /// </summary>
+    ///
+    /// <value>
+    /// Empty value.
+    /// </value>
     public static T None { get; } = Define(string.Empty);
 
     /// <summary>
-    /// Represents unknown enum value.
+    /// Gets unknown enum value.<br/>
+    /// E.g. that cannot be parsed.
     /// </summary>
+    ///
+    /// <value>
+    /// Unknown value.
+    /// </value>
     public static T Unknown { get; } = Define(nameof(Unknown));
 
 

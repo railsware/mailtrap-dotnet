@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Http.ResponseHandlers;
+namespace Mailtrap.Core.Http.ResponseHandlers;
 
 
 internal interface IHttpResponseHandler<T>

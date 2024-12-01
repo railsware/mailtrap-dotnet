@@ -16,7 +16,7 @@ internal sealed class CollectionExtensionsTests
     {
         var itemsToAdd = new List<int> { 4, 5, 6 };
 
-        var act = () => Mailtrap.Extensions.CollectionExtensions.AddRange(null!, itemsToAdd);
+        var act = () => Core.Extensions.CollectionExtensions.AddRange(null!, itemsToAdd);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -26,7 +26,7 @@ internal sealed class CollectionExtensionsTests
     {
         var collection = new List<int> { 1, 2, 3 };
 
-        var act = () => Mailtrap.Extensions.CollectionExtensions.AddRange(collection, null!);
+        var act = () => Core.Extensions.CollectionExtensions.AddRange(collection, null!);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -37,7 +37,7 @@ internal sealed class CollectionExtensionsTests
         var collection = new List<int> { 1, 2, 3 };
         var itemsToAdd = new List<int> { 4, 5, 6 };
 
-        Mailtrap.Extensions.CollectionExtensions.AddRange(collection, itemsToAdd);
+        Core.Extensions.CollectionExtensions.AddRange(collection, itemsToAdd);
 
         collection.Should().ContainInOrder(1, 2, 3, 4, 5, 6);
     }

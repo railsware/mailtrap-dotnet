@@ -8,7 +8,7 @@
 using FluentValidationResult = FluentValidation.Results.ValidationResult;
 
 
-namespace Mailtrap.Extensions;
+namespace Mailtrap.Core.Extensions;
 
 
 /// <exclude />
@@ -24,7 +24,7 @@ public static class FluentValidationResultExtensions
     /// </summary>
     /// 
     /// <param name="validationResult">
-    /// <see cref="FluentValidationResult"/> instance to convert.
+    /// Result object to convert.
     /// </param>
     ///
     /// <returns>

@@ -12,7 +12,8 @@
       "filter": "filter.yml",
       "disableGitFeatures": false,
       "noRestore": false,
-      "enumSortOrder": "declaringOrder"
+      "enumSortOrder": "declaringOrder",
+      "namespaceLayout": "nested"
     }
   ],
   "build": {

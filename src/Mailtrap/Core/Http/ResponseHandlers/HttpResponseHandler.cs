@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Http.ResponseHandlers;
+namespace Mailtrap.Core.Http.ResponseHandlers;
 
 
 internal abstract class HttpResponseHandler<T> : IHttpResponseHandler<T>

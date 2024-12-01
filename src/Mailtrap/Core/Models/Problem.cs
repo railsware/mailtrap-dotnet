@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Models;
+namespace Mailtrap.Core.Models;
 
 
 internal sealed record Problem

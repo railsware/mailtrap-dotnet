@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Constants;
+namespace Mailtrap.Core.Constants;
 
 
 internal static class UrlSegments

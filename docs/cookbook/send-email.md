@@ -8,13 +8,13 @@ This article covers different scenarios of forming and sending emails using Mail
 
 
 ## Creating request
-Sending email API uses @Mailtrap.Email.Requests.SendEmailRequest object to create a payload for the API request.  
+Sending email API uses @Mailtrap.Emails.Requests.SendEmailRequest object to create a payload for the API request.  
 Library provides two ways for creating instances of it.
 
 ### Fluent builder
-There is a set of extensions in @Mailtrap.Email.Requests.SendEmailRequestBuilder, which allow you to create requests in a fluent style:
+There is a set of extensions in @Mailtrap.Emails.Requests.SendEmailRequestBuilder, which allow you to create requests in a fluent style:
 ```csharp
-using Mailtrap.Email.Requests;
+using Mailtrap.Emails.Requests;
 
 ...
 
@@ -31,7 +31,7 @@ var request = SendEmailRequest
 ### Regular initialization
 Alternatively, you can use object initialization and setup fields as usual:
 ```csharp
-using Mailtrap.Email.Requests;
+using Mailtrap.Emails.Requests;
 
 ...
 
@@ -59,7 +59,7 @@ request.Bcc.Add(from);
 ## Attaching files
 You can attach files to emails, both for inlining (embedding) or as a standalone downloadable file:
 ```csharp
-using Mailtrap.Email.Requests;
+using Mailtrap.Emails.Requests;
 
 ...
 
@@ -100,7 +100,7 @@ There is a possibility to create emails from predefined templates.
 You can create a template and obtain its ID [here](https://mailtrap.io/email_templates/).  
 Then you can use it in emails:
 ```csharp
-using Mailtrap.Email.Requests;
+using Mailtrap.Emails.Requests;
 
 ...
 
@@ -120,7 +120,7 @@ var request = SendEmailRequest
 ## Kitchen sink
 Just to give an overview of all possible settings:
 ```csharp
-using Mailtrap.Email.Requests;
+using Mailtrap.Emails.Requests;
 
 ...
 
@@ -196,11 +196,11 @@ request.Header(
 
 
 ## Request validation
-After creating a request instance, it is recommended to perform a validation on a client side to ensure sending won't throw validation exceptions and to minimize unnecessary HTTP round-trips. @Mailtrap.Email.Requests.SendEmailRequest implements @Mailtrap.Core.Validation.IValidatable interface, which can be used to perform that task.  
+After creating a request instance, it is recommended to perform a validation on a client side to ensure sending won't throw validation exceptions and to minimize unnecessary HTTP round-trips. @Mailtrap.Emails.Requests.SendEmailRequest implements @Mailtrap.Core.Validation.IValidatable interface, which can be used to perform that task.  
 
 @Mailtrap.Core.Validation.IValidatable.Validate method verifies request data and returns a @Mailtrap.Core.Validation.ValidationResult instance that contains validation result:
 ```csharp
-using Mailtrap.Email.Requests;
+using Mailtrap.Emails.Requests;
 
 ...
 
@@ -220,7 +220,7 @@ else
 
 Additionally, you can use @Mailtrap.Core.Validation.ValidationResult.EnsureValidity(System.String) method as a gate, that throws @System.ArgumentException if validation fails:
 ```csharp
-using Mailtrap.Email.Requests;
+using Mailtrap.Emails.Requests;
 
 ...
 
@@ -244,9 +244,9 @@ catch (ArgumentException aex)
 Finally, after you have formed a valid request, you can send it:
 ```csharp
 using Mailtrap;
-using Mailtrap.Email.Models;
-using Mailtrap.Email.Requests;
-using Mailtrap.Email.Responses;
+using Mailtrap.Emails.Models;
+using Mailtrap.Emails.Requests;
+using Mailtrap.Emails.Responses;
 
 ...
 
@@ -318,7 +318,7 @@ var response = await emailClient
 
 > [!TIP]  
 > @Mailtrap.IMailtrapClient.Transactional, @Mailtrap.IMailtrapClient.Bulk and @Mailtrap.IMailtrapClient.Test(System.Int64)
-> are factory methods that will create new @Mailtrap.Email.IEmailClient instance every time when called.  
+> are factory methods that will create new @Mailtrap.Emails.IEmailClient instance every time when called.  
 > Thus in case when you need to perform multiple `Send()` calls to the same endpoint it will be good idea
 > to spawn client once and then reuse it:
 > ```csharp

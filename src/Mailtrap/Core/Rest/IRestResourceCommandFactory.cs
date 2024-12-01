@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.Rest;
+namespace Mailtrap.Core.Rest;
 
 
 internal interface IRestResourceCommandFactory

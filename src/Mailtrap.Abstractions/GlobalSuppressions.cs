@@ -10,17 +10,17 @@
 // a specific target and scoped to a namespace, type, member, etc.
 
 
-[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure",
-    Justification = "Simplify namespaces structure", Scope = "namespace", Target = "~N:Mailtrap.Extensions")]
+//[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure",
+//    Justification = "Simplify namespaces structure", Scope = "namespace", Target = "~N:Mailtrap.Extensions")]
 
-[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure",
-    Justification = "Simplify namespaces structure", Scope = "namespace", Target = "~N:Mailtrap.Exceptions")]
+//[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure",
+//    Justification = "Simplify namespaces structure", Scope = "namespace", Target = "~N:Mailtrap.Exceptions")]
 
-[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure",
-    Justification = "Simplify namespaces structure", Scope = "namespace", Target = "~N:Mailtrap.Models")]
+//[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure",
+//    Justification = "Simplify namespaces structure", Scope = "namespace", Target = "~N:Mailtrap.Models")]
 
-[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure",
-    Justification = "Simplify namespaces structure", Scope = "namespace", Target = "~N:Mailtrap.Rest")]
+//[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure",
+//    Justification = "Simplify namespaces structure", Scope = "namespace", Target = "~N:Mailtrap.Rest")]
 
-[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure",
-    Justification = "Simplify namespaces structure", Scope = "namespace", Target = "~N:Mailtrap.Validation")]
+//[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure",
+//    Justification = "Simplify namespaces structure", Scope = "namespace", Target = "~N:Mailtrap.Validation")]
