@@ -14,6 +14,10 @@ namespace Mailtrap.Core.Models;
 /// <summary>
 /// Generic string enum implementation.
 /// </summary>
+///
+/// <typeparam name="T">
+/// Particular <see cref="StringEnum{T}"/> implementation type.
+/// </typeparam>
 [SuppressMessage("Design", "CA1000:Do not declare static members on generic types")]
 [SuppressMessage("Naming", "CA1711:Identifiers should not have incorrect suffix")]
 public abstract record StringEnum<T> where T : StringEnum<T>, new()
@@ -82,6 +86,10 @@ public abstract record StringEnum<T> where T : StringEnum<T>, new()
     /// <param name="value">
     /// Enum entry value.
     /// </param>
+    ///
+    /// <returns>
+    /// Created enum entry instance.
+    /// </returns>
     protected static T Define(string value)
     {
         Ensure.NotNull(value, nameof(value));
