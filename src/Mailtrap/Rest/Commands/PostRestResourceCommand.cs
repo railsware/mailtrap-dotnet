@@ -13,13 +13,13 @@ internal class PostRestResourceCommand<TRequest, TResponse>
     where TRequest : class
 {
     public PostRestResourceCommand(
-        IHttpClientFactory httpClientFactory,
+        IHttpClientProvider httpClientProvider,
         IHttpRequestMessageFactory httpRequestMessageFactory,
         IHttpResponseHandlerFactory httpResponseHandlerFactory,
         Uri resourceUri,
         TRequest request)
         : base(
-            httpClientFactory,
+            httpClientProvider,
             httpRequestMessageFactory,
             httpResponseHandlerFactory,
             resourceUri,

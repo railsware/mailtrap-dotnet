@@ -11,12 +11,12 @@ namespace Mailtrap.Rest.Commands;
 internal sealed class DeleteRestResourceCommand<TResponse> : RestResourceCommand<TResponse>
 {
     public DeleteRestResourceCommand(
-        IHttpClientFactory httpClientFactory,
+        IHttpClientProvider httpClientProvider,
         IHttpRequestMessageFactory httpRequestMessageFactory,
         IHttpResponseHandlerFactory httpResponseHandlerFactory,
         Uri resourceUri)
         : base(
-            httpClientFactory,
+            httpClientProvider,
             httpRequestMessageFactory,
             httpResponseHandlerFactory,
             resourceUri,

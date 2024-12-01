@@ -5,9 +5,6 @@
 // -----------------------------------------------------------------------
 
 
-using Mailtrap.Extensions.DependencyInjection;
-
-
 namespace Mailtrap;
 
 
@@ -16,17 +13,9 @@ namespace Mailtrap;
 /// </summary>
 /// 
 /// <remarks>
-/// <para>
-/// Uses <see cref="IHttpClientFactory"/> under the hood to create <see cref="HttpClient"/> instances
-/// and inject them into the <see cref="IMailtrapClient"/> default implementation instances
-/// produced by the factory. Thus, it is recommended to use it as singleton.
-/// </para>
-///
-/// <para>
-/// <see cref="IMailtrapClient"/> default implementation instances, produced by the factory, can be used in any manner,
+/// <see cref="IMailtrapClient"/> instances, produced by the factory, can be used in any manner,
 /// since they are designed to use unit-of-work pattern under the hood, ensuring proper disposal of resources,
 /// as soon as any operation is completed.
-/// </para>
 /// </remarks>
 
 public sealed class MailtrapClientFactory : IMailtrapClientFactory

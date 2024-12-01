@@ -15,14 +15,14 @@ internal abstract class RestResourceCommandWithRequest<TRequest, TResponse>
 
 
     public RestResourceCommandWithRequest(
-        IHttpClientFactory httpClientFactory,
+        IHttpClientProvider httpClientProvider,
         IHttpRequestMessageFactory httpRequestMessageFactory,
         IHttpResponseHandlerFactory httpResponseHandlerFactory,
         Uri resourceUri,
         HttpMethod httpMethod,
         TRequest request)
         : base(
-            httpClientFactory,
+            httpClientProvider,
             httpRequestMessageFactory,
             httpResponseHandlerFactory,
             resourceUri,

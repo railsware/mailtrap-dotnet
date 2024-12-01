@@ -10,21 +10,21 @@ namespace Mailtrap.Rest;
 
 internal sealed class RestResourceCommandFactory : IRestResourceCommandFactory
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IHttpClientProvider _httpClientProvider;
     private readonly IHttpResponseHandlerFactory _httpResponseHandlerFactory;
     private readonly IHttpRequestMessageFactory _httpRequestMessageFactory;
 
 
     public RestResourceCommandFactory(
-        IHttpClientFactory httpClientFactory,
+        IHttpClientProvider httpClientProvider,
         IHttpRequestMessageFactory httpRequestMessageFactory,
         IHttpResponseHandlerFactory httpResponseHandlerFactory)
     {
-        Ensure.NotNull(httpClientFactory, nameof(httpClientFactory));
+        Ensure.NotNull(httpClientProvider, nameof(httpClientProvider));
         Ensure.NotNull(httpRequestMessageFactory, nameof(httpRequestMessageFactory));
         Ensure.NotNull(httpResponseHandlerFactory, nameof(httpResponseHandlerFactory));
 
-        _httpClientFactory = httpClientFactory;
+        _httpClientProvider = httpClientProvider;
         _httpRequestMessageFactory = httpRequestMessageFactory;
         _httpResponseHandlerFactory = httpResponseHandlerFactory;
     }
@@ -32,7 +32,7 @@ internal sealed class RestResourceCommandFactory : IRestResourceCommandFactory
 
     public IRestResourceCommand<TResponse> CreateGet<TResponse>(Uri resourceUri, params string[] additionalAcceptContentTypes)
         => new GetRestResourceCommand<TResponse>(
-            _httpClientFactory,
+            _httpClientProvider,
             _httpRequestMessageFactory,
             _httpResponseHandlerFactory,
             resourceUri,
@@ -40,7 +40,7 @@ internal sealed class RestResourceCommandFactory : IRestResourceCommandFactory
 
     public IRestResourceCommand<string> CreatePlainText(Uri resourceUri, params string[] additionalAcceptContentTypes)
         => new GetWithPlainTextResultRestResourceCommand(
-            _httpClientFactory,
+            _httpClientProvider,
             _httpRequestMessageFactory,
             _httpResponseHandlerFactory,
             resourceUri,
@@ -48,14 +48,14 @@ internal sealed class RestResourceCommandFactory : IRestResourceCommandFactory
 
     public IRestResourceCommand<TResponse> CreatePatch<TResponse>(Uri resourceUri)
         => new PatchRestResourceCommand<TResponse>(
-            _httpClientFactory,
+            _httpClientProvider,
             _httpRequestMessageFactory,
             _httpResponseHandlerFactory,
             resourceUri);
 
     public IRestResourceCommand<TResponse> CreateDelete<TResponse>(Uri resourceUri)
         => new DeleteRestResourceCommand<TResponse>(
-            _httpClientFactory,
+            _httpClientProvider,
             _httpRequestMessageFactory,
             _httpResponseHandlerFactory,
             resourceUri);
@@ -63,7 +63,7 @@ internal sealed class RestResourceCommandFactory : IRestResourceCommandFactory
     public IRestResourceCommand<HttpStatusCode> CreatePostWithStatusCodeResult<TRequest>(Uri resourceUri, TRequest request)
         where TRequest : class
         => new PostWithStatusCodeResultRestResourceCommand<TRequest>(
-            _httpClientFactory,
+            _httpClientProvider,
             _httpRequestMessageFactory,
             _httpResponseHandlerFactory,
             resourceUri,
@@ -72,7 +72,7 @@ internal sealed class RestResourceCommandFactory : IRestResourceCommandFactory
     public IRestResourceCommand<TResponse> CreatePost<TRequest, TResponse>(Uri resourceUri, TRequest request)
         where TRequest : class
         => new PostRestResourceCommand<TRequest, TResponse>(
-            _httpClientFactory,
+            _httpClientProvider,
             _httpRequestMessageFactory,
             _httpResponseHandlerFactory,
             resourceUri,
@@ -81,7 +81,7 @@ internal sealed class RestResourceCommandFactory : IRestResourceCommandFactory
     public IRestResourceCommand<TResponse> CreatePut<TRequest, TResponse>(Uri resourceUri, TRequest request)
         where TRequest : class
         => new PutRestResourceCommand<TRequest, TResponse>(
-            _httpClientFactory,
+            _httpClientProvider,
             _httpRequestMessageFactory,
             _httpResponseHandlerFactory,
             resourceUri,
@@ -90,7 +90,7 @@ internal sealed class RestResourceCommandFactory : IRestResourceCommandFactory
     public IRestResourceCommand<TResponse> CreatePatchWithContent<TRequest, TResponse>(Uri resourceUri, TRequest request)
         where TRequest : class
         => new PatchWithContentRestResourceCommand<TRequest, TResponse>(
-            _httpClientFactory,
+            _httpClientProvider,
             _httpRequestMessageFactory,
             _httpResponseHandlerFactory,
             resourceUri,
