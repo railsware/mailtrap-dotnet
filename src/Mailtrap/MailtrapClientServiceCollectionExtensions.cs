@@ -42,6 +42,7 @@ public static class MailtrapClientServiceCollectionExtensions
                 .EnsureValidity(nameof(MailtrapClientOptions));
         });
 
+        services.TryAddSingleton<IHttpClientProvider, FactoryHttpClientProvider>();
         services.TryAddSingleton<IHttpRequestMessageFactory, HttpRequestMessageFactory>();
         services.TryAddSingleton<IHttpRequestContentFactory, HttpRequestContentFactory>();
         services.TryAddSingleton<IHttpResponseHandlerFactory, HttpResponseHandlerFactory>();
