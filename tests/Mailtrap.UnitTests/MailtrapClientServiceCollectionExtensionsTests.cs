@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MaitrapClientServiceCollectionExtensionsTests.cs" company="Railsware Products Studio, LLC">
+// <copyright file="MailtrapClientServiceCollectionExtensionsTests.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,7 +9,7 @@ namespace Mailtrap.UnitTests;
 
 
 [TestFixture]
-internal sealed class MaitrapClientServiceCollectionExtensionsTests
+internal sealed class MailtrapClientServiceCollectionExtensionsTests
 {
     private string _apiToken { get; } = "token";
 
