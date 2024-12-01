@@ -22,6 +22,7 @@ global using Mailtrap.Billing;
 global using Mailtrap.Configuration;
 global using Mailtrap.Constants;
 global using Mailtrap.Converters;
+global using Mailtrap.Core.Http;
 global using Mailtrap.Email;
 global using Mailtrap.Email.Models;
 global using Mailtrap.Email.Requests;
