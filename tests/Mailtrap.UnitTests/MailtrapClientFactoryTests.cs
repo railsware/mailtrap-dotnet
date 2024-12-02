@@ -5,8 +5,6 @@
 // -----------------------------------------------------------------------
 
 
-using System.Net.Http.Json;
-
 namespace Mailtrap.UnitTests;
 
 
