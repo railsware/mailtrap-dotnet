@@ -5,6 +5,8 @@
 // -----------------------------------------------------------------------
 
 
+using System.Net.Http.Json;
+
 namespace Mailtrap.UnitTests;
 
 
@@ -60,8 +62,8 @@ internal sealed class MailtrapClientFactoryTests
         var config = new MailtrapClientOptions("token");
 
         var httpMethod = HttpMethod.Post;
-        var sendUrl = config.SendEndpoint.BaseUrl.Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
-        var messageId = new MessageId("1");
+        var sendUrl = EndpointsTestConstants.SendDefaultUrl.Append(UrlSegmentsTestConstants.ApiRootSegment, UrlSegmentsTestConstants.SendEmailSegment);
+        var messageId = TestContext.CurrentContext.Random.GetString();
         var response = new SendEmailResponse(true, [messageId]);
         using var responseContent = JsonContent.Create(response);
 
@@ -81,7 +83,7 @@ internal sealed class MailtrapClientFactoryTests
             .Subject("Invitation to Earth")
             .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
 
-        var _ = await client.SendEmail(request).ConfigureAwait(false);
+        var _ = await client.Email().Send(request);
 
         mockHttp.VerifyNoOutstandingExpectation();
     }
@@ -133,9 +135,8 @@ internal sealed class MailtrapClientFactoryTests
     public async Task Constructor_KeyAndClient_ShouldUseClientProvided()
     {
         var httpMethod = HttpMethod.Post;
-        var sendUrl = MailtrapClientOptions.Default.SendEndpoint.BaseUrl
-            .Append(UrlSegments.ApiRootSegment, UrlSegments.SendEmailSegment);
-        var messageId = new MessageId("1");
+        var sendUrl = EndpointsTestConstants.SendDefaultUrl.Append(UrlSegmentsTestConstants.ApiRootSegment, UrlSegmentsTestConstants.SendEmailSegment);
+        var messageId = TestContext.CurrentContext.Random.GetString();
         var response = new SendEmailResponse(true, [messageId]);
         using var responseContent = JsonContent.Create(response);
 
@@ -155,7 +156,7 @@ internal sealed class MailtrapClientFactoryTests
             .Subject("Invitation to Earth")
             .Text("Dear Bill,\nIt will be a great pleasure to see you on our blue planet next weekend.\nBest regards, John.");
 
-        var _ = await client.SendEmail(request).ConfigureAwait(false);
+        var _ = await client.Email().Send(request);
 
         mockHttp.VerifyNoOutstandingExpectation();
     }

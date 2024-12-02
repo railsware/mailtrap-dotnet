@@ -89,7 +89,7 @@ public sealed class MailtrapClientFactory : IMailtrapClientFactory
 
         serviceCollection.Configure<MailtrapClientOptions>(options => options.Init(configuration));
 
-        serviceCollection.AddMailtrapServices();
+        serviceCollection.AddMailtrapServices<StaticHttpClientProvider>();
 
         serviceCollection.AddSingleton(httpClient);
 

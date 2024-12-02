@@ -56,10 +56,7 @@ internal sealed class Program
                 return;
             }
 
-            SendEmailResponse? response = await mailtrapClient
-                .Email()
-                .Send(request)
-                .ConfigureAwait(false);
+            SendEmailResponse? response = await mailtrapClient.Email().Send(request);
         }
         catch (Exception ex)
         {

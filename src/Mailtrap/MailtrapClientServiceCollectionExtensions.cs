@@ -31,31 +31,7 @@ public static class MailtrapClientServiceCollectionExtensions
     /// Please refer to documentation/samples for additional details.    
     /// </remarks>
     public static IServiceCollection AddMailtrapServices(this IServiceCollection services)
-    {
-        Ensure.NotNull(services, nameof(services));
-
-        services.AddOptions().PostConfigure<MailtrapClientOptions>(options =>
-        {
-            MailtrapClientOptionsValidator.Instance
-                .Validate(options)
-                .ToMailtrapValidationResult()
-                .EnsureValidity(nameof(MailtrapClientOptions));
-        });
-
-        services.TryAddSingleton<IHttpClientProvider, FactoryHttpClientProvider>();
-        services.TryAddSingleton<IHttpRequestMessageFactory, HttpRequestMessageFactory>();
-        services.TryAddSingleton<IHttpRequestContentFactory, HttpRequestContentFactory>();
-        services.TryAddSingleton<IHttpResponseHandlerFactory, HttpResponseHandlerFactory>();
-        services.TryAddSingleton<IRestResourceCommandFactory, RestResourceCommandFactory>();
-        services.TryAddSingleton<IEmailClientEndpointProvider, EmailClientEndpointProvider>();
-        services.TryAddSingleton<IEmailClientFactory, EmailClientFactory>();
-
-        services.TryAddTransient(services => services.GetRequiredService<IEmailClientFactory>().CreateDefault());
-
-        services.TryAddTransient<IMailtrapClient, MailtrapClient>();
-
-        return services;
-    }
+        => AddMailtrapServices<FactoryHttpClientProvider>(services);
 
     /// <summary>
     /// Adds Mailtrap API client to the <paramref name="services"/> collection.
@@ -146,5 +122,33 @@ public static class MailtrapClientServiceCollectionExtensions
         Ensure.NotNull(options, nameof(options));
 
         return services.AddMailtrapClient(o => o.Init(options));
+    }
+
+
+    internal static IServiceCollection AddMailtrapServices<T>(this IServiceCollection services) where T : class, IHttpClientProvider
+    {
+        Ensure.NotNull(services, nameof(services));
+
+        services.AddOptions().PostConfigure<MailtrapClientOptions>(options =>
+        {
+            MailtrapClientOptionsValidator.Instance
+                .Validate(options)
+                .ToMailtrapValidationResult()
+                .EnsureValidity(nameof(MailtrapClientOptions));
+        });
+
+        services.TryAddSingleton<IHttpClientProvider, T>();
+        services.TryAddSingleton<IHttpRequestMessageFactory, HttpRequestMessageFactory>();
+        services.TryAddSingleton<IHttpRequestContentFactory, HttpRequestContentFactory>();
+        services.TryAddSingleton<IHttpResponseHandlerFactory, HttpResponseHandlerFactory>();
+        services.TryAddSingleton<IRestResourceCommandFactory, RestResourceCommandFactory>();
+        services.TryAddSingleton<IEmailClientEndpointProvider, EmailClientEndpointProvider>();
+        services.TryAddSingleton<IEmailClientFactory, EmailClientFactory>();
+
+        services.TryAddTransient(services => services.GetRequiredService<IEmailClientFactory>().CreateDefault());
+
+        services.TryAddTransient<IMailtrapClient, MailtrapClient>();
+
+        return services;
     }
 }
