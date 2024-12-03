@@ -22,7 +22,7 @@ public static class Ensure
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="paramValue"/> is <see langword="null"/>.
     /// </exception>
-    public static void NotNull<T>(T paramValue, string paramName, string? message = default)
+    public static void NotNull<T>(T? paramValue, string paramName, string? message = default)
     {
         if (paramValue is not null)
         {
@@ -46,7 +46,7 @@ public static class Ensure
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="paramValue"/> is <see langword="null"/> or <see cref="string.Empty"/>.
     /// </exception>
-    public static void NotNullOrEmpty(string paramValue, string paramName, string? message = default)
+    public static void NotNullOrEmpty(string? paramValue, string paramName, string? message = default)
     {
         if (!string.IsNullOrEmpty(paramValue))
         {

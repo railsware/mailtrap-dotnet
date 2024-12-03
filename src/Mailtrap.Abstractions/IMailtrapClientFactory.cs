@@ -30,5 +30,9 @@ public interface IMailtrapClientFactory : IDisposable
     /// <returns>
     /// New <see cref="IMailtrapClient"/> implementation instance.
     /// </returns>
+    ///
+    /// <exception cref="ObjectDisposedException">
+    /// When factory was disposed.
+    /// </exception>
     IMailtrapClient CreateClient();
 }
