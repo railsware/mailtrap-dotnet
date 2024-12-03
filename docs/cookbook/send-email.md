@@ -218,7 +218,7 @@ else
 }
 ```
 
-Additionally, you can use @Mailtrap.Core.Validation.ValidationResult.EnsureValidity(System.String) method as a gate, that throws @System.ArgumentException if validation fails:
+Alternatively, you can use @Mailtrap.Core.Validation.ValidationResult.EnsureValidity(System.String) method as a gate, that throws @System.ArgumentException if validation fails:
 ```csharp
 using Mailtrap.Emails.Requests;
 
@@ -237,7 +237,7 @@ catch (ArgumentException aex)
 ```
 
 > [!NOTE]  
-> Client implementation uses the latter approach internally, to ensure request validity before sending.  
+> Client implementation uses the latter approach internally, to ensure request validity before processing.  
 
 
 ## Using send API
@@ -268,15 +268,18 @@ try
 
         SendEmailResponse response = await _mailtrapClient
             .Email()  // Will send email using API defined in client configuration
-            .Send(request, cts.Token)
-            .ConfigureAwait(false);
+            .Send(request, cts.Token);
       
-        MessageId messageId = response.MessageIds.FirstOrDefault(MessageId.Empty);
+        string messageId = response.MessageIds.FirstOrDefault();
     }
     else
     {
         // handle validation issues
     }
+}
+catch (MailtrapApiException mtex)
+{
+   // handle Mailtrap specific exceptions
 }
 catch (ArgumentException aex)
 {
@@ -311,9 +314,7 @@ IEmailClient emailClient = _mailtrapClient.Test(inboxId); // Emails will be sent
 // IEmailClient emailClient = _mailtrapClient.Transactional(); // Emails will be sent using Email Sending API
 // IEmailClient emailClient = _mailtrapClient.Bulk(); // Emails will be sent using Bulk Sending API
 
-var response = await emailClient
-    .Send(request)
-    .ConfigureAwait(false);
+var response = await emailClient.Send(request);
 ```
 
 > [!TIP]  
@@ -326,9 +327,7 @@ var response = await emailClient
 > 
 > foreach(var request in requests)
 > {
->     var response = await emailClient
->         .Send(request)
->         .ConfigureAwait(false);
+>     var response = await emailClient.Send(request);
 > }
 >```
 

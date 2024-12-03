@@ -13,13 +13,13 @@ internal sealed class PatchWithContentRestResourceCommand<TRequest, TResponse>
     where TRequest : class
 {
     public PatchWithContentRestResourceCommand(
-        IHttpClientFactory httpClientFactory,
+        IHttpClientProvider httpClientProvider,
         IHttpRequestMessageFactory httpRequestMessageFactory,
         IHttpResponseHandlerFactory httpResponseHandlerFactory,
         Uri resourceUri,
         TRequest request)
         : base(
-            httpClientFactory,
+            httpClientProvider,
             httpRequestMessageFactory,
             httpResponseHandlerFactory,
             resourceUri,

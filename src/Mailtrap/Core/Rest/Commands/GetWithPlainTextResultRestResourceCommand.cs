@@ -11,13 +11,13 @@ namespace Mailtrap.Core.Rest.Commands;
 internal sealed class GetWithPlainTextResultRestResourceCommand : GetRestResourceCommand<string>
 {
     public GetWithPlainTextResultRestResourceCommand(
-        IHttpClientFactory httpClientFactory,
+        IHttpClientProvider httpClientProvider,
         IHttpRequestMessageFactory httpRequestMessageFactory,
         IHttpResponseHandlerFactory httpResponseHandlerFactory,
         Uri resourceUri,
         params string[] additionalAcceptContentTypes)
         : base(
-            httpClientFactory,
+            httpClientProvider,
             httpRequestMessageFactory,
             httpResponseHandlerFactory,
             resourceUri,

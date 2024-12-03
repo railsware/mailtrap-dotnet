@@ -11,12 +11,12 @@ namespace Mailtrap.Core.Rest.Commands;
 internal sealed class PatchRestResourceCommand<TResponse> : RestResourceCommand<TResponse>
 {
     public PatchRestResourceCommand(
-        IHttpClientFactory httpClientFactory,
+        IHttpClientProvider httpClientProvider,
         IHttpRequestMessageFactory httpRequestMessageFactory,
         IHttpResponseHandlerFactory httpResponseHandlerFactory,
         Uri resourceUri)
         : base(
-            httpClientFactory,
+            httpClientProvider,
             httpRequestMessageFactory,
             httpResponseHandlerFactory,
             resourceUri,

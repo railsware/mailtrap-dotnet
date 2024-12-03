@@ -49,24 +49,17 @@ internal sealed class Program
             IMailtrapClient mailtrapClient = host.Services.GetRequiredService<IMailtrapClient>();
             SendEmailResponse? response = await mailtrapClient
                 .Email() // Default client, depends on configuration
-                .Send(request)
-                .ConfigureAwait(false);
+                .Send(request);
 
             IEmailClient transactionalClient = mailtrapClient.Transactional();
-            response = await transactionalClient
-                .Send(request)
-                .ConfigureAwait(false);
+            response = await transactionalClient.Send(request);
 
             IEmailClient bulkClient = mailtrapClient.Bulk();
-            response = await bulkClient
-                .Send(request)
-                .ConfigureAwait(false);
+            response = await bulkClient.Send(request);
 
             var inboxId = 1234;
             IEmailClient testClient = mailtrapClient.Test(inboxId);
-            response = await testClient
-                .Send(request)
-                .ConfigureAwait(false);
+            response = await testClient.Send(request);
         }
         catch (Exception ex)
         {

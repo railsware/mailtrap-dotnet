@@ -10,7 +10,7 @@ namespace Mailtrap.Core.Rest.Commands;
 
 internal abstract class RestResourceCommand<TResponse> : IRestResourceCommand<TResponse>
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IHttpClientProvider _httpClientProvider;
     protected readonly IHttpResponseHandlerFactory _httpResponseHandlerFactory;
     protected readonly IHttpRequestMessageFactory _httpRequestMessageFactory;
 
@@ -20,19 +20,19 @@ internal abstract class RestResourceCommand<TResponse> : IRestResourceCommand<TR
 
 
     public RestResourceCommand(
-        IHttpClientFactory httpClientFactory,
+        IHttpClientProvider httpClientProvider,
         IHttpRequestMessageFactory httpRequestMessageFactory,
         IHttpResponseHandlerFactory httpResponseHandlerFactory,
         Uri resourceUri,
         HttpMethod httpMethod)
     {
-        Ensure.NotNull(httpClientFactory, nameof(httpClientFactory));
+        Ensure.NotNull(httpClientProvider, nameof(httpClientProvider));
         Ensure.NotNull(httpRequestMessageFactory, nameof(httpRequestMessageFactory));
         Ensure.NotNull(httpResponseHandlerFactory, nameof(httpResponseHandlerFactory));
         Ensure.NotNull(resourceUri, nameof(resourceUri));
         Ensure.NotNull(httpMethod, nameof(httpMethod));
 
-        _httpClientFactory = httpClientFactory;
+        _httpClientProvider = httpClientProvider;
         _httpRequestMessageFactory = httpRequestMessageFactory;
         _httpResponseHandlerFactory = httpResponseHandlerFactory;
 
@@ -45,10 +45,9 @@ internal abstract class RestResourceCommand<TResponse> : IRestResourceCommand<TR
     {
         using var httpRequest = CreateHttpRequest();
 
-        // Should not dispose HttpClient here, it's managed by the factory.
+        // Should not dispose HttpClient here, since its lifetime is managed by provider.
         // Also it can be a singleton instance, shared across requests.
-        using var httpResponse = await _httpClientFactory
-            .CreateClient(Client.Name)
+        using var httpResponse = await _httpClientProvider.Client
             .SendAsync(httpRequest, cancellationToken)
             .ConfigureAwait(false);
 

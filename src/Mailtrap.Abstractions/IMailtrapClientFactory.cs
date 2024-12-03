@@ -10,25 +10,28 @@ namespace Mailtrap;
 
 /// <summary>
 /// Factory to spawn <see cref="IMailtrapClient"/> implementation instances.
-/// <para>
-/// Primary use case is for scenarios when usage of DI container is not possible or desired.
-/// </para>
 /// </summary>
 ///
 /// <remarks>
+/// Primary use case is for scenarios when usage of DI container is not possible or desired. <br />
 /// Disposable.
 /// </remarks>
 public interface IMailtrapClientFactory : IDisposable
 {
     /// <summary>
-    /// Creates new instance of <see cref="IMailtrapClient"/> implementation.
-    /// <para>
-    /// Each call to this method is guaranteed to return a new instance of <see cref="IMailtrapClient"/> implementation.
-    /// </para>
+    /// Creates new instance of <see cref="IMailtrapClient"/>.
     /// </summary>
     /// 
     /// <returns>
-    /// New <see cref="IMailtrapClient"/> implementation instance.
+    /// New <see cref="IMailtrapClient"/> instance.
     /// </returns>
+    ///
+    /// <exception cref="ObjectDisposedException">
+    /// When factory was disposed.
+    /// </exception>
+    ///
+    /// <remarks>
+    /// Each call to this method is guaranteed to return a new instance of <see cref="IMailtrapClient"/>.
+    /// </remarks>
     IMailtrapClient CreateClient();
 }

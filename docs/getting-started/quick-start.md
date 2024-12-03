@@ -106,10 +106,13 @@ try
 
    SendEmailResponse response = await mailtrapClient
       .Email()
-      .Send(request)
-      .ConfigureAwait(false);
+      .Send(request);
       
-   MessageId messageId = response.MessageIds.FirstOrDefault(MessageId.Empty);
+   string messageId = response.MessageIds.FirstOrDefault();
+}
+catch (MailtrapApiException mtex)
+{
+   // handle Mailtrap specific exceptions
 }
 catch (ArgumentException aex)
 {

@@ -47,7 +47,7 @@ internal sealed class HttpRequestContentFactoryTests
 
         using var content = factory.CreateStringContent(json);
 
-        var result = await content!.ReadAsStringAsync().ConfigureAwait(false);
+        var result = await content!.ReadAsStringAsync();
 
         result.Should().Be(json.AddDoubleQuote());
     }

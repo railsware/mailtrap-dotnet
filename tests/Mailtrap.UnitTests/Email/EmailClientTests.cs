@@ -54,9 +54,7 @@ internal sealed class EmailClientTests
 
         var act = () => client.Send(null!);
 
-        await act.Should()
-            .ThrowAsync<ArgumentNullException>()
-            .ConfigureAwait(false);
+        await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Test]
@@ -86,7 +84,7 @@ internal sealed class EmailClientTests
 
 
         // Act
-        var result = await client.Send(request, cts.Token).ConfigureAwait(false);
+        var result = await client.Send(request, cts.Token);
 
 
         // Assert

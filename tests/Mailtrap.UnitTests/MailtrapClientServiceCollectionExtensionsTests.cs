@@ -255,6 +255,11 @@ internal sealed class MailtrapClientServiceCollectionExtensionsTests
             s.Lifetime == ServiceLifetime.Singleton);
 
         serviceCollection.Should().Contain(s =>
+            s.ServiceType == typeof(IHttpClientProvider) &&
+            s.Lifetime == ServiceLifetime.Singleton &&
+            s.ImplementationType == typeof(FactoryHttpClientProvider));
+
+        serviceCollection.Should().Contain(s =>
             s.ServiceType == typeof(IHttpRequestContentFactory) &&
             s.Lifetime == ServiceLifetime.Singleton &&
             s.ImplementationType == typeof(HttpRequestContentFactory));
