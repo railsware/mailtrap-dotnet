@@ -10,7 +10,6 @@ using Mailtrap.AccountAccesses;
 using Mailtrap.AccountAccesses.Models;
 using Mailtrap.AccountAccesses.Requests;
 using Mailtrap.Accounts;
-using Mailtrap.Extensions.DependencyInjection;
 using Mailtrap.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

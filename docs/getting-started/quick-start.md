@@ -31,7 +31,7 @@ Mailtrap API client supports few configuration options.
 ### [DI Container](#tab/di)
 If you are using a hosting model from Microsoft in your app ([`IHostBuilder`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.ihostbuilder), [`IWebHostBuilder`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder), etc.), you can simply add Mailtrap API client to host DI container:
 ```csharp
-using Mailtrap.Extensions.DependencyInjection;
+using Mailtrap;
    
 ...
    

@@ -29,7 +29,6 @@ global using Mailtrap.Email.Responses;
 global using Mailtrap.Email.Validators;
 global using Mailtrap.Exceptions;
 global using Mailtrap.Extensions;
-global using Mailtrap.Extensions.DependencyInjection;
 global using Mailtrap.Http;
 global using Mailtrap.Http.ResponseHandlers;
 global using Mailtrap.Inboxes;
