@@ -31,7 +31,7 @@ public sealed class MailtrapClientFactory : IMailtrapClientFactory
     /// </summary>
     /// 
     /// <param name="configuration">
-    /// <see cref="MailtrapClientOptions"/> instance to configure factory.
+    /// Options instance to configure factory.
     /// </param>
     /// 
     /// <param name="configure">
@@ -63,11 +63,11 @@ public sealed class MailtrapClientFactory : IMailtrapClientFactory
     /// </summary>
     /// 
     /// <param name="configuration">
-    /// <see cref="MailtrapClientOptions"/> instance to configure factory.
+    /// Options instance to configure factory.
     /// </param>
     /// 
     /// <param name="httpClient">
-    /// External <see cref="HttpClient"/> instance to use within factory.
+    /// External instance to use within factory.
     /// </param>
     /// 
     /// <exception cref="ArgumentNullException">
@@ -114,7 +114,7 @@ public sealed class MailtrapClientFactory : IMailtrapClientFactory
     /// </param>
     /// 
     /// <exception cref="ArgumentNullException">
-    /// When <paramref name="apiToken"/> is <see langword="null"/>.
+    /// When <paramref name="apiToken"/> is <see langword="null"/> or <see cref="string.Empty"/>.
     /// </exception>
     public MailtrapClientFactory(
         string apiToken,
@@ -140,7 +140,8 @@ public sealed class MailtrapClientFactory : IMailtrapClientFactory
     /// </param>
     /// 
     /// <exception cref="ArgumentNullException">
-    /// When <paramref name="apiToken"/> or <paramref name="httpClient"/> is <see langword="null"/>.
+    /// When <paramref name="apiToken"/> is <see langword="null"/> or <see cref="string.Empty"/>. <br/>
+    /// When <paramref name="httpClient"/> is <see langword="null"/>.
     /// </exception>
     ///
     /// <remarks>
