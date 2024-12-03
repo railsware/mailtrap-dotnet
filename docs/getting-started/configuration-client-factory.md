@@ -32,12 +32,15 @@ IMailtrapClient client = factory.CreateClient();
 Alternatively, the same way as with DI container, factory can be configured using pre-created instance of @Mailtrap.Configuration.MailtrapClientOptions with additional parameters set to non-default values:
 ```csharp
 using Mailtrap;
+using Mailtrap.Configuration;
 
 ...
 
 // Creating new instance of `MailtrapClientOptions`
-var config = new MailtrapClientOptions("<API_TOKEN>");
-config.PrettyJson = true;
+var config = new MailtrapClientOptions("<API_TOKEN>")
+{
+    InboxId = 12345
+};
 
 // Creating factory instance        
 using var factory = new MailtrapClientFactory(config);
@@ -59,6 +62,7 @@ using var factory = new MailtrapClientFactory("<API_TOKEN>", (IHttpClientBuilder
 {
     // Do any required HttpClient configuration
     // builder.AddStandardResilienceHandler();
+    // builder.AddExtendedHttpClientLogging();
     // etc.
 });
 
@@ -87,7 +91,7 @@ IMailtrapClient client = factory.CreateClient();
 
 
 ## What's next
-Additional examples of the Mailtrap API client factory configuration and usage can be found on [GitHub](https://github.com/railsware/mailtrap-dotnet/blob/main/examples/Mailtrap.Samples.BasicUsage/Program.cs)
+Additional examples of the Mailtrap API client factory configuration and usage can be found on [GitHub](https://github.com/railsware/mailtrap-dotnet/blob/main/examples/Mailtrap.Example.Factory/Program.cs)
 
 [!INCLUDE [cookbook-link](../includes/cookbook-link.md)]
 
