@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-using ValidationResult = Mailtrap.Validation.ValidationResult;
+using ValidationResult = Mailtrap.Core.Validation.ValidationResult;
 
 
 namespace Mailtrap.UnitTests.Validation;
