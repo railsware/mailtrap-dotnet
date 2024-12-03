@@ -18,7 +18,7 @@ public interface IAttachmentResource : IRestResource
     /// </summary>
     ///
     /// <param name="cancellationToken">
-    /// <see cref="CancellationToken"/> instance to control operation cancellation.
+    /// Token to control operation cancellation.
     /// </param>
     /// 
     /// <returns>

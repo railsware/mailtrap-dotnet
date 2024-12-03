@@ -1,0 +1,38 @@
+# Project
+
+* text=auto encoding=UTF-8
+*.sh    text    eol=lf
+*.cmd   text    eol=crlf
+*.bat   text    eol=crlf
+
+*.sln       merge=binary
+*.*proj     merge=binary
+
+# Language Diffs
+
+*.cs    diff=csharp text=auto
+*.css   diff=css
+*.html  diff=html
+
+# Images
+
+*.jpg   binary
+*.png   binary
+*.gif   binary
+
+# Documents
+
+*.doc   diff=astextplain
+*.DOC   diff=astextplain
+*.docx  diff=astextplain
+*.DOCX  diff=astextplain
+*.dot   diff=astextplain
+*.DOT   diff=astextplain
+*.pdf   diff=astextplain
+*.PDF   diff=astextplain
+*.rtf   diff=astextplain
+*.RTF   diff=astextplain
+
+# Certificates
+
+*.pfx   binary

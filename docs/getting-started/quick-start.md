@@ -91,7 +91,7 @@ Factory is intended to be used as singleton in the typical scenario, while produ
 ## Use
 Finally, when you have obtained @Mailtrap.IMailtrapClient instance, you can use it to make API calls:
 ```csharp
-using Mailtrap.Email.Requests;
+using Mailtrap.Emails.Requests;
 
 ...
 
