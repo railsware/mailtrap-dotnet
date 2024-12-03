@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MaitrapClientServiceCollectionExtensions.cs" company="Railsware Products Studio, LLC">
+// <copyright file="MailtrapClientServiceCollectionExtensions.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Mailtrap;
 /// <summary>
 /// A set of extension methods to configure Mailtrap API client services in <see cref="IServiceCollection"/>.
 /// </summary>
-public static class MaitrapClientServiceCollectionExtensions
+public static class MailtrapClientServiceCollectionExtensions
 {
     /// <summary>
     /// Adds required Mailtrap API client services to the <paramref name="services"/> collection.
