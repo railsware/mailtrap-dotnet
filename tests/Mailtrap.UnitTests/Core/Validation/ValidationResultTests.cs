@@ -8,7 +8,7 @@
 using ValidationResult = Mailtrap.Core.Validation.ValidationResult;
 
 
-namespace Mailtrap.UnitTests.Validation;
+namespace Mailtrap.UnitTests.Core.Validation;
 
 
 [TestFixture]

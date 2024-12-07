@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.UnitTests.Converters;
+namespace Mailtrap.UnitTests.Core.Converters;
 
 
 [TestFixture]
