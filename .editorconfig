@@ -274,7 +274,7 @@ dotnet_diagnostic.IDE0045.severity = suggestion
 dotnet_diagnostic.IDE0046.severity = suggestion
 
 # IDE0058: Expression value is never used
-dotnet_diagnostic.IDE0058.severity = suggestion
+dotnet_diagnostic.IDE0058.severity = silent
 
 
 # CA1032: Implement standard exception constructors

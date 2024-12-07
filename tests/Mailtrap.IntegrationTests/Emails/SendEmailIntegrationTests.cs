@@ -287,9 +287,7 @@ internal sealed class SendEmailIntegrationTests
             .WithHeaders("Authorization", $"Bearer {config.ApiToken}")
             .WithHeaders("Accept", MimeTypes.Application.Json)
             .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
-            .With(r =>
-                r.Content?.Headers.Contains("Content-Type") == true &&
-                r.Content?.Headers.ContentType?.MediaType == MimeTypes.Application.Json)
+            .With(r => r.Content?.Headers.ContentType?.MediaType == MimeTypes.Application.Json)
             .Respond(HttpStatusCode.OK, responseContent);
 
         serviceCollection

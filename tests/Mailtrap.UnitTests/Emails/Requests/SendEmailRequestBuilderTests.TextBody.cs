@@ -4,7 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Mailtrap.UnitTests.Email.Requests;
+
+namespace Mailtrap.UnitTests.Emails.Requests;
 
 
 [TestFixture(TestOf = typeof(SendEmailRequestBuilder))]

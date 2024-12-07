@@ -8,7 +8,7 @@
 using Variable = System.Collections.Generic.KeyValuePair<string, string>;
 
 
-namespace Mailtrap.UnitTests.Email.Requests;
+namespace Mailtrap.UnitTests.Emails.Requests;
 
 
 [TestFixture(TestOf = typeof(SendEmailRequestBuilder))]

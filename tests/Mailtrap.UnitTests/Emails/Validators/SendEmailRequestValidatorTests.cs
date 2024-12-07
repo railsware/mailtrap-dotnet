@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.UnitTests.Email.Validators;
+namespace Mailtrap.UnitTests.Emails.Validators;
 
 
 [TestFixture]
@@ -94,6 +94,48 @@ internal sealed class SendEmailRequestValidatorTests
 
         result.ShouldNotHaveValidationErrorFor(r => r.From);
         result.ShouldNotHaveValidationErrorFor(r => r.From!.Email);
+    }
+
+    #endregion
+
+
+
+    #region ReplyTo
+
+    [Test]
+    public void Validation_ShouldNotFail_WhenReplyToIsNull()
+    {
+        var request = SendEmailRequest.Create();
+
+        var result = SendEmailRequestValidator.Instance.TestValidate(request);
+
+        result.ShouldNotHaveValidationErrorFor(r => r.ReplyTo);
+        result.ShouldNotHaveValidationErrorFor(r => r.ReplyTo!.Email);
+    }
+
+    [Test]
+    public void Validation_ShouldFail_WhenReplyToEmailIsInvalid()
+    {
+        var request = SendEmailRequest
+            .Create()
+            .ReplyTo(_invalidEmail);
+
+        var result = SendEmailRequestValidator.Instance.TestValidate(request);
+
+        result.ShouldHaveValidationErrorFor(r => r.ReplyTo!.Email);
+    }
+
+    [Test]
+    public void Validation_ShouldNotFail_WhenReplyToEmailIsValid()
+    {
+        var request = SendEmailRequest
+            .Create()
+            .ReplyTo(_validEmail);
+
+        var result = SendEmailRequestValidator.Instance.TestValidate(request);
+
+        result.ShouldNotHaveValidationErrorFor(r => r.ReplyTo);
+        result.ShouldNotHaveValidationErrorFor(r => r.ReplyTo!.Email);
     }
 
     #endregion
