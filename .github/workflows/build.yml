@@ -23,6 +23,8 @@ jobs:
     timeout-minutes: 15
 
     env:
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      DOTNET_NOLOGO: true
       SOLUTION_FILE_PATH: './Mailtrap.sln'
       TEST_SETTINGS_FILE_PATH: './tests/tests.runsettings'
       TEST_RESULTS_DIR: './artifacts/test-results'

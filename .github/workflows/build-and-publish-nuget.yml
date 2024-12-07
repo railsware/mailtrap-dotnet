@@ -1,0 +1,138 @@
+name: Build and Publish NuGet
+
+on:
+  workflow_dispatch:
+  release:
+    types: 
+      - published
+
+# Limiting workflow concurrency
+concurrency: 
+  # Grouping by workflow, triggering event and ref name.
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+  
+jobs:
+  
+  # Building, testing and packing
+  build:
+    name: Build, Test and Pack
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    # permissions:      
+    #   contents: read
+    #   packages: write
+
+    env:
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      DOTNET_NOLOGO: true
+      SOLUTION_FILE_PATH: './Mailtrap.sln'
+      TEST_SETTINGS_FILE_PATH: './tests/tests.runsettings'
+      TEST_RESULTS_DIR: './artifacts/test-results'
+      PACKAGE_DIR: './artifacts/packages/'
+
+    strategy:
+      max-parallel: 1
+      matrix:
+        platform: [anycpu] 
+        configuration: [Release]
+        dotnet: [ '9.0.x' ]
+
+    steps:
+    # https://github.com/marketplace/actions/checkout
+    - name: Checkout Sources
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # needed to ensure MinVer will find a previous tag
+        filter: tree:0  # treeless checkout to speed up checkout
+
+    # https://github.com/marketplace/actions/setup-net-core-sdk
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ matrix.dotnet }}
+
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.SOLUTION_FILE_PATH }} --locked-mode
+
+    - name: Build
+      run: > 
+        dotnet build ${{ env.SOLUTION_FILE_PATH }}
+        --configuration ${{ matrix.configuration }}
+        --no-restore 
+      # -p:Version=${{ github.ref_name }} MinVer should take care of this one
+        
+    # https://github.com/marketplace/actions/upload-a-build-artifact
+    - name: Publish Artifacts - Binaries
+      uses: actions/upload-artifact@v4
+      with:
+        name: Binaries
+        path: './artifacts/bin'
+
+    - name: Test
+      run: >
+        dotnet test ${{ env.SOLUTION_FILE_PATH }}
+        --configuration ${{ matrix.configuration }}
+        --settings ${{ env.TEST_SETTINGS_FILE_PATH }}
+        --results-directory ${{ env.TEST_RESULTS_DIR }}
+        --collect "XPlat Code Coverage"
+        --no-build
+        --verbosity normal
+
+    # https://github.com/marketplace/actions/upload-a-build-artifact
+    - name: Publish Artifacts - Test Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: Test Results
+        path: ${{ env.TEST_RESULTS_DIR }}
+
+    - name: Pack NuGet Package
+      run: >
+        dotnet pack ${{ env.SOLUTION_FILE_PATH }}
+        --configuration ${{ matrix.configuration }}
+        --output ${{ env.PACKAGE_DIR }}
+        --no-build 
+      # -p:Version=${{ github.ref_name }} MinVer should take care of this one
+
+    # https://github.com/marketplace/actions/upload-a-build-artifact
+    - name: Publish Artifacts - Packages
+      uses: actions/upload-artifact@v4
+      with:
+        name: Packages
+        path: ${{ env.PACKAGE_DIR }}/*.*nupkg
+
+
+  # Publishing
+  publish:
+    name: Publish to NuGet
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    env:
+      PACKAGE_DIR: 'packages'
+      PACKAGE_SOURCE: 'https://api.nuget.org/v3/index.json'
+
+    # Add a dependency to the build job
+    needs: build
+
+    environment:
+      name: nuget
+
+    steps:
+      # https://github.com/marketplace/actions/download-a-build-artifact
+      - uses: actions/download-artifact@v4
+        with:
+          name: Packages
+          path: ${{ env.PACKAGE_DIR }}
+
+      - name: Publish NuGet Package
+        run: > 
+          dotnet nuget push "${{ env.PACKAGE_DIR }}*.nupkg"
+          --source ${{ env.PACKAGE_SOURCE }}
+          --api-key ${{ secrets.NUGET_APIKEY }}
+          --skip-duplicate
+
+    
