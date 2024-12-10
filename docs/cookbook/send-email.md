@@ -40,6 +40,7 @@ var from = new EmailAddress("john.doe@demomailtrap.com", "John Doe");
 var request = new SendEmailRequest
 {
     From = from,
+    ReplyTo = new EmailAddress("noreply@milkyway.gov"),
     Subject = "Invitation to Earth",
     TextBody = "Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John."
 };
@@ -129,6 +130,9 @@ var request = SendEmailRequest.Create();
 
 // Sender (Display name is optional)
 request.From("john.doe@demomailtrap.com", "John Doe");
+
+// Reply To (Display name is optional)
+request.ReplyTo("no-reply@example.com");
 
 // You can use simple email as recipient
 request.To("hero.bill@galaxy.net");

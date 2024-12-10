@@ -1,14 +1,15 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SendEmailRequestBuilderTests.Bcc.cs" company="Railsware Products Studio, LLC">
+// <copyright file="SendEmailRequestBuilderTests.Cc.cs" company="Railsware Products Studio, LLC">
 // Copyright (c) Railsware Products Studio, LLC. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Mailtrap.UnitTests.Email.Requests;
+
+namespace Mailtrap.UnitTests.Emails.Requests;
 
 
 [TestFixture(TestOf = typeof(SendEmailRequestBuilder))]
-internal sealed class SendEmailRequestBuilderTests_Bcc
+internal sealed class SendEmailRequestBuilderTests_Cc
 {
     private string RecipientEmail { get; } = "recipient@domain.com";
     private string RecipientDisplayName { get; } = "Recipient";
@@ -17,77 +18,77 @@ internal sealed class SendEmailRequestBuilderTests_Bcc
 
 
 
-    #region Bcc
+    #region Cc
 
     [Test]
-    public void Bcc_ShouldThrowArgumentNullException_WhenRequestIsNull()
+    public void Cc_ShouldThrowArgumentNullException_WhenRequestIsNull()
     {
-        var act = () => SendEmailRequestBuilder.Bcc(null!, _recipient1);
+        var act = () => SendEmailRequestBuilder.Cc(null!, _recipient1);
 
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Test]
-    public void Bcc_ShouldThrowArgumentNullException_WhenParamsIsNull()
+    public void Cc_ShouldThrowArgumentNullException_WhenParamsIsNull()
     {
         var request = SendEmailRequest.Create();
 
-        var act = () => request.Bcc(null!);
+        var act = () => request.Cc(null!);
 
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Test]
-    public void Bcc_ShouldNotThrowException_WhenParamsIsEmpty()
+    public void Cc_ShouldNotThrowException_WhenParamsIsEmpty()
     {
         var request = SendEmailRequest.Create();
 
-        var act = () => request.Bcc([]);
+        var act = () => request.Cc([]);
 
         act.Should().NotThrow();
     }
 
     [Test]
-    public void Bcc_ShouldAddRecipientsToCollection()
+    public void Cc_ShouldAddRecipientsToCollection()
     {
-        Bcc_CreateAndValidate(_recipient1, _recipient2);
+        Cc_CreateAndValidate(_recipient1, _recipient2);
     }
 
     [Test]
-    public void Bcc_ShouldAddRecipientsToCollection_WhenCalledMultipleTimes()
+    public void Cc_ShouldAddRecipientsToCollection_WhenCalledMultipleTimes()
     {
         var recipient3 = new EmailAddress("recipient3@domain.com");
         var recipient4 = new EmailAddress("recipient4@domain.com", "Recipient 4");
 
-        var request = Bcc_CreateAndValidate(_recipient1, _recipient2);
+        var request = Cc_CreateAndValidate(_recipient1, _recipient2);
 
-        request.Bcc(recipient3, recipient4);
+        request.Cc(recipient3, recipient4);
 
-        request.Bcc.Should()
+        request.Cc.Should()
             .HaveCount(4).And
             .ContainInOrder(_recipient1, _recipient2, recipient3, recipient4);
     }
 
     [Test]
-    public void Bcc_ShouldNotAddRecipientsToCollection_WhenParamsIsEmpty()
+    public void Cc_ShouldNotAddRecipientsToCollection_WhenParamsIsEmpty()
     {
-        var request = Bcc_CreateAndValidate(_recipient1, _recipient2);
+        var request = Cc_CreateAndValidate(_recipient1, _recipient2);
 
-        request.Bcc([]);
+        request.Cc([]);
 
-        request.Bcc.Should()
+        request.Cc.Should()
             .HaveCount(2).And
             .ContainInOrder(_recipient1, _recipient2);
     }
 
 
-    private static SendEmailRequest Bcc_CreateAndValidate(params EmailAddress[] recipients)
+    private static SendEmailRequest Cc_CreateAndValidate(params EmailAddress[] recipients)
     {
         var request = SendEmailRequest
             .Create()
-            .Bcc(recipients);
+            .Cc(recipients);
 
-        request.Bcc.Should()
+        request.Cc.Should()
             .HaveCount(2).And
             .ContainInOrder(recipients);
 
@@ -98,81 +99,82 @@ internal sealed class SendEmailRequestBuilderTests_Bcc
 
 
 
-    #region Bcc(email, displayName)
+    #region Cc(email, displayName)
+
     [Test]
-    public void Bcc_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
+    public void Cc_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
     {
         var request = SendEmailRequest.Create();
 
-        var act = () => SendEmailRequestBuilder.Bcc(null!, RecipientEmail);
+        var act = () => SendEmailRequestBuilder.Cc(null!, RecipientEmail);
 
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Test]
-    public void Bcc_ShouldThrowArgumentNullException_WhenRecipientEmailIsNull()
+    public void Cc_ShouldThrowArgumentNullException_WhenRecipientEmailIsNull()
     {
         var request = SendEmailRequest.Create();
 
-        var act = () => request.Bcc(null!, RecipientDisplayName);
+        var act = () => request.Cc(null!, RecipientDisplayName);
 
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Test]
-    public void Bcc_ShouldThrowArgumentNullException_WhenRecipientEmailIsEmpty()
+    public void Cc_ShouldThrowArgumentNullException_WhenRecipientEmailIsEmpty()
     {
         var request = SendEmailRequest.Create();
 
-        var act = () => request.Bcc(string.Empty, RecipientDisplayName);
+        var act = () => request.Cc(string.Empty, RecipientDisplayName);
 
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Test]
-    public void Bcc_ShouldNotThrowException_WhenRecipientDisplayNameIsNull()
+    public void Cc_ShouldNotThrowException_WhenRecipientDisplayNameIsNull()
     {
         var request = SendEmailRequest.Create();
 
-        var act = () => request.Bcc(RecipientEmail, null);
+        var act = () => request.Cc(RecipientEmail, null);
 
         act.Should().NotThrow();
     }
 
     [TestCase]
-    public void Bcc_ShouldNotThrowException_WhenRecipientDisplayNameIsEmpty()
+    public void Cc_ShouldNotThrowException_WhenRecipientDisplayNameIsEmpty()
     {
         var request = SendEmailRequest.Create();
 
-        var act = () => request.Bcc(RecipientEmail, string.Empty);
+        var act = () => request.Cc(RecipientEmail, string.Empty);
 
         act.Should().NotThrow();
     }
 
     [Test]
-    public void Bcc_ShouldAddRecipientToCollection_WhenOnlyEmailProvided()
+    public void Cc_ShouldAddRecipientToCollection_WhenOnlyEmailProvided()
     {
         var request = SendEmailRequest
             .Create()
-            .Bcc(RecipientEmail);
+            .Cc(RecipientEmail);
 
-        request.Bcc.Should().ContainSingle();
+        request.Cc.Should().ContainSingle();
 
-        var added = request.Bcc.First();
+        var added = request.Cc.First();
         added.Email.Should().Be(RecipientEmail);
         added.DisplayName.Should().BeNull();
     }
 
     [Test]
-    public void Bcc_ShouldAddRecipientToCollection_WhenFullInfoProvided()
+    public void Cc_ShouldAddRecipientToCollection_WhenFullInfoProvided()
     {
         var request = SendEmailRequest
             .Create()
-            .Bcc(RecipientEmail, RecipientDisplayName);
+            .Cc(RecipientEmail, RecipientDisplayName);
 
-        request.Bcc.Should().ContainSingle();
+        request.Cc.Should().ContainSingle();
 
-        var added = request.Bcc.First();
+        var added = request.Cc.First();
         added.Email.Should().Be(RecipientEmail);
         added.DisplayName.Should().Be(RecipientDisplayName);
     }

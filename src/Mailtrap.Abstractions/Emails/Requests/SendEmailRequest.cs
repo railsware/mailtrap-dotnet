@@ -26,8 +26,19 @@ public sealed record SendEmailRequest : IValidatable
     /// Instance, representing email's sender address and name.
     /// </value>
     [JsonPropertyName("from")]
-    [JsonPropertyOrder(1)]
+    [JsonPropertyOrder(10)]
     public EmailAddress? From { get; set; }
+
+    /// <summary>
+    /// Gets or sets <see cref="EmailAddress"/> representing 'Reply To' email field.
+    /// </summary>
+    /// 
+    /// <value>
+    /// Representing 'Reply To' address and name.
+    /// </value>
+    [JsonPropertyName("reply_to")]
+    [JsonPropertyOrder(15)]
+    public EmailAddress? ReplyTo { get; set; }
 
     /// <summary>
     /// Gets a collection of <see cref="EmailAddress"/> objects, defining who will receive a copy of email.
@@ -44,7 +55,7 @@ public sealed record SendEmailRequest : IValidatable
     /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.
     /// </remarks>
     [JsonPropertyName("to")]
-    [JsonPropertyOrder(2)]
+    [JsonPropertyOrder(20)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<EmailAddress> To { get; } = [];
 
@@ -63,7 +74,7 @@ public sealed record SendEmailRequest : IValidatable
     /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.
     /// </remarks>
     [JsonPropertyName("cc")]
-    [JsonPropertyOrder(3)]
+    [JsonPropertyOrder(30)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<EmailAddress> Cc { get; } = [];
 
@@ -82,7 +93,7 @@ public sealed record SendEmailRequest : IValidatable
     /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.
     /// </remarks>
     [JsonPropertyName("bcc")]
-    [JsonPropertyOrder(4)]
+    [JsonPropertyOrder(40)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<EmailAddress> Bcc { get; } = [];
 
@@ -94,7 +105,7 @@ public sealed record SendEmailRequest : IValidatable
     /// A collection of <see cref="Attachment"/> objects.
     /// </value>
     [JsonPropertyName("attachments")]
-    [JsonPropertyOrder(5)]
+    [JsonPropertyOrder(50)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<Attachment> Attachments { get; } = [];
 
@@ -113,7 +124,7 @@ public sealed record SendEmailRequest : IValidatable
     /// "Content-Transfer-Encoding" header will be ignored and replaced with "quoted-printable".
     /// </remarks>
     [JsonPropertyName("headers")]
-    [JsonPropertyOrder(6)]
+    [JsonPropertyOrder(60)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IDictionary<string, string> Headers { get; } = new Dictionary<string, string>();
 
@@ -131,7 +142,7 @@ public sealed record SendEmailRequest : IValidatable
     /// Total size of custom variables in JSON form must not exceed 1000 bytes.
     /// </remarks>
     [JsonPropertyName("custom_variables")]
-    [JsonPropertyOrder(7)]
+    [JsonPropertyOrder(70)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IDictionary<string, string> CustomVariables { get; } = new Dictionary<string, string>();
 
@@ -152,7 +163,7 @@ public sealed record SendEmailRequest : IValidatable
     /// </para>
     /// </remarks>
     [JsonPropertyName("subject")]
-    [JsonPropertyOrder(8)]
+    [JsonPropertyOrder(80)]
     public string? Subject { get; set; }
 
     /// <summary>
@@ -169,7 +180,7 @@ public sealed record SendEmailRequest : IValidatable
     /// Required in the absence of <see cref="TemplateId"/> and <see cref="HtmlBody"/>.
     /// </remarks>
     [JsonPropertyName("text")]
-    [JsonPropertyOrder(9)]
+    [JsonPropertyOrder(90)]
     public string? TextBody { get; set; }
 
     /// <summary>
@@ -185,7 +196,7 @@ public sealed record SendEmailRequest : IValidatable
     /// Required in the absence of <see cref="TemplateId"/> and <see cref="TextBody"/>.
     /// </remarks>
     [JsonPropertyName("html")]
-    [JsonPropertyOrder(10)]
+    [JsonPropertyOrder(100)]
     public string? HtmlBody { get; set; }
 
     /// <summary>
@@ -201,7 +212,7 @@ public sealed record SendEmailRequest : IValidatable
     /// Otherwise must be less or equal to 255 characters.
     /// </remarks>
     [JsonPropertyName("category")]
-    [JsonPropertyOrder(11)]
+    [JsonPropertyOrder(110)]
     public string? Category { get; set; }
 
     /// <summary>
@@ -218,7 +229,7 @@ public sealed record SendEmailRequest : IValidatable
     /// Email subject, text and html will be generated from template using optional <see cref="TemplateVariables"/>.
     /// </remarks>
     [JsonPropertyName("template_uuid")]
-    [JsonPropertyOrder(12)]
+    [JsonPropertyOrder(120)]
     public string? TemplateId { get; set; }
 
     /// <summary>
@@ -234,7 +245,7 @@ public sealed record SendEmailRequest : IValidatable
     /// Will be used only in case <see cref="TemplateId"/> is set.
     /// </remarks>
     [JsonPropertyName("template_variables")]
-    [JsonPropertyOrder(13)]
+    [JsonPropertyOrder(130)]
     public object? TemplateVariables { get; set; }
 
 
