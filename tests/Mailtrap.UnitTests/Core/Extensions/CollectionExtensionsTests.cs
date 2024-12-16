@@ -5,7 +5,10 @@
 // -----------------------------------------------------------------------
 
 
-namespace Mailtrap.UnitTests.Extensions;
+using CollectionExtensions = Mailtrap.Core.Extensions.CollectionExtensions;
+
+
+namespace Mailtrap.UnitTests.Core.Extensions;
 
 
 [TestFixture]
@@ -16,7 +19,7 @@ internal sealed class CollectionExtensionsTests
     {
         var itemsToAdd = new List<int> { 4, 5, 6 };
 
-        var act = () => Core.Extensions.CollectionExtensions.AddRange(null!, itemsToAdd);
+        var act = () => CollectionExtensions.AddRange(null!, itemsToAdd);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -26,7 +29,7 @@ internal sealed class CollectionExtensionsTests
     {
         var collection = new List<int> { 1, 2, 3 };
 
-        var act = () => Core.Extensions.CollectionExtensions.AddRange(collection, null!);
+        var act = () => CollectionExtensions.AddRange(collection, null!);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -37,7 +40,7 @@ internal sealed class CollectionExtensionsTests
         var collection = new List<int> { 1, 2, 3 };
         var itemsToAdd = new List<int> { 4, 5, 6 };
 
-        Core.Extensions.CollectionExtensions.AddRange(collection, itemsToAdd);
+        CollectionExtensions.AddRange(collection, itemsToAdd);
 
         collection.Should().ContainInOrder(1, 2, 3, 4, 5, 6);
     }
