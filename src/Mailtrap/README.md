@@ -1,5 +1,5 @@
 # Mailtrap
-Official Mailtrap .NET SDK library.  
+Official Mailtrap .NET SDK.
 
 Please visit [documentation site](https://railsware.github.io/mailtrap-dotnet) for detailed documentation and usage examples.
 
