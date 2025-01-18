@@ -23,7 +23,7 @@ Detailed API reference.
 
 
 <!-- ## Contributing
-We believe in the power of OSS and welcome contribution to the library.  
+We believe in the power of OSS and welcome any contributions to the library.  
 Please refer to [Contributing Guide](https://github.com/railsware/mailtrap-dotnet/tree/main?tab=contrib-ov-file#readme) for details. -->
 
 

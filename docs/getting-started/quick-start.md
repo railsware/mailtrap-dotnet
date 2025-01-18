@@ -92,6 +92,7 @@ Factory is intended to be used as singleton in the typical scenario, while produ
 Finally, when you have obtained @Mailtrap.IMailtrapClient instance, you can use it to make API calls:
 ```csharp
 using Mailtrap.Emails.Requests;
+using Mailtrap.Emails.Responses;
 
 ...
 
@@ -110,21 +111,9 @@ try
       
    string messageId = response.MessageIds.FirstOrDefault();
 }
-catch (MailtrapApiException mtex)
+catch (MailtrapException mtex)
 {
-   // handle Mailtrap specific exceptions
-}
-catch (ArgumentException aex)
-{
-   // handle request validation issues
-}
-catch (JsonException jex)
-{
-   // handle serialization issues
-}
-catch (HttpRequestException hrex)
-{
-   // handle HTTP errors
+   // handle Mailtrap API specific exceptions
 }
 catch (OperationCancelledException ocex)
 {
