@@ -8,13 +8,13 @@ This article covers different scenarios of forming and sending emails using Mail
 
 
 ## Creating request
-Sending email API uses @Mailtrap.Email.Requests.SendEmailRequest object to create a payload for the API request.  
+Sending email API uses @Mailtrap.Emails.Requests.SendEmailRequest object to create a payload for the API request.  
 Library provides two ways for creating instances of it.
 
 ### Fluent builder
-There is a set of extensions in @Mailtrap.Email.Requests.SendEmailRequestBuilder, which allow you to create requests in a fluent style:
+There is a set of extensions in @Mailtrap.Emails.Requests.SendEmailRequestBuilder, which allow you to create requests in a fluent style:
 ```csharp
-using Mailtrap.Email.Requests;
+using Mailtrap.Emails.Requests;
 
 ...
 
@@ -31,7 +31,7 @@ var request = SendEmailRequest
 ### Regular initialization
 Alternatively, you can use object initialization and setup fields as usual:
 ```csharp
-using Mailtrap.Email.Requests;
+using Mailtrap.Emails.Requests;
 
 ...
 
@@ -40,6 +40,7 @@ var from = new EmailAddress("john.doe@demomailtrap.com", "John Doe");
 var request = new SendEmailRequest
 {
     From = from,
+    ReplyTo = new EmailAddress("noreply@milkyway.gov"),
     Subject = "Invitation to Earth",
     TextBody = "Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John."
 };
@@ -59,7 +60,7 @@ request.Bcc.Add(from);
 ## Attaching files
 You can attach files to emails, both for inlining (embedding) or as a standalone downloadable file:
 ```csharp
-using Mailtrap.Email.Requests;
+using Mailtrap.Emails.Requests;
 
 ...
 
@@ -100,7 +101,7 @@ There is a possibility to create emails from predefined templates.
 You can create a template and obtain its ID [here](https://mailtrap.io/email_templates/).  
 Then you can use it in emails:
 ```csharp
-using Mailtrap.Email.Requests;
+using Mailtrap.Emails.Requests;
 
 ...
 
@@ -120,7 +121,7 @@ var request = SendEmailRequest
 ## Kitchen sink
 Just to give an overview of all possible settings:
 ```csharp
-using Mailtrap.Email.Requests;
+using Mailtrap.Emails.Requests;
 
 ...
 
@@ -129,6 +130,9 @@ var request = SendEmailRequest.Create();
 
 // Sender (Display name is optional)
 request.From("john.doe@demomailtrap.com", "John Doe");
+
+// Reply To (Display name is optional)
+request.ReplyTo("no-reply@example.com");
 
 // You can use simple email as recipient
 request.To("hero.bill@galaxy.net");
@@ -196,11 +200,11 @@ request.Header(
 
 
 ## Request validation
-After creating a request instance, it is recommended to perform a validation on a client side to ensure sending won't throw validation exceptions and to minimize unnecessary HTTP round-trips. @Mailtrap.Email.Requests.SendEmailRequest implements @Mailtrap.Core.Validation.IValidatable interface, which can be used to perform that task.  
+After creating a request instance, it is recommended to perform a validation on a client side to ensure sending won't throw validation exceptions and to minimize unnecessary HTTP round-trips. @Mailtrap.Emails.Requests.SendEmailRequest implements @Mailtrap.Core.Validation.IValidatable interface, which can be used to perform that task.  
 
 @Mailtrap.Core.Validation.IValidatable.Validate method verifies request data and returns a @Mailtrap.Core.Validation.ValidationResult instance that contains validation result:
 ```csharp
-using Mailtrap.Email.Requests;
+using Mailtrap.Emails.Requests;
 
 ...
 
@@ -218,9 +222,9 @@ else
 }
 ```
 
-Additionally, you can use @Mailtrap.Core.Validation.ValidationResult.EnsureValidity(System.String) method as a gate, that throws @System.ArgumentException if validation fails:
+Alternatively, you can use @Mailtrap.Core.Validation.ValidationResult.EnsureValidity(System.String) method as a gate, that throws @System.ArgumentException if validation fails:
 ```csharp
-using Mailtrap.Email.Requests;
+using Mailtrap.Emails.Requests;
 
 ...
 
@@ -237,16 +241,16 @@ catch (ArgumentException aex)
 ```
 
 > [!NOTE]  
-> Client implementation uses the latter approach internally, to ensure request validity before sending.  
+> Client implementation uses the latter approach internally, to ensure request validity before processing.  
 
 
 ## Using send API
 Finally, after you have formed a valid request, you can send it:
 ```csharp
 using Mailtrap;
-using Mailtrap.Email.Models;
-using Mailtrap.Email.Requests;
-using Mailtrap.Email.Responses;
+using Mailtrap.Emails.Models;
+using Mailtrap.Emails.Requests;
+using Mailtrap.Emails.Responses;
 
 ...
 
@@ -268,15 +272,18 @@ try
 
         SendEmailResponse response = await _mailtrapClient
             .Email()  // Will send email using API defined in client configuration
-            .Send(request, cts.Token)
-            .ConfigureAwait(false);
+            .Send(request, cts.Token);
       
-        MessageId messageId = response.MessageIds.FirstOrDefault(MessageId.Empty);
+        string messageId = response.MessageIds.FirstOrDefault();
     }
     else
     {
         // handle validation issues
     }
+}
+catch (MailtrapApiException mtex)
+{
+   // handle Mailtrap specific exceptions
 }
 catch (ArgumentException aex)
 {
@@ -311,14 +318,12 @@ IEmailClient emailClient = _mailtrapClient.Test(inboxId); // Emails will be sent
 // IEmailClient emailClient = _mailtrapClient.Transactional(); // Emails will be sent using Email Sending API
 // IEmailClient emailClient = _mailtrapClient.Bulk(); // Emails will be sent using Bulk Sending API
 
-var response = await emailClient
-    .Send(request)
-    .ConfigureAwait(false);
+var response = await emailClient.Send(request);
 ```
 
 > [!TIP]  
 > @Mailtrap.IMailtrapClient.Transactional, @Mailtrap.IMailtrapClient.Bulk and @Mailtrap.IMailtrapClient.Test(System.Int64)
-> are factory methods that will create new @Mailtrap.Email.IEmailClient instance every time when called.  
+> are factory methods that will create new @Mailtrap.Emails.IEmailClient instance every time when called.  
 > Thus in case when you need to perform multiple `Send()` calls to the same endpoint it will be good idea
 > to spawn client once and then reuse it:
 > ```csharp
@@ -326,9 +331,7 @@ var response = await emailClient
 > 
 > foreach(var request in requests)
 > {
->     var response = await emailClient
->         .Send(request)
->         .ConfigureAwait(false);
+>     var response = await emailClient.Send(request);
 > }
 >```
 

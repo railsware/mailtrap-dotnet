@@ -7,7 +7,6 @@
 
 using Mailtrap;
 using Mailtrap.Accounts;
-using Mailtrap.Extensions.DependencyInjection;
 using Mailtrap.Projects;
 using Mailtrap.Projects.Models;
 using Mailtrap.Projects.Requests;

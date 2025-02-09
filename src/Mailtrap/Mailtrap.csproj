@@ -19,4 +19,10 @@
     <ProjectReference Include="$(LibSourceDirectory)Mailtrap.Abstractions\Mailtrap.Abstractions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Mailtrap.UnitTests" />
+    <InternalsVisibleTo Include="Mailtrap.IntegrationTests" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+  </ItemGroup>
+
 </Project>

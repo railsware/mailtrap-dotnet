@@ -31,7 +31,7 @@ Mailtrap API client supports few configuration options.
 ### [DI Container](#tab/di)
 If you are using a hosting model from Microsoft in your app ([`IHostBuilder`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.ihostbuilder), [`IWebHostBuilder`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder), etc.), you can simply add Mailtrap API client to host DI container:
 ```csharp
-using Mailtrap.Extensions.DependencyInjection;
+using Mailtrap;
    
 ...
    
@@ -91,7 +91,8 @@ Factory is intended to be used as singleton in the typical scenario, while produ
 ## Use
 Finally, when you have obtained @Mailtrap.IMailtrapClient instance, you can use it to make API calls:
 ```csharp
-using Mailtrap.Email.Requests;
+using Mailtrap.Emails.Requests;
+using Mailtrap.Emails.Responses;
 
 ...
 
@@ -106,22 +107,13 @@ try
 
    SendEmailResponse response = await mailtrapClient
       .Email()
-      .Send(request)
-      .ConfigureAwait(false);
+      .Send(request);
       
-   MessageId messageId = response.MessageIds.FirstOrDefault(MessageId.Empty);
+   string messageId = response.MessageIds.FirstOrDefault();
 }
-catch (ArgumentException aex)
+catch (MailtrapException mtex)
 {
-   // handle request validation issues
-}
-catch (JsonException jex)
-{
-   // handle serialization issues
-}
-catch (HttpRequestException hrex)
-{
-   // handle HTTP errors
+   // handle Mailtrap API specific exceptions
 }
 catch (OperationCancelledException ocex)
 {

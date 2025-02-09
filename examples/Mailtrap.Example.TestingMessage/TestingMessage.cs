@@ -6,7 +6,6 @@
 
 
 using Mailtrap;
-using Mailtrap.Extensions.DependencyInjection;
 using Mailtrap.Inboxes;
 using Mailtrap.TestingMessages;
 using Mailtrap.TestingMessages.Models;

@@ -8,12 +8,11 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Mime;
 using Mailtrap;
-using Mailtrap.Email.Models;
-using Mailtrap.Email.Requests;
-using Mailtrap.Email.Responses;
-using Mailtrap.Extensions.DependencyInjection;
-using Mailtrap.Models;
-using Mailtrap.Validation;
+using Mailtrap.Core.Models;
+using Mailtrap.Core.Validation;
+using Mailtrap.Emails.Models;
+using Mailtrap.Emails.Requests;
+using Mailtrap.Emails.Responses;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -57,10 +56,7 @@ internal sealed class Program
                 return;
             }
 
-            SendEmailResponse? response = await mailtrapClient
-                .Email()
-                .Send(request)
-                .ConfigureAwait(false);
+            SendEmailResponse? response = await mailtrapClient.Email().Send(request);
         }
         catch (Exception ex)
         {
@@ -184,6 +180,8 @@ internal sealed class Program
         request.Cc.Add(new("ursa@ursamajor.gov"));
         request.Bcc.Add(new("aliens@milkyway.net"));
 
+        request.ReplyTo = new("no-reply@earth.com");
+
         // HTML body.
         // At least one of the Text or Html body must be specified.
         request.HtmlBody =
@@ -238,9 +236,8 @@ internal sealed class Program
         // Sender (Display name is optional)
         request.From("john.doe@demomailtrap.com", "John Doe");
 
-        // Alternatively, you can set the property directly
-        request.From = new("john.doe@demomailtrap.com", "John Doe");
-
+        // Reply To
+        request.ReplyTo("info@domain.com");
 
         // You can use simple email as recipient
         request.To("hero.bill@galaxy.net");
@@ -253,7 +250,9 @@ internal sealed class Program
         request.Cc(vipEmail);
 
         // Alternatively, you could pass a collection at once
-        request.Bcc(new EmailAddress("first@domain.com"), new EmailAddress("second@domain.com"));
+        request.Bcc(
+            new EmailAddress("first@domain.com"),
+            new EmailAddress("second@domain.com"));
 
         // Subject
         request.Subject("Invitation to Earth");
