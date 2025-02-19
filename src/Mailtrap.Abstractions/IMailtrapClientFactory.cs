@@ -33,5 +33,5 @@ public interface IMailtrapClientFactory : IDisposable
     /// <remarks>
     /// Each call to this method is guaranteed to return a new instance of <see cref="IMailtrapClient"/>.
     /// </remarks>
-    IMailtrapClient CreateClient();
+    public IMailtrapClient CreateClient();
 }
