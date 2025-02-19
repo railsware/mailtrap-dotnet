@@ -20,5 +20,5 @@ public interface IRestResource
     /// <value>
     /// Absolute URI of the resource.
     /// </value>
-    Uri ResourceUri { get; }
+    public Uri ResourceUri { get; }
 }
