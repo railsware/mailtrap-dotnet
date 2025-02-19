@@ -1,5 +1,4 @@
 # Contributing to Mailtrap .NET Client
-
 First of all, thank you for considering contributing to Mailtrap .NET Client!  
 We are excited to have you here :tada:  
 Any contribution is welcome and appreciated, be it a bug report, a feature request, a documentation update, or a code change.
@@ -7,11 +6,9 @@ Any contribution is welcome and appreciated, be it a bug report, a feature reque
 
 
 ## Code of Conduct
-
 This project and everyone participating in it is governed by the [Code of Conduct](CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code.
 Please report unacceptable behavior to [support@mailtrap.io](mailto:support@mailtrap.io).
-
 
 
 ## Before you start
@@ -47,4 +44,5 @@ Please report unacceptable behavior to [support@mailtrap.io](mailto:support@mail
 
 
 
-## Additional Notes
+## License
+Licensed under the [MIT License](https://github.com/railsware/mailtrap-dotnet/tree/main?tab=MIT-1-ov-file#readme).
