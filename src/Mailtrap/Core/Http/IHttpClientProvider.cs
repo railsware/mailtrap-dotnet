@@ -24,5 +24,5 @@ internal interface IHttpClientProvider
     /// Meanwhile, consumers should not dispose it, since it <i>can</i> be a singleton
     /// and shared across calling parties.
     /// </remarks>
-    HttpClient Client { get; }
+    public HttpClient Client { get; }
 }
