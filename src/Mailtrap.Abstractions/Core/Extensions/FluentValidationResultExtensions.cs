@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="FluentValidationResultExtensions.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-using FluentValidationResult = FluentValidation.Results.ValidationResult;
+﻿using FluentValidationResult = FluentValidation.Results.ValidationResult;
 
 
 namespace Mailtrap.Core.Extensions;

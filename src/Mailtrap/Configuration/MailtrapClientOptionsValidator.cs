@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="MailtrapClientOptionsValidator.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Configuration;
+﻿namespace Mailtrap.Configuration;
 
 
 internal sealed class MailtrapClientOptionsValidator : AbstractValidator<MailtrapClientOptions>

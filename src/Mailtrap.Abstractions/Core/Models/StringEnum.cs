@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="StringEnum.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 
 namespace Mailtrap.Core.Models;

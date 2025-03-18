@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="PatchWithContentRestResourceCommand.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Core.Rest.Commands;
+﻿namespace Mailtrap.Core.Rest.Commands;
 
 
 internal sealed class PatchWithContentRestResourceCommand<TRequest, TResponse>

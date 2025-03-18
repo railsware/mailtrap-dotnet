@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="AccountsIntegrationTests.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.IntegrationTests.Accounts;
+﻿namespace Mailtrap.IntegrationTests.Accounts;
 
 
 [TestFixture]

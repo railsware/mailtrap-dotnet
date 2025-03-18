@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="AccountAccess.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-using Mailtrap;
+﻿using Mailtrap;
 using Mailtrap.AccountAccesses;
 using Mailtrap.AccountAccesses.Models;
 using Mailtrap.AccountAccesses.Requests;

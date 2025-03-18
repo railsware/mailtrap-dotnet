@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="TestingMessagesIntegrationTests.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.IntegrationTests.TestingMessages;
+﻿namespace Mailtrap.IntegrationTests.TestingMessages;
 
 
 [TestFixture]

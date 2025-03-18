@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ForwardTestingMessageRequestValidator.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.TestingMessages.Validators;
+﻿namespace Mailtrap.TestingMessages.Validators;
 
 
 internal sealed class ForwardTestingMessageRequestValidator : AbstractValidator<ForwardTestingMessageRequest>

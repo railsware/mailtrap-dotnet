@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="CollectionExtensionsTests.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-using CollectionExtensions = Mailtrap.Core.Extensions.CollectionExtensions;
+﻿using CollectionExtensions = Mailtrap.Core.Extensions.CollectionExtensions;
 
 
 namespace Mailtrap.UnitTests.Core.Extensions;

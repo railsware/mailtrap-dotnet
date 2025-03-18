@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="TestingMessageReactor.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-using Mailtrap.TestingMessages.Responses;
+﻿using Mailtrap.TestingMessages.Responses;
 
 
 namespace Mailtrap.Example.ApiUsage.Logic;

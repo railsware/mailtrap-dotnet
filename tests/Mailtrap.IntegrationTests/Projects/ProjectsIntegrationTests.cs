@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ProjectsIntegrationTests.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.IntegrationTests.Projects;
+﻿namespace Mailtrap.IntegrationTests.Projects;
 
 
 [TestFixture]
