@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SendingDomainDnsRecord.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.SendingDomains.Models;
+﻿namespace Mailtrap.SendingDomains.Models;
 
 
 /// <summary>

@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="Reactor.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Example.ApiUsage.Logic;
+﻿namespace Mailtrap.Example.ApiUsage.Logic;
 
 
 internal abstract class Reactor

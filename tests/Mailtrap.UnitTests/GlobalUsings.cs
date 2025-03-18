@@ -1,10 +1,3 @@
-// -----------------------------------------------------------------------
-// <copyright file="GlobalUsings.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
 global using System.Net;
 global using System.Net.Http.Headers;
 global using System.Net.Http.Json;

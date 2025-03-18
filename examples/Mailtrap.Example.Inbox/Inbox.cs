@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="Inbox.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-using Mailtrap;
+﻿using Mailtrap;
 using Mailtrap.Accounts;
 using Mailtrap.Inboxes;
 using Mailtrap.Inboxes.Models;

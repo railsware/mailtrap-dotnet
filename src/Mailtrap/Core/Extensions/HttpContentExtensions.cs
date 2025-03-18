@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="HttpContentExtensions.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Core.Extensions;
+﻿namespace Mailtrap.Core.Extensions;
 
 
 /// <summary>

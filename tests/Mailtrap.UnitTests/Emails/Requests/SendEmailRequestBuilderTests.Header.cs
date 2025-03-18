@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SendEmailRequestBuilderTests.Header.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-using Header = System.Collections.Generic.KeyValuePair<string, string>;
+﻿using Header = System.Collections.Generic.KeyValuePair<string, string>;
 
 
 namespace Mailtrap.UnitTests.Emails.Requests;

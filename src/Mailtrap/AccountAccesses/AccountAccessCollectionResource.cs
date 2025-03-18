@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="AccountAccessCollectionResource.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.AccountAccesses;
+﻿namespace Mailtrap.AccountAccesses;
 
 
 internal sealed class AccountAccessCollectionResource : RestResource, IAccountAccessCollectionResource

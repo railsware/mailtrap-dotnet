@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SendingDomainInstructionsRequestTests.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.UnitTests.SendingDomains.Requests;
+﻿namespace Mailtrap.UnitTests.SendingDomains.Requests;
 
 
 [TestFixture]
