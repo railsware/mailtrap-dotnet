@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ProjectResource.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Projects;
+﻿namespace Mailtrap.Projects;
 
 
 internal sealed class ProjectResource : RestResource, IProjectResource

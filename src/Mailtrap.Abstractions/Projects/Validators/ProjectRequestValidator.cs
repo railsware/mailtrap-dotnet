@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ProjectRequestValidator.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Projects.Validators;
+﻿namespace Mailtrap.Projects.Validators;
 
 
 /// <summary>

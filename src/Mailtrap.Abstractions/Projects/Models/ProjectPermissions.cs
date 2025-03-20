@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ProjectPermissions.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Projects.Models;
+﻿namespace Mailtrap.Projects.Models;
 
 
 /// <summary>

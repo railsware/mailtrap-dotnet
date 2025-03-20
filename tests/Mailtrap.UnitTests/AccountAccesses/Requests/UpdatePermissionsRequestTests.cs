@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="UpdatePermissionsRequestTests.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.UnitTests.AccountAccesses.Requests;
+﻿namespace Mailtrap.UnitTests.AccountAccesses.Requests;
 
 
 [TestFixture]

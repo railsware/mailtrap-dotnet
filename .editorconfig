@@ -52,7 +52,8 @@ trim_trailing_whitespace = false
 [*.cs]
 
 # License header
-file_header_template = -----------------------------------------------------------------------\n<copyright file="{fileName}" company="Railsware Products Studio, LLC">\nCopyright (c) Railsware Products Studio, LLC. All rights reserved.\n</copyright>\n-----------------------------------------------------------------------
+file_header_template = unset
+# -----------------------------------------------------------------------\n<copyright file="{fileName}" company="Railsware Products Studio, LLC">\nCopyright (c) Railsware Products Studio, LLC. All rights reserved.\n</copyright>\n-----------------------------------------------------------------------
 
 # New line preferences
 csharp_new_line_before_open_brace = all

@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ValidationResultTests.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-using ValidationResult = Mailtrap.Core.Validation.ValidationResult;
+﻿using ValidationResult = Mailtrap.Core.Validation.ValidationResult;
 
 
 namespace Mailtrap.UnitTests.Core.Validation;

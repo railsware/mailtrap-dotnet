@@ -1,10 +1,3 @@
-// -----------------------------------------------------------------------
-// <copyright file="GlobalUsings.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
 global using System.Collections.Concurrent;
 global using System.Diagnostics.CodeAnalysis;
 global using System.Net;

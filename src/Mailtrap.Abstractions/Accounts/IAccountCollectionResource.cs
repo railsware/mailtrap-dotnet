@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="IAccountCollectionResource.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Accounts;
+﻿namespace Mailtrap.Accounts;
 
 
 /// <summary>

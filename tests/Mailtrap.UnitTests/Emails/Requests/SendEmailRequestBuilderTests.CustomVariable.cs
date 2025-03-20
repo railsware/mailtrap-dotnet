@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SendEmailRequestBuilderTests.CustomVariable.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-using Variable = System.Collections.Generic.KeyValuePair<string, string>;
+﻿using Variable = System.Collections.Generic.KeyValuePair<string, string>;
 
 
 namespace Mailtrap.UnitTests.Emails.Requests;

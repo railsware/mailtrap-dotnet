@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="MailtrapClientOptionsTests.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.UnitTests.Configuration;
+﻿namespace Mailtrap.UnitTests.Configuration;
 
 
 [TestFixture]

@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="BillingPlanUsageMessageCounters.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Billing.Models;
+﻿namespace Mailtrap.Billing.Models;
 
 
 /// <summary>
