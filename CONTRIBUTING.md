@@ -16,39 +16,34 @@ Please consider that your contributions should meet its terms and conditions.
 Also, by participating, you give your permission to license your contributions into this project under its terms and conditions.
 
 
-
-## First things first
-Kindly consider searching for already existing question, answer, issue or feature proposal before creating a new one.  
+## Report an issue or propose improvement
+Kindly consider searching for already existing issue or feature proposal before creating a new one.  
 Do not increase the entropy unnecessarily - the Universe will appreciate it.
 
-### Ask a question
-Do not hesitate to ask a question or raise a concern related to the SDK in the
-[Discussions](https://github.com/railsware/mailtrap-dotnet/discussions), 
-if you weren't able to find an existing one.
-
-### Report an issue or propose improvement
-Please use [Issues](https://github.com/railsware/mailtrap-dotnet/issues) section of the repo to file an issue, 
-possible improvement or feature proposal.
-
+If it is still the case - please use [Issues](https://github.com/railsware/mailtrap-dotnet/issues) section of the repo to file an issue, 
+possible improvement or feature proposal.  
 
 
 ## Contribute to the code or documentation
 
 ### Prerequisites
 To be able to make edits, build and run your changes locally, you will need the following:
-- Code editor or IDE of your choice, with C# language and .NET 9.x support  
-[Visual Studio 2022](https://visualstudio.microsoft.com/) is one of recommended options.
+- Code editor or IDE of your choice, with C# language and .NET 9.x support.  
+This repository uses [EditorConfig](https://aka.ms/editorconfigdocs) settings to enforce consistent code style, 
+thus usage of editor which respects them is highly encouraged.  
+[Visual Studio 2022](https://visualstudio.microsoft.com/) is one of recommended options.  
 
 - [.NET SDK v9.x](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
 
-- Markdown editor of your choice - for documentation updates.
+- Plain text editor of your choice - for documentation updates.  
+Ideally, with [Markdown](https://en.wikipedia.org/wiki/Markdown) support.
 
-- [docfx](https://dotnet.github.io/docfx/docs/) - to build and validate documentation website
+- [docfx](https://dotnet.github.io/docfx/docs/) - to build and validate documentation website.
 
 
 ### Pull requests
-Please consider that contributions to the repository content are managed through pull requests.
-Thus you will need to follow steps below:  
+Please consider that contributions to the repository content are managed through pull requests.  
+Thus you will need to follow steps below to create a new one:  
 
 1. Clone the repo
 ```bat
@@ -59,11 +54,11 @@ git clone https://github.com/railsware/mailtrap-dotnet.git
 ```bat
 git checkout -b <branch-name>
 ```
-Consider using the following pattern for branch naming:  
-`[change-type]/[issue-number]-[change-description]`  
+Please consider using the following pattern for branch naming:  
+`[change-type]/[issue-id]-[change-description]`  
 where:  
 `[change-type]` - one of the following: `feat[ure]`, `fix`, `docs`, `devops`, `test`, `refactor`, etc.  
-`[issue-number]` - number of the issue that you are going to address, if available.  
+`[issue-id]` - numeric ID of the issue that you are going to address, if available.  
 `[change-description]` - short description of the change, in [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case)
 
 3. Make changes, validate them.
@@ -73,7 +68,8 @@ Usage of [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#s
 
 5. Push to the remote.
 
-6. Finally, create a pull request to the main branch, using the template provided.  
+6. Finally, create a pull request to the [main](https://github.com/railsware/mailtrap-dotnet/tree/main) branch, 
+using the template provided.  
 Please consider providing detailed description what was changed and validating PR checklist to streamline the PR review.
 
 
@@ -90,14 +86,18 @@ Although we are not targeting 100% coverage, ensuring everything is working as e
 ### Documentation
 You can improve SDK documentation in several ways.
 
+#### Add or extend [XMLDoc](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/) comments in the code
+They are used to show inline help in IDE and to generate SDK API reference section of documentation website,
+thus are a crucial part of the SDK.
+
 #### Update markdown files in the [docs](https://github.com/railsware/mailtrap-dotnet/tree/main/docs) folder of the repo.  
-Considering [docfx](https://dotnet.github.io/docfx/docs/basic-concepts.html) tool is used to create documentation website from sources,
-please ensure that you are using [supported syntax](https://dotnet.github.io/docfx/docs/markdown.html).
+Considering that [docfx](https://dotnet.github.io/docfx/docs/basic-concepts.html) tool is used to create documentation website
+from sources, please ensure that you are using [supported syntax](https://dotnet.github.io/docfx/docs/markdown.html).
 
 To build and verify documentation locally, before committing your changes:
-1. Update `docfx`
+1. Install/update `docfx` as a global tool
 ```bat
-dotnet tool update -g docfx
+dotnet tool (install|update) -g docfx
 ```
 2. Build and serve documentation website
 ```bat
@@ -105,6 +105,3 @@ cd <repository-path>
 docfx docs/docfx.json --serve
 ```
 3. Finally, open <http://localhost:8080> in your browser and navigate to the changed section.
-
-#### Add or extend XMLDoc comments in the code
-They are used to show inline help in IDE and to generate SDK API reference section of documentation website, thus are an important part of the SDK.
