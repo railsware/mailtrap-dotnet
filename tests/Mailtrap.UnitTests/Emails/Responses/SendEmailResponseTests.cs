@@ -5,9 +5,9 @@
 internal sealed class SendEmailResponseTests
 {
     [Test]
-    public void Constructor_ShouldDefaultFieldsCorrectly_WhenNotSpecified()
+    public void CreateSuccess_ShouldInitializeFieldsCorrectly_WhenNoMessageIdsPresent()
     {
-        var response = new SendEmailResponse(true);
+        var response = SendEmailResponse.CreateSuccess();
 
         response.Success.Should().BeTrue();
         response.MessageIds.Should().BeEmpty();
@@ -15,48 +15,37 @@ internal sealed class SendEmailResponseTests
     }
 
     [Test]
-    public void Constructor_ShouldAssignFieldsCorrectly()
+    public void CreateSuccess_ShouldInitializeFieldsCorrectly_WhenMessageIdsProvided()
     {
-        var messageIds = new List<string>
-        {
-            TestContext.CurrentContext.Random.NextGuid().ToString(),
-            TestContext.CurrentContext.Random.NextGuid().ToString()
-        };
-        var errorData = new List<string> { "Error 1", "Error 2" };
-        var response = new SendEmailResponse(true, messageIds, errorData);
+        string[] messageIds = ["id1", "id2"];
 
-        // Assert
+        var response = SendEmailResponse.CreateSuccess(messageIds);
+
         response.Success.Should().BeTrue();
-
-        response.MessageIds.Should()
-            .NotBeNull().And
-            .HaveCount(2).And
-            .Contain(messageIds);
-
-        response.ErrorData.Should()
-            .NotBeEmpty().And
-            .HaveCount(2).And
-            .Contain(errorData);
+        response.MessageIds.Should().BeEquivalentTo(messageIds);
+        response.ErrorData.Should().BeEmpty();
     }
 
     [Test]
-    public void Empty_ShouldContainCorrectDefaults()
+    public void CreateFailure_ShouldInitializeFieldsCorrectly_WhenNoErrorDataProvided()
     {
-        var response = SendEmailResponse.Empty;
+        var response = SendEmailResponse.CreateFailure();
 
         response.Success.Should().BeFalse();
         response.MessageIds.Should().BeEmpty();
-        response.ErrorData.Should()
-            .ContainSingle(s => string.Equals(s, "Empty response.", StringComparison.OrdinalIgnoreCase));
+        response.ErrorData.Should().BeEmpty();
     }
 
     [Test]
-    public void Empty_ShouldReturnSameStaticInstance_WhenCalledMultipleTimes()
+    public void CreateFailure_ShouldInitializeFieldsCorrectly_WhenErrorDataProvided()
     {
-        var response1 = SendEmailResponse.Empty;
-        var response2 = SendEmailResponse.Empty;
+        string[] errors = ["error 1", "error 2"];
 
-        response2.Should().BeSameAs(response1);
+        var response = SendEmailResponse.CreateFailure(errors);
+
+        response.Success.Should().BeFalse();
+        response.MessageIds.Should().BeEmpty();
+        response.ErrorData.Should().BeEquivalentTo(errors);
     }
 
     [Test]

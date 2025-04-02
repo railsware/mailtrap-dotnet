@@ -2,17 +2,17 @@
 
 
 [TestFixture]
-internal sealed class BatchEmailRequestValidatorTests
+internal sealed class BatchSendEmailRequestValidatorTests
 {
     [Test]
     public void Validation_ShouldFail_WhenRequestsAreNull()
     {
-        var request = new BatchEmailRequest()
+        var request = new BatchSendEmailRequest()
         {
             Requests = null!
         };
 
-        var result = BatchEmailRequestValidator.Instance.TestValidate(request);
+        var result = BatchSendEmailRequestValidator.Instance.TestValidate(request);
 
         result.ShouldHaveValidationErrorFor(r => r.Requests);
     }
@@ -20,12 +20,12 @@ internal sealed class BatchEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenRequestsAreEmpty()
     {
-        var request = new BatchEmailRequest()
+        var request = new BatchSendEmailRequest()
         {
             Requests = []
         };
 
-        var result = BatchEmailRequestValidator.Instance.TestValidate(request);
+        var result = BatchSendEmailRequestValidator.Instance.TestValidate(request);
 
         result.ShouldHaveValidationErrorFor(r => r.Requests);
     }
@@ -33,12 +33,12 @@ internal sealed class BatchEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldFail_WhenRequestsCountIsGreaterThan500([Values(501)] int count)
     {
-        var request = new BatchEmailRequest()
+        var request = new BatchSendEmailRequest()
         {
             Requests = Enumerable.Repeat(new SendEmailRequest(), count).ToList()
         };
 
-        var result = BatchEmailRequestValidator.Instance.TestValidate(request);
+        var result = BatchSendEmailRequestValidator.Instance.TestValidate(request);
 
         result.ShouldHaveValidationErrorFor(r => r.Requests.Count);
     }
@@ -46,12 +46,12 @@ internal sealed class BatchEmailRequestValidatorTests
     [Test]
     public void Validation_ShouldNotFail_WhenRequestsCountIsLessOrEqualTo500([Values(1, 500)] int count)
     {
-        var request = new BatchEmailRequest()
+        var request = new BatchSendEmailRequest()
         {
             Requests = Enumerable.Repeat(new SendEmailRequest(), count).ToList()
         };
 
-        var result = BatchEmailRequestValidator.Instance.TestValidate(request);
+        var result = BatchSendEmailRequestValidator.Instance.TestValidate(request);
 
         result.ShouldNotHaveValidationErrorFor(r => r.Requests.Count);
     }

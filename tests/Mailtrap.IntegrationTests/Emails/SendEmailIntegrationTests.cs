@@ -15,7 +15,7 @@ internal sealed class SendEmailIntegrationTests
         using var mockHttp = new MockHttpMessageHandler();
 
         var messageId = TestContext.CurrentContext.Random.NextGuid().ToString();
-        var response = new SendEmailResponse(true, [messageId]);
+        var response = SendEmailResponse.CreateSuccess(messageId);
         using var responseContent = JsonContent.Create(response);
 
         using var services = CreateServiceProvider(testCase.Config, testCase.SendUri, request, mockHttp, responseContent);
@@ -49,7 +49,7 @@ internal sealed class SendEmailIntegrationTests
         using var mockHttp = new MockHttpMessageHandler();
 
         var messageId = TestContext.CurrentContext.Random.NextGuid().ToString();
-        var response = new SendEmailResponse(true, [messageId]);
+        var response = SendEmailResponse.CreateSuccess(messageId);
         using var responseContent = JsonContent.Create(response);
 
         using var services = CreateServiceProvider(testCase.Config, testCase.SendUri, request, mockHttp, responseContent);
@@ -82,7 +82,7 @@ internal sealed class SendEmailIntegrationTests
         using var mockHttp = new MockHttpMessageHandler();
 
         var messageId = TestContext.CurrentContext.Random.NextGuid().ToString();
-        var response = new SendEmailResponse(true, [messageId]);
+        var response = SendEmailResponse.CreateSuccess(messageId);
         using var responseContent = JsonContent.Create(response);
 
         var sendUri = EndpointsTestConstants.SendDefaultUrl
@@ -121,7 +121,7 @@ internal sealed class SendEmailIntegrationTests
         using var mockHttp = new MockHttpMessageHandler();
 
         var messageId = TestContext.CurrentContext.Random.NextGuid().ToString();
-        var response = new SendEmailResponse(true, [messageId]);
+        var response = SendEmailResponse.CreateSuccess(messageId);
         using var responseContent = JsonContent.Create(response);
 
         var sendUri = EndpointsTestConstants.BulkDefaultUrl
@@ -162,7 +162,7 @@ internal sealed class SendEmailIntegrationTests
         using var mockHttp = new MockHttpMessageHandler();
 
         var messageId = random.NextGuid().ToString();
-        var response = new SendEmailResponse(true, [messageId]);
+        var response = SendEmailResponse.CreateSuccess(messageId);
         using var responseContent = JsonContent.Create(response);
 
         var inboxId = random.NextLong();

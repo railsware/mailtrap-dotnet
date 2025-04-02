@@ -2,9 +2,9 @@
 
 
 /// <summary>
-/// Represents sender's or recipient's email address and name tuple, that can be used in From, To, CC or BCC parameters.
+/// Represents request object used to send email batch.
 /// </summary>
-public sealed record BatchEmailRequest : IValidatable
+public sealed record BatchSendEmailRequest : IValidatable
 {
     /// <summary>
     /// Gets or sets and object with general properties of all emails in the batch.<br />
@@ -40,7 +40,7 @@ public sealed record BatchEmailRequest : IValidatable
     /// <inheritdoc />
     public ValidationResult Validate()
     {
-        return BatchEmailRequestValidator.Instance
+        return BatchSendEmailRequestValidator.Instance
             .Validate(this)
             .ToMailtrapValidationResult();
     }

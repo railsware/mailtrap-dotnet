@@ -54,5 +54,5 @@ public interface IBatchEmailClient : IRestResource
     /// Request is checked for validity before send.<br />
     /// <see cref="ArgumentException"/> is thrown if validation fails.
     /// </remarks>
-    public Task<SendEmailResponse> BatchSend(BatchEmailRequest request, CancellationToken cancellationToken = default);
+    public Task<BatchSendEmailResponse> BatchSend(BatchSendEmailRequest request, CancellationToken cancellationToken = default);
 }

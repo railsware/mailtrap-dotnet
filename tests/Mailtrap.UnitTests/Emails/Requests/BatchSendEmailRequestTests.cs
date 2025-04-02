@@ -2,7 +2,7 @@
 
 
 [TestFixture]
-internal sealed class BatchEmailRequestTests
+internal sealed class BatchSendEmailRequestTests
 {
     [Test]
     public void ShouldSerializeCorrectly()
@@ -11,7 +11,7 @@ internal sealed class BatchEmailRequestTests
 
         var serialized = JsonSerializer.Serialize(request, MailtrapJsonSerializerOptions.NotIndented);
 
-        var deserialized = JsonSerializer.Deserialize<BatchEmailRequest>(serialized, MailtrapJsonSerializerOptions.NotIndented);
+        var deserialized = JsonSerializer.Deserialize<BatchSendEmailRequest>(serialized, MailtrapJsonSerializerOptions.NotIndented);
 
         deserialized.Should().BeEquivalentTo(request);
     }
@@ -19,17 +19,13 @@ internal sealed class BatchEmailRequestTests
     [Test]
     public void Validate_ShouldReturnInvalidResult_WhenRequestIsInvalid()
     {
-        var request = new BatchEmailRequest();
+        var request = new BatchSendEmailRequest();
 
         var result = request.Validate();
 
         result.IsValid.Should().BeFalse();
         result.Errors.Should()
             .NotBeEmpty().And
-            .Contain("'From' must not be empty.").And
-            .Contain("'Subject' must not be empty.").And
-            .Contain("'Text Body' must not be empty.").And
-            .Contain("'Html Body' must not be empty.").And
             .Contain("'Requests' must not be empty.");
     }
 
@@ -45,15 +41,16 @@ internal sealed class BatchEmailRequestTests
     }
 
 
-    private static BatchEmailRequest CreateValidRequest()
+    private static BatchSendEmailRequest CreateValidRequest()
     {
         var request = SendEmailRequest
             .Create()
             .From("john.doe@demomailtrap.com", "John Doe")
+            .To("hero.bill@galaxy.net")
             .Subject("Invitation to Earth")
             .Text("Dear Bill, It will be a great pleasure to see you on our blue planet next weekend. Best regards, John.");
 
-        return new BatchEmailRequest
+        return new BatchSendEmailRequest
         {
             Requests = [request]
         };
