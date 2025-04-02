@@ -2,7 +2,7 @@
 
 
 [TestFixture]
-internal sealed class BulkEmailRequestTests
+internal sealed class BatchEmailRequestTests
 {
     [Test]
     public void ShouldSerializeCorrectly()
@@ -11,7 +11,7 @@ internal sealed class BulkEmailRequestTests
 
         var serialized = JsonSerializer.Serialize(request, MailtrapJsonSerializerOptions.NotIndented);
 
-        var deserialized = JsonSerializer.Deserialize<BulkEmailRequest>(serialized, MailtrapJsonSerializerOptions.NotIndented);
+        var deserialized = JsonSerializer.Deserialize<BatchEmailRequest>(serialized, MailtrapJsonSerializerOptions.NotIndented);
 
         deserialized.Should().BeEquivalentTo(request);
     }
@@ -19,7 +19,7 @@ internal sealed class BulkEmailRequestTests
     [Test]
     public void Validate_ShouldReturnInvalidResult_WhenRequestIsInvalid()
     {
-        var request = new BulkEmailRequest();
+        var request = new BatchEmailRequest();
 
         var result = request.Validate();
 
@@ -45,7 +45,7 @@ internal sealed class BulkEmailRequestTests
     }
 
 
-    private static BulkEmailRequest CreateValidRequest()
+    private static BatchEmailRequest CreateValidRequest()
     {
         var request = SendEmailRequest
             .Create()
@@ -53,7 +53,7 @@ internal sealed class BulkEmailRequestTests
             .Subject("Invitation to Earth")
             .Text("Dear Bill, It will be a great pleasure to see you on our blue planet next weekend. Best regards, John.");
 
-        return new BulkEmailRequest
+        return new BatchEmailRequest
         {
             Requests = [request]
         };

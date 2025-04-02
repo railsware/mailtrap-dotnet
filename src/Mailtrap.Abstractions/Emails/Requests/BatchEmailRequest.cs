@@ -4,7 +4,7 @@
 /// <summary>
 /// Represents sender's or recipient's email address and name tuple, that can be used in From, To, CC or BCC parameters.
 /// </summary>
-public sealed record BulkEmailRequest : IValidatable
+public sealed record BatchEmailRequest : IValidatable
 {
     /// <summary>
     /// Gets or sets and object with general properties of all emails in the batch.<br />
@@ -40,7 +40,7 @@ public sealed record BulkEmailRequest : IValidatable
     /// <inheritdoc />
     public ValidationResult Validate()
     {
-        return BulkEmailRequestValidator.Instance
+        return BatchEmailRequestValidator.Instance
             .Validate(this)
             .ToMailtrapValidationResult();
     }

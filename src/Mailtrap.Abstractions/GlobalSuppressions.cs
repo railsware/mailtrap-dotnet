@@ -8,4 +8,4 @@
 
 [assembly: SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "DTO", Scope = "type", Target = "~T:Mailtrap.Emails.Requests.SendEmailRequest")]
 [assembly: SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "DTO", Scope = "type", Target = "~T:Mailtrap.Emails.Requests.EmailRequest")]
-[assembly: SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "DTO", Scope = "type", Target = "~T:Mailtrap.Emails.Requests.BulkEmailRequest")]
+[assembly: SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "DTO", Scope = "type", Target = "~T:Mailtrap.Emails.Requests.BatchEmailRequest")]

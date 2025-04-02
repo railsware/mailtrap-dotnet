@@ -1,11 +1,11 @@
 ﻿namespace Mailtrap.Emails.Requests;
 
 
-internal sealed class BulkEmailRequestValidator : AbstractValidator<BulkEmailRequest>
+internal sealed class BatchEmailRequestValidator : AbstractValidator<BatchEmailRequest>
 {
-    public static BulkEmailRequestValidator Instance { get; } = new();
+    public static BatchEmailRequestValidator Instance { get; } = new();
 
-    public BulkEmailRequestValidator()
+    public BatchEmailRequestValidator()
     {
         RuleFor(r => r.Requests)
             .NotEmpty();
