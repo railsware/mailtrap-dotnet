@@ -1,4 +1,4 @@
-﻿namespace Mailtrap.UnitTests.Emails.Validators;
+﻿namespace Mailtrap.UnitTests.Emails.Models;
 
 
 [TestFixture]

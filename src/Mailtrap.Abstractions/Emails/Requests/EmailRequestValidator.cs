@@ -1,39 +1,36 @@
-﻿namespace Mailtrap.Emails.Validators;
+﻿namespace Mailtrap.Emails.Requests;
 
 
-internal sealed class SendEmailRequestValidator : AbstractValidator<SendEmailRequest>
+internal sealed class EmailRequestValidator : AbstractValidator<EmailRequest>
 {
-    public static SendEmailRequestValidator Instance { get; } = new();
+    public static EmailRequestValidator Instance { get; } = new();
 
-    public SendEmailRequestValidator()
+    public EmailRequestValidator()
     {
-        RuleFor(r => r.From!).NotNull().SetValidator(EmailAddressValidator.Instance);
+        RuleFor(r => r.From!)
+            .Cascade(CascadeMode.Stop)
+            .NotNull()
+            .SetValidator(EmailAddressValidator.Instance);
 
         RuleFor(r => r.ReplyTo!)
             .SetValidator(EmailAddressValidator.Instance)
             .When(r => r.ReplyTo is not null);
 
-        RuleFor(r => r.To).Must(r => r.Count is <= 1000);
-        RuleForEach(r => r.To).SetValidator(EmailAddressValidator.Instance);
-
-        RuleFor(r => r.Cc).Must(r => r.Count is <= 1000);
-        RuleForEach(r => r.Cc).SetValidator(EmailAddressValidator.Instance);
-
-        RuleFor(r => r.Bcc).Must(r => r.Count is <= 1000);
-        RuleForEach(r => r.Bcc).SetValidator(EmailAddressValidator.Instance);
-
-        RuleFor(r => r)
-            .Must(r => r.To.Count + r.Cc.Count + r.Bcc.Count > 0)
-            .WithName("Recipients")
-            .WithMessage("There should be at least one email recipient added to either To, Cc or Bcc.");
-
-        RuleForEach(r => r.Attachments).SetValidator(AttachmentValidator.Instance);
+        RuleFor(r => r.Attachments)
+            .NotNull();
+        RuleForEach(r => r.Attachments)
+            .Cascade(CascadeMode.Stop)
+            .NotNull()
+            .SetValidator(AttachmentValidator.Instance);
 
         When(r => string.IsNullOrEmpty(r.TemplateId), () =>
         {
-            RuleFor(r => r.Subject).NotNull().MinimumLength(1);
+            RuleFor(r => r.Subject)
+                .NotNull()
+                .MinimumLength(1);
 
-            RuleFor(r => r.Category).MaximumLength(255);
+            RuleFor(r => r.Category)
+                .MaximumLength(255);
 
             RuleFor(r => r.TextBody)
                 .NotNull()

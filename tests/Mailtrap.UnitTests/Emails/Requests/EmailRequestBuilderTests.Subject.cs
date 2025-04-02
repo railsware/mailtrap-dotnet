@@ -1,8 +1,8 @@
 ﻿namespace Mailtrap.UnitTests.Emails.Requests;
 
 
-[TestFixture(TestOf = typeof(SendEmailRequestBuilder))]
-internal sealed class SendEmailRequestBuilderTests_Subject
+[TestFixture(TestOf = typeof(EmailRequestBuilder))]
+internal sealed class EmailRequestBuilderTests_Subject
 {
     private string _subject { get; } = "Subject";
 
@@ -10,7 +10,7 @@ internal sealed class SendEmailRequestBuilderTests_Subject
     [Test]
     public void Subject_ShouldThrowArgumentNullException_WhenRequestIsNull()
     {
-        var act = () => SendEmailRequestBuilder.Subject(null!, _subject);
+        var act = () => EmailRequestBuilder.Subject<EmailRequest>(null!, _subject);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -18,7 +18,7 @@ internal sealed class SendEmailRequestBuilderTests_Subject
     [Test]
     public void Subject_ShouldThrowArgumentNullException_WhenSubjectIsNull()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Subject(null!);
 
@@ -28,7 +28,7 @@ internal sealed class SendEmailRequestBuilderTests_Subject
     [Test]
     public void Subject_ShouldThrowArgumentNullException_WhenSubjectIsEmpty()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Subject(string.Empty);
 
@@ -38,7 +38,7 @@ internal sealed class SendEmailRequestBuilderTests_Subject
     [Test]
     public void Subject_ShouldAssignSubjectProperly()
     {
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .Subject(_subject);
 
@@ -50,7 +50,7 @@ internal sealed class SendEmailRequestBuilderTests_Subject
     {
         var otherSubject = "Updated subject";
 
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .Subject(_subject)
             .Subject(otherSubject);

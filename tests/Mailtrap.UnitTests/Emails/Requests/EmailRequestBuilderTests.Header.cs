@@ -4,8 +4,8 @@
 namespace Mailtrap.UnitTests.Emails.Requests;
 
 
-[TestFixture(TestOf = typeof(SendEmailRequestBuilder))]
-internal sealed class SendEmailRequestBuilderTests_Header
+[TestFixture(TestOf = typeof(EmailRequestBuilder))]
+internal sealed class EmailRequestBuilderTests_Header
 {
 
     private string HeaderKey { get; } = "key";
@@ -20,7 +20,7 @@ internal sealed class SendEmailRequestBuilderTests_Header
     [Test]
     public void Header_ShouldThrowArgumentNullException_WhenRequestIsNull()
     {
-        var act = () => SendEmailRequestBuilder.Header(null!, _header1);
+        var act = () => EmailRequestBuilder.Header<EmailRequest>(null!, _header1);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -28,7 +28,7 @@ internal sealed class SendEmailRequestBuilderTests_Header
     [Test]
     public void Header_ShouldThrowArgumentNullException_WhenParamsIsNull()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Header(null!);
 
@@ -38,7 +38,7 @@ internal sealed class SendEmailRequestBuilderTests_Header
     [Test]
     public void Header_ShouldNotThrowException_WhenParamsIsEmpty()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Header([]);
 
@@ -93,9 +93,9 @@ internal sealed class SendEmailRequestBuilderTests_Header
     }
 
 
-    private static SendEmailRequest Header_CreateAndValidate(params Header[] headers)
+    private static EmailRequest Header_CreateAndValidate(params Header[] headers)
     {
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .Header(headers);
 
@@ -115,9 +115,9 @@ internal sealed class SendEmailRequestBuilderTests_Header
     [Test]
     public void Header_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
-        var act = () => SendEmailRequestBuilder.Header(null!, HeaderKey, HeaderValue);
+        var act = () => EmailRequestBuilder.Header<EmailRequest>(null!, HeaderKey, HeaderValue);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -125,7 +125,7 @@ internal sealed class SendEmailRequestBuilderTests_Header
     [Test]
     public void Header_ShouldThrowArgumentNullException_WhenHeaderKeyIsNull()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Header(null!, HeaderValue);
 
@@ -135,7 +135,7 @@ internal sealed class SendEmailRequestBuilderTests_Header
     [Test]
     public void Header_ShouldThrowArgumentNullException_WhenHeaderKeyIsEmpty()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Header(string.Empty, HeaderValue);
 
@@ -145,7 +145,7 @@ internal sealed class SendEmailRequestBuilderTests_Header
     [Test]
     public void Header_ShouldNotThrowException_WhenHeaderValueIsNull()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Header(HeaderKey, null!);
 
@@ -155,7 +155,7 @@ internal sealed class SendEmailRequestBuilderTests_Header
     [Test]
     public void Header_ShouldNotThrowException_WhenHeaderValueIsEmpty()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Header(HeaderKey, string.Empty);
 
@@ -204,9 +204,9 @@ internal sealed class SendEmailRequestBuilderTests_Header
     }
 
 
-    private static SendEmailRequest Header_CreateAndValidate(string key, string value)
+    private static EmailRequest Header_CreateAndValidate(string key, string value)
     {
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .Header(key, value);
 

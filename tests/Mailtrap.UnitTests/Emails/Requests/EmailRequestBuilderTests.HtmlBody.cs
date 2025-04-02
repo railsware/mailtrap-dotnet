@@ -1,8 +1,8 @@
 ﻿namespace Mailtrap.UnitTests.Emails.Requests;
 
 
-[TestFixture(TestOf = typeof(SendEmailRequestBuilder))]
-internal sealed class SendEmailRequestBuilderTests_HtmlBody
+[TestFixture(TestOf = typeof(EmailRequestBuilder))]
+internal sealed class EmailRequestBuilderTests_HtmlBody
 {
     private string _html { get; } = "<h1>Header</h1><p>Greetings!</p>";
 
@@ -10,7 +10,7 @@ internal sealed class SendEmailRequestBuilderTests_HtmlBody
     [Test]
     public void Html_ShouldThrowArgumentNullException_WhenRequestIsNull()
     {
-        var act = () => SendEmailRequestBuilder.Html(null!, _html);
+        var act = () => EmailRequestBuilder.Html<EmailRequest>(null!, _html);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -18,7 +18,7 @@ internal sealed class SendEmailRequestBuilderTests_HtmlBody
     [Test]
     public void Html_ShouldNotThrowException_WhenHtmlIsNull()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Html(null!);
 
@@ -28,7 +28,7 @@ internal sealed class SendEmailRequestBuilderTests_HtmlBody
     [Test]
     public void Html_ShouldNotThrowException_WhenHtmlIsEmpty()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Html(string.Empty);
 
@@ -38,7 +38,7 @@ internal sealed class SendEmailRequestBuilderTests_HtmlBody
     [Test]
     public void Html_ShouldAssignHtmlBodyProperly()
     {
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .Html(_html);
 
@@ -50,7 +50,7 @@ internal sealed class SendEmailRequestBuilderTests_HtmlBody
     {
         var otherHtml = "<h2>Header</h2><p>Congratulation!</p>";
 
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .Html(_html)
             .Html(otherHtml);

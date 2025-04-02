@@ -1,8 +1,8 @@
 ﻿namespace Mailtrap.UnitTests.Emails.Requests;
 
 
-[TestFixture(TestOf = typeof(SendEmailRequestBuilder))]
-internal sealed class SendEmailRequestBuilderTests_Category
+[TestFixture(TestOf = typeof(EmailRequestBuilder))]
+internal sealed class EmailRequestBuilderTests_Category
 {
     private string _category { get; } = "Category";
 
@@ -10,7 +10,7 @@ internal sealed class SendEmailRequestBuilderTests_Category
     [Test]
     public void Category_ShouldThrowArgumentNullException_WhenRequestIsNull()
     {
-        var act = () => SendEmailRequestBuilder.Category(null!, _category);
+        var act = () => EmailRequestBuilder.Category<EmailRequest>(null!, _category);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -18,7 +18,7 @@ internal sealed class SendEmailRequestBuilderTests_Category
     [Test]
     public void Category_ShouldNotThrowException_WhenCategoryIsNull()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Category(null!);
 
@@ -28,7 +28,7 @@ internal sealed class SendEmailRequestBuilderTests_Category
     [Test]
     public void Category_ShouldNotThrowException_WhenCategoryIsEmpty()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Category(string.Empty);
 
@@ -38,7 +38,7 @@ internal sealed class SendEmailRequestBuilderTests_Category
     [Test]
     public void Category_ShouldAssignCategoryProperly()
     {
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .Category(_category);
 
@@ -50,7 +50,7 @@ internal sealed class SendEmailRequestBuilderTests_Category
     {
         var otherCategory = "Updated Category";
 
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .Category(_category)
             .Category(otherCategory);

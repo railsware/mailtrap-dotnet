@@ -1,4 +1,4 @@
-﻿namespace Mailtrap.SendingDomains.Validators;
+﻿namespace Mailtrap.SendingDomains.Requests;
 
 
 internal sealed class SendingDomainInstructionsRequestValidator : AbstractValidator<SendingDomainInstructionsRequest>

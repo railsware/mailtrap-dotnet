@@ -1,4 +1,4 @@
-﻿namespace Mailtrap.AccountAccesses.Validators;
+﻿namespace Mailtrap.AccountAccesses.Requests;
 
 
 internal sealed class UpdatePermissionsRequestItemValidator : AbstractValidator<UpdatePermissionsRequestItem>

@@ -1,4 +1,4 @@
-﻿namespace Mailtrap.Projects.Validators;
+﻿namespace Mailtrap.Projects.Requests;
 
 
 /// <summary>

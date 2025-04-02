@@ -1,8 +1,8 @@
 ﻿namespace Mailtrap.UnitTests.Emails.Requests;
 
 
-[TestFixture(TestOf = typeof(SendEmailRequestBuilder))]
-internal sealed class SendEmailRequestBuilderTests_Template
+[TestFixture(TestOf = typeof(EmailRequestBuilder))]
+internal sealed class EmailRequestBuilderTests_Template
 {
     private string _templateId { get; } = "<ID>";
 
@@ -10,7 +10,7 @@ internal sealed class SendEmailRequestBuilderTests_Template
     [Test]
     public void Template_ShouldThrowArgumentNullException_WhenRequestIsNull()
     {
-        var act = () => SendEmailRequestBuilder.Template(null!, _templateId);
+        var act = () => EmailRequestBuilder.Template<EmailRequest>(null!, _templateId);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -18,7 +18,7 @@ internal sealed class SendEmailRequestBuilderTests_Template
     [Test]
     public void Template_ShouldThrowArgumentNullException_WhenTemplateIdIsNull()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Template(null!);
 
@@ -28,7 +28,7 @@ internal sealed class SendEmailRequestBuilderTests_Template
     [Test]
     public void Template_ShouldThrowArgumentNullException_WhenTemplateIdIsEmpty()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Template(string.Empty);
 
@@ -38,7 +38,7 @@ internal sealed class SendEmailRequestBuilderTests_Template
     [Test]
     public void Template_ShouldAssignTemplateProperly()
     {
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .Template(_templateId);
 
@@ -50,7 +50,7 @@ internal sealed class SendEmailRequestBuilderTests_Template
     {
         var otherTemplate = "<ID2>";
 
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .Template(_templateId)
             .Template(otherTemplate);

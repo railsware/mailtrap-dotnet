@@ -1,8 +1,8 @@
 ﻿namespace Mailtrap.UnitTests.Emails.Requests;
 
 
-[TestFixture(TestOf = typeof(SendEmailRequestBuilder))]
-internal sealed class SendEmailRequestBuilderTests_TemplateVariables
+[TestFixture(TestOf = typeof(EmailRequestBuilder))]
+internal sealed class EmailRequestBuilderTests_TemplateVariables
 {
     private object _templateVars { get; } = new();
 
@@ -10,7 +10,7 @@ internal sealed class SendEmailRequestBuilderTests_TemplateVariables
     [Test]
     public void TemplateVariables_ShouldThrowArgumentNullException_WhenRequestIsNull()
     {
-        var act = () => SendEmailRequestBuilder.TemplateVariables(null!, _templateVars);
+        var act = () => EmailRequestBuilder.TemplateVariables<EmailRequest>(null!, _templateVars);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -18,7 +18,7 @@ internal sealed class SendEmailRequestBuilderTests_TemplateVariables
     [Test]
     public void TemplateVariables_ShouldNotThrowException_WhenTemplateVariablesIsNull()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.TemplateVariables(null);
 
@@ -28,7 +28,7 @@ internal sealed class SendEmailRequestBuilderTests_TemplateVariables
     [Test]
     public void TemplateVariables_ShouldAssignTemplateVariablesProperly()
     {
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .TemplateVariables(_templateVars);
 
@@ -40,7 +40,7 @@ internal sealed class SendEmailRequestBuilderTests_TemplateVariables
     {
         var otherTemplateVariables = new object();
 
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .TemplateVariables(_templateVars)
             .TemplateVariables(otherTemplateVariables);

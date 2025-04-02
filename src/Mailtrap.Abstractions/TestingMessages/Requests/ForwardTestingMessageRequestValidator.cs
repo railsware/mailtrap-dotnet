@@ -1,4 +1,4 @@
-﻿namespace Mailtrap.TestingMessages.Validators;
+﻿namespace Mailtrap.TestingMessages.Requests;
 
 
 internal sealed class ForwardTestingMessageRequestValidator : AbstractValidator<ForwardTestingMessageRequest>

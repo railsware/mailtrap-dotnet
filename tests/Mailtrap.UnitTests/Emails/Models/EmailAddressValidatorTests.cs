@@ -1,4 +1,4 @@
-﻿namespace Mailtrap.UnitTests.Emails.Validators;
+﻿namespace Mailtrap.UnitTests.Emails.Models;
 
 
 [TestFixture]
@@ -25,7 +25,7 @@ internal sealed class EmailAddressValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenDisplayNameisEmpty()
+    public void Validation_ShouldNotFail_WhenDisplayNameIsEmpty()
     {
         var recipient = new EmailAddress("john.doe@domain.com");
 

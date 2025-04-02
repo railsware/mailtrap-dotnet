@@ -1,8 +1,8 @@
 ﻿namespace Mailtrap.UnitTests.Emails.Requests;
 
 
-[TestFixture(TestOf = typeof(SendEmailRequestBuilder))]
-internal sealed class SendEmailRequestBuilderTests_ReplyTo
+[TestFixture(TestOf = typeof(EmailRequestBuilder))]
+internal sealed class EmailRequestBuilderTests_ReplyTo
 {
     private string ReplyToEmail { get; } = "reply.to@domain.com";
     private string ReplyToDisplayName { get; } = "Reply To";
@@ -14,7 +14,7 @@ internal sealed class SendEmailRequestBuilderTests_ReplyTo
     [Test]
     public void ReplyTo_ShouldThrowArgumentNullException_WhenRequestIsNull()
     {
-        var act = () => SendEmailRequestBuilder.ReplyTo(null!, _replyTo);
+        var act = () => EmailRequestBuilder.ReplyTo<EmailRequest>(null!, _replyTo);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -22,7 +22,7 @@ internal sealed class SendEmailRequestBuilderTests_ReplyTo
     [Test]
     public void ReplyTo_ShouldAssignReplyToProperly_WhenNull()
     {
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .ReplyTo(null);
 
@@ -32,7 +32,7 @@ internal sealed class SendEmailRequestBuilderTests_ReplyTo
     [Test]
     public void ReplyTo_ShouldAssignReplyToProperly()
     {
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .ReplyTo(_replyTo);
 
@@ -44,7 +44,7 @@ internal sealed class SendEmailRequestBuilderTests_ReplyTo
     {
         var otherReplyTo = new EmailAddress("replyTo2@domain.com", "Reply To 2");
 
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .ReplyTo(_replyTo)
             .ReplyTo(otherReplyTo);
@@ -60,9 +60,9 @@ internal sealed class SendEmailRequestBuilderTests_ReplyTo
     [Test]
     public void ReplyTo_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
-        var act = () => SendEmailRequestBuilder.ReplyTo(null!, ReplyToEmail);
+        var act = () => EmailRequestBuilder.ReplyTo<EmailRequest>(null!, ReplyToEmail);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -70,7 +70,7 @@ internal sealed class SendEmailRequestBuilderTests_ReplyTo
     [Test]
     public void ReplyTo_ShouldThrowArgumentNullException_WhenReplyToEmailIsNull()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.ReplyTo(null!, ReplyToDisplayName);
 
@@ -80,7 +80,7 @@ internal sealed class SendEmailRequestBuilderTests_ReplyTo
     [Test]
     public void ReplyTo_ShouldThrowArgumentNullException_WhenReplyToEmailIsEmpty()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.ReplyTo(string.Empty, ReplyToDisplayName);
 
@@ -90,7 +90,7 @@ internal sealed class SendEmailRequestBuilderTests_ReplyTo
     [Test]
     public void ReplyTo_ShouldNotThrowException_WhenReplyToDisplayNameIsNull()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.ReplyTo(ReplyToEmail, null);
 
@@ -100,7 +100,7 @@ internal sealed class SendEmailRequestBuilderTests_ReplyTo
     [Test]
     public void ReplyTo_ShouldNotThrowException_WhenReplyToDisplayNameIsEmpty()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.ReplyTo(ReplyToEmail, string.Empty);
 
@@ -110,7 +110,7 @@ internal sealed class SendEmailRequestBuilderTests_ReplyTo
     [Test]
     public void ReplyTo_ShouldInitializeReplyToProperly_WhenOnlyEmailProvided()
     {
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .ReplyTo(ReplyToEmail);
 
@@ -122,7 +122,7 @@ internal sealed class SendEmailRequestBuilderTests_ReplyTo
     [Test]
     public void ReplyTo_ShouldInitializeReplyToProperly_WhenFullInfoProvided()
     {
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .ReplyTo(ReplyToEmail, ReplyToDisplayName);
 
@@ -136,7 +136,7 @@ internal sealed class SendEmailRequestBuilderTests_ReplyTo
     {
         var otherReplyToEmail = "replyTo2@domain.com";
 
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .ReplyTo(_replyTo)
             .ReplyTo(otherReplyToEmail);

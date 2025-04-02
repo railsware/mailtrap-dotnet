@@ -1,8 +1,8 @@
 ﻿namespace Mailtrap.UnitTests.Emails.Requests;
 
 
-[TestFixture(TestOf = typeof(SendEmailRequestBuilder))]
-internal sealed class SendEmailRequestBuilderTests_TextBody
+[TestFixture(TestOf = typeof(EmailRequestBuilder))]
+internal sealed class EmailRequestBuilderTests_TextBody
 {
     private string _text { get; } = "Some text";
 
@@ -10,7 +10,7 @@ internal sealed class SendEmailRequestBuilderTests_TextBody
     [Test]
     public void Text_ShouldThrowArgumentNullException_WhenRequestIsNull()
     {
-        var act = () => SendEmailRequestBuilder.Text(null!, _text);
+        var act = () => EmailRequestBuilder.Text<EmailRequest>(null!, _text);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -18,7 +18,7 @@ internal sealed class SendEmailRequestBuilderTests_TextBody
     [Test]
     public void Text_ShouldNotThrowException_WhenTextIsNull()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Text(null!);
 
@@ -28,7 +28,7 @@ internal sealed class SendEmailRequestBuilderTests_TextBody
     [Test]
     public void Text_ShouldNotThrowException_WhenTextIsEmpty()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Text(string.Empty);
 
@@ -38,7 +38,7 @@ internal sealed class SendEmailRequestBuilderTests_TextBody
     [Test]
     public void Text_ShouldAssignTextBodyProperly()
     {
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .Text(_text);
 
@@ -50,7 +50,7 @@ internal sealed class SendEmailRequestBuilderTests_TextBody
     {
         var otherText = "Updated Text";
 
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .Text(_text)
             .Text(otherText);

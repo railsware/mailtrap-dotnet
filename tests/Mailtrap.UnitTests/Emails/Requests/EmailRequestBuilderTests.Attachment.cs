@@ -1,8 +1,8 @@
 ﻿namespace Mailtrap.UnitTests.Emails.Requests;
 
 
-[TestFixture(TestOf = typeof(SendEmailRequestBuilder))]
-internal sealed class SendEmailRequestBuilderTests_Attachment
+[TestFixture(TestOf = typeof(EmailRequestBuilder))]
+internal sealed class EmailRequestBuilderTests_Attachment
 {
     private string Content { get; } = "Attachment Content";
     private string FileName { get; } = "filename.ext";
@@ -16,7 +16,7 @@ internal sealed class SendEmailRequestBuilderTests_Attachment
     [Test]
     public void Attach_ShouldThrowArgumentNullException_WhenRequestIsNull()
     {
-        var act = () => SendEmailRequestBuilder.Attach(null!, _attachment1);
+        var act = () => EmailRequestBuilder.Attach<EmailRequest>(null!, _attachment1);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -24,7 +24,7 @@ internal sealed class SendEmailRequestBuilderTests_Attachment
     [Test]
     public void Attach_ShouldThrowArgumentNullException_WhenParamsIsNull()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Attach(null!);
 
@@ -34,7 +34,7 @@ internal sealed class SendEmailRequestBuilderTests_Attachment
     [Test]
     public void Attach_ShouldNotThrowException_WhenParamsIsEmpty()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Attach([]);
 
@@ -75,9 +75,9 @@ internal sealed class SendEmailRequestBuilderTests_Attachment
     }
 
 
-    private static SendEmailRequest Attach_CreateAndValidate(params Attachment[] attachments)
+    private static EmailRequest Attach_CreateAndValidate(params Attachment[] attachments)
     {
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .Attach(attachments);
 
@@ -97,9 +97,9 @@ internal sealed class SendEmailRequestBuilderTests_Attachment
     [Test]
     public void Attach_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
-        var act = () => SendEmailRequestBuilder.Attach(null!, Content, FileName);
+        var act = () => EmailRequestBuilder.Attach<EmailRequest>(null!, Content, FileName);
 
         act.Should().Throw<ArgumentNullException>();
     }
@@ -107,7 +107,7 @@ internal sealed class SendEmailRequestBuilderTests_Attachment
     [Test]
     public void Attach_ShouldThrowArgumentNullException_WhenContentIsNull()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Attach(null!, FileName);
 
@@ -117,7 +117,7 @@ internal sealed class SendEmailRequestBuilderTests_Attachment
     [Test]
     public void Attach_ShouldThrowArgumentNullException_WhenContentIsEmpty()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Attach(string.Empty, FileName);
 
@@ -127,7 +127,7 @@ internal sealed class SendEmailRequestBuilderTests_Attachment
     [Test]
     public void Attach_ShouldThrowArgumentNullException_WhenFileNameIsNull()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Attach(Content, null!);
 
@@ -137,7 +137,7 @@ internal sealed class SendEmailRequestBuilderTests_Attachment
     [Test]
     public void Attach_ShouldThrowArgumentNullException_WhenFileNameIsEmpty()
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Attach(Content, string.Empty);
 
@@ -149,7 +149,7 @@ internal sealed class SendEmailRequestBuilderTests_Attachment
         [Values(null, "")] string? mimeType,
         [Values(null, "")] string? contentId)
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Attach(Content, FileName, null, mimeType, contentId);
 
@@ -161,7 +161,7 @@ internal sealed class SendEmailRequestBuilderTests_Attachment
         [Values(null, "")] string? mimeType,
         [Values(null, "")] string? contentId)
     {
-        var request = SendEmailRequest.Create();
+        var request = EmailRequest.Create();
 
         var act = () => request.Attach(Content, FileName, DispositionType.Inline, mimeType, contentId);
 
@@ -171,7 +171,7 @@ internal sealed class SendEmailRequestBuilderTests_Attachment
     [Test]
     public void Attach_ShouldAddAttachmentToCollectionAndInitPropertiesCorrectly_WhenOnlyRequiredParametersSpecified()
     {
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .Attach(Content, FileName);
 
@@ -192,7 +192,7 @@ internal sealed class SendEmailRequestBuilderTests_Attachment
         var mimeType = MediaTypeNames.Image.Png;
         var contentId = "<ID>";
 
-        var request = SendEmailRequest
+        var request = EmailRequest
             .Create()
             .Attach(Content, FileName, disposition, mimeType, contentId);
 
