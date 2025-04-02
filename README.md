@@ -13,7 +13,7 @@ This client allows you to quickly and easily integrate your .NET application wit
 The following few simple steps will bring Mailtrap API functionality into your .NET project.
 
 ### Prerequisites
-- Please ensure your project targets .NET implementation which supports [**.NET Standard 2.0**](https://dotnet.microsoft.com/platform/dotnet-standard#versions) specification.
+- Please ensure your project targets .NET implementation which supports [.NET Standard 2.0](https://dotnet.microsoft.com/platform/dotnet-standard#versions) specification.
 
 - Register new or log into existing account at [mailtrap.io](https://mailtrap.io/register/signup?ref=maitrap-dotnet)
 
@@ -115,9 +115,9 @@ Please visit [Documentation Portal](https://railsware.github.io/mailtrap-dotnet/
 A bunch of examples is available [here](https://github.com/railsware/mailtrap-dotnet/tree/main/examples).
 
 
-<!-- ## Contributing
+## Contributing
 We believe in the power of OSS and welcome any contributions to the library.  
-Please refer to [Contributing Guide](https://github.com/railsware/mailtrap-dotnet/tree/main?tab=contrib-ov-file#readme) for details. -->
+Please refer to [Contributing Guide](CONTRIBUTING.md) for details.
 
 ## License
-Licensed under the [MIT License](https://github.com/railsware/mailtrap-dotnet/tree/main?tab=MIT-1-ov-file#readme).
+Licensed under the [MIT License](LICENSE.md).

@@ -8,7 +8,7 @@ The following few simple steps will bring Mailtrap API functionality into your .
 
 
 ## Prerequisites
-Please ensure your project targets .NET implementation which supports [**.NET Standard 2.0**](https://dotnet.microsoft.com/platform/dotnet-standard#versions) specification.
+Please ensure your project targets .NET implementation which supports [.NET Standard 2.0](https://dotnet.microsoft.com/platform/dotnet-standard#versions) specification.
 
 
 ## Setup
