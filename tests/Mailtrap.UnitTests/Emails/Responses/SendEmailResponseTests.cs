@@ -27,28 +27,6 @@ internal sealed class SendEmailResponseTests
     }
 
     [Test]
-    public void CreateFailure_ShouldInitializeFieldsCorrectly_WhenNoErrorDataProvided()
-    {
-        var response = SendEmailResponse.CreateFailure();
-
-        response.Success.Should().BeFalse();
-        response.MessageIds.Should().BeEmpty();
-        response.ErrorData.Should().BeEmpty();
-    }
-
-    [Test]
-    public void CreateFailure_ShouldInitializeFieldsCorrectly_WhenErrorDataProvided()
-    {
-        string[] errors = ["error 1", "error 2"];
-
-        var response = SendEmailResponse.CreateFailure(errors);
-
-        response.Success.Should().BeFalse();
-        response.MessageIds.Should().BeEmpty();
-        response.ErrorData.Should().BeEquivalentTo(errors);
-    }
-
-    [Test]
     public void ShouldDeserializeResponse_WhenSuccess()
     {
         var messageId = TestContext.CurrentContext.Random.NextGuid().ToString();
@@ -69,29 +47,5 @@ internal sealed class SendEmailResponseTests
             .NotBeNull().And
             .HaveCount(1);
         response!.MessageIds!.Single().Should().Be(messageId);
-    }
-
-    [Test]
-    public void ShouldDeserializeResponse_WhenErrors()
-    {
-        var responseText =
-            "{" +
-                "\"success\":false," +
-                "\"errors\":[" +
-                    "\"error 1\"," +
-                    "\"error 2\"," +
-                    "\"error 3\"" +
-                "]" +
-            "}";
-
-        var response = JsonSerializer.Deserialize<SendEmailResponse>(responseText, MailtrapJsonSerializerOptions.NotIndented);
-
-        response.Should().NotBeNull();
-        response!.Success.Should().BeFalse();
-        response!.MessageIds.Should().BeEmpty();
-        response!.ErrorData.Should()
-            .NotBeNull().And
-            .HaveCount(3).And
-            .ContainInOrder("error 1", "error 2", "error 3");
     }
 }

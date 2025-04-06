@@ -2,9 +2,11 @@
 
 
 /// <summary>
-/// Mailtrap API client for sending emails.
+/// Base Mailtrap API client for sending emails.
 /// </summary>
-public interface IEmailClient : IRestResource
+public interface IEmailClient<TRequest, TResponse> : IRestResource
+    where TRequest : class
+    where TResponse : EmailResponse
 {
     /// <summary>
     /// Sends email, represented by the <paramref name="request"/>, and returns send operation result.
@@ -19,7 +21,7 @@ public interface IEmailClient : IRestResource
     /// </param>
     /// 
     /// <returns>
-    /// <see cref="SendEmailResponse"/> instance with response data.
+    /// <typeparamref name="TResponse"/> instance with response data.
     /// </returns>
     ///
     /// <exception cref="ArgumentNullException">
@@ -54,5 +56,5 @@ public interface IEmailClient : IRestResource
     /// Request is checked for validity before send.<br />
     /// <see cref="ArgumentException"/> is thrown if validation fails.
     /// </remarks>
-    public Task<SendEmailResponse> Send(SendEmailRequest request, CancellationToken cancellationToken = default);
+    public Task<TResponse> Send(TRequest request, CancellationToken cancellationToken = default);
 }

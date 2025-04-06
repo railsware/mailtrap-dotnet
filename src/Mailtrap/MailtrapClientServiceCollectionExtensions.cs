@@ -138,7 +138,7 @@ public static class MailtrapClientServiceCollectionExtensions
         services.TryAddSingleton<IEmailClientEndpointProvider, EmailClientEndpointProvider>();
         services.TryAddSingleton<IEmailClientFactory, EmailClientFactory>();
 
-        services.TryAddTransient(services => services.GetRequiredService<IEmailClientFactory>().CreateDefault());
+        services.TryAddTransient(services => services.GetRequiredService<IEmailClientFactory>().CreateDefaultSend());
 
         services.TryAddTransient<IMailtrapClient, MailtrapClient>();
 

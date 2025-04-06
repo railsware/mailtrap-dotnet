@@ -9,7 +9,8 @@ internal sealed class MailtrapClient : RestResource, IMailtrapClient
     private const string AccountsSegment = "accounts";
 
     private readonly IEmailClientFactory _emailClientFactory;
-    private readonly IEmailClient _defaultEmailClient;
+    private readonly ISendEmailClient _defaultSendEmailClient;
+    private readonly IBatchEmailClient _defaultBatchEmailClient;
 
 
     /// <summary>
@@ -25,21 +26,28 @@ internal sealed class MailtrapClient : RestResource, IMailtrapClient
         Ensure.NotNull(emailClientFactory, nameof(emailClientFactory));
 
         _emailClientFactory = emailClientFactory;
-        _defaultEmailClient = emailClientFactory.CreateDefault();
+        _defaultSendEmailClient = emailClientFactory.CreateDefaultSend();
+        _defaultBatchEmailClient = emailClientFactory.CreateDefaultBatch();
     }
 
 
     /// <inheritdoc/>
-    public IEmailClient Email() => _defaultEmailClient;
+    public ISendEmailClient Email() => _defaultSendEmailClient;
 
     /// <inheritdoc/>
-    public IEmailClient Transactional() => _emailClientFactory.CreateTransactional();
+    public IBatchEmailClient BatchEmail() => _defaultBatchEmailClient;
 
     /// <inheritdoc/>
-    public IEmailClient Bulk() => _emailClientFactory.CreateBulk();
+    public ISendEmailClient Transactional() => _emailClientFactory.CreateTransactional();
 
     /// <inheritdoc/>
-    public IEmailClient Test(long inboxId) => _emailClientFactory.CreateTest(inboxId);
+    public ISendEmailClient Bulk() => _emailClientFactory.CreateBulk();
+
+    /// <inheritdoc/>
+    public ISendEmailClient Test(long inboxId) => _emailClientFactory.CreateTest(inboxId);
+
+    /// <inheritdoc/>
+    public IBatchEmailClient Batch(long inboxId) => _emailClientFactory.CreateBatch(inboxId);
 
 
     /// <inheritdoc/>

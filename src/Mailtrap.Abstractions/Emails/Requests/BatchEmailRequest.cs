@@ -4,7 +4,7 @@
 /// <summary>
 /// Represents request object used to send email batch.
 /// </summary>
-public sealed record BatchSendEmailRequest : IValidatable
+public sealed record BatchEmailRequest : IValidatable
 {
     /// <summary>
     /// Gets or sets and object with general properties of all emails in the batch.<br />
@@ -40,7 +40,7 @@ public sealed record BatchSendEmailRequest : IValidatable
     /// <inheritdoc />
     public ValidationResult Validate()
     {
-        return BatchSendEmailRequestValidator.Instance
+        return BatchEmailRequestValidator.Instance
             .Validate(this)
             .ToMailtrapValidationResult();
     }

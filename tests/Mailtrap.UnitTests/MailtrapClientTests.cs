@@ -43,9 +43,9 @@ internal sealed class MailtrapClientTests
     {
         // Arrange
         var emailClientFactoryMock = new Mock<IEmailClientFactory>();
-        var emailClient = Mock.Of<IEmailClient>();
+        var emailClient = Mock.Of<ISendEmailClient>();
         emailClientFactoryMock
-            .Setup(f => f.CreateDefault())
+            .Setup(f => f.CreateDefaultSend())
             .Returns(emailClient);
         var client = new MailtrapClient(emailClientFactoryMock.Object, _commandFactoryMock);
 
@@ -61,7 +61,7 @@ internal sealed class MailtrapClientTests
     {
         // Arrange
         var emailClientFactoryMock = new Mock<IEmailClientFactory>();
-        var emailClient = Mock.Of<IEmailClient>();
+        var emailClient = Mock.Of<ISendEmailClient>();
         emailClientFactoryMock
             .Setup(f => f.CreateTransactional())
             .Returns(emailClient);
@@ -79,7 +79,7 @@ internal sealed class MailtrapClientTests
     {
         // Arrange
         var emailClientFactoryMock = new Mock<IEmailClientFactory>();
-        var emailClient = Mock.Of<IEmailClient>();
+        var emailClient = Mock.Of<ISendEmailClient>();
         emailClientFactoryMock
             .Setup(f => f.CreateBulk())
             .Returns(emailClient);
@@ -98,7 +98,7 @@ internal sealed class MailtrapClientTests
         // Arrange
         var emailClientFactoryMock = new Mock<IEmailClientFactory>();
         var inboxId = 123;
-        var emailClient = Mock.Of<IEmailClient>();
+        var emailClient = Mock.Of<ISendEmailClient>();
         emailClientFactoryMock
             .Setup(f => f.CreateTest(inboxId))
             .Returns(emailClient);

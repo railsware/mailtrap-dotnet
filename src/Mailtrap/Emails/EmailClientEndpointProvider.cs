@@ -7,6 +7,7 @@
 internal sealed class EmailClientEndpointProvider : IEmailClientEndpointProvider
 {
     private const string SendEmailSegment = "send";
+    private const string BatchEmailSegment = "batch";
 
 
     public Uri GetSendRequestUri(bool isBulk, long? inboxId)
@@ -20,5 +21,14 @@ internal sealed class EmailClientEndpointProvider : IEmailClientEndpointProvider
         var result = rootUrl.Append(UrlSegments.ApiRootSegment, SendEmailSegment);
 
         return inboxId is null ? result : result.Append(inboxId.Value);
+    }
+
+    public Uri GetBatchRequestUri(long? inboxId)
+    {
+        Ensure.NotNull(inboxId, nameof(inboxId));
+
+        return Endpoints.TestDefaultUrl
+            .Append(UrlSegments.ApiRootSegment, BatchEmailSegment)
+            .Append(inboxId!.Value);
     }
 }

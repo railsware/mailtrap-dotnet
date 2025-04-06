@@ -54,7 +54,7 @@ internal sealed class SendEmailIntegrationTests
 
         using var services = CreateServiceProvider(testCase.Config, testCase.SendUri, request, mockHttp, responseContent);
 
-        var client = services.GetRequiredService<IEmailClient>();
+        var client = services.GetRequiredService<ISendEmailClient>();
 
 
         // Act

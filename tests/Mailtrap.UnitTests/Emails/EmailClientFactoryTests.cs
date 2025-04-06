@@ -69,11 +69,11 @@ internal sealed class EmailClientFactoryTests
             Mock.Of<IRestResourceCommandFactory>());
 
         // Act
-        var result = emailClientFactory.Create(isBulk, inboxId);
+        var result = emailClientFactory.CreateSend(isBulk, inboxId);
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<EmailClient>();
+        result.Should().BeOfType<SendEmailClient>();
         result.ResourceUri.Should().Be(sendUri);
     }
 
@@ -95,11 +95,11 @@ internal sealed class EmailClientFactoryTests
             Mock.Of<IRestResourceCommandFactory>());
 
         // Act
-        var result = emailClientFactory.CreateDefault();
+        var result = emailClientFactory.CreateDefaultSend();
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<EmailClient>();
+        result.Should().BeOfType<SendEmailClient>();
         result.ResourceUri.Should().Be(sendUri);
     }
 
@@ -125,7 +125,7 @@ internal sealed class EmailClientFactoryTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<EmailClient>();
+        result.Should().BeOfType<SendEmailClient>();
         result.ResourceUri.Should().Be(sendUri);
     }
 
@@ -151,7 +151,7 @@ internal sealed class EmailClientFactoryTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<EmailClient>();
+        result.Should().BeOfType<SendEmailClient>();
         result.ResourceUri.Should().Be(sendUri);
     }
 
@@ -177,7 +177,7 @@ internal sealed class EmailClientFactoryTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<EmailClient>();
+        result.Should().BeOfType<SendEmailClient>();
         result.ResourceUri.Should().Be(sendUri);
     }
 

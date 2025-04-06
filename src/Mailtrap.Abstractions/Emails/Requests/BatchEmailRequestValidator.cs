@@ -1,18 +1,19 @@
 ﻿namespace Mailtrap.Emails.Requests;
 
 
-internal sealed class BatchSendEmailRequestValidator : AbstractValidator<BatchSendEmailRequest>
+internal sealed class BatchEmailRequestValidator : AbstractValidator<BatchEmailRequest>
 {
-    public static BatchSendEmailRequestValidator Instance { get; } = new();
+    public static BatchEmailRequestValidator Instance { get; } = new();
 
-    public BatchSendEmailRequestValidator()
+    public BatchEmailRequestValidator()
     {
+        ClassLevelCascadeMode = CascadeMode.Stop;
+
         RuleFor(r => r.Requests)
             .NotEmpty();
 
         RuleFor(r => r.Requests.Count)
-            .LessThanOrEqualTo(500)
-            .When(r => r.Requests is not null);
+            .LessThanOrEqualTo(500);
 
         RuleForEach(r => r.Requests)
             .Cascade(CascadeMode.Stop)
