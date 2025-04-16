@@ -26,28 +26,34 @@ internal sealed class EmailClientFactory : IEmailClientFactory
     }
 
 
-    public ISendEmailClient CreateSend(bool isBulk = false, long? inboxId = default)
+    public ISendEmailClient Create(bool isBulk = false, long? inboxId = default)
     {
-        var sendUri = _emailClientEndpointProvider.GetSendRequestUri(isBulk, inboxId);
+        var sendUri = _emailClientEndpointProvider.GetRequestUri(false, isBulk, inboxId);
 
         return new SendEmailClient(_restResourceCommandFactory, sendUri);
     }
 
-    public ISendEmailClient CreateDefaultSend() => CreateSend(_clientConfiguration.UseBulkApi, _clientConfiguration.InboxId);
+    public ISendEmailClient CreateDefault() => Create(_clientConfiguration.UseBulkApi, _clientConfiguration.InboxId);
 
-    public ISendEmailClient CreateTransactional() => CreateSend();
+    public ISendEmailClient CreateTransactional() => Create();
 
-    public ISendEmailClient CreateBulk() => CreateSend(isBulk: true);
+    public ISendEmailClient CreateBulk() => Create(isBulk: true);
 
-    public ISendEmailClient CreateTest(long inboxId) => CreateSend(inboxId: inboxId);
+    public ISendEmailClient CreateTest(long inboxId) => Create(inboxId: inboxId);
 
 
-    public IBatchEmailClient CreateBatch(long inboxId)
+    public IBatchEmailClient CreateBatch(bool isBulk = false, long? inboxId = null)
     {
-        var batchUri = _emailClientEndpointProvider.GetBatchRequestUri(inboxId);
+        var batchUri = _emailClientEndpointProvider.GetRequestUri(true, isBulk, inboxId);
 
         return new BatchEmailClient(_restResourceCommandFactory, batchUri);
     }
 
-    public IBatchEmailClient CreateDefaultBatch() => CreateBatch(_clientConfiguration.InboxId);
+    public IBatchEmailClient CreateBatchDefault() => CreateBatch(_clientConfiguration.UseBulkApi, _clientConfiguration.InboxId);
+
+    public IBatchEmailClient CreateBatchTransactional() => CreateBatch();
+
+    public IBatchEmailClient CreateBatchBulk() => CreateBatch(isBulk: true);
+
+    public IBatchEmailClient CreateBatchTest(long inboxId) => CreateBatch(inboxId: inboxId);
 }

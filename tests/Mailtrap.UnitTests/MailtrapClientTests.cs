@@ -45,7 +45,7 @@ internal sealed class MailtrapClientTests
         var emailClientFactoryMock = new Mock<IEmailClientFactory>();
         var emailClient = Mock.Of<ISendEmailClient>();
         emailClientFactoryMock
-            .Setup(f => f.CreateDefaultSend())
+            .Setup(f => f.CreateDefault())
             .Returns(emailClient);
         var client = new MailtrapClient(emailClientFactoryMock.Object, _commandFactoryMock);
 
@@ -146,5 +146,79 @@ internal sealed class MailtrapClientTests
 
         result.ResourceUri.Should()
             .Be(client.ResourceUri.Append(UrlSegmentsTestConstants.AccountsSegment).Append(accountId));
+    }
+
+
+    [Test]
+    public void BatchEmail_ShouldReturnDefaultBatchEmailClient()
+    {
+        // Arrange
+        var emailClientFactoryMock = new Mock<IEmailClientFactory>();
+        var emailClient = Mock.Of<IBatchEmailClient>();
+        emailClientFactoryMock
+            .Setup(f => f.CreateBatchDefault())
+            .Returns(emailClient);
+        var client = new MailtrapClient(emailClientFactoryMock.Object, _commandFactoryMock);
+
+        // Act
+        var result = client.BatchEmail();
+
+        // Assert
+        result.Should().BeSameAs(emailClient);
+    }
+
+    [Test]
+    public void BatchTransactional_ShouldReturnNewBatchEmailClient()
+    {
+        // Arrange
+        var emailClientFactoryMock = new Mock<IEmailClientFactory>();
+        var emailClient = Mock.Of<IBatchEmailClient>();
+        emailClientFactoryMock
+            .Setup(f => f.CreateBatchTransactional())
+            .Returns(emailClient);
+        var client = new MailtrapClient(emailClientFactoryMock.Object, _commandFactoryMock);
+
+        // Act
+        var result = client.BatchTransactional();
+
+        // Assert
+        result.Should().BeSameAs(emailClient);
+    }
+
+    [Test]
+    public void BatchBulk_ShouldReturnNewBatchBulkEmailClient()
+    {
+        // Arrange
+        var emailClientFactoryMock = new Mock<IEmailClientFactory>();
+        var emailClient = Mock.Of<IBatchEmailClient>();
+        emailClientFactoryMock
+            .Setup(f => f.CreateBatchBulk())
+            .Returns(emailClient);
+        var client = new MailtrapClient(emailClientFactoryMock.Object, _commandFactoryMock);
+
+        // Act
+        var result = client.BatchBulk();
+
+        // Assert
+        result.Should().BeSameAs(emailClient);
+    }
+
+    [Test]
+    public void BatchTest_ShouldReturnNewBatchEmailClientWithInboxId()
+    {
+        // Arrange
+        var emailClientFactoryMock = new Mock<IEmailClientFactory>();
+        var inboxId = 123;
+        var emailClient = Mock.Of<IBatchEmailClient>();
+        emailClientFactoryMock
+            .Setup(f => f.CreateBatchTest(inboxId))
+            .Returns(emailClient);
+        var client = new MailtrapClient(emailClientFactoryMock.Object, _commandFactoryMock);
+
+        // Act
+        var result = client.BatchTest(inboxId);
+
+        // Assert
+        result.Should().BeSameAs(emailClient);
     }
 }

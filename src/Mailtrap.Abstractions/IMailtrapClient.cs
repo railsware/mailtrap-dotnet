@@ -6,6 +6,8 @@
 /// </summary>
 public interface IMailtrapClient : IRestResource
 {
+    #region Account
+
     /// <summary>
     /// Gets account collection resource.
     /// </summary>
@@ -28,6 +30,12 @@ public interface IMailtrapClient : IRestResource
     /// </returns>
     public IAccountResource Account(long accountId);
 
+    #endregion
+
+
+
+    #region Regular Emails
+
     /// <summary>
     /// <para>
     /// Gets default email client.
@@ -41,15 +49,6 @@ public interface IMailtrapClient : IRestResource
     /// <see cref="ISendEmailClient"/> instance that can be used to send emails to the API, specified by configuration.
     /// </returns>
     public ISendEmailClient Email();
-
-    /// <summary>
-    /// Gets default batch email client.
-    /// </summary>
-    /// 
-    /// <returns>
-    /// <see cref="IBatchEmailClient"/> instance that can be used to send batch emails to the inbox, specified by configuration.
-    /// </returns>
-    public IBatchEmailClient BatchEmail();
 
     /// <summary>
     /// Factory method to create transactional email client.
@@ -82,16 +81,56 @@ public interface IMailtrapClient : IRestResource
     /// </returns>
     public ISendEmailClient Test(long inboxId);
 
+    #endregion
+
+
+
+    #region Batch Emails
+
     /// <summary>
-    /// Factory method to create batch email client.
+    /// <para>
+    /// Gets default batch email client.
+    /// </para>
+    /// <para>
+    /// Type of the client (transactional, bulk or test) is defined by configuration.
+    /// </para>
+    /// </summary>
+    /// 
+    /// <returns>
+    /// <see cref="IBatchEmailClient"/> instance that can be used to send batch emails to the API, specified by configuration.
+    /// </returns>
+    public IBatchEmailClient BatchEmail();
+
+    /// <summary>
+    /// Factory method to create batch transactional email client.
+    /// </summary>
+    ///
+    /// <returns>
+    /// New <see cref="IBatchEmailClient"/> instance that can be used to send transactional emails in a batch.
+    /// </returns>
+    public IBatchEmailClient BatchTransactional();
+
+    /// <summary>
+    /// Factory method to create batch bulk email client.
+    /// </summary>
+    /// 
+    /// <returns>
+    /// New <see cref="IBatchEmailClient"/> instance that can be used to send bulk emails in a batch.
+    /// </returns>
+    public IBatchEmailClient BatchBulk();
+
+    /// <summary>
+    /// Factory method to create batch test email client.
     /// </summary>
     ///
     /// <param name="inboxId">
-    /// ID of the inbox to send batch emails to.
+    /// ID of the inbox to send test emails to.
     /// </param>
     ///
     /// <returns>
-    /// New <see cref="IBatchEmailClient"/> instance that can be used to send batch emails to the specified <paramref name="inboxId"/>.
+    /// New <see cref="IBatchEmailClient"/> instance that can be used to send test emails to the specified <paramref name="inboxId"/> in a batch.
     /// </returns>
-    public IBatchEmailClient Batch(long inboxId);
+    public IBatchEmailClient BatchTest(long inboxId);
+
+    #endregion
 }

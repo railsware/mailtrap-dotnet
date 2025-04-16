@@ -26,16 +26,30 @@ internal sealed class MailtrapClient : RestResource, IMailtrapClient
         Ensure.NotNull(emailClientFactory, nameof(emailClientFactory));
 
         _emailClientFactory = emailClientFactory;
-        _defaultSendEmailClient = emailClientFactory.CreateDefaultSend();
-        _defaultBatchEmailClient = emailClientFactory.CreateDefaultBatch();
+        _defaultSendEmailClient = emailClientFactory.CreateDefault();
+        _defaultBatchEmailClient = emailClientFactory.CreateBatchDefault();
     }
 
 
-    /// <inheritdoc/>
-    public ISendEmailClient Email() => _defaultSendEmailClient;
+
+    #region Account
 
     /// <inheritdoc/>
-    public IBatchEmailClient BatchEmail() => _defaultBatchEmailClient;
+    public IAccountCollectionResource Accounts()
+        => new AccountCollectionResource(RestResourceCommandFactory, ResourceUri.Append(AccountsSegment));
+
+    /// <inheritdoc/>
+    public IAccountResource Account(long accountId)
+        => new AccountResource(RestResourceCommandFactory, ResourceUri.Append(AccountsSegment).Append(accountId));
+
+    #endregion
+
+
+
+    #region Regular Emails
+
+    /// <inheritdoc/>
+    public ISendEmailClient Email() => _defaultSendEmailClient;
 
     /// <inheritdoc/>
     public ISendEmailClient Transactional() => _emailClientFactory.CreateTransactional();
@@ -46,15 +60,23 @@ internal sealed class MailtrapClient : RestResource, IMailtrapClient
     /// <inheritdoc/>
     public ISendEmailClient Test(long inboxId) => _emailClientFactory.CreateTest(inboxId);
 
-    /// <inheritdoc/>
-    public IBatchEmailClient Batch(long inboxId) => _emailClientFactory.CreateBatch(inboxId);
+    #endregion
 
 
-    /// <inheritdoc/>
-    public IAccountCollectionResource Accounts()
-        => new AccountCollectionResource(RestResourceCommandFactory, ResourceUri.Append(AccountsSegment));
+
+    #region Batch Emails
 
     /// <inheritdoc/>
-    public IAccountResource Account(long accountId)
-        => new AccountResource(RestResourceCommandFactory, ResourceUri.Append(AccountsSegment).Append(accountId));
+    public IBatchEmailClient BatchEmail() => _defaultBatchEmailClient;
+
+    /// <inheritdoc/>
+    public IBatchEmailClient BatchTransactional() => _emailClientFactory.CreateBatchTransactional();
+
+    /// <inheritdoc/>
+    public IBatchEmailClient BatchBulk() => _emailClientFactory.CreateBatchBulk();
+
+    /// <inheritdoc/>
+    public IBatchEmailClient BatchTest(long inboxId) => _emailClientFactory.CreateBatchTest(inboxId);
+
+    #endregion
 }
