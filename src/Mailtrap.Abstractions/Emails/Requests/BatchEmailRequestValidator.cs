@@ -14,10 +14,5 @@ internal sealed class BatchEmailRequestValidator : AbstractValidator<BatchEmailR
 
         RuleFor(r => r.Requests.Count)
             .LessThanOrEqualTo(500);
-
-        RuleForEach(r => r.Requests)
-            .Cascade(CascadeMode.Stop)
-            .NotNull()
-            .SetValidator(SendEmailRequestValidator.Instance);
     }
 }
