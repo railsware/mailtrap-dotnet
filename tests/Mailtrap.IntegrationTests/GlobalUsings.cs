@@ -2,7 +2,6 @@ global using System.Globalization;
 global using System.Net;
 global using System.Net.Http.Json;
 global using System.Net.Mime;
-global using System.Text;
 global using System.Text.Json;
 global using Mailtrap.AccountAccesses.Models;
 global using Mailtrap.AccountAccesses.Requests;
