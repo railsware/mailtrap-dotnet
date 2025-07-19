@@ -1,8 +1,7 @@
 name: Build and Publish NuGet (GitHub)
 
 on:
-  workflow_dispatch:
-  push:
+  workflow_dispatch:  
   release:
     types: 
       - published
