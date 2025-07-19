@@ -25,8 +25,11 @@
     <PackageAssetsDirectory>$([MSBuild]::NormalizeDirectory('$(BaseDirectory)', 'assets'))</PackageAssetsDirectory>
 
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
-
     <EnablePackageValidation>true</EnablePackageValidation>
+  </PropertyGroup>
+
+  <PropertyGroup Label="MinVer Settings">
+    <MinVerTagPrefix>v</MinVerTagPrefix>
   </PropertyGroup>
 
   <ItemGroup>
