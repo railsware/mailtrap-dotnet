@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="Problem.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Core.Models;
+﻿namespace Mailtrap.Core.Models;
 
 
 internal sealed record Problem

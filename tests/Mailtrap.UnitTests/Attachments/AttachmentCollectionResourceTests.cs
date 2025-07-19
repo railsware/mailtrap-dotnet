@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="AttachmentCollectionResourceTests.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.UnitTests.Attachments;
+﻿namespace Mailtrap.UnitTests.Attachments;
 
 
 [TestFixture]

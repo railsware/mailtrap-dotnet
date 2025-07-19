@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SendEmailRequestBuilder.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Emails.Requests;
+﻿namespace Mailtrap.Emails.Requests;
 
 
 /// <summary>
@@ -87,6 +80,85 @@ public static class SendEmailRequestBuilder
         Ensure.NotNull(request, nameof(request));
 
         return request.From(new EmailAddress(email, displayName));
+    }
+
+    #endregion
+
+
+
+    #region Reply To
+
+    /// <summary>
+    /// Sets provided <paramref name="replyTo"/> address in the <paramref name="request"/>.
+    /// </summary>
+    ///
+    /// <param name="request">
+    /// <see cref="SendEmailRequest"/> instance to update.
+    /// </param>
+    ///
+    /// <param name="replyTo">
+    /// <see cref="EmailAddress"/> object to initialize request's <see cref="SendEmailRequest.ReplyTo"/> property.
+    /// </param>
+    ///
+    /// <returns>
+    /// Updated <see cref="SendEmailRequest"/> instance so subsequent calls can be chained.
+    /// </returns>
+    /// 
+    /// <exception cref="ArgumentNullException">
+    /// When <paramref name="request"/> is <see langword="null"/>.
+    /// </exception>
+    ///
+    /// <remarks>
+    /// Subsequent calls will override value that was set before (last wins).
+    /// </remarks>
+    public static SendEmailRequest ReplyTo(this SendEmailRequest request, EmailAddress? replyTo)
+    {
+        Ensure.NotNull(request, nameof(request));
+
+        request.ReplyTo = replyTo;
+
+        return request;
+    }
+
+    /// <summary>
+    /// Sets provided <paramref name="email"/> and <paramref name="displayName"/> as 'Reply To' address
+    /// in the <paramref name="request"/>.
+    /// </summary>
+    ///
+    /// <param name="request">
+    /// <inheritdoc cref="ReplyTo(SendEmailRequest, EmailAddress?)" path="/param[@name='request']"/>
+    /// </param>
+    ///
+    /// <param name="email">
+    /// <para>
+    /// 'Reply To' email address.
+    /// </para>
+    /// <para>
+    /// Required. Must be valid email address.
+    /// </para>
+    /// </param>
+    /// 
+    /// <param name="displayName">
+    /// Optional 'Reply To' display name.
+    /// </param>
+    ///
+    /// <returns>
+    /// <inheritdoc cref="ReplyTo(SendEmailRequest, EmailAddress?)" path="/returns"/>
+    /// </returns>
+    /// 
+    /// <exception cref="ArgumentNullException">
+    /// When <paramref name="request"/> is <see langword="null"/>.<br />
+    /// When <paramref name="email"/> is <see langword="null"/> or <see cref="string.Empty"/>.
+    /// </exception>
+    ///
+    /// <remarks>
+    /// <inheritdoc cref="ReplyTo(SendEmailRequest, EmailAddress?)" path="/remarks"/>
+    /// </remarks>
+    public static SendEmailRequest ReplyTo(this SendEmailRequest request, string email, string? displayName = default)
+    {
+        Ensure.NotNull(request, nameof(request));
+
+        return request.ReplyTo(new EmailAddress(email, displayName));
     }
 
     #endregion

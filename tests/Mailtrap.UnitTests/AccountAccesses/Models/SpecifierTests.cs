@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SpecifierTests.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.UnitTests.AccountAccesses.Models;
+﻿namespace Mailtrap.UnitTests.AccountAccesses.Models;
 
 
 [TestFixture]

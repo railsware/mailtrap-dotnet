@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="PermissionsResource.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Permissions;
+﻿namespace Mailtrap.Permissions;
 
 
 internal sealed class PermissionsResource : RestResource, IPermissionsResource

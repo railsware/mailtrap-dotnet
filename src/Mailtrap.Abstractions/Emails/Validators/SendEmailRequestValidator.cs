@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SendEmailRequestValidator.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Emails.Validators;
+﻿namespace Mailtrap.Emails.Validators;
 
 
 internal sealed class SendEmailRequestValidator : AbstractValidator<SendEmailRequest>
@@ -15,6 +8,10 @@ internal sealed class SendEmailRequestValidator : AbstractValidator<SendEmailReq
     public SendEmailRequestValidator()
     {
         RuleFor(r => r.From!).NotNull().SetValidator(EmailAddressValidator.Instance);
+
+        RuleFor(r => r.ReplyTo!)
+            .SetValidator(EmailAddressValidator.Instance)
+            .When(r => r.ReplyTo is not null);
 
         RuleFor(r => r.To).Must(r => r.Count is <= 1000);
         RuleForEach(r => r.To).SetValidator(EmailAddressValidator.Instance);

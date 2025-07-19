@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="IHttpRequestMessageFactory.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Core.Http;
+﻿namespace Mailtrap.Core.Http;
 
 
 /// <summary>

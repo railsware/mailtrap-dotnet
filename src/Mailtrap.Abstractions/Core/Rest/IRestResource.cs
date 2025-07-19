@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="IRestResource.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Core.Rest;
+﻿namespace Mailtrap.Core.Rest;
 
 
 /// <summary>
@@ -20,5 +13,5 @@ public interface IRestResource
     /// <value>
     /// Absolute URI of the resource.
     /// </value>
-    Uri ResourceUri { get; }
+    public Uri ResourceUri { get; }
 }

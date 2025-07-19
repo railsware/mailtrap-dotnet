@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="IMailtrapClientFactory.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap;
+﻿namespace Mailtrap;
 
 
 /// <summary>
@@ -33,5 +26,5 @@ public interface IMailtrapClientFactory : IDisposable
     /// <remarks>
     /// Each call to this method is guaranteed to return a new instance of <see cref="IMailtrapClient"/>.
     /// </remarks>
-    IMailtrapClient CreateClient();
+    public IMailtrapClient CreateClient();
 }

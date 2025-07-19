@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="AccountResourceTests.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-using AccountAccessResource = Mailtrap.AccountAccesses.AccountAccessResource;
+﻿using AccountAccessResource = Mailtrap.AccountAccesses.AccountAccessResource;
 
 
 namespace Mailtrap.UnitTests.Accounts;

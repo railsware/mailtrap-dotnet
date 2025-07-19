@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="IHttpClientProvider.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Core.Http;
+﻿namespace Mailtrap.Core.Http;
 
 
 internal interface IHttpClientProvider
@@ -24,5 +17,5 @@ internal interface IHttpClientProvider
     /// Meanwhile, consumers should not dispose it, since it <i>can</i> be a singleton
     /// and shared across calling parties.
     /// </remarks>
-    HttpClient Client { get; }
+    public HttpClient Client { get; }
 }

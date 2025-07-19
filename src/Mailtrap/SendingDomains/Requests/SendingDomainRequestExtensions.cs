@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SendingDomainRequestExtensions.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.SendingDomains.Requests;
+﻿namespace Mailtrap.SendingDomains.Requests;
 
 
 internal static class SendingDomainRequestExtensions

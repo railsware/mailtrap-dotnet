@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ForwardTestingMessageResponse.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.TestingMessages.Responses;
+﻿namespace Mailtrap.TestingMessages.Responses;
 
 
 /// <summary>

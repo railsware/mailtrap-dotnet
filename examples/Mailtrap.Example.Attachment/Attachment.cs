@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="Attachment.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-using Mailtrap;
+﻿using Mailtrap;
 using Mailtrap.Attachments;
 using Mailtrap.Attachments.Models;
 using Mailtrap.Core.Models;

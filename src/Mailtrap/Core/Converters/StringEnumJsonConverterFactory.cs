@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="StringEnumJsonConverterFactory.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
-namespace Mailtrap.Core.Converters;
+﻿namespace Mailtrap.Core.Converters;
 
 
 /// <summary>

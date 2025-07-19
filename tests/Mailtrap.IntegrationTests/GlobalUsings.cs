@@ -1,15 +1,7 @@
-// -----------------------------------------------------------------------
-// <copyright file="GlobalUsings.cs" company="Railsware Products Studio, LLC">
-// Copyright (c) Railsware Products Studio, LLC. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-
 global using System.Globalization;
 global using System.Net;
 global using System.Net.Http.Json;
 global using System.Net.Mime;
-global using System.Text;
 global using System.Text.Json;
 global using Mailtrap.AccountAccesses.Models;
 global using Mailtrap.AccountAccesses.Requests;
