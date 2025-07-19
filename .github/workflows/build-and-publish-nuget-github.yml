@@ -1,0 +1,54 @@
+name: Build and Publish NuGet (GitHub)
+
+on:
+  workflow_dispatch:
+  release:
+    types: 
+      - published
+
+# Limiting workflow concurrency
+concurrency: 
+  # Grouping by workflow, triggering event and ref name.
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: false
+  
+jobs:
+  # Building, testing and packing
+  build-test-pack:
+    uses: ./.github/workflows/build-and-pack-template.yml
+
+  # Publishing
+  publish:
+    name: Publish to NuGet (GitHub)
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    env:
+      PACKAGE_DIR: 'packages'
+      PACKAGE_SOURCE: 'https://nuget.pkg.github.com/railsware/index.json'
+
+    # Add a dependency to the build job
+    needs: build-test-pack
+
+    environment:
+      name: nuget-railsware
+
+    permissions:      
+      contents: read
+      packages: write
+
+    steps:
+      # https://github.com/marketplace/actions/download-a-build-artifact
+      - uses: actions/download-artifact@v4
+        with:
+          name: Packages
+          path: ${{ env.PACKAGE_DIR }}
+
+      - name: Publish NuGet Package
+        run: > 
+          dotnet nuget push "${{ env.PACKAGE_DIR }}*.nupkg"
+          --source ${{ env.PACKAGE_SOURCE }}
+          --api-key ${{ secrets.GITHUB_TOKEN }}
+          --skip-duplicate
+    

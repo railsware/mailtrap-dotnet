@@ -1,29 +1,15 @@
-name: Build and Publish NuGet
+name: Build and Pack NuGet
 
 on:
-  workflow_dispatch:
-  release:
-    types: 
-      - published
+  workflow_call: # Allows you to call this workflow from other workflows
 
-# Limiting workflow concurrency
-concurrency: 
-  # Grouping by workflow, triggering event and ref name.
-  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
-  cancel-in-progress: true
-  
 jobs:
-  
   # Building, testing and packing
-  build:
-    name: Build, Test and Pack
+  build-test-pack:
+    name: Build, Test and Pack NuGet
 
     runs-on: ubuntu-latest
     timeout-minutes: 15
-
-    # permissions:      
-    #   contents: read
-    #   packages: write
 
     env:
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
@@ -34,7 +20,6 @@ jobs:
       PACKAGE_DIR: './artifacts/packages/'
 
     strategy:
-      max-parallel: 1
       matrix:
         platform: [anycpu] 
         configuration: [Release]
@@ -102,37 +87,4 @@ jobs:
       with:
         name: Packages
         path: ${{ env.PACKAGE_DIR }}/*.*nupkg
-
-
-  # Publishing
-  publish:
-    name: Publish to NuGet
-
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-
-    env:
-      PACKAGE_DIR: 'packages'
-      PACKAGE_SOURCE: 'https://api.nuget.org/v3/index.json'
-
-    # Add a dependency to the build job
-    needs: build
-
-    environment:
-      name: nuget
-
-    steps:
-      # https://github.com/marketplace/actions/download-a-build-artifact
-      - uses: actions/download-artifact@v4
-        with:
-          name: Packages
-          path: ${{ env.PACKAGE_DIR }}
-
-      - name: Publish NuGet Package
-        run: > 
-          dotnet nuget push "${{ env.PACKAGE_DIR }}*.nupkg"
-          --source ${{ env.PACKAGE_SOURCE }}
-          --api-key ${{ secrets.NUGET_APIKEY }}
-          --skip-duplicate
-
     
