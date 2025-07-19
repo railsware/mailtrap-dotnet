@@ -16,6 +16,7 @@ jobs:
   # Building, testing and packing
   build-test-pack:
     uses: ./.github/workflows/build-and-pack-template.yml
+    name: Build, Test and Pack NuGet
 
   # Publishing
   publish:
@@ -47,7 +48,7 @@ jobs:
 
       - name: Publish NuGet Package
         run: > 
-          dotnet nuget push "${{ env.PACKAGE_DIR }}*.nupkg"
+          dotnet nuget push "${{ env.PACKAGE_DIR }}/*.nupkg"
           --source ${{ env.PACKAGE_SOURCE }}
           --api-key ${{ secrets.GITHUB_TOKEN }}
           --skip-duplicate

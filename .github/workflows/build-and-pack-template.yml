@@ -17,7 +17,7 @@ jobs:
       SOLUTION_FILE_PATH: './Mailtrap.sln'
       TEST_SETTINGS_FILE_PATH: './tests/tests.runsettings'
       TEST_RESULTS_DIR: './artifacts/test-results'
-      PACKAGE_DIR: './artifacts/packages/'
+      PACKAGE_DIR: './artifacts/packages'
 
     strategy:
       matrix:
