@@ -1,7 +1,7 @@
-name: Build and Publish NuGet (GitHub)
+name: Build and Publish NuGet (Public Feed)
 
 on:
-  workflow_dispatch:  
+  workflow_dispatch:
   release:
     types: 
       - published
@@ -20,24 +20,20 @@ jobs:
 
   # Publishing
   publish:
-    name: Publish to NuGet (GitHub)
+    name: Publish to NuGet
 
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
     env:
       PACKAGE_DIR: 'packages'
-      PACKAGE_SOURCE: 'https://nuget.pkg.github.com/railsware/index.json'
+      PACKAGE_SOURCE: 'https://api.nuget.org/v3/index.json'
 
     # Add a dependency to the build job
     needs: build-test-pack
 
     environment:
       name: nuget-railsware
-
-    permissions:      
-      contents: read
-      packages: write
 
     steps:
       # https://github.com/marketplace/actions/download-a-build-artifact
@@ -50,6 +46,7 @@ jobs:
         run: > 
           dotnet nuget push "${{ env.PACKAGE_DIR }}/*.nupkg"
           --source ${{ env.PACKAGE_SOURCE }}
-          --api-key ${{ secrets.GITHUB_TOKEN }}
+          --api-key ${{ secrets.NUGET_APIKEY }}
           --skip-duplicate
+
     
