@@ -2,6 +2,7 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
+  
   <ItemGroup>
     <!-- MS -->
     <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0" />
@@ -10,10 +11,14 @@
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.7.0" />
     <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.7" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.DotNet.ApiCompat.Task" Version="9.0.303" />
     <PackageVersion Include="System.Net.Http.Json" Version="8.0.1" />
     <PackageVersion Include="System.Text.Json" Version="9.0.7" />
+        
     <!-- 3rd party -->
     <PackageVersion Include="FluentValidation" Version="11.11.0" />
+    <PackageVersion Include="MinVer" Version="6.0.0" />
+    
     <!-- Testing -->
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageVersion Include="NUnit" Version="4.3.2" />
