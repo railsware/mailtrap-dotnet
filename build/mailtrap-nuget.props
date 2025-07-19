@@ -7,7 +7,7 @@
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://railsware.github.io/mailtrap-dotnet</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/railsware/mailtrap-dotnet</RepositoryUrl>
+    <!-- <RepositoryUrl>https://github.com/railsware/mailtrap-dotnet</RepositoryUrl> -->
 
     <!-- 
       SourceLink generation settings 
