@@ -1,6 +1,7 @@
 ![Mailtrap](assets/img/mailtrap-logo.svg)
 
-[![NuGet Version](https://img.shields.io/nuget/v/Railsware.Mailtrap?label=NuGet)](https://www.nuget.org/packages/Railsware.Mailtrap)
+<!-- [![NuGet Version](https://img.shields.io/nuget/v/Railsware.Mailtrap?label=NuGet)](https://www.nuget.org/packages/Railsware.Mailtrap) -->
+[![Package](https://img.shields.io/badge/Mailtrap?label=Package)](https://github.com/railsware/mailtrap-dotnet/pkgs/nuget/Mailtrap)
 [![CI](https://github.com/railsware/mailtrap-dotnet/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/railsware/mailtrap-dotnet/actions/workflows/build.yml)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/railsware/mailtrap-dotnet/blob/main/LICENSE.md)
 

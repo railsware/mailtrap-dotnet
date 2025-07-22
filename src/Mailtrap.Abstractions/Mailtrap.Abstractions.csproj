@@ -6,8 +6,9 @@
     <RootNamespace>Mailtrap</RootNamespace>
 
     <Title>Mailtrap Client Abstractions</Title>
+    <Description>Provides abstractions for the Mailtrap .NET SDK.</Description>
     <PackageId>Mailtrap.Abstractions</PackageId>
-    <PackageTags>mailtrap; sdk; client; abstractions; email; smtp</PackageTags>
+    <PackageTags>mailtrap; sdk; client; email; abstractions</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

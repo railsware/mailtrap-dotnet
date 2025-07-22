@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="$(BuildConfigurationDirectory)mailtrap-nuget.props" />
 
@@ -6,8 +6,9 @@
     <RootNamespace>Mailtrap</RootNamespace>
 
     <Title>Mailtrap Client</Title>
+    <Description>Official Mailtrap .NET SDK.</Description>
     <PackageId>Mailtrap</PackageId>
-    <PackageTags>mailtrap; sdk; client; email; smtp</PackageTags>
+    <PackageTags>mailtrap; sdk; client; email</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

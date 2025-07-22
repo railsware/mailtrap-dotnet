@@ -1,24 +1,17 @@
 name: Build and Test
 
 on:
-  workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
+  workflow_call: # Allows you to call this workflow from other workflows
     inputs:
       upload_artifacts:
         description: 'Upload build and test artifacts'
         type: boolean
         required: true
         default: false        
-  push:
-  pull_request:
 
-# Limiting workflow concurrency
-concurrency: 
-  # Grouping by workflow, triggering event and ref name.
-  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
-  cancel-in-progress: true
-  
 jobs:  
   build:
+    name: Build and Test
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -30,7 +23,6 @@ jobs:
       TEST_RESULTS_DIR: './artifacts/test-results'
 
     strategy:
-      max-parallel: 1
       matrix:
         platform: [anycpu] 
         configuration: [Release]

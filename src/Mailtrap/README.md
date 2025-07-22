@@ -12,7 +12,7 @@ Please visit [documentation site](https://railsware.github.io/mailtrap-dotnet) f
 
 
 ## Related Packages
-* [Mailtrap.Abstractions](https://www.nuget.org/packages/Mailtrap.Abstractions)
+* [Mailtrap.Abstractions](https://github.com/railsware/mailtrap-dotnet/pkgs/nuget/Mailtrap.Abstractions)
 
 
 ## Contributing
