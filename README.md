@@ -1,6 +1,6 @@
 ![Mailtrap](assets/img/mailtrap-logo.svg)
 
-[![NuGet Version](https://img.shields.io/nuget/v/Railsware.Mailtrap?label=NuGet)](https://www.nuget.org/packages/Railsware.Mailtrap)
+[![GitHub Package Version](https://img.shields.io/github/v/release/railsware/mailtrap-dotnet?label=GitHub%20Packages)](https://github.com/orgs/railsware/packages/nuget/package/Mailtrap)
 [![CI](https://github.com/railsware/mailtrap-dotnet/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/railsware/mailtrap-dotnet/actions/workflows/build.yml)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/railsware/mailtrap-dotnet/blob/main/LICENSE.md)
 
@@ -21,14 +21,58 @@ The following few simple steps will bring Mailtrap API functionality into your .
   You can use one of the existing or create a new one.
 
 ### Install
-Install `Mailtrap` package from NuGet  
+Install `Mailtrap` package from GitHub Packages
 
-  > **TODO**  
-  > This is an example command, to be updated once the package is published.  
+The Mailtrap .NET client packages are available through GitHub Packages. You'll need to configure your project to use the GitHub Packages registry.
 
-  ```console
-  dotnet add package Mailtrap
-  ```
+#### Option 1: Using .NET CLI
+
+First, add the GitHub Packages source to your package sources:
+
+```console
+dotnet nuget add source https://nuget.pkg.github.com/railsware/index.json --name github-railsware --username USERNAME --password TOKEN
+```
+
+Then install the package:
+
+```console
+dotnet add package Mailtrap
+```
+
+#### Option 2: Using Package Manager Console
+
+Add the GitHub Packages source to your package sources:
+
+```console
+nuget sources add -name "github-railsware" -source "https://nuget.pkg.github.com/railsware/index.json" -username USERNAME -password TOKEN
+```
+
+Then install the package:
+
+```console
+Install-Package Mailtrap
+```
+
+#### Option 3: Using NuGet.config
+
+Add the following to your `NuGet.config` file (or create one if it doesn't exist):
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <add key="github-railsware" value="https://nuget.pkg.github.com/railsware/index.json" />
+  </packageSources>
+  <packageSourceCredentials>
+    <github-railsware>
+      <add key="Username" value="USERNAME" />
+      <add key="ClearTextPassword" value="TOKEN" />
+    </github-railsware>
+  </packageSourceCredentials>
+</configuration>
+```
+
+**Note:** Replace `USERNAME` with your GitHub username and `TOKEN` with a GitHub Personal Access Token that has `read:packages` scope.
 
 ### Configure
 Add Mailtrap services to the DI container.
@@ -73,7 +117,7 @@ public sealed class SendEmailService : ISendEmailService
 
     public SendEmailService(IMailtrapClient mailtrapClient)
     {
-        _mailtrapClient = client;
+        _mailtrapClient = mailtrapClient;
     }
 
 
