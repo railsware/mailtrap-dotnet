@@ -24,7 +24,6 @@ The Mailtrap .NET client provides comprehensive access to the Mailtrap API v2.0,
 ### Email API/SMTP
 - Send an email (Transactional and Bulk streams)
 - Send an email with a template
-- Send a batch of emails (Transactional and Bulk streams)
 - Send emails with attachments
 
 ### Email Sandbox (Testing)
@@ -34,14 +33,10 @@ The Mailtrap .NET client provides comprehensive access to the Mailtrap API v2.0,
 - List inboxes
 - Get inbox details
 - Update inbox settings
-
-### Project management
 - Create, read, update, and delete projects
 - Project configuration and settings
 
 ### General
-- Templates CRUD operations
-- Suppressions management (find and delete)
 - Account access management
 - Permissions management
 - List accounts you have access to
