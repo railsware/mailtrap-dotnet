@@ -31,8 +31,6 @@ The Mailtrap .NET client provides comprehensive access to the Mailtrap API v2.0,
 - Send an email
 - Send an email with a template
 - Message management
-
-### Inbox management
 - List inboxes
 - Get inbox details
 - Update inbox settings
