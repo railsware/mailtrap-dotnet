@@ -41,10 +41,6 @@ The Mailtrap .NET client provides comprehensive access to the Mailtrap API v2.0,
 - Create, read, update, and delete projects
 - Project configuration and settings
 
-### Contact management
-- Contacts CRUD operations
-- Lists CRUD operations
-
 ### General
 - Templates CRUD operations
 - Suppressions management (find and delete)
@@ -152,9 +148,40 @@ public sealed class SendEmailService : ISendEmailService
 }
 ```
 
+## Examples
+
+The repository includes comprehensive examples demonstrating various use cases and features:
+
+### Email API/SMTP
+- **[Email Sending](examples/Mailtrap.Example.Email.Send/)** - Send an email (Transactional and Bulk streams)
+- **[Email Sending](examples/Mailtrap.Example.Email.Send/)** - Send an email with a template
+- **[Email Sending](examples/Mailtrap.Example.Email.Send/)** - Send a batch of emails (Transactional and Bulk streams)
+- **[Email Sending](examples/Mailtrap.Example.Email.Send/)** - Send emails with attachments
+
+### Email Sandbox (Testing)
+- **[Email Sending](examples/Mailtrap.Example.Email.Send/)** - Send an email
+- **[Email Sending](examples/Mailtrap.Example.Email.Send/)** - Send an email with a template
+- **[Testing Messages](examples/Mailtrap.Example.TestingMessage/)** - Message management
+- **[Attachments](examples/Mailtrap.Example.Attachment/)** - Working with email attachments in testing messages
+- **[Inbox Management](examples/Mailtrap.Example.Inbox/)** - Inbox management
+- **[Project Management](examples/Mailtrap.Example.Project/)** - Project management
+
+### General
+- **[Account Access](examples/Mailtrap.Example.AccountAccess/)** - Account access management
+- **[Permissions](examples/Mailtrap.Example.Permissions/)** - Permissions management
+- **[Account Management](examples/Mailtrap.Example.Account/)** - List accounts you have access to
+- **[Billing](examples/Mailtrap.Example.Billing/)** - Billing information and usage statistics
+- **[Sending Domains](examples/Mailtrap.Example.SendingDomain/)** - Domain verification
+- **[Comprehensive API Usage](examples/Mailtrap.Example.ApiUsage/)** - Complete example showcasing multiple API features together
+
+### Configuration & Setup
+- **[Dependency Injection](examples/Mailtrap.Example.DependencyInjection/)** - Integration with ASP.NET Core DI container and configuration
+- **[Factory Pattern](examples/Mailtrap.Example.Factory/)** - Using standalone client factory for scenarios without DI container
+
+Each example includes detailed comments and demonstrates best practices for error handling, configuration, and resource management.
+
 ## Documentation
-Please visit [Documentation Portal](https://railsware.github.io/mailtrap-dotnet/) for detailed setup, configuration and usage instructions.  
-A bunch of examples is available [here](https://github.com/railsware/mailtrap-dotnet/tree/main/examples).
+Please visit [Documentation Portal](https://railsware.github.io/mailtrap-dotnet/) for detailed setup, configuration and usage instructions.
 
 
 ## Contributing
