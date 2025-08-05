@@ -12,11 +12,10 @@ This client allows you to quickly and easily integrate your .NET application wit
 ## Prerequisites
 
 To get the most out of this official Mailtrap.io .NET SDK:
-- Please ensure your project targets .NET implementation which supports [.NET Standard 2.0](https://dotnet.microsoft.com/platform/dotnet-standard#versions) specification.
 - [Create a Mailtrap account](https://mailtrap.io/signup)
 - [Verify your domain](https://mailtrap.io/sending/domains)
-- Obtain [API token](https://mailtrap.io/api-tokens)  
-  You can use one of the existing or create a new one.
+- Obtain [API token](https://mailtrap.io/api-tokens)
+- Please ensure your project targets .NET implementation which supports [.NET Standard 2.0](https://dotnet.microsoft.com/platform/dotnet-standard#versions) specification.
 
 ## Supported functionality
 
