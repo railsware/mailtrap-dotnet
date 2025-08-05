@@ -9,70 +9,69 @@ Welcome to the official [Mailtrap](https://mailtrap.io/) .NET Client repository.
 This client allows you to quickly and easily integrate your .NET application with **v2.0** of the [Mailtrap API](https://api-docs.mailtrap.io/docs/mailtrap-api-docs/5tjdeg9545058-mailtrap-api).
 
 
-## Quick Start
-The following few simple steps will bring Mailtrap API functionality into your .NET project.
+## Prerequisites
 
-### Prerequisites
+To get the most out of this official Mailtrap.io .NET SDK:
 - Please ensure your project targets .NET implementation which supports [.NET Standard 2.0](https://dotnet.microsoft.com/platform/dotnet-standard#versions) specification.
-
-- Register new or log into existing account at [mailtrap.io](https://mailtrap.io/register/signup?ref=maitrap-dotnet)
-
+- [Create a Mailtrap account](https://mailtrap.io/signup)
+- [Verify your domain](https://mailtrap.io/sending/domains)
 - Obtain [API token](https://mailtrap.io/api-tokens)  
   You can use one of the existing or create a new one.
+
+## Supported functionality
+
+The Mailtrap .NET client provides comprehensive access to the Mailtrap API v2.0, including:
+
+### Email API/SMTP
+- Send an email (Transactional and Bulk streams)
+- Send an email with a template
+- Send a batch of emails (Transactional and Bulk streams)
+- Send emails with attachments
+
+### Email Sandbox (Testing)
+- Send an email
+- Send an email with a template
+- Message management
+
+### Inbox management
+- List inboxes
+- Get inbox details
+- Update inbox settings
+
+### Project management
+- Create, read, update, and delete projects
+- Project configuration and settings
+
+### Contact management
+- Contacts CRUD operations
+- Lists CRUD operations
+
+### General
+- Templates CRUD operations
+- Suppressions management (find and delete)
+- Account access management
+- Permissions management
+- List accounts you have access to
+- Billing information and usage statistics
+- Domain verification
+
+## Quick Start
+The following few simple steps will bring Mailtrap API functionality into your .NET project.
 
 ### Install
 Install `Mailtrap` package from GitHub Packages
 
-The Mailtrap .NET client packages are available through GitHub Packages. You'll need to configure your project to use the GitHub Packages registry.
-
-#### Option 1: Using .NET CLI
-
-First, add the GitHub Packages source to your package sources:
-
-```console
-dotnet nuget add source https://nuget.pkg.github.com/railsware/index.json --name github-railsware --username USERNAME --password TOKEN
-```
-
-Then install the package:
+The Mailtrap .NET client packages are available through GitHub Packages as public packages. You can install them directly:
 
 ```console
 dotnet add package Mailtrap
 ```
 
-#### Option 2: Using Package Manager Console
-
-Add the GitHub Packages source to your package sources:
+**Note:** Since the Mailtrap packages are public, no authentication is required. If you encounter any issues with package resolution, you may need to add the GitHub Packages source to your NuGet configuration:
 
 ```console
-nuget sources add -name "github-railsware" -source "https://nuget.pkg.github.com/railsware/index.json" -username USERNAME -password TOKEN
+dotnet nuget add source https://nuget.pkg.github.com/railsware/index.json --name github-railsware
 ```
-
-Then install the package:
-
-```console
-Install-Package Mailtrap
-```
-
-#### Option 3: Using NuGet.config
-
-Add the following to your `NuGet.config` file (or create one if it doesn't exist):
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-  <packageSources>
-    <add key="github-railsware" value="https://nuget.pkg.github.com/railsware/index.json" />
-  </packageSources>
-  <packageSourceCredentials>
-    <github-railsware>
-      <add key="Username" value="USERNAME" />
-      <add key="ClearTextPassword" value="TOKEN" />
-    </github-railsware>
-  </packageSourceCredentials>
-</configuration>
-```
-
-**Note:** Replace `USERNAME` with your GitHub username and `TOKEN` with a GitHub Personal Access Token that has `read:packages` scope.
 
 ### Configure
 Add Mailtrap services to the DI container.
