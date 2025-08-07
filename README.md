@@ -1,6 +1,6 @@
 ![Mailtrap](assets/img/mailtrap-logo.svg)
 
-[![NuGet Version](https://img.shields.io/nuget/v/Railsware.Mailtrap?label=NuGet)](https://www.nuget.org/packages/Railsware.Mailtrap)
+[![GitHub Package Version](https://img.shields.io/github/v/release/railsware/mailtrap-dotnet?label=GitHub%20Packages)](https://github.com/orgs/railsware/packages/nuget/package/Mailtrap)
 [![CI](https://github.com/railsware/mailtrap-dotnet/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/railsware/mailtrap-dotnet/actions/workflows/build.yml)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/railsware/mailtrap-dotnet/blob/main/LICENSE.md)
 
@@ -9,26 +9,63 @@ Welcome to the official [Mailtrap](https://mailtrap.io/) .NET Client repository.
 This client allows you to quickly and easily integrate your .NET application with **v2.0** of the [Mailtrap API](https://api-docs.mailtrap.io/docs/mailtrap-api-docs/5tjdeg9545058-mailtrap-api).
 
 
+## Prerequisites
+
+To get the most out of this official Mailtrap.io .NET SDK:
+- [Create a Mailtrap account](https://mailtrap.io/signup)
+- [Verify your domain](https://mailtrap.io/sending/domains)
+- Obtain [API token](https://mailtrap.io/api-tokens)
+- Please ensure your project targets .NET implementation which supports [.NET Standard 2.0](https://dotnet.microsoft.com/platform/dotnet-standard#versions) specification.
+
+## Supported functionality
+
+The Mailtrap .NET client provides comprehensive access to the Mailtrap API v2.0, including:
+
+### Email API/SMTP
+- Send an email (Transactional and Bulk streams)
+- Send an email with a template
+- Send emails with attachments
+
+### Email Sandbox (Testing)
+- Send an email
+- Send an email with a template
+- Message management
+- List inboxes
+- Get inbox details
+- Update inbox settings
+- Create, read, update, and delete projects
+- Project configuration and settings
+
+### General
+- Account access management
+- Permissions management
+- List accounts you have access to
+- Billing information and usage statistics
+- Domain verification
+
 ## Quick Start
 The following few simple steps will bring Mailtrap API functionality into your .NET project.
 
-### Prerequisites
-- Please ensure your project targets .NET implementation which supports [.NET Standard 2.0](https://dotnet.microsoft.com/platform/dotnet-standard#versions) specification.
-
-- Register new or log into existing account at [mailtrap.io](https://mailtrap.io/register/signup?ref=maitrap-dotnet)
-
-- Obtain [API token](https://mailtrap.io/api-tokens)  
-  You can use one of the existing or create a new one.
-
 ### Install
-Install `Mailtrap` package from NuGet  
+The Mailtrap .NET client packages are available through GitHub Packages.
 
-  > **TODO**  
-  > This is an example command, to be updated once the package is published.  
+First, add the GitHub Packages source to your NuGet configuration:
 
-  ```console
-  dotnet add package Mailtrap
-  ```
+```console
+dotnet nuget add source https://nuget.pkg.github.com/railsware/index.json --name github-railsware
+```
+
+Then add Mailtrap package:
+
+```console
+dotnet add package Mailtrap -v 2.0.0 -s github-railsware
+```
+
+Optionally, you can add Mailtrap.Abstractions package:
+
+```console
+dotnet add package Mailtrap.Abstractions -v 2.0.0 -s github-railsware
+```
 
 ### Configure
 Add Mailtrap services to the DI container.
@@ -73,7 +110,7 @@ public sealed class SendEmailService : ISendEmailService
 
     public SendEmailService(IMailtrapClient mailtrapClient)
     {
-        _mailtrapClient = client;
+        _mailtrapClient = mailtrapClient;
     }
 
 
@@ -110,9 +147,40 @@ public sealed class SendEmailService : ISendEmailService
 }
 ```
 
+## Examples
+
+The repository includes comprehensive examples demonstrating various use cases and features:
+
+### Email API/SMTP
+- **[Email Sending](examples/Mailtrap.Example.Email.Send/)** - Send an email (Transactional and Bulk streams)
+- **[Email Sending](examples/Mailtrap.Example.Email.Send/)** - Send an email with a template
+- **[Email Sending](examples/Mailtrap.Example.Email.Send/)** - Send a batch of emails (Transactional and Bulk streams)
+- **[Email Sending](examples/Mailtrap.Example.Email.Send/)** - Send emails with attachments
+
+### Email Sandbox (Testing)
+- **[Email Sending](examples/Mailtrap.Example.Email.Send/)** - Send an email
+- **[Email Sending](examples/Mailtrap.Example.Email.Send/)** - Send an email with a template
+- **[Testing Messages](examples/Mailtrap.Example.TestingMessage/)** - Message management
+- **[Attachments](examples/Mailtrap.Example.Attachment/)** - Working with email attachments in testing messages
+- **[Inbox Management](examples/Mailtrap.Example.Inbox/)** - Inbox management
+- **[Project Management](examples/Mailtrap.Example.Project/)** - Project management
+
+### General
+- **[Account Access](examples/Mailtrap.Example.AccountAccess/)** - Account access management
+- **[Permissions](examples/Mailtrap.Example.Permissions/)** - Permissions management
+- **[Account Management](examples/Mailtrap.Example.Account/)** - List accounts you have access to
+- **[Billing](examples/Mailtrap.Example.Billing/)** - Billing information and usage statistics
+- **[Sending Domains](examples/Mailtrap.Example.SendingDomain/)** - Domain verification
+- **[Comprehensive API Usage](examples/Mailtrap.Example.ApiUsage/)** - Complete example showcasing multiple API features together
+
+### Configuration & Setup
+- **[Dependency Injection](examples/Mailtrap.Example.DependencyInjection/)** - Integration with ASP.NET Core DI container and configuration
+- **[Factory Pattern](examples/Mailtrap.Example.Factory/)** - Using standalone client factory for scenarios without DI container
+
+Each example includes detailed comments and demonstrates best practices for error handling, configuration, and resource management.
+
 ## Documentation
-Please visit [Documentation Portal](https://railsware.github.io/mailtrap-dotnet/) for detailed setup, configuration and usage instructions.  
-A bunch of examples is available [here](https://github.com/railsware/mailtrap-dotnet/tree/main/examples).
+Please visit [Documentation Portal](https://railsware.github.io/mailtrap-dotnet/) for detailed setup, configuration and usage instructions.
 
 
 ## Contributing
