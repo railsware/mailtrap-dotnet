@@ -47,18 +47,24 @@ The Mailtrap .NET client provides comprehensive access to the Mailtrap API v2.0,
 The following few simple steps will bring Mailtrap API functionality into your .NET project.
 
 ### Install
-Install `Mailtrap` package from GitHub Packages
+The Mailtrap .NET client packages are available through GitHub Packages.
 
-The Mailtrap .NET client packages are available through GitHub Packages as public packages. You can install them directly:
-
-```console
-dotnet add package Mailtrap
-```
-
-**Note:** Since the Mailtrap packages are public, no authentication is required. If you encounter any issues with package resolution, you may need to add the GitHub Packages source to your NuGet configuration:
+First, add the GitHub Packages source to your NuGet configuration:
 
 ```console
 dotnet nuget add source https://nuget.pkg.github.com/railsware/index.json --name github-railsware
+```
+
+Then add Mailtrap package:
+
+```console
+dotnet add package Mailtrap -v 2.0.0 -s github-railsware
+```
+
+Optionally, you can add Mailtrap.Abstractions package:
+
+```console
+dotnet add package Mailtrap.Abstractions -v 2.0.0 -s github-railsware
 ```
 
 ### Configure
