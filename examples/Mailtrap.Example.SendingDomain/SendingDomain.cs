@@ -58,6 +58,11 @@ try
     // Sending domain instructions
     var instructionsRequest = new SendingDomainInstructionsRequest("admin@demomailtrap.com");
     await domainResource.SendInstructions(instructionsRequest);
+
+    // Delete sending domain
+    // Beware that sending domain resource becomes invalid after deletion and should not be used anymore
+    var result = await domainResource.Delete();
+    logger.LogInformation("Sending domain deleted: {Result}", result);
 }
 catch (Exception ex)
 {
