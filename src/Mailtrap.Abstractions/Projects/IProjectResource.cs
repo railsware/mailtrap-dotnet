@@ -41,15 +41,12 @@ public interface IProjectResource : IRestResource
     /// <summary>
     /// Deletes a project, represented by the current resource instance, with all its inboxes.
     /// </summary>
-    ///
     /// <param name="cancellationToken">
     /// <inheritdoc cref="GetDetails(CancellationToken)" path="/param[@name='cancellationToken']"/>
     /// </param>
-    /// 
     /// <returns>
     /// Deleted project details.
     /// </returns>
-    ///
     /// <remarks>
     /// <para>
     /// All inboxes, associated with the project, will be deleted as well.
