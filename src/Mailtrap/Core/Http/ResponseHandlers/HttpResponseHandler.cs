@@ -23,11 +23,6 @@ internal abstract class HttpResponseHandler<T> : IHttpResponseHandler<T>
     {
         if (_httpResponseMessage.IsSuccessStatusCode)
         {
-            if (_httpResponseMessage.StatusCode is HttpStatusCode.NoContent)
-            {
-                return default!;
-            }
-
             return await ProcessSuccessResponse(cancellationToken).ConfigureAwait(false);
         }
         else
