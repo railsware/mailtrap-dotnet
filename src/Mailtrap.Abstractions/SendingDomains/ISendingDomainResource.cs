@@ -39,7 +39,7 @@ public interface ISendingDomainResource : IRestResource
 
 
     /// <summary>
-    /// Deletes a sendingdomain, represented by the current resource instance.
+    /// Deletes a sending domain, represented by the current resource instance.
     /// </summary>
     ///
     /// <param name="cancellationToken">
@@ -47,12 +47,12 @@ public interface ISendingDomainResource : IRestResource
     /// </param>
     ///
     /// <returns>
-    /// Ok response, indicating that the sending domain has been deleted successfully.
+    /// A task that represents the completion of the delete operation.
     /// </returns>
     ///
     /// <remarks>
     /// <para>
-    /// After deletion of the sendingdomain, represented by the current resource instance, it will be no longer available.<br />
+    /// On success the API returns HTTP 204 (No Content). After deletion, the sending domain represented by this resource instance will no longer be available.
     /// </para>
     /// </remarks>
     public Task Delete(CancellationToken cancellationToken = default);

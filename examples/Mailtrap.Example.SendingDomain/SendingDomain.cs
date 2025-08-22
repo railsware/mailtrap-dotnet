@@ -61,8 +61,8 @@ try
 
     // Delete sending domain
     // Beware that sending domain resource becomes invalid after deletion and should not be used anymore
-    var result = await domainResource.Delete();
-    logger.LogInformation("Sending domain deleted: {Result}", result);
+    await domainResource.Delete();
+    logger.LogInformation("Sending domain deleted.");
 }
 catch (Exception ex)
 {

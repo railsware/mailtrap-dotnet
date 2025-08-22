@@ -411,17 +411,17 @@ internal sealed class SendingDomainIntegrationTests
     {
         // Arrange
         var random = TestContext.CurrentContext.Random;
+
         var httpMethod = HttpMethod.Delete;
         var accountId = random.NextLong();
-        var sendingDomainId = random.NextLong();
-
+        var domainId = random.NextLong();
         var requestUri = EndpointsTestConstants.ApiDefaultUrl
             .Append(
                 UrlSegmentsTestConstants.ApiRootSegment,
                 UrlSegmentsTestConstants.AccountsSegment)
             .Append(accountId)
             .Append(UrlSegmentsTestConstants.SendingDomainsSegment)
-            .Append(sendingDomainId)
+            .Append(domainId)
             .AbsoluteUri;
 
         var token = random.GetString();
@@ -445,11 +445,10 @@ internal sealed class SendingDomainIntegrationTests
 
         var client = services.GetRequiredService<IMailtrapClient>();
 
-
         // Act
         await client
             .Account(accountId)
-            .SendingDomain(sendingDomainId)
+            .SendingDomain(domainId)
             .Delete()
             .ConfigureAwait(false);
 
