@@ -38,7 +38,7 @@ jobs:
   
       # https://github.com/marketplace/actions/upload-github-pages-artifact
       - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: './artifacts/docs'
 
