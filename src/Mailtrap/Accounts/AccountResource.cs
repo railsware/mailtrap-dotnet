@@ -52,4 +52,11 @@ internal sealed class AccountResource : RestResource, IAccountResource
 
     public IInboxResource Inbox(long inboxId)
         => new InboxResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.InboxesSegment).Append(inboxId));
+
+    public IContactCollectionResource Contacts()
+        => new ContactCollectionResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.ContactsSegment));
+
+    public IContactResource Contact(string idOrEmail)
+        => new ContactResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.ContactsSegment).Append(idOrEmail));
+
 }

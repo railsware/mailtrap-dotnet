@@ -1,0 +1,49 @@
+[
+  {
+    "id": "018dd5e3-f6d2-7c00-8f9b-e5c3f2d8a132",
+    "status": "subscribed",
+    "email": "john.smith@example.com",
+    "fields": {
+      "first_name": "John",
+      "last_name": "Smith"
+    },
+    "list_ids": [
+      1,
+      2,
+      3
+    ],
+    "created_at": 1742820600230,
+    "updated_at": 1742820600230
+  },
+  {
+    "id": "7c5a9d84-3f2b-4c1e-9a6b-2f7d3a8c5e10",
+    "status": "unsubscribed",
+    "email": "doe.j@example.com",
+    "fields": {
+      "first_name": "John",
+      "last_name": "Doe"
+    },
+    "list_ids": [
+      2,
+      3,
+      4
+    ],
+    "created_at": 1742820600231,
+    "updated_at": 1742820600231
+  },
+  {
+    "id": "7c1f2e5a-9d3b-4f2c-8a6b-2f1c9e7d4b90",
+    "email": "7c1f2e5a@example.com",
+    "fields": {
+      "first_name": "Alice",
+      "last_name": "Doe"
+    },
+    "list_ids": [
+      12,
+      13,
+      14
+    ],
+    "created_at": 1742820600233,
+    "updated_at": 1742820600233
+  }
+]
