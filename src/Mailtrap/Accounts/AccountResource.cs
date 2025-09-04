@@ -57,6 +57,14 @@ internal sealed class AccountResource : RestResource, IAccountResource
         => new ContactCollectionResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.ContactsSegment));
 
     public IContactResource Contact(string idOrEmail)
-        => new ContactResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.ContactsSegment).Append(idOrEmail));
+    {
+        Ensure.NotNullOrEmpty(idOrEmail, nameof(idOrEmail));
+        var encoded = Uri.EscapeDataString(idOrEmail);
 
+        return new ContactResource(
+                    RestResourceCommandFactory,
+                    ResourceUri
+                        .Append(UrlSegments.ContactsSegment)
+                        .Append(encoded));
+    }
 }
