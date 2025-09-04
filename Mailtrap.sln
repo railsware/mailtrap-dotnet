@@ -87,7 +87,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mailtrap.Example.TestingMes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mailtrap.Example.Factory", "examples\Mailtrap.Example.Factory\Mailtrap.Example.Factory.csproj", "{AB1237F4-D074-4D3C-9AE4-6794BD30EA71}"
 EndProject
-Project("{7E1C3B92-0F4A-4D2E-9B8F-A3C1D6E5F7A2}") = "Mailtrap.Example.Contact", "examples\Mailtrap.Example.Contact\Mailtrap.Example.Contact.csproj", "{3F8D2B21-5C6E-4A9A-9C3B-9F1D2A7B8C64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailtrap.Example.Contact", "examples\Mailtrap.Example.Contact\Mailtrap.Example.Contact.csproj", "{3F8D2B21-5C6E-4A9A-9C3B-9F1D2A7B8C64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

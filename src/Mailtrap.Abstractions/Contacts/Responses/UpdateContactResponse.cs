@@ -1,12 +1,12 @@
 namespace Mailtrap.Contacts.Responses;
 
 /// <summary>
-/// Response object for contact creation.
+/// Response object for contact update.
 /// </summary>
 public sealed record UpdateContactResponse : ContactResponse
 {
     /// <summary>
-    /// Gets Performed action on the contact.
+    /// Gets the action performed on the contact.
     /// </summary>
     ///
     /// <value>
