@@ -405,4 +405,55 @@ internal sealed class SendingDomainIntegrationTests
 
         mockHttp.VerifyNoOutstandingExpectation();
     }
+
+    [Test]
+    public async Task Delete_Success()
+    {
+        // Arrange
+        var random = TestContext.CurrentContext.Random;
+
+        var httpMethod = HttpMethod.Delete;
+        var accountId = random.NextLong();
+        var domainId = random.NextLong();
+        var requestUri = EndpointsTestConstants.ApiDefaultUrl
+            .Append(
+                UrlSegmentsTestConstants.ApiRootSegment,
+                UrlSegmentsTestConstants.AccountsSegment)
+            .Append(accountId)
+            .Append(UrlSegmentsTestConstants.SendingDomainsSegment)
+            .Append(domainId)
+            .AbsoluteUri;
+
+        var token = random.GetString();
+        var clientConfig = new MailtrapClientOptions(token);
+
+        using var mockHttp = new MockHttpMessageHandler();
+        mockHttp
+            .Expect(httpMethod, requestUri)
+            .WithHeaders("Authorization", $"Bearer {clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .Respond(HttpStatusCode.NoContent);
+
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection
+            .AddMailtrapClient(clientConfig)
+            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
+
+        using var services = serviceCollection.BuildServiceProvider();
+
+        var client = services.GetRequiredService<IMailtrapClient>();
+
+        // Act
+        await client
+            .Account(accountId)
+            .SendingDomain(domainId)
+            .Delete()
+            .ConfigureAwait(false);
+
+
+        // Assert
+        mockHttp.VerifyNoOutstandingExpectation();
+    }
 }

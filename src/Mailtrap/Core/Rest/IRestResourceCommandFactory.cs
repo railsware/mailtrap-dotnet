@@ -7,6 +7,7 @@ internal interface IRestResourceCommandFactory
     public IRestResourceCommand<string> CreatePlainText(Uri resourceUri, params string[] additionalAcceptContentTypes);
     public IRestResourceCommand<TResponse> CreatePatch<TResponse>(Uri resourceUri);
     public IRestResourceCommand<TResponse> CreateDelete<TResponse>(Uri resourceUri);
+    public IRestResourceCommand<HttpStatusCode> CreateDeleteWithStatusCodeResult(Uri resourceUri);
 
     public IRestResourceCommand<HttpStatusCode> CreatePostWithStatusCodeResult<TRequest>(Uri resourceUri, TRequest request) where TRequest : class;
 
