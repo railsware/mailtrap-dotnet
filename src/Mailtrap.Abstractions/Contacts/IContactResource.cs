@@ -54,6 +54,4 @@ public interface IContactResource : IRestResource
     /// </para>
     /// </remarks>
     public Task Delete(CancellationToken cancellationToken = default);
-
-
 }
