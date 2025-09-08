@@ -15,4 +15,6 @@ internal class DeleteRestResourceCommand<TResponse> : RestResourceCommand<TRespo
             resourceUri,
             HttpMethod.Delete)
     { }
+
+
 }

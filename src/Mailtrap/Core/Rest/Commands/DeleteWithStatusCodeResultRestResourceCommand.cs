@@ -1,6 +1,5 @@
 ﻿namespace Mailtrap.Core.Rest.Commands;
 
-
 internal sealed class DeleteWithStatusCodeResultRestResourceCommand<TResponse> : DeleteRestResourceCommand<HttpStatusCode>
 {
     public DeleteWithStatusCodeResultRestResourceCommand(
