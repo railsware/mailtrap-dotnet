@@ -161,11 +161,6 @@ internal sealed class ContactsIntegrationTests
 
         using var responseContent = await Feature.LoadFileToStringContent();
 
-        //TODO: use expectedResponse to verify result when Contact's custom comparer is implemented
-        // var responseStream = await responseContent.ReadAsStreamAsync();
-        // var expectedResponse = await JsonSerializer.DeserializeAsync<CreateContactResponse>(responseStream, _jsonSerializerOptions);
-        // responseStream.Position = 0; // Reset stream position for mock response
-
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
             .Expect(httpMethod, requestUri)
@@ -193,8 +188,6 @@ internal sealed class ContactsIntegrationTests
         mockHttp.VerifyNoOutstandingExpectation();
 
         result.Should().NotBeNull();
-        //TODO: use expectedResponse to verify result when Contact's custom comparer is implemented
-        //result.Should().BeEquivalentTo(expectedResponse);
     }
 
     [Test]
@@ -209,11 +202,6 @@ internal sealed class ContactsIntegrationTests
         var request = new UpdateContactRequest(updatedEmail);
 
         using var responseContent = await Feature.LoadFileToStringContent();
-
-        //TODO: use expectedResponse to verify result when Contact's custom comparer is implemented
-        // var responseStream = await responseContent.ReadAsStreamAsync();
-        // var expectedResponse = await JsonSerializer.DeserializeAsync<UpdateContactResponse>(responseStream, _jsonSerializerOptions);
-        // responseStream.Position = 0; // Reset stream position for mock response
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -243,8 +231,6 @@ internal sealed class ContactsIntegrationTests
         mockHttp.VerifyNoOutstandingExpectation();
 
         result.Should().NotBeNull();
-        //TODO: use expectedResponse to verify result when Contact's custom comparer is implemented
-        //result.Should().BeEquivalentTo(expectedResponse);
     }
 
     [Test]
