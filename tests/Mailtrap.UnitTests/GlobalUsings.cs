@@ -23,6 +23,8 @@ global using Mailtrap.Core.Http.ResponseHandlers;
 global using Mailtrap.Core.Models;
 global using Mailtrap.Core.Rest;
 global using Mailtrap.Core.Rest.Commands;
+global using Mailtrap.Contacts;
+global using Mailtrap.Contacts.Requests;
 global using Mailtrap.Emails;
 global using Mailtrap.Emails.Models;
 global using Mailtrap.Emails.Requests;

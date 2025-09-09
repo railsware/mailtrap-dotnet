@@ -27,7 +27,7 @@ internal sealed class SendingDomainResource : RestResource, ISendingDomainResour
 
     public async Task Delete(CancellationToken cancellationToken = default)
         => await RestResourceCommandFactory
-            .CreateDeleteWithStatusCodeResult(ResourceUri)
+            .CreateDeleteWithStatusCodeResult<HttpStatusCode>(ResourceUri)
             .Execute(cancellationToken)
             .ConfigureAwait(false);
 }

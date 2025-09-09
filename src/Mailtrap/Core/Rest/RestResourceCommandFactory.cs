@@ -53,11 +53,12 @@ internal sealed class RestResourceCommandFactory : IRestResourceCommandFactory
             _httpResponseHandlerFactory,
             resourceUri);
 
-    public IRestResourceCommand<HttpStatusCode> CreateDeleteWithStatusCodeResult(Uri resourceUri) => new DeleteWithStatusCodeResultRestResourceCommand(
-        _httpClientProvider,
-        _httpRequestMessageFactory,
-        _httpResponseHandlerFactory,
-        resourceUri);
+    public IRestResourceCommand<HttpStatusCode> CreateDeleteWithStatusCodeResult<TResponse>(Uri resourceUri)
+        => new DeleteWithStatusCodeResultRestResourceCommand<TResponse>(
+            _httpClientProvider,
+            _httpRequestMessageFactory,
+            _httpResponseHandlerFactory,
+            resourceUri);
 
     public IRestResourceCommand<HttpStatusCode> CreatePostWithStatusCodeResult<TRequest>(Uri resourceUri, TRequest request)
         where TRequest : class
