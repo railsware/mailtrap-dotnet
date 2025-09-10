@@ -24,6 +24,8 @@ internal sealed class ContactsImportRequestValidator : AbstractValidator<Contact
             .NotEmpty()
             .Must(list => list != null && list.Count is >= MinContactsPerRequest and <= MaxContactsPerRequest);
 
-        RuleForEach(r => r.Contacts).SetValidator(ContactRequestValidator.Instance);
+        RuleForEach(r => r.Contacts)
+            .NotNull()
+            .SetValidator(ContactRequestValidator.Instance);
     }
 }

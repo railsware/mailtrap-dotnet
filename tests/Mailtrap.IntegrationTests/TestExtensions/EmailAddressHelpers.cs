@@ -40,7 +40,7 @@ internal static class EmailAddressHelpers
         // Explicit check for valid outputLength
         if (outputLength.HasValue && outputLength < minEmailLength)
         {
-            throw new ArgumentException($"outputLength too small. Minimal value: {minEmailLength} for current domain settings.");
+            return random.GetString(outputLength.Value);
         }
 
         // Generation of username with optimal length

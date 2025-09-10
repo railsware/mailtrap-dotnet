@@ -24,16 +24,18 @@ public record ContactsImportRequest : IValidatable
     /// Collection of contacts to import.
     /// </param>
     ///
-    /// <remarks>
-    /// Each contact in the <paramref name="contacts"/> collection must have a valid email.
+    /// /// <remarks>
+    /// Each contact in the <paramref name="contacts"/> must include a valid email.
+    /// Size and item-level constraints are validated by <see cref="Validate"/>.
     /// </remarks>
     ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="contacts"/> is <see langword="null"/> or empty.
     /// </exception>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// When <paramref name="contacts"/> is more than 50,000.
-    /// </exception>
+    /// <para>
+    /// Use <see cref="Validate"/> to ensure the count is within the allowed range
+    /// (currently 1–50,000) and each contact satisfies per-item rules.
+    /// </para>
     public ContactsImportRequest(IEnumerable<ContactImportRequest> contacts)
     {
         Ensure.NotNullOrEmpty(contacts, nameof(contacts));

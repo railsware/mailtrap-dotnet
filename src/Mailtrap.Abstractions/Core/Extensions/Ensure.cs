@@ -103,14 +103,4 @@ public static class Ensure
             throw new ArgumentOutOfRangeException(paramName, paramValue, message);
         }
     }
-
-    internal static void RangeCondition(bool condition, string paramName)
-    {
-        if (condition)
-        {
-            return;
-        }
-
-        throw new ArgumentOutOfRangeException(paramName);
-    }
 }

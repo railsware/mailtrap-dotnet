@@ -122,6 +122,96 @@ internal sealed class ContactImportsIntegrationTests
     }
 
     [Test]
+    public async Task Create_ShouldFailValidation_WhenProvidedCollectionContainsNull()
+    {
+        // Arrange
+        var httpMethod = HttpMethod.Post;
+        var requestUri = _resourceUri.AbsoluteUri;
+
+        var contacts = new List<ContactImportRequest>()
+        {
+            new(TestContext.CurrentContext.Random.NextEmail()),
+            null!
+        };
+
+        var request = new ContactsImportRequest(contacts);
+
+        using var mockHttp = new MockHttpMessageHandler();
+        var mockedRequest = mockHttp
+            .Expect(httpMethod, requestUri)
+            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .WithJsonContent(request, _jsonSerializerOptions)
+            .Respond(HttpStatusCode.UnprocessableContent);
+
+        var serviceCollection = new ServiceCollection();
+        serviceCollection
+            .AddMailtrapClient(_clientConfig)
+            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
+
+        using var services = serviceCollection.BuildServiceProvider();
+        var client = services.GetRequiredService<IMailtrapClient>();
+
+        // Act
+        var act = () => client
+            .Account(_accountId)
+            .Contacts()
+            .Imports()
+            .Create(request);
+
+        // Assert
+        await act.Should().ThrowAsync<RequestValidationException>();
+
+        mockHttp.GetMatchCount(mockedRequest).Should().Be(0);
+    }
+
+    [Test]
+    public async Task Create_ShouldFailValidation_WhenProvidedCollectionContainsInvalidRecord([Values(1, 101)] int emailLength)
+    {
+        // Arrange
+        var httpMethod = HttpMethod.Post;
+        var requestUri = _resourceUri.AbsoluteUri;
+
+        var contacts = new List<ContactImportRequest>()
+        {
+            new(TestContext.CurrentContext.Random.NextEmail()),
+            new(TestContext.CurrentContext.Random.NextEmail(emailLength)),
+        };
+
+        var request = new ContactsImportRequest(contacts);
+
+        using var mockHttp = new MockHttpMessageHandler();
+        var mockedRequest = mockHttp
+            .Expect(httpMethod, requestUri)
+            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .WithJsonContent(request, _jsonSerializerOptions)
+            .Respond(HttpStatusCode.UnprocessableContent);
+
+        var serviceCollection = new ServiceCollection();
+        serviceCollection
+            .AddMailtrapClient(_clientConfig)
+            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
+
+        using var services = serviceCollection.BuildServiceProvider();
+        var client = services.GetRequiredService<IMailtrapClient>();
+
+        // Act
+        var act = () => client
+            .Account(_accountId)
+            .Contacts()
+            .Imports()
+            .Create(request);
+
+        // Assert
+        await act.Should().ThrowAsync<RequestValidationException>();
+
+        mockHttp.GetMatchCount(mockedRequest).Should().Be(0);
+    }
+
+    [Test]
     public async Task GetDetails_Success()
     {
         // Arrange
