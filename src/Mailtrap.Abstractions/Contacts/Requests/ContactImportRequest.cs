@@ -1,7 +1,7 @@
 namespace Mailtrap.Contacts.Requests;
 
 /// <summary>
-/// Request object for updating a contact.
+/// Request object for importing a contact.
 /// </summary>
 public record ContactImportRequest : ContactRequest
 {

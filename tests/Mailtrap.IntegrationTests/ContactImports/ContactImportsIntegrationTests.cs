@@ -77,7 +77,7 @@ internal sealed class ContactImportsIntegrationTests
     }
 
     [Test]
-    public async Task Create_ShouldFailValidation_WhenProvidedCollectionSizeIsInvalid([Values(50001)] int length)
+    public async Task Create_ShouldFailValidation_WhenProvidedCollectionSizeIsInvalid([Values(0, 50001)] int length)
     {
         // Arrange
         var httpMethod = HttpMethod.Post;
@@ -88,7 +88,7 @@ internal sealed class ContactImportsIntegrationTests
         {
             contacts.Add(new ContactImportRequest(TestContext.CurrentContext.Random.NextEmail()));
         }
-        var request = new ContactsImportRequest(contacts);
+        var request = length == 0 ? new ContactsImportRequest() : new ContactsImportRequest(contacts);
         using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();

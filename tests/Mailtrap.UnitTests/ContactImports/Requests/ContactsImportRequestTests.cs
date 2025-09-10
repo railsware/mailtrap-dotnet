@@ -35,7 +35,7 @@ internal sealed class ContactsImportRequestTests
 
 
     [Test]
-    public void Validate_ShouldFail_WhenProvidedCollectionSizeIsInvalid([Values(50001)] int size)
+    public void Validate_ShouldFail_WhenProvidedCollectionSizeIsInvalid([Values(0, 50001)] int size)
     {
         // Arrange
         var contacts = new List<ContactImportRequest>(size);
@@ -43,6 +43,46 @@ internal sealed class ContactsImportRequestTests
         {
             contacts.Add(RandomContactImportRequest());
         }
+        var request = size == 0 ? new ContactsImportRequest() : new ContactsImportRequest(contacts);
+
+        // Act
+        var result = request.Validate();
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+
+    [Test]
+    public void Validate_ShouldFail_WhenProvidedCollectionContainsNull()
+    {
+        // Arrange
+        var contacts = new List<ContactImportRequest>()
+        {
+            RandomContactImportRequest(),
+            null!,
+            RandomContactImportRequest()
+        };
+
+        var request = new ContactsImportRequest(contacts);
+
+        // Act
+        var result = request.Validate();
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+
+    [Test]
+    public void Validate_ShouldFail_WhenProvidedCollectionContainsInvalidRecord([Values(1, 101)] int emailLength)
+    {
+        // Arrange
+        var contacts = new List<ContactImportRequest>()
+        {
+            RandomContactImportRequest(),
+            new(TestContext.CurrentContext.Random.GetString(emailLength)), // Invalid email length
+            RandomContactImportRequest()
+        };
+
         var request = new ContactsImportRequest(contacts);
 
         // Act
