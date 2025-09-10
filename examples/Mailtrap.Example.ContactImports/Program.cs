@@ -5,7 +5,6 @@ using Mailtrap.Contacts.Requests;
 using Mailtrap.ContactImports;
 using Mailtrap.ContactImports.Models;
 using Mailtrap.ContactImports.Requests;
-using Mailtrap.ContactImports.Responses;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -47,7 +46,7 @@ try
     var importRequest = new ContactsImportRequest(contactsImportList);
 
     // Import contacts in bulk
-    ContactsImportResponse importResponse = await contactsImportResource.Create(importRequest);
+    ContactsImport importResponse = await contactsImportResource.Create(importRequest);
     logger.LogInformation("Created contact import: {Import}", importResponse);
 
     // Get resource for specific contact import

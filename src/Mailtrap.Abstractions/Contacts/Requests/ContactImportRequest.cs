@@ -13,6 +13,7 @@ public record ContactImportRequest : ContactRequest
     /// Contact list IDs to include.
     /// </value>
     [JsonPropertyName("list_ids_included")]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<int> ListIdsIncluded { get; } = [];
 
     /// <summary>
@@ -23,8 +24,14 @@ public record ContactImportRequest : ContactRequest
     /// Contact list IDs to exclude.
     /// </value>
     [JsonPropertyName("list_ids_excluded")]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<int> ListIdsExcluded { get; } = [];
 
     /// <inheritdoc />
     public ContactImportRequest(string email) : base(email) { }
+
+    /// <summary>
+    /// Parameterless instance constructor for serializers.
+    /// </summary>
+    public ContactImportRequest() { }
 }

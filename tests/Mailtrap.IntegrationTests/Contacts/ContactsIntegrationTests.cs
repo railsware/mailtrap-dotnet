@@ -77,7 +77,7 @@ internal sealed class ContactsIntegrationTests
         var httpMethod = HttpMethod.Post;
         var requestUri = _resourceUri.AbsoluteUri;
 
-        var contactEmail = $"{TestContext.CurrentContext.Random.GetString(10)}@mailtrap.io";
+        var contactEmail = TestContext.CurrentContext.Random.NextEmail();
         var request = new CreateContactRequest(contactEmail);
 
         using var responseContent = await Feature.LoadFileToStringContent();
@@ -198,7 +198,7 @@ internal sealed class ContactsIntegrationTests
         var contactId = TestContext.CurrentContext.Random.NextGuid().ToString();
         var requestUri = _resourceUri.Append(contactId).AbsoluteUri;
 
-        var updatedEmail = $"{TestContext.CurrentContext.Random.GetString(10)}@mailtrap.io";
+        var updatedEmail = TestContext.CurrentContext.Random.NextEmail(10);
         var request = new UpdateContactRequest(updatedEmail);
 
         using var responseContent = await Feature.LoadFileToStringContent();

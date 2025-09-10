@@ -13,7 +13,7 @@ public record ContactsImportRequest : IValidatable
     /// Contact collection for import.
     /// </value>
     [JsonPropertyName("contacts")]
-    [JsonRequired]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<ContactImportRequest> Contacts { get; } = [];
 
     /// <summary>
@@ -34,16 +34,20 @@ public record ContactsImportRequest : IValidatable
     /// <exception cref="ArgumentOutOfRangeException">
     /// When <paramref name="contacts"/> is more than 50000.
     /// </exception>
-    public ContactsImportRequest(IReadOnlyList<ContactImportRequest> contacts)
+    public ContactsImportRequest(IEnumerable<ContactImportRequest> contacts)
     {
         Ensure.NotNullOrEmpty(contacts, nameof(contacts));
-        Ensure.RangeCondition(contacts.Count <= ContactsImportRequestValidator.MaxContactsPerRequest, nameof(contacts));
 
         // Defensive copy to prevent post-ctor mutation.
         Contacts = contacts is List<ContactImportRequest> list
                         ? new List<ContactImportRequest>(list)
                         : new List<ContactImportRequest>(contacts);
     }
+
+    /// <summary>
+    /// Parameterless instance constructor for serializers.
+    /// </summary>
+    public ContactsImportRequest() { }
 
     /// <inheritdoc/>
     public ValidationResult Validate()

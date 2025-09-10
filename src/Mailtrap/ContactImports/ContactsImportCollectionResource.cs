@@ -1,5 +1,3 @@
-using Mailtrap.ContactImports.Responses;
-
 namespace Mailtrap.ContactImports;
 
 /// <summary>
@@ -10,6 +8,6 @@ internal sealed class ContactsImportCollectionResource : RestResource, IContacts
     public ContactsImportCollectionResource(IRestResourceCommandFactory restResourceCommandFactory, Uri resourceUri)
         : base(restResourceCommandFactory, resourceUri) { }
 
-    public async Task<ContactsImportResponse> Create(ContactsImportRequest request, CancellationToken cancellationToken = default)
-        => await Create<ContactsImportRequest, ContactsImportResponse>(request, cancellationToken).ConfigureAwait(false);
+    public async Task<ContactsImport> Create(ContactsImportRequest request, CancellationToken cancellationToken = default)
+        => await Create<ContactsImportRequest, ContactsImport>(request, cancellationToken).ConfigureAwait(false);
 }

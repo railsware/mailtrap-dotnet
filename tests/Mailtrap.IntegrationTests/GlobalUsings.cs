@@ -14,6 +14,8 @@ global using Mailtrap.Core.Exceptions;
 global using Mailtrap.Core.Extensions;
 global using Mailtrap.Core.Models;
 global using Mailtrap.Contacts.Requests;
+global using Mailtrap.ContactImports.Models;
+global using Mailtrap.ContactImports.Requests;
 global using Mailtrap.Emails;
 global using Mailtrap.Emails.Requests;
 global using Mailtrap.Emails.Responses;

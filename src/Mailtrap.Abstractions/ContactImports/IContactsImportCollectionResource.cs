@@ -1,5 +1,3 @@
-using Mailtrap.ContactImports.Responses;
-
 namespace Mailtrap.ContactImports;
 
 /// <summary>
@@ -27,5 +25,5 @@ public interface IContactsImportCollectionResource : IRestResource
     /// <returns>
     /// Contact import id and status.
     /// </returns>
-    public Task<ContactsImportResponse> Create(ContactsImportRequest request, CancellationToken cancellationToken = default);
+    public Task<ContactsImport> Create(ContactsImportRequest request, CancellationToken cancellationToken = default);
 }

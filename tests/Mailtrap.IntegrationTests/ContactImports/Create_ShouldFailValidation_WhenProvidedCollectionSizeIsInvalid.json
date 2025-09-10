@@ -1,0 +1,23 @@
+{
+  "errors": [
+    {
+      "email": "test@example.com",
+      "errors": {
+        "base": [
+          "contacts limit reached",
+          "cannot import more than 50000 contacts at once"
+        ],
+        "email": [
+          "is invalid",
+          "top level domain is too short"
+        ],
+        "fields": [
+          "contains invalid values: invalid_field"
+        ],
+        "field_merge_tag": [
+          "is invalid"
+        ]
+      }
+    }
+  ]
+}

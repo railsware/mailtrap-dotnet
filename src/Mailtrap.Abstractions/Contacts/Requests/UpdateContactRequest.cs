@@ -17,4 +17,9 @@ public sealed record UpdateContactRequest : ContactImportRequest
 
     /// <inheritdoc />
     public UpdateContactRequest(string email) : base(email) { }
+
+    /// <summary>
+    /// Parameterless instance constructor for serializers.
+    /// </summary>
+    public UpdateContactRequest() { }
 }

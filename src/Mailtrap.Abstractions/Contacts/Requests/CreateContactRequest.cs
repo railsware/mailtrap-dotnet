@@ -17,4 +17,9 @@ public sealed record CreateContactRequest : ContactRequest
 
     /// <inheritdoc />
     public CreateContactRequest(string email) : base(email) { }
+
+    /// <summary>
+    /// Parameterless instance constructor for serializers.
+    /// </summary>
+    public CreateContactRequest() { }
 }

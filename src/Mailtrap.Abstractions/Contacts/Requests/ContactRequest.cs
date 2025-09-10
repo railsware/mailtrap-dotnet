@@ -24,6 +24,7 @@ public record ContactRequest : IValidatable
     /// Contact fields.
     /// </value>
     [JsonPropertyName("fields")]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IDictionary<string, object> Fields { get; } = new Dictionary<string, object>();
 
     /// <summary>
@@ -47,6 +48,11 @@ public record ContactRequest : IValidatable
 
         Email = email;
     }
+
+    /// <summary>
+    /// Parameterless instance constructor for serializers.
+    /// </summary>
+    public ContactRequest() { Email = string.Empty; }
 
 
     /// <inheritdoc/>
