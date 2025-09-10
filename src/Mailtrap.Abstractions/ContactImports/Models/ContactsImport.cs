@@ -18,11 +18,11 @@ public record ContactsImport
     public long Id { get; set; }
 
     /// <summary>
-    /// Gets contact imports name.
+    /// Gets contact imports status.
     /// </summary>
     ///
     /// <value>
-    /// Contact imports name.
+    /// Contact imports status.
     /// </value>
     [JsonPropertyName("status")]
     [JsonPropertyOrder(2)]

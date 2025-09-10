@@ -32,7 +32,7 @@ public record ContactsImportRequest : IValidatable
     /// When <paramref name="contacts"/> is <see langword="null"/> or empty.
     /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// When <paramref name="contacts"/> is more than 50000.
+    /// When <paramref name="contacts"/> is more than 50,000.
     /// </exception>
     public ContactsImportRequest(IEnumerable<ContactImportRequest> contacts)
     {
@@ -40,8 +40,8 @@ public record ContactsImportRequest : IValidatable
 
         // Defensive copy to prevent post-ctor mutation.
         Contacts = contacts is List<ContactImportRequest> list
-                        ? new List<ContactImportRequest>(list)
-                        : new List<ContactImportRequest>(contacts);
+                        ? new List<ContactImportRequest>(list)       // defensive copy when already a List<T>
+                        : new List<ContactImportRequest>(contacts);  // otherwise enumerate once
     }
 
     /// <summary>
