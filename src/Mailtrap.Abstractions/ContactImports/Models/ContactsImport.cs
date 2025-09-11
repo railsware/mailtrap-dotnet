@@ -26,7 +26,7 @@ public record ContactsImport
     /// </value>
     [JsonPropertyName("status")]
     [JsonPropertyOrder(2)]
-    public ContactsImportStatus? Status { get; set; }
+    public ContactsImportStatus Status { get; set; } = ContactsImportStatus.Unknown;
 
     /// <summary>
     /// Gets count of created contacts.

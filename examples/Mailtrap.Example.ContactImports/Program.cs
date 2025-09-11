@@ -32,10 +32,10 @@ try
     IContactCollectionResource contactsResource = accountResource.Contacts();
 
     //Get resource for contact imports collection
-    IContactsImportCollectionResource contactsImportResource = contactsResource.Imports();
+    IContactsImportCollectionResource contactsImportsResource = contactsResource.Imports();
 
     // Prepare list of contacts to import
-    var contactsImportList = new List<ContactImportRequest>
+    var contactImportList = new List<ContactImportRequest>
     {
         new("alice@mailtrap.io"),
         new("bob@mailtrap.io"),
@@ -43,20 +43,20 @@ try
     };
 
     // Create contacts import request
-    var importRequest = new ContactsImportRequest(contactsImportList);
+    var importRequest = new ContactsImportRequest(contactImportList);
 
     // Import contacts in bulk
-    ContactsImport importResponse = await contactsImportResource.Create(importRequest);
+    ContactsImport importResponse = await contactsImportsResource.Create(importRequest);
     logger.LogInformation("Created contact import: {Import}", importResponse);
 
     // Get resource for specific contact import
-    IContactsImportResource contactImportResource = contactsResource.Import(importResponse.Id);
+    IContactsImportResource contactsImportResource = contactsResource.Import(importResponse.Id);
 
     // Get details of specific contact import
-    ContactsImport contactImportDetails = await contactImportResource.GetDetails();
-    logger.LogInformation("Contacts Import Details: {Details}", contactImportDetails);
+    ContactsImport contactsImportDetails = await contactsImportResource.GetDetails();
+    logger.LogInformation("Contacts Import Details: {Details}", contactsImportDetails);
 
-    if (contactImportDetails.Status == ContactsImportStatus.Failed)
+    if (contactsImportDetails.Status == ContactsImportStatus.Failed)
     {
         logger.LogWarning("Import failed!");
     }
