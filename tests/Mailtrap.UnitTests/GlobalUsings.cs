@@ -27,6 +27,8 @@ global using Mailtrap.Contacts;
 global using Mailtrap.Contacts.Requests;
 global using Mailtrap.ContactImports;
 global using Mailtrap.ContactImports.Requests;
+global using Mailtrap.ContactLists;
+global using Mailtrap.ContactLists.Requests;
 global using Mailtrap.Emails;
 global using Mailtrap.Emails.Models;
 global using Mailtrap.Emails.Requests;

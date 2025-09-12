@@ -3,8 +3,6 @@
 
 internal static class EmailAddressHelpers
 {
-
-
     /// <summary>
     /// Generates a random email address with the specified domain.
     /// </summary>

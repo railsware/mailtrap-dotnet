@@ -1,7 +1,9 @@
+using Mailtrap.ContactLists;
+
 namespace Mailtrap.Contacts;
 
 /// <summary>
-/// Represents Contacts collection resource..
+/// Represents Contacts collection resource.
 /// </summary>
 public interface IContactCollectionResource : IRestResource
 {
@@ -30,6 +32,32 @@ public interface IContactCollectionResource : IRestResource
     /// When <paramref name="importId"/> is less than or equal to zero.
     /// </exception>
     public IContactsImportResource Import(long importId);
+
+    /// <summary>
+    /// Gets contacts lists collection resource for the account, represented by this resource instance.
+    /// </summary>
+    ///
+    /// <returns>
+    /// <see cref="IContactsListCollectionResource"/> for the account, represented by this resource instance.
+    /// </returns>
+    public IContactsListCollectionResource Lists();
+
+    /// <summary>
+    /// Gets resource for a specific contacts list identified by <paramref name="listId"/>.
+    /// </summary>
+    ///
+    /// <param name="listId">
+    /// Unique Contacts List ID to get resource for.
+    /// </param>
+    ///
+    /// <returns>
+    /// <see cref="IContactsListResource"/> for the contacts import with the specified ID.
+    /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="listId"/> is less than or equal to zero.
+    /// </exception>
+    public IContactsListResource List(long listId);
 
     /// <summary>
     /// Gets contacts.
