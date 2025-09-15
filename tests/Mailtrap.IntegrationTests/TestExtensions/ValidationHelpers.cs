@@ -19,8 +19,8 @@ internal static class ValidationHelpers
     /// <summary>
     /// Compares two objects of the same type, handling JsonElement properties correctly.
     /// </summary>
-    /// <typeparam name="TValue">Suppose to be <see cref="ContactResponse"/> and derived classes.</typeparam>
-    /// <param name="result">Object with actial result</param>
+    /// <typeparam name="TValue">Supposed to be <see cref="ContactResponse"/> and derived classes.</typeparam>
+    /// <param name="result">Object with actual result</param>
     /// <param name="expected">Object with expected results</param>
     internal static void ShouldBeEquivalentToContactResponse<TValue>(this TValue result, TValue expected)
         where TValue : class
@@ -30,7 +30,7 @@ internal static class ValidationHelpers
             .And
             .BeEquivalentTo(expected, options => options
             // Convert JsonElement to string before comparison
-            // this should allow to correctly compare Dictionaty<string, object> like Contact.Fields
+            // this should allow to correctly compare Dictionary<string, object> like Contact.Fields
             .Using<JsonElement>(ctx =>
             {
                 var expected = ctx.Expectation.ToString();

@@ -25,7 +25,7 @@ public record ContactsListRequest : IValidatable
     /// </param>
     ///
     /// <remarks>
-    /// Contacts List's <paramref name="name"/> must be min 1 characters and max 255 characters long.
+    /// The <paramref name="name"/> must be between 1 and 255 characters.
     /// </remarks>
     ///
     /// <exception cref="ArgumentNullException">

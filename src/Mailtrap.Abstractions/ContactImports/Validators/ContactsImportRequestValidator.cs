@@ -2,8 +2,8 @@
 
 
 /// <summary>
-/// Validator for Create/Update contact requests.<br />
-/// Ensures contact's email is not empty and length is within the allowed range.
+/// Validator for <see cref="ContactsImportRequest"/>
+/// Ensures the Contacts collection size is within allowed bounds and each item is valid.
 /// </summary>
 internal sealed class ContactsImportRequestValidator : AbstractValidator<ContactsImportRequest>
 {

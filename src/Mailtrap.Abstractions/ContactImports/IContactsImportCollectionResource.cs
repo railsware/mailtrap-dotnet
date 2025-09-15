@@ -11,7 +11,7 @@ public interface IContactsImportCollectionResource : IRestResource
     /// You can import up to 50,000 contacts per request.
     /// The import process runs asynchronously - use the returned
     /// import ID to check the status and results.
-    /// List all contacts with details into <paramref name="request"/>.
+    /// Provide the contacts to import in the <paramref name="request"/>.
     /// </summary>
     ///
     /// <param name="request">
@@ -23,7 +23,7 @@ public interface IContactsImportCollectionResource : IRestResource
     /// </param>
     ///
     /// <returns>
-    /// Contact import id and status.
+    /// <see cref="ContactsImport"/> containing the import ID and status.
     /// </returns>
     public Task<ContactsImport> Create(ContactsImportRequest request, CancellationToken cancellationToken = default);
 }

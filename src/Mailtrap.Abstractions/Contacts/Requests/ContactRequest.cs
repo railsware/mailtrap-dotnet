@@ -20,6 +20,10 @@ public record ContactRequest : IValidatable
     /// Gets contact fields.
     /// </summary>
     ///
+    /// <remarks>
+    /// object-typed values may deserialize numbers as JsonElement
+    /// </remarks>
+    ///
     /// <value>
     /// Contact fields.
     /// </value>

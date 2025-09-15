@@ -5,7 +5,7 @@
 internal sealed class ContactsListRequestTests
 {
     [Test]
-    public void Constructor_ShouldThrowArgumentNullException_WhenEmailIsNull()
+    public void Constructor_ShouldThrowArgumentNullException_WhenNameIsNull()
     {
         var act = () => new ContactsListRequest(null!);
 
@@ -13,7 +13,7 @@ internal sealed class ContactsListRequestTests
     }
 
     [Test]
-    public void Constructor_ShouldThrowArgumentNullException_WhenEmailIsEmpty()
+    public void Constructor_ShouldThrowArgumentNullException_WhenNameIsEmpty()
     {
         var act = () => new ContactsListRequest(string.Empty);
 
