@@ -35,7 +35,7 @@ try
     // Get all contacts lists for account
     IList<ContactsList> contactsLists = await contactsListsResource.GetAll();
 
-    ContactsList? contactsList = contactsLists.FirstOrDefault();
+    ContactsList? contactsList = contactsLists.Count > 0 ? contactsLists[0] : null;
 
     if (contactsList is null)
     {
@@ -70,6 +70,6 @@ try
 catch (Exception ex)
 {
     logger.LogError(ex, "An error occurred during API call.");
-    Environment.FailFast(ex.Message);
-    throw;
+    Environment.ExitCode = 1;
+    return;
 }

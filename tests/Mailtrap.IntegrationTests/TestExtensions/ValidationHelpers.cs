@@ -8,7 +8,11 @@ internal static class ValidationHelpers
     {
         var responseStream = await responseContent.ReadAsStreamAsync();
         var expectedResponse = await JsonSerializer.DeserializeAsync<TValue>(responseStream, jsonSerializerOptions);
-        responseStream.Position = 0; // Reset stream position
+        if (responseStream.CanSeek)
+        {
+            responseStream.Position = 0; // Reset stream position
+        }
+
         return expectedResponse;
     }
 

@@ -1,12 +1,12 @@
 namespace Mailtrap.ContactLists;
 
 /// <summary>
-/// Represents Contacts Lists collection resource.
+/// Represents the contact lists collection resource.
 /// </summary>
 public interface IContactsListCollectionResource : IRestResource
 {
     /// <summary>
-    /// Gets all contacts lists.
+    /// Retrieves all contact lists.
     /// </summary>
     ///
     /// <param name="cancellationToken">
@@ -14,16 +14,16 @@ public interface IContactsListCollectionResource : IRestResource
     /// </param>
     ///
     /// <returns>
-    /// Collection of contacts lists details.
+    /// A collection of contact list details.
     /// </returns>
     public Task<IList<ContactsList>> GetAll(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Creates a new contacts list with details specified by <paramref name="request"/>.
+    /// Creates a new contact list with details specified by <paramref name="request"/>.
     /// </summary>
     ///
     /// <param name="request">
-    /// Request containing contacts list details for creation.
+    /// The request containing contact list details for creation.
     /// </param>
     ///
     /// <param name="cancellationToken">
@@ -31,7 +31,7 @@ public interface IContactsListCollectionResource : IRestResource
     /// </param>
     ///
     /// <returns>
-    /// Created contacts list details.
+    /// The created contact list.
     /// </returns>
     public Task<ContactsList> Create(ContactsListRequest request, CancellationToken cancellationToken = default);
 }

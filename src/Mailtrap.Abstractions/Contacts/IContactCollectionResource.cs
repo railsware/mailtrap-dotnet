@@ -51,7 +51,7 @@ public interface IContactCollectionResource : IRestResource
     /// </param>
     ///
     /// <returns>
-    /// <see cref="IContactsListResource"/> for the contacts import with the specified ID.
+    /// <see cref="IContactsListResource"/> for the contacts list with the specified ID.
     /// </returns>
     ///
     /// <exception cref="ArgumentOutOfRangeException">
