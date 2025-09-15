@@ -49,6 +49,7 @@ public record ContactsImportRequest : IValidatable
     /// <summary>
     /// Parameterless instance constructor for serializers.
     /// </summary>
+    [JsonConstructor]
     public ContactsImportRequest() { }
 
     /// <inheritdoc/>

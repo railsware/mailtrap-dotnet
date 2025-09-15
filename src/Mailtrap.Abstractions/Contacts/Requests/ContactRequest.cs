@@ -56,6 +56,7 @@ public record ContactRequest : IValidatable
     /// <summary>
     /// Parameterless instance constructor for serializers.
     /// </summary>
+    [JsonConstructor]
     public ContactRequest() { Email = string.Empty; }
 
 

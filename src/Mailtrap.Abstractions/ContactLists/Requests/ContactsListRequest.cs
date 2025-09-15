@@ -41,6 +41,7 @@ public record ContactsListRequest : IValidatable
     /// <summary>
     /// Parameterless instance constructor for serializers.
     /// </summary>
+    [JsonConstructor]
     public ContactsListRequest() { }
 
 

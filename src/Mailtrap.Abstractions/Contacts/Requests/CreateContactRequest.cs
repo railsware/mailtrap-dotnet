@@ -21,5 +21,6 @@ public sealed record CreateContactRequest : ContactRequest
     /// <summary>
     /// Parameterless instance constructor for serializers.
     /// </summary>
+    [JsonConstructor]
     public CreateContactRequest() { }
 }
