@@ -40,6 +40,8 @@ global using Mailtrap.ContactLists;
 global using Mailtrap.ContactLists.Models;
 global using Mailtrap.ContactLists.Requests;
 global using Mailtrap.ContactFields;
+global using Mailtrap.ContactFields.Models;
+global using Mailtrap.ContactFields.Requests;
 global using Mailtrap.Emails;
 global using Mailtrap.Emails.Models;
 global using Mailtrap.Emails.Requests;

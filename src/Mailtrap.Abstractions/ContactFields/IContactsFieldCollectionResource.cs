@@ -1,7 +1,7 @@
 namespace Mailtrap.ContactFields;
 
 /// <summary>
-/// Represents Contacts field collection resource.
+/// Represents contacts field collection resource.
 /// </summary>
 public interface IContactsFieldCollectionResource : IRestResource
 {
@@ -14,7 +14,7 @@ public interface IContactsFieldCollectionResource : IRestResource
     /// </param>
     ///
     /// <returns>
-    /// Collection of contact feilds.
+    /// Collection of contact fields.
     /// </returns>
     public Task<IList<ContactsField>> GetAll(CancellationToken cancellationToken = default);
 

@@ -19,6 +19,15 @@ internal sealed class CreateContactsFieldRequestTests
         copiedRequest.DataType.Should().Be(ContactsFieldDataType.Number);
     }
 
+    [TestCase(null, "validMergeTag", "name")]
+    [TestCase("", "validMergeTag", "name")]
+    [TestCase("validName", null, "mergeTag")]
+    [TestCase("validName", "", "mergeTag")]
+    public void Constructor_ShouldThrowArgumentNullException_WhenInputsInvalid(string? name, string? mergeTag, string expectedParam)
+    {
+        var act = () => new CreateContactsFieldRequest(name!, mergeTag!, ContactsFieldDataType.Text);
+        act.Should().Throw<ArgumentNullException>().Which.ParamName.Should().Be(expectedParam);
+    }
 
     [Test]
     public void Constructor_ShouldThrowArgumentNullException_WhenNameIsNull()
@@ -83,6 +92,14 @@ internal sealed class CreateContactsFieldRequestTests
         request.Name.Should().Be(name);
         request.MergeTag.Should().Be(mergeTag);
         request.DataType.Should().Be(dataType);
+    }
+
+    [Test]
+    public void Validate_ShouldPass_OnBoundaryLengths([Values(1, 80)] int length)
+    {
+        var testString = TestContext.CurrentContext.Random.GetString(length);
+        var request = new CreateContactsFieldRequest(testString, testString, ContactsFieldDataType.Boolean);
+        request.Validate().IsValid.Should().BeTrue();
     }
 
     [Test]

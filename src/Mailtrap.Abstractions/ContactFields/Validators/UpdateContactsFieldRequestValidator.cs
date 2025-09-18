@@ -2,8 +2,8 @@
 
 
 /// <summary>
-/// Validator for Create/Update contacts field requests.<br />
-/// Ensures contacts field's Name and Merge Tag is not empty and length is within the allowed range.
+/// Validator for Update contacts field requests.<br />
+/// Ensures at least one of Name or MergeTag is provided, and any provided values are non‑whitespace and 1–80 chars.
 /// </summary>
 public sealed class UpdateContactsFieldRequestValidator : AbstractValidator<UpdateContactsFieldRequest>
 {

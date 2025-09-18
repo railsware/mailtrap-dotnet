@@ -44,7 +44,7 @@ public sealed record CreateContactsFieldRequest : IValidatable
     /// </summary>
     ///
     /// <param name="name">
-    /// Name of the contact.
+    /// Contact field name.
     /// </param>
     ///
     /// <param name="mergeTag">
@@ -56,8 +56,8 @@ public sealed record CreateContactsFieldRequest : IValidatable
     /// </param>
     ///
     /// <remarks>
-    /// Contacts field's <paramref name="name"/> must be min 1 characters and max 80 characters long.<br/>
-    /// Contacts field's <paramref name="mergeTag"/> must be min 1 characters and max 80 characters long.
+    /// <paramref name="name"/> must be 1–80 characters long.<br/>
+    /// <paramref name="mergeTag"/> must be 1–80 characters long.
     /// </remarks>
     ///
     /// <exception cref="ArgumentNullException">

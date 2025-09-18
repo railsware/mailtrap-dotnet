@@ -1,10 +1,7 @@
-using Mailtrap.ContactFields.Models;
-using Mailtrap.ContactFields.Requests;
-
 namespace Mailtrap.ContactFields;
 
 /// <summary>
-/// Implementation of Contacts API operations.
+/// Implementation of Contacts Field API operations.
 /// </summary>
 internal sealed class ContactsFieldResource : RestResource, IContactsFieldResource
 {

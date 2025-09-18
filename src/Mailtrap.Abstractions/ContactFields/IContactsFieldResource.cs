@@ -1,7 +1,7 @@
 namespace Mailtrap.ContactFields;
 
 /// <summary>
-/// Represents Contact Filed resource.
+/// Represents Contacts Field resource.
 /// </summary>
 public interface IContactsFieldResource : IRestResource
 {
@@ -49,7 +49,7 @@ public interface IContactsFieldResource : IRestResource
     ///
     /// <remarks>
     /// <para>
-    /// After deletion of the contacts field, represented by the current resource instance, it will be no longer available.<br />
+    /// After deletion of the contacts field, represented by the current resource instance, it will no longer be available.<br />
     /// Thus any further operations on it will result in an error.
     /// </para>
     /// </remarks>

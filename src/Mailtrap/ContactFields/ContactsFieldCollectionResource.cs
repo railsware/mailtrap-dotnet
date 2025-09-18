@@ -1,7 +1,4 @@
-﻿using Mailtrap.ContactFields.Models;
-using Mailtrap.ContactFields.Requests;
-
-namespace Mailtrap.ContactFields;
+﻿namespace Mailtrap.ContactFields;
 
 /// <summary>
 /// Implementation of Contacts Field Collection resource.

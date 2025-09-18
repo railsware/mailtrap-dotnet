@@ -2,7 +2,7 @@
 
 
 /// <summary>
-/// Validator for Create/Update contacts field requests.<br />
+/// Validator for Create contacts field requests.<br />
 /// Ensures contacts field's Name and Merge Tag is not empty and length is within the allowed range.
 /// </summary>
 public sealed class CreateContactsFieldRequestValidator : AbstractValidator<CreateContactsFieldRequest>

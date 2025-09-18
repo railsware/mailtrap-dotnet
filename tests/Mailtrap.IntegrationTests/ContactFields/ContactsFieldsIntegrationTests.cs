@@ -128,7 +128,7 @@ internal sealed class ContactsFieldIntegrationTests
 
         using var mockHttp = new MockHttpMessageHandler();
         var mockedRequest = mockHttp
-            .Expect(httpMethod, requestUri)
+            .When(httpMethod, requestUri)
             .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
             .WithHeaders("Accept", MimeTypes.Application.Json)
             .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
@@ -168,7 +168,7 @@ internal sealed class ContactsFieldIntegrationTests
 
         using var mockHttp = new MockHttpMessageHandler();
         var mockedRequest = mockHttp
-            .Expect(httpMethod, requestUri)
+            .When(httpMethod, requestUri)
             .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
             .WithHeaders("Accept", MimeTypes.Application.Json)
             .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
@@ -294,7 +294,7 @@ internal sealed class ContactsFieldIntegrationTests
 
         using var mockHttp = new MockHttpMessageHandler();
         var mockedRequest = mockHttp
-            .Expect(httpMethod, requestUri)
+            .When(httpMethod, requestUri)
             .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
             .WithHeaders("Accept", MimeTypes.Application.Json)
             .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
@@ -334,7 +334,7 @@ internal sealed class ContactsFieldIntegrationTests
 
         using var mockHttp = new MockHttpMessageHandler();
         var mockedRequest = mockHttp
-            .Expect(httpMethod, requestUri)
+            .When(httpMethod, requestUri)
             .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
             .WithHeaders("Accept", MimeTypes.Application.Json)
             .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())

@@ -1,7 +1,7 @@
 namespace Mailtrap.ContactFields.Models;
 
 /// <summary>
-/// Contact subscription status.
+/// Contacts field data type.
 /// </summary>
 public sealed record ContactsFieldDataType : StringEnum<ContactsFieldDataType>
 {
