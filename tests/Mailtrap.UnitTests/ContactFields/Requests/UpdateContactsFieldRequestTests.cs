@@ -125,7 +125,7 @@ internal sealed class UpdateContactsFieldRequestTests
     public void Validate_ShouldPass_WhenProvidedNameIsNull()
     {
         // Arrange
-        var name = TestContext.CurrentContext.Random.GetString(10);
+        var name = (string)null!;
         var mergeTag = TestContext.CurrentContext.Random.GetString(10);
         var request = new UpdateContactsFieldRequest(name, mergeTag);
 
