@@ -29,7 +29,7 @@ try
     // Get resource for contacts collection
     IContactCollectionResource contactsResource = accountResource.Contacts();
 
-    // Get resource for contacts list collection
+    // Get resource for contact lists collection
     IContactsListCollectionResource contactsListsResource = contactsResource.Lists();
 
     // Get all contacts lists for account

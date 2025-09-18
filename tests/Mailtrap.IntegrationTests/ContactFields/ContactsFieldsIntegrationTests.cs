@@ -1,10 +1,10 @@
-﻿namespace Mailtrap.IntegrationTests.ContactLists;
+﻿namespace Mailtrap.IntegrationTests.ContactFields;
 
 
 [TestFixture]
-internal sealed class ContactsListIntegrationTests
+internal sealed class ContactsFieldIntegrationTests
 {
-    private const string Feature = "ContactLists";
+    private const string Feature = "ContactFields";
 
     private readonly long _accountId;
     private readonly Uri _resourceUri = null!;
@@ -12,7 +12,7 @@ internal sealed class ContactsListIntegrationTests
     private readonly JsonSerializerOptions _jsonSerializerOptions = null!;
 
 
-    public ContactsListIntegrationTests()
+    public ContactsFieldIntegrationTests()
     {
         var random = TestContext.CurrentContext.Random;
 
@@ -23,7 +23,7 @@ internal sealed class ContactsListIntegrationTests
                 UrlSegmentsTestConstants.AccountsSegment)
             .Append(_accountId)
             .Append(UrlSegmentsTestConstants.ContactsSegment)
-            .Append(UrlSegmentsTestConstants.ListsSegment);
+            .Append(UrlSegmentsTestConstants.FieldsSegment);
 
         var token = random.GetString();
         _clientConfig = new MailtrapClientOptions(token);
@@ -60,7 +60,7 @@ internal sealed class ContactsListIntegrationTests
         var result = await client
             .Account(_accountId)
             .Contacts()
-            .Lists()
+            .Fields()
             .GetAll()
             .ConfigureAwait(false);
 
@@ -80,10 +80,10 @@ internal sealed class ContactsListIntegrationTests
         var requestUri = _resourceUri.AbsoluteUri;
 
         using var responseContent = await Feature.LoadFileToStringContent();
-        var expectedResponse = await responseContent.DeserializeStringContentAsync<ContactsList>(_jsonSerializerOptions);
+        var expectedResponse = await responseContent.DeserializeStringContentAsync<ContactsField>(_jsonSerializerOptions);
         expectedResponse.Should().NotBeNull();
 
-        var request = new ContactsListRequest(expectedResponse.Name);
+        var request = new CreateContactsFieldRequest(expectedResponse.Name!, expectedResponse.MergeTag!, expectedResponse.DataType!);
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -92,7 +92,7 @@ internal sealed class ContactsListIntegrationTests
             .WithHeaders("Accept", MimeTypes.Application.Json)
             .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
             .WithJsonContent(request, _jsonSerializerOptions)
-            .Respond(HttpStatusCode.OK, responseContent);
+            .Respond(HttpStatusCode.Created, responseContent);
 
         var serviceCollection = new ServiceCollection();
         serviceCollection
@@ -106,29 +106,25 @@ internal sealed class ContactsListIntegrationTests
         var result = await client
             .Account(_accountId)
             .Contacts()
-            .Lists()
+            .Fields()
             .Create(request)
             .ConfigureAwait(false);
 
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
 
-        result.Should().NotBeNull().And
-            .Match<ContactsList>(x => x.Name == expectedResponse.Name);
+        result.Should().NotBeNull().And.BeEquivalentTo(expectedResponse);
     }
 
     [Test]
-    public async Task Create_ShouldFailValidation_WhenNameIsNotValid([Values(0, 256)] int length)
+    public async Task Create_ShouldFailValidation_WhenNameIsNotValid([Values(81)] int length)
     {
         // Arrange
         var httpMethod = HttpMethod.Post;
         var requestUri = _resourceUri.AbsoluteUri;
 
-        var contactsListName = TestContext.CurrentContext.Random.GetString(length);
-        var request = new ContactsListRequest
-        {
-            Name = contactsListName
-        };
+        var contactsFieldName = TestContext.CurrentContext.Random.GetString(length);
+        var request = new CreateContactsFieldRequest(contactsFieldName, "validMergeTag", ContactsFieldDataType.Number);
 
         using var mockHttp = new MockHttpMessageHandler();
         var mockedRequest = mockHttp
@@ -151,7 +147,47 @@ internal sealed class ContactsListIntegrationTests
         var act = () => client
             .Account(_accountId)
             .Contacts()
-            .Lists()
+            .Fields()
+            .Create(request);
+
+        // Assert
+        await act.Should().ThrowAsync<RequestValidationException>();
+
+        mockHttp.GetMatchCount(mockedRequest).Should().Be(0);
+    }
+
+    [Test]
+    public async Task Create_ShouldFailValidation_WhenMergeTagIsNotValid([Values(81)] int length)
+    {
+        // Arrange
+        var httpMethod = HttpMethod.Post;
+        var requestUri = _resourceUri.AbsoluteUri;
+
+        var contactsMergeTag = TestContext.CurrentContext.Random.GetString(length);
+        var request = new CreateContactsFieldRequest("validName", contactsMergeTag, ContactsFieldDataType.FloatValue);
+
+        using var mockHttp = new MockHttpMessageHandler();
+        var mockedRequest = mockHttp
+            .Expect(httpMethod, requestUri)
+            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .WithJsonContent(request, _jsonSerializerOptions)
+            .Respond(HttpStatusCode.UnprocessableContent);
+
+        var serviceCollection = new ServiceCollection();
+        serviceCollection
+            .AddMailtrapClient(_clientConfig)
+            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
+
+        using var services = serviceCollection.BuildServiceProvider();
+        var client = services.GetRequiredService<IMailtrapClient>();
+
+        // Act
+        var act = () => client
+            .Account(_accountId)
+            .Contacts()
+            .Fields()
             .Create(request);
 
         // Assert
@@ -165,11 +201,11 @@ internal sealed class ContactsListIntegrationTests
     {
         // Arrange
         var httpMethod = HttpMethod.Get;
-        var listId = TestContext.CurrentContext.Random.NextLong();
-        var requestUri = _resourceUri.Append(listId).AbsoluteUri;
+        var fieldId = TestContext.CurrentContext.Random.NextLong();
+        var requestUri = _resourceUri.Append(fieldId).AbsoluteUri;
 
         using var responseContent = await Feature.LoadFileToStringContent();
-        var expectedResponse = await responseContent.DeserializeStringContentAsync<ContactsList>(_jsonSerializerOptions);
+        var expectedResponse = await responseContent.DeserializeStringContentAsync<ContactsField>(_jsonSerializerOptions);
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -191,7 +227,7 @@ internal sealed class ContactsListIntegrationTests
         var result = await client
             .Account(_accountId)
             .Contacts()
-            .List(listId)
+            .Field(fieldId)
             .GetDetails()
             .ConfigureAwait(false);
 
@@ -206,14 +242,14 @@ internal sealed class ContactsListIntegrationTests
     {
         // Arrange
         var httpMethod = HttpMethodEx.Patch;
-        var listId = TestContext.CurrentContext.Random.NextLong();
-        var requestUri = _resourceUri.Append(listId).AbsoluteUri;
-
-        var updatedContactsListName = TestContext.CurrentContext.Random.GetString(10);
-        var request = new ContactsListRequest(updatedContactsListName);
+        var fieldId = TestContext.CurrentContext.Random.NextLong();
+        var requestUri = _resourceUri.Append(fieldId).AbsoluteUri;
 
         using var responseContent = await Feature.LoadFileToStringContent();
-        var expectedResponse = await responseContent.DeserializeStringContentAsync<ContactsList>(_jsonSerializerOptions);
+        var expectedResponse = await responseContent.DeserializeStringContentAsync<ContactsField>(_jsonSerializerOptions);
+        expectedResponse.Should().NotBeNull();
+
+        var request = new UpdateContactsFieldRequest(expectedResponse.Name, expectedResponse.MergeTag);
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -236,7 +272,7 @@ internal sealed class ContactsListIntegrationTests
         var result = await client
             .Account(_accountId)
             .Contacts()
-            .List(listId)
+            .Field(fieldId)
             .Update(request)
             .ConfigureAwait(false);
 
@@ -247,18 +283,14 @@ internal sealed class ContactsListIntegrationTests
     }
 
     [Test]
-    public async Task Update_ShouldFailValidation_WhenNameIsNotValid([Values(0, 256)] int length)
+    public async Task Update_ShouldFailValidation_WhenNameIsNotValid([Values(81)] int length)
     {
         // Arrange
         var httpMethod = HttpMethodEx.Patch;
-        var listId = TestContext.CurrentContext.Random.NextLong();
-        var requestUri = _resourceUri.Append(listId).AbsoluteUri;
+        var fieldId = TestContext.CurrentContext.Random.NextLong();
+        var requestUri = _resourceUri.Append(fieldId).AbsoluteUri;
 
-        var updatedContactsListName = TestContext.CurrentContext.Random.GetString(length);
-        var request = new ContactsListRequest()
-        {
-            Name = updatedContactsListName
-        };
+        var request = new UpdateContactsFieldRequest(TestContext.CurrentContext.Random.GetString(length), "validMergeTag");
 
         using var mockHttp = new MockHttpMessageHandler();
         var mockedRequest = mockHttp
@@ -281,7 +313,47 @@ internal sealed class ContactsListIntegrationTests
         var act = () => client
             .Account(_accountId)
             .Contacts()
-            .List(listId)
+            .Field(fieldId)
+            .Update(request);
+
+        // Assert
+        await act.Should().ThrowAsync<RequestValidationException>();
+
+        mockHttp.GetMatchCount(mockedRequest).Should().Be(0);
+    }
+
+    [Test]
+    public async Task Update_ShouldFailValidation_WhenMergeTagIsNotValid([Values(81)] int length)
+    {
+        // Arrange
+        var httpMethod = HttpMethodEx.Patch;
+        var fieldId = TestContext.CurrentContext.Random.NextLong();
+        var requestUri = _resourceUri.Append(fieldId).AbsoluteUri;
+
+        var request = new UpdateContactsFieldRequest("validName", TestContext.CurrentContext.Random.GetString(length));
+
+        using var mockHttp = new MockHttpMessageHandler();
+        var mockedRequest = mockHttp
+            .Expect(httpMethod, requestUri)
+            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .WithJsonContent(request, _jsonSerializerOptions)
+            .Respond(HttpStatusCode.UnprocessableContent);
+
+        var serviceCollection = new ServiceCollection();
+        serviceCollection
+            .AddMailtrapClient(_clientConfig)
+            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
+
+        using var services = serviceCollection.BuildServiceProvider();
+        var client = services.GetRequiredService<IMailtrapClient>();
+
+        // Act
+        var act = () => client
+            .Account(_accountId)
+            .Contacts()
+            .Field(fieldId)
             .Update(request);
 
         // Assert
@@ -295,8 +367,8 @@ internal sealed class ContactsListIntegrationTests
     {
         // Arrange
         var httpMethod = HttpMethod.Delete;
-        var listId = TestContext.CurrentContext.Random.NextLong();
-        var requestUri = _resourceUri.Append(listId).AbsoluteUri;
+        var fieldId = TestContext.CurrentContext.Random.NextLong();
+        var requestUri = _resourceUri.Append(fieldId).AbsoluteUri;
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -318,7 +390,7 @@ internal sealed class ContactsListIntegrationTests
         await client
             .Account(_accountId)
             .Contacts()
-            .List(listId)
+            .Field(fieldId)
             .Delete()
             .ConfigureAwait(false);
 
