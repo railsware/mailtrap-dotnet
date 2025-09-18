@@ -83,8 +83,4 @@ public sealed record CreateContactsFieldRequest : IValidatable
             .Validate(this)
             .ToMailtrapValidationResult();
     }
-
-    // / <inheritdoc />
-    // [JsonConstructor]
-    // public CreateContactsFieldRequest() { }
 }
