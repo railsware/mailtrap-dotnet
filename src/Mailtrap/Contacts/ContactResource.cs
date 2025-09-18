@@ -1,5 +1,3 @@
-using Mailtrap.Contacts.Responses;
-
 namespace Mailtrap.Contacts;
 
 /// <summary>
