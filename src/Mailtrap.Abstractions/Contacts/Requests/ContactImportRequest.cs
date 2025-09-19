@@ -33,5 +33,6 @@ public record ContactImportRequest : ContactRequest
     /// <summary>
     /// Parameterless instance constructor for serializers.
     /// </summary>
+    [JsonConstructor]
     public ContactImportRequest() { }
 }

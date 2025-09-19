@@ -652,7 +652,7 @@ internal sealed class TestingMessagesIntegrationTests
             .Append(urlSegment)
             .AbsoluteUri;
 
-        using var responseContent = await Feature.LoadFileToStringContent(filexExt: "txt");
+        using var responseContent = await Feature.LoadFileToStringContent(fileExt: "txt");
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp

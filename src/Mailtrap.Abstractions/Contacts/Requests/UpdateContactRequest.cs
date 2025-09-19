@@ -21,5 +21,6 @@ public sealed record UpdateContactRequest : ContactImportRequest
     /// <summary>
     /// Parameterless instance constructor for serializers.
     /// </summary>
+    [JsonConstructor]
     public UpdateContactRequest() { }
 }

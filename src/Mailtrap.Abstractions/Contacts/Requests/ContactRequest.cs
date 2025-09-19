@@ -20,6 +20,10 @@ public record ContactRequest : IValidatable
     /// Gets contact fields.
     /// </summary>
     ///
+    /// <remarks>
+    /// object-typed values may deserialize numbers as JsonElement
+    /// </remarks>
+    ///
     /// <value>
     /// Contact fields.
     /// </value>
@@ -52,6 +56,7 @@ public record ContactRequest : IValidatable
     /// <summary>
     /// Parameterless instance constructor for serializers.
     /// </summary>
+    [JsonConstructor]
     public ContactRequest() { Email = string.Empty; }
 
 

@@ -1,7 +1,7 @@
 namespace Mailtrap.ContactImports.Requests;
 
 /// <summary>
-/// Generic request object for contact CRUD operations.
+/// Generic request object for contacts import CRUD operations.
 /// </summary>
 public record ContactsImportRequest : IValidatable
 {
@@ -24,7 +24,7 @@ public record ContactsImportRequest : IValidatable
     /// Collection of contacts to import.
     /// </param>
     ///
-    /// /// <remarks>
+    /// <remarks>
     /// Each contact in the <paramref name="contacts"/> must include a valid email.
     /// Size and item-level constraints are validated by <see cref="Validate"/>.
     /// </remarks>
@@ -49,6 +49,7 @@ public record ContactsImportRequest : IValidatable
     /// <summary>
     /// Parameterless instance constructor for serializers.
     /// </summary>
+    [JsonConstructor]
     public ContactsImportRequest() { }
 
     /// <inheritdoc/>

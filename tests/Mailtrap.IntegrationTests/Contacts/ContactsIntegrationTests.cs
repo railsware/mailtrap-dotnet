@@ -81,6 +81,8 @@ internal sealed class ContactsIntegrationTests
         var request = new CreateContactRequest(contactEmail);
 
         using var responseContent = await Feature.LoadFileToStringContent();
+        var expectedResponse = await responseContent.DeserializeStringContentAsync<CreateContactResponse>(_jsonSerializerOptions);
+        expectedResponse.Should().NotBeNull();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -109,7 +111,7 @@ internal sealed class ContactsIntegrationTests
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
 
-        result.Should().NotBeNull();
+        result.ShouldBeEquivalentToContactResponse(expectedResponse);
     }
 
     [Test]
@@ -160,6 +162,8 @@ internal sealed class ContactsIntegrationTests
         var requestUri = _resourceUri.Append(contactId).AbsoluteUri;
 
         using var responseContent = await Feature.LoadFileToStringContent();
+        var expectedResponse = await responseContent.DeserializeStringContentAsync<ContactResponse>(_jsonSerializerOptions);
+        expectedResponse.Should().NotBeNull();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -187,7 +191,7 @@ internal sealed class ContactsIntegrationTests
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
 
-        result.Should().NotBeNull();
+        result.ShouldBeEquivalentToContactResponse(expectedResponse);
     }
 
     [Test]
@@ -202,6 +206,8 @@ internal sealed class ContactsIntegrationTests
         var request = new UpdateContactRequest(updatedEmail);
 
         using var responseContent = await Feature.LoadFileToStringContent();
+        var expectedResponse = await responseContent.DeserializeStringContentAsync<UpdateContactResponse>(_jsonSerializerOptions);
+        expectedResponse.Should().NotBeNull();
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -230,7 +236,7 @@ internal sealed class ContactsIntegrationTests
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
 
-        result.Should().NotBeNull();
+        result.ShouldBeEquivalentToContactResponse(expectedResponse);
     }
 
     [Test]
