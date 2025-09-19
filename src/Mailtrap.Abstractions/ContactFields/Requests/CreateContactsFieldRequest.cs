@@ -37,7 +37,7 @@ public sealed record CreateContactsFieldRequest : IValidatable
 
     [JsonPropertyName("data_type")]
     [JsonRequired]
-    public ContactsFieldDataType? DataType { get; set; }
+    public ContactsFieldDataType DataType { get; set; }
 
     /// <summary>
     /// Primary instance constructor.
