@@ -18,6 +18,16 @@ internal static class FileHelpers
         string? fileName = null,
         string fileExt = "json")
     {
+        var fileString = await LoadFileToString(featureFolderName, fileName, filexExt);
+
+        return new StringContent(fileString);
+    }
+
+    internal static async Task<string> LoadFileToString(
+        this string featureFolderName,
+        string? fileName,
+        string filexExt = "json")
+    {
         Ensure.NotNullOrEmpty(featureFolderName, nameof(featureFolderName));
 
         var name = $"{fileName ?? TestContext.CurrentContext.Test.MethodName ?? "Test"}.{fileExt}";
