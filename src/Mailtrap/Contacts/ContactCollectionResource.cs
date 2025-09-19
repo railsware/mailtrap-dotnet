@@ -7,9 +7,16 @@ namespace Mailtrap.Contacts;
 /// </summary>
 internal sealed class ContactCollectionResource : RestResource, IContactCollectionResource
 {
+    private const string ImportsSegment = "imports";
+
     public ContactCollectionResource(IRestResourceCommandFactory restResourceCommandFactory, Uri resourceUri)
         : base(restResourceCommandFactory, resourceUri) { }
 
+    public IContactsImportCollectionResource Imports()
+        => new ContactsImportCollectionResource(RestResourceCommandFactory, ResourceUri.Append(ImportsSegment));
+
+    public IContactsImportResource Import(long importId)
+            => new ContactsImportResource(RestResourceCommandFactory, ResourceUri.Append(ImportsSegment).Append(importId));
 
     public async Task<IList<Contact>> GetAll(CancellationToken cancellationToken = default)
         => await GetList<Contact>(cancellationToken).ConfigureAwait(false);

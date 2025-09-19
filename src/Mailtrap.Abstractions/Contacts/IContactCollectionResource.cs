@@ -6,6 +6,32 @@ namespace Mailtrap.Contacts;
 public interface IContactCollectionResource : IRestResource
 {
     /// <summary>
+    /// Gets contacts import collection resource for the account, represented by this resource instance.
+    /// </summary>
+    ///
+    /// <returns>
+    /// <see cref="IContactsImportCollectionResource"/> for the account, represented by this resource instance.
+    /// </returns>
+    public IContactsImportCollectionResource Imports();
+
+    /// <summary>
+    /// Gets resource for a specific contacts import identified by <paramref name="importId"/>.
+    /// </summary>
+    ///
+    /// <param name="importId">
+    /// Unique Contact Import ID to get resource for.
+    /// </param>
+    ///
+    /// <returns>
+    /// <see cref="IContactsImportResource"/> for the contacts import with the specified ID.
+    /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="importId"/> is less than or equal to zero.
+    /// </exception>
+    public IContactsImportResource Import(long importId);
+
+    /// <summary>
     /// Gets contacts.
     /// </summary>
     ///

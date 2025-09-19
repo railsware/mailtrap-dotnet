@@ -1,10 +1,10 @@
-﻿namespace Mailtrap.IntegrationTests.Contacts;
+﻿namespace Mailtrap.IntegrationTests.ContactImports;
 
 
 [TestFixture]
-internal sealed class ContactsIntegrationTests
+internal sealed class ContactImportsIntegrationTests
 {
-    private const string Feature = "Contacts";
+    private const string Feature = "ContactImports";
 
     private readonly long _accountId;
     private readonly Uri _resourceUri = null!;
@@ -12,7 +12,7 @@ internal sealed class ContactsIntegrationTests
     private readonly JsonSerializerOptions _jsonSerializerOptions = null!;
 
 
-    public ContactsIntegrationTests()
+    public ContactImportsIntegrationTests()
     {
         var random = TestContext.CurrentContext.Random;
 
@@ -22,52 +22,12 @@ internal sealed class ContactsIntegrationTests
                 UrlSegmentsTestConstants.ApiRootSegment,
                 UrlSegmentsTestConstants.AccountsSegment)
             .Append(_accountId)
-            .Append(UrlSegmentsTestConstants.ContactsSegment);
+            .Append(UrlSegmentsTestConstants.ContactsSegment)
+            .Append(UrlSegmentsTestConstants.ImportsSegment);
 
         var token = random.GetString();
         _clientConfig = new MailtrapClientOptions(token);
         _jsonSerializerOptions = _clientConfig.ToJsonSerializerOptions();
-    }
-
-
-    [Test]
-    public async Task GetAll_Success()
-    {
-        // Arrange
-        var httpMethod = HttpMethod.Get;
-        var requestUri = _resourceUri.AbsoluteUri;
-
-        using var responseContent = await Feature.LoadFileToStringContent();
-
-        using var mockHttp = new MockHttpMessageHandler();
-        mockHttp
-            .Expect(httpMethod, requestUri)
-            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
-            .WithHeaders("Accept", MimeTypes.Application.Json)
-            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
-            .Respond(HttpStatusCode.OK, responseContent);
-
-        var serviceCollection = new ServiceCollection();
-        serviceCollection
-            .AddMailtrapClient(_clientConfig)
-            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
-
-        using var services = serviceCollection.BuildServiceProvider();
-        var client = services.GetRequiredService<IMailtrapClient>();
-
-        // Act
-        var result = await client
-            .Account(_accountId)
-            .Contacts()
-            .GetAll()
-            .ConfigureAwait(false);
-
-        // Assert
-        mockHttp.VerifyNoOutstandingExpectation();
-
-        result.Should()
-            .NotBeNull().And
-            .HaveCount(3);
     }
 
     [Test]
@@ -77,10 +37,14 @@ internal sealed class ContactsIntegrationTests
         var httpMethod = HttpMethod.Post;
         var requestUri = _resourceUri.AbsoluteUri;
 
-        var contactEmail = TestContext.CurrentContext.Random.NextEmail();
-        var request = new CreateContactRequest(contactEmail);
+        var fileName = TestContext.CurrentContext.Test.MethodName;
 
-        using var responseContent = await Feature.LoadFileToStringContent();
+        var requestContent = await Feature.LoadFileToString(fileName + "_Request");
+        var request = JsonSerializer.Deserialize<ContactsImportRequest>(requestContent, _jsonSerializerOptions);
+        request.Should().NotBeNull();
+
+        using var responseContent = await Feature.LoadFileToStringContent(fileName + "_Response");
+        var expectedResponse = await DeserializeStringContentAsync<ContactsImport>(responseContent);
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -88,7 +52,7 @@ internal sealed class ContactsIntegrationTests
             .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
             .WithHeaders("Accept", MimeTypes.Application.Json)
             .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
-            .WithJsonContent(request.ToDto(), _jsonSerializerOptions)
+            .WithJsonContent(request, _jsonSerializerOptions)
             .Respond(HttpStatusCode.Created, responseContent);
 
         var serviceCollection = new ServiceCollection();
@@ -103,24 +67,29 @@ internal sealed class ContactsIntegrationTests
         var result = await client
             .Account(_accountId)
             .Contacts()
+            .Imports()
             .Create(request)
             .ConfigureAwait(false);
 
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
-
-        result.Should().NotBeNull();
+        result.Should().BeEquivalentTo(expectedResponse);
     }
 
     [Test]
-    public async Task Create_ShouldFailValidation_WhenEmailIsNotValid([Values(1, 101)] int length)
+    public async Task Create_ShouldFailValidation_WhenProvidedCollectionSizeIsInvalid([Values(0, 50001)] int length)
     {
         // Arrange
         var httpMethod = HttpMethod.Post;
         var requestUri = _resourceUri.AbsoluteUri;
 
-        var contactEmail = TestContext.CurrentContext.Random.GetString(length);
-        var request = new CreateContactRequest(contactEmail);
+        var contacts = new List<ContactImportRequest>(length);
+        for (var i = 0; i < length; i++)
+        {
+            contacts.Add(new ContactImportRequest(TestContext.CurrentContext.Random.NextEmail()));
+        }
+        var request = length == 0 ? new ContactsImportRequest() : new ContactsImportRequest(contacts);
+        using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
         var mockedRequest = mockHttp
@@ -128,7 +97,52 @@ internal sealed class ContactsIntegrationTests
             .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
             .WithHeaders("Accept", MimeTypes.Application.Json)
             .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
-            .WithJsonContent(request.ToDto(), _jsonSerializerOptions)
+            .WithJsonContent(request, _jsonSerializerOptions)
+            .Respond(HttpStatusCode.UnprocessableContent, responseContent);
+
+        var serviceCollection = new ServiceCollection();
+        serviceCollection
+            .AddMailtrapClient(_clientConfig)
+            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
+
+        using var services = serviceCollection.BuildServiceProvider();
+        var client = services.GetRequiredService<IMailtrapClient>();
+
+        // Act
+        var act = () => client
+            .Account(_accountId)
+            .Contacts()
+            .Imports()
+            .Create(request);
+
+        // Assert
+        await act.Should().ThrowAsync<RequestValidationException>();
+
+        mockHttp.GetMatchCount(mockedRequest).Should().Be(0);
+    }
+
+    [Test]
+    public async Task Create_ShouldFailValidation_WhenProvidedCollectionContainsNull()
+    {
+        // Arrange
+        var httpMethod = HttpMethod.Post;
+        var requestUri = _resourceUri.AbsoluteUri;
+
+        var contacts = new List<ContactImportRequest>()
+        {
+            new(TestContext.CurrentContext.Random.NextEmail()),
+            null!
+        };
+
+        var request = new ContactsImportRequest(contacts);
+
+        using var mockHttp = new MockHttpMessageHandler();
+        var mockedRequest = mockHttp
+            .Expect(httpMethod, requestUri)
+            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .WithJsonContent(request, _jsonSerializerOptions)
             .Respond(HttpStatusCode.UnprocessableContent);
 
         var serviceCollection = new ServiceCollection();
@@ -143,6 +157,7 @@ internal sealed class ContactsIntegrationTests
         var act = () => client
             .Account(_accountId)
             .Contacts()
+            .Imports()
             .Create(request);
 
         // Assert
@@ -152,97 +167,19 @@ internal sealed class ContactsIntegrationTests
     }
 
     [Test]
-    public async Task GetDetails_Success()
+    public async Task Create_ShouldFailValidation_WhenProvidedCollectionContainsInvalidRecord([Values(1, 101)] int emailLength)
     {
         // Arrange
-        var httpMethod = HttpMethod.Get;
-        var contactId = TestContext.CurrentContext.Random.NextGuid().ToString();
-        var requestUri = _resourceUri.Append(contactId).AbsoluteUri;
+        var httpMethod = HttpMethod.Post;
+        var requestUri = _resourceUri.AbsoluteUri;
 
-        using var responseContent = await Feature.LoadFileToStringContent();
+        var contacts = new List<ContactImportRequest>()
+        {
+            new(TestContext.CurrentContext.Random.NextEmail()),
+            new(TestContext.CurrentContext.Random.NextEmail(emailLength)),
+        };
 
-        using var mockHttp = new MockHttpMessageHandler();
-        mockHttp
-            .Expect(httpMethod, requestUri)
-            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
-            .WithHeaders("Accept", MimeTypes.Application.Json)
-            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
-            .Respond(HttpStatusCode.OK, responseContent);
-
-        var serviceCollection = new ServiceCollection();
-        serviceCollection
-            .AddMailtrapClient(_clientConfig)
-            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
-
-        using var services = serviceCollection.BuildServiceProvider();
-        var client = services.GetRequiredService<IMailtrapClient>();
-
-        // Act
-        var result = await client
-            .Account(_accountId)
-            .Contact(contactId)
-            .GetDetails()
-            .ConfigureAwait(false);
-
-        // Assert
-        mockHttp.VerifyNoOutstandingExpectation();
-
-        result.Should().NotBeNull();
-    }
-
-    [Test]
-    public async Task Update_Success()
-    {
-        // Arrange
-        var httpMethod = HttpMethodEx.Patch;
-        var contactId = TestContext.CurrentContext.Random.NextGuid().ToString();
-        var requestUri = _resourceUri.Append(contactId).AbsoluteUri;
-
-        var updatedEmail = TestContext.CurrentContext.Random.NextEmail(10);
-        var request = new UpdateContactRequest(updatedEmail);
-
-        using var responseContent = await Feature.LoadFileToStringContent();
-
-        using var mockHttp = new MockHttpMessageHandler();
-        mockHttp
-            .Expect(httpMethod, requestUri)
-            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
-            .WithHeaders("Accept", MimeTypes.Application.Json)
-            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
-            .WithJsonContent(request.ToDto(), _jsonSerializerOptions)
-            .Respond(HttpStatusCode.OK, responseContent);
-
-        var serviceCollection = new ServiceCollection();
-        serviceCollection
-            .AddMailtrapClient(_clientConfig)
-            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
-
-        using var services = serviceCollection.BuildServiceProvider();
-        var client = services.GetRequiredService<IMailtrapClient>();
-
-        // Act
-        var result = await client
-            .Account(_accountId)
-            .Contact(contactId)
-            .Update(request)
-            .ConfigureAwait(false);
-
-        // Assert
-        mockHttp.VerifyNoOutstandingExpectation();
-
-        result.Should().NotBeNull();
-    }
-
-    [Test]
-    public async Task Update_ShouldFailValidation_WhenEmailIsNotValid([Values(1, 101)] int length)
-    {
-        // Arrange
-        var httpMethod = HttpMethodEx.Patch;
-        var contactId = TestContext.CurrentContext.Random.NextGuid().ToString();
-        var requestUri = _resourceUri.Append(contactId).AbsoluteUri;
-
-        var updatedEmail = TestContext.CurrentContext.Random.GetString(length);
-        var request = new UpdateContactRequest(updatedEmail);
+        var request = new ContactsImportRequest(contacts);
 
         using var mockHttp = new MockHttpMessageHandler();
         var mockedRequest = mockHttp
@@ -250,7 +187,7 @@ internal sealed class ContactsIntegrationTests
             .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
             .WithHeaders("Accept", MimeTypes.Application.Json)
             .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
-            .WithJsonContent(request.ToDto(), _jsonSerializerOptions)
+            .WithJsonContent(request, _jsonSerializerOptions)
             .Respond(HttpStatusCode.UnprocessableContent);
 
         var serviceCollection = new ServiceCollection();
@@ -264,8 +201,9 @@ internal sealed class ContactsIntegrationTests
         // Act
         var act = () => client
             .Account(_accountId)
-            .Contact(contactId)
-            .Update(request);
+            .Contacts()
+            .Imports()
+            .Create(request);
 
         // Assert
         await act.Should().ThrowAsync<RequestValidationException>();
@@ -274,12 +212,15 @@ internal sealed class ContactsIntegrationTests
     }
 
     [Test]
-    public async Task Delete_Success()
+    public async Task GetDetails_Success()
     {
         // Arrange
-        var httpMethod = HttpMethod.Delete;
-        var contactId = TestContext.CurrentContext.Random.NextGuid().ToString();
-        var requestUri = _resourceUri.Append(contactId).AbsoluteUri;
+        var httpMethod = HttpMethod.Get;
+        var importId = TestContext.CurrentContext.Random.NextLong();
+        var requestUri = _resourceUri.Append(importId).AbsoluteUri;
+
+        using var responseContent = await Feature.LoadFileToStringContent();
+        var expectedResponse = await DeserializeStringContentAsync<ContactsImport>(responseContent);
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -287,7 +228,7 @@ internal sealed class ContactsIntegrationTests
             .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
             .WithHeaders("Accept", MimeTypes.Application.Json)
             .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
-            .Respond(HttpStatusCode.NoContent);
+            .Respond(HttpStatusCode.OK, responseContent);
 
         var serviceCollection = new ServiceCollection();
         serviceCollection
@@ -298,13 +239,24 @@ internal sealed class ContactsIntegrationTests
         var client = services.GetRequiredService<IMailtrapClient>();
 
         // Act
-        await client
+        var result = await client
             .Account(_accountId)
-            .Contact(contactId)
-            .Delete()
+            .Contacts()
+            .Import(importId)
+            .GetDetails()
             .ConfigureAwait(false);
 
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
+
+        result.Should().BeEquivalentTo(expectedResponse);
+    }
+
+    private async Task<TValue?> DeserializeStringContentAsync<TValue>(StringContent responseContent)
+    {
+        var responseStream = await responseContent.ReadAsStreamAsync();
+        var expectedResponse = await JsonSerializer.DeserializeAsync<TValue>(responseStream, _jsonSerializerOptions);
+        responseStream.Position = 0; // Reset stream position
+        return expectedResponse;
     }
 }

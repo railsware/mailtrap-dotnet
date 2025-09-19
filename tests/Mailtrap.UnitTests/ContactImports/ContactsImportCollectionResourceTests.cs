@@ -1,8 +1,8 @@
-﻿namespace Mailtrap.UnitTests.Contacts;
+﻿namespace Mailtrap.UnitTests.ContactImports;
 
 
 [TestFixture]
-internal sealed class ContactResourceTests
+internal sealed class ContactsImportCollectionResourceTests
 {
     private readonly IRestResourceCommandFactory _commandFactoryMock = Mock.Of<IRestResourceCommandFactory>();
     private readonly Uri _resourceUri = EndpointsTestConstants.ApiDefaultUrl
@@ -11,7 +11,8 @@ internal sealed class ContactResourceTests
             UrlSegmentsTestConstants.AccountsSegment)
         .Append(TestContext.CurrentContext.Random.NextLong())
         .Append(UrlSegmentsTestConstants.ContactsSegment)
-        .Append(TestContext.CurrentContext.Random.NextGuid().ToString());
+        .Append(UrlSegmentsTestConstants.ImportsSegment);
+
 
     #region Constructor
 
@@ -19,7 +20,7 @@ internal sealed class ContactResourceTests
     public void Constructor_ShouldThrowArgumentNullException_WhenCommandFactoryIsNull()
     {
         // Act
-        var act = () => new ContactResource(null!, _resourceUri);
+        var act = () => new ContactsImportCollectionResource(null!, _resourceUri);
 
         // Assert
         act.Should().Throw<ArgumentNullException>();
@@ -29,7 +30,7 @@ internal sealed class ContactResourceTests
     public void Constructor_ShouldThrowArgumentNullException_WhenUriIsNull()
     {
         // Act
-        var act = () => new ContactResource(_commandFactoryMock, null!);
+        var act = () => new ContactsImportCollectionResource(_commandFactoryMock, null!);
 
         // Assert
         act.Should().Throw<ArgumentNullException>();
@@ -47,5 +48,5 @@ internal sealed class ContactResourceTests
 
     #endregion
 
-    private ContactResource CreateResource() => new(_commandFactoryMock, _resourceUri);
+    private ContactsImportCollectionResource CreateResource() => new(_commandFactoryMock, _resourceUri);
 }
