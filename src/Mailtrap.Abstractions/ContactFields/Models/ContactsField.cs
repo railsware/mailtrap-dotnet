@@ -6,7 +6,7 @@ namespace Mailtrap.ContactFields.Models;
 public sealed record ContactsField
 {
     /// <summary>
-    /// Gets Contacts field identifier.
+    /// Gets or sets Contacts field identifier.
     /// </summary>
     ///
     /// <value>
@@ -16,7 +16,7 @@ public sealed record ContactsField
     public long Id { get; set; }
 
     /// <summary>
-    /// Gets Contacts field name.
+    /// Gets or sets Contacts field name.
     /// </summary>
     ///
     /// <value>
@@ -26,7 +26,7 @@ public sealed record ContactsField
     public string? Name { get; set; }
 
     /// <summary>
-    /// Gets Contacts field data type.
+    /// Gets or sets Contacts field data type.
     /// </summary>
     ///
     /// <value>
@@ -36,7 +36,7 @@ public sealed record ContactsField
     public ContactsFieldDataType? DataType { get; set; }
 
     /// <summary>
-    /// Gets Contacts field merge tag.
+    /// Gets or sets Contacts field merge tag.
     /// </summary>
     ///
     /// <value>

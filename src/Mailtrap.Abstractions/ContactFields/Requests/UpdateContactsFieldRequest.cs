@@ -6,7 +6,7 @@ namespace Mailtrap.ContactFields.Requests;
 public sealed record UpdateContactsFieldRequest : IValidatable
 {
     /// <summary>
-    /// Gets contacts field name.
+    /// Gets or sets contacts field name.
     /// </summary>
     ///
     /// <value>
@@ -16,7 +16,7 @@ public sealed record UpdateContactsFieldRequest : IValidatable
     public string? Name { get; set; }
 
     /// <summary>
-    /// Gets Contacts field merge tag.
+    /// Gets or sets Contacts field merge tag.
     /// </summary>
     ///
     /// <value>
