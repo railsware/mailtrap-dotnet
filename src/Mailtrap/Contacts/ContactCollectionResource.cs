@@ -1,6 +1,4 @@
-﻿using Mailtrap.Contacts.Responses;
-
-namespace Mailtrap.Contacts;
+﻿namespace Mailtrap.Contacts;
 
 /// <summary>
 /// Implementation of Contact Collection resource.
@@ -9,6 +7,7 @@ internal sealed class ContactCollectionResource : RestResource, IContactCollecti
 {
     private const string ImportsSegment = "imports";
     private const string ListsSegment = "lists";
+    private const string FieldsSegment = "fields";
 
     public ContactCollectionResource(IRestResourceCommandFactory restResourceCommandFactory, Uri resourceUri)
         : base(restResourceCommandFactory, resourceUri) { }
@@ -24,6 +23,12 @@ internal sealed class ContactCollectionResource : RestResource, IContactCollecti
 
     public IContactsListResource List(long listId)
             => new ContactsListResource(RestResourceCommandFactory, ResourceUri.Append(ListsSegment).Append(listId));
+
+    public IContactsFieldCollectionResource Fields()
+        => new ContactsFieldCollectionResource(RestResourceCommandFactory, ResourceUri.Append(FieldsSegment));
+
+    public IContactsFieldResource Field(long fieldId)
+            => new ContactsFieldResource(RestResourceCommandFactory, ResourceUri.Append(FieldsSegment).Append(fieldId));
 
     public async Task<IList<Contact>> GetAll(CancellationToken cancellationToken = default)
         => await GetList<Contact>(cancellationToken).ConfigureAwait(false);

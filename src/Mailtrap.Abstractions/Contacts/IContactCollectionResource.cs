@@ -1,8 +1,7 @@
-using Mailtrap.ContactLists;
-
 namespace Mailtrap.Contacts;
 
 /// <summary>
+/// Represents Contacts collection resource.
 /// Represents Contacts collection resource.
 /// </summary>
 public interface IContactCollectionResource : IRestResource
@@ -58,6 +57,32 @@ public interface IContactCollectionResource : IRestResource
     /// When <paramref name="listId"/> is less than or equal to zero.
     /// </exception>
     public IContactsListResource List(long listId);
+
+    /// <summary>
+    /// Gets contacts fields collection resource for the account, represented by this resource instance.
+    /// </summary>
+    ///
+    /// <returns>
+    /// <see cref="IContactsFieldCollectionResource"/> for the account, represented by this resource instance.
+    /// </returns>
+    public IContactsFieldCollectionResource Fields();
+
+    /// <summary>
+    /// Gets resource for a specific contacts field identified by <paramref name="fieldId"/>.
+    /// </summary>
+    ///
+    /// <param name="fieldId">
+    /// Unique Contacts Field ID to get resource for.
+    /// </param>
+    ///
+    /// <returns>
+    /// <see cref="IContactsFieldResource"/> for the contacts field with the specified ID.
+    /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="fieldId"/> is less than or equal to zero.
+    /// </exception>
+    public IContactsFieldResource Field(long fieldId);
 
     /// <summary>
     /// Gets contacts.

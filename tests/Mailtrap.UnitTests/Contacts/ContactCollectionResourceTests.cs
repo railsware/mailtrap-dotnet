@@ -139,5 +139,51 @@ internal sealed class ContactCollectionResourceTests
 
     #endregion
 
+    #region Fields
+
+    [Test]
+    public void Fields_ShouldReturnContactsFieldCollectionResource()
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var result = client.Fields();
+
+        // Assert
+        ResourceValidator.Validate<IContactsFieldCollectionResource, ContactsFieldCollectionResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.FieldsSegment));
+    }
+
+    [Test]
+    public void Field_ShouldReturnContactsFieldResource()
+    {
+        // Arrange
+        var client = CreateResource();
+        var fieldId = TestContext.CurrentContext.Random.NextLong();
+
+        // Act
+        var result = client.Field(fieldId);
+
+        // Assert
+        ResourceValidator.Validate<IContactsFieldResource, ContactsFieldResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.FieldsSegment).Append(fieldId));
+    }
+
+    [Test]
+    public void Field_ShouldThrowArgumentOutOfRangeException_WhenIdIsEqualOrLessThanZero([Values(0, -1)] long fieldId)
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var act = () => client.Field(fieldId);
+
+        // Assert
+        act.Should().Throw<ArgumentOutOfRangeException>();
+    }
+
+    #endregion
+
     private ContactCollectionResource CreateResource() => new(_commandFactoryMock, _resourceUri);
 }
