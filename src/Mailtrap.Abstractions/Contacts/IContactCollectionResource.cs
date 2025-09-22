@@ -1,5 +1,3 @@
-using Mailtrap.ContactLists;
-
 namespace Mailtrap.Contacts;
 
 /// <summary>
