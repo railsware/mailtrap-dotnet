@@ -18,8 +18,8 @@ public sealed class UpdateContactsFieldRequestValidator : AbstractValidator<Upda
     public UpdateContactsFieldRequestValidator()
     {
         RuleFor(x => x)
-            .Must(x => !string.IsNullOrWhiteSpace(x.Name) ||
-                       !string.IsNullOrWhiteSpace(x.MergeTag))
+            .Must(x => !string.IsNullOrEmpty(x.Name) ||
+                       !string.IsNullOrEmpty(x.MergeTag))
             .WithMessage(x => $"At least one of {nameof(x.Name)} or {nameof(x.MergeTag)} must be provided.");
 
         When(x => !string.IsNullOrEmpty(x.Name), () =>
