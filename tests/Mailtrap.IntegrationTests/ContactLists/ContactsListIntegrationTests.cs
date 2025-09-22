@@ -1,4 +1,4 @@
-﻿namespace Mailtrap.IntegrationTests.ContactLists;
+namespace Mailtrap.IntegrationTests.ContactLists;
 
 
 [TestFixture]

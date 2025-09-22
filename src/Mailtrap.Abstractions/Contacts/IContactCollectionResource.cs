@@ -1,6 +1,9 @@
+using Mailtrap.ContactLists;
+
 namespace Mailtrap.Contacts;
 
 /// <summary>
+/// Represents Contacts collection resource.
 /// Represents Contacts collection resource.
 /// </summary>
 public interface IContactCollectionResource : IRestResource
