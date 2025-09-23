@@ -57,6 +57,10 @@ try
 
     // Create contacts event
     var createContactsEventRequest = new CreateContactsEventRequest("MyFirstContactsEvent");
+    createContactsEventRequest.Params.Add("user_id", 101);
+    createContactsEventRequest.Params.Add("user_name", "John Smith");
+    createContactsEventRequest.Params.Add("is_active", true);
+    createContactsEventRequest.Params.Add("last_seen", null);
     ContactsEvent contactsEvent = await contactsEventsResource.Create(createContactsEventRequest);
 
     logger.LogInformation("Contacts Event created: {Name}", contactsEvent.Name);

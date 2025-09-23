@@ -33,7 +33,8 @@ internal sealed class CreateContactsEventRequestTests
         {
             { "param1", 123 },
             { "param2", "value" },
-            { "param3", true }
+            { "param3", true },
+            { "param4", null }
         };
 
         // Act
@@ -42,6 +43,21 @@ internal sealed class CreateContactsEventRequestTests
         // Assert
         request.Name.Should().Be(name);
         request.Params.Should().BeEquivalentTo(parameters);
+    }
+
+    [Test]
+    public void Constructor_ShouldDefensivelyCopyParams()
+    {
+        // Arrange
+        var src = new Dictionary<string, object?> { { "key", "value" } };
+        var request = new CreateContactsEventRequest("name", src);
+
+        // Act
+        src["key"] = "changed";
+        src["new"] = 123;
+
+        // Assert
+        request.Params.Should().BeEquivalentTo(new Dictionary<string, object?> { { "key", "value" } });
     }
 
     [Test]

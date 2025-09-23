@@ -22,12 +22,10 @@ public sealed class CreateContactsEventRequestValidator : AbstractValidator<Crea
 
         When(r => r.Params != null && r.Params.Count > 0, () =>
         {
-            RuleFor(r => r.Params.Keys)
-            .Cascade(CascadeMode.Stop)
-            .ChildRules(r =>
-                {
-                    r.RuleForEach(k => k).NotEmpty().MaximumLength(255);
-                });
+            RuleForEach(r => r.Params.Keys)
+                .Cascade(CascadeMode.Stop)
+                .NotEmpty()
+                .MaximumLength(255);
         });
     }
 }
