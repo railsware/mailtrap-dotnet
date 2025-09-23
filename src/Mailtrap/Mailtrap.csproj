@@ -4,10 +4,14 @@
 
   <PropertyGroup>
     <RootNamespace>Mailtrap</RootNamespace>
-
     <Title>Mailtrap Client</Title>
     <PackageId>Mailtrap</PackageId>
     <PackageTags>mailtrap; sdk; client; email; smtp</PackageTags>
+    <Version>2.0.0</Version>
+    <Authors>Railsware</Authors>
+    <Company>Railsware Products Studio, LLC</Company>
+    <PackageDescription>Official Mailtrap.io .NET Client</PackageDescription>
+    <RepositoryUrl>https://github.com/railsware/mailtrap-dotnet</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(LibSourceDirectory)Mailtrap.Abstractions\Mailtrap.Abstractions.csproj" />
+    <ProjectReference
+      Include="$(LibSourceDirectory)Mailtrap.Abstractions\Mailtrap.Abstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

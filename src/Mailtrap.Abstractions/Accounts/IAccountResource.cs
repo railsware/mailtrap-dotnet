@@ -9,7 +9,7 @@ public interface IAccountResource : IRestResource
     /// <summary>
     /// Gets account access collection resource for the account, represented by this resource instance.
     /// </summary>
-    /// 
+    ///
     /// <returns>
     /// Account access collection resource for the account, represented by this resource instance.
     /// </returns>
@@ -22,7 +22,7 @@ public interface IAccountResource : IRestResource
     /// <param name="accessId">
     /// ID of account access to get resource for.
     /// </param>
-    /// 
+    ///
     /// <returns>
     /// Resource for the account access with specified ID.
     /// </returns>
@@ -36,7 +36,7 @@ public interface IAccountResource : IRestResource
     /// <summary>
     /// Gets permissions resource for the account, represented by this resource instance.
     /// </summary>
-    /// 
+    ///
     /// <returns>
     /// Permissions resource for the account, represented by this resource instance.
     /// </returns>
@@ -46,7 +46,7 @@ public interface IAccountResource : IRestResource
     /// <summary>
     /// Gets billing resource for the account, represented by this resource instance.
     /// </summary>
-    /// 
+    ///
     /// <returns>
     /// Billing resource for the account, represented by this resource instance.
     /// </returns>
@@ -56,7 +56,7 @@ public interface IAccountResource : IRestResource
     /// <summary>
     /// Gets sending domain collection resource for the account, represented by this resource instance.
     /// </summary>
-    /// 
+    ///
     /// <returns>
     /// Sending domain collection resource for the account, represented by this resource instance.
     /// </returns>
@@ -69,7 +69,7 @@ public interface IAccountResource : IRestResource
     /// <param name="domainId">
     /// ID of sending domain to get resource for.
     /// </param>
-    /// 
+    ///
     /// <returns>
     /// Resource for the sending domain with specified ID.
     /// </returns>
@@ -83,7 +83,7 @@ public interface IAccountResource : IRestResource
     /// <summary>
     /// Gets project collection resource for the account, represented by this resource instance.
     /// </summary>
-    /// 
+    ///
     /// <returns>
     /// Project collection resource for the account, represented by this resource instance.
     /// </returns>
@@ -96,7 +96,7 @@ public interface IAccountResource : IRestResource
     /// <param name="projectId">
     /// ID of project to get resource for.
     /// </param>
-    /// 
+    ///
     /// <returns>
     /// Resource for the project with specified ID.
     /// </returns>
@@ -110,7 +110,7 @@ public interface IAccountResource : IRestResource
     /// <summary>
     /// Gets inbox collection resource for the account, represented by this resource instance.
     /// </summary>
-    /// 
+    ///
     /// <returns>
     /// Inbox collection resource for the account, represented by this resource instance.
     /// </returns>
@@ -123,7 +123,7 @@ public interface IAccountResource : IRestResource
     /// <param name="inboxId">
     /// ID of inbox to get resource for.
     /// </param>
-    /// 
+    ///
     /// <returns>
     /// Resource for the inbox with specified ID.
     /// </returns>
@@ -132,4 +132,30 @@ public interface IAccountResource : IRestResource
     /// When <paramref name="inboxId"/> is less than or equal to zero.
     /// </exception>
     public IInboxResource Inbox(long inboxId);
+
+    /// <summary>
+    /// Gets contact collection resource for the account, represented by this resource instance.
+    /// </summary>
+    ///
+    /// <returns>
+    /// Contact collection resource for the account, represented by this resource instance.
+    /// </returns>
+    public IContactCollectionResource Contacts();
+
+    /// <summary>
+    /// Gets resource for specific contact, identified by <paramref name="idOrEmail"/>.
+    /// </summary>
+    ///
+    /// <param name="idOrEmail">
+    /// ID or email of contact to get resource for.
+    /// </param>
+    ///
+    /// <returns>
+    /// Resource for the contact with specified ID or email.
+    /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="idOrEmail"/> is null or empty.
+    /// </exception>
+    public IContactResource Contact(string idOrEmail);
 }

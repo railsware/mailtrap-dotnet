@@ -1,0 +1,20 @@
+[
+    {
+      "id": 6730,
+      "name": "First name",
+      "type": "text",
+      "merge_tag": "first_name"
+    },
+    {
+      "id": 6731,
+      "name": "Birthdate",
+      "type": "date",
+      "merge_tag": "birthdate"
+    },
+    {
+      "id": 6732,
+      "name": "Cats count",
+      "type": "integer",
+      "merge_tag": "cats_count"
+    }
+  ]

@@ -1,0 +1,36 @@
+{
+  "contacts": [
+    {
+      "email": "customer1@example.com",
+      "fields": {
+        "first_name": "John",
+        "last_name": "Smith",
+        "zip_code": 11111
+      },
+      "list_ids_included": [
+        1,
+        2,
+        3
+      ],
+      "list_ids_excluded": [
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "email": "customer2@example.com",
+      "fields": {
+        "first_name": "Joe",
+        "last_name": "Doe",
+        "zip_code": 22222
+      },
+      "list_ids_included": [
+        1
+      ],
+      "list_ids_excluded": [
+        4
+      ]
+    }
+  ]
+}

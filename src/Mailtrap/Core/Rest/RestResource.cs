@@ -61,6 +61,12 @@ internal abstract class RestResource : IRestResource
             .Execute(cancellationToken)
             .ConfigureAwait(false);
 
+    protected async Task DeleteWithStatusCodeResult(CancellationToken cancellationToken = default)
+        => await RestResourceCommandFactory
+            .CreateDeleteWithStatusCodeResult<HttpStatusCode>(ResourceUri)
+            .Execute(cancellationToken)
+            .ConfigureAwait(false);
+
 
     private Task<TResult> Get<TResult>(Uri uri, CancellationToken cancellationToken = default)
         => RestResourceCommandFactory

@@ -1,0 +1,38 @@
+﻿namespace Mailtrap.Contacts;
+
+/// <summary>
+/// Implementation of Contact Collection resource.
+/// </summary>
+internal sealed class ContactCollectionResource : RestResource, IContactCollectionResource
+{
+    private const string ImportsSegment = "imports";
+    private const string ListsSegment = "lists";
+    private const string FieldsSegment = "fields";
+
+    public ContactCollectionResource(IRestResourceCommandFactory restResourceCommandFactory, Uri resourceUri)
+        : base(restResourceCommandFactory, resourceUri) { }
+
+    public IContactsImportCollectionResource Imports()
+        => new ContactsImportCollectionResource(RestResourceCommandFactory, ResourceUri.Append(ImportsSegment));
+
+    public IContactsImportResource Import(long importId)
+            => new ContactsImportResource(RestResourceCommandFactory, ResourceUri.Append(ImportsSegment).Append(importId));
+
+    public IContactsListCollectionResource Lists()
+        => new ContactsListCollectionResource(RestResourceCommandFactory, ResourceUri.Append(ListsSegment));
+
+    public IContactsListResource List(long listId)
+            => new ContactsListResource(RestResourceCommandFactory, ResourceUri.Append(ListsSegment).Append(listId));
+
+    public IContactsFieldCollectionResource Fields()
+        => new ContactsFieldCollectionResource(RestResourceCommandFactory, ResourceUri.Append(FieldsSegment));
+
+    public IContactsFieldResource Field(long fieldId)
+            => new ContactsFieldResource(RestResourceCommandFactory, ResourceUri.Append(FieldsSegment).Append(fieldId));
+
+    public async Task<IList<Contact>> GetAll(CancellationToken cancellationToken = default)
+        => await GetList<Contact>(cancellationToken).ConfigureAwait(false);
+
+    public async Task<CreateContactResponse> Create(CreateContactRequest request, CancellationToken cancellationToken = default)
+        => await Create<CreateContactRequestDto, CreateContactResponse>(request.ToDto(), cancellationToken).ConfigureAwait(false);
+}
