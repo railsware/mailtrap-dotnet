@@ -185,5 +185,24 @@ internal sealed class ContactCollectionResourceTests
 
     #endregion
 
+    #region Events
+
+    [Test]
+    public void Events_ShouldReturnContactsEventCollectionResource()
+    {
+        // Arrange
+        var client = CreateResource();
+        var contactId = TestContext.CurrentContext.Random.NextGuid().ToString();
+
+        // Act
+        var result = client.Events(contactId);
+
+        // Assert
+        ResourceValidator.Validate<IContactsEventCollectionResource, ContactsEventCollectionResource>(
+            result, client.ResourceUri.Append(contactId).Append(UrlSegmentsTestConstants.EventsSegment));
+    }
+
+    #endregion
+
     private ContactCollectionResource CreateResource() => new(_commandFactoryMock, _resourceUri);
 }

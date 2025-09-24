@@ -85,6 +85,19 @@ public interface IContactCollectionResource : IRestResource
     public IContactsFieldResource Field(long fieldId);
 
     /// <summary>
+    /// Gets contacts events collection resource for the account, represented by this resource instance.
+    /// </summary>
+    ///
+    /// <param name="contactId">
+    /// Unique Contact ID to get resource for.
+    /// </param>
+    ///
+    /// <returns>
+    /// <see cref="IContactsEventCollectionResource"/> for the account, represented by this resource instance.
+    /// </returns>
+    public IContactsEventCollectionResource Events(string contactId);
+
+    /// <summary>
     /// Gets contacts.
     /// </summary>
     ///

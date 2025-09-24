@@ -8,6 +8,7 @@ internal sealed class ContactCollectionResource : RestResource, IContactCollecti
     private const string ImportsSegment = "imports";
     private const string ListsSegment = "lists";
     private const string FieldsSegment = "fields";
+    private const string EventsSegment = "events";
 
     public ContactCollectionResource(IRestResourceCommandFactory restResourceCommandFactory, Uri resourceUri)
         : base(restResourceCommandFactory, resourceUri) { }
@@ -29,6 +30,9 @@ internal sealed class ContactCollectionResource : RestResource, IContactCollecti
 
     public IContactsFieldResource Field(long fieldId)
             => new ContactsFieldResource(RestResourceCommandFactory, ResourceUri.Append(FieldsSegment).Append(fieldId));
+
+    public IContactsEventCollectionResource Events(string contactId)
+        => new ContactsEventCollectionResource(RestResourceCommandFactory, ResourceUri.Append(contactId).Append(EventsSegment));
 
     public async Task<IList<Contact>> GetAll(CancellationToken cancellationToken = default)
         => await GetList<Contact>(cancellationToken).ConfigureAwait(false);

@@ -1,0 +1,9 @@
+{
+  "name": "UserLogin",
+  "params": {
+    "user_id": 101,
+    "user_name": "John Smith",
+    "is_active": true,
+    "last_seen": null
+  }
+}
