@@ -52,16 +52,16 @@ try
         logger.LogInformation("Contact found with Id {ContactId} and Email {ContactEmail}.", contact.Id, contact.Email);
     }
 
-    // Get resource for contact events collection
-    IContactsEventCollectionResource contactsEventsResource = contactsResource.Events(contact.Id);
+    // Get resource for contact event collection
+    IContactEventCollectionResource contactEventsResource = contactsResource.Events(contact.Id);
 
     // Create contacts event
-    var createContactsEventRequest = new CreateContactsEventRequest("MyFirstContactsEvent");
-    createContactsEventRequest.Params.Add("user_id", 101);
-    createContactsEventRequest.Params.Add("user_name", "John Smith");
-    createContactsEventRequest.Params.Add("is_active", true);
-    createContactsEventRequest.Params.Add("last_seen", null);
-    ContactsEvent contactsEvent = await contactsEventsResource.Create(createContactsEventRequest);
+    var createContactEventRequest = new CreateContactEventRequest("MyFirstContactsEvent");
+    createContactEventRequest.Params.Add("user_id", 101);
+    createContactEventRequest.Params.Add("user_name", "John Smith");
+    createContactEventRequest.Params.Add("is_active", true);
+    createContactEventRequest.Params.Add("last_seen", null);
+    ContactEvent contactsEvent = await contactEventsResource.Create(createContactEventRequest);
 
     logger.LogInformation("Contacts Event created: {Name}", contactsEvent.Name);
     logger.LogInformation("ID: {ContactId}", contactsEvent.ContactId);

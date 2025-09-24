@@ -29,43 +29,44 @@ try
     // Get resource for contacts collection
     IContactCollectionResource contactsResource = accountResource.Contacts();
 
-    // Get resource for contacts list collection
-    IContactsListCollectionResource contactsListsResource = contactsResource.Lists();
+    // Get resource for contact lists collection
+    IContactListCollectionResource contactListsResource = contactsResource.Lists();
 
-    // Get all contacts lists for account
-    IList<ContactsList> contactsLists = await contactsListsResource.GetAll();
+    // Get all contact lists for account
+    IList<ContactList> contactLists = await contactListsResource.GetAll();
 
-    ContactsList? contactsList = contactsLists.Count > 0 ? contactsLists[0] : null;
+    ContactList? contactList = contactLists.Count > 0 ? contactLists[0] : null;
 
-    if (contactsList is null)
+    if (contactList is null)
     {
         logger.LogWarning("No contacts list found. Creating.");
 
-        // Create contacts list
-        var createContactsListRequest = new ContactsListRequest("MyFirstContactsList");
-        contactsList = await contactsListsResource.Create(createContactsListRequest);
+        // Create contact list
+        var createContactsListRequest = new ContactListRequest("MyFirstContactList");
+        contactList = await contactListsResource.Create(createContactsListRequest);
     }
     else
     {
-        logger.LogInformation("Contacts List {Name} found.", contactsList.Name);
+        logger.LogInformation("Contact List {Name} found.", contactList.Name);
     }
 
-    // Get resource for specific contacts list
-    IContactsListResource contactsListResource = contactsResource.List(contactsList.Id);
+    // Get resource for specific contact list
+    IContactListResource contactListResource = contactsResource.List(contactList.Id);
 
     // Get details
-    ContactsList contactsListResponse = await contactsListResource.GetDetails();
-    logger.LogInformation("Contacts List from resource: {Name}", contactsListResponse.Name);
+    ContactList contactListResponse = await contactListResource.GetDetails();
+    logger.LogInformation("Contact List Name from resource: {Name}", contactListResponse.Name);
+    logger.LogInformation("Contact List Id from resource: {Id}", contactListResponse.Id);
 
-    // Update contacts list details
-    var updateContactsListRequest = new ContactsListRequest("updatedContactsList");
-    ContactsList updateContactsListResponse = await contactsListResource.Update(updateContactsListRequest);
-    logger.LogInformation("Updated Contacts List: Name={Name}, Id={Id}", updateContactsListResponse.Name, updateContactsListResponse.Id);
+    // Update contact list details
+    var updateContactListRequest = new ContactListRequest("updatedContactList");
+    ContactList updateContactListResponse = await contactListResource.Update(updateContactListRequest);
+    logger.LogInformation("Updated Contact List: Name={Name}, Id={Id}", updateContactListResponse.Name, updateContactListResponse.Id);
 
-    // Delete contacts List
-    // Beware that contacts list resource becomes invalid after deletion and should not be used anymore
-    await contactsListResource.Delete();
-    logger.LogInformation("Contacts List Deleted.");
+    // Delete contact List
+    // Beware that contact list resource becomes invalid after deletion and should not be used anymore
+    await contactListResource.Delete();
+    logger.LogInformation("Contact List Deleted.");
 }
 catch (Exception ex)
 {

@@ -1,12 +1,12 @@
-namespace Mailtrap.Contacts;
+namespace Mailtrap.ContactLists;
 
 /// <summary>
-/// Represents Contact resource.
+/// Represents contact list resource.
 /// </summary>
-public interface IContactResource : IRestResource
+public interface IContactListResource : IRestResource
 {
     /// <summary>
-    /// Gets details of the contact, represented by the current resource instance.
+    /// Gets details of the contact list, represented by the current resource instance.
     /// </summary>
     ///
     /// <param name="cancellationToken">
@@ -14,16 +14,16 @@ public interface IContactResource : IRestResource
     /// </param>
     ///
     /// <returns>
-    /// Requested contact details.
+    /// Requested contact list details.
     /// </returns>
-    public Task<ContactResponse> GetDetails(CancellationToken cancellationToken = default);
+    public Task<ContactList> GetDetails(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Updates the contact, represented by the current resource instance, with details specified by <paramref name="request"/>.
+    /// Updates the contact list, represented by the current resource instance, with details specified by <paramref name="request"/>.
     /// </summary>
     ///
     /// <param name="request">
-    /// Contact details for update.
+    /// Contact list details for update.
     /// </param>
     ///
     /// <param name="cancellationToken">
@@ -31,12 +31,12 @@ public interface IContactResource : IRestResource
     /// </param>
     ///
     /// <returns>
-    /// Updated contact details.
+    /// Updated contact list details.
     /// </returns>
-    public Task<UpdateContactResponse> Update(UpdateContactRequest request, CancellationToken cancellationToken = default);
+    public Task<ContactList> Update(ContactListRequest request, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Deletes a contact, represented by the current resource instance.
+    /// Deletes a contact list, represented by the current resource instance.
     /// </summary>
     ///
     /// <param name="cancellationToken">
@@ -49,7 +49,7 @@ public interface IContactResource : IRestResource
     ///
     /// <remarks>
     /// <para>
-    /// After deletion of the contact, represented by the current resource instance, it will be no longer available.<br />
+    /// After deletion of the contact list, represented by the current resource instance, it will be no longer available.<br />
     /// Thus any further operations on it will result in an error.
     /// </para>
     /// </remarks>
