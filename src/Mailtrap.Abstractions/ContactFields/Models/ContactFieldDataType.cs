@@ -21,7 +21,7 @@ public sealed record ContactFieldDataType : StringEnum<ContactFieldDataType>
     /// <value>
     /// Represents "integer" contact field data type.
     /// </value>
-    public static readonly ContactFieldDataType Number = Define("integer");
+    public static readonly ContactFieldDataType Integer = Define("integer");
 
     /// <summary>
     /// Gets the value representing "float" contact field data type.
@@ -30,7 +30,7 @@ public sealed record ContactFieldDataType : StringEnum<ContactFieldDataType>
     /// <value>
     /// Represents "float" contact field data type.
     /// </value>
-    public static readonly ContactFieldDataType FloatValue = Define("float");
+    public static readonly ContactFieldDataType Float = Define("float");
 
     /// <summary>
     /// Gets the value representing "boolean" contact field data type.

@@ -124,7 +124,7 @@ internal sealed class ContactFieldIntegrationTests
         var requestUri = _resourceUri.AbsoluteUri;
 
         var contactsFieldName = TestContext.CurrentContext.Random.GetString(length);
-        var request = new CreateContactFieldRequest(contactsFieldName, "validMergeTag", ContactFieldDataType.Number);
+        var request = new CreateContactFieldRequest(contactsFieldName, "validMergeTag", ContactFieldDataType.Integer);
 
         using var mockHttp = new MockHttpMessageHandler();
         var mockedRequest = mockHttp
@@ -164,7 +164,7 @@ internal sealed class ContactFieldIntegrationTests
         var requestUri = _resourceUri.AbsoluteUri;
 
         var contactsMergeTag = TestContext.CurrentContext.Random.GetString(length);
-        var request = new CreateContactFieldRequest("validName", contactsMergeTag, ContactFieldDataType.FloatValue);
+        var request = new CreateContactFieldRequest("validName", contactsMergeTag, ContactFieldDataType.Float);
 
         using var mockHttp = new MockHttpMessageHandler();
         var mockedRequest = mockHttp

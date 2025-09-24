@@ -20,19 +20,19 @@ internal sealed class UpdateContactFieldRequestTests
         copiedRequest.MergeTag.Should().Be(newMergeTag);
     }
     [Test]
-    public void Constructor_ShouldThrowArgumentNullException_WhenNameAndMergeTagIsNull()
+    public void Constructor_ShouldThrowArgumentException_WhenNameAndMergeTagIsNull()
     {
         var act = () => new UpdateContactFieldRequest(null!, null!);
 
-        act.Should().Throw<ArgumentNullException>();
+        act.Should().Throw<ArgumentException>();
     }
 
     [Test]
-    public void Constructor_ShouldThrowArgumentNullException_WhenNameAndMergeTagIsEmpty()
+    public void Constructor_ShouldThrowArgumentException_WhenNameAndMergeTagIsEmpty()
     {
         var act = () => new UpdateContactFieldRequest(string.Empty, string.Empty);
 
-        act.Should().Throw<ArgumentNullException>();
+        act.Should().Throw<ArgumentException>();
     }
 
     [Test]

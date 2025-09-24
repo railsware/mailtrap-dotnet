@@ -12,11 +12,11 @@ internal sealed class CreateContactFieldRequestTests
         {
             Name = "newValidName",
             MergeTag = "newValidMergeTag",
-            DataType = ContactFieldDataType.Number
+            DataType = ContactFieldDataType.Integer
         };
         copiedRequest.Name.Should().Be("newValidName");
         copiedRequest.MergeTag.Should().Be("newValidMergeTag");
-        copiedRequest.DataType.Should().Be(ContactFieldDataType.Number);
+        copiedRequest.DataType.Should().Be(ContactFieldDataType.Integer);
     }
 
     [TestCase(null, "validMergeTag", "name")]
@@ -56,7 +56,7 @@ internal sealed class CreateContactFieldRequestTests
     [Test]
     public void Constructor_ShouldThrowArgumentNullException_WhenMergeTagIsEmpty()
     {
-        var act = () => new CreateContactFieldRequest("validName", string.Empty, ContactFieldDataType.Number);
+        var act = () => new CreateContactFieldRequest("validName", string.Empty, ContactFieldDataType.Integer);
 
         act.Should().Throw<ArgumentNullException>();
     }

@@ -3,7 +3,7 @@
 
 /// <summary>
 /// Validator for <see cref="ContactListRequest"/> requests.<br/>
-/// Ensures contact list's name is not empty and length isn't exceed 255 characters.
+/// Ensures contact list's name is not empty and length doesn't exceed 255 characters.
 /// </summary>
 public sealed class ContactListRequestValidator : AbstractValidator<ContactListRequest>
 {

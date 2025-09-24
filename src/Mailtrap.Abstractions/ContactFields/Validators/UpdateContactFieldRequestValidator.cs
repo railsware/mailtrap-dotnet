@@ -24,12 +24,12 @@ public sealed class UpdateContactFieldRequestValidator : AbstractValidator<Updat
 
         When(x => !string.IsNullOrEmpty(x.Name), () =>
         {
-            RuleFor(r => r.Name).NotEmpty().MaximumLength(80);
+            RuleFor(r => r.Name).MaximumLength(80);
         });
 
         When(x => !string.IsNullOrEmpty(x.MergeTag), () =>
         {
-            RuleFor(r => r.MergeTag).NotEmpty().MaximumLength(80);
+            RuleFor(r => r.MergeTag).MaximumLength(80);
         });
     }
 }

@@ -42,7 +42,7 @@ public sealed record UpdateContactFieldRequest : IValidatable
     /// <paramref name="mergeTag"/> must be 1–80 characters long.
     /// </remarks>
     ///
-    /// <exception cref="ArgumentNullException">
+    /// <exception cref="ArgumentException">
     /// When both <paramref name="name"/> and <paramref name="mergeTag"/> are <see langword="null"/> or <see cref="string.Empty"/>.
     /// </exception>
     [JsonConstructor]
@@ -50,7 +50,7 @@ public sealed record UpdateContactFieldRequest : IValidatable
     {
         if (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(mergeTag))
         {
-            throw new ArgumentNullException(nameof(name), $"At least one of {nameof(name)} or {nameof(mergeTag)} must be provided.");
+            throw new ArgumentException($"At least one of {nameof(name)} or {nameof(mergeTag)} must be provided.");
         }
 
         Name = name;

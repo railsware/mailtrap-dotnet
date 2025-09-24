@@ -22,7 +22,7 @@ internal sealed class ContactImportRequestValidator : AbstractValidator<CreateCo
         RuleFor(r => r.Contacts)
             .Cascade(CascadeMode.Stop)
             .NotEmpty()
-            .Must(list => list != null && list.Count is >= MinContactPerRequest and <= MaxContactPerRequest);
+            .Must(list => list.Count is >= MinContactPerRequest and <= MaxContactPerRequest);
 
         RuleForEach(r => r.Contacts)
             .NotNull()

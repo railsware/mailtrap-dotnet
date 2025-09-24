@@ -61,12 +61,12 @@ try
     createContactEventRequest.Params.Add("user_name", "John Smith");
     createContactEventRequest.Params.Add("is_active", true);
     createContactEventRequest.Params.Add("last_seen", null);
-    ContactEvent contactsEvent = await contactEventsResource.Create(createContactEventRequest);
+    ContactEvent contactEvent = await contactEventsResource.Create(createContactEventRequest);
 
-    logger.LogInformation("Contacts Event created: {Name}", contactsEvent.Name);
-    logger.LogInformation("ID: {ContactId}", contactsEvent.ContactId);
-    logger.LogInformation("Created At: {ContactEmail}", contactsEvent.ContactEmail);
-    foreach (KeyValuePair<string, object?> param in contactsEvent.Params)
+    logger.LogInformation("Contacts Event created: {Name}", contactEvent.Name);
+    logger.LogInformation("ID: {ContactId}", contactEvent.ContactId);
+    logger.LogInformation("Created At: {ContactEmail}", contactEvent.ContactEmail);
+    foreach (KeyValuePair<string, object?> param in contactEvent.Params)
     {
         logger.LogInformation("Param: {ParamKey} = {ParamValue}", param.Key, param.Value);
     }
