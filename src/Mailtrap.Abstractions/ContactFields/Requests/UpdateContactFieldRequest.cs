@@ -38,8 +38,8 @@ public sealed record UpdateContactFieldRequest : IValidatable
     /// </param>
     ///
     /// <remarks>
-    /// <paramref name="name"/> must be 1–80 characters long.<br/>
-    /// <paramref name="mergeTag"/> must be 1–80 characters long.
+    /// <paramref name="name"/> should not exceed 80 characters long.<br/>
+    /// <paramref name="mergeTag"/> should not exceed 80 characters long.
     /// </remarks>
     ///
     /// <exception cref="ArgumentException">
