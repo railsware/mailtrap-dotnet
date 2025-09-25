@@ -6,7 +6,7 @@ namespace Mailtrap.Contacts.Models;
 public sealed record Contact
 {
     /// <summary>
-    /// Gets Contact identifier.
+    /// Gets or sets contact identifier.
     /// </summary>
     ///
     /// <value>
@@ -16,7 +16,7 @@ public sealed record Contact
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets Contact email.
+    /// Gets or sets contact email.
     /// </summary>
     ///
     /// <value>
@@ -26,7 +26,7 @@ public sealed record Contact
     public string Email { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets Contact fields.
+    /// Gets contact fields.
     /// </summary>
     ///
     /// <value>
@@ -37,7 +37,7 @@ public sealed record Contact
     public IDictionary<string, object> Fields { get; } = new Dictionary<string, object>();
 
     /// <summary>
-    /// Gets Contact's list ids.
+    /// Gets contact's list ids.
     /// </summary>
     ///
     /// <value>
@@ -48,17 +48,17 @@ public sealed record Contact
     public IList<int> ListIds { get; } = [];
 
     /// <summary>
-    /// Gets status of the contact.
+    /// Gets or sets status of the contact.
     /// </summary>
     ///
     /// <value>
-    /// Contact's status.
+    /// Contact status.
     /// </value>
     [JsonPropertyName("status")]
     public ContactStatus Status { get; set; } = ContactStatus.Unknown;
 
     /// <summary>
-    /// Gets Contact creation date and time.
+    /// Gets or sets contact creation date and time.
     /// </summary>
     ///
     /// <value>
@@ -69,7 +69,7 @@ public sealed record Contact
     public DateTimeOffset? CreatedAt { get; set; }
 
     /// <summary>
-    /// Gets Contact's update date and time.
+    /// Gets or sets contact's update date and time.
     /// </summary>
     ///
     /// <value>
