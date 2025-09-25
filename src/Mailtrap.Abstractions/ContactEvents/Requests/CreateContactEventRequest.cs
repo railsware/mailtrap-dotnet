@@ -20,10 +20,6 @@ public sealed record CreateContactEventRequest : IValidatable
     /// Gets contact event params.
     /// </summary>
     ///
-    /// <remarks>
-    /// <inheritdoc cref="CreateContactEventRequest" path="/param[@name=name]"/>.
-    /// </remarks>
-    ///
     /// <value>
     /// Contact event params.
     /// </value>
@@ -36,11 +32,11 @@ public sealed record CreateContactEventRequest : IValidatable
     /// </summary>
     ///
     /// <param name="name">
-    /// Contact event name.
+    /// <inheritdoc cref="CreateContactEventRequest" path="/param[@name=name]"/>.
     /// </param>
     ///
     /// <param name="params">
-    /// Contact event parameters.
+    /// <inheritdoc cref="CreateContactEventRequest" path="/param[@name=params]"/>.
     /// </param>
     ///
     /// <remarks>

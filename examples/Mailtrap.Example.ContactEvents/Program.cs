@@ -55,17 +55,17 @@ try
     // Get resource for contact event collection
     IContactEventCollectionResource contactEventsResource = contactsResource.Events(contact.Id);
 
-    // Create contacts event
-    var createContactEventRequest = new CreateContactEventRequest("MyFirstContactsEvent");
+    // Create contact event
+    var createContactEventRequest = new CreateContactEventRequest("MyFirstContactEvent");
     createContactEventRequest.Params.Add("user_id", 101);
     createContactEventRequest.Params.Add("user_name", "John Smith");
     createContactEventRequest.Params.Add("is_active", true);
     createContactEventRequest.Params.Add("last_seen", null);
     ContactEvent contactEvent = await contactEventsResource.Create(createContactEventRequest);
 
-    logger.LogInformation("Contacts Event created: {Name}", contactEvent.Name);
+    logger.LogInformation("Contact Event created: {Name}", contactEvent.Name);
     logger.LogInformation("ID: {ContactId}", contactEvent.ContactId);
-    logger.LogInformation("Created At: {ContactEmail}", contactEvent.ContactEmail);
+    logger.LogInformation("Email: {ContactEmail}", contactEvent.ContactEmail);
     foreach (KeyValuePair<string, object?> param in contactEvent.Params)
     {
         logger.LogInformation("Param: {ParamKey} = {ParamValue}", param.Key, param.Value);

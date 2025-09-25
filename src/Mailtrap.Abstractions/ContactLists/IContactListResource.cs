@@ -49,7 +49,7 @@ public interface IContactListResource : IRestResource
     ///
     /// <remarks>
     /// <para>
-    /// After deletion of the contact list, represented by the current resource instance, it will be no longer available.<br />
+    /// After deletion of the contact list, represented by the current resource instance, it will no longer be available.<br />
     /// Thus any further operations on it will result in an error.
     /// </para>
     /// </remarks>

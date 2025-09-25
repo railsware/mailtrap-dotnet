@@ -1,7 +1,7 @@
 namespace Mailtrap.ContactImports.Requests;
 
 /// <summary>
-/// Generic request object for creating of a contact import.
+/// Generic request object for creating a contact import.
 /// </summary>
 public record CreateContactImportRequest : IValidatable
 {
@@ -55,7 +55,7 @@ public record CreateContactImportRequest : IValidatable
     /// <inheritdoc/>
     public ValidationResult Validate()
     {
-        return ContactImportRequestValidator.Instance
+        return CreateContactImportRequestValidator.Instance
             .Validate(this)
             .ToMailtrapValidationResult();
     }

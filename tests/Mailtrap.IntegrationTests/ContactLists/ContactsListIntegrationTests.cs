@@ -2,7 +2,7 @@ namespace Mailtrap.IntegrationTests.ContactLists;
 
 
 [TestFixture]
-internal sealed class ContactsListIntegrationTests
+internal sealed class ContactListIntegrationTests
 {
     private const string Feature = "ContactLists";
 
@@ -12,7 +12,7 @@ internal sealed class ContactsListIntegrationTests
     private readonly JsonSerializerOptions _jsonSerializerOptions = null!;
 
 
-    public ContactsListIntegrationTests()
+    public ContactListIntegrationTests()
     {
         var random = TestContext.CurrentContext.Random;
 
@@ -124,10 +124,10 @@ internal sealed class ContactsListIntegrationTests
         var httpMethod = HttpMethod.Post;
         var requestUri = _resourceUri.AbsoluteUri;
 
-        var contactsListName = TestContext.CurrentContext.Random.GetString(length);
+        var contactListName = TestContext.CurrentContext.Random.GetString(length);
         var request = new ContactListRequest
         {
-            Name = contactsListName
+            Name = contactListName
         };
 
         using var mockHttp = new MockHttpMessageHandler();
@@ -209,8 +209,8 @@ internal sealed class ContactsListIntegrationTests
         var listId = TestContext.CurrentContext.Random.NextLong();
         var requestUri = _resourceUri.Append(listId).AbsoluteUri;
 
-        var updatedContactsListName = TestContext.CurrentContext.Random.GetString(10);
-        var request = new ContactListRequest(updatedContactsListName);
+        var updatedContactListName = TestContext.CurrentContext.Random.GetString(10);
+        var request = new ContactListRequest(updatedContactListName);
 
         using var responseContent = await Feature.LoadFileToStringContent();
         var expectedResponse = await responseContent.DeserializeStringContentAsync<ContactList>(_jsonSerializerOptions);
