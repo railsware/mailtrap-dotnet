@@ -26,6 +26,8 @@ global using Mailtrap.ContactEvents.Requests;
 global using Mailtrap.Emails;
 global using Mailtrap.Emails.Requests;
 global using Mailtrap.Emails.Responses;
+global using Mailtrap.EmailTemplates.Models;
+global using Mailtrap.EmailTemplates.Requests;
 global using Mailtrap.Inboxes.Models;
 global using Mailtrap.Inboxes.Requests;
 global using Mailtrap.IntegrationTests.TestConstants;

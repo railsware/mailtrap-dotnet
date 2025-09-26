@@ -53,6 +53,7 @@ internal sealed class AccountResource : RestResource, IAccountResource
     public IInboxResource Inbox(long inboxId)
         => new InboxResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.InboxesSegment).Append(inboxId));
 
+
     public IContactCollectionResource Contacts()
         => new ContactCollectionResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.ContactsSegment));
 
@@ -67,4 +68,11 @@ internal sealed class AccountResource : RestResource, IAccountResource
                         .Append(UrlSegments.ContactsSegment)
                         .Append(encoded));
     }
+
+
+    public IEmailTemplateCollectionResource EmailTemplates()
+        => new EmailTemplateCollectionResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.EmailTemplatesSegment));
+
+    public IEmailTemplateResource EmailTemplate(long emailTemplateId)
+        => new EmailTemplateResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.EmailTemplatesSegment).Append(emailTemplateId));
 }

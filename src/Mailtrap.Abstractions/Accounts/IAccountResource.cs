@@ -154,8 +154,34 @@ public interface IAccountResource : IRestResource
     /// Resource for the contact with specified ID or email.
     /// </returns>
     ///
-    /// <exception cref="ArgumentOutOfRangeException">
+    /// <exception cref="ArgumentNullException">
     /// When <paramref name="idOrEmail"/> is null or empty.
     /// </exception>
     public IContactResource Contact(string idOrEmail);
+
+    /// <summary>
+    /// Gets email template collection resource for the account, represented by this resource instance.
+    /// </summary>
+    ///
+    /// <returns>
+    /// Email template collection resource for the account, represented by this resource instance.
+    /// </returns>
+    public IEmailTemplateCollectionResource EmailTemplates();
+
+    /// <summary>
+    /// Gets resource for specific email template, identified by <paramref name="emailTemplateId"/>.
+    /// </summary>
+    ///
+    /// <param name="emailTemplateId">
+    /// ID of email template to get resource for.
+    /// </param>
+    ///
+    /// <returns>
+    /// Resource for the email template with specified ID.
+    /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="emailTemplateId"/> is less than or equal to zero.
+    /// </exception>
+    public IEmailTemplateResource EmailTemplate(long emailTemplateId);
 }
