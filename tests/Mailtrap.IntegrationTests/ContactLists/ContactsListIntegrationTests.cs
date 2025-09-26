@@ -2,7 +2,7 @@ namespace Mailtrap.IntegrationTests.ContactLists;
 
 
 [TestFixture]
-internal sealed class ContactsListIntegrationTests
+internal sealed class ContactListIntegrationTests
 {
     private const string Feature = "ContactLists";
 
@@ -12,7 +12,7 @@ internal sealed class ContactsListIntegrationTests
     private readonly JsonSerializerOptions _jsonSerializerOptions = null!;
 
 
-    public ContactsListIntegrationTests()
+    public ContactListIntegrationTests()
     {
         var random = TestContext.CurrentContext.Random;
 
@@ -80,10 +80,10 @@ internal sealed class ContactsListIntegrationTests
         var requestUri = _resourceUri.AbsoluteUri;
 
         using var responseContent = await Feature.LoadFileToStringContent();
-        var expectedResponse = await responseContent.DeserializeStringContentAsync<ContactsList>(_jsonSerializerOptions);
+        var expectedResponse = await responseContent.DeserializeStringContentAsync<ContactList>(_jsonSerializerOptions);
         expectedResponse.Should().NotBeNull();
 
-        var request = new ContactsListRequest(expectedResponse.Name);
+        var request = new ContactListRequest(expectedResponse.Name);
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -114,7 +114,7 @@ internal sealed class ContactsListIntegrationTests
         mockHttp.VerifyNoOutstandingExpectation();
 
         result.Should().NotBeNull().And
-            .Match<ContactsList>(x => x.Name == expectedResponse.Name);
+            .Match<ContactList>(x => x.Name == expectedResponse.Name);
     }
 
     [Test]
@@ -124,10 +124,10 @@ internal sealed class ContactsListIntegrationTests
         var httpMethod = HttpMethod.Post;
         var requestUri = _resourceUri.AbsoluteUri;
 
-        var contactsListName = TestContext.CurrentContext.Random.GetString(length);
-        var request = new ContactsListRequest
+        var contactListName = TestContext.CurrentContext.Random.GetString(length);
+        var request = new ContactListRequest
         {
-            Name = contactsListName
+            Name = contactListName
         };
 
         using var mockHttp = new MockHttpMessageHandler();
@@ -169,7 +169,7 @@ internal sealed class ContactsListIntegrationTests
         var requestUri = _resourceUri.Append(listId).AbsoluteUri;
 
         using var responseContent = await Feature.LoadFileToStringContent();
-        var expectedResponse = await responseContent.DeserializeStringContentAsync<ContactsList>(_jsonSerializerOptions);
+        var expectedResponse = await responseContent.DeserializeStringContentAsync<ContactList>(_jsonSerializerOptions);
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -209,11 +209,11 @@ internal sealed class ContactsListIntegrationTests
         var listId = TestContext.CurrentContext.Random.NextLong();
         var requestUri = _resourceUri.Append(listId).AbsoluteUri;
 
-        var updatedContactsListName = TestContext.CurrentContext.Random.GetString(10);
-        var request = new ContactsListRequest(updatedContactsListName);
+        var updatedContactListName = TestContext.CurrentContext.Random.GetString(10);
+        var request = new ContactListRequest(updatedContactListName);
 
         using var responseContent = await Feature.LoadFileToStringContent();
-        var expectedResponse = await responseContent.DeserializeStringContentAsync<ContactsList>(_jsonSerializerOptions);
+        var expectedResponse = await responseContent.DeserializeStringContentAsync<ContactList>(_jsonSerializerOptions);
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -255,7 +255,7 @@ internal sealed class ContactsListIntegrationTests
         var requestUri = _resourceUri.Append(listId).AbsoluteUri;
 
         var updatedContactsListName = TestContext.CurrentContext.Random.GetString(length);
-        var request = new ContactsListRequest()
+        var request = new ContactListRequest()
         {
             Name = updatedContactsListName
         };

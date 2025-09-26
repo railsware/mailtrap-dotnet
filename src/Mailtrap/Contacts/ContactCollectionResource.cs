@@ -8,27 +8,31 @@ internal sealed class ContactCollectionResource : RestResource, IContactCollecti
     private const string ImportsSegment = "imports";
     private const string ListsSegment = "lists";
     private const string FieldsSegment = "fields";
+    private const string EventsSegment = "events";
 
     public ContactCollectionResource(IRestResourceCommandFactory restResourceCommandFactory, Uri resourceUri)
         : base(restResourceCommandFactory, resourceUri) { }
 
-    public IContactsImportCollectionResource Imports()
-        => new ContactsImportCollectionResource(RestResourceCommandFactory, ResourceUri.Append(ImportsSegment));
+    public IContactImportCollectionResource Imports()
+        => new ContactImportCollectionResource(RestResourceCommandFactory, ResourceUri.Append(ImportsSegment));
 
-    public IContactsImportResource Import(long importId)
-            => new ContactsImportResource(RestResourceCommandFactory, ResourceUri.Append(ImportsSegment).Append(importId));
+    public IContactImportResource Import(long importId)
+            => new ContactImportResource(RestResourceCommandFactory, ResourceUri.Append(ImportsSegment).Append(importId));
 
-    public IContactsListCollectionResource Lists()
-        => new ContactsListCollectionResource(RestResourceCommandFactory, ResourceUri.Append(ListsSegment));
+    public IContactListCollectionResource Lists()
+        => new ContactListCollectionResource(RestResourceCommandFactory, ResourceUri.Append(ListsSegment));
 
-    public IContactsListResource List(long listId)
-            => new ContactsListResource(RestResourceCommandFactory, ResourceUri.Append(ListsSegment).Append(listId));
+    public IContactListResource List(long listId)
+            => new ContactListResource(RestResourceCommandFactory, ResourceUri.Append(ListsSegment).Append(listId));
 
-    public IContactsFieldCollectionResource Fields()
-        => new ContactsFieldCollectionResource(RestResourceCommandFactory, ResourceUri.Append(FieldsSegment));
+    public IContactFieldCollectionResource Fields()
+        => new ContactFieldCollectionResource(RestResourceCommandFactory, ResourceUri.Append(FieldsSegment));
 
-    public IContactsFieldResource Field(long fieldId)
-            => new ContactsFieldResource(RestResourceCommandFactory, ResourceUri.Append(FieldsSegment).Append(fieldId));
+    public IContactFieldResource Field(long fieldId)
+            => new ContactFieldResource(RestResourceCommandFactory, ResourceUri.Append(FieldsSegment).Append(fieldId));
+
+    public IContactEventCollectionResource Events(string contactId)
+        => new ContactEventCollectionResource(RestResourceCommandFactory, ResourceUri.Append(contactId).Append(EventsSegment));
 
     public async Task<IList<Contact>> GetAll(CancellationToken cancellationToken = default)
         => await GetList<Contact>(cancellationToken).ConfigureAwait(false);

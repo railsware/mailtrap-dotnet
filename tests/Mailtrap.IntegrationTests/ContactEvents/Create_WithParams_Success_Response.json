@@ -1,0 +1,11 @@
+{
+  "contact_id": "018dd5e3-f6d2-7c00-8f9b-e5c3f2d8a132",
+  "contact_email": "john.smith@example.com",
+  "name": "UserLogin",
+  "params": {
+    "user_id": 101,
+    "user_name": "John Smith",
+    "is_active": true,
+    "last_seen": null
+  }
+}

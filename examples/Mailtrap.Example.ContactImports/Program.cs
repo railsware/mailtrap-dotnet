@@ -31,8 +31,8 @@ try
     // Get resource for contacts collection
     IContactCollectionResource contactsResource = accountResource.Contacts();
 
-    //Get resource for contact imports collection
-    IContactsImportCollectionResource contactsImportsResource = contactsResource.Imports();
+    //Get resource for contact import collection
+    IContactImportCollectionResource contactImportsResource = contactsResource.Imports();
 
     // Prepare list of contacts to import
     var contactImportList = new List<ContactImportRequest>
@@ -42,21 +42,25 @@ try
         new("charlie@mailtrap.io"),
     };
 
-    // Create contacts import request
-    var importRequest = new ContactsImportRequest(contactImportList);
+    // Create contact import request
+    var importRequest = new CreateContactImportRequest(contactImportList);
 
     // Import contacts in bulk
-    ContactsImport importResponse = await contactsImportsResource.Create(importRequest);
-    logger.LogInformation("Created contact import: {Import}", importResponse);
+    ContactImport importResponse = await contactImportsResource.Create(importRequest);
+    logger.LogInformation("Created contact import, Id: {ImportId}", importResponse.Id);
 
     // Get resource for specific contact import
-    IContactsImportResource contactsImportResource = contactsResource.Import(importResponse.Id);
+    IContactImportResource contactImportResource = contactsResource.Import(importResponse.Id);
 
     // Get details of specific contact import
-    ContactsImport contactsImportDetails = await contactsImportResource.GetDetails();
-    logger.LogInformation("Contacts Import Details: {Details}", contactsImportDetails);
+    ContactImport contactImportDetails = await contactImportResource.GetDetails();
+    logger.LogInformation("Contact Import Details: {Id}", contactImportDetails.Id);
+    logger.LogInformation("Contact Import Details: {Status}", contactImportDetails.Status);
+    logger.LogInformation("Contact Import Details: {CreatedContactsCount}", contactImportDetails.CreatedContactsCount);
+    logger.LogInformation("Contact Import Details: {UpdatedContactsCount}", contactImportDetails.UpdatedContactsCount);
+    logger.LogInformation("Contact Import Details: {ContactsOverLimitCount}", contactImportDetails.ContactsOverLimitCount);
 
-    if (contactsImportDetails.Status == ContactsImportStatus.Failed)
+    if (contactImportDetails.Status == ContactImportStatus.Failed)
     {
         logger.LogWarning("Import failed!");
     }

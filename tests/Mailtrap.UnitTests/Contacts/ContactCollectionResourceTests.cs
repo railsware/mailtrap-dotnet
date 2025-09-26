@@ -50,7 +50,7 @@ internal sealed class ContactCollectionResourceTests
     #region Imports
 
     [Test]
-    public void Imports_ShouldReturnContactsImportCollectionResource()
+    public void Imports_ShouldReturnContactImportCollectionResource()
     {
         // Arrange
         var client = CreateResource();
@@ -59,12 +59,12 @@ internal sealed class ContactCollectionResourceTests
         var result = client.Imports();
 
         // Assert
-        ResourceValidator.Validate<IContactsImportCollectionResource, ContactsImportCollectionResource>(
+        ResourceValidator.Validate<IContactImportCollectionResource, ContactImportCollectionResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.ImportsSegment));
     }
 
     [Test]
-    public void Import_ShouldReturnContactsImportResource()
+    public void Import_ShouldReturnContactImportResource()
     {
         // Arrange
         var client = CreateResource();
@@ -74,7 +74,7 @@ internal sealed class ContactCollectionResourceTests
         var result = client.Import(importId);
 
         // Assert
-        ResourceValidator.Validate<IContactsImportResource, ContactsImportResource>(
+        ResourceValidator.Validate<IContactImportResource, ContactImportResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.ImportsSegment).Append(importId));
     }
 
@@ -96,7 +96,7 @@ internal sealed class ContactCollectionResourceTests
     #region Lists
 
     [Test]
-    public void Lists_ShouldReturnContactsListCollectionResource()
+    public void Lists_ShouldReturnContactListCollectionResource()
     {
         // Arrange
         var client = CreateResource();
@@ -105,12 +105,12 @@ internal sealed class ContactCollectionResourceTests
         var result = client.Lists();
 
         // Assert
-        ResourceValidator.Validate<IContactsListCollectionResource, ContactsListCollectionResource>(
+        ResourceValidator.Validate<IContactListCollectionResource, ContactListCollectionResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.ListsSegment));
     }
 
     [Test]
-    public void List_ShouldReturnContactsListResource()
+    public void List_ShouldReturnContactListResource()
     {
         // Arrange
         var client = CreateResource();
@@ -120,7 +120,7 @@ internal sealed class ContactCollectionResourceTests
         var result = client.List(listId);
 
         // Assert
-        ResourceValidator.Validate<IContactsListResource, ContactsListResource>(
+        ResourceValidator.Validate<IContactListResource, ContactListResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.ListsSegment).Append(listId));
     }
 
@@ -142,7 +142,7 @@ internal sealed class ContactCollectionResourceTests
     #region Fields
 
     [Test]
-    public void Fields_ShouldReturnContactsFieldCollectionResource()
+    public void Fields_ShouldReturnContactFieldCollectionResource()
     {
         // Arrange
         var client = CreateResource();
@@ -151,12 +151,12 @@ internal sealed class ContactCollectionResourceTests
         var result = client.Fields();
 
         // Assert
-        ResourceValidator.Validate<IContactsFieldCollectionResource, ContactsFieldCollectionResource>(
+        ResourceValidator.Validate<IContactFieldCollectionResource, ContactFieldCollectionResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.FieldsSegment));
     }
 
     [Test]
-    public void Field_ShouldReturnContactsFieldResource()
+    public void Field_ShouldReturnContactFieldResource()
     {
         // Arrange
         var client = CreateResource();
@@ -166,7 +166,7 @@ internal sealed class ContactCollectionResourceTests
         var result = client.Field(fieldId);
 
         // Assert
-        ResourceValidator.Validate<IContactsFieldResource, ContactsFieldResource>(
+        ResourceValidator.Validate<IContactFieldResource, ContactFieldResource>(
             result, client.ResourceUri.Append(UrlSegmentsTestConstants.FieldsSegment).Append(fieldId));
     }
 
@@ -181,6 +181,25 @@ internal sealed class ContactCollectionResourceTests
 
         // Assert
         act.Should().Throw<ArgumentOutOfRangeException>();
+    }
+
+    #endregion
+
+    #region Events
+
+    [Test]
+    public void Events_ShouldReturnContactEventCollectionResource()
+    {
+        // Arrange
+        var client = CreateResource();
+        var contactId = TestContext.CurrentContext.Random.NextGuid().ToString();
+
+        // Act
+        var result = client.Events(contactId);
+
+        // Assert
+        ResourceValidator.Validate<IContactEventCollectionResource, ContactEventCollectionResource>(
+            result, client.ResourceUri.Append(contactId).Append(UrlSegmentsTestConstants.EventsSegment));
     }
 
     #endregion

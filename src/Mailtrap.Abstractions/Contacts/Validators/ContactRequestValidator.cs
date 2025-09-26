@@ -2,8 +2,8 @@
 
 
 /// <summary>
-/// Validator for Create/Update contact requests.<br />
-/// Ensures contact's email is not empty and length is within the allowed range.
+/// Validator for <see cref="CreateContactRequest"/> and for <see cref="UpdateContactRequest"/> requests.<br />
+/// Ensures contact's email is not empty and length is within the allowed range (2-100 characters).
 /// </summary>
 public sealed class ContactRequestValidator : AbstractValidator<ContactRequest>
 {

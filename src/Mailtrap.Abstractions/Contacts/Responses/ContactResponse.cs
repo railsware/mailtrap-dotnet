@@ -6,11 +6,11 @@ namespace Mailtrap.Contacts.Responses;
 public record ContactResponse
 {
     /// <summary>
-    /// Gets created contact data.
+    /// Gets or sets created contact details.
     /// </summary>
     ///
     /// <value>
-    /// Contact data.
+    /// Contact details.
     /// </value>
     [JsonPropertyName("data")]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]

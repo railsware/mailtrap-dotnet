@@ -1,22 +1,21 @@
 namespace Mailtrap.Contacts;
 
 /// <summary>
-/// Represents Contacts collection resource.
-/// Represents Contacts collection resource.
+/// Represents Contact collection resource.
 /// </summary>
 public interface IContactCollectionResource : IRestResource
 {
     /// <summary>
-    /// Gets contacts import collection resource for the account, represented by this resource instance.
+    /// Gets contact import collection resource for the account, represented by this resource instance.
     /// </summary>
     ///
     /// <returns>
-    /// <see cref="IContactsImportCollectionResource"/> for the account, represented by this resource instance.
+    /// <see cref="IContactImportCollectionResource"/> for the account, represented by this resource instance.
     /// </returns>
-    public IContactsImportCollectionResource Imports();
+    public IContactImportCollectionResource Imports();
 
     /// <summary>
-    /// Gets resource for a specific contacts import identified by <paramref name="importId"/>.
+    /// Gets resource for a specific contact import identified by <paramref name="importId"/>.
     /// </summary>
     ///
     /// <param name="importId">
@@ -24,68 +23,81 @@ public interface IContactCollectionResource : IRestResource
     /// </param>
     ///
     /// <returns>
-    /// <see cref="IContactsImportResource"/> for the contacts import with the specified ID.
+    /// <see cref="IContactImportResource"/> for the contact import with the specified ID.
     /// </returns>
     ///
     /// <exception cref="ArgumentOutOfRangeException">
     /// When <paramref name="importId"/> is less than or equal to zero.
     /// </exception>
-    public IContactsImportResource Import(long importId);
+    public IContactImportResource Import(long importId);
 
     /// <summary>
-    /// Gets contacts lists collection resource for the account, represented by this resource instance.
+    /// Gets contact list collection resource for the account, represented by this resource instance.
     /// </summary>
     ///
     /// <returns>
-    /// <see cref="IContactsListCollectionResource"/> for the account, represented by this resource instance.
+    /// <see cref="IContactListCollectionResource"/> for the account, represented by this resource instance.
     /// </returns>
-    public IContactsListCollectionResource Lists();
+    public IContactListCollectionResource Lists();
 
     /// <summary>
-    /// Gets resource for a specific contacts list identified by <paramref name="listId"/>.
+    /// Gets resource for a specific contact list identified by <paramref name="listId"/>.
     /// </summary>
     ///
     /// <param name="listId">
-    /// Unique Contacts List ID to get resource for.
+    /// Unique Contact List ID to get resource for.
     /// </param>
     ///
     /// <returns>
-    /// <see cref="IContactsListResource"/> for the contacts list with the specified ID.
+    /// <see cref="IContactListResource"/> for the contact list with the specified ID.
     /// </returns>
     ///
     /// <exception cref="ArgumentOutOfRangeException">
     /// When <paramref name="listId"/> is less than or equal to zero.
     /// </exception>
-    public IContactsListResource List(long listId);
+    public IContactListResource List(long listId);
 
     /// <summary>
-    /// Gets contacts fields collection resource for the account, represented by this resource instance.
+    /// Gets contact field collection resource for the account, represented by this resource instance.
     /// </summary>
     ///
     /// <returns>
-    /// <see cref="IContactsFieldCollectionResource"/> for the account, represented by this resource instance.
+    /// <see cref="IContactFieldCollectionResource"/> for the account, represented by this resource instance.
     /// </returns>
-    public IContactsFieldCollectionResource Fields();
+    public IContactFieldCollectionResource Fields();
 
     /// <summary>
-    /// Gets resource for a specific contacts field identified by <paramref name="fieldId"/>.
+    /// Gets resource for a specific contact field identified by <paramref name="fieldId"/>.
     /// </summary>
     ///
     /// <param name="fieldId">
-    /// Unique Contacts Field ID to get resource for.
+    /// Unique Contact Field ID to get resource for.
     /// </param>
     ///
     /// <returns>
-    /// <see cref="IContactsFieldResource"/> for the contacts field with the specified ID.
+    /// <see cref="IContactFieldResource"/> for the contact field with the specified ID.
     /// </returns>
     ///
     /// <exception cref="ArgumentOutOfRangeException">
     /// When <paramref name="fieldId"/> is less than or equal to zero.
     /// </exception>
-    public IContactsFieldResource Field(long fieldId);
+    public IContactFieldResource Field(long fieldId);
 
     /// <summary>
-    /// Gets contacts.
+    /// Gets contact event collection resource for the account, represented by this resource instance.
+    /// </summary>
+    ///
+    /// <param name="contactId">
+    /// Unique Contact ID to get resource for.
+    /// </param>
+    ///
+    /// <returns>
+    /// <see cref="IContactEventCollectionResource"/> for the account, represented by this resource instance.
+    /// </returns>
+    public IContactEventCollectionResource Events(string contactId);
+
+    /// <summary>
+    /// Gets collection of contact details.
     /// </summary>
     ///
     /// <param name="cancellationToken">
