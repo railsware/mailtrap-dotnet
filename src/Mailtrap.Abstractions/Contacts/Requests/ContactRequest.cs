@@ -6,7 +6,7 @@ namespace Mailtrap.Contacts.Requests;
 public record ContactRequest : IValidatable
 {
     /// <summary>
-    /// Gets contact email.
+    /// Gets or sets contact email.
     /// </summary>
     ///
     /// <value>

@@ -30,42 +30,42 @@ try
     IContactCollectionResource contactsResource = accountResource.Contacts();
 
     // Get resource for contact fields collection
-    IContactsFieldCollectionResource contactsFieldsResource = contactsResource.Fields();
+    IContactFieldCollectionResource contactFieldsResource = contactsResource.Fields();
 
-    // Get all contacts fields for account
-    IList<ContactsField> contactsFields = await contactsFieldsResource.GetAll();
+    // Get all contact fields for account
+    IList<ContactField> contactFields = await contactFieldsResource.GetAll();
 
-    ContactsField? contactsField = contactsFields.Count > 0 ? contactsFields[0] : null;
+    ContactField? contactField = contactFields.Count > 0 ? contactFields[0] : null;
 
-    if (contactsField is null)
+    if (contactField is null)
     {
-        logger.LogWarning("No contacts field found. Creating.");
+        logger.LogWarning("No contact field found. Creating.");
 
-        // Create contacts field
-        var createContactsFieldRequest = new CreateContactsFieldRequest("MyFirstContactsField", "TestMergeTag", ContactsFieldDataType.Text);
-        contactsField = await contactsFieldsResource.Create(createContactsFieldRequest);
+        // Create contact field
+        var createContactFieldRequest = new CreateContactFieldRequest("MyFirstContactField", "TestMergeTag", ContactFieldDataType.Text);
+        contactField = await contactFieldsResource.Create(createContactFieldRequest);
     }
     else
     {
-        logger.LogInformation("Contacts Field {Name} found.", contactsField.Name);
+        logger.LogInformation("Contact Field {Name} found.", contactField.Name);
     }
 
-    // Get resource for specific contacts field
-    IContactsFieldResource contactsFieldResource = contactsResource.Field(contactsField.Id);
+    // Get resource for specific contact field
+    IContactFieldResource contactFieldResource = contactsResource.Field(contactField.Id);
 
     // Get details
-    ContactsField contactsFieldDetails = await contactsFieldResource.GetDetails();
-    logger.LogInformation("Contacts Field from resource: {Name}", contactsFieldDetails.Name);
+    ContactField contactFieldDetails = await contactFieldResource.GetDetails();
+    logger.LogInformation("Contact Field from resource: {Name}", contactFieldDetails.Name);
 
     // Update contacts field details
-    var updateContactsFieldRequest = new UpdateContactsFieldRequest("UpdatedContactsField", "UpdatedMergeTag");
-    ContactsField updateContactsFieldResponse = await contactsFieldResource.Update(updateContactsFieldRequest);
-    logger.LogInformation("Updated Contacts Field: Name={Name}, Id={Id}", updateContactsFieldResponse.Name, updateContactsFieldResponse.Id);
+    var updateContactFieldRequest = new UpdateContactFieldRequest("UpdatedContactField", "UpdatedMergeTag");
+    ContactField updateContactFieldResponse = await contactFieldResource.Update(updateContactFieldRequest);
+    logger.LogInformation("Updated Contact Field: Name={Name}, Id={Id}", updateContactFieldResponse.Name, updateContactFieldResponse.Id);
 
-    // Delete contacts Field
-    // Beware that contacts Field resource becomes invalid after deletion and should not be used anymore
-    await contactsFieldResource.Delete();
-    logger.LogInformation("Contacts Field Deleted.");
+    // Delete contact Field
+    // Beware that contact Field resource becomes invalid after deletion and should not be used anymore
+    await contactFieldResource.Delete();
+    logger.LogInformation("Contact Field Deleted.");
 }
 catch (Exception ex)
 {

@@ -6,7 +6,7 @@ namespace Mailtrap.Contacts.Requests;
 public sealed record UpdateContactRequest : ContactImportRequest
 {
     /// <summary>
-    /// Gets contact "unsubscribed" status.
+    /// Gets or sets contact "unsubscribed" status.
     /// </summary>
     ///
     /// <value>

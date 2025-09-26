@@ -1,7 +1,7 @@
 namespace Mailtrap.Contacts;
 
 /// <summary>
-/// Implementation of Contacts API operations.
+/// Implementation of Contact API operations.
 /// </summary>
 internal sealed class ContactResource : RestResource, IContactResource
 {

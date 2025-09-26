@@ -1,7 +1,7 @@
 namespace Mailtrap.Contacts;
 
 /// <summary>
-/// Represents Contacts resource.
+/// Represents Contact resource.
 /// </summary>
 public interface IContactResource : IRestResource
 {

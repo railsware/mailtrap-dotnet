@@ -8,7 +8,7 @@ internal record ContactRequestDto<T> : IValidatable
     where T : ContactRequest
 {
     /// <summary>
-    /// Gets or sets contact request payload.
+    /// Gets contact request payload.
     /// </summary>
     ///
     /// <value>
