@@ -36,7 +36,7 @@ public interface IEmailTemplateResource : IRestResource
     public Task<EmailTemplate> Update(UpdateEmailTemplateRequest request, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Deletes a email template, represented by the current resource instance.
+    /// Deletes an email template, represented by the current resource instance.
     /// </summary>
     ///
     /// <param name="cancellationToken">

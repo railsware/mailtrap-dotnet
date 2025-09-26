@@ -80,13 +80,13 @@ public sealed record EmailTemplate
     public string BodyText { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the email template body html.
+    /// Gets or sets the email template body HTML.
     /// </summary>
     /// <remarks>
-    /// Email template body html must be no longer than 10_000_000 characters.
+    /// Email template body HTML must be no longer than 10_000_000 characters.
     /// </remarks>
     /// <value>
-    /// ESmail template's body html.
+    /// ESmail template's body HTML.
     /// </value>
     [JsonPropertyName("body_html")]
     [JsonPropertyOrder(7)]
