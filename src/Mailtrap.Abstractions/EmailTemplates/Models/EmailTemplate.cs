@@ -86,7 +86,7 @@ public sealed record EmailTemplate
     /// Email template body HTML must be no longer than 10_000_000 characters.
     /// </remarks>
     /// <value>
-    /// ESmail template's body HTML.
+    /// Email template's body HTML.
     /// </value>
     [JsonPropertyName("body_html")]
     [JsonPropertyOrder(7)]
