@@ -1,0 +1,7 @@
+{
+  "name": "My Email Template",
+  "subject": "Promotional Email",
+  "category": "Promotional",
+  "body_html": "<div>Template Body</div>",
+  "body_text": "Template Body"
+}
