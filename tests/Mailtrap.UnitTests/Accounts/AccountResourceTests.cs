@@ -276,5 +276,99 @@ internal sealed class AccountResourceTests
     #endregion
 
 
+    #region Contacts
+
+    [Test]
+    public void Contacts_ShouldReturnContactCollectionResource()
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var result = client.Contacts();
+
+        // Assert
+        ResourceValidator.Validate<IContactCollectionResource, ContactCollectionResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.ContactsSegment));
+    }
+
+    [Test]
+    public void Contact_ShouldReturnContactResource()
+    {
+        // Arrange
+        var client = CreateResource();
+        var contactId = TestContext.CurrentContext.Random.NextGuid().ToString();
+
+        // Act
+        var result = client.Contact(contactId);
+
+        // Assert
+        ResourceValidator.Validate<IContactResource, ContactResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.ContactsSegment).Append(contactId));
+    }
+
+    [Test]
+    public void Contact_ShouldThrowArgumentNullException_WhenIdIsNullOrEmpty([Values(null!, "")] string contactId)
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var act = () => client.Contact(contactId);
+
+        // Assert
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    #endregion
+
+
+    #region Email Templates
+
+    [Test]
+    public void EmailTemplates_ShouldReturnEmailTemplateCollectionResource()
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var result = client.EmailTemplates();
+
+        // Assert
+        ResourceValidator.Validate<IEmailTemplateCollectionResource, EmailTemplateCollectionResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.EmailTemplatesSegment));
+    }
+
+    [Test]
+    public void EmailTemplate_ShouldReturnEmailTemplateResource()
+    {
+        // Arrange
+        var client = CreateResource();
+        var emailTemplateId = TestContext.CurrentContext.Random.NextLong();
+
+        // Act
+        var result = client.EmailTemplate(emailTemplateId);
+
+        // Assert
+        ResourceValidator.Validate<IEmailTemplateResource, EmailTemplateResource>(
+            result, client.ResourceUri.Append(UrlSegmentsTestConstants.EmailTemplatesSegment).Append(emailTemplateId));
+    }
+
+    [Test]
+    public void EmailTemplate_ShouldThrowOutOfRangeException_WhenIdIsEqualOrLessThanZero([Values(0, -1)] long emailTemplateId)
+    {
+        // Arrange
+        var client = CreateResource();
+
+        // Act
+        var act = () => client.EmailTemplate(emailTemplateId);
+
+        // Assert
+        act.Should().Throw<ArgumentOutOfRangeException>();
+    }
+
+    #endregion
+
+
     private AccountResource CreateResource() => new(_commandFactoryMock, _resourceUri);
 }
