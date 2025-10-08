@@ -39,6 +39,7 @@ global using Mailtrap.Emails.Extensions;
 global using Mailtrap.Emails.Models;
 global using Mailtrap.Emails.Requests;
 global using Mailtrap.Emails.Responses;
+global using Mailtrap.Emails.Validators;
 global using Mailtrap.EmailTemplates;
 global using Mailtrap.EmailTemplates.Models;
 global using Mailtrap.EmailTemplates.Requests;
