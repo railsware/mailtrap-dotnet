@@ -12,7 +12,7 @@ internal sealed class EmailRequestBuilderTests_From
     #region From(sender)
 
     [Test]
-    public void From_ShouldThrowArgumentNullException_WhenRequestIsNull()
+    public void From_Should_ThrowArgumentNullException_WhenRequestIsNull()
     {
         var act = () => EmailRequestBuilder.From<EmailRequest>(null!, _sender);
 
@@ -20,7 +20,7 @@ internal sealed class EmailRequestBuilderTests_From
     }
 
     [Test]
-    public void From_ShouldThrowArgumentNullException_WhenSenderIsNull()
+    public void From_Should_ThrowArgumentNullException_WhenSenderIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -30,7 +30,7 @@ internal sealed class EmailRequestBuilderTests_From
     }
 
     [Test]
-    public void From_ShouldAssignSenderProperly()
+    public void From_Should_AssignSenderProperly()
     {
         var request = EmailRequest
             .Create()
@@ -40,7 +40,7 @@ internal sealed class EmailRequestBuilderTests_From
     }
 
     [Test]
-    public void From_ShouldOverrideSender_WhenCalledSeveralTimes()
+    public void From_Should_OverrideSender_WhenCalledSeveralTimes()
     {
         var otherSender = new EmailAddress("sender2@domain.com", "Sender 2");
 
@@ -58,7 +58,7 @@ internal sealed class EmailRequestBuilderTests_From
     #region From(email, displayName)
 
     [Test]
-    public void From_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
+    public void From_Should_ThrowArgumentNullException_WhenRequestIsNull_2()
     {
         var request = EmailRequest.Create();
 
@@ -68,7 +68,7 @@ internal sealed class EmailRequestBuilderTests_From
     }
 
     [Test]
-    public void From_ShouldThrowArgumentNullException_WhenSenderEmailIsNull()
+    public void From_Should_ThrowArgumentNullException_WhenSenderEmailIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -78,7 +78,7 @@ internal sealed class EmailRequestBuilderTests_From
     }
 
     [Test]
-    public void From_ShouldThrowArgumentNullException_WhenSenderEmailIsEmpty()
+    public void From_Should_ThrowArgumentNullException_WhenSenderEmailIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -88,7 +88,7 @@ internal sealed class EmailRequestBuilderTests_From
     }
 
     [Test]
-    public void From_ShouldNotThrowException_WhenSenderDisplayNameIsNull()
+    public void From_Should_NotThrowException_WhenSenderDisplayNameIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -98,7 +98,7 @@ internal sealed class EmailRequestBuilderTests_From
     }
 
     [Test]
-    public void From_ShouldNotThrowException_WhenSenderDisplayNameIsEmpty()
+    public void From_Should_NotThrowException_WhenSenderDisplayNameIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -108,31 +108,31 @@ internal sealed class EmailRequestBuilderTests_From
     }
 
     [Test]
-    public void From_ShouldInitializeSenderProperly_WhenOnlyEmailProvided()
+    public void From_Should_InitializeSenderProperly_WhenOnlyEmailProvided()
     {
         var request = EmailRequest
             .Create()
             .From(SenderEmail);
 
         request.From.Should().NotBeNull();
-        request.From!.Email.Should().Be(SenderEmail);
-        request.From!.DisplayName.Should().BeNull();
+        request.From.Email.Should().Be(SenderEmail);
+        request.From.DisplayName.Should().BeNull();
     }
 
     [Test]
-    public void From_ShouldInitializeSenderProperly_WhenFullInfoProvided()
+    public void From_Should_InitializeSenderProperly_WhenFullInfoProvided()
     {
         var request = EmailRequest
             .Create()
             .From(SenderEmail, SenderDisplayName);
 
         request.From.Should().NotBeNull();
-        request.From!.Email.Should().Be(SenderEmail);
-        request.From!.DisplayName.Should().Be(SenderDisplayName);
+        request.From.Email.Should().Be(SenderEmail);
+        request.From.DisplayName.Should().Be(SenderDisplayName);
     }
 
     [Test]
-    public void From_ShouldOverrideSender_WhenCalledSeveralTimes_2()
+    public void From_Should_OverrideSender_WhenCalledSeveralTimes_2()
     {
         var otherSenderEmail = "sender2@domain.com";
 
@@ -142,8 +142,8 @@ internal sealed class EmailRequestBuilderTests_From
             .From(otherSenderEmail);
 
         request.From.Should().NotBeSameAs(_sender);
-        request.From!.Email.Should().Be(otherSenderEmail);
-        request.From!.DisplayName.Should().BeNull();
+        request.From.Email.Should().Be(otherSenderEmail);
+        request.From.DisplayName.Should().BeNull();
     }
 
     #endregion

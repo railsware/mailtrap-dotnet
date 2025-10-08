@@ -18,7 +18,7 @@ internal sealed class EmailRequestBuilderTests_Header
     #region Header
 
     [Test]
-    public void Header_ShouldThrowArgumentNullException_WhenRequestIsNull()
+    public void Header_Should_ThrowArgumentNullException_WhenRequestIsNull()
     {
         var act = () => EmailRequestBuilder.Header<EmailRequest>(null!, _header1);
 
@@ -26,7 +26,7 @@ internal sealed class EmailRequestBuilderTests_Header
     }
 
     [Test]
-    public void Header_ShouldThrowArgumentNullException_WhenParamsIsNull()
+    public void Header_Should_ThrowArgumentNullException_WhenParamsIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -36,7 +36,7 @@ internal sealed class EmailRequestBuilderTests_Header
     }
 
     [Test]
-    public void Header_ShouldNotThrowException_WhenParamsIsEmpty()
+    public void Header_Should_NotThrowException_WhenParamsIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -46,13 +46,13 @@ internal sealed class EmailRequestBuilderTests_Header
     }
 
     [Test]
-    public void Header_ShouldAddHeadersToCollection()
+    public void Header_Should_AddHeadersToCollection()
     {
         Header_CreateAndValidate(_header1, _header2);
     }
 
     [Test]
-    public void Header_ShouldAddHeadersToCollection_WhenCalledMultipleTimes()
+    public void Header_Should_AddHeadersToCollection_WhenCalledMultipleTimes()
     {
         var header3 = new Header("key-3", "Value 3");
         var header4 = new Header("key-4", "Value 4");
@@ -67,7 +67,7 @@ internal sealed class EmailRequestBuilderTests_Header
     }
 
     [Test]
-    public void Header_ShouldShouldOverrideHeaders_WhenCalledMultipleTimesWithTheSameKeys()
+    public void Header_Should_ShouldOverrideHeaders_WhenCalledMultipleTimesWithTheSameKeys()
     {
         var header3 = new Header("key-3", "Value 3");
 
@@ -81,7 +81,7 @@ internal sealed class EmailRequestBuilderTests_Header
     }
 
     [Test]
-    public void Header_ShouldNotAddHeadersToCollection_WhenParamsIsEmpty()
+    public void Header_Should_NotAddHeadersToCollection_WhenParamsIsEmpty()
     {
         var request = Header_CreateAndValidate(_header1, _header2);
 
@@ -113,7 +113,7 @@ internal sealed class EmailRequestBuilderTests_Header
     #region Header(key, value)
 
     [Test]
-    public void Header_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
+    public void Header_Should_ThrowArgumentNullException_WhenRequestIsNull_2()
     {
         var request = EmailRequest.Create();
 
@@ -123,7 +123,7 @@ internal sealed class EmailRequestBuilderTests_Header
     }
 
     [Test]
-    public void Header_ShouldThrowArgumentNullException_WhenHeaderKeyIsNull()
+    public void Header_Should_ThrowArgumentNullException_WhenHeaderKeyIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -133,7 +133,7 @@ internal sealed class EmailRequestBuilderTests_Header
     }
 
     [Test]
-    public void Header_ShouldThrowArgumentNullException_WhenHeaderKeyIsEmpty()
+    public void Header_Should_ThrowArgumentNullException_WhenHeaderKeyIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -143,7 +143,7 @@ internal sealed class EmailRequestBuilderTests_Header
     }
 
     [Test]
-    public void Header_ShouldNotThrowException_WhenHeaderValueIsNull()
+    public void Header_Should_NotThrowException_WhenHeaderValueIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -153,7 +153,7 @@ internal sealed class EmailRequestBuilderTests_Header
     }
 
     [Test]
-    public void Header_ShouldNotThrowException_WhenHeaderValueIsEmpty()
+    public void Header_Should_NotThrowException_WhenHeaderValueIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -163,13 +163,13 @@ internal sealed class EmailRequestBuilderTests_Header
     }
 
     [Test]
-    public void Header_ShouldAddHeaderToCollection_2()
+    public void Header_Should_AddHeaderToCollection_2()
     {
         Header_CreateAndValidate(HeaderKey, HeaderValue);
     }
 
     [Test]
-    public void Header_ShouldAddHeadersToCollection_WhenCalledMultipleTimes_2()
+    public void Header_Should_AddHeadersToCollection_WhenCalledMultipleTimes_2()
     {
         var key = "key-2";
         var value = "Value 2";
@@ -188,7 +188,7 @@ internal sealed class EmailRequestBuilderTests_Header
     }
 
     [Test]
-    public void Header_ShouldOverrideHeader_WhenCalledMultipleTimesWithTheSameKey_2()
+    public void Header_Should_OverrideHeader_WhenCalledMultipleTimesWithTheSameKey_2()
     {
         var otherValue = "Other Value";
 

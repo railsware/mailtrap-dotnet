@@ -5,7 +5,7 @@
 internal sealed class EmailRequestTests
 {
     [Test]
-    public void Create_ShouldReturnNewInstance_WhenCalled()
+    public void Create_Should_ReturnNewInstance_WhenCalled()
     {
         var result = EmailRequest.Create();
 
@@ -15,7 +15,7 @@ internal sealed class EmailRequestTests
     }
 
     [Test]
-    public void ShouldSerializeCorrectly()
+    public void Should_SerializeAndDeserializeCorrectly()
     {
         var request = CreateValidRequest();
 
@@ -27,7 +27,7 @@ internal sealed class EmailRequestTests
     }
 
     [Test]
-    public void Validate_ShouldReturnInvalidResult_WhenRequestIsInvalid()
+    public void Validate_Should_Fail_WhenRequestIsInvalid()
     {
         var request = EmailRequest.Create();
 
@@ -43,7 +43,7 @@ internal sealed class EmailRequestTests
     }
 
     [Test]
-    public void Validate_ShouldReturnValidResult_WhenRequestIsValid()
+    public void Validate_Should_Pass_WhenRequestIsValid()
     {
         var request = CreateValidRequest();
 
@@ -51,6 +51,21 @@ internal sealed class EmailRequestTests
 
         result.IsValid.Should().BeTrue();
         result.Errors.Should().BeEmpty();
+    }
+
+    [Test]
+    public void Validate_Should_Fail_WhenTemplateIdSetButSubjectNotNull()
+    {
+        var request = EmailRequest
+            .Create()
+            .From("from@example.com", "From Name")
+            .Template("template-id")
+            .Subject("ShouldNotBeSet");
+
+        var result = request.Validate();
+
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().Contain(e => e.Contains(nameof(EmailRequest.Subject)));
     }
 
 

@@ -5,7 +5,7 @@
 internal sealed class SendEmailRequestTests
 {
     [Test]
-    public void Create_ShouldReturnNewInstance_WhenCalled()
+    public void Create_Should_ReturnNewInstance_WhenCalled()
     {
         var result = SendEmailRequest.Create();
 
@@ -15,7 +15,7 @@ internal sealed class SendEmailRequestTests
     }
 
     [Test]
-    public void ShouldSerializeCorrectly()
+    public void Should_SerializeAndDeserializeCorrectly()
     {
         var request = CreateValidRequest();
 
@@ -28,7 +28,7 @@ internal sealed class SendEmailRequestTests
 
     [Test]
     [Ignore("Flaky JSON comparison")]
-    public void ShouldSerializeCorrectly_2()
+    public void Should_SerializeAndDeserializeCorrectly_2()
     {
         var request = SendEmailRequest
             .Create()
@@ -60,7 +60,7 @@ internal sealed class SendEmailRequestTests
     }
 
     [Test]
-    public void Validate_ShouldReturnInvalidResult_WhenRequestIsInvalid()
+    public void Validate_Should_Fail_WhenRequestIsInvalid()
     {
         var request = SendEmailRequest.Create();
 
@@ -76,7 +76,21 @@ internal sealed class SendEmailRequestTests
     }
 
     [Test]
-    public void Validate_ShouldReturnValidResult_WhenRequestIsValid()
+    public void Validate_Should_Fail_WhenNoRecipients()
+    {
+        var req = SendEmailRequest.Create();
+        req.From = new EmailAddress("from@example.com");
+        req.Subject = "Test";
+        req.TextBody = "Body";
+
+        var result = req.Validate();
+
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().Contain(e => e.Contains("recipient"));
+    }
+
+    [Test]
+    public void Validate_Should_Fail_WhenRequestIsValid()
     {
         var request = CreateValidRequest();
 
@@ -86,6 +100,39 @@ internal sealed class SendEmailRequestTests
         result.Errors.Should().BeEmpty();
     }
 
+    [Test]
+    public void Validate_Should_Pass_WhenValidRecipients()
+    {
+        var req = SendEmailRequest.Create();
+        req.From = new EmailAddress("from@example.com");
+        req.Subject = "Test";
+        req.TextBody = "Body";
+        req.To.Add(new EmailAddress("to@example.com"));
+
+        var result = req.Validate();
+
+        result.IsValid.Should().BeTrue();
+    }
+
+    [TestCase(1001, 0, 0, "To")]
+    [TestCase(0, 1001, 0, "Cc")]
+    [TestCase(0, 0, 1001, "Bcc")]
+    public void Validate_Should_Fail_WhenRecipientsIsNotValid(int toCount, int ccCount, int bccCount, string invalidRecipientType)
+    {
+        var request = SendEmailRequest.Create();
+        request.From = new EmailAddress("from@example.com");
+        request.Subject = "Test";
+        request.TextBody = "Body";
+
+        request.To = Enumerable.Repeat(new EmailAddress("to@example.com"), toCount).ToList();
+        request.Cc = Enumerable.Repeat(new EmailAddress("cc@example.com"), ccCount).ToList();
+        request.Bcc = Enumerable.Repeat(new EmailAddress("bcc@example.com"), bccCount).ToList();
+
+        var result = request.Validate();
+
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().Contain(e => e.Contains(invalidRecipientType));
+    }
 
     private static SendEmailRequest CreateValidRequest()
     {

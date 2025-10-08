@@ -8,7 +8,7 @@ internal sealed class EmailRequestBuilderTests_Category
 
 
     [Test]
-    public void Category_ShouldThrowArgumentNullException_WhenRequestIsNull()
+    public void Category_Should_ThrowArgumentNullException_WhenRequestIsNull()
     {
         var act = () => EmailRequestBuilder.Category<EmailRequest>(null!, _category);
 
@@ -16,7 +16,7 @@ internal sealed class EmailRequestBuilderTests_Category
     }
 
     [Test]
-    public void Category_ShouldNotThrowException_WhenCategoryIsNull()
+    public void Category_Should_NotThrowException_WhenCategoryIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -26,7 +26,7 @@ internal sealed class EmailRequestBuilderTests_Category
     }
 
     [Test]
-    public void Category_ShouldNotThrowException_WhenCategoryIsEmpty()
+    public void Category_Should_NotThrowException_WhenCategoryIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -36,7 +36,7 @@ internal sealed class EmailRequestBuilderTests_Category
     }
 
     [Test]
-    public void Category_ShouldAssignCategoryProperly()
+    public void Category_Should_AssignCategoryProperly()
     {
         var request = EmailRequest
             .Create()
@@ -46,7 +46,7 @@ internal sealed class EmailRequestBuilderTests_Category
     }
 
     [Test]
-    public void Category_ShouldOverrideCategory_WhenCalledSeveralTimes()
+    public void Category_Should_OverrideCategory_WhenCalledSeveralTimes()
     {
         var otherCategory = "Updated Category";
 

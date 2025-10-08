@@ -8,7 +8,7 @@ internal sealed class BatchEmailIntegrationTests
 
 
     [TestCaseSource(nameof(TestCasesForDefault))]
-    public async Task BatchEmail_ShouldRouteToProperUrl_WhenDefaultClientIsUsed(BatchEmailTestCase testCase)
+    public async Task BatchEmail_Should_RouteToProperUrl_WhenDefaultClientIsUsed(BatchEmailTestCase testCase)
     {
         // Arrange
         var random = TestContext.CurrentContext.Random;
@@ -16,21 +16,19 @@ internal sealed class BatchEmailIntegrationTests
         using var mockHttp = new MockHttpMessageHandler();
 
         var response = BatchEmailResponse.CreateSuccess(
-            SendEmailResponse.CreateSuccess(random.NextGuid().ToString()),
-            SendEmailResponse.CreateSuccess(random.NextGuid().ToString()));
+            BatchSendEmailResponse.CreateSuccess(random.NextGuid().ToString()),
+            BatchSendEmailResponse.CreateSuccess(random.NextGuid().ToString()));
         using var responseContent = JsonContent.Create(response);
 
         using var services = CreateServiceProvider(testCase.Config, testCase.SendUri, request, mockHttp, responseContent);
 
         var client = services.GetRequiredService<IMailtrapClient>();
 
-
         // Act
         var result = await client
             .BatchEmail()
             .Send(request)
             .ConfigureAwait(false);
-
 
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
@@ -44,7 +42,7 @@ internal sealed class BatchEmailIntegrationTests
     }
 
     [TestCaseSource(nameof(TestCasesForDefault))]
-    public async Task BatchEmail_ShouldRouteToProperUrl_WhenEmailClientIsUsed(BatchEmailTestCase testCase)
+    public async Task BatchEmail_Should_RouteToProperUrl_WhenEmailClientIsUsed(BatchEmailTestCase testCase)
     {
         // Arrange
         var random = TestContext.CurrentContext.Random;
@@ -52,20 +50,18 @@ internal sealed class BatchEmailIntegrationTests
         using var mockHttp = new MockHttpMessageHandler();
 
         var response = BatchEmailResponse.CreateSuccess(
-            SendEmailResponse.CreateSuccess(random.NextGuid().ToString()),
-            SendEmailResponse.CreateSuccess(random.NextGuid().ToString()));
+            BatchSendEmailResponse.CreateSuccess(random.NextGuid().ToString()),
+            BatchSendEmailResponse.CreateSuccess(random.NextGuid().ToString()));
         using var responseContent = JsonContent.Create(response);
 
         using var services = CreateServiceProvider(testCase.Config, testCase.SendUri, request, mockHttp, responseContent);
 
         var client = services.GetRequiredService<IBatchEmailClient>();
 
-
         // Act
         var result = await client
             .Send(request)
             .ConfigureAwait(false);
-
 
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
@@ -79,7 +75,7 @@ internal sealed class BatchEmailIntegrationTests
     }
 
     [TestCaseSource(nameof(TestCasesForNonDefault))]
-    public async Task BatchEmail_ShouldRouteToProperUrl_WhenTransactionalClientIsUsed(MailtrapClientOptions config)
+    public async Task BatchEmail_Should_RouteToProperUrl_WhenTransactionalClientIsUsed(MailtrapClientOptions config)
     {
         // Arrange
         var random = TestContext.CurrentContext.Random;
@@ -87,8 +83,8 @@ internal sealed class BatchEmailIntegrationTests
         using var mockHttp = new MockHttpMessageHandler();
 
         var response = BatchEmailResponse.CreateSuccess(
-            SendEmailResponse.CreateSuccess(random.NextGuid().ToString()),
-            SendEmailResponse.CreateSuccess(random.NextGuid().ToString()));
+            BatchSendEmailResponse.CreateSuccess(random.NextGuid().ToString()),
+            BatchSendEmailResponse.CreateSuccess(random.NextGuid().ToString()));
         using var responseContent = JsonContent.Create(response);
 
         var sendUri = EndpointsTestConstants.SendDefaultUrl
@@ -100,13 +96,11 @@ internal sealed class BatchEmailIntegrationTests
 
         var client = services.GetRequiredService<IMailtrapClient>();
 
-
         // Act
         var result = await client
             .BatchTransactional()
             .Send(request)
             .ConfigureAwait(false);
-
 
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
@@ -120,7 +114,7 @@ internal sealed class BatchEmailIntegrationTests
     }
 
     [TestCaseSource(nameof(TestCasesForNonDefault))]
-    public async Task BatchEmail_ShouldRouteToProperUrl_WhenBulkClientIsUsed(MailtrapClientOptions config)
+    public async Task BatchEmail_Should_RouteToProperUrl_WhenBulkClientIsUsed(MailtrapClientOptions config)
     {
         // Arrange
         var random = TestContext.CurrentContext.Random;
@@ -128,8 +122,8 @@ internal sealed class BatchEmailIntegrationTests
         using var mockHttp = new MockHttpMessageHandler();
 
         var response = BatchEmailResponse.CreateSuccess(
-            SendEmailResponse.CreateSuccess(random.NextGuid().ToString()),
-            SendEmailResponse.CreateSuccess(random.NextGuid().ToString()));
+            BatchSendEmailResponse.CreateSuccess(random.NextGuid().ToString()),
+            BatchSendEmailResponse.CreateSuccess(random.NextGuid().ToString()));
         using var responseContent = JsonContent.Create(response);
 
         var sendUri = EndpointsTestConstants.BulkDefaultUrl
@@ -141,13 +135,11 @@ internal sealed class BatchEmailIntegrationTests
 
         var client = services.GetRequiredService<IMailtrapClient>();
 
-
         // Act
         var result = await client
             .BatchBulk()
             .Send(request)
             .ConfigureAwait(false);
-
 
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
@@ -161,7 +153,7 @@ internal sealed class BatchEmailIntegrationTests
     }
 
     [TestCaseSource(nameof(TestCasesForNonDefault))]
-    public async Task BatchEmail_ShouldRouteToProperUrl_WhenTestClientIsUsed(MailtrapClientOptions config)
+    public async Task BatchEmail_Should_RouteToProperUrl_WhenTestClientIsUsed(MailtrapClientOptions config)
     {
         // Arrange
         var random = TestContext.CurrentContext.Random;
@@ -170,8 +162,8 @@ internal sealed class BatchEmailIntegrationTests
         using var mockHttp = new MockHttpMessageHandler();
 
         var response = BatchEmailResponse.CreateSuccess(
-            SendEmailResponse.CreateSuccess(random.NextGuid().ToString()),
-            SendEmailResponse.CreateSuccess(random.NextGuid().ToString()));
+            BatchSendEmailResponse.CreateSuccess(random.NextGuid().ToString()),
+            BatchSendEmailResponse.CreateSuccess(random.NextGuid().ToString()));
         using var responseContent = JsonContent.Create(response);
 
         var inboxId = random.NextLong();
@@ -185,13 +177,11 @@ internal sealed class BatchEmailIntegrationTests
 
         var client = services.GetRequiredService<IMailtrapClient>();
 
-
         // Act
         var result = await client
             .BatchTest(inboxId)
             .Send(request)
             .ConfigureAwait(false);
-
 
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
@@ -204,7 +194,7 @@ internal sealed class BatchEmailIntegrationTests
         result!.Responses.Should().HaveCount(2);
     }
 
-
+    #region Test Cases
 
     private static IEnumerable<BatchEmailTestCase> TestCasesForDefault()
     {
@@ -260,6 +250,10 @@ internal sealed class BatchEmailIntegrationTests
         yield return new(token) { InboxId = inboxId };
         yield return new(token) { InboxId = inboxId, UseBulkApi = true };
     }
+
+    #endregion
+
+    #region Setup Helpers
 
     private static BatchEmailRequest CreateValidRequest()
     {
@@ -317,4 +311,6 @@ internal sealed class BatchEmailIntegrationTests
 
         return serviceCollection.BuildServiceProvider();
     }
+
+    #endregion
 }

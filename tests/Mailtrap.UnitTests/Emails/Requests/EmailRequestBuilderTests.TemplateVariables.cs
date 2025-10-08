@@ -8,7 +8,7 @@ internal sealed class EmailRequestBuilderTests_TemplateVariables
 
 
     [Test]
-    public void TemplateVariables_ShouldThrowArgumentNullException_WhenRequestIsNull()
+    public void TemplateVariables_Should_ThrowArgumentNullException_WhenRequestIsNull()
     {
         var act = () => EmailRequestBuilder.TemplateVariables<EmailRequest>(null!, _templateVars);
 
@@ -16,7 +16,7 @@ internal sealed class EmailRequestBuilderTests_TemplateVariables
     }
 
     [Test]
-    public void TemplateVariables_ShouldNotThrowException_WhenTemplateVariablesIsNull()
+    public void TemplateVariables_Should_NotThrowException_WhenTemplateVariablesIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -26,7 +26,7 @@ internal sealed class EmailRequestBuilderTests_TemplateVariables
     }
 
     [Test]
-    public void TemplateVariables_ShouldAssignTemplateVariablesProperly()
+    public void TemplateVariables_Should_AssignTemplateVariablesProperly()
     {
         var request = EmailRequest
             .Create()
@@ -36,7 +36,7 @@ internal sealed class EmailRequestBuilderTests_TemplateVariables
     }
 
     [Test]
-    public void TemplateVariables_ShouldOverrideTemplateVariables_WhenCalledSeveralTimes()
+    public void TemplateVariables_Should_OverrideTemplateVariables_WhenCalledSeveralTimes()
     {
         var otherTemplateVariables = new object();
 

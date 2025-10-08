@@ -1,17 +1,18 @@
-﻿namespace Mailtrap.Emails.Requests;
+namespace Mailtrap.Emails.Validators;
 
 
-internal sealed class SendEmailRequestValidator : AbstractValidator<SendEmailRequest>
+/// <summary>
+/// Represents validator for <see cref="SendEmailRequest"/> which
+/// validates ONLY email recipients: To, Cc, Bcc.<br/>
+/// Ensures that there is at least one recipient in either of To, Cc or Bcc
+/// and that there are no more than 1000 recipients in each list.
+/// </summary>
+internal sealed class SendEmailRecipientsValidator : AbstractValidator<SendEmailRequest>
 {
-    public static SendEmailRequestValidator Instance { get; } = new();
+    public static SendEmailRecipientsValidator Instance { get; } = new();
 
-    public SendEmailRequestValidator()
+    public SendEmailRecipientsValidator()
     {
-        RuleLevelCascadeMode = CascadeMode.Stop;
-
-        RuleFor(r => r)
-            .SetValidator(EmailRequestValidator.Instance);
-
         RuleFor(r => r.To)
             .NotNull()
             .Must(r => r.Count is <= 1000);

@@ -14,7 +14,7 @@ public record EmailRequest : IValidatable
     /// Required.
     /// </para>
     /// </summary>
-    /// 
+    ///
     /// <value>
     /// Instance, representing email's sender address and name.
     /// </value>
@@ -25,7 +25,7 @@ public record EmailRequest : IValidatable
     /// <summary>
     /// Gets or sets <see cref="EmailAddress"/> representing 'Reply To' email field.
     /// </summary>
-    /// 
+    ///
     /// <value>
     /// Representing 'Reply To' address and name.
     /// </value>
@@ -41,7 +41,7 @@ public record EmailRequest : IValidatable
     /// <value>
     /// Contains the subject of the email.
     /// </value>
-    /// 
+    ///
     /// <remarks>
     /// Must be <see langword="null"/> if <see cref="TemplateId"/> is set.
     /// <para>
@@ -60,7 +60,7 @@ public record EmailRequest : IValidatable
     /// <value>
     /// Contains the text body of the email.
     /// </value>
-    /// 
+    ///
     /// <remarks>
     /// Must be <see langword="null"/> if <see cref="TemplateId"/> is set.<br />
     /// Otherwise, can be used along with <see cref="HtmlBody"/> to create a fall-back for non-html clients.<br />
@@ -77,7 +77,7 @@ public record EmailRequest : IValidatable
     /// <value>
     /// Contains the HTML body of the email.
     /// </value>
-    /// 
+    ///
     /// <remarks>
     /// Must be <see langword="null"/> if <see cref="TemplateId"/> is set.<br />
     /// Required in the absence of <see cref="TemplateId"/> and <see cref="TextBody"/>.
@@ -104,7 +104,7 @@ public record EmailRequest : IValidatable
     /// <value>
     /// A dictionary of header names and values.
     /// </value>
-    /// 
+    ///
     /// <remarks>
     /// The key/value pairs must be strings.<br/>
     /// You must ensure these are properly encoded if they contain unicode characters.<br />
@@ -122,7 +122,7 @@ public record EmailRequest : IValidatable
     /// <value>
     /// Contains the category of the email.
     /// </value>
-    /// 
+    ///
     /// <remarks>
     /// Should be <see langword="null"/> if <see cref="TemplateId"/> is set.<br/>
     /// Otherwise must be less or equal to 255 characters.
@@ -139,7 +139,7 @@ public record EmailRequest : IValidatable
     /// <value>
     /// A dictionary of variable keys and values.
     /// </value>
-    /// 
+    ///
     /// <remarks>
     /// The key/value pairs must be strings.<br/>
     /// Total size of custom variables in JSON form must not exceed 1000 bytes.
@@ -155,7 +155,7 @@ public record EmailRequest : IValidatable
     /// <value>
     /// Contains the UUID of email template.
     /// </value>
-    /// 
+    ///
     /// <remarks>
     /// If provided, then <see cref="Subject"/>, <see cref="Category"/>, <see cref="TextBody"/>  and <see cref="HtmlBody"/>
     /// properties are forbidden and must be <see langword="null"/>.<br />
@@ -173,7 +173,7 @@ public record EmailRequest : IValidatable
     /// <value>
     /// Contains template variables object.
     /// </value>
-    /// 
+    ///
     /// <remarks>
     /// Will be used only in case <see cref="TemplateId"/> is set.
     /// </remarks>
@@ -185,7 +185,7 @@ public record EmailRequest : IValidatable
     /// <summary>
     /// Factory method that creates a new instance of <see cref="EmailRequest" /> request.
     /// </summary>
-    /// 
+    ///
     /// <returns>
     /// New <see cref="EmailRequest"/> instance.
     /// </returns>

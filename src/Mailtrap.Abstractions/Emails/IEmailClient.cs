@@ -6,20 +6,20 @@
 /// </summary>
 public interface IEmailClient<TRequest, TResponse> : IRestResource
     where TRequest : class
-    where TResponse : EmailResponse
+    where TResponse : class
 {
     /// <summary>
     /// Sends email, represented by the <paramref name="request"/>, and returns send operation result.
     /// </summary>
-    /// 
+    ///
     /// <param name="request">
     /// Request object, containing email data.
     /// </param>
-    /// 
+    ///
     /// <param name="cancellationToken">
     /// Token to control operation cancellation.
     /// </param>
-    /// 
+    ///
     /// <returns>
     /// <typeparamref name="TResponse"/> instance with response data.
     /// </returns>
@@ -35,15 +35,15 @@ public interface IEmailClient<TRequest, TResponse> : IRestResource
     /// <exception cref="JsonException">
     /// When request serialization or API response deserialization fails for any reason.
     /// </exception>
-    /// 
+    ///
     /// <exception cref="TaskCanceledException">
     /// When operation is canceled by <paramref name="cancellationToken"/>.
     /// </exception>
-    /// 
+    ///
     /// <exception cref="OperationCanceledException">
     /// When operation is canceled by <paramref name="cancellationToken"/>.
     /// </exception>
-    /// 
+    ///
     /// <exception cref="HttpRequestException">
     /// When request to the API fails for any reason.
     /// </exception>

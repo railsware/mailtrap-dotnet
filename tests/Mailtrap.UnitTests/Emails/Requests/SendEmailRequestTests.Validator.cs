@@ -2,7 +2,7 @@
 
 
 [TestFixture]
-internal sealed class SendEmailRequestValidatorTests
+internal sealed class SendEmailRequestTests_Validator
 {
     private string _validEmail { get; } = "someone@domean.com";
     private string _invalidEmail { get; } = "someone";
@@ -13,7 +13,7 @@ internal sealed class SendEmailRequestValidatorTests
     #region Request
 
     [Test]
-    public void Validation_ShouldFail_WhenNoRecipientsPresent()
+    public void Validation_Should_Fail_WhenNoRecipientsPresent()
     {
         var request = SendEmailRequest.Create();
 
@@ -23,7 +23,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenOnlyToRecipientsPresent()
+    public void Validation_Should_Pass_WhenOnlyToRecipientsPresent()
     {
         var request = SendEmailRequest
             .Create()
@@ -35,7 +35,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenOnlyCcRecipientsPresent()
+    public void Validation_Should_Pass_WhenOnlyCcRecipientsPresent()
     {
         var request = SendEmailRequest
             .Create()
@@ -47,7 +47,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenOnlyBccRecipientsPresent()
+    public void Validation_Should_Pass_WhenOnlyBccRecipientsPresent()
     {
         var request = SendEmailRequest
             .Create()
@@ -65,7 +65,7 @@ internal sealed class SendEmailRequestValidatorTests
     #region From
 
     [Test]
-    public void Validation_ShouldFail_WhenSenderEmailIsInvalid()
+    public void Validation_Should_Fail_WhenSenderEmailIsInvalid()
     {
         var request = SendEmailRequest
             .Create()
@@ -77,7 +77,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenSenderEmailIsValid()
+    public void Validation_Should_Pass_WhenSenderEmailIsValid()
     {
         var request = SendEmailRequest
             .Create()
@@ -96,7 +96,7 @@ internal sealed class SendEmailRequestValidatorTests
     #region ReplyTo
 
     [Test]
-    public void Validation_ShouldNotFail_WhenReplyToIsNull()
+    public void Validation_Should_Pass_WhenReplyToIsNull()
     {
         var request = SendEmailRequest.Create();
 
@@ -107,7 +107,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldFail_WhenReplyToEmailIsInvalid()
+    public void Validation_Should_Fail_WhenReplyToEmailIsInvalid()
     {
         var request = SendEmailRequest
             .Create()
@@ -119,7 +119,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenReplyToEmailIsValid()
+    public void Validation_Should_Pass_WhenReplyToEmailIsValid()
     {
         var request = SendEmailRequest
             .Create()
@@ -138,14 +138,10 @@ internal sealed class SendEmailRequestValidatorTests
     #region To
 
     [Test]
-    public void Validation_ShouldFail_WhenToLengthExceedsLimit()
+    public void Validation_Should_Fail_WhenToLengthExceedsLimit([Values(1001)] int count)
     {
         var request = SendEmailRequest.Create();
-
-        for (var i = 1; i <= 1001; i++)
-        {
-            request.To($"recipient{i}.domain.com");
-        }
+        request.To = Enumerable.Repeat(new EmailAddress(_validEmail), count).ToList();
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
@@ -153,14 +149,10 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenToLengthWithinLimit()
+    public void Validation_Should_Pass_WhenToLengthWithinLimit([Values(1, 500, 1000)] int count)
     {
         var request = SendEmailRequest.Create();
-
-        for (var i = 1; i <= 1000; i++)
-        {
-            request.To($"recipient{i}.domain.com");
-        }
+        request.To = Enumerable.Repeat(new EmailAddress(_validEmail), count).ToList();
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
@@ -168,7 +160,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldFail_WhenAtLEastOneToEmailIsInvalid()
+    public void Validation_Should_Fail_WhenAtLEastOneToEmailIsInvalid()
     {
         var request = SendEmailRequest
             .Create()
@@ -184,7 +176,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenAllToEmailsAreValid()
+    public void Validation_Should_Pass_WhenAllToEmailsAreValid()
     {
         var request = SendEmailRequest
             .Create()
@@ -205,7 +197,7 @@ internal sealed class SendEmailRequestValidatorTests
     #region Cc
 
     [Test]
-    public void Validation_ShouldFail_WhenCcLengthExceedsLimit()
+    public void Validation_Should_Fail_WhenCcLengthExceedsLimit()
     {
         var request = SendEmailRequest.Create();
 
@@ -220,7 +212,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenCcLengthWithinLimit()
+    public void Validation_Should_Pass_WhenCcLengthWithinLimit()
     {
         var request = SendEmailRequest.Create();
 
@@ -235,7 +227,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldFail_WhenAtLEastOneCcEmailIsInvalid()
+    public void Validation_Should_Fail_WhenAtLEastOneCcEmailIsInvalid()
     {
         var request = SendEmailRequest
             .Create()
@@ -248,7 +240,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenAllCcEmailsAreValid()
+    public void Validation_Should_Pass_WhenAllCcEmailsAreValid()
     {
         var request = SendEmailRequest
             .Create()
@@ -269,7 +261,7 @@ internal sealed class SendEmailRequestValidatorTests
     #region Bcc
 
     [Test]
-    public void Validation_ShouldFail_WhenBccLengthExceedsLimit()
+    public void Validation_Should_Fail_WhenBccLengthExceedsLimit()
     {
         var request = SendEmailRequest.Create();
 
@@ -284,7 +276,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenBccLengthWithinLimit()
+    public void Validation_Should_Pass_WhenBccLengthWithinLimit()
     {
         var request = SendEmailRequest.Create();
 
@@ -299,7 +291,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldFail_WhenAtLEastOneBccEmailIsInvalid()
+    public void Validation_Should_Fail_WhenAtLEastOneBccEmailIsInvalid()
     {
         var request = SendEmailRequest
             .Create()
@@ -312,7 +304,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenAllBccEmailsAreValid()
+    public void Validation_Should_Pass_WhenAllBccEmailsAreValid()
     {
         var request = SendEmailRequest
             .Create()
@@ -333,7 +325,7 @@ internal sealed class SendEmailRequestValidatorTests
     #region Attachments
 
     [Test]
-    public void Validation_ShouldFail_WhenAtLEastOneAttachmentIsInvalid()
+    public void Validation_Should_Fail_WhenAtLEastOneAttachmentIsInvalid()
     {
         var request = SendEmailRequest
             .Create()
@@ -346,7 +338,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenAllAttachmentsAreValid()
+    public void Validation_Should_Pass_WhenAllAttachmentsAreValid()
     {
         var request = SendEmailRequest
             .Create()
@@ -367,7 +359,7 @@ internal sealed class SendEmailRequestValidatorTests
     #region Templated
 
     [Test]
-    public void Validation_ShouldFail_WhenTemplateIdIsSetAndSubjectProvided()
+    public void Validation_Should_Fail_WhenTemplateIdIsSetAndSubjectProvided()
     {
         var request = SendEmailRequest
             .Create()
@@ -380,7 +372,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldFail_WhenTemplateIdIsSetAndTextProvided()
+    public void Validation_Should_Fail_WhenTemplateIdIsSetAndTextProvided()
     {
         var request = SendEmailRequest
             .Create()
@@ -393,7 +385,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldFail_WhenTemplateIdIsSetAndHtmlProvided()
+    public void Validation_Should_Fail_WhenTemplateIdIsSetAndHtmlProvided()
     {
         var request = SendEmailRequest
             .Create()
@@ -406,20 +398,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldFail_WhenTemplateIdIsSetAndCategoryProvided()
-    {
-        var request = SendEmailRequest
-            .Create()
-            .Template(_templateId)
-            .Category(string.Empty);
-
-        var result = SendEmailRequestValidator.Instance.TestValidate(request);
-
-        result.ShouldHaveValidationErrorFor(r => r.Category);
-    }
-
-    [Test]
-    public void Validation_ShouldNotFail_WhenTemplateIdIsSetAndNoForbiddenPropertiesAreSet()
+    public void Validation_Should_Pass_WhenTemplateIdIsSetAndNoForbiddenPropertiesAreSet()
     {
         var request = SendEmailRequest
             .Create()
@@ -439,7 +418,7 @@ internal sealed class SendEmailRequestValidatorTests
     #region Subject
 
     [Test]
-    public void Validation_ShouldFail_WhenSubjectIsNull()
+    public void Validation_Should_Fail_WhenSubjectIsNull()
     {
         var request = SendEmailRequest.Create();
 
@@ -449,7 +428,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenSubjectProvided()
+    public void Validation_Should_Pass_WhenSubjectProvided()
     {
         var request = SendEmailRequest.Create()
             .Subject("Subject");
@@ -466,7 +445,7 @@ internal sealed class SendEmailRequestValidatorTests
     #region Category
 
     [Test]
-    public void Validation_ShouldFail_WhenCategoryExceedsAllowedLength()
+    public void Validation_Should_Fail_WhenCategoryExceedsAllowedLength()
     {
         var request = SendEmailRequest
             .Create()
@@ -478,7 +457,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenCategoryFitsAllowedLength()
+    public void Validation_Should_Pass_WhenCategoryFitsAllowedLength()
     {
         var request = SendEmailRequest
             .Create()
@@ -496,7 +475,7 @@ internal sealed class SendEmailRequestValidatorTests
     #region Body
 
     [Test]
-    public void Validation_ShouldFail_WhenBothHtmlAndTextBodyAreNull()
+    public void Validation_Should_Fail_WhenBothHtmlAndTextBodyAreNull()
     {
         var request = SendEmailRequest.Create();
 
@@ -507,7 +486,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldFail_WhenBothHtmlAndTextBodyAreEmpty()
+    public void Validation_Should_Fail_WhenBothHtmlAndTextBodyAreEmpty()
     {
         var request = SendEmailRequest
             .Create()
@@ -521,7 +500,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenTextBodyIsNotEmpty()
+    public void Validation_Should_Pass_WhenTextBodyIsNotEmpty()
     {
         var request = SendEmailRequest
             .Create()
@@ -534,7 +513,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenHtmlBodyIsNotEmpty()
+    public void Validation_Should_Pass_WhenHtmlBodyIsNotEmpty()
     {
         var request = SendEmailRequest
             .Create()
@@ -547,7 +526,7 @@ internal sealed class SendEmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenBothHtmlAndTextBodyAreNotEmpty()
+    public void Validation_Should_Pass_WhenBothHtmlAndTextBodyAreNotEmpty()
     {
         var request = SendEmailRequest
             .Create()

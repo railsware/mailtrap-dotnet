@@ -6,12 +6,12 @@
 /// </summary>
 internal class EmailClient<TRequest, TResponse> : RestResource, IEmailClient<TRequest, TResponse>
     where TRequest : class
-    where TResponse : EmailResponse
+    where TResponse : class
 {
     /// <summary>
     /// Default instance constructor.
     /// </summary>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When any of the parameters provided is <see langword="null"/>.
     /// </exception>

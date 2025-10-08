@@ -8,7 +8,7 @@ internal sealed class EmailRequestBuilderTests_TextBody
 
 
     [Test]
-    public void Text_ShouldThrowArgumentNullException_WhenRequestIsNull()
+    public void Text_Should_ThrowArgumentNullException_WhenRequestIsNull()
     {
         var act = () => EmailRequestBuilder.Text<EmailRequest>(null!, _text);
 
@@ -16,7 +16,7 @@ internal sealed class EmailRequestBuilderTests_TextBody
     }
 
     [Test]
-    public void Text_ShouldNotThrowException_WhenTextIsNull()
+    public void Text_Should_NotThrowException_WhenTextIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -26,7 +26,7 @@ internal sealed class EmailRequestBuilderTests_TextBody
     }
 
     [Test]
-    public void Text_ShouldNotThrowException_WhenTextIsEmpty()
+    public void Text_Should_NotThrowException_WhenTextIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -36,7 +36,7 @@ internal sealed class EmailRequestBuilderTests_TextBody
     }
 
     [Test]
-    public void Text_ShouldAssignTextBodyProperly()
+    public void Text_Should_AssignTextBodyProperly()
     {
         var request = EmailRequest
             .Create()
@@ -46,7 +46,7 @@ internal sealed class EmailRequestBuilderTests_TextBody
     }
 
     [Test]
-    public void Text_ShouldOverrideTextBody_WhenCalledSeveralTimes()
+    public void Text_Should_OverrideTextBody_WhenCalledSeveralTimes()
     {
         var otherText = "Updated Text";
 

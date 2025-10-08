@@ -12,7 +12,7 @@ internal sealed class EmailRequestBuilderTests_ReplyTo
     #region ReplyTo(sender)
 
     [Test]
-    public void ReplyTo_ShouldThrowArgumentNullException_WhenRequestIsNull()
+    public void ReplyTo_Should_ThrowArgumentNullException_WhenRequestIsNull()
     {
         var act = () => EmailRequestBuilder.ReplyTo<EmailRequest>(null!, _replyTo);
 
@@ -20,7 +20,7 @@ internal sealed class EmailRequestBuilderTests_ReplyTo
     }
 
     [Test]
-    public void ReplyTo_ShouldAssignReplyToProperly_WhenNull()
+    public void ReplyTo_Should_AssignReplyToProperly_WhenNull()
     {
         var request = EmailRequest
             .Create()
@@ -30,7 +30,7 @@ internal sealed class EmailRequestBuilderTests_ReplyTo
     }
 
     [Test]
-    public void ReplyTo_ShouldAssignReplyToProperly()
+    public void ReplyTo_Should_AssignReplyToProperly()
     {
         var request = EmailRequest
             .Create()
@@ -40,7 +40,7 @@ internal sealed class EmailRequestBuilderTests_ReplyTo
     }
 
     [Test]
-    public void ReplyTo_ShouldOverride_WhenCalledSeveralTimes()
+    public void ReplyTo_Should_Override_WhenCalledSeveralTimes()
     {
         var otherReplyTo = new EmailAddress("replyTo2@domain.com", "Reply To 2");
 
@@ -58,7 +58,7 @@ internal sealed class EmailRequestBuilderTests_ReplyTo
     #region ReplyTo(email, displayName)
 
     [Test]
-    public void ReplyTo_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
+    public void ReplyTo_Should_ThrowArgumentNullException_WhenRequestIsNull_2()
     {
         var request = EmailRequest.Create();
 
@@ -68,7 +68,7 @@ internal sealed class EmailRequestBuilderTests_ReplyTo
     }
 
     [Test]
-    public void ReplyTo_ShouldThrowArgumentNullException_WhenReplyToEmailIsNull()
+    public void ReplyTo_Should_ThrowArgumentNullException_WhenReplyToEmailIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -78,7 +78,7 @@ internal sealed class EmailRequestBuilderTests_ReplyTo
     }
 
     [Test]
-    public void ReplyTo_ShouldThrowArgumentNullException_WhenReplyToEmailIsEmpty()
+    public void ReplyTo_Should_ThrowArgumentNullException_WhenReplyToEmailIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -88,7 +88,7 @@ internal sealed class EmailRequestBuilderTests_ReplyTo
     }
 
     [Test]
-    public void ReplyTo_ShouldNotThrowException_WhenReplyToDisplayNameIsNull()
+    public void ReplyTo_Should_NotThrowException_WhenReplyToDisplayNameIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -98,7 +98,7 @@ internal sealed class EmailRequestBuilderTests_ReplyTo
     }
 
     [Test]
-    public void ReplyTo_ShouldNotThrowException_WhenReplyToDisplayNameIsEmpty()
+    public void ReplyTo_Should_NotThrowException_WhenReplyToDisplayNameIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -108,31 +108,31 @@ internal sealed class EmailRequestBuilderTests_ReplyTo
     }
 
     [Test]
-    public void ReplyTo_ShouldInitializeReplyToProperly_WhenOnlyEmailProvided()
+    public void ReplyTo_Should_InitializeReplyToProperly_WhenOnlyEmailProvided()
     {
         var request = EmailRequest
             .Create()
             .ReplyTo(ReplyToEmail);
 
         request.ReplyTo.Should().NotBeNull();
-        request.ReplyTo!.Email.Should().Be(ReplyToEmail);
-        request.ReplyTo!.DisplayName.Should().BeNull();
+        request.ReplyTo.Email.Should().Be(ReplyToEmail);
+        request.ReplyTo.DisplayName.Should().BeNull();
     }
 
     [Test]
-    public void ReplyTo_ShouldInitializeReplyToProperly_WhenFullInfoProvided()
+    public void ReplyTo_Should_InitializeReplyToProperly_WhenFullInfoProvided()
     {
         var request = EmailRequest
             .Create()
             .ReplyTo(ReplyToEmail, ReplyToDisplayName);
 
         request.ReplyTo.Should().NotBeNull();
-        request.ReplyTo!.Email.Should().Be(ReplyToEmail);
-        request.ReplyTo!.DisplayName.Should().Be(ReplyToDisplayName);
+        request.ReplyTo.Email.Should().Be(ReplyToEmail);
+        request.ReplyTo.DisplayName.Should().Be(ReplyToDisplayName);
     }
 
     [Test]
-    public void ReplyTo_ShouldOverrideReplyTo_WhenCalledSeveralTimes_2()
+    public void ReplyTo_Should_OverrideReplyTo_WhenCalledSeveralTimes_2()
     {
         var otherReplyToEmail = "replyTo2@domain.com";
 
@@ -141,9 +141,10 @@ internal sealed class EmailRequestBuilderTests_ReplyTo
             .ReplyTo(_replyTo)
             .ReplyTo(otherReplyToEmail);
 
+        request.ReplyTo.Should().NotBeNull();
         request.ReplyTo.Should().NotBeSameAs(_replyTo);
-        request.ReplyTo!.Email.Should().Be(otherReplyToEmail);
-        request.ReplyTo!.DisplayName.Should().BeNull();
+        request.ReplyTo.Email.Should().Be(otherReplyToEmail);
+        request.ReplyTo.DisplayName.Should().BeNull();
     }
 
     #endregion

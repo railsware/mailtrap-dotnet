@@ -5,17 +5,16 @@
 internal sealed class SendEmailResponseTests
 {
     [Test]
-    public void CreateSuccess_ShouldInitializeFieldsCorrectly_WhenNoMessageIdsPresent()
+    public void CreateSuccess_Should_InitializeFieldsCorrectly_WhenNoMessageIdsPresent()
     {
         var response = SendEmailResponse.CreateSuccess();
 
         response.Success.Should().BeTrue();
         response.MessageIds.Should().BeEmpty();
-        response.ErrorData.Should().BeEmpty();
     }
 
     [Test]
-    public void CreateSuccess_ShouldInitializeFieldsCorrectly_WhenMessageIdsProvided()
+    public void CreateSuccess_Should_InitializeFieldsCorrectly_WhenMessageIdsProvided()
     {
         string[] messageIds = ["id1", "id2"];
 
@@ -23,7 +22,6 @@ internal sealed class SendEmailResponseTests
 
         response.Success.Should().BeTrue();
         response.MessageIds.Should().BeEquivalentTo(messageIds);
-        response.ErrorData.Should().BeEmpty();
     }
 
     [Test]
@@ -42,10 +40,24 @@ internal sealed class SendEmailResponseTests
 
         response.Should().NotBeNull();
         response!.Success.Should().BeTrue();
-        response!.ErrorData.Should().BeEmpty();
         response!.MessageIds.Should()
             .NotBeNull().And
             .HaveCount(1);
         response!.MessageIds!.Single().Should().Be(messageId);
+    }
+
+    [Test]
+    public void Should_SerializeAndDeserializeCorrectly()
+    {
+        string[] messageIds = ["id1", "id2"];
+        var response = SendEmailResponse.CreateSuccess(messageIds);
+        var options = MailtrapJsonSerializerOptions.NotIndented;
+
+        var json = JsonSerializer.Serialize(response, options);
+        var deserialized = JsonSerializer.Deserialize<SendEmailResponse>(json, options);
+
+        deserialized.Should().NotBeNull();
+        deserialized!.Success.Should().BeTrue();
+        deserialized.MessageIds.Should().BeEquivalentTo(messageIds);
     }
 }

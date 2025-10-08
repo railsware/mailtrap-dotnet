@@ -8,7 +8,7 @@ internal sealed class EmailRequestBuilderTests_HtmlBody
 
 
     [Test]
-    public void Html_ShouldThrowArgumentNullException_WhenRequestIsNull()
+    public void Html_Should_ThrowArgumentNullException_WhenRequestIsNull()
     {
         var act = () => EmailRequestBuilder.Html<EmailRequest>(null!, _html);
 
@@ -16,7 +16,7 @@ internal sealed class EmailRequestBuilderTests_HtmlBody
     }
 
     [Test]
-    public void Html_ShouldNotThrowException_WhenHtmlIsNull()
+    public void Html_Should_NotThrowException_WhenHtmlIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -26,7 +26,7 @@ internal sealed class EmailRequestBuilderTests_HtmlBody
     }
 
     [Test]
-    public void Html_ShouldNotThrowException_WhenHtmlIsEmpty()
+    public void Html_Should_NotThrowException_WhenHtmlIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -36,7 +36,7 @@ internal sealed class EmailRequestBuilderTests_HtmlBody
     }
 
     [Test]
-    public void Html_ShouldAssignHtmlBodyProperly()
+    public void Html_Should_AssignHtmlBodyProperly()
     {
         var request = EmailRequest
             .Create()
@@ -46,7 +46,7 @@ internal sealed class EmailRequestBuilderTests_HtmlBody
     }
 
     [Test]
-    public void Html_ShouldOverrideHtmlBody_WhenCalledSeveralTimes()
+    public void Html_Should_OverrideHtmlBody_WhenCalledSeveralTimes()
     {
         var otherHtml = "<h2>Header</h2><p>Congratulation!</p>";
 

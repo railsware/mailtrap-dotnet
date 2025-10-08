@@ -4,8 +4,21 @@
 /// <summary>
 /// Represents send email response object.
 /// </summary>
-public sealed record SendEmailResponse : EmailResponse
+public record SendEmailResponse
 {
+    /// <summary>
+    /// Gets a flag, indicating whether request succeeded or failed and response contains error(s).
+    /// </summary>
+    ///
+    /// <value>
+    /// <see langword="false"/> when request failed and response contains error(s).<br/>
+    /// <see langword="true"/> when request succeeded.
+    /// </value>
+    [JsonPropertyName("success")]
+    [JsonPropertyOrder(1)]
+    [JsonInclude]
+    public bool Success { get; protected set; } = false;
+
     /// <summary>
     /// Gets a collection of IDs of emails that have been sent.
     /// </summary>
@@ -14,7 +27,7 @@ public sealed record SendEmailResponse : EmailResponse
     /// A collection of IDs of emails that have been sent.
     /// </value>
     [JsonPropertyName("message_ids")]
-    [JsonPropertyOrder(3)]
+    [JsonPropertyOrder(2)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<string> MessageIds { get; private set; } = [];
 

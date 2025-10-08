@@ -2,7 +2,7 @@
 
 
 [TestFixture]
-internal sealed class EmailRequestValidatorTests
+internal sealed class EmailRequestTests_Validator
 {
     private string _validEmail { get; } = "someone@domean.com";
     private string _invalidEmail { get; } = "someone";
@@ -13,7 +13,7 @@ internal sealed class EmailRequestValidatorTests
     #region From
 
     [Test]
-    public void Validation_ShouldFail_WhenSenderEmailIsInvalid()
+    public void Validation_Should_Fail_WhenSenderEmailIsInvalid()
     {
         var request = EmailRequest
             .Create()
@@ -25,7 +25,7 @@ internal sealed class EmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenSenderEmailIsValid()
+    public void Validation_Should_Pass_WhenSenderEmailIsValid()
     {
         var request = EmailRequest
             .Create()
@@ -44,7 +44,7 @@ internal sealed class EmailRequestValidatorTests
     #region ReplyTo
 
     [Test]
-    public void Validation_ShouldNotFail_WhenReplyToIsNull()
+    public void Validation_Should_Pass_WhenReplyToIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -55,7 +55,7 @@ internal sealed class EmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldFail_WhenReplyToEmailIsInvalid()
+    public void Validation_Should_Fail_WhenReplyToEmailIsInvalid()
     {
         var request = EmailRequest
             .Create()
@@ -67,7 +67,7 @@ internal sealed class EmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenReplyToEmailIsValid()
+    public void Validation_Should_Pass_WhenReplyToEmailIsValid()
     {
         var request = EmailRequest
             .Create()
@@ -86,7 +86,7 @@ internal sealed class EmailRequestValidatorTests
     #region Attachments
 
     [Test]
-    public void Validation_ShouldFail_WhenAtLEastOneAttachmentIsInvalid()
+    public void Validation_Should_Fail_WhenAtLEastOneAttachmentIsInvalid()
     {
         var request = EmailRequest
             .Create()
@@ -99,7 +99,7 @@ internal sealed class EmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenAllAttachmentsAreValid()
+    public void Validation_Should_Pass_WhenAllAttachmentsAreValid()
     {
         var request = EmailRequest
             .Create()
@@ -120,7 +120,7 @@ internal sealed class EmailRequestValidatorTests
     #region Templated
 
     [Test]
-    public void Validation_ShouldFail_WhenTemplateIdIsSetAndSubjectProvided()
+    public void Validation_Should_Fail_WhenTemplateIdIsSetAndSubjectProvided()
     {
         var request = EmailRequest
             .Create()
@@ -133,7 +133,7 @@ internal sealed class EmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldFail_WhenTemplateIdIsSetAndTextProvided()
+    public void Validation_Should_Fail_WhenTemplateIdIsSetAndTextProvided()
     {
         var request = EmailRequest
             .Create()
@@ -146,7 +146,7 @@ internal sealed class EmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldFail_WhenTemplateIdIsSetAndHtmlProvided()
+    public void Validation_Should_Fail_WhenTemplateIdIsSetAndHtmlProvided()
     {
         var request = EmailRequest
             .Create()
@@ -159,25 +159,11 @@ internal sealed class EmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldFail_WhenTemplateIdIsSetAndCategoryProvided()
+    public void Validation_Should_Pass_WhenTemplateIdIsSetAndNoForbiddenPropertiesAreSet()
     {
         var request = EmailRequest
             .Create()
-            .Template(_templateId)
-            .Category(string.Empty);
-
-        var result = EmailRequestValidator.Instance.TestValidate(request);
-
-        result.ShouldHaveValidationErrorFor(r => r.Category);
-    }
-
-    [Test]
-    public void Validation_ShouldNotFail_WhenTemplateIdIsSetAndNoForbiddenPropertiesAreSet()
-    {
-        var request = SendEmailRequest
-            .Create()
             .From(_validEmail)
-            .To(_validEmail)
             .Template(_templateId);
 
         var result = EmailRequestValidator.Instance.TestValidate(request);
@@ -192,7 +178,7 @@ internal sealed class EmailRequestValidatorTests
     #region Subject
 
     [Test]
-    public void Validation_ShouldFail_WhenSubjectIsNull()
+    public void Validation_Should_Fail_WhenSubjectIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -202,7 +188,7 @@ internal sealed class EmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenSubjectProvided()
+    public void Validation_Should_Pass_WhenSubjectProvided()
     {
         var request = EmailRequest.Create()
             .Subject("Subject");
@@ -219,7 +205,7 @@ internal sealed class EmailRequestValidatorTests
     #region Category
 
     [Test]
-    public void Validation_ShouldFail_WhenCategoryExceedsAllowedLength()
+    public void Validation_Should_Fail_WhenCategoryExceedsAllowedLength()
     {
         var request = EmailRequest
             .Create()
@@ -231,7 +217,7 @@ internal sealed class EmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenCategoryFitsAllowedLength()
+    public void Validation_Should_Pass_WhenCategoryFitsAllowedLength()
     {
         var request = EmailRequest
             .Create()
@@ -249,7 +235,7 @@ internal sealed class EmailRequestValidatorTests
     #region Body
 
     [Test]
-    public void Validation_ShouldFail_WhenBothHtmlAndTextBodyAreNull()
+    public void Validation_Should_Fail_WhenBothHtmlAndTextBodyAreNull()
     {
         var request = EmailRequest.Create();
 
@@ -260,7 +246,7 @@ internal sealed class EmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldFail_WhenBothHtmlAndTextBodyAreEmpty()
+    public void Validation_Should_Fail_WhenBothHtmlAndTextBodyAreEmpty()
     {
         var request = EmailRequest
             .Create()
@@ -274,7 +260,7 @@ internal sealed class EmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenTextBodyIsNotEmpty()
+    public void Validation_Should_Pass_WhenTextBodyIsNotEmpty()
     {
         var request = EmailRequest
             .Create()
@@ -287,7 +273,7 @@ internal sealed class EmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenHtmlBodyIsNotEmpty()
+    public void Validation_Should_Pass_WhenHtmlBodyIsNotEmpty()
     {
         var request = EmailRequest
             .Create()
@@ -300,7 +286,7 @@ internal sealed class EmailRequestValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenBothHtmlAndTextBodyAreNotEmpty()
+    public void Validation_Should_Pass_WhenBothHtmlAndTextBodyAreNotEmpty()
     {
         var request = EmailRequest
             .Create()

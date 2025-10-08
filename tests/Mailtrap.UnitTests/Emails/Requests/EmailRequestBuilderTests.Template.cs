@@ -8,7 +8,7 @@ internal sealed class EmailRequestBuilderTests_Template
 
 
     [Test]
-    public void Template_ShouldThrowArgumentNullException_WhenRequestIsNull()
+    public void Template_Should_ThrowArgumentNullException_WhenRequestIsNull()
     {
         var act = () => EmailRequestBuilder.Template<EmailRequest>(null!, _templateId);
 
@@ -16,7 +16,7 @@ internal sealed class EmailRequestBuilderTests_Template
     }
 
     [Test]
-    public void Template_ShouldThrowArgumentNullException_WhenTemplateIdIsNull()
+    public void Template_Should_ThrowArgumentNullException_WhenTemplateIdIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -26,7 +26,7 @@ internal sealed class EmailRequestBuilderTests_Template
     }
 
     [Test]
-    public void Template_ShouldThrowArgumentNullException_WhenTemplateIdIsEmpty()
+    public void Template_Should_ThrowArgumentNullException_WhenTemplateIdIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -36,7 +36,7 @@ internal sealed class EmailRequestBuilderTests_Template
     }
 
     [Test]
-    public void Template_ShouldAssignTemplateProperly()
+    public void Template_Should_AssignTemplateProperly()
     {
         var request = EmailRequest
             .Create()
@@ -46,7 +46,7 @@ internal sealed class EmailRequestBuilderTests_Template
     }
 
     [Test]
-    public void Template_ShouldOverrideTemplate_WhenCalledSeveralTimes()
+    public void Template_Should_OverrideTemplate_WhenCalledSeveralTimes()
     {
         var otherTemplate = "<ID2>";
 

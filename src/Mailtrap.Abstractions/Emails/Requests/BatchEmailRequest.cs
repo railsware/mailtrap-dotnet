@@ -13,7 +13,7 @@ public sealed record BatchEmailRequest : IValidatable
     ///
     /// <value>
     /// Contains object with general properties of all emails in the batch.
-    /// </value>    
+    /// </value>
     [JsonPropertyName("base")]
     [JsonPropertyOrder(1)]
     public EmailRequest Base { get; set; } = new();
@@ -23,7 +23,7 @@ public sealed record BatchEmailRequest : IValidatable
     /// Each of them requires recipients (one of to, cc, or bcc).<br />
     /// Each email inherits properties from base but can override them.
     /// </summary>
-    /// 
+    ///
     /// <value>
     /// Contains sender's or recipient's display name.
     /// </value>
@@ -36,6 +36,14 @@ public sealed record BatchEmailRequest : IValidatable
     [JsonPropertyOrder(2)]
     public IList<SendEmailRequest> Requests { get; set; } = [];
 
+    /// <summary>
+    /// Factory method that creates a new instance of <see cref="BatchEmailRequest" /> request.
+    /// </summary>
+    ///
+    /// <returns>
+    /// New <see cref="BatchEmailRequest"/> instance.
+    /// </returns>
+    public static BatchEmailRequest Create() => new();
 
     /// <inheritdoc />
     public ValidationResult Validate()

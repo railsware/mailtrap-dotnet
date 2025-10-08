@@ -43,6 +43,7 @@ global using Mailtrap.ContactEvents.Models;
 global using Mailtrap.ContactEvents.Requests;
 global using Mailtrap.ContactEvents.Validators;
 global using Mailtrap.Emails;
+global using Mailtrap.Emails.Extensions;
 global using Mailtrap.Emails.Models;
 global using Mailtrap.Emails.Requests;
 global using Mailtrap.Emails.Responses;

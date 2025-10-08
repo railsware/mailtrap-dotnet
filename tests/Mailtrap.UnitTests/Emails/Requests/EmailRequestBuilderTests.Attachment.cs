@@ -14,7 +14,7 @@ internal sealed class EmailRequestBuilderTests_Attachment
     #region Attach
 
     [Test]
-    public void Attach_ShouldThrowArgumentNullException_WhenRequestIsNull()
+    public void Attach_Should_ThrowArgumentNullException_WhenRequestIsNull()
     {
         var act = () => EmailRequestBuilder.Attach<EmailRequest>(null!, _attachment1);
 
@@ -22,7 +22,7 @@ internal sealed class EmailRequestBuilderTests_Attachment
     }
 
     [Test]
-    public void Attach_ShouldThrowArgumentNullException_WhenParamsIsNull()
+    public void Attach_Should_ThrowArgumentNullException_WhenParamsIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -32,7 +32,7 @@ internal sealed class EmailRequestBuilderTests_Attachment
     }
 
     [Test]
-    public void Attach_ShouldNotThrowException_WhenParamsIsEmpty()
+    public void Attach_Should_NotThrowException_WhenParamsIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -42,13 +42,13 @@ internal sealed class EmailRequestBuilderTests_Attachment
     }
 
     [Test]
-    public void Attach_ShouldAddAttachmentsToCollection()
+    public void Attach_Should_AddAttachmentsToCollection()
     {
         Attach_CreateAndValidate(_attachment1, _attachment2);
     }
 
     [Test]
-    public void Attach_ShouldAddAttachmentsToCollection_WhenCalledMultipleTimes()
+    public void Attach_Should_AddAttachmentsToCollection_WhenCalledMultipleTimes()
     {
         var attachment3 = new Attachment("Content 3", "file3.png", DispositionType.Inline, MediaTypeNames.Image.Png);
         var attachment4 = new Attachment("Content 4", "file4.pdf", mimeType: MediaTypeNames.Application.Pdf, contentId: "ID 4");
@@ -63,7 +63,7 @@ internal sealed class EmailRequestBuilderTests_Attachment
     }
 
     [Test]
-    public void Attach_ShouldNotAddAttachmentsToCollection_WhenParamsIsEmpty()
+    public void Attach_Should_NotAddAttachmentsToCollection_WhenParamsIsEmpty()
     {
         var request = Attach_CreateAndValidate(_attachment1, _attachment2);
 
@@ -95,7 +95,7 @@ internal sealed class EmailRequestBuilderTests_Attachment
     #region Attach(content, fileName, disposition, mimeType, contentId)
 
     [Test]
-    public void Attach_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
+    public void Attach_Should_ThrowArgumentNullException_WhenRequestIsNull_2()
     {
         var request = EmailRequest.Create();
 
@@ -105,7 +105,7 @@ internal sealed class EmailRequestBuilderTests_Attachment
     }
 
     [Test]
-    public void Attach_ShouldThrowArgumentNullException_WhenContentIsNull()
+    public void Attach_Should_ThrowArgumentNullException_WhenContentIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -115,7 +115,7 @@ internal sealed class EmailRequestBuilderTests_Attachment
     }
 
     [Test]
-    public void Attach_ShouldThrowArgumentNullException_WhenContentIsEmpty()
+    public void Attach_Should_ThrowArgumentNullException_WhenContentIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -125,7 +125,7 @@ internal sealed class EmailRequestBuilderTests_Attachment
     }
 
     [Test]
-    public void Attach_ShouldThrowArgumentNullException_WhenFileNameIsNull()
+    public void Attach_Should_ThrowArgumentNullException_WhenFileNameIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -135,7 +135,7 @@ internal sealed class EmailRequestBuilderTests_Attachment
     }
 
     [Test]
-    public void Attach_ShouldThrowArgumentNullException_WhenFileNameIsEmpty()
+    public void Attach_Should_ThrowArgumentNullException_WhenFileNameIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -145,7 +145,7 @@ internal sealed class EmailRequestBuilderTests_Attachment
     }
 
     [Test, Combinatorial]
-    public void Attach_ShouldNotThrowException_WhenAllOptionalParamsAreNullOrEmpty(
+    public void Attach_Should_NotThrowException_WhenAllOptionalParamsAreNullOrEmpty(
         [Values(null, "")] string? mimeType,
         [Values(null, "")] string? contentId)
     {
@@ -157,7 +157,7 @@ internal sealed class EmailRequestBuilderTests_Attachment
     }
 
     [Test, Combinatorial]
-    public void Attach_ShouldNotThrowException_WhenDispositionIsSetAndOtherOptionalParamsAreNullOrEmpty(
+    public void Attach_Should_NotThrowException_WhenDispositionIsSetAndOtherOptionalParamsAreNullOrEmpty(
         [Values(null, "")] string? mimeType,
         [Values(null, "")] string? contentId)
     {
@@ -169,7 +169,7 @@ internal sealed class EmailRequestBuilderTests_Attachment
     }
 
     [Test]
-    public void Attach_ShouldAddAttachmentToCollectionAndInitPropertiesCorrectly_WhenOnlyRequiredParametersSpecified()
+    public void Attach_Should_AddAttachmentToCollectionAndInitPropertiesCorrectly_WhenOnlyRequiredParametersSpecified()
     {
         var request = EmailRequest
             .Create()
@@ -186,7 +186,7 @@ internal sealed class EmailRequestBuilderTests_Attachment
     }
 
     [Test]
-    public void Attach_ShouldAddAttachmentToCollectionAndInitPropertiesCorrectly_WhenAllParametersSpecified()
+    public void Attach_Should_AddAttachmentToCollectionAndInitPropertiesCorrectly_WhenAllParametersSpecified()
     {
         var disposition = DispositionType.Inline;
         var mimeType = MediaTypeNames.Image.Png;

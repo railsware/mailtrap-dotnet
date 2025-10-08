@@ -23,7 +23,7 @@ public static class EmailRequestBuilder
     /// <returns>
     /// Updated <see cref="EmailRequest"/> instance so subsequent calls can be chained.
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="request"/> or <paramref name="sender"/> is <see langword="null"/>.
     /// </exception>
@@ -58,7 +58,7 @@ public static class EmailRequestBuilder
     /// Required. Must be valid email address.
     /// </para>
     /// </param>
-    /// 
+    ///
     /// <param name="displayName">
     /// Optional sender's display name.
     /// </param>
@@ -66,7 +66,7 @@ public static class EmailRequestBuilder
     /// <returns>
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/returns"/>
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="request"/> is <see langword="null"/>.<br />
     /// When <paramref name="email"/> is <see langword="null"/> or <see cref="string.Empty"/>.
@@ -103,7 +103,7 @@ public static class EmailRequestBuilder
     /// <returns>
     /// Updated <see cref="EmailRequest"/> instance so subsequent calls can be chained.
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="request"/> is <see langword="null"/>.
     /// </exception>
@@ -137,7 +137,7 @@ public static class EmailRequestBuilder
     /// Required. Must be valid email address.
     /// </para>
     /// </param>
-    /// 
+    ///
     /// <param name="displayName">
     /// Optional 'Reply To' display name.
     /// </param>
@@ -145,7 +145,7 @@ public static class EmailRequestBuilder
     /// <returns>
     /// <inheritdoc cref="ReplyTo{T}(T, EmailAddress?)" path="/returns"/>
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="request"/> is <see langword="null"/>.<br />
     /// When <paramref name="email"/> is <see langword="null"/> or <see cref="string.Empty"/>.
@@ -175,7 +175,7 @@ public static class EmailRequestBuilder
     /// <param name="request">
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/param[@name='request']"/>
     /// </param>
-    /// 
+    ///
     /// <param name="attachments">
     /// One or more <see cref="Attachment"/> objects to add to the request's
     /// <see cref="EmailRequest.Attachments"/> collection.
@@ -184,11 +184,11 @@ public static class EmailRequestBuilder
     /// <returns>
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/returns"/>
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="request"/> or <paramref name="attachments"/> is <see langword="null"/>.
     /// </exception>
-    /// 
+    ///
     /// <remarks>
     /// Duplicates can be added by calling this method multiple times with the same <see cref="Attachment"/> object.
     /// </remarks>
@@ -211,23 +211,23 @@ public static class EmailRequestBuilder
     /// <param name="request">
     /// <inheritdoc cref="Attach{T}(T, Attachment[])" path="/param[@name='request']"/>
     /// </param>
-    /// 
+    ///
     /// <param name="content">
     /// <inheritdoc cref="Attachment(string, string, DispositionType?, string?, string?)" path="/param[@name='content']/*"/>
     /// </param>
-    /// 
+    ///
     /// <param name="fileName">
     /// <inheritdoc cref="Attachment(string, string, DispositionType?, string?, string?)" path="/param[@name='fileName']/*"/>
     /// </param>
-    /// 
+    ///
     /// <param name="disposition">
     /// <inheritdoc cref="Attachment(string, string, DispositionType?, string?, string?)" path="/param[@name='disposition']/*"/>
     /// </param>
-    /// 
+    ///
     /// <param name="mimeType">
     /// <inheritdoc cref="Attachment(string, string, DispositionType?, string?, string?)" path="/param[@name='mimeType']/*"/>
     /// </param>
-    /// 
+    ///
     /// <param name="contentId">
     /// <inheritdoc cref="Attachment(string, string, DispositionType?, string?, string?)" path="/param[@name='contentId']/*"/>
     /// </param>
@@ -235,7 +235,7 @@ public static class EmailRequestBuilder
     /// <returns>
     /// <inheritdoc cref="Attach{T}(T, Attachment[])" path="/returns"/>
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="request"/> is <see langword="null"/>.<br />
     /// When <paramref name="content"/> is <see langword="null"/> or <see cref="string.Empty"/>.<br />
@@ -272,7 +272,7 @@ public static class EmailRequestBuilder
     /// <param name="request">
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/param[@name='request']"/>
     /// </param>
-    /// 
+    ///
     /// <param name="headers">
     /// One or more key/value pairs to add to the request's <see cref="EmailRequest.Headers"/> collection.
     /// </param>
@@ -280,7 +280,7 @@ public static class EmailRequestBuilder
     /// <returns>
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/returns"/>
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="request"/> or <paramref name="headers"/> is <see langword="null"/>.
     /// </exception>
@@ -309,11 +309,11 @@ public static class EmailRequestBuilder
     /// <param name="request">
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/param[@name='request']"/>
     /// </param>
-    /// 
+    ///
     /// <param name="key">
     /// Header key to add.
     /// </param>
-    /// 
+    ///
     /// <param name="value">
     /// Header value to add.
     /// </param>
@@ -321,7 +321,7 @@ public static class EmailRequestBuilder
     /// <returns>
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/returns"/>
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="request"/> is <see langword="null"/>.<br />
     /// When <paramref name="key"/> is <see langword="null"/> or <see cref="string.Empty"/>.
@@ -355,7 +355,7 @@ public static class EmailRequestBuilder
     /// <param name="request">
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/param[@name='request']"/>
     /// </param>
-    /// 
+    ///
     /// <param name="variables">
     /// One or more key/value pairs to add to the request's <see cref="EmailRequest.CustomVariables"/> collection.
     /// </param>
@@ -363,7 +363,7 @@ public static class EmailRequestBuilder
     /// <returns>
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/returns"/>
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="request"/> or <paramref name="variables"/> is <see langword="null"/>.
     /// </exception>
@@ -392,11 +392,11 @@ public static class EmailRequestBuilder
     /// <param name="request">
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/param[@name='request']"/>
     /// </param>
-    /// 
+    ///
     /// <param name="key">
     /// Variable key to add.
     /// </param>
-    /// 
+    ///
     /// <param name="value">
     /// Variable value to add.
     /// </param>
@@ -404,7 +404,7 @@ public static class EmailRequestBuilder
     /// <returns>
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/returns"/>
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="request"/> is <see langword="null"/>.<br />
     /// When <paramref name="key"/> is <see langword="null"/> or <see cref="string.Empty"/>.
@@ -426,7 +426,7 @@ public static class EmailRequestBuilder
 
     #endregion
 
-
+    #region Subject
 
     /// <summary>
     /// Sets provided <paramref name="subject"/> to the <paramref name="request"/>.
@@ -435,7 +435,7 @@ public static class EmailRequestBuilder
     /// <param name="request">
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/param[@name='request']"/>
     /// </param>
-    /// 
+    ///
     /// <param name="subject">
     /// Value to initialize request's <see cref="EmailRequest.Subject"/> property.
     /// </param>
@@ -443,12 +443,12 @@ public static class EmailRequestBuilder
     /// <returns>
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/returns"/>
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="request"/> is <see langword="null"/>.<br />
     /// When <paramref name="subject"/> is <see langword="null"/> or <see cref="string.Empty"/>.
     /// </exception>
-    /// 
+    ///
     /// <remarks>
     /// Subsequent calls will override value that was set before (last wins).
     /// <para>
@@ -466,6 +466,10 @@ public static class EmailRequestBuilder
         return request;
     }
 
+    #endregion
+
+    #region Text
+
     /// <summary>
     /// Sets provided <paramref name="text"/> to the <paramref name="request"/>.
     /// </summary>
@@ -473,7 +477,7 @@ public static class EmailRequestBuilder
     /// <param name="request">
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/param[@name='request']"/>
     /// </param>
-    /// 
+    ///
     /// <param name="text">
     /// Value to initialize request's <see cref="EmailRequest.TextBody"/> property.
     /// </param>
@@ -481,11 +485,11 @@ public static class EmailRequestBuilder
     /// <returns>
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/returns"/>
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="request"/> is <see langword="null"/>.
     /// </exception>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     /// Subsequent calls will override value that was set before (last wins).
@@ -504,6 +508,10 @@ public static class EmailRequestBuilder
         return request;
     }
 
+    #endregion
+
+    #region Html
+
     /// <summary>
     /// Sets provided <paramref name="html"/> to the <paramref name="request"/>.
     /// </summary>
@@ -511,7 +519,7 @@ public static class EmailRequestBuilder
     /// <param name="request">
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/param[@name='request']"/>
     /// </param>
-    /// 
+    ///
     /// <param name="html">
     /// Value to initialize request's <see cref="EmailRequest.HtmlBody"/> property.
     /// </param>
@@ -519,11 +527,11 @@ public static class EmailRequestBuilder
     /// <returns>
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/returns"/>
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="request"/> is <see langword="null"/>.
     /// </exception>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     /// It is a caller responsibility to ensure that <paramref name="html"/> contains a valid,
@@ -546,6 +554,10 @@ public static class EmailRequestBuilder
         return request;
     }
 
+    #endregion
+
+    #region Category
+
     /// <summary>
     /// Sets provided <paramref name="category"/> to the <paramref name="request"/>.
     /// </summary>
@@ -553,22 +565,22 @@ public static class EmailRequestBuilder
     /// <param name="request">
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/param[@name='request']"/>
     /// </param>
-    /// 
+    ///
     /// <param name="category">
     /// Value to initialize request's <see cref="EmailRequest.Category"/> property.
     /// <para>
     /// Should be less or equal to 255 characters.
     /// </para>
     /// </param>
-    /// 
+    ///
     /// <returns>
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/returns"/>
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="request"/> is <see langword="null"/>.
     /// </exception>
-    /// 
+    ///
     /// <remarks>
     /// Subsequent calls will override value that was set before (last wins).
     /// <para>
@@ -585,7 +597,9 @@ public static class EmailRequestBuilder
         return request;
     }
 
+    #endregion
 
+    #region Template
 
     /// <summary>
     /// Sets provided <paramref name="templateId"/> to the <paramref name="request"/>.
@@ -594,7 +608,7 @@ public static class EmailRequestBuilder
     /// <param name="request">
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/param[@name='request']"/>
     /// </param>
-    /// 
+    ///
     /// <param name="templateId">
     /// Value containing UUID of the template to initialize request's <see cref="EmailRequest.TemplateId"/> property.
     /// </param>
@@ -602,12 +616,12 @@ public static class EmailRequestBuilder
     /// <returns>
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/returns"/>
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="request"/> is <see langword="null"/>.<br />
     /// When <paramref name="templateId"/> is <see langword="null"/> or <see cref="string.Empty"/>.
     /// </exception>
-    /// 
+    ///
     /// <remarks>
     /// Subsequent calls will override value that was set before (last wins).
     /// <para>
@@ -633,7 +647,7 @@ public static class EmailRequestBuilder
     /// <param name="request">
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/param[@name='request']"/>
     /// </param>
-    /// 
+    ///
     /// <param name="templateVariables">
     /// Value containing object to initialize request's <see cref="EmailRequest.TemplateVariables"/> property.
     /// </param>
@@ -641,11 +655,11 @@ public static class EmailRequestBuilder
     /// <returns>
     /// <inheritdoc cref="From{T}(T, EmailAddress)" path="/returns"/>
     /// </returns>
-    /// 
+    ///
     /// <exception cref="ArgumentNullException">
     /// When <paramref name="request"/> is <see langword="null"/>.
     /// </exception>
-    /// 
+    ///
     /// <remarks>
     /// Subsequent calls will override value that was set before (last wins).
     /// <para>
@@ -660,4 +674,6 @@ public static class EmailRequestBuilder
 
         return request;
     }
+
+    #endregion
 }

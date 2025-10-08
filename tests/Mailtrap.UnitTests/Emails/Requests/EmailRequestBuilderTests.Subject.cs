@@ -8,7 +8,7 @@ internal sealed class EmailRequestBuilderTests_Subject
 
 
     [Test]
-    public void Subject_ShouldThrowArgumentNullException_WhenRequestIsNull()
+    public void Subject_Should_ThrowArgumentNullException_WhenRequestIsNull()
     {
         var act = () => EmailRequestBuilder.Subject<EmailRequest>(null!, _subject);
 
@@ -16,7 +16,7 @@ internal sealed class EmailRequestBuilderTests_Subject
     }
 
     [Test]
-    public void Subject_ShouldThrowArgumentNullException_WhenSubjectIsNull()
+    public void Subject_Should_ThrowArgumentNullException_WhenSubjectIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -26,7 +26,7 @@ internal sealed class EmailRequestBuilderTests_Subject
     }
 
     [Test]
-    public void Subject_ShouldThrowArgumentNullException_WhenSubjectIsEmpty()
+    public void Subject_Should_ThrowArgumentNullException_WhenSubjectIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -36,7 +36,7 @@ internal sealed class EmailRequestBuilderTests_Subject
     }
 
     [Test]
-    public void Subject_ShouldAssignSubjectProperly()
+    public void Subject_Should_AssignSubjectProperly()
     {
         var request = EmailRequest
             .Create()
@@ -46,7 +46,7 @@ internal sealed class EmailRequestBuilderTests_Subject
     }
 
     [Test]
-    public void Subject_ShouldOverrideSubject_WhenCalledSeveralTimes()
+    public void Subject_Should_OverrideSubject_WhenCalledSeveralTimes()
     {
         var otherSubject = "Updated subject";
 

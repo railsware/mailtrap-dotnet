@@ -18,7 +18,7 @@ internal sealed class EmailRequestBuilderTests_CustomVariable
     #region CustomVariable
 
     [Test]
-    public void CustomVariable_ShouldThrowArgumentNullException_WhenRequestIsNull()
+    public void CustomVariable_Should_ThrowArgumentNullException_WhenRequestIsNull()
     {
         var act = () => EmailRequestBuilder.CustomVariable<EmailRequest>(null!, _variable1);
 
@@ -26,7 +26,7 @@ internal sealed class EmailRequestBuilderTests_CustomVariable
     }
 
     [Test]
-    public void CustomVariable_ShouldThrowArgumentNullException_WhenParamsIsNull()
+    public void CustomVariable_Should_ThrowArgumentNullException_WhenParamsIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -36,7 +36,7 @@ internal sealed class EmailRequestBuilderTests_CustomVariable
     }
 
     [Test]
-    public void CustomVariable_ShouldNotThrowException_WhenParamsIsEmpty()
+    public void CustomVariable_Should_NotThrowException_WhenParamsIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -46,13 +46,13 @@ internal sealed class EmailRequestBuilderTests_CustomVariable
     }
 
     [Test]
-    public void CustomVariable_ShouldAddVariablesToCollection()
+    public void CustomVariable_Should_AddVariablesToCollection()
     {
         CustomVariable_CreateAndValidate(_variable1, _variable2);
     }
 
     [Test]
-    public void CustomVariable_ShouldAddVariablesToCollection_WhenCalledMultipleTimes()
+    public void CustomVariable_Should_AddVariablesToCollection_WhenCalledMultipleTimes()
     {
         var variable3 = new Variable("key-3", "Value 3");
         var variable4 = new Variable("key-4", "Value 4");
@@ -67,7 +67,7 @@ internal sealed class EmailRequestBuilderTests_CustomVariable
     }
 
     [Test]
-    public void CustomVariable_ShouldShouldOverrideVariables_WhenCalledMultipleTimesWithTheSameKeys()
+    public void CustomVariable_Should_OverrideVariables_WhenCalledMultipleTimesWithTheSameKeys()
     {
         var variable3 = new Variable("key-3", "Value 3");
 
@@ -81,7 +81,7 @@ internal sealed class EmailRequestBuilderTests_CustomVariable
     }
 
     [Test]
-    public void CustomVariable_ShouldNotAddVariablesToCollection_WhenParamsIsEmpty()
+    public void CustomVariable_Should_NotAddVariablesToCollection_WhenParamsIsEmpty()
     {
         var request = CustomVariable_CreateAndValidate(_variable1, _variable2);
 
@@ -113,7 +113,7 @@ internal sealed class EmailRequestBuilderTests_CustomVariable
     #region CustomVariable(key, value)
 
     [Test]
-    public void CustomVariable_ShouldThrowArgumentNullException_WhenRequestIsNull_2()
+    public void CustomVariable_Should_ThrowArgumentNullException_WhenRequestIsNull_2()
     {
         var request = EmailRequest.Create();
 
@@ -123,7 +123,7 @@ internal sealed class EmailRequestBuilderTests_CustomVariable
     }
 
     [Test]
-    public void CustomVariable_ShouldThrowArgumentNullException_WhenVariableKeyIsNull()
+    public void CustomVariable_Should_ThrowArgumentNullException_WhenVariableKeyIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -133,7 +133,7 @@ internal sealed class EmailRequestBuilderTests_CustomVariable
     }
 
     [Test]
-    public void CustomVariable_ShouldThrowArgumentNullException_WhenVariableKeyIsEmpty()
+    public void CustomVariable_Should_ThrowArgumentNullException_WhenVariableKeyIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -143,7 +143,7 @@ internal sealed class EmailRequestBuilderTests_CustomVariable
     }
 
     [Test]
-    public void CustomVariable_ShouldNotThrowException_WhenVariableValueIsNull()
+    public void CustomVariable_Should_NotThrowException_WhenVariableValueIsNull()
     {
         var request = EmailRequest.Create();
 
@@ -153,7 +153,7 @@ internal sealed class EmailRequestBuilderTests_CustomVariable
     }
 
     [Test]
-    public void CustomVariable_ShouldNotThrowException_WhenVariableValueIsEmpty()
+    public void CustomVariable_Should_NotThrowException_WhenVariableValueIsEmpty()
     {
         var request = EmailRequest.Create();
 
@@ -163,13 +163,13 @@ internal sealed class EmailRequestBuilderTests_CustomVariable
     }
 
     [Test]
-    public void CustomVariable_ShouldAddVariableToCollection_2()
+    public void CustomVariable_Should_AddVariableToCollection_2()
     {
         CustomVariable_CreateAndValidate(VariableKey, VariableValue);
     }
 
     [Test]
-    public void CustomVariable_ShouldAddVariablesToCollection_WhenCalledMultipleTimes_2()
+    public void CustomVariable_Should_AddVariablesToCollection_WhenCalledMultipleTimes_2()
     {
         var key = "key-2";
         var value = "Value 2";
@@ -188,7 +188,7 @@ internal sealed class EmailRequestBuilderTests_CustomVariable
     }
 
     [Test]
-    public void CustomVariable_ShouldOverrideVariable_WhenCalledMultipleTimesWithTheSameKey_2()
+    public void CustomVariable_Should_OverrideVariable_WhenCalledMultipleTimesWithTheSameKey_2()
     {
         var otherValue = "Other Value";
 
