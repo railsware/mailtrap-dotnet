@@ -54,7 +54,7 @@ internal sealed class EmailRequestTests
     }
 
     [Test]
-    public void Validate_Should_Fail_WhenTemplateIdSetButSubjectNotNull()
+    public void Validate_Should_Fail_WhenBothTemplateIdAndSubjectAreSet()
     {
         var request = EmailRequest
             .Create()

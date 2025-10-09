@@ -82,7 +82,7 @@ internal sealed class SendEmailRequestBuilderTests_To
             .To(recipients);
 
         request.To.Should()
-            .HaveCount(2).And
+            .HaveCount(recipients.Length).And
             .ContainInOrder(recipients);
 
         return request;

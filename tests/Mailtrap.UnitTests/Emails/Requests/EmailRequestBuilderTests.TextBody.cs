@@ -42,7 +42,7 @@ internal sealed class EmailRequestBuilderTests_TextBody
             .Create()
             .Text(_text);
 
-        request.TextBody.Should().BeSameAs(_text);
+        request.TextBody.Should().Be(_text);
     }
 
     [Test]
@@ -55,6 +55,6 @@ internal sealed class EmailRequestBuilderTests_TextBody
             .Text(_text)
             .Text(otherText);
 
-        request.TextBody.Should().BeSameAs(otherText);
+        request.TextBody.Should().Be(otherText);
     }
 }

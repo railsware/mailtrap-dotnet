@@ -2,7 +2,7 @@
 
 
 /// <summary>
-/// <see cref="ISendEmailClient"/> implementation.
+/// Client for sending emails through Mailtrap's API. Implements <see cref="ISendEmailClient"/>.
 /// </summary>
 internal sealed class SendEmailClient : EmailClient<SendEmailRequest, SendEmailResponse>, ISendEmailClient
 {

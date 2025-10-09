@@ -33,4 +33,21 @@ internal sealed class EmailAddressValidatorTests
 
         result.ShouldNotHaveValidationErrorFor(r => r.DisplayName);
     }
+
+    [TestCase("john.doe@domain.com", true)]
+    [TestCase("abcdefg", false)]
+    public void Validation_Should_ValidateEmailCorrectly(string email, bool shouldBeValid)
+    {
+        var recipient = new EmailAddress(email);
+        var result = EmailAddressValidator.Instance.TestValidate(recipient);
+
+        if (shouldBeValid)
+        {
+            result.ShouldNotHaveValidationErrorFor(r => r.Email);
+        }
+        else
+        {
+            result.ShouldHaveValidationErrorFor(r => r.Email);
+        }
+    }
 }

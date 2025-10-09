@@ -12,7 +12,7 @@ internal sealed class AttachmentValidatorTests
     #region Content
 
     [Test]
-    public void Validation_ShouldNotFail_WhenContentIsNotNullOrEmpty()
+    public void Validation_Should_Pass_WhenContentIsNotNullOrEmpty()
     {
         var attachment = new Attachment(_testContent, _testFileName);
 
@@ -28,7 +28,7 @@ internal sealed class AttachmentValidatorTests
     #region FileName
 
     [Test]
-    public void Validation_ShouldNotFail_WhenFileNameIsNotNullOrEmpty()
+    public void Validation_Should_Pass_WhenFileNameIsNotNullOrEmpty()
     {
         var attachment = new Attachment(_testContent, _testFileName);
 
@@ -44,7 +44,7 @@ internal sealed class AttachmentValidatorTests
     #region MimeType
 
     [Test]
-    public void Validation_ShouldNotFail_WhenMimeTypeIsNull()
+    public void Validation_Should_Pass_WhenMimeTypeIsNull()
     {
         var attachment = new Attachment(_testContent, _testFileName, DispositionType.Attachment, null);
 
@@ -54,7 +54,7 @@ internal sealed class AttachmentValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldFail_WhenMimeTypeIsEmpty()
+    public void Validation_Should_Fail_WhenMimeTypeIsEmpty()
     {
         var attachment = new Attachment(_testContent, _testFileName, DispositionType.Attachment, string.Empty);
 
@@ -64,7 +64,7 @@ internal sealed class AttachmentValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenMimeTypeIsNotNullOrEmpty()
+    public void Validation_Should_Pass_WhenMimeTypeIsNotNullOrEmpty()
     {
         var attachment = new Attachment(_testContent, _testFileName, DispositionType.Attachment, MediaTypeNames.Text.Plain);
 

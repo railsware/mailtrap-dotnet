@@ -58,7 +58,7 @@ internal sealed class EmailRequestBuilderTests_ReplyTo
     #region ReplyTo(email, displayName)
 
     [Test]
-    public void ReplyTo_Should_ThrowArgumentNullException_WhenRequestIsNull_2()
+    public void ReplyTo_Should_ThrowArgumentNullException_WhenRequestIsNull_WithString()
     {
         var request = EmailRequest.Create();
 

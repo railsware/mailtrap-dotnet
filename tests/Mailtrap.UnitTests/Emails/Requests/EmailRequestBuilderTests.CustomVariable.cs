@@ -113,7 +113,7 @@ internal sealed class EmailRequestBuilderTests_CustomVariable
     #region CustomVariable(key, value)
 
     [Test]
-    public void CustomVariable_Should_ThrowArgumentNullException_WhenRequestIsNull_2()
+    public void CustomVariable_Should_ThrowArgumentNullException_WhenRequestIsNull_WithStrings()
     {
         var request = EmailRequest.Create();
 

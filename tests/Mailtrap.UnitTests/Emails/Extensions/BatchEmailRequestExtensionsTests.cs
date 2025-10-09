@@ -156,14 +156,9 @@ internal sealed class BatchEmailRequestExtensionsTests
         result.Attachments.Should().ContainSingle().Which.FileName.Should().Be("base.pdf");
         result.Headers.Should().ContainKey("X-Base").WhoseValue.Should().Be("1");
         result.CustomVariables.Should().ContainKey("baseVar").WhoseValue.Should().Be("42");
-        if (result.TemplateVariables is IDictionary<string, object> templateVariables)
-        {
-            templateVariables.Should().ContainKey("one").WhoseValue.Should().Be(true);
-            templateVariables.Should().ContainKey("two").WhoseValue.Should().Be(2);
-        }
-        else
-        {
-            false.Should().BeTrue("TemplateVariables is not a dictionary");
-        }
+        result.TemplateVariables.Should().BeAssignableTo<IDictionary<string, object>>();
+        var templateVariables = (IDictionary<string, object>)result.TemplateVariables;
+        templateVariables.Should().ContainKey("one").WhoseValue.Should().Be(true);
+        templateVariables.Should().ContainKey("two").WhoseValue.Should().Be(2);
     }
 }

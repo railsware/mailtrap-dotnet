@@ -15,8 +15,8 @@ using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Example to demonstrate ways on how to send emails in batch
-/// Also shows different ways of creating SendEmailRequest
-/// <see langword="with"/>variety of parameters and attributes.
+/// Also shows different ways of creating BatchEmailRequest
+/// with a variety of parameters and attributes.
 /// </summary>
 [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Example")]
 internal sealed class Program
@@ -226,30 +226,25 @@ internal sealed class Program
             .Subject("Invitation to Earth")
             .Text("Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John.");
 
-        var filePath = @"C:\files\preview.pdf";
-        var fileName = "preview.pdf";
+        var filePaths = new[] { @"C:\files\preview.pdf", @"C:\files\logo.png" };
+        foreach (var filePath in filePaths)
+        {
+            if (!File.Exists(filePath))
+            {
+                continue;
+            }
 
-        var bytes = File.ReadAllBytes(filePath);
-        var fileContent = Convert.ToBase64String(bytes);
+            var fileName = Path.GetFileName(filePath);
+            var bytes = File.ReadAllBytes(filePath);
+            var fileContent = Convert.ToBase64String(bytes);
 
-        request.Attach(
-            content: fileContent,
-            fileName: fileName,
-            disposition: DispositionType.Attachment,
-            mimeType: MediaTypeNames.Application.Pdf);
+            request.Attach(
+                content: fileContent,
+                fileName: fileName,
+                disposition: DispositionType.Attachment,
+                mimeType: MediaTypeNames.Application.Pdf);
 
-        filePath = @"C:\files\logo.png";
-        fileName = "logo.png";
-
-        bytes = File.ReadAllBytes(filePath);
-        fileContent = Convert.ToBase64String(bytes);
-
-        request.Attach(
-            content: fileContent,
-            fileName: fileName,
-            disposition: DispositionType.Inline,
-            mimeType: MediaTypeNames.Image.Png,
-            contentId: "logo_1");
+        }
 
         return request;
     }

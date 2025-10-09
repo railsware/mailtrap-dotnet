@@ -42,7 +42,7 @@ internal sealed class EmailRequestBuilderTests_Template
             .Create()
             .Template(_templateId);
 
-        request.TemplateId.Should().BeSameAs(_templateId);
+        request.TemplateId.Should().Be(_templateId);
     }
 
     [Test]
@@ -55,6 +55,6 @@ internal sealed class EmailRequestBuilderTests_Template
             .Template(_templateId)
             .Template(otherTemplate);
 
-        request.TemplateId.Should().BeSameAs(otherTemplate);
+        request.TemplateId.Should().Be(otherTemplate);
     }
 }

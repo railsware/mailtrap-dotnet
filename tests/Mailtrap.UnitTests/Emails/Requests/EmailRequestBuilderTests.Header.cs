@@ -100,7 +100,7 @@ internal sealed class EmailRequestBuilderTests_Header
             .Header(headers);
 
         request.Headers.Should()
-            .HaveCount(2).And
+            .HaveCount(headers.Length).And
             .ContainInOrder(headers);
 
         return request;
@@ -113,7 +113,7 @@ internal sealed class EmailRequestBuilderTests_Header
     #region Header(key, value)
 
     [Test]
-    public void Header_Should_ThrowArgumentNullException_WhenRequestIsNull_2()
+    public void Header_Should_ThrowArgumentNullException_WhenRequestIsNull_WithStrings()
     {
         var request = EmailRequest.Create();
 

@@ -33,6 +33,7 @@ internal sealed class EmailRequestBuilderTests_HtmlBody
         var act = () => request.Html(string.Empty);
 
         act.Should().NotThrow();
+        request.HtmlBody.Should().BeEmpty();
     }
 
     [Test]

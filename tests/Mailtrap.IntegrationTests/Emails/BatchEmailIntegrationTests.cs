@@ -37,8 +37,8 @@ internal sealed class BatchEmailIntegrationTests
             .NotBeNull().And
             .BeEquivalentTo(response);
 
-        result!.Success.Should().BeTrue();
-        result!.Responses.Should().HaveCount(2);
+        result.Success.Should().BeTrue();
+        result.Responses.Should().HaveCount(2);
     }
 
     [TestCaseSource(nameof(TestCasesForDefault))]

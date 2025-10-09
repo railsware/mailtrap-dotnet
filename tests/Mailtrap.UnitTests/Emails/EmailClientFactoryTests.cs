@@ -287,7 +287,7 @@ internal sealed class EmailClientFactoryTests
     }
 
     [Test]
-    public void CreateBatchTest_ShouldReturnEmailClient([Values] bool isBulk, [Random(2)] long inboxId)
+    public void CreateBatchTest_ShouldReturnBatchEmailClient([Values] bool isBulk, [Random(2)] long inboxId)
     {
         // Arrange
         var sendUri = new Uri("https://localhost/api/batch");

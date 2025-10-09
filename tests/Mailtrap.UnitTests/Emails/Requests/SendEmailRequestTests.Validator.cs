@@ -160,7 +160,7 @@ internal sealed class SendEmailRequestTests_Validator
     }
 
     [Test]
-    public void Validation_Should_Fail_WhenAtLEastOneToEmailIsInvalid()
+    public void Validation_Should_Fail_WhenAtLeastOneToEmailIsInvalid()
     {
         var request = SendEmailRequest
             .Create()
@@ -197,11 +197,11 @@ internal sealed class SendEmailRequestTests_Validator
     #region Cc
 
     [Test]
-    public void Validation_Should_Fail_WhenCcLengthExceedsLimit()
+    public void Validation_Should_Fail_WhenCcLengthExceedsLimit([Values(1001)] int count)
     {
         var request = SendEmailRequest.Create();
 
-        for (var i = 1; i <= 1001; i++)
+        for (var i = 1; i <= count; i++)
         {
             request.Cc($"recipient{i}.domain.com");
         }
@@ -212,11 +212,11 @@ internal sealed class SendEmailRequestTests_Validator
     }
 
     [Test]
-    public void Validation_Should_Pass_WhenCcLengthWithinLimit()
+    public void Validation_Should_Pass_WhenCcLengthWithinLimit([Values(1, 500, 1000)] int count)
     {
         var request = SendEmailRequest.Create();
 
-        for (var i = 1; i <= 1000; i++)
+        for (var i = 1; i <= count; i++)
         {
             request.Cc($"recipient{i}.domain.com");
         }
@@ -227,7 +227,7 @@ internal sealed class SendEmailRequestTests_Validator
     }
 
     [Test]
-    public void Validation_Should_Fail_WhenAtLEastOneCcEmailIsInvalid()
+    public void Validation_Should_Fail_WhenAtLeastOneCcEmailIsInvalid()
     {
         var request = SendEmailRequest
             .Create()
@@ -261,11 +261,11 @@ internal sealed class SendEmailRequestTests_Validator
     #region Bcc
 
     [Test]
-    public void Validation_Should_Fail_WhenBccLengthExceedsLimit()
+    public void Validation_Should_Fail_WhenBccLengthExceedsLimit([Values(1001)] int count)
     {
         var request = SendEmailRequest.Create();
 
-        for (var i = 1; i <= 1001; i++)
+        for (var i = 1; i <= count; i++)
         {
             request.Bcc($"recipient{i}.domain.com");
         }
@@ -276,11 +276,11 @@ internal sealed class SendEmailRequestTests_Validator
     }
 
     [Test]
-    public void Validation_Should_Pass_WhenBccLengthWithinLimit()
+    public void Validation_Should_Pass_WhenBccLengthWithinLimit([Values(1, 500, 1000)] int count)
     {
         var request = SendEmailRequest.Create();
 
-        for (var i = 1; i <= 1000; i++)
+        for (var i = 1; i <= count; i++)
         {
             request.Bcc($"recipient{i}.domain.com");
         }
@@ -291,7 +291,7 @@ internal sealed class SendEmailRequestTests_Validator
     }
 
     [Test]
-    public void Validation_Should_Fail_WhenAtLEastOneBccEmailIsInvalid()
+    public void Validation_Should_Fail_WhenAtLeastOneBccEmailIsInvalid()
     {
         var request = SendEmailRequest
             .Create()
@@ -325,7 +325,7 @@ internal sealed class SendEmailRequestTests_Validator
     #region Attachments
 
     [Test]
-    public void Validation_Should_Fail_WhenAtLEastOneAttachmentIsInvalid()
+    public void Validation_Should_Fail_WhenAtLeastOneAttachmentIsInvalid()
     {
         var request = SendEmailRequest
             .Create()

@@ -58,7 +58,7 @@ internal sealed class EmailRequestBuilderTests_From
     #region From(email, displayName)
 
     [Test]
-    public void From_Should_ThrowArgumentNullException_WhenRequestIsNull_2()
+    public void From_Should_ThrowArgumentNullException_WhenRequestIsNull_WithString()
     {
         var request = EmailRequest.Create();
 
@@ -132,7 +132,7 @@ internal sealed class EmailRequestBuilderTests_From
     }
 
     [Test]
-    public void From_Should_OverrideSender_WhenCalledSeveralTimes_2()
+    public void From_Should_OverrideSender_WhenCalledSeveralTimes_WithString()
     {
         var otherSenderEmail = "sender2@domain.com";
 

@@ -4,6 +4,14 @@
 /// <summary>
 /// Base Mailtrap API client for sending emails.
 /// </summary>
+/// <typeparam name="TRequest">
+/// The type of the email request object.
+/// One of <see cref="SendEmailRequest"/> or <see cref="BatchEmailRequest"/>.
+/// </typeparam>
+/// <typeparam name="TResponse">
+/// The type of the email response object.
+/// One of <see cref="SendEmailResponse"/> or <see cref="BatchEmailResponse"/>.
+/// </typeparam>
 public interface IEmailClient<TRequest, TResponse> : IRestResource
     where TRequest : class
     where TResponse : class

@@ -2,6 +2,7 @@
 
 
 /// <summary>
-/// Mailtrap API client for sending emails in a batch.
+/// Specialized email client for batch email operations.
+/// Inherits from <see cref="IEmailClient{TRequest,TResponse}"/> with batch-specific request and response types.
 /// </summary>
 public interface IBatchEmailClient : IEmailClient<BatchEmailRequest, BatchEmailResponse> { }

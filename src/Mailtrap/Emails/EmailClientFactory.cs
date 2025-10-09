@@ -42,7 +42,7 @@ internal sealed class EmailClientFactory : IEmailClientFactory
     public ISendEmailClient CreateTest(long inboxId) => Create(inboxId: inboxId);
 
 
-    public IBatchEmailClient CreateBatch(bool isBulk = false, long? inboxId = null)
+    public IBatchEmailClient CreateBatch(bool isBulk = false, long? inboxId = default)
     {
         var batchUri = _emailClientEndpointProvider.GetRequestUri(true, isBulk, inboxId);
 

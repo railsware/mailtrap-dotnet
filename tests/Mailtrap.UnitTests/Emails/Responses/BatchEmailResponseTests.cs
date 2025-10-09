@@ -164,6 +164,7 @@ internal sealed class BatchEmailResponseTests
 
         deserialized.Should().NotBeNull();
         deserialized!.Success.Should().BeTrue();
+        deserialized.Errors.Should().BeEmpty();
         deserialized.Responses.Should().HaveCount(2);
         deserialized.Responses[0].MessageIds.Should().BeEquivalentTo(messageIds);
         deserialized.Responses[1].Errors.Should().BeEquivalentTo(errors);
