@@ -45,7 +45,7 @@ public sealed record BatchEmailResponse
     [JsonPropertyName("errors")]
     [JsonPropertyOrder(3)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
-    public IList<string>? Errors { get; private set; } = [];
+    public IList<string> Errors { get; private set; } = [];
 
 
     internal static BatchEmailResponse CreateSuccess(params BatchSendEmailResponse[] responses)

@@ -14,7 +14,8 @@ using Microsoft.Extensions.Logging;
 
 
 /// <summary>
-/// Example to demonstrate different ways of creating SendEmailRequest
+/// Example to demonstrate ways on how to send emails in batch
+/// Also shows different ways of creating SendEmailRequest
 /// <see langword="with"/>variety of parameters and attributes.
 /// </summary>
 [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Example")]
@@ -36,7 +37,7 @@ internal sealed class Program
         {
             IMailtrapClient mailtrapClient = host.Services.GetRequiredService<IMailtrapClient>();
 
-            SendEmailRequest request = BasicRequest();
+            BatchEmailRequest request = BatchRequest();
 
             // It is better to validate request before sending,
             // since send method will do that anyway and throw an exception
@@ -49,7 +50,42 @@ internal sealed class Program
                 return;
             }
 
-            SendEmailResponse? response = await mailtrapClient.Email().Send(request);
+            BatchEmailResponse? response = await mailtrapClient.BatchEmail().Send(request);
+            if (response is not null && !response.Success)
+            {
+                logger.LogError("Failed to send batch email");
+
+                //Analyze errors
+                foreach (var error in response.Errors)
+                {
+                    logger.LogError("Error: {Error}", error);
+                }
+
+                //Analyze individual message responses
+                foreach (BatchSendEmailResponse messageResponse in response.Responses)
+                {
+                    if (messageResponse.Success)
+                    {
+                        logger.LogInformation("Message is successful");
+                    }
+                    else
+                    {
+                        logger.LogError("Message sending failed");
+
+                        //Iterate message ids to identify which recipient(s) it was failed
+                        foreach (var messageId in messageResponse.MessageIds)
+                        {
+                            logger.LogError("Message ID {Id} failed", messageId);
+                        }
+
+                        //Analyze message errors
+                        foreach (var error in messageResponse.Errors)
+                        {
+                            logger.LogError("Error: {Error}", error);
+                        }
+                    }
+                }
+            }
         }
         catch (Exception ex)
         {
@@ -61,7 +97,67 @@ internal sealed class Program
 
 
     /// <summary>
-    /// Very basic example of creating SendEmailRequest.
+    /// Very basic example of creating BatchEmailRequest.
+    /// </summary>
+    private static BatchEmailRequest BatchRequest()
+    {
+        var from = new EmailAddress("john.doe@galaxy.net", "John Doe");
+        var replyTo = new EmailAddress("noreply@galaxy.net");
+
+        // Base request contains common properties for all emails in the batch.
+        // You can override base request properties in each individual email request.
+        var baseRequest = new EmailRequest
+        {
+            From = from,
+            ReplyTo = replyTo
+        };
+
+        // Creating batch request itself.
+        // Put in as many individual email requests as you need.
+        var request = new BatchEmailRequest
+        {
+            Base = baseRequest,
+            Requests = new List<SendEmailRequest>()
+            {
+                BasicRequest(),
+                UsingFluentStyle(),
+                EmailFromTemplate(),
+                WithAttachments(),
+                RegularKitchenSink(),
+                FluentStyleKitchenSink()
+            }
+        };
+
+        return request;
+    }
+
+    /// <summary>
+    /// You can use <see cref="BatchEmailRequestBuilder"/> and <see cref="EmailRequestBuilder"/> to create request in a fluent style.<br/>
+    /// Much cleaner and easier to read.
+    /// </summary>
+    private static BatchEmailRequest BatchRequestFluentStyle()
+    {
+        var from = new EmailAddress("john.doe@galaxy.net", "John Doe");
+        var replyTo = new EmailAddress("noreply@galaxy.net");
+
+        // Base request contains common properties for all emails in the batch.
+        // You can override base request properties in each individual email request.
+        // Creating batch request itself.
+        // Put in as many individual email requests as you need.
+        return BatchEmailRequest
+            .Create()
+            .Base(EmailRequest.Create().From(from).ReplyTo(replyTo))
+            .Requests(
+                BasicRequest(),
+                UsingFluentStyle(),
+                EmailFromTemplate(),
+                WithAttachments(),
+                RegularKitchenSink(),
+                FluentStyleKitchenSink());
+    }
+
+    /// <summary>
+    /// Very basic example of creating <see cref="SendEmailRequest"/>.
     /// </summary>
     private static SendEmailRequest BasicRequest()
     {
@@ -86,7 +182,7 @@ internal sealed class Program
     }
 
     /// <summary>
-    /// You can use SendEmailRequestBuilder to create request in a fluent style.<br/>
+    /// You can use <see cref="SendEmailRequestBuilder"/> to create request in a fluent style.<br/>
     /// Much cleaner and easier to read.
     /// </summary>
     private static SendEmailRequest UsingFluentStyle()

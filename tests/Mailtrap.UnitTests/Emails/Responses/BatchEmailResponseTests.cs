@@ -33,6 +33,26 @@ internal sealed class BatchEmailResponseTests
     }
 
     [Test]
+    public void CreateFailure_Should_InitializeFieldsCorrectly_WhenNoErrorsProvided()
+    {
+        var response = BatchEmailResponse.CreateFailure();
+
+        response.Success.Should().BeFalse();
+        response.Responses.Should().BeEmpty();
+        response.Errors.Should().BeEmpty();
+    }
+
+    [Test]
+    public void CreateFailure_Should_InitializeFieldsCorrectly_WhenErrorsProvided()
+    {
+        var response = BatchEmailResponse.CreateFailure("error 1", "error 2", "error 3");
+
+        response.Success.Should().BeFalse();
+        response.Responses.Should().BeEmpty();
+        response.Errors.Should().NotBeEmpty().And.ContainInOrder("error 1", "error 2", "error 3");
+    }
+
+    [Test]
     public void Should_DeserializeResponse_WhenSuccess()
     {
         var messageId = TestContext.CurrentContext.Random.NextGuid().ToString();
