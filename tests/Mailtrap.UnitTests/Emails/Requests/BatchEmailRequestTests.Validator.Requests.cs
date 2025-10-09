@@ -4,7 +4,7 @@
 [TestFixture]
 internal sealed class BatchEmailRequestTests_Validator_Requests
 {
-    private string _validEmail { get; } = "someone@domean.com";
+    private string _validEmail { get; } = "someone@domain.com";
     private string _invalidEmail { get; } = "someone";
     private string _templateId { get; } = "ID";
 
@@ -230,7 +230,7 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
     }
 
     [Test]
-    public void Validation_Requests_Should_Fail_WhenAtLEastOneToEmailIsInvalid()
+    public void Validation_Requests_Should_Fail_WhenAtLeastOneToEmailIsInvalid()
     {
         var request = BatchEmailRequest.Create();
         request.Requests.Add(SendEmailRequest.Create().To(_validEmail).To(_invalidEmail));
@@ -297,7 +297,7 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
     }
 
     [Test]
-    public void Validation_Requests_Should_Fail_WhenAtLEastOneCcEmailIsInvalid()
+    public void Validation_Requests_Should_Fail_WhenAtLeastOneCcEmailIsInvalid()
     {
         var request = BatchEmailRequest.Create();
         request.Requests.Add(SendEmailRequest.Create().Cc(_validEmail).Cc(_invalidEmail));
@@ -361,7 +361,7 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
     }
 
     [Test]
-    public void Validation_Requests_Should_Fail_WhenAtLEastOneBccEmailIsInvalid()
+    public void Validation_Requests_Should_Fail_WhenAtLeastOneBccEmailIsInvalid()
     {
         var internalRequest = SendEmailRequest.Create()
             .Bcc(_validEmail)
@@ -397,7 +397,7 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
     #region Request Attachments
 
     [Test]
-    public void Validation_Requests_Should_Fail_WhenAtLEastOneAttachmentIsInvalid()
+    public void Validation_Requests_Should_Fail_WhenAtLeastOneAttachmentIsInvalid()
     {
         var request = BatchEmailRequest.Create();
         var internalRequest = SendEmailRequest.Create()

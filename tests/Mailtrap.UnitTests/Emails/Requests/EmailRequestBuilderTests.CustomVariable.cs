@@ -100,7 +100,7 @@ internal sealed class EmailRequestBuilderTests_CustomVariable
             .CustomVariable(headers);
 
         request.CustomVariables.Should()
-            .HaveCount(2).And
+            .HaveCount(headers.Length).And
             .ContainInOrder(headers);
 
         return request;

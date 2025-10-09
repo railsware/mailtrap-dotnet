@@ -5,7 +5,7 @@ namespace Mailtrap.UnitTests.Emails.Requests;
 [TestFixture]
 internal sealed class BatchEmailRequestTests_Validator_Base
 {
-    private string _validEmail { get; } = "someone@domean.com";
+    private string _validEmail { get; } = "someone@domain.com";
     private string _invalidEmail { get; } = "someone";
     private string _templateId { get; } = "ID";
 
@@ -108,7 +108,7 @@ internal sealed class BatchEmailRequestTests_Validator_Base
     #region Base Attachments
 
     [Test]
-    public void Validation_Base_Should_Fail_WhenAtLEastOneAttachmentIsInvalid()
+    public void Validation_Base_Should_Fail_WhenAtLeastOneAttachmentIsInvalid()
     {
         var @base = EmailRequest.Create()
                         .Attach("Any content", "file1.txt")

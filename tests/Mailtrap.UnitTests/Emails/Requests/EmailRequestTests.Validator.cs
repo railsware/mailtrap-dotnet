@@ -4,7 +4,7 @@
 [TestFixture]
 internal sealed class EmailRequestTests_Validator
 {
-    private string _validEmail { get; } = "someone@domean.com";
+    private string _validEmail { get; } = "someone@domain.com";
     private string _invalidEmail { get; } = "someone";
     private string _templateId { get; } = "ID";
 
@@ -86,7 +86,7 @@ internal sealed class EmailRequestTests_Validator
     #region Attachments
 
     [Test]
-    public void Validation_Should_Fail_WhenAtLEastOneAttachmentIsInvalid()
+    public void Validation_Should_Fail_WhenAtLeastOneAttachmentIsInvalid()
     {
         var request = EmailRequest
             .Create()

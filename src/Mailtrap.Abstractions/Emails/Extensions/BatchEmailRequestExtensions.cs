@@ -11,7 +11,7 @@ internal static class BatchEmailRequestExtensions
     /// <param name="batchRequest">
     /// Batch email request which contains the base request and individual email requests.
     /// </param>
-    /// <returns></returns>
+    /// <returns>Collection of merged email requests.</returns>
     internal static IEnumerable<SendEmailRequest>? GetMergedRequests(this BatchEmailRequest batchRequest)
     {
         return batchRequest.Requests?.Select(request => MergeWithBase(request, batchRequest.Base)!);

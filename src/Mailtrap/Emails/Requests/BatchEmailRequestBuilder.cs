@@ -126,7 +126,7 @@ public static class BatchEmailRequestBuilder
     /// </param>
     ///
     /// <param name="request">
-    /// <see cref="EmailAddress"/> object to initialize request's <see cref="BatchEmailRequest.Base"/> property.
+    /// <see cref="EmailRequest"/> object to initialize request's <see cref="BatchEmailRequest.Base"/> property.
     /// </param>
     ///
     /// <returns>
@@ -136,14 +136,9 @@ public static class BatchEmailRequestBuilder
     /// <exception cref="ArgumentNullException" id="ArgumentNullException">
     /// <inheritdoc cref="Requests(BatchEmailRequest, SendEmailRequest[])" path="/exception[@id='ArgumentNullException']"/>
     /// </exception>
-    ///
-    /// <remarks>
-    /// <inheritdoc cref="Requests(BatchEmailRequest, SendEmailRequest[])" path="/remarks"/>
-    /// </remarks>
     public static BatchEmailRequest Base(this BatchEmailRequest batchRequest, EmailRequest request)
     {
         Ensure.NotNull(batchRequest, nameof(batchRequest));
-        Ensure.NotNull(batchRequest.Requests, nameof(batchRequest.Requests));
         Ensure.NotNull(request, nameof(request));
 
         batchRequest.Base = request;

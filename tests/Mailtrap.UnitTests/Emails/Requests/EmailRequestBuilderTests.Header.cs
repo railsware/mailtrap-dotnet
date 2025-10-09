@@ -67,7 +67,7 @@ internal sealed class EmailRequestBuilderTests_Header
     }
 
     [Test]
-    public void Header_Should_ShouldOverrideHeaders_WhenCalledMultipleTimesWithTheSameKeys()
+    public void Header_Should_OverrideHeaders_WhenCalledMultipleTimesWithTheSameKeys()
     {
         var header3 = new Header("key-3", "Value 3");
 

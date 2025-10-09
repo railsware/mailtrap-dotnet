@@ -5,7 +5,7 @@
 internal sealed class EmailAddressValidatorTests
 {
     [Test]
-    public void Validation_ShouldFail_WhenProvidedEmailIsInvalid()
+    public void Validation_Should_Fail_WhenProvidedEmailIsInvalid()
     {
         var recipient = new EmailAddress("abcdefg");
 
@@ -15,7 +15,7 @@ internal sealed class EmailAddressValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenProvidedEmailIsValid()
+    public void Validation_Should_Pass_WhenProvidedEmailIsValid()
     {
         var recipient = new EmailAddress("john.doe@domain.com");
 
@@ -25,7 +25,7 @@ internal sealed class EmailAddressValidatorTests
     }
 
     [Test]
-    public void Validation_ShouldNotFail_WhenDisplayNameIsEmpty()
+    public void Validation_Should_Pass_WhenDisplayNameIsEmpty()
     {
         var recipient = new EmailAddress("john.doe@domain.com");
 

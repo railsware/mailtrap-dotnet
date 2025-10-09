@@ -35,7 +35,7 @@ internal sealed class SendEmailRecipientsValidator : AbstractValidator<SendEmail
             .SetValidator(EmailAddressValidator.Instance);
 
         RuleFor(r => r)
-            .Must(r => r.To.Count + r.Cc.Count + r.Bcc.Count > 0)
+            .Must(r => (r.To?.Count ?? 0) + (r.Cc?.Count ?? 0) + (r.Bcc?.Count ?? 0) > 0)
             .WithName("Recipients")
             .WithMessage("There should be at least one email recipient added to either To, Cc or Bcc.");
     }

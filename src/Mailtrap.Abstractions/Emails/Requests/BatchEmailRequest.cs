@@ -25,7 +25,7 @@ public sealed record BatchEmailRequest : IValidatable
     /// </summary>
     ///
     /// <value>
-    /// Contains sender's or recipient's display name.
+    /// Contains the list of email requests to be sent in the batch.
     /// </value>
     ///
     /// <remarks>

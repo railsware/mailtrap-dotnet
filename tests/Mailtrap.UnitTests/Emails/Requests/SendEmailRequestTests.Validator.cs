@@ -4,7 +4,7 @@
 [TestFixture]
 internal sealed class SendEmailRequestTests_Validator
 {
-    private string _validEmail { get; } = "someone@domean.com";
+    private string _validEmail { get; } = "someone@domain.com";
     private string _invalidEmail { get; } = "someone";
     private string _templateId { get; } = "ID";
 

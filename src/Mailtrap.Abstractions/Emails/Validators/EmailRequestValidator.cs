@@ -34,9 +34,6 @@ internal sealed class EmailRequestValidator : AbstractValidator<EmailRequest>
             .SetValidator(EmailAddressValidator.Instance)
             .When(r => r.ReplyTo is not null);
 
-        RuleFor(r => r.Attachments)
-            .NotNull()
-            .When(r => r.Attachments is not null);
         RuleForEach(r => r.Attachments)
             .Cascade(CascadeMode.Stop)
             .NotNull()

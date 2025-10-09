@@ -186,7 +186,7 @@ internal sealed class SendEmailIntegrationTests
     }
 
 
-    #region Tetst Cases
+    #region Test Cases
 
     private static IEnumerable<SendEmailTestCase> TestCasesForDefault()
     {

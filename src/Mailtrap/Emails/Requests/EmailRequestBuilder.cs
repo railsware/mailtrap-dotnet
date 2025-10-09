@@ -385,7 +385,7 @@ public static class EmailRequestBuilder
     }
 
     /// <summary>
-    /// Adds provided custom variable to the <see cref="EmailRequest.Headers"/>
+    /// Adds provided custom variable to the <see cref="EmailRequest.CustomVariables"/>
     /// collection of the <paramref name="request"/>.
     /// </summary>
     ///
