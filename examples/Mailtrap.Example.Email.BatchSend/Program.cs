@@ -37,6 +37,7 @@ internal sealed class Program
         {
             IMailtrapClient mailtrapClient = host.Services.GetRequiredService<IMailtrapClient>();
 
+            // Create batch email request
             BatchEmailRequest request = BatchRequest();
 
             // It is better to validate request before sending,
@@ -50,7 +51,10 @@ internal sealed class Program
                 return;
             }
 
+            // Send email batch and get response
             BatchEmailResponse? response = await mailtrapClient.BatchEmail().Send(request);
+
+            // Analyze response in case of failure
             if (response is not null && !response.Success)
             {
                 logger.LogError("Failed to send batch email");
