@@ -110,7 +110,7 @@ internal sealed class Program
             .Create()
             .From("john.doe@demomailtrap.com", "John Doe")
             .To("hero.bill@galaxy.net")
-            .Template("60dca11e-0bc2-42ea-91a8-5ff196acb3f9") // ID of template obtained from https://mailtrap.io/email_templates/
+            .Template("60dca11e-0bc2-42ea-91a8-5ff196acb3f9") // ID of template obtained/created via EmailTemplates API
             .TemplateVariables(new Dictionary<string, string>
             {
                 { "name", "Bill" },
