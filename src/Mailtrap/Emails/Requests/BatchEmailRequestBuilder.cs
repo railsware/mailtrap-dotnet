@@ -25,7 +25,7 @@ public static class BatchEmailRequestBuilder
     /// Updated <see cref="BatchEmailRequest"/> instance so subsequent calls can be chained.
     /// </returns>
     ///
-    /// <exception cref="ArgumentNullException" id="ArgumentNullException">
+    /// <exception cref="ArgumentNullException">
     /// When <paramref name="batchRequest"/> or <paramref name="requests"/> is <see langword="null"/>.
     /// </exception>
     ///

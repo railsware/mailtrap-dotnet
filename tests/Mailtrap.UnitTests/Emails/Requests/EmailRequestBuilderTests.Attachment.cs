@@ -97,8 +97,6 @@ internal sealed class EmailRequestBuilderTests_Attachment
     [Test]
     public void Attach_Should_ThrowArgumentNullException_WhenRequestIsNull_2()
     {
-        var request = EmailRequest.Create();
-
         var act = () => EmailRequestBuilder.Attach<EmailRequest>(null!, Content, FileName);
 
         act.Should().Throw<ArgumentNullException>();

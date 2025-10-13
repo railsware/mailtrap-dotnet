@@ -282,7 +282,7 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
 
         for (var i = 1; i <= 1001; i++)
         {
-            internalRequest.Cc($"recipient{i}.domain.com");
+            internalRequest.Cc($"recipient{i}@domain.com");
         }
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
@@ -299,7 +299,7 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
 
         for (var i = 1; i <= 1000; i++)
         {
-            internalRequest.Cc($"recipient{i}.domain.com");
+            internalRequest.Cc($"recipient{i}@domain.com");
         }
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);

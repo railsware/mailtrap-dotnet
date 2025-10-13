@@ -268,7 +268,7 @@ catch (HttpRequestException hrex)
 {
    // handle HTTP errors
 }
-catch (OperationCancelledException ocex)
+catch (OperationCanceledException ocex)
 {
    // handle cancellation
 }
@@ -294,7 +294,7 @@ var response = await batchEmailClient.Send(request);
 > [!TIP]  
 > @Mailtrap.IMailtrapClient.BatchTransactional, @Mailtrap.IMailtrapClient.BatchBulk and @Mailtrap.IMailtrapClient.BatchTest(System.Int64)
 > are factory methods that will create new @Mailtrap.Emails.IBatchEmailClient instance every time when called.  
-> Thus in case when you need to perform multiple `BatchSend()` calls to the same endpoint it will be good idea
+> Thus in case when you need to perform multiple `Send()` calls to the same endpoint it will be good idea
 > to spawn client once and then reuse it:
 > ```csharp
 > IBatchEmailClient batchEmailClient = _mailtrapClient.BatchBulk(); // Caching client instance
@@ -306,4 +306,4 @@ var response = await batchEmailClient.Send(request);
 >```
 
 ## See also
-More examples available [here](https://github.com/railsware/mailtrap-dotnet/tree/main/examples).
+More examples available [Mailtrap .NET examples on GitHub](https://github.com/railsware/mailtrap-dotnet/tree/main/examples).

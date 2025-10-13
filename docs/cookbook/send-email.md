@@ -297,7 +297,7 @@ catch (HttpRequestException hrex)
 {
    // handle HTTP errors
 }
-catch (OperationCancelledException ocex)
+catch (OperationCanceledException ocex)
 {
    // handle cancellation
 }

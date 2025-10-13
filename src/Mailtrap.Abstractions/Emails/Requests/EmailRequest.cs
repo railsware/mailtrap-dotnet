@@ -159,7 +159,7 @@ public record EmailRequest : IValidatable
     /// </value>
     ///
     /// <remarks>
-    /// If provided, then <see cref="Subject"/>, <see cref="Category"/>, <see cref="TextBody"/>  and <see cref="HtmlBody"/>
+    /// If provided, then <see cref="Subject"/>, <see cref="TextBody"/>  and <see cref="HtmlBody"/>
     /// properties are forbidden and must be <see langword="null"/>.<br />
     /// Email subject, text and html will be generated from template using optional <see cref="TemplateVariables"/>.
     /// </remarks>
