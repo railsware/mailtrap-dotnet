@@ -150,14 +150,19 @@ internal sealed class Program
         // Put in as many individual email requests as you need.
         return BatchEmailRequest
             .Create()
-            .Base(EmailRequest.Create().From(from).ReplyTo(replyTo))
+            .Base(b => b
+                .From(from)
+                .ReplyTo(replyTo))
             .Requests(
                 BasicRequest(),
                 UsingFluentStyle(),
                 EmailFromTemplate(),
                 WithAttachments(),
                 RegularKitchenSink(),
-                FluentStyleKitchenSink());
+                FluentStyleKitchenSink())
+            .Requests(r => r
+                .To("hero.bill@galaxy.net")
+                .Text("Dear Bill,\n\nSee you soon!"));
     }
 
     /// <summary>
