@@ -94,7 +94,7 @@ internal sealed class Program
         catch (Exception ex)
         {
             logger.LogError(ex, "An error occurred while sending email.");
-            Environment.FailFast(ex.Message);
+            Environment.ExitCode = -1;
             throw;
         }
     }
@@ -247,11 +247,19 @@ internal sealed class Program
             var bytes = File.ReadAllBytes(filePath);
             var fileContent = Convert.ToBase64String(bytes);
 
+            var ext = Path.GetExtension(filePath).ToUpperInvariant();
+            var mimeType = ext switch
+            {
+                ".PNG" => MediaTypeNames.Image.Png,
+                ".PDF" => MediaTypeNames.Application.Pdf,
+                _ => MediaTypeNames.Application.Octet
+            };
+
             request.Attach(
                 content: fileContent,
                 fileName: fileName,
                 disposition: DispositionType.Attachment,
-                mimeType: MediaTypeNames.Application.Pdf);
+                mimeType: mimeType);
 
         }
 

@@ -60,8 +60,6 @@ internal sealed class EmailRequestBuilderTests_ReplyTo
     [Test]
     public void ReplyTo_Should_ThrowArgumentNullException_WhenRequestIsNull_WithString()
     {
-        var request = EmailRequest.Create();
-
         var act = () => EmailRequestBuilder.ReplyTo<EmailRequest>(null!, ReplyToEmail);
 
         act.Should().Throw<ArgumentNullException>();

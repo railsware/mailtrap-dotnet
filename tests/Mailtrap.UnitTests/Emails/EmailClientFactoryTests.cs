@@ -73,7 +73,7 @@ internal sealed class EmailClientFactoryTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<SendEmailClient>();
+        result.Should().BeAssignableTo<ISendEmailClient>();
         result.ResourceUri.Should().Be(sendUri);
     }
 
@@ -99,7 +99,7 @@ internal sealed class EmailClientFactoryTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<SendEmailClient>();
+        result.Should().BeAssignableTo<ISendEmailClient>();
         result.ResourceUri.Should().Be(sendUri);
     }
 
@@ -125,7 +125,7 @@ internal sealed class EmailClientFactoryTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<SendEmailClient>();
+        result.Should().BeAssignableTo<ISendEmailClient>();
         result.ResourceUri.Should().Be(sendUri);
     }
 
@@ -151,7 +151,7 @@ internal sealed class EmailClientFactoryTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<SendEmailClient>();
+        result.Should().BeAssignableTo<ISendEmailClient>();
         result.ResourceUri.Should().Be(sendUri);
     }
 
@@ -177,7 +177,7 @@ internal sealed class EmailClientFactoryTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<SendEmailClient>();
+        result.Should().BeAssignableTo<ISendEmailClient>();
         result.ResourceUri.Should().Be(sendUri);
     }
 
@@ -204,7 +204,7 @@ internal sealed class EmailClientFactoryTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<BatchEmailClient>();
+        result.Should().BeAssignableTo<IBatchEmailClient>();
         result.ResourceUri.Should().Be(sendUri);
     }
 
@@ -230,7 +230,7 @@ internal sealed class EmailClientFactoryTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<BatchEmailClient>();
+        result.Should().BeAssignableTo<IBatchEmailClient>();
         result.ResourceUri.Should().Be(sendUri);
     }
 
@@ -256,7 +256,7 @@ internal sealed class EmailClientFactoryTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<BatchEmailClient>();
+        result.Should().BeAssignableTo<IBatchEmailClient>();
         result.ResourceUri.Should().Be(sendUri);
     }
 
@@ -282,7 +282,7 @@ internal sealed class EmailClientFactoryTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<BatchEmailClient>();
+        result.Should().BeAssignableTo<IBatchEmailClient>();
         result.ResourceUri.Should().Be(sendUri);
     }
 
@@ -308,7 +308,7 @@ internal sealed class EmailClientFactoryTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<BatchEmailClient>();
+        result.Should().BeAssignableTo<IBatchEmailClient>();
         result.ResourceUri.Should().Be(sendUri);
     }
 

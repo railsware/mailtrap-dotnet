@@ -30,6 +30,11 @@ internal static class BatchEmailRequestExtensions
     /// <returns>New instance of <see cref="SendEmailRequest"/> is returned.</returns>
     internal static SendEmailRequest MergeWithBase(SendEmailRequest request, EmailRequest? baseRequest)
     {
+        if (request is null)
+        {
+            return null!;
+        }
+
         return baseRequest is null
             ? request
             : request with

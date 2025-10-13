@@ -26,7 +26,7 @@ internal sealed class BatchEmailRequestTests_Validator_Base
     public void Validation_Base_Should_Pass_WhenSenderEmailIsValid()
     {
         var request = BatchEmailRequest.Create()
-                        .Base(SendEmailRequest.Create().From(_validEmail));
+                        .Base(EmailRequest.Create().From(_validEmail));
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
 
@@ -42,7 +42,7 @@ internal sealed class BatchEmailRequestTests_Validator_Base
     public void Validation_Base_Should_Pass_WhenReplyToIsNull()
     {
         var request = BatchEmailRequest.Create()
-                        .Base(SendEmailRequest.Create().ReplyTo(null));
+                        .Base(EmailRequest.Create().ReplyTo(null));
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
 
@@ -54,7 +54,7 @@ internal sealed class BatchEmailRequestTests_Validator_Base
     public void Validation_Base_Should_Fail_WhenReplyToEmailIsInvalid()
     {
         var request = BatchEmailRequest.Create()
-                        .Base(SendEmailRequest.Create().ReplyTo(_invalidEmail));
+                        .Base(EmailRequest.Create().ReplyTo(_invalidEmail));
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
 
@@ -65,7 +65,7 @@ internal sealed class BatchEmailRequestTests_Validator_Base
     public void Validation_Base_Should_Pass_WhenReplyToEmailIsValid()
     {
         var request = BatchEmailRequest.Create()
-                        .Base(SendEmailRequest.Create().ReplyTo(_validEmail));
+                        .Base(EmailRequest.Create().ReplyTo(_validEmail));
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
 
@@ -80,7 +80,7 @@ internal sealed class BatchEmailRequestTests_Validator_Base
     [Test]
     public void Validation_Base_Should_Fail_WhenCategoryExceedsAllowedLength()
     {
-        var @base = SendEmailRequest.Create()
+        var @base = EmailRequest.Create()
             .Category(TestContext.CurrentContext.Random.GetString(256));
         var request = BatchEmailRequest.Create()
                         .Base(@base);
@@ -93,7 +93,7 @@ internal sealed class BatchEmailRequestTests_Validator_Base
     [Test]
     public void Validation_Base_Should_Pass_WhenCategoryFitsAllowedLength()
     {
-        var @base = SendEmailRequest.Create()
+        var @base = EmailRequest.Create()
             .Category(TestContext.CurrentContext.Random.GetString(255));
         var request = BatchEmailRequest.Create()
                         .Base(@base);

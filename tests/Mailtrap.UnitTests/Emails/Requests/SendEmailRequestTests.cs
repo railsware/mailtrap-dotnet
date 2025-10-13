@@ -27,8 +27,7 @@ internal sealed class SendEmailRequestTests
     }
 
     [Test]
-    [Ignore("Flaky JSON comparison")]
-    public void Should_SerializeAndDeserializeCorrectly_2()
+    public void Should_SerializeTemplateVariablesCorrectly()
     {
         var request = SendEmailRequest
             .Create()
@@ -39,24 +38,32 @@ internal sealed class SendEmailRequestTests
 
         var serialized = JsonSerializer.Serialize(request, MailtrapJsonSerializerOptions.NotIndented);
 
-        // TODO: Find more stable way to assert JSON serialization.
-        serialized.Should().Be(
-            "{" +
-                "\"from\":{\"email\":\"john.doe@demomailtrap.com\",\"name\":\"John Doe\"}," +
-                "\"to\":[{\"email\":\"bill.hero@galaxy.com\"}]," +
-                "\"cc\":[]," +
-                "\"bcc\":[]," +
-                "\"attachments\":[]," +
-                "\"headers\":{}," +
-                "\"custom_variables\":{}," +
-                "\"template_uuid\":\"ID\"," +
-                "\"template_variables\":{\"var1\":\"First Name\",\"var2\":\"Last Name\"}" +
-            "}");
+        using var doc = JsonDocument.Parse(serialized);
+        var root = doc.RootElement;
 
+        root.GetProperty("from").GetProperty("email").GetString().Should().Be("john.doe@demomailtrap.com");
+        root.GetProperty("to")[0].GetProperty("email").GetString().Should().Be("bill.hero@galaxy.com");
+        root.GetProperty("cc").GetArrayLength().Should().Be(0);
+        root.GetProperty("bcc").GetArrayLength().Should().Be(0);
+        root.GetProperty("attachments").GetArrayLength().Should().Be(0);
+        root.GetProperty("headers").GetRawText().Should().Be("{}");
+        root.GetProperty("custom_variables").GetRawText().Should().Be("{}");
+        root.GetProperty("template_uuid").GetString().Should().Be("ID");
+        root.GetProperty("template_variables").GetProperty("var1").GetString().Should().Be("First Name");
+        root.GetProperty("template_variables").GetProperty("var2").GetString().Should().Be("Last Name");
 
-        // Below would not work, considering weakly-typed nature of the template variables property.
-        //var deserialized = JsonSerializer.Deserialize<TemplatedEmailRequest>(serialized, MailtrapJsonSerializerOptions.NotIndented);
-        //deserialized.Should().BeEquivalentTo(request);
+        // Here is how the full JSON looks like:
+        // "{" +
+        //     "\"from\":{\"email\":\"john.doe@demomailtrap.com\",\"name\":\"John Doe\"}," +
+        //     "\"to\":[{\"email\":\"bill.hero@galaxy.com\"}]," +
+        //     "\"cc\":[]," +
+        //     "\"bcc\":[]," +
+        //     "\"attachments\":[]," +
+        //     "\"headers\":{}," +
+        //     "\"custom_variables\":{}," +
+        //     "\"template_uuid\":\"ID\"," +
+        //     "\"template_variables\":{\"var1\":\"First Name\",\"var2\":\"Last Name\"}" +
+        // "}");
     }
 
     [Test]
@@ -90,7 +97,7 @@ internal sealed class SendEmailRequestTests
     }
 
     [Test]
-    public void Validate_Should_Fail_WhenRequestIsValid()
+    public void Validate_Should_Pass_WhenRequestIsValid()
     {
         var request = CreateValidRequest();
 

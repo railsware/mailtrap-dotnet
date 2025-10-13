@@ -88,6 +88,17 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
     #region Request items
 
     [Test]
+    public void Validation_Requests_Should_Fail_WhenItemIsNull()
+    {
+        var request = BatchEmailRequest.Create();
+        request.Requests.Add(null!);
+
+        var result = BatchEmailRequestValidator.Instance.TestValidate(request);
+
+        result.ShouldHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0]");
+    }
+
+    [Test]
     public void Validation_Requests_Should_Fail_WhenNoRecipientsPresent()
     {
         var request = BatchEmailRequest.Create()
@@ -332,7 +343,7 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
         var internalRequest = SendEmailRequest.Create();
         for (var i = 1; i <= 1001; i++)
         {
-            internalRequest.Bcc($"recipient{i}.domain.com");
+            internalRequest.Bcc($"recipient{i}@domain.com");
         }
 
         var request = BatchEmailRequest.Create()
@@ -349,7 +360,7 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
         var internalRequest = SendEmailRequest.Create();
         for (var i = 1; i <= 1000; i++)
         {
-            internalRequest.Bcc($"recipient{i}.domain.com");
+            internalRequest.Bcc($"recipient{i}@domain.com");
         }
 
         var request = BatchEmailRequest.Create()

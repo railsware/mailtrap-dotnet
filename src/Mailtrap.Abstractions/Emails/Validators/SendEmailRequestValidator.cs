@@ -5,6 +5,7 @@
 /// Represents validator for <see cref="SendEmailRequest"/>.
 /// Ensures that count of recipients in To, Cc and Bcc does not exceed 1000 each
 /// and that at least one recipient is specified in either of them.
+/// Also applies <see cref="EmailRequestValidator"/> to validate other properties.
 /// </summary>
 internal sealed class SendEmailRequestValidator : AbstractValidator<SendEmailRequest>
 {

@@ -60,8 +60,6 @@ internal sealed class EmailRequestBuilderTests_From
     [Test]
     public void From_Should_ThrowArgumentNullException_WhenRequestIsNull_WithString()
     {
-        var request = EmailRequest.Create();
-
         var act = () => EmailRequestBuilder.From<EmailRequest>(null!, SenderEmail);
 
         act.Should().Throw<ArgumentNullException>();

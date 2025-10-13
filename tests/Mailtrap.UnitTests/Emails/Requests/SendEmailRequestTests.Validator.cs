@@ -203,7 +203,7 @@ internal sealed class SendEmailRequestTests_Validator
 
         for (var i = 1; i <= count; i++)
         {
-            request.Cc($"recipient{i}.domain.com");
+            request.Cc($"recipient{i}@domain.com");
         }
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
@@ -218,7 +218,7 @@ internal sealed class SendEmailRequestTests_Validator
 
         for (var i = 1; i <= count; i++)
         {
-            request.Cc($"recipient{i}.domain.com");
+            request.Cc($"recipient{i}@domain.com");
         }
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
@@ -267,7 +267,7 @@ internal sealed class SendEmailRequestTests_Validator
 
         for (var i = 1; i <= count; i++)
         {
-            request.Bcc($"recipient{i}.domain.com");
+            request.Bcc($"recipient{i}@domain.com");
         }
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
@@ -282,7 +282,7 @@ internal sealed class SendEmailRequestTests_Validator
 
         for (var i = 1; i <= count; i++)
         {
-            request.Bcc($"recipient{i}.domain.com");
+            request.Bcc($"recipient{i}@domain.com");
         }
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);

@@ -7,7 +7,7 @@
 public sealed record BatchEmailRequest : IValidatable
 {
     /// <summary>
-    /// Gets or sets and object with general properties of all emails in the batch.<br />
+    /// Gets or sets an object with general properties of all emails in the batch.<br />
     /// Each of them can be overridden in requests for individual emails.
     /// </summary>
     ///
@@ -34,6 +34,7 @@ public sealed record BatchEmailRequest : IValidatable
     /// </remarks>
     [JsonPropertyName("requests")]
     [JsonPropertyOrder(2)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<SendEmailRequest> Requests { get; set; } = [];
 
     /// <summary>

@@ -7,7 +7,7 @@
 public sealed record BatchSendEmailResponse : SendEmailResponse
 {
     /// <summary>
-    /// Gets errors, associated with the response.
+    /// Gets the errors, associated with the response.
     /// </summary>
     ///
     /// <value>

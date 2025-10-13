@@ -11,14 +11,12 @@ internal sealed class EmailClientEndpointProvider : IEmailClientEndpointProvider
 
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmailClientEndpointProvider"/> class.
+    /// Builds the request <see cref="Uri"/> for send or batch operations.
     /// </summary>
-    /// <param name="isBatch">if <c>true</c> the batch segment will be used; otherwise, the regular send segment will be used.</param>
-    /// <param name="isBulk">if <c>true</c> the bulk email endpoint will be used;
-    /// if <c>true</c> and <paramref name="inboxId"/> is provided, the test email endpoint will be used;
-    /// otherwise, the single email endpoint will be used.</param>
-    /// <param name="inboxId">If inbox identifier provided, the request will be scoped to that inbox.</param>
-    /// <returns></returns>
+    /// <param name="isBatch">When <c>true</c>, append the batch segment; otherwise append the send segment.</param>
+    /// <param name="isBulk">When <c>true</c>, use the bulk host; otherwise use the standard send host.</param>
+    /// <param name="inboxId">When supplied, scope the request to the inbox and switch to the test host.</param>
+    /// <returns>The fully qualified endpoint URI.</returns>
     public Uri GetRequestUri(bool isBatch, bool isBulk, long? inboxId)
     {
         var rootUrl = inboxId switch

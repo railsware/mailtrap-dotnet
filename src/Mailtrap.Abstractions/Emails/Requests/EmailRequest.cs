@@ -95,6 +95,7 @@ public record EmailRequest : IValidatable
     /// </value>
     [JsonPropertyName("attachments")]
     [JsonPropertyOrder(60)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<Attachment> Attachments { get; set; } = [];
 
     /// <summary>
@@ -113,6 +114,7 @@ public record EmailRequest : IValidatable
     /// </remarks>
     [JsonPropertyName("headers")]
     [JsonPropertyOrder(70)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IDictionary<string, string> Headers { get; set; } = new Dictionary<string, string>();
 
     /// <summary>
@@ -124,8 +126,7 @@ public record EmailRequest : IValidatable
     /// </value>
     ///
     /// <remarks>
-    /// Should be <see langword="null"/> if <see cref="TemplateId"/> is set.<br/>
-    /// Otherwise must be less or equal to 255 characters.
+    /// Should be less or equal to 255 characters.
     /// </remarks>
     [JsonPropertyName("category")]
     [JsonPropertyOrder(80)]
@@ -146,6 +147,7 @@ public record EmailRequest : IValidatable
     /// </remarks>
     [JsonPropertyName("custom_variables")]
     [JsonPropertyOrder(90)]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IDictionary<string, string> CustomVariables { get; set; } = new Dictionary<string, string>();
 
     /// <summary>

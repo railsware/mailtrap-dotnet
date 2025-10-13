@@ -82,7 +82,7 @@ internal sealed class EmailRequestBuilderTests_Attachment
             .Attach(attachments);
 
         request.Attachments.Should()
-            .HaveCount(2).And
+            .HaveCount(attachments.Length).And
             .ContainInOrder(attachments);
 
         return request;
