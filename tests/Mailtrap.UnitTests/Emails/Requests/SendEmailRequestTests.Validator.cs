@@ -368,7 +368,6 @@ internal sealed class SendEmailRequestTests_Validator
     [TestCase(1000, 1, 0)]
     [TestCase(0, 1000, 1)]
     [TestCase(0, 1, 1000)]
-    [TestCase(0, 0, 0)]
     public void Validation_Should_Fail_WhenTotalRecipientsExceedsLimit(int toCount, int ccCount, int bccCount)
     {
         var request = SendEmailRequest.Create()
