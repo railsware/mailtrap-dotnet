@@ -7,7 +7,7 @@
 public sealed record SendEmailRequest : EmailRequest
 {
     /// <summary>
-    /// Gets a collection of <see cref="EmailAddress"/> objects, defining who will receive a copy of email.
+    /// Gets or sets a collection of <see cref="EmailAddress"/> objects, defining who will receive a copy of email.
     /// </summary>
     ///
     /// <value>
@@ -18,14 +18,14 @@ public sealed record SendEmailRequest : EmailRequest
     /// Each object in this collection must contain the recipient's email address.<br />
     /// Each object in this collection may optionally contain the recipient's name.<br />
     /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.<br />
-    /// The sum of recipients in <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/> must not exceed 1000 recipients.
+    /// The total recipients across <see cref="To"/>, <see cref="Cc"/> and <see cref="Bcc"/> must not exceed 1000.
     /// </remarks>
     [JsonPropertyName("to")]
     [JsonPropertyOrder(210)]
     public IList<EmailAddress> To { get; set; } = [];
 
     /// <summary>
-    /// Gets a collection of <see cref="EmailAddress"/> objects, defining who will receive a carbon copy of email.
+    /// Gets or sets a collection of <see cref="EmailAddress"/> objects, defining who will receive a carbon copy of email.
     /// </summary>
     ///
     /// <value>
@@ -36,14 +36,14 @@ public sealed record SendEmailRequest : EmailRequest
     /// Each object in this collection must contain the recipient's email address.<br />
     /// Each object in this collection may optionally contain the recipient's name.<br />
     /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.<br />
-    /// The sum of recipients in <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/> must not exceed 1000 recipients.
+    /// The total recipients across <see cref="To"/>, <see cref="Cc"/> and <see cref="Bcc"/> must not exceed 1000.
     /// </remarks>
     [JsonPropertyName("cc")]
     [JsonPropertyOrder(220)]
     public IList<EmailAddress> Cc { get; set; } = [];
 
     /// <summary>
-    /// Gets a collection of <see cref="EmailAddress"/> objects, defining who will receive a blind carbon copy of email.
+    /// Gets or sets a collection of <see cref="EmailAddress"/> objects, defining who will receive a blind carbon copy of email.
     /// </summary>
     ///
     /// <value>
@@ -54,7 +54,7 @@ public sealed record SendEmailRequest : EmailRequest
     /// Each object in this collection must contain the recipient's email address.<br />
     /// Each object in this collection may optionally contain the recipient's name.<br />
     /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.<br />
-    /// The sum of recipients in <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/> must not exceed 1000 recipients.
+    /// The total recipients across <see cref="To"/>, <see cref="Cc"/> and <see cref="Bcc"/> must not exceed 1000.
     /// </remarks>
     [JsonPropertyName("bcc")]
     [JsonPropertyOrder(230)]

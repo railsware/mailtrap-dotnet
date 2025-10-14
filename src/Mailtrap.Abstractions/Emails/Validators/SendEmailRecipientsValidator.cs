@@ -14,19 +14,19 @@ internal sealed class SendEmailRecipientsValidator : AbstractValidator<SendEmail
     public SendEmailRecipientsValidator()
     {
         RuleFor(r => r.To)
-            .Must(r => r.Count is <= 1000);
+            .Must(r => r is null || r.Count is <= 1000);
         RuleForEach(r => r.To)
             .NotNull()
             .SetValidator(EmailAddressValidator.Instance);
 
         RuleFor(r => r.Cc)
-            .Must(r => r.Count is <= 1000);
+            .Must(r => r is null || r.Count is <= 1000);
         RuleForEach(r => r.Cc)
             .NotNull()
             .SetValidator(EmailAddressValidator.Instance);
 
         RuleFor(r => r.Bcc)
-            .Must(r => r.Count is <= 1000);
+            .Must(r => r is null || r.Count is <= 1000);
         RuleForEach(r => r.Bcc)
             .NotNull()
             .SetValidator(EmailAddressValidator.Instance);

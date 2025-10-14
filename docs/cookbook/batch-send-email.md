@@ -301,7 +301,7 @@ var response = await batchEmailClient.Send(request);
 > [!TIP]  
 > @Mailtrap.IMailtrapClient.BatchTransactional, @Mailtrap.IMailtrapClient.BatchBulk and @Mailtrap.IMailtrapClient.BatchTest(System.Int64)
 > are factory methods that will create new @Mailtrap.Emails.IBatchEmailClient instance every time when called.  
-> Thus in case when you need to perform multiple `Send()` calls to the same endpoint it will be good idea
+> Thus, if you need to perform multiple `Send()` calls to the same endpoint, it will be a good idea
 > to spawn client once and then reuse it:
 > ```csharp
 > IBatchEmailClient batchEmailClient = _mailtrapClient.BatchBulk(); // Caching client instance

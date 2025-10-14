@@ -431,6 +431,24 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
         result.ShouldHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].Recipients");
     }
 
+    [Test]
+    public void Validation_Requests_Should_Fail_WhenRecipientsAreNull()
+    {
+        var request = BatchEmailRequest.Create()
+            .Requests(r => r
+                .From("from@example.com")
+                .Subject("Test")
+                .Text("Body"));
+
+        request.Requests[0].To = null!;
+        request.Requests[0].Cc = null!;
+        request.Requests[0].Bcc = null!;
+
+        var result = BatchEmailRequestValidator.Instance.TestValidate(request);
+
+        result.ShouldHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].Recipients");
+    }
+
     [TestCase(500, 400, 101)]
     [TestCase(1000, 1, 0)]
     [TestCase(0, 1000, 1)]

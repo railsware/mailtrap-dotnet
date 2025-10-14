@@ -32,6 +32,7 @@ internal sealed class SendEmailRequestTests_Validator
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
         result.ShouldNotHaveValidationErrorFor(r => r);
+        result.ShouldNotHaveValidationErrorFor("Recipients");
     }
 
     [Test]
@@ -44,6 +45,7 @@ internal sealed class SendEmailRequestTests_Validator
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
         result.ShouldNotHaveValidationErrorFor(r => r);
+        result.ShouldNotHaveValidationErrorFor("Recipients");
     }
 
     [Test]
@@ -56,6 +58,7 @@ internal sealed class SendEmailRequestTests_Validator
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
         result.ShouldNotHaveValidationErrorFor(r => r);
+        result.ShouldNotHaveValidationErrorFor("Recipients");
     }
 
     #endregion
@@ -332,7 +335,7 @@ internal sealed class SendEmailRequestTests_Validator
     #region To, Cc, Bcc total
 
     [Test]
-    public void Validation_Requests_Should_Fail_WhenNoRecipients()
+    public void Validation_Should_Fail_WhenNoRecipients()
     {
         var request = SendEmailRequest.Create()
             .From(new EmailAddress("from@example.com"))
@@ -344,12 +347,29 @@ internal sealed class SendEmailRequestTests_Validator
         result.ShouldHaveValidationErrorFor("Recipients");
     }
 
+    [Test]
+    public void Validation_Should_Fail_WhenRecipientsAreNull()
+    {
+        var request = SendEmailRequest.Create()
+            .From(new EmailAddress("from@example.com"))
+            .Subject("Test")
+            .Text("Body");
+
+        request.To = null!;
+        request.Cc = null!;
+        request.Bcc = null!;
+
+        var result = SendEmailRequestValidator.Instance.TestValidate(request);
+
+        result.ShouldHaveValidationErrorFor("Recipients");
+    }
+
     [TestCase(500, 400, 101)]
     [TestCase(1000, 1, 0)]
     [TestCase(0, 1000, 1)]
     [TestCase(0, 1, 1000)]
     [TestCase(0, 0, 0)]
-    public void Validation_Requests_Should_Fail_WhenTotalRecipientsExceedsLimit(int toCount, int ccCount, int bccCount)
+    public void Validation_Should_Fail_WhenTotalRecipientsExceedsLimit(int toCount, int ccCount, int bccCount)
     {
         var request = SendEmailRequest.Create()
                         .To(Enumerable.Repeat(new EmailAddress(_validEmail), toCount).ToArray())
@@ -362,7 +382,7 @@ internal sealed class SendEmailRequestTests_Validator
     }
 
     [TestCase(500, 400, 100)]
-    public void Validation_Requests_Should_Pass_WhenTotalRecipientsWithinLimit(int toCount, int ccCount, int bccCount)
+    public void Validation_Should_Pass_WhenTotalRecipientsWithinLimit(int toCount, int ccCount, int bccCount)
     {
         var request = SendEmailRequest.Create()
                         .To(Enumerable.Repeat(new EmailAddress(_validEmail), toCount).ToArray())

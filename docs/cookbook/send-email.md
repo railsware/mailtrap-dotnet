@@ -324,7 +324,7 @@ var response = await emailClient.Send(request);
 > [!TIP]  
 > @Mailtrap.IMailtrapClient.Transactional, @Mailtrap.IMailtrapClient.Bulk and @Mailtrap.IMailtrapClient.Test(System.Int64)
 > are factory methods that will create new @Mailtrap.Emails.ISendEmailClient instance every time when called.  
-> Thus in case when you need to perform multiple `Send()` calls to the same endpoint it will be good idea
+> Thus, if you need to perform multiple `Send()` calls to the same endpoint, it will be a good idea
 > to spawn client once and then reuse it:
 > ```csharp
 > ISendEmailClient emailClient = _mailtrapClient.Bulk(); // Caching client instance
