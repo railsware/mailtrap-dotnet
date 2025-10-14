@@ -417,11 +417,25 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
 
     #region Request To, Cc, Bcc total
 
+    [Test]
+    public void Validation_Requests_Should_Fail_WhenNoRecipients()
+    {
+        var request = BatchEmailRequest.Create()
+            .Requests(r => r
+                .From(new EmailAddress("from@example.com"))
+                .Subject("Test")
+                .Text("Body"));
+
+        var result = BatchEmailRequestValidator.Instance.TestValidate(request);
+
+        result.ShouldHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].Recipients");
+    }
 
     [TestCase(500, 400, 101)]
     [TestCase(1000, 1, 0)]
     [TestCase(0, 1000, 1)]
     [TestCase(0, 1, 1000)]
+    [TestCase(0, 0, 0)]
     public void Validation_Requests_Should_Fail_WhenTotalRecipientsExceedsLimit(int toCount, int ccCount, int bccCount)
     {
         var request = BatchEmailRequest.Create()

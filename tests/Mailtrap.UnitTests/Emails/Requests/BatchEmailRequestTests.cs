@@ -34,9 +34,7 @@ internal sealed class BatchEmailRequestTests
         var result = request.Validate();
 
         result.IsValid.Should().BeFalse();
-        result.Errors.Should()
-            .NotBeEmpty().And
-            .Contain("'Requests' must not be empty.");
+        result.Errors.Should().Contain("'Requests' must not be empty.");
     }
 
     [Test]
