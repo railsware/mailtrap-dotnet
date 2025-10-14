@@ -422,7 +422,7 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
     {
         var request = BatchEmailRequest.Create()
             .Requests(r => r
-                .From(new EmailAddress("from@example.com"))
+                .From("from@example.com")
                 .Subject("Test")
                 .Text("Body"));
 
@@ -558,7 +558,7 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
 
-        result.IsValid.Should().BeTrue();
+        result.ShouldNotHaveAnyValidationErrors();
     }
 
     [Test]
