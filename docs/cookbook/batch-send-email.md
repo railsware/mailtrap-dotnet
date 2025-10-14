@@ -25,7 +25,7 @@ var batchRequest = BatchEmailRequest
         .To("hero.bill@galaxy.net")
         .Text("Dear Bill,\n\nSee you soon!"))
     .Requests(SendEmailRequest.Create()
-        .From("john.doe@demomailtrap.com", "John Doe")
+        .From("john.cena@demomailtrap.com", " It's a John Cena") // Overwrite the base attributes
         .To("hero.bill@galaxy.net")
         .Cc("star.lord@galaxy.net")
         .Subject("Invitation to Earth"));
@@ -45,6 +45,8 @@ var baseRequest = new EmailRequest
     Subject = "Batch Invitation"
 };
 
+// You can specify up to 1000 recipients in total across the To, Cc, and Bcc fields (i.e. To + CC + Bcc <=1000).
+// At least one of recipient collections must contain at least one recipient.
 var requests = new List<SendEmailRequest>
 {
     new SendEmailRequest
@@ -54,8 +56,13 @@ var requests = new List<SendEmailRequest>
     },
     new SendEmailRequest
     {
-        To = { new EmailAddress("star.lord@galaxy.net") },
+        Cc = { new EmailAddress("star.lord@galaxy.net") },
         TextBody = "Dear Lord,\n\nSee you soon!"
+    },
+    new SendEmailRequest
+    {
+        Bcc = { new EmailAddress("sara.conor@galaxy.net") },
+        TextBody = "Dear Sara,\n\nKeep you posted!"
     }
 };
 

@@ -76,7 +76,7 @@ internal sealed class Program
             TextBody = "Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John."
         };
 
-        // You can specify up to 1000 recipients in each of To, Cc and Bcc fields.
+        // You can specify up to 1000 recipients in total across the To, Cc, and Bcc fields.
         // At least one of recipient collections must contain at least one recipient.
         request.To.Add(to);
         request.Cc.Add(cc);

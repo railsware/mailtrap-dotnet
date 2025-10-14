@@ -3,7 +3,7 @@
 
 /// <summary>
 /// Represents validator for <see cref="SendEmailRequest"/>.
-/// Ensures that count of recipients in To, Cc and Bcc does not exceed 1000 each
+/// Ensures that count of recipients in To, Cc and Bcc does not exceed 1000 in total
 /// and that at least one recipient is specified in either of them.
 /// Also applies <see cref="EmailRequestValidator"/> to validate other properties.
 /// </summary>

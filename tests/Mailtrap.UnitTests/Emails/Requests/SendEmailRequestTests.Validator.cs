@@ -145,6 +145,7 @@ internal sealed class SendEmailRequestTests_Validator
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldHaveValidationErrorFor("Recipients");
         result.ShouldHaveValidationErrorFor(r => r.To);
     }
 
@@ -156,6 +157,7 @@ internal sealed class SendEmailRequestTests_Validator
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldNotHaveValidationErrorFor("Recipients");
         result.ShouldNotHaveValidationErrorFor(r => r.To);
     }
 
@@ -185,6 +187,7 @@ internal sealed class SendEmailRequestTests_Validator
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldNotHaveValidationErrorFor("Recipients");
         result.ShouldNotHaveValidationErrorFor(r => r.To);
         result.ShouldNotHaveValidationErrorFor($"{nameof(SendEmailRequest.To)}[0].{nameof(EmailAddress.Email)}");
         result.ShouldNotHaveValidationErrorFor($"{nameof(SendEmailRequest.To)}[1].{nameof(EmailAddress.Email)}");
@@ -208,6 +211,7 @@ internal sealed class SendEmailRequestTests_Validator
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldHaveValidationErrorFor("Recipients");
         result.ShouldHaveValidationErrorFor(r => r.Cc);
     }
 
@@ -223,6 +227,7 @@ internal sealed class SendEmailRequestTests_Validator
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldNotHaveValidationErrorFor("Recipients");
         result.ShouldNotHaveValidationErrorFor(r => r.Cc);
     }
 
@@ -249,6 +254,7 @@ internal sealed class SendEmailRequestTests_Validator
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldNotHaveValidationErrorFor("Recipients");
         result.ShouldNotHaveValidationErrorFor(r => r.Cc);
         result.ShouldNotHaveValidationErrorFor($"{nameof(SendEmailRequest.Cc)}[0].{nameof(EmailAddress.Email)}");
         result.ShouldNotHaveValidationErrorFor($"{nameof(SendEmailRequest.Cc)}[1].{nameof(EmailAddress.Email)}");
@@ -272,6 +278,7 @@ internal sealed class SendEmailRequestTests_Validator
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldHaveValidationErrorFor("Recipients");
         result.ShouldHaveValidationErrorFor(r => r.Bcc);
     }
 
@@ -287,6 +294,7 @@ internal sealed class SendEmailRequestTests_Validator
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldNotHaveValidationErrorFor("Recipients");
         result.ShouldNotHaveValidationErrorFor(r => r.Bcc);
     }
 
@@ -313,6 +321,7 @@ internal sealed class SendEmailRequestTests_Validator
 
         var result = SendEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldNotHaveValidationErrorFor("Recipients");
         result.ShouldNotHaveValidationErrorFor(r => r.Bcc);
         result.ShouldNotHaveValidationErrorFor($"{nameof(SendEmailRequest.Bcc)}[0].{nameof(EmailAddress.Email)}");
         result.ShouldNotHaveValidationErrorFor($"{nameof(SendEmailRequest.Bcc)}[1].{nameof(EmailAddress.Email)}");
@@ -320,7 +329,39 @@ internal sealed class SendEmailRequestTests_Validator
 
     #endregion
 
+    #region To, Cc, Bcc total
 
+
+    [TestCase(500, 400, 101)]
+    [TestCase(1000, 1, 0)]
+    [TestCase(0, 1000, 1)]
+    [TestCase(0, 1, 1000)]
+    public void Validation_Requests_Should_Fail_WhenTotalRecipientsExceedsLimit(int toCount, int ccCount, int bccCount)
+    {
+        var request = SendEmailRequest.Create()
+                        .To(Enumerable.Repeat(new EmailAddress(_validEmail), toCount).ToArray())
+                        .Cc(Enumerable.Repeat(new EmailAddress(_validEmail), ccCount).ToArray())
+                        .Bcc(Enumerable.Repeat(new EmailAddress(_validEmail), bccCount).ToArray());
+
+        var result = SendEmailRequestValidator.Instance.TestValidate(request);
+
+        result.ShouldHaveValidationErrorFor("Recipients");
+    }
+
+    [TestCase(500, 400, 100)]
+    public void Validation_Requests_Should_Pass_WhenTotalRecipientsWithinLimit(int toCount, int ccCount, int bccCount)
+    {
+        var request = SendEmailRequest.Create()
+                        .To(Enumerable.Repeat(new EmailAddress(_validEmail), toCount).ToArray())
+                        .Cc(Enumerable.Repeat(new EmailAddress(_validEmail), ccCount).ToArray())
+                        .Bcc(Enumerable.Repeat(new EmailAddress(_validEmail), bccCount).ToArray());
+
+        var result = SendEmailRequestValidator.Instance.TestValidate(request);
+
+        result.ShouldNotHaveValidationErrorFor("Recipients");
+    }
+
+    #endregion
 
     #region Attachments
 

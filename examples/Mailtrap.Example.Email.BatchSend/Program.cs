@@ -54,11 +54,9 @@ internal sealed class Program
             // Send email batch and get response
             BatchEmailResponse? response = await mailtrapClient.BatchEmail().Send(request);
 
-            // Analyze response in case of failure
-            if (response is not null && !response.Success)
+            // Analyze response in case for failures
+            if (response is not null)
             {
-                logger.LogError("Failed to send batch email");
-
                 //Analyze errors
                 foreach (var error in response.Errors)
                 {
@@ -181,7 +179,7 @@ internal sealed class Program
             TextBody = "Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John."
         };
 
-        // You can specify up to 1000 recipients in each of To, Cc and Bcc fields.
+        // You can specify up to 1000 recipients in total across the To, Cc, and Bcc fields.
         // At least one of recipient collections must contain at least one recipient.
         request.To.Add(to);
         request.Cc.Add(cc);

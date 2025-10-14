@@ -45,7 +45,7 @@ var request = new SendEmailRequest
     TextBody = "Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John."
 };
 
-// You can specify up to 1000 recipients in each of To, Cc and Bcc fields.
+// You can specify up to 1000 recipients in total across the To, Cc, and Bcc fields (i.e. To + CC + Bcc <=1000).
 // At least one of recipient collections must contain at least one recipient.
 var to = new EmailAddress("hero.bill@galaxy.net");
 request.To.Add(to);

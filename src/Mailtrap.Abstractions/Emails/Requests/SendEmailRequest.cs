@@ -13,12 +13,12 @@ public sealed record SendEmailRequest : EmailRequest
     /// <value>
     /// A collection of <see cref="EmailAddress"/> objects.
     /// </value>
-    /// 
+    ///
     /// <remarks>
-    /// Must not contain more than 1000 recipients.<br />
     /// Each object in this collection must contain the recipient's email address.<br />
     /// Each object in this collection may optionally contain the recipient's name.<br />
-    /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.
+    /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.<br />
+    /// The sum of recipients in <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/> must not exceed 1000 recipients.
     /// </remarks>
     [JsonPropertyName("to")]
     [JsonPropertyOrder(210)]
@@ -31,12 +31,12 @@ public sealed record SendEmailRequest : EmailRequest
     /// <value>
     /// A collection of <see cref="EmailAddress"/> objects.
     /// </value>
-    /// 
+    ///
     /// <remarks>
-    /// Must not contain more than 1000 recipients.<br />
     /// Each object in this collection must contain the recipient's email address.<br />
     /// Each object in this collection may optionally contain the recipient's name.<br />
-    /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.
+    /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.<br />
+    /// The sum of recipients in <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/> must not exceed 1000 recipients.
     /// </remarks>
     [JsonPropertyName("cc")]
     [JsonPropertyOrder(220)]
@@ -49,12 +49,12 @@ public sealed record SendEmailRequest : EmailRequest
     /// <value>
     /// A collection of <see cref="EmailAddress"/> objects.
     /// </value>
-    /// 
+    ///
     /// <remarks>
-    /// Must not contain more than 1000 recipients.<br />
     /// Each object in this collection must contain the recipient's email address.<br />
     /// Each object in this collection may optionally contain the recipient's name.<br />
-    /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.
+    /// At least one recipient must be specified in one of the collections: <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/>.<br />
+    /// The sum of recipients in <see cref="To"/>, <see cref="Cc"/> or <see cref="Bcc"/> must not exceed 1000 recipients.
     /// </remarks>
     [JsonPropertyName("bcc")]
     [JsonPropertyOrder(230)]
@@ -64,7 +64,7 @@ public sealed record SendEmailRequest : EmailRequest
     /// <summary>
     /// Factory method that creates a new instance of <see cref="SendEmailRequest" /> request.
     /// </summary>
-    /// 
+    ///
     /// <returns>
     /// New <see cref="SendEmailRequest"/> instance.
     /// </returns>

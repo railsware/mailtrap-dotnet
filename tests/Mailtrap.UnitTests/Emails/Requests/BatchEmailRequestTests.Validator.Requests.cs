@@ -221,30 +221,36 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
     public void Validation_Requests_Should_Fail_WhenToLengthExceedsLimit([Values(1001)] int count)
     {
         var request = BatchEmailRequest.Create()
-                        .Requests(SendEmailRequest.Create()
-                                .To(Enumerable.Repeat(new EmailAddress(_validEmail), count).ToArray()));
+                        .Requests(r => r
+                            .To(Enumerable.Repeat(new EmailAddress(_validEmail), count).ToArray()));
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].Recipients");
         result.ShouldHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].{nameof(SendEmailRequest.To)}");
+
     }
 
     [Test]
     public void Validation_Requests_Should_Pass_WhenToLengthWithinLimit([Values(1, 500, 1000)] int count)
     {
-        var request = BatchEmailRequest.Create();
-        request.Requests.Add(SendEmailRequest.Create().To(Enumerable.Repeat(new EmailAddress(_validEmail), count).ToArray()));
+        var request = BatchEmailRequest.Create()
+                        .Requests(r => r
+                            .To(Enumerable.Repeat(new EmailAddress(_validEmail), count).ToArray()));
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].Recipients");
         result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].{nameof(SendEmailRequest.To)}");
     }
 
     [Test]
     public void Validation_Requests_Should_Fail_WhenAtLeastOneToEmailIsInvalid()
     {
-        var request = BatchEmailRequest.Create();
-        request.Requests.Add(SendEmailRequest.Create().To(_validEmail).To(_invalidEmail));
+        var request = BatchEmailRequest.Create()
+                        .Requests(r => r
+                            .To(_validEmail)
+                            .To(_invalidEmail));
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
 
@@ -257,11 +263,14 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
     [Test]
     public void Validation_Requests_Should_Pass_WhenAllToEmailsAreValid()
     {
-        var request = BatchEmailRequest.Create();
-        request.Requests.Add(SendEmailRequest.Create().To(_validEmail).To("other@domain.com"));
+        var request = BatchEmailRequest.Create()
+                        .Requests(r => r
+                            .To(_validEmail)
+                            .To("other@domain.com"));
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].Recipients");
         result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].{nameof(SendEmailRequest.To)}");
         result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].{nameof(SendEmailRequest.To)}[0].{nameof(EmailAddress.Email)}");
         result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].{nameof(SendEmailRequest.To)}[1].{nameof(EmailAddress.Email)}");
@@ -274,36 +283,39 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
     #region Request Cc
 
     [Test]
-    public void Validation_Requests_Should_Fail_WhenCcLengthExceedsLimit()
+    public void Validation_Requests_Should_Fail_WhenCcLengthExceedsLimit([Values(1001)] int count)
     {
         var internalRequest = SendEmailRequest.Create();
         var request = BatchEmailRequest.Create()
                         .Requests(internalRequest);
 
-        for (var i = 1; i <= 1001; i++)
+        for (var i = 1; i <= count; i++)
         {
             internalRequest.Cc($"recipient{i}@domain.com");
         }
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].Recipients");
         result.ShouldHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].{nameof(SendEmailRequest.Cc)}");
+
     }
 
     [Test]
-    public void Validation_Requests_Should_Pass_WhenCcLengthWithinLimit()
+    public void Validation_Requests_Should_Pass_WhenCcLengthWithinLimit([Values(1, 500, 1000)] int count)
     {
         var internalRequest = SendEmailRequest.Create();
         var request = BatchEmailRequest.Create()
                         .Requests(internalRequest);
 
-        for (var i = 1; i <= 1000; i++)
+        for (var i = 1; i <= count; i++)
         {
             internalRequest.Cc($"recipient{i}@domain.com");
         }
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].Recipients");
         result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].{nameof(SendEmailRequest.Cc)}");
     }
 
@@ -326,6 +338,7 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].Recipients");
         result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].{nameof(SendEmailRequest.Cc)}");
         result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].{nameof(SendEmailRequest.Cc)}[0].{nameof(EmailAddress.Email)}");
         result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].{nameof(SendEmailRequest.Cc)}[1].{nameof(EmailAddress.Email)}");
@@ -338,36 +351,36 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
     #region Request Bcc
 
     [Test]
-    public void Validation_Requests_Should_Fail_WhenBccLengthExceedsLimit()
+    public void Validation_Requests_Should_Fail_WhenBccLengthExceedsLimit([Values(1001)] int count)
     {
         var internalRequest = SendEmailRequest.Create();
-        for (var i = 1; i <= 1001; i++)
+        for (var i = 1; i <= count; i++)
         {
             internalRequest.Bcc($"recipient{i}@domain.com");
         }
 
-        var request = BatchEmailRequest.Create()
-                        .Requests(internalRequest);
+        var request = BatchEmailRequest.Create().Requests(internalRequest);
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].Recipients");
         result.ShouldHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].{nameof(SendEmailRequest.Bcc)}");
     }
 
     [Test]
-    public void Validation_Requests_Should_Pass_WhenBccLengthWithinLimit()
+    public void Validation_Requests_Should_Pass_WhenBccLengthWithinLimit([Values(1, 500, 1000)] int count)
     {
         var internalRequest = SendEmailRequest.Create();
-        for (var i = 1; i <= 1000; i++)
+        for (var i = 1; i <= count; i++)
         {
             internalRequest.Bcc($"recipient{i}@domain.com");
         }
 
-        var request = BatchEmailRequest.Create()
-                        .Requests(internalRequest);
+        var request = BatchEmailRequest.Create().Requests(internalRequest);
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].Recipients");
         result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].{nameof(SendEmailRequest.Bcc)}");
     }
 
@@ -377,8 +390,7 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
         var internalRequest = SendEmailRequest.Create()
             .Bcc(_validEmail)
             .Bcc(_invalidEmail);
-        var request = BatchEmailRequest.Create()
-                        .Requests(internalRequest);
+        var request = BatchEmailRequest.Create().Requests(internalRequest);
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
 
@@ -388,14 +400,14 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
     [Test]
     public void Validation_Requests_Should_Pass_WhenAllBccEmailsAreValid()
     {
-        var request = BatchEmailRequest.Create();
         var internalRequest = SendEmailRequest.Create()
             .Bcc(_validEmail)
             .Bcc("other@domain.com");
-        request.Requests.Add(internalRequest);
+        var request = BatchEmailRequest.Create().Requests(internalRequest);
 
         var result = BatchEmailRequestValidator.Instance.TestValidate(request);
 
+        result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].Recipients");
         result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].{nameof(SendEmailRequest.Bcc)}");
         result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].{nameof(SendEmailRequest.Bcc)}[0].{nameof(EmailAddress.Email)}");
         result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].{nameof(SendEmailRequest.Bcc)}[1].{nameof(EmailAddress.Email)}");
@@ -403,6 +415,41 @@ internal sealed class BatchEmailRequestTests_Validator_Requests
 
     #endregion
 
+    #region Request To, Cc, Bcc total
+
+
+    [TestCase(500, 400, 101)]
+    [TestCase(1000, 1, 0)]
+    [TestCase(0, 1000, 1)]
+    [TestCase(0, 1, 1000)]
+    public void Validation_Requests_Should_Fail_WhenTotalRecipientsExceedsLimit(int toCount, int ccCount, int bccCount)
+    {
+        var request = BatchEmailRequest.Create()
+                        .Requests(r => r
+                            .To(Enumerable.Repeat(new EmailAddress(_validEmail), toCount).ToArray())
+                            .Cc(Enumerable.Repeat(new EmailAddress(_validEmail), ccCount).ToArray())
+                            .Bcc(Enumerable.Repeat(new EmailAddress(_validEmail), bccCount).ToArray()));
+
+        var result = BatchEmailRequestValidator.Instance.TestValidate(request);
+
+        result.ShouldHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].Recipients");
+    }
+
+    [TestCase(500, 400, 100)]
+    public void Validation_Requests_Should_Pass_WhenTotalRecipientsWithinLimit(int toCount, int ccCount, int bccCount)
+    {
+        var request = BatchEmailRequest.Create()
+                        .Requests(r => r
+                            .To(Enumerable.Repeat(new EmailAddress(_validEmail), toCount).ToArray())
+                            .Cc(Enumerable.Repeat(new EmailAddress(_validEmail), ccCount).ToArray())
+                            .Bcc(Enumerable.Repeat(new EmailAddress(_validEmail), bccCount).ToArray()));
+
+        var result = BatchEmailRequestValidator.Instance.TestValidate(request);
+
+        result.ShouldNotHaveValidationErrorFor($"{nameof(BatchEmailRequest.Requests)}[0].Recipients");
+    }
+
+    #endregion
 
 
     #region Request Attachments
