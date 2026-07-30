@@ -40,4 +40,11 @@ internal static class UrlSegmentsTestConstants
     internal static string ReplySegment { get; } = "reply";
     internal static string ReplyAllSegment { get; } = "reply_all";
     internal static string ForwardSegment { get; } = "forward";
+
+    internal static string EmailCampaignsSegment { get; } = "email_campaigns";
+    internal static string StartSegment { get; } = "start";
+    internal static string ScheduleSegment { get; } = "schedule";
+    internal static string CancelSegment { get; } = "cancel";
+    internal static string TerminateSegment { get; } = "terminate";
+    internal static string ResetSegment { get; } = "reset";
 }
