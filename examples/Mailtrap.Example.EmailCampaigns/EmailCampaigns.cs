@@ -1,3 +1,5 @@
+using System.Globalization;
+
 using Mailtrap;
 using Mailtrap.Accounts;
 using Mailtrap.EmailCampaigns;
@@ -97,16 +99,28 @@ try
     campaign = await campaignResource.Cancel();
     logger.LogInformation("Campaign {Id} is back to {State}.", campaign.Id, campaign.CurrentState);
 
-    // Or start sending immediately.
-    campaign = await campaignResource.Start();
-    logger.LogInformation("Campaign {Id} is {State}.", campaign.Id, campaign.CurrentState);
+    // Or start sending immediately. Disabled by default so running this example
+    // does not send real emails - opt in with MAILTRAP_START_CAMPAIGN=true.
+    if (Environment.GetEnvironmentVariable("MAILTRAP_START_CAMPAIGN") == "true")
+    {
+        campaign = await campaignResource.Start();
+        logger.LogInformation("Campaign {Id} is {State}.", campaign.Id, campaign.CurrentState);
 
-    // A campaign in a sending state can be aborted with Terminate();
-    // a scheduled one can also be reset back to draft with Reset().
+        // Abort the sending before cleanup. A scheduled campaign can also be
+        // reset back to draft with Reset().
+        campaign = await campaignResource.Terminate();
+        logger.LogInformation("Campaign {Id} is {State}.", campaign.Id, campaign.CurrentState);
+    }
 
-    // Get aggregated statistics, optionally narrowed to a date window.
+    // Get aggregated statistics, optionally narrowed to a date window
+    // (here: the last 7 days relative to the current run).
+    DateTimeOffset today = DateTimeOffset.UtcNow;
     EmailCampaignStats stats = await campaignResource.GetStats(
-        new EmailCampaignStatsFilter { StartDate = "2026-05-01", EndDate = "2026-05-31" });
+        new EmailCampaignStatsFilter
+        {
+            StartDate = FormatDate(today.AddDays(-7)),
+            EndDate = FormatDate(today)
+        });
     logger.LogInformation("Stats: delivered={Delivered}, opened={Opened}, delivery rate={Rate:P2}.",
         stats.DeliveryCount, stats.OpenCount, stats.DeliveryRate);
 
@@ -120,4 +134,11 @@ catch (Exception ex)
     logger.LogError(ex, "An error occurred during API call.");
     Environment.FailFast(ex.Message);
     throw;
+}
+
+internal sealed partial class Program
+{
+    // Kept outside the top-level statements to stay within the CA1506 coupling limit.
+    private static string FormatDate(DateTimeOffset date) =>
+        date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
 }
