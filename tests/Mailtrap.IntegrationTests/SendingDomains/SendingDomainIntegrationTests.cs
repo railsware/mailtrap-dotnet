@@ -116,6 +116,8 @@ internal sealed class SendingDomainIntegrationTests
         mockHttp.VerifyNoOutstandingExpectation();
 
         result.Should().NotBeNull();
+        result.InboundEnabled.Should().BeTrue();
+        result.InboundVerified.Should().BeFalse();
     }
 
 
