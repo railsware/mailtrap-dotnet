@@ -171,4 +171,28 @@ public sealed record SendingDomain
     [JsonPropertyOrder(14)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public SendingDomainPermissions Permissions { get; } = new();
+
+    /// <summary>
+    /// Gets flag indicating if inbound email is enabled for the sending domain.
+    /// </summary>
+    ///
+    /// <value>
+    /// <see langword="true"/> if inbound email is enabled.<br />
+    /// <see langword="false"/> otherwise.
+    /// </value>
+    [JsonPropertyName("inbound_enabled")]
+    [JsonPropertyOrder(15)]
+    public bool? InboundEnabled { get; set; }
+
+    /// <summary>
+    /// Gets flag indicating if inbound email is verified (DNS-ready) for the sending domain.
+    /// </summary>
+    ///
+    /// <value>
+    /// <see langword="true"/> if inbound email is verified.<br />
+    /// <see langword="false"/> otherwise.
+    /// </value>
+    [JsonPropertyName("inbound_verified")]
+    [JsonPropertyOrder(16)]
+    public bool? InboundVerified { get; set; }
 }

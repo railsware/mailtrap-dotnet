@@ -25,6 +25,31 @@ public sealed record EmailLogMessage
     public string? Subject { get; set; }
 
     /// <summary>
+    /// RFC <c>Message-ID</c> header value.
+    /// </summary>
+    [JsonPropertyName("rfc_message_id")]
+    public string? RfcMessageId { get; set; }
+
+    /// <summary>
+    /// RFC <c>In-Reply-To</c> header value.
+    /// </summary>
+    [JsonPropertyName("in_reply_to")]
+    public string? InReplyTo { get; set; }
+
+    /// <summary>
+    /// RFC <c>References</c> header values.
+    /// </summary>
+    [JsonPropertyName("references")]
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
+    public IList<string> References { get; } = [];
+
+    /// <summary>
+    /// Identifier of the inbound thread the message belongs to.
+    /// </summary>
+    [JsonPropertyName("thread_id")]
+    public string? ThreadId { get; set; }
+
+    /// <summary>
     /// Sender address.
     /// </summary>
     [JsonPropertyName("from")]

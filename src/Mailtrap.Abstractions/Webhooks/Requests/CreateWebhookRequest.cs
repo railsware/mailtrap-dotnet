@@ -94,6 +94,20 @@ public sealed record CreateWebhookRequest : IValidatable
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public long? DomainId { get; set; }
 
+    /// <summary>
+    /// Gets or sets the inbox ID to scope the webhook to.<br/>
+    /// When omitted, an <c>inbound_receiving</c> webhook applies to all inboxes in the account.<br/>
+    /// Applicable only for <c>inbound_receiving</c> webhooks.
+    /// </summary>
+    ///
+    /// <value>
+    /// Inbox identifier or <see langword="null"/>.
+    /// </value>
+    [JsonPropertyName("inbound_inbox_id")]
+    [JsonPropertyOrder(8)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public long? InboundInboxId { get; set; }
+
 
     /// <inheritdoc/>
     public ValidationResult Validate()
