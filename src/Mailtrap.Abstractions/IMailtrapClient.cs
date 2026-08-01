@@ -34,6 +34,21 @@ public interface IMailtrapClient : IRestResource
 
 
 
+    #region Inbound
+
+    /// <summary>
+    /// Gets the token-scoped root of the Inbound Email API.
+    /// </summary>
+    ///
+    /// <returns>
+    /// Inbound Email API root resource.
+    /// </returns>
+    public IInboundResource Inbound();
+
+    #endregion
+
+
+
     #region Regular Emails
 
     /// <summary>

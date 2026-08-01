@@ -20,4 +20,12 @@ internal static class UrlSegments
     internal static string OrganizationsSegment { get; } = "organizations";
     internal static string SubAccountsSegment { get; } = "sub_accounts";
     internal static string WebhooksSegment { get; } = "webhooks";
+
+    internal static string InboundSegment { get; } = "inbound";
+    internal static string FoldersSegment { get; } = "folders";
+    internal static string MessagesSegment { get; } = "messages";
+    internal static string ThreadsSegment { get; } = "threads";
+    internal static string ReplySegment { get; } = "reply";
+    internal static string ReplyAllSegment { get; } = "reply_all";
+    internal static string ForwardSegment { get; } = "forward";
 }
