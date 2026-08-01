@@ -279,6 +279,10 @@ private static SendEmailRequest TemplateBasedRequest()
 - Webhooks management – [`examples/Mailtrap.Example.Webhooks`](examples/Mailtrap.Example.Webhooks/)
 - Verifying webhook signatures – [`examples/Mailtrap.Example.WebhookSignature`](examples/Mailtrap.Example.WebhookSignature/)
 
+### Inbound Email
+
+- Inbound folders, inboxes, messages, and threads (CRUD, pagination, reply/reply-all/forward) – [`examples/Mailtrap.Example.Inbound`](examples/Mailtrap.Example.Inbound/)
+
 ### Email Sandbox (Testing)
 
 - Send an email – [`examples/Mailtrap.Example.Email.Send`](examples/Mailtrap.Example.Email.Send/)
