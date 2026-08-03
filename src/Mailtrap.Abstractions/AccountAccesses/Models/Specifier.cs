@@ -80,6 +80,21 @@ public sealed record Specifier
     public string? Token { get; set; }
 
     /// <summary>
+    /// Gets the token value with all but the last characters masked.
+    /// </summary>
+    ///
+    /// <value>
+    /// Token value with all but the last characters masked.
+    /// </value>
+    ///
+    /// <remarks>
+    /// Applicable to 'ApiToken' specifier type only.
+    /// </remarks>
+    [JsonPropertyName("masked_token")]
+    [JsonPropertyOrder(6)]
+    public string? MaskedToken { get; set; }
+
+    /// <summary>
     /// Gets the token expiration date and time.
     /// </summary>
     ///
@@ -91,7 +106,7 @@ public sealed record Specifier
     /// Applicable to 'ApiToken' specifier type only.
     /// </remarks>
     [JsonPropertyName("expires_at")]
-    [JsonPropertyOrder(6)]
+    [JsonPropertyOrder(7)]
     public DateTimeOffset? ExpiresAt { get; set; }
 
     /// <summary>
@@ -107,6 +122,6 @@ public sealed record Specifier
     /// Applicable to 'User' specifier type only.
     /// </remarks>
     [JsonPropertyName("two_factor_authentication_enabled")]
-    [JsonPropertyOrder(7)]
+    [JsonPropertyOrder(8)]
     public bool? TwoFactorAuthEnabled { get; set; }
 }
