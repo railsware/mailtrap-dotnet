@@ -92,6 +92,79 @@ internal sealed class ApiTokensIntegrationTests
     }
 
     [Test]
+    public async Task Create_WithExpiration_Success()
+    {
+        // Arrange
+        var request = new CreateApiTokenRequest
+        {
+            Name = "My API Token",
+            ExpiresAt = ApiTokenExpiration.At(DateTimeOffset.Parse("2027-06-01T00:00:00Z", CultureInfo.InvariantCulture))
+        };
+        request.Resources.Add(new ApiTokenAccessRequest(ResourceType.Account, 3229, AccessLevel.Admin));
+
+        const string expectedRequestBody =
+            """{"name":"My API Token","expires_at":"2027-06-01T00:00:00+00:00","resources":[{"resource_type":"account","resource_id":3229,"access_level":100}]}""";
+
+        // Act & Assert
+        await RunCreateSuccessAsync(request, expectedRequestBody);
+    }
+
+    [Test]
+    public async Task Create_WithNeverExpiration_Success()
+    {
+        // Arrange
+        var request = new CreateApiTokenRequest
+        {
+            Name = "My API Token",
+            ExpiresAt = ApiTokenExpiration.Never
+        };
+        request.Resources.Add(new ApiTokenAccessRequest(ResourceType.Account, 3229, AccessLevel.Admin));
+
+        const string expectedRequestBody =
+            """{"name":"My API Token","expires_at":null,"resources":[{"resource_type":"account","resource_id":3229,"access_level":100}]}""";
+
+        // Act & Assert
+        await RunCreateSuccessAsync(request, expectedRequestBody);
+    }
+
+    [Test]
+    public async Task Create_ShouldThrow_WhenExpirationIsRejected()
+    {
+        // Arrange
+        var request = new CreateApiTokenRequest
+        {
+            Name = "My API Token",
+            ExpiresAt = ApiTokenExpiration.At(DateTimeOffset.Parse("2020-01-01T00:00:00Z", CultureInfo.InvariantCulture))
+        };
+        request.Resources.Add(new ApiTokenAccessRequest(ResourceType.Account, 3229, AccessLevel.Admin));
+
+        using var responseContent = await Feature.LoadFileToStringContent();
+
+        using var mockHttp = new MockHttpMessageHandler();
+        mockHttp
+            .Expect(HttpMethod.Post, _resourceUri.AbsoluteUri)
+            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .Respond(HttpStatusCode.UnprocessableEntity, responseContent);
+
+        using var services = BuildServiceProvider(mockHttp);
+        var client = services.GetRequiredService<IMailtrapClient>();
+
+        // Act
+        var act = () => client
+            .Account(_accountId)
+            .ApiTokens()
+            .Create(request);
+
+        // Assert
+        var assertion = await act.Should().ThrowAsync<HttpRequestFailedException>();
+        assertion.Which.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
+
+        mockHttp.VerifyNoOutstandingExpectation();
+    }
+
+    [Test]
     public async Task GetDetails_Success()
     {
         // Arrange
@@ -163,15 +236,19 @@ internal sealed class ApiTokensIntegrationTests
         expectedResponse.Should().NotBeNull();
 
         using var mockHttp = new MockHttpMessageHandler();
-        using var clientScope = mockHttp.ConfigureAndCreateClient(
-            HttpMethod.Post,
-            requestUri,
-            responseContent,
-            HttpStatusCode.OK,
-            _clientConfig);
+        mockHttp
+            .Expect(HttpMethod.Post, requestUri)
+            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .With(message => message.Content is null)
+            .Respond(HttpStatusCode.OK, responseContent);
+
+        using var services = BuildServiceProvider(mockHttp);
+        var client = services.GetRequiredService<IMailtrapClient>();
 
         // Act
-        var result = await clientScope.Client
+        var result = await client
             .Account(_accountId)
             .ApiToken(apiTokenId)
             .Reset()
@@ -181,5 +258,108 @@ internal sealed class ApiTokensIntegrationTests
         mockHttp.VerifyNoOutstandingExpectation();
 
         result.Should().BeEquivalentTo(expectedResponse);
+    }
+
+    [Test]
+    public async Task Reset_WithExpiration_Success()
+    {
+        // Arrange
+        var request = new ResetApiTokenRequest
+        {
+            ExpiresAt = ApiTokenExpiration.At(DateTimeOffset.Parse("2027-06-01T00:00:00Z", CultureInfo.InvariantCulture))
+        };
+
+        const string expectedRequestBody = """{"expires_at":"2027-06-01T00:00:00+00:00"}""";
+
+        // Act & Assert
+        await RunResetSuccessAsync(request, expectedRequestBody);
+    }
+
+    [Test]
+    public async Task Reset_WithNeverExpiration_Success()
+    {
+        // Arrange
+        var request = new ResetApiTokenRequest
+        {
+            ExpiresAt = ApiTokenExpiration.Never
+        };
+
+        const string expectedRequestBody = """{"expires_at":null}""";
+
+        // Act & Assert
+        await RunResetSuccessAsync(request, expectedRequestBody);
+    }
+
+
+    private async Task RunCreateSuccessAsync(CreateApiTokenRequest request, string expectedRequestBody)
+    {
+        using var responseContent = await Feature.LoadFileToStringContent();
+        var expectedResponse = await responseContent.DeserializeStringContentAsync<CreateApiTokenResponse>(_jsonSerializerOptions);
+        expectedResponse.Should().NotBeNull();
+
+        using var mockHttp = new MockHttpMessageHandler();
+        mockHttp
+            .Expect(HttpMethod.Post, _resourceUri.AbsoluteUri)
+            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .WithContent(expectedRequestBody)
+            .Respond(HttpStatusCode.OK, responseContent);
+
+        using var services = BuildServiceProvider(mockHttp);
+        var client = services.GetRequiredService<IMailtrapClient>();
+
+        var result = await client
+            .Account(_accountId)
+            .ApiTokens()
+            .Create(request)
+            .ConfigureAwait(false);
+
+        mockHttp.VerifyNoOutstandingExpectation();
+
+        result.Should().BeEquivalentTo(expectedResponse);
+    }
+
+    private async Task RunResetSuccessAsync(ResetApiTokenRequest request, string expectedRequestBody)
+    {
+        var apiTokenId = TestContext.CurrentContext.Random.NextLong();
+        var requestUri = _resourceUri.Append(apiTokenId).Append(ResetSegment).AbsoluteUri;
+
+        using var responseContent = await Feature.LoadFileToStringContent();
+        var expectedResponse = await responseContent.DeserializeStringContentAsync<ApiTokenResetResponse>(_jsonSerializerOptions);
+        expectedResponse.Should().NotBeNull();
+
+        using var mockHttp = new MockHttpMessageHandler();
+        mockHttp
+            .Expect(HttpMethod.Post, requestUri)
+            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .WithContent(expectedRequestBody)
+            .Respond(HttpStatusCode.OK, responseContent);
+
+        using var services = BuildServiceProvider(mockHttp);
+        var client = services.GetRequiredService<IMailtrapClient>();
+
+        var result = await client
+            .Account(_accountId)
+            .ApiToken(apiTokenId)
+            .Reset(request)
+            .ConfigureAwait(false);
+
+        mockHttp.VerifyNoOutstandingExpectation();
+
+        result.Should().BeEquivalentTo(expectedResponse);
+    }
+
+    private ServiceProvider BuildServiceProvider(MockHttpMessageHandler mockHttp)
+    {
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection
+            .AddMailtrapClient(_clientConfig)
+            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
+
+        return serviceCollection.BuildServiceProvider();
     }
 }

@@ -1,0 +1,15 @@
+{
+  "id": 12345,
+  "name": "Production token",
+  "last_4_digits": "z9y8",
+  "created_by": "user@example.com",
+  "expires_at": "2027-06-01T00:00:00Z",
+  "resources": [
+    {
+      "resource_type": "account",
+      "resource_id": 3229,
+      "access_level": 100
+    }
+  ],
+  "token": "newtokenvaluereturnedonresetonceonly1234"
+}
