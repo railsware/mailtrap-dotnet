@@ -60,16 +60,6 @@ public sealed record ReplyInboundMessageRequest
     public EmailAddress? ReplyTo { get; set; }
 
     /// <summary>
-    /// Gets or sets the subject line.
-    /// </summary>
-    ///
-    /// <value>
-    /// Subject line.
-    /// </value>
-    [JsonPropertyName("subject")]
-    public string? Subject { get; set; }
-
-    /// <summary>
     /// Gets or sets the plain-text body.
     /// </summary>
     ///

@@ -145,7 +145,6 @@ internal sealed class InboundMessagesIntegrationTests
         var request = new ReplyInboundMessageRequest
         {
             To = [new EmailAddress("customer@example.com")],
-            Subject = "Re: Support request",
             Text = "Thanks for reaching out!"
         };
 

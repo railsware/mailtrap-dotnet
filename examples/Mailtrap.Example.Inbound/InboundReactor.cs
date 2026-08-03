@@ -90,7 +90,6 @@ internal sealed class InboundReactor
         // Reply to a message (sends a real email to the original sender).
         SendMessageResult reply = await messageResource.Reply(new ReplyInboundMessageRequest
         {
-            Subject = "Re: " + message.Subject,
             Text = "Thanks for reaching out!",
             Html = "<p>Thanks for reaching out!</p>"
         });
