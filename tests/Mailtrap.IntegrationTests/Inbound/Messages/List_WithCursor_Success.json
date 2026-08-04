@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "id": "msg_3",
+      "inbox_id": 201,
+      "from": "customer@example.com",
+      "to": ["support@inbound-mailtrap.io"],
+      "subject": "Another request",
+      "size": 1024,
+      "received_at": "2026-07-30T12:00:00Z",
+      "thread_id": "thr_3"
+    },
+    {
+      "id": "msg_4",
+      "inbox_id": 201,
+      "from": "another@example.com",
+      "to": ["support@inbound-mailtrap.io"],
+      "subject": "Follow-up",
+      "size": 900,
+      "received_at": "2026-07-30T12:30:00Z",
+      "thread_id": "thr_4"
+    }
+  ],
+  "total_count": 4,
+  "last_id": "msg_4"
+}

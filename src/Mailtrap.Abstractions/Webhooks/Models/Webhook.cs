@@ -97,4 +97,16 @@ public record Webhook
     [JsonPropertyOrder(8)]
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
     public IList<WebhookEventType> EventTypes { get; } = [];
+
+    /// <summary>
+    /// Gets or sets the inbox ID the webhook is scoped to.<br/>
+    /// Applicable only for <c>inbound_receiving</c> webhooks; <see langword="null"/> means all inboxes in the account.
+    /// </summary>
+    ///
+    /// <value>
+    /// Inbox identifier or <see langword="null"/> when scoped to all inboxes.
+    /// </value>
+    [JsonPropertyName("inbound_inbox_id")]
+    [JsonPropertyOrder(10)]
+    public long? InboundInboxId { get; set; }
 }

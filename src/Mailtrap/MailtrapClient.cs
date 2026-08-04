@@ -46,6 +46,16 @@ internal sealed class MailtrapClient : RestResource, IMailtrapClient
 
 
 
+    #region Inbound
+
+    /// <inheritdoc/>
+    public IInboundResource Inbound()
+        => new InboundResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.InboundSegment));
+
+    #endregion
+
+
+
     #region Regular Emails
 
     /// <inheritdoc/>

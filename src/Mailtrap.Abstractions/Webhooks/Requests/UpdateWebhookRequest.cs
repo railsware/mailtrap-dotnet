@@ -56,6 +56,20 @@ public sealed record UpdateWebhookRequest : IValidatable
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public IList<WebhookEventType>? EventTypes { get; set; }
 
+    /// <summary>
+    /// Gets or sets the inbox ID to scope the webhook to.<br/>
+    /// Applicable only for <c>inbound_receiving</c> webhooks.<br/>
+    /// Leave <see langword="null"/> to keep the existing value unchanged.
+    /// </summary>
+    ///
+    /// <value>
+    /// Inbox identifier or <see langword="null"/> to leave unchanged.
+    /// </value>
+    [JsonPropertyName("inbound_inbox_id")]
+    [JsonPropertyOrder(5)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public long? InboundInboxId { get; set; }
+
 
     /// <inheritdoc/>
     public ValidationResult Validate()

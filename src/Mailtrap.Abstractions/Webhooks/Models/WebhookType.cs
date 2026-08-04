@@ -23,4 +23,13 @@ public sealed record WebhookType : StringEnum<WebhookType>
     /// Represents "audit_log" webhook type.
     /// </value>
     public static readonly WebhookType AuditLog = Define("audit_log");
+
+    /// <summary>
+    /// Gets the value representing "inbound_receiving" webhook type.
+    /// </summary>
+    ///
+    /// <value>
+    /// Represents "inbound_receiving" webhook type.
+    /// </value>
+    public static readonly WebhookType InboundReceiving = Define("inbound_receiving");
 }
