@@ -1,3 +1,12 @@
+## [3.3.0] - 2026-08-04
+
+## What's Changed
+* MT-22678: Add name search filter to contact lists GetAll by @Rabsztok in https://github.com/mailtrap/mailtrap-dotnet/pull/247
+* Add Inbound Email API support by @mklocek in https://github.com/mailtrap/mailtrap-dotnet/pull/251
+
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-dotnet/compare/v3.2.1...v3.3.0
+
 ## [3.2.1] - 2026-07-10
 
 ## What's Changed
