@@ -65,12 +65,14 @@ src/Mailtrap.Abstractions/EmailCampaigns/Validators/UpdateEmailCampaignRequestVa
   s_8b9eb1b74fa672::t_ab0c5b79849c2a 1-27
 src/Mailtrap.Abstractions/GlobalSuppressions.cs
   s_8b9eb1b74fa672::t_887066d39c98f8 27,33-37
+  s_8b9eb1b74fa672::t_c1e4f710c3559f 32
 src/Mailtrap.Abstractions/GlobalUsings.cs
   s_8b9eb1b74fa672::t_9ec876a5f84108 54-57
 src/Mailtrap/Accounts/AccountResource.cs
   s_8b9eb1b74fa672::t_18ce02c92c2acc 151-171
 src/Mailtrap/Core/Constants/UrlSegments.cs
   s_8b9eb1b74fa672::t_05b9e3589be883 32-37
+  s_8b9eb1b74fa672::t_4db4347822e020 31
 src/Mailtrap/EmailCampaigns/EmailCampaignCollectionResource.cs
   s_8b9eb1b74fa672::t_ba587210610e52 1-63
 src/Mailtrap/EmailCampaigns/EmailCampaignResource.cs
@@ -109,6 +111,7 @@ tests/Mailtrap.IntegrationTests/GlobalUsings.cs
   s_8b9eb1b74fa672::t_b01cb810e04465 31-32
 tests/Mailtrap.IntegrationTests/TestConstants/UrlSegmentsTestConstants.cs
   s_8b9eb1b74fa672::t_d156bad3a49b7c 44-49
+  s_8b9eb1b74fa672::t_469610b060ad6c 43
 tests/Mailtrap.UnitTests/EmailCampaigns/EmailCampaignCollectionResourceTests.cs
   s_8b9eb1b74fa672::t_ab6f4f5e746670 1-64
 tests/Mailtrap.UnitTests/EmailCampaigns/EmailCampaignRequestValidatorTests.cs
@@ -125,6 +128,7 @@ tests/Mailtrap.UnitTests/GlobalUsings.cs
   s_8b9eb1b74fa672::t_56c8975a690a6d 45-48
 tests/Mailtrap.UnitTests/TestConstants/UrlSegmentsTestConstants.cs
   s_8b9eb1b74fa672::t_0327fc8e0168e0 40
+  s_8b9eb1b74fa672::t_c7e355b0798a6b 39
 ---
 {
   "schema_version": "authorship/3.0.0",
