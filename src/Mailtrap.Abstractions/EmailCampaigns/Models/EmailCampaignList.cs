@@ -27,5 +27,5 @@ public sealed record EmailCampaignList
     /// </value>
     [JsonPropertyName("pagination")]
     [JsonPropertyOrder(2)]
-    public EmailCampaignsPagination? Pagination { get; set; }
+    public Pagination? Pagination { get; set; }
 }

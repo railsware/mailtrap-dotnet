@@ -1,10 +1,10 @@
-namespace Mailtrap.EmailCampaigns.Models;
+namespace Mailtrap.Core.Models;
 
 
 /// <summary>
-/// Represents page-token pagination metadata for a list of email campaigns.
+/// Represents page-token pagination metadata for a paginated list response.
 /// </summary>
-public sealed record EmailCampaignsPagination
+public sealed record Pagination
 {
     /// <summary>
     /// Gets or sets the current page number.

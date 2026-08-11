@@ -14,7 +14,7 @@ internal sealed record EmailCampaignListResponseDto
 
     [JsonPropertyName("pagination")]
     [JsonPropertyOrder(2)]
-    public EmailCampaignsPagination? Pagination { get; set; }
+    public Pagination? Pagination { get; set; }
 
 
     public EmailCampaignList FromDto()
