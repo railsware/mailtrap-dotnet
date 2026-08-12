@@ -49,6 +49,38 @@ public interface IMailtrapClient : IRestResource
 
 
 
+    #region Email Campaigns
+
+    /// <summary>
+    /// Gets the token-scoped email campaign collection resource.
+    /// </summary>
+    ///
+    /// <returns>
+    /// Email campaign collection resource.
+    /// </returns>
+    public IEmailCampaignCollectionResource EmailCampaigns();
+
+    /// <summary>
+    /// Gets resource for specific email campaign, identified by <paramref name="emailCampaignId"/>.
+    /// </summary>
+    ///
+    /// <param name="emailCampaignId">
+    /// ID of email campaign to get resource for.
+    /// </param>
+    ///
+    /// <returns>
+    /// Resource for the email campaign with specified ID.
+    /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="emailCampaignId"/> is less than or equal to zero.
+    /// </exception>
+    public IEmailCampaignResource EmailCampaign(long emailCampaignId);
+
+    #endregion
+
+
+
     #region Regular Emails
 
     /// <summary>

@@ -1,7 +1,6 @@
 using System.Globalization;
 
 using Mailtrap;
-using Mailtrap.Accounts;
 using Mailtrap.EmailCampaigns;
 using Mailtrap.EmailCampaigns.Models;
 using Mailtrap.EmailCampaigns.Requests;
@@ -21,13 +20,9 @@ IMailtrapClient mailtrapClient = host.Services.GetRequiredService<IMailtrapClien
 
 try
 {
-    var accountId = 12345;
-    IAccountResource accountResource = mailtrapClient.Account(accountId);
-
-    // Get resource for the email campaigns collection.
-    // Note: campaigns are token-scoped - the underlying path is "/api/email_campaigns",
-    // NOT "/api/accounts/{accountId}/email_campaigns".
-    IEmailCampaignCollectionResource campaignsResource = accountResource.EmailCampaigns();
+    // Campaigns are token-scoped: the account is resolved from the API token,
+    // so the resource hangs off the client root rather than off an account.
+    IEmailCampaignCollectionResource campaignsResource = mailtrapClient.EmailCampaigns();
 
     // List email campaigns (paginated, newest first).
     // The name filter is sent as the "search" query parameter.
@@ -66,7 +61,7 @@ try
     logger.LogInformation("Created campaign {Id} in state {State}.", campaign.Id, campaign.CurrentState);
 
     // Get resource for the specific campaign.
-    IEmailCampaignResource campaignResource = accountResource.EmailCampaign(campaign.Id);
+    IEmailCampaignResource campaignResource = mailtrapClient.EmailCampaign(campaign.Id);
 
     // Get details.
     campaign = await campaignResource.GetDetails();

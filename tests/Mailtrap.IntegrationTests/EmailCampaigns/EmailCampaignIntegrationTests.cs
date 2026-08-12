@@ -15,9 +15,6 @@ internal sealed class EmailCampaignIntegrationTests
     private const long SendingDomainId = 4321;
 
 
-    // Email campaigns are token-scoped: the resource is exposed under the account resource for
-    // ergonomic discoverability, but its API path is the bare "/api/email_campaigns" - it does
-    // NOT carry the "/api/accounts/{account_id}" prefix that every sibling resource uses.
     private static Uri CollectionUri => EndpointsTestConstants.ApiDefaultUrl
         .Append(
             UrlSegmentsTestConstants.ApiRootSegment,
@@ -33,14 +30,9 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Get;
-        var accountId = random.NextLong();
         var requestUri = CollectionUri.AbsoluteUri;
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
-
-        // Sanity: the campaigns URL must NOT be account-scoped.
-        requestUri.Should().NotContain("/api/accounts/");
-        requestUri.Should().EndWith("/api/email_campaigns");
 
         using var responseContent = await Feature.LoadFileToStringContent();
 
@@ -65,7 +57,6 @@ internal sealed class EmailCampaignIntegrationTests
 
         // Act
         var result = await client
-            .Account(accountId)
             .EmailCampaigns()
             .GetAll()
             .ConfigureAwait(false);
@@ -104,7 +95,6 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Get;
-        var accountId = random.NextLong();
         var requestUri = CollectionUri.AbsoluteUri;
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
@@ -147,7 +137,6 @@ internal sealed class EmailCampaignIntegrationTests
 
         // Act
         var result = await client
-            .Account(accountId)
             .EmailCampaigns()
             .GetAll(filter)
             .ConfigureAwait(false);
@@ -167,15 +156,10 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Get;
-        var accountId = random.NextLong();
         var campaignId = 4567;
         var requestUri = CampaignUri(campaignId).AbsoluteUri;
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
-
-        // Sanity: the campaigns URL must NOT be account-scoped.
-        requestUri.Should().NotContain("/api/accounts/");
-        requestUri.Should().EndWith($"/api/email_campaigns/{campaignId}");
 
         using var responseContent = await Feature.LoadFileToStringContent();
 
@@ -200,7 +184,6 @@ internal sealed class EmailCampaignIntegrationTests
 
         // Act
         var result = await client
-            .Account(accountId)
             .EmailCampaign(campaignId)
             .GetDetails()
             .ConfigureAwait(false);
@@ -233,14 +216,9 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Post;
-        var accountId = random.NextLong();
         var requestUri = CollectionUri.AbsoluteUri;
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
-
-        // Sanity: the campaigns URL must NOT be account-scoped.
-        requestUri.Should().NotContain("/api/accounts/");
-        requestUri.Should().EndWith("/api/email_campaigns");
 
         var request = new CreateEmailCampaignRequest
         {
@@ -287,7 +265,6 @@ internal sealed class EmailCampaignIntegrationTests
 
         // Act
         var result = await client
-            .Account(accountId)
             .EmailCampaigns()
             .Create(request)
             .ConfigureAwait(false);
@@ -309,7 +286,6 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Post;
-        var accountId = random.NextLong();
         var requestUri = CollectionUri.AbsoluteUri;
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
@@ -348,7 +324,6 @@ internal sealed class EmailCampaignIntegrationTests
 
 
         var act = () => client
-            .Account(accountId)
             .EmailCampaigns()
             .Create(request);
 
@@ -368,7 +343,6 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Post;
-        var accountId = random.NextLong();
         var requestUri = CollectionUri.AbsoluteUri;
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
@@ -403,7 +377,6 @@ internal sealed class EmailCampaignIntegrationTests
 
 
         var act = () => client
-            .Account(accountId)
             .EmailCampaigns()
             .Create(request);
 
@@ -422,14 +395,10 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Patch;
-        var accountId = random.NextLong();
         var campaignId = 4567;
         var requestUri = CampaignUri(campaignId).AbsoluteUri;
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
-
-        // Sanity: the campaigns URL must NOT be account-scoped.
-        requestUri.Should().NotContain("/api/accounts/");
 
         var request = new UpdateEmailCampaignRequest
         {
@@ -471,7 +440,6 @@ internal sealed class EmailCampaignIntegrationTests
 
         // Act
         var result = await client
-            .Account(accountId)
             .EmailCampaign(campaignId)
             .Update(request)
             .ConfigureAwait(false);
@@ -499,15 +467,10 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Delete;
-        var accountId = random.NextLong();
         var campaignId = 4567;
         var requestUri = CampaignUri(campaignId).AbsoluteUri;
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
-
-        // Sanity: the campaigns URL must NOT be account-scoped.
-        requestUri.Should().NotContain("/api/accounts/");
-        requestUri.Should().EndWith($"/api/email_campaigns/{campaignId}");
 
         using var mockHttp = new MockHttpMessageHandler();
         mockHttp
@@ -531,7 +494,6 @@ internal sealed class EmailCampaignIntegrationTests
 
         // Act
         await client
-            .Account(accountId)
             .EmailCampaign(campaignId)
             .Delete()
             .ConfigureAwait(false);
@@ -548,7 +510,6 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Post;
-        var accountId = random.NextLong();
         var campaignId = 4567;
         var requestUri = CampaignUri(campaignId)
             .Append(UrlSegmentsTestConstants.StartSegment)
@@ -581,7 +542,6 @@ internal sealed class EmailCampaignIntegrationTests
 
         // Act
         var result = await client
-            .Account(accountId)
             .EmailCampaign(campaignId)
             .Start()
             .ConfigureAwait(false);
@@ -603,7 +563,6 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Post;
-        var accountId = random.NextLong();
         var campaignId = 4567;
         var requestUri = CampaignUri(campaignId)
             .Append(UrlSegmentsTestConstants.StartSegment)
@@ -633,7 +592,6 @@ internal sealed class EmailCampaignIntegrationTests
 
 
         var act = () => client
-            .Account(accountId)
             .EmailCampaign(campaignId)
             .Start();
 
@@ -653,7 +611,6 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Post;
-        var accountId = random.NextLong();
         var campaignId = 4567;
         var requestUri = CampaignUri(campaignId)
             .Append(UrlSegmentsTestConstants.ScheduleSegment)
@@ -690,7 +647,6 @@ internal sealed class EmailCampaignIntegrationTests
 
         // Act
         var result = await client
-            .Account(accountId)
             .EmailCampaign(campaignId)
             .Schedule(request)
             .ConfigureAwait(false);
@@ -712,7 +668,6 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Post;
-        var accountId = random.NextLong();
         var campaignId = 4567;
         var requestUri = CampaignUri(campaignId)
             .Append(UrlSegmentsTestConstants.ScheduleSegment)
@@ -739,7 +694,6 @@ internal sealed class EmailCampaignIntegrationTests
 
 
         var act = () => client
-            .Account(accountId)
             .EmailCampaign(campaignId)
             .Schedule(request);
 
@@ -758,7 +712,6 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Post;
-        var accountId = random.NextLong();
         var campaignId = 4567;
         var requestUri = CampaignUri(campaignId)
             .Append(UrlSegmentsTestConstants.CancelSegment)
@@ -792,7 +745,6 @@ internal sealed class EmailCampaignIntegrationTests
 
         // Act
         var result = await client
-            .Account(accountId)
             .EmailCampaign(campaignId)
             .Cancel()
             .ConfigureAwait(false);
@@ -812,7 +764,6 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Post;
-        var accountId = random.NextLong();
         var campaignId = 4567;
         var requestUri = CampaignUri(campaignId)
             .Append(UrlSegmentsTestConstants.TerminateSegment)
@@ -845,7 +796,6 @@ internal sealed class EmailCampaignIntegrationTests
 
         // Act
         var result = await client
-            .Account(accountId)
             .EmailCampaign(campaignId)
             .Terminate()
             .ConfigureAwait(false);
@@ -867,7 +817,6 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Post;
-        var accountId = random.NextLong();
         var campaignId = 4567;
         var requestUri = CampaignUri(campaignId)
             .Append(UrlSegmentsTestConstants.ResetSegment)
@@ -901,7 +850,6 @@ internal sealed class EmailCampaignIntegrationTests
 
         // Act
         var result = await client
-            .Account(accountId)
             .EmailCampaign(campaignId)
             .Reset()
             .ConfigureAwait(false);
@@ -921,17 +869,12 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Get;
-        var accountId = random.NextLong();
         var campaignId = 4567;
         var requestUri = CampaignUri(campaignId)
             .Append(UrlSegmentsTestConstants.StatsSegment)
             .AbsoluteUri;
         var token = random.GetString();
         var clientConfig = new MailtrapClientOptions(token);
-
-        // Sanity: the campaigns URL must NOT be account-scoped.
-        requestUri.Should().NotContain("/api/accounts/");
-        requestUri.Should().EndWith($"/api/email_campaigns/{campaignId}/stats");
 
         using var responseContent = await Feature.LoadFileToStringContent();
 
@@ -956,7 +899,6 @@ internal sealed class EmailCampaignIntegrationTests
 
         // Act
         var result = await client
-            .Account(accountId)
             .EmailCampaign(campaignId)
             .GetStats()
             .ConfigureAwait(false);
@@ -978,7 +920,6 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Get;
-        var accountId = random.NextLong();
         var campaignId = 4567;
         var requestUri = CampaignUri(campaignId)
             .Append(UrlSegmentsTestConstants.StatsSegment)
@@ -1020,7 +961,6 @@ internal sealed class EmailCampaignIntegrationTests
 
         // Act
         var result = await client
-            .Account(accountId)
             .EmailCampaign(campaignId)
             .GetStats(filter)
             .ConfigureAwait(false);
@@ -1040,7 +980,6 @@ internal sealed class EmailCampaignIntegrationTests
         var random = TestContext.CurrentContext.Random;
 
         var httpMethod = HttpMethod.Get;
-        var accountId = random.NextLong();
         var campaignId = random.NextLong();
         var requestUri = CampaignUri(campaignId)
             .Append(UrlSegmentsTestConstants.StatsSegment)
@@ -1068,7 +1007,6 @@ internal sealed class EmailCampaignIntegrationTests
 
 
         var act = () => client
-            .Account(accountId)
             .EmailCampaign(campaignId)
             .GetStats();
 

@@ -56,6 +56,26 @@ internal sealed class MailtrapClient : RestResource, IMailtrapClient
 
 
 
+    #region Email Campaigns
+
+    /// <inheritdoc/>
+    public IEmailCampaignCollectionResource EmailCampaigns()
+        => new EmailCampaignCollectionResource(RestResourceCommandFactory, ResourceUri.Append(UrlSegments.EmailCampaignsSegment));
+
+    /// <inheritdoc/>
+    public IEmailCampaignResource EmailCampaign(long emailCampaignId)
+    {
+        Ensure.GreaterThanZero(emailCampaignId, nameof(emailCampaignId));
+
+        return new EmailCampaignResource(
+            RestResourceCommandFactory,
+            ResourceUri.Append(UrlSegments.EmailCampaignsSegment).Append(emailCampaignId));
+    }
+
+    #endregion
+
+
+
     #region Regular Emails
 
     /// <inheritdoc/>

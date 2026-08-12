@@ -6,8 +6,6 @@ internal sealed class EmailCampaignCollectionResourceTests
 {
     private readonly IRestResourceCommandFactory _commandFactoryMock = Mock.Of<IRestResourceCommandFactory>();
 
-    // Email campaigns are token-scoped: the resource URI is the bare "/api/email_campaigns",
-    // NOT "/api/accounts/{account_id}/email_campaigns".
     private readonly Uri _resourceUri = EndpointsTestConstants.ApiDefaultUrl
         .Append(
             UrlSegmentsTestConstants.ApiRootSegment,
@@ -44,17 +42,6 @@ internal sealed class EmailCampaignCollectionResourceTests
 
         // Assert
         client.ResourceUri.Should().Be(_resourceUri);
-    }
-
-    [Test]
-    public void ResourceUri_ShouldNotBeAccountScoped()
-    {
-        // Arrange
-        var client = CreateResource();
-
-        // Assert
-        client.ResourceUri.AbsoluteUri.Should().NotContain("/api/accounts/");
-        client.ResourceUri.AbsoluteUri.Should().EndWith("/api/email_campaigns");
     }
 
     #endregion
