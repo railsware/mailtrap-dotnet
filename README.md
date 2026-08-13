@@ -278,7 +278,6 @@ private static SendEmailRequest TemplateBasedRequest()
 - Email sending statistics – [`examples/Mailtrap.Example.Stats`](examples/Mailtrap.Example.Stats/)
 - Webhooks management – [`examples/Mailtrap.Example.Webhooks`](examples/Mailtrap.Example.Webhooks/)
 - Verifying webhook signatures – [`examples/Mailtrap.Example.WebhookSignature`](examples/Mailtrap.Example.WebhookSignature/)
-- Email campaigns management (CRUD, lifecycle actions, and statistics) – [`examples/Mailtrap.Example.EmailCampaigns`](examples/Mailtrap.Example.EmailCampaigns/)
 
 ### Inbound Email
 
@@ -292,6 +291,10 @@ private static SendEmailRequest TemplateBasedRequest()
 - Attachments in testing messages – [`examples/Mailtrap.Example.Attachment`](examples/Mailtrap.Example.Attachment/)
 - Inbox management – [`examples/Mailtrap.Example.Inbox`](examples/Mailtrap.Example.Inbox/)
 - Project management – [`examples/Mailtrap.Example.Project`](examples/Mailtrap.Example.Project/)
+
+### Email Marketing
+
+- Email campaigns management (CRUD, lifecycle actions, and statistics) – [`examples/Mailtrap.Example.EmailCampaigns`](examples/Mailtrap.Example.EmailCampaigns/)
 
 ### Contacts Management
 
