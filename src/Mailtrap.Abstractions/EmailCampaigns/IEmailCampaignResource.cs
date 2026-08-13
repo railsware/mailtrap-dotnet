@@ -41,7 +41,7 @@ public interface IEmailCampaignResource : IRestResource
 
     /// <summary>
     /// Deletes the email campaign, represented by this resource instance.<br/>
-    /// The campaign must not be in a sending state.
+    /// Only a campaign in the <see cref="CampaignState.Draft"/> state can be deleted.
     /// </summary>
     ///
     /// <param name="cancellationToken">

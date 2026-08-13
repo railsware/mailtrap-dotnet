@@ -119,10 +119,21 @@ try
     logger.LogInformation("Stats: delivered={Delivered}, opened={Opened}, delivery rate={Rate:P2}.",
         stats.DeliveryCount, stats.OpenCount, stats.DeliveryRate);
 
-    // Delete the campaign. The API returns HTTP 204 with no body.
+    // Only a campaign in the "draft" state can be deleted, and a started campaign never
+    // returns to "draft" - so delete a fresh draft. The API returns HTTP 204 with no body.
     // Beware that the campaign resource becomes invalid after deletion and should not be used anymore.
-    await campaignResource.Delete();
-    logger.LogInformation("Deleted campaign {Id}.", campaign.Id);
+    EmailCampaign throwaway = await campaignsResource.Create(new CreateEmailCampaignRequest
+    {
+        Name = "Draft to delete",
+        DomainId = 4321,
+        FromLocalPart = "news",
+        TemplateAttributes = new EmailCampaignTemplateAttributes
+        {
+            Subject = "Draft to delete"
+        }
+    });
+    await mailtrapClient.EmailCampaign(throwaway.Id).Delete();
+    logger.LogInformation("Deleted campaign {Id}.", throwaway.Id);
 }
 catch (Exception ex)
 {
