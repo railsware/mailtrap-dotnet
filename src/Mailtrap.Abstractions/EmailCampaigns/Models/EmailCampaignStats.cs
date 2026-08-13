@@ -93,7 +93,7 @@ public sealed record EmailCampaignStats
     /// </value>
     [JsonPropertyName("delivery_rate")]
     [JsonPropertyOrder(8)]
-    public float DeliveryRate { get; set; }
+    public double DeliveryRate { get; set; }
 
     /// <summary>
     /// Gets or sets the share of delivered messages that were opened (0–1).
@@ -104,7 +104,7 @@ public sealed record EmailCampaignStats
     /// </value>
     [JsonPropertyName("open_rate")]
     [JsonPropertyOrder(9)]
-    public float OpenRate { get; set; }
+    public double OpenRate { get; set; }
 
     /// <summary>
     /// Gets or sets the share of delivered messages that were clicked (0–1).
@@ -115,7 +115,7 @@ public sealed record EmailCampaignStats
     /// </value>
     [JsonPropertyName("click_rate")]
     [JsonPropertyOrder(10)]
-    public float ClickRate { get; set; }
+    public double ClickRate { get; set; }
 
     /// <summary>
     /// Gets or sets the share of sent messages that bounced (0–1).
@@ -126,7 +126,7 @@ public sealed record EmailCampaignStats
     /// </value>
     [JsonPropertyName("bounce_rate")]
     [JsonPropertyOrder(11)]
-    public float BounceRate { get; set; }
+    public double BounceRate { get; set; }
 
     /// <summary>
     /// Gets or sets the share of sent messages marked as spam (0–1).
@@ -137,7 +137,7 @@ public sealed record EmailCampaignStats
     /// </value>
     [JsonPropertyName("spam_rate")]
     [JsonPropertyOrder(12)]
-    public float SpamRate { get; set; }
+    public double SpamRate { get; set; }
 
     /// <summary>
     /// Gets or sets the share of delivered messages that unsubscribed (0–1).
@@ -148,5 +148,5 @@ public sealed record EmailCampaignStats
     /// </value>
     [JsonPropertyName("unsubscription_rate")]
     [JsonPropertyOrder(13)]
-    public float UnsubscriptionRate { get; set; }
+    public double UnsubscriptionRate { get; set; }
 }

@@ -605,6 +605,54 @@ internal sealed class EmailCampaignIntegrationTests
     }
 
     [Test]
+    public async Task Start_UnprocessableErrorList()
+    {
+        // Arrange
+        var random = TestContext.CurrentContext.Random;
+
+        var httpMethod = HttpMethod.Post;
+        var campaignId = 4567;
+        var requestUri = CampaignUri(campaignId)
+            .Append(UrlSegmentsTestConstants.StartSegment)
+            .AbsoluteUri;
+        var token = random.GetString();
+        var clientConfig = new MailtrapClientOptions(token);
+
+        using var responseContent = await Feature.LoadFileToStringContent();
+
+        using var mockHttp = new MockHttpMessageHandler();
+        mockHttp
+            .Expect(httpMethod, requestUri)
+            .WithHeaders("Authorization", $"Bearer {clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .Respond(HttpStatusCode.UnprocessableContent, responseContent);
+
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection
+            .AddMailtrapClient(clientConfig)
+            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
+
+        using var services = serviceCollection.BuildServiceProvider();
+
+        var client = services.GetRequiredService<IMailtrapClient>();
+
+
+        var act = () => client
+            .EmailCampaign(campaignId)
+            .Start();
+
+
+        // Assert - a sending-validation 422 carries "errors" as a list of strings.
+        await act.Should()
+            .ThrowAsync<HttpRequestFailedException>()
+            .WithMessage("*Campaign design can't be blank*");
+
+        mockHttp.VerifyNoOutstandingExpectation();
+    }
+
+    [Test]
     public async Task Schedule_Success()
     {
         // Arrange
