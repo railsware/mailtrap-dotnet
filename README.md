@@ -292,6 +292,10 @@ private static SendEmailRequest TemplateBasedRequest()
 - Inbox management – [`examples/Mailtrap.Example.Inbox`](examples/Mailtrap.Example.Inbox/)
 - Project management – [`examples/Mailtrap.Example.Project`](examples/Mailtrap.Example.Project/)
 
+### Email Marketing
+
+- Email campaigns management (CRUD, lifecycle actions, and statistics) – [`examples/Mailtrap.Example.EmailCampaigns`](examples/Mailtrap.Example.EmailCampaigns/)
+
 ### Contacts Management
 
 - Contacts management – [`examples/Mailtrap.Example.Contact`](examples/Mailtrap.Example.Contact/)
