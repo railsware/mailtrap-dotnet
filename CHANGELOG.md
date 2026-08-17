@@ -1,3 +1,11 @@
+## [3.4.0] - 2026-08-14
+
+## What's Changed
+* MT-22401: Add Email Campaigns API by @Rabsztok in https://github.com/mailtrap/mailtrap-dotnet/pull/250
+
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-dotnet/compare/v3.3.0...v3.4.0
+
 ## [3.3.0] - 2026-08-04
 
 ## What's Changed
