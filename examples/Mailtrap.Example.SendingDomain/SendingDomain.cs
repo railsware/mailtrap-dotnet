@@ -55,6 +55,41 @@ try
     domain = await domainResource.GetDetails();
     logger.LogInformation("Sending Domain: {SendingDomain}", domain);
 
+    // Update sending domain configuration
+    var updateDomainRequest = new UpdateSendingDomainRequest
+    {
+        OpenTrackingEnabled = true,
+        ClickTrackingEnabled = true,
+        TrackingOptOutEnabled = true,
+        AutoUnsubscribeLinkEnabled = false
+    };
+    domain = await domainResource.Update(updateDomainRequest);
+    logger.LogInformation("Updated Sending Domain: {SendingDomain}", domain);
+
+    // Company info is token-scoped, so it hangs off the client rather than the account
+    ICompanyInfoResource companyInfoResource = mailtrapClient.CompanyInfo(domain.Id);
+
+    var createCompanyInfoRequest = new CreateCompanyInfoRequest
+    {
+        Name = "Mailtrap",
+        Address = "123 Main St",
+        City = "San Francisco",
+        Country = "US",
+        ZipCode = "94105",
+        WebsiteUrl = new Uri("https://mailtrap.io"),
+        InfoLevel = CompanyInfoLevel.Business
+    };
+    var companyInfo = await companyInfoResource.Create(createCompanyInfoRequest);
+    logger.LogInformation("Company Info: {CompanyInfo}", companyInfo);
+
+    var updateCompanyInfoRequest = new UpdateCompanyInfoRequest
+    {
+        City = "New York",
+        ZipCode = "10001"
+    };
+    companyInfo = await companyInfoResource.Update(updateCompanyInfoRequest);
+    logger.LogInformation("Updated Company Info: {CompanyInfo}", companyInfo);
+
     // Sending domain instructions
     var instructionsRequest = new SendingDomainInstructionsRequest("admin@demomailtrap.com");
     await domainResource.SendInstructions(instructionsRequest);

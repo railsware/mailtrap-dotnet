@@ -195,4 +195,16 @@ public sealed record SendingDomain
     [JsonPropertyName("inbound_verified")]
     [JsonPropertyOrder(16)]
     public bool? InboundVerified { get; set; }
+
+    /// <summary>
+    /// Gets flag indicating if the tracking opt-out link was enabled for the sending domain.
+    /// </summary>
+    ///
+    /// <value>
+    /// <see langword="true"/> if the tracking opt-out link was enabled.<br />
+    /// <see langword="false"/> otherwise.
+    /// </value>
+    [JsonPropertyName("tracking_opt_out_enabled")]
+    [JsonPropertyOrder(17)]
+    public bool? TrackingOptOutEnabled { get; set; }
 }

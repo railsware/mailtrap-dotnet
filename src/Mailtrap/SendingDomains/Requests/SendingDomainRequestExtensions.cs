@@ -11,6 +11,12 @@ internal static class SendingDomainRequestExtensions
         };
     }
 
+    public static UpdateSendingDomainRequestDto ToDto(this UpdateSendingDomainRequest request) => new(request);
+
+    public static CreateCompanyInfoRequestDto ToDto(this CreateCompanyInfoRequest request) => new(request);
+
+    public static UpdateCompanyInfoRequestDto ToDto(this UpdateCompanyInfoRequest request) => new(request);
+
     public static IList<SendingDomain> FromDto(this GetAllSendingDomainResponseDto response)
     {
         return response.Domains;

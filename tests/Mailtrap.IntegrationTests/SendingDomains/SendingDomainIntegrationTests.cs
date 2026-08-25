@@ -458,4 +458,72 @@ internal sealed class SendingDomainIntegrationTests
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
     }
+
+
+    [Test]
+    public async Task Update_Success()
+    {
+        // Arrange
+        var random = TestContext.CurrentContext.Random;
+
+        var httpMethod = HttpMethod.Patch;
+        var accountId = random.NextLong();
+        var domainId = random.NextLong();
+        var requestUri = EndpointsTestConstants.ApiDefaultUrl
+            .Append(
+                UrlSegmentsTestConstants.ApiRootSegment,
+                UrlSegmentsTestConstants.AccountsSegment)
+            .Append(accountId)
+            .Append(UrlSegmentsTestConstants.SendingDomainsSegment)
+            .Append(domainId)
+            .AbsoluteUri;
+
+        var token = random.GetString();
+        var clientConfig = new MailtrapClientOptions(token);
+
+        var request = new UpdateSendingDomainRequest
+        {
+            OpenTrackingEnabled = true,
+            ClickTrackingEnabled = true,
+            TrackingOptOutEnabled = true,
+            AutoUnsubscribeLinkEnabled = false,
+            InboundEnabled = false
+        };
+
+        using var responseContent = await Feature.LoadFileToStringContent();
+
+        using var mockHttp = new MockHttpMessageHandler();
+        mockHttp
+            .Expect(httpMethod, requestUri)
+            .WithHeaders("Authorization", $"Bearer {clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .WithJsonContent(request.ToDto(), clientConfig.ToJsonSerializerOptions())
+            .Respond(HttpStatusCode.OK, responseContent);
+
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection
+            .AddMailtrapClient(clientConfig)
+            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
+
+        using var services = serviceCollection.BuildServiceProvider();
+
+        var client = services.GetRequiredService<IMailtrapClient>();
+
+
+        // Act
+        var result = await client
+            .Account(accountId)
+            .SendingDomain(domainId)
+            .Update(request)
+            .ConfigureAwait(false);
+
+
+        // Assert
+        mockHttp.VerifyNoOutstandingExpectation();
+
+        result.Should().NotBeNull();
+        result.TrackingOptOutEnabled.Should().BeTrue();
+    }
 }
