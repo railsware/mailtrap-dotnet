@@ -170,7 +170,7 @@ internal sealed class ApiTokensIntegrationTests
         // Assert
         var assertion = await act.Should().ThrowAsync<HttpRequestFailedException>();
         assertion.Which.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
-        assertion.Which.Message.Should().Contain("must be in the future");
+        assertion.Which.Message.Should().Contain("Expiration date must be in the future");
 
         mockHttp.VerifyNoOutstandingExpectation();
     }

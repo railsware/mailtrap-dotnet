@@ -1,7 +1,7 @@
 {
   "errors": {
-    "expires_at": [
-      "must be in the future"
+    "base": [
+      "Expiration date must be in the future"
     ]
   }
 }
