@@ -26,15 +26,16 @@ internal sealed class ApiTokenExpirationJsonConverter : JsonConverter<ApiTokenEx
     public override void Write(Utf8JsonWriter writer, ApiTokenExpiration value, JsonSerializerOptions options)
     {
         Ensure.NotNull(writer, nameof(writer));
-        Ensure.NotNull(value, nameof(value));
 
-        if (value.Value.HasValue)
+        // HandleNull is required to map JSON null to Never on read, and it also routes
+        // null references here on write, so this has to handle them rather than throw.
+        if (value is null || !value.Value.HasValue)
         {
-            writer.WriteStringValue(value.Value.Value);
+            writer.WriteNullValue();
         }
         else
         {
-            writer.WriteNullValue();
+            writer.WriteStringValue(value.Value.Value);
         }
     }
 }

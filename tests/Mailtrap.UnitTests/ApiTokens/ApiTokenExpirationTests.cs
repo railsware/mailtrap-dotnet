@@ -12,6 +12,9 @@ internal sealed class ApiTokenExpirationTests
     private static readonly DateTimeOffset s_expirationDate =
         DateTimeOffset.Parse(ExpirationDateRaw, CultureInfo.InvariantCulture);
 
+    // Options that do NOT ignore nulls, unlike the ones the SDK uses for its own requests.
+    private static readonly JsonSerializerOptions s_nullWritingOptions = new();
+
 
     #region CreateApiTokenRequest serialization
 
@@ -86,6 +89,31 @@ internal sealed class ApiTokenExpirationTests
         var serialized = JsonSerializer.Serialize(request, MailtrapJsonSerializerOptions.NotIndented);
 
         serialized.Should().Be($$"""{"expires_at":"{{ExpirationDateSerialized}}"}""");
+    }
+
+    #endregion
+
+
+    #region Null serialization
+
+    [Test]
+    public void Converter_ShouldWriteJsonNull_WhenExpirationReferenceIsNull()
+    {
+        ApiTokenExpiration? expiration = null;
+
+        var serialized = JsonSerializer.Serialize(expiration, s_nullWritingOptions);
+
+        serialized.Should().Be("null");
+    }
+
+    [Test]
+    public void ResetRequest_ShouldWriteNullExpiresAt_WhenNullsAreNotIgnored()
+    {
+        var request = new ResetApiTokenRequest { ExpiresAt = null };
+
+        var serialized = JsonSerializer.Serialize(request, s_nullWritingOptions);
+
+        serialized.Should().Be("""{"expires_at":null}""");
     }
 
     #endregion
