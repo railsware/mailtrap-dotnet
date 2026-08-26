@@ -85,6 +85,7 @@ global using Mailtrap.Projects.Responses;
 global using Mailtrap.SendingDomains;
 global using Mailtrap.SendingDomains.Models;
 global using Mailtrap.SendingDomains.Requests;
+global using Mailtrap.SendingDomains.Responses;
 global using Mailtrap.Stats;
 global using Mailtrap.Stats.Models;
 global using Mailtrap.Suppressions;

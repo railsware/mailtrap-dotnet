@@ -46,6 +46,7 @@ global using Mailtrap.Organizations.Requests;
 global using Mailtrap.IntegrationTests.TestConstants;
 global using Mailtrap.IntegrationTests.TestExtensions;
 global using Mailtrap.Projects.Requests;
+global using Mailtrap.SendingDomains.Models;
 global using Mailtrap.SendingDomains.Requests;
 global using Mailtrap.Stats.Models;
 global using Mailtrap.Suppressions.Models;

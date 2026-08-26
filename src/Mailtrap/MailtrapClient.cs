@@ -76,6 +76,25 @@ internal sealed class MailtrapClient : RestResource, IMailtrapClient
 
 
 
+    #region Company Info
+
+    /// <inheritdoc/>
+    public ICompanyInfoResource CompanyInfo(long domainId)
+    {
+        Ensure.GreaterThanZero(domainId, nameof(domainId));
+
+        return new CompanyInfoResource(
+            RestResourceCommandFactory,
+            ResourceUri
+                .Append(UrlSegments.DomainsSegment)
+                .Append(domainId)
+                .Append(UrlSegments.CompanyInfoSegment));
+    }
+
+    #endregion
+
+
+
     #region Regular Emails
 
     /// <inheritdoc/>

@@ -13,6 +13,13 @@ internal sealed class SendingDomainResource : RestResource, ISendingDomainResour
     public async Task<SendingDomain> GetDetails(CancellationToken cancellationToken = default)
         => await Get<SendingDomain>(cancellationToken).ConfigureAwait(false);
 
+    public async Task<SendingDomain> Update(UpdateSendingDomainRequest request, CancellationToken cancellationToken = default)
+    {
+        Ensure.NotNull(request, nameof(request));
+
+        return await Update<UpdateSendingDomainRequestDto, SendingDomain>(request.ToDto(), cancellationToken).ConfigureAwait(false);
+    }
+
     public async Task SendInstructions(SendingDomainInstructionsRequest request, CancellationToken cancellationToken = default)
     {
         Ensure.NotNull(request, nameof(request));

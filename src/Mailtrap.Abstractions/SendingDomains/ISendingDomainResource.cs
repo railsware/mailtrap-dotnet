@@ -20,6 +20,23 @@ public interface ISendingDomainResource : IRestResource
     public Task<SendingDomain> GetDetails(CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Updates configuration settings of the sending domain, represented by this resource instance.
+    /// </summary>
+    ///
+    /// <param name="request">
+    /// Request containing the settings to update. Only properties set on the request are sent.
+    /// </param>
+    ///
+    /// <param name="cancellationToken">
+    /// <inheritdoc cref="GetDetails(CancellationToken)" path="/param[@name='cancellationToken']"/>
+    /// </param>
+    ///
+    /// <returns>
+    /// Updated attributes, DNS records, status, etc. for domain.
+    /// </returns>
+    public Task<SendingDomain> Update(UpdateSendingDomainRequest request, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Sends setup instructions for sending domain, represented by this resource instance,
     /// to the recipient specified by <paramref name="request"/>.
     /// </summary>

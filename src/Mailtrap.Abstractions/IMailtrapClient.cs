@@ -81,6 +81,29 @@ public interface IMailtrapClient : IRestResource
 
 
 
+    #region Company Info
+
+    /// <summary>
+    /// Gets company info resource for the sending domain, identified by <paramref name="domainId"/>.
+    /// </summary>
+    ///
+    /// <param name="domainId">
+    /// ID of the sending domain to get the company info resource for.
+    /// </param>
+    ///
+    /// <returns>
+    /// Company info resource for the sending domain with specified ID.
+    /// </returns>
+    ///
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// When <paramref name="domainId"/> is less than or equal to zero.
+    /// </exception>
+    public ICompanyInfoResource CompanyInfo(long domainId);
+
+    #endregion
+
+
+
     #region Regular Emails
 
     /// <summary>
