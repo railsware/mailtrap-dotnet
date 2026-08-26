@@ -144,6 +144,9 @@ internal sealed class ApiTokensIntegrationTests
         };
         request.Resources.Add(new ApiTokenAccessRequest(ResourceType.Account, 3229, AccessLevel.Admin));
 
+        const string expectedRequestBody =
+            """{"name":"My API Token","expires_at":"2020-01-01T00:00:00+00:00","resources":[{"resource_type":"account","resource_id":3229,"access_level":100}]}""";
+
         using var responseContent = await Feature.LoadFileToStringContent();
 
         using var mockHttp = new MockHttpMessageHandler();
@@ -152,6 +155,7 @@ internal sealed class ApiTokensIntegrationTests
             .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
             .WithHeaders("Accept", MimeTypes.Application.Json)
             .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .WithContent(expectedRequestBody)
             .Respond(HttpStatusCode.UnprocessableEntity, responseContent);
 
         using var services = BuildServiceProvider(mockHttp);
@@ -166,6 +170,7 @@ internal sealed class ApiTokensIntegrationTests
         // Assert
         var assertion = await act.Should().ThrowAsync<HttpRequestFailedException>();
         assertion.Which.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
+        assertion.Which.Message.Should().Contain("must be in the future");
 
         mockHttp.VerifyNoOutstandingExpectation();
     }
