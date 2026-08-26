@@ -55,6 +55,7 @@ internal sealed class SpecifierTests
                 s.TwoFactorAuthEnabled == null &&
                 s.AuthorName == "Author" &&
                 s.Token == "token" &&
+                s.MaskedToken == "****oken" &&
                 s.ExpiresAt == new DateTimeOffset(2025, 1, 1, 0, 0, 0, TimeSpan.Zero)
             );
     }
