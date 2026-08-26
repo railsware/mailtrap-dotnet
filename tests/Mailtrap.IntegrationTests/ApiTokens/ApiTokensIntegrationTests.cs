@@ -105,8 +105,11 @@ internal sealed class ApiTokensIntegrationTests
         const string expectedRequestBody =
             """{"name":"My API Token","expires_at":"2027-06-01T00:00:00+00:00","resources":[{"resource_type":"account","resource_id":3229,"access_level":100}]}""";
 
-        // Act & Assert
-        await RunCreateSuccessAsync(request, expectedRequestBody);
+        // Act
+        var result = await RunCreateSuccessAsync(request, expectedRequestBody);
+
+        // Assert
+        result.ExpiresAt.Should().Be(DateTimeOffset.Parse("2027-06-01T00:00:00Z", CultureInfo.InvariantCulture));
     }
 
     [Test]
@@ -123,8 +126,11 @@ internal sealed class ApiTokensIntegrationTests
         const string expectedRequestBody =
             """{"name":"My API Token","expires_at":null,"resources":[{"resource_type":"account","resource_id":3229,"access_level":100}]}""";
 
-        // Act & Assert
-        await RunCreateSuccessAsync(request, expectedRequestBody);
+        // Act
+        var result = await RunCreateSuccessAsync(request, expectedRequestBody);
+
+        // Assert
+        result.ExpiresAt.Should().BeNull();
     }
 
     [Test]
@@ -271,8 +277,11 @@ internal sealed class ApiTokensIntegrationTests
 
         const string expectedRequestBody = """{"expires_at":"2027-06-01T00:00:00+00:00"}""";
 
-        // Act & Assert
-        await RunResetSuccessAsync(request, expectedRequestBody);
+        // Act
+        var result = await RunResetSuccessAsync(request, expectedRequestBody);
+
+        // Assert
+        result.ExpiresAt.Should().Be(DateTimeOffset.Parse("2027-06-01T00:00:00Z", CultureInfo.InvariantCulture));
     }
 
     [Test]
@@ -286,12 +295,15 @@ internal sealed class ApiTokensIntegrationTests
 
         const string expectedRequestBody = """{"expires_at":null}""";
 
-        // Act & Assert
-        await RunResetSuccessAsync(request, expectedRequestBody);
+        // Act
+        var result = await RunResetSuccessAsync(request, expectedRequestBody);
+
+        // Assert
+        result.ExpiresAt.Should().BeNull();
     }
 
 
-    private async Task RunCreateSuccessAsync(CreateApiTokenRequest request, string expectedRequestBody)
+    private async Task<CreateApiTokenResponse> RunCreateSuccessAsync(CreateApiTokenRequest request, string expectedRequestBody)
     {
         using var responseContent = await Feature.LoadFileToStringContent();
         var expectedResponse = await responseContent.DeserializeStringContentAsync<CreateApiTokenResponse>(_jsonSerializerOptions);
@@ -318,9 +330,11 @@ internal sealed class ApiTokensIntegrationTests
         mockHttp.VerifyNoOutstandingExpectation();
 
         result.Should().BeEquivalentTo(expectedResponse);
+
+        return result;
     }
 
-    private async Task RunResetSuccessAsync(ResetApiTokenRequest request, string expectedRequestBody)
+    private async Task<ApiTokenResetResponse> RunResetSuccessAsync(ResetApiTokenRequest request, string expectedRequestBody)
     {
         var apiTokenId = TestContext.CurrentContext.Random.NextLong();
         var requestUri = _resourceUri.Append(apiTokenId).Append(ResetSegment).AbsoluteUri;
@@ -350,6 +364,8 @@ internal sealed class ApiTokensIntegrationTests
         mockHttp.VerifyNoOutstandingExpectation();
 
         result.Should().BeEquivalentTo(expectedResponse);
+
+        return result;
     }
 
     private ServiceProvider BuildServiceProvider(MockHttpMessageHandler mockHttp)
