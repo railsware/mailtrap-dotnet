@@ -95,6 +95,30 @@ internal sealed class MailtrapClient : RestResource, IMailtrapClient
 
 
 
+    #region Tracking Opt-outs
+
+    /// <inheritdoc/>
+    public ITrackingOptOutCollectionResource TrackingOptOuts()
+        => new TrackingOptOutCollectionResource(
+            RestResourceCommandFactory,
+            ResourceUri.Append(UrlSegments.TrackingOptOutsSegment));
+
+    /// <inheritdoc/>
+    public ITrackingOptOutResource TrackingOptOut(string trackingOptOutId)
+    {
+        Ensure.NotNullOrEmpty(trackingOptOutId, nameof(trackingOptOutId));
+
+        return new TrackingOptOutResource(
+            RestResourceCommandFactory,
+            ResourceUri
+                .Append(UrlSegments.TrackingOptOutsSegment)
+                .Append(trackingOptOutId));
+    }
+
+    #endregion
+
+
+
     #region Regular Emails
 
     /// <inheritdoc/>

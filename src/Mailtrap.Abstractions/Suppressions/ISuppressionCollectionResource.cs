@@ -22,4 +22,21 @@ public interface ISuppressionCollectionResource : IRestResource
     /// The endpoint returns up to 1000 suppressions per request.
     /// </remarks>
     public Task<IList<Suppression>> Fetch(SuppressionFilter? filter = null, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Adds an email address to the account's suppression list.
+    /// </summary>
+    ///
+    /// <param name="request">
+    /// Request containing the email address, domain and sending stream to suppress.
+    /// </param>
+    ///
+    /// <param name="cancellationToken">
+    /// <inheritdoc cref="Fetch(SuppressionFilter, CancellationToken)" path="/param[@name='cancellationToken']"/>
+    /// </param>
+    ///
+    /// <returns>
+    /// Created suppression.
+    /// </returns>
+    public Task<Suppression> Create(CreateSuppressionRequest request, CancellationToken cancellationToken = default);
 }

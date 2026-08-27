@@ -1,55 +1,52 @@
-﻿namespace Mailtrap.IntegrationTests.Suppressions;
+namespace Mailtrap.IntegrationTests.TrackingOptOuts;
 
 
 [TestFixture]
-internal sealed class SuppressionsIntegrationTests
+internal sealed class TrackingOptOutsIntegrationTests
 {
-    private const string Feature = "Suppressions";
+    private const string Feature = "TrackingOptOuts";
     private const string EmailQueryParameter = "email";
+    private const string StartTimeQueryParameter = "start_time";
+    private const string EndTimeQueryParameter = "end_time";
+    private const string LastIdQueryParameter = "last_id";
 
-    private readonly long _accountId;
     private readonly Uri _resourceUri;
     private readonly MailtrapClientOptions _clientConfig;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
 
-    public SuppressionsIntegrationTests()
+    public TrackingOptOutsIntegrationTests()
     {
         var random = TestContext.CurrentContext.Random;
 
-        _accountId = random.NextLong();
         _resourceUri = EndpointsTestConstants.ApiDefaultUrl
-            .Append(
-                UrlSegmentsTestConstants.ApiRootSegment,
-                UrlSegmentsTestConstants.AccountsSegment)
-            .Append(_accountId)
-            .Append(UrlSegmentsTestConstants.SuppressionsSegment);
+            .Append(UrlSegmentsTestConstants.ApiRootSegment)
+            .Append(UrlSegmentsTestConstants.TrackingOptOutsSegment);
 
         var token = random.GetString();
         _clientConfig = new MailtrapClientOptions(token);
         _jsonSerializerOptions = _clientConfig.ToJsonSerializerOptions();
     }
 
+
     [Test]
     public async Task Fetch_WithoutFilter_Success()
     {
         // Arrange
         using var responseContent = await Feature.LoadFileToStringContent();
-        var expectedResponse = await responseContent.DeserializeStringContentAsync<List<Suppression>>(_jsonSerializerOptions);
+        var expectedResponse = await responseContent.DeserializeStringContentAsync<TrackingOptOutList>(_jsonSerializerOptions);
         expectedResponse.Should().NotBeNull();
 
         using var mockHttp = new MockHttpMessageHandler();
-        using var clientScope = mockHttp.ConfigureWithQueryAndCreateClient(
+        using var clientScope = mockHttp.ConfigureAndCreateClient(
             HttpMethod.Get,
             _resourceUri.AbsoluteUri,
             responseContent,
             HttpStatusCode.OK,
-            _clientConfig,
-            queryParameterName: "");
+            _clientConfig);
 
         // Act
         var result = await clientScope.Client
-            .Account(_accountId)
-            .Suppressions()
+            .TrackingOptOuts()
             .Fetch()
             .ConfigureAwait(false);
 
@@ -59,30 +56,51 @@ internal sealed class SuppressionsIntegrationTests
         result.Should().BeEquivalentTo(expectedResponse);
     }
 
+
     [Test]
     public async Task Fetch_WithFilter_Success()
     {
         // Arrange
-        var filter = new SuppressionFilter { Email = "recipient1@example.com" };
+        var filter = new TrackingOptOutFilter
+        {
+            Email = "recipient1@example.com",
+            StartTime = new DateTimeOffset(2025, 9, 1, 0, 0, 0, TimeSpan.Zero),
+            EndTime = new DateTimeOffset(2025, 9, 30, 0, 0, 0, TimeSpan.Zero),
+            LastId = "0198f1c4-0c0f-7a1c-8b0e-3f5d2a1b4c6d"
+        };
 
         using var responseContent = await Feature.LoadFileToStringContent();
-        var expectedResponse = await responseContent.DeserializeStringContentAsync<List<Suppression>>(_jsonSerializerOptions);
+        var expectedResponse = await responseContent.DeserializeStringContentAsync<TrackingOptOutList>(_jsonSerializerOptions);
         expectedResponse.Should().NotBeNull();
 
         using var mockHttp = new MockHttpMessageHandler();
-        using var clientScope = mockHttp.ConfigureWithQueryAndCreateClient(
-            HttpMethod.Get,
-            _resourceUri.AbsoluteUri,
-            responseContent,
-            HttpStatusCode.OK,
-            _clientConfig,
-            queryParameterName: EmailQueryParameter,
-            queryParameterValue: filter.Email);
+        mockHttp
+            .Expect(HttpMethod.Get, _resourceUri.AbsoluteUri)
+            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .WithExactQueryString(new Dictionary<string, string>
+            {
+                [EmailQueryParameter] = filter.Email,
+                [StartTimeQueryParameter] = filter.StartTime.Value.ToString("O"),
+                [EndTimeQueryParameter] = filter.EndTime.Value.ToString("O"),
+                [LastIdQueryParameter] = filter.LastId
+            })
+            .Respond(HttpStatusCode.OK, responseContent);
+
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection
+            .AddMailtrapClient(_clientConfig)
+            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
+
+        using var services = serviceCollection.BuildServiceProvider();
+
+        var client = services.GetRequiredService<IMailtrapClient>();
 
         // Act
-        var result = await clientScope.Client
-            .Account(_accountId)
-            .Suppressions()
+        var result = await client
+            .TrackingOptOuts()
             .Fetch(filter)
             .ConfigureAwait(false);
 
@@ -97,16 +115,14 @@ internal sealed class SuppressionsIntegrationTests
     public async Task Create_Success()
     {
         // Arrange
-        var request = new CreateSuppressionRequest
+        var request = new CreateTrackingOptOutRequest
         {
-            Email = "recipient@example.com",
-            DomainId = 42,
-            SendingStream = SendingStream.Transactional,
-            Type = SuppressionType.ManualImport
+            Email = "recipient1@example.com",
+            DomainId = 42
         };
 
         using var responseContent = await Feature.LoadFileToStringContent();
-        var expectedResponse = await responseContent.DeserializeStringContentAsync<SuppressionResponseDto>(_jsonSerializerOptions);
+        var expectedResponse = await responseContent.DeserializeStringContentAsync<TrackingOptOutResponseDto>(_jsonSerializerOptions);
         expectedResponse.Should().NotBeNull();
 
         using var mockHttp = new MockHttpMessageHandler();
@@ -120,15 +136,14 @@ internal sealed class SuppressionsIntegrationTests
 
         // Act
         var result = await clientScope.Client
-            .Account(_accountId)
-            .Suppressions()
+            .TrackingOptOuts()
             .Create(request)
             .ConfigureAwait(false);
 
         // Assert
         mockHttp.VerifyNoOutstandingExpectation();
 
-        result.Should().BeEquivalentTo(expectedResponse.Suppression);
+        result.Should().BeEquivalentTo(expectedResponse.TrackingOptOut);
     }
 
 
@@ -136,11 +151,11 @@ internal sealed class SuppressionsIntegrationTests
     public async Task Delete_Success()
     {
         // Arrange
-        var suppressionId = TestContext.CurrentContext.Random.NextGuid().ToString();
-        var requestUri = _resourceUri.Append(suppressionId).AbsoluteUri;
+        var trackingOptOutId = TestContext.CurrentContext.Random.NextGuid().ToString();
+        var requestUri = _resourceUri.Append(trackingOptOutId).AbsoluteUri;
 
         using var responseContent = await Feature.LoadFileToStringContent();
-        var expectedResponse = await responseContent.DeserializeStringContentAsync<Suppression>(_jsonSerializerOptions);
+        var expectedResponse = await responseContent.DeserializeStringContentAsync<TrackingOptOut>(_jsonSerializerOptions);
         expectedResponse.Should().NotBeNull();
 
         using var mockHttp = new MockHttpMessageHandler();
@@ -153,8 +168,7 @@ internal sealed class SuppressionsIntegrationTests
 
         // Act
         var result = await clientScope.Client
-            .Account(_accountId)
-            .Suppression(suppressionId)
+            .TrackingOptOut(trackingOptOutId)
             .Delete()
             .ConfigureAwait(false);
 
