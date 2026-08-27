@@ -6,6 +6,9 @@ internal sealed class SuppressionsIntegrationTests
 {
     private const string Feature = "Suppressions";
     private const string EmailQueryParameter = "email";
+    private const string StartTimeQueryParameter = "start_time";
+    private const string EndTimeQueryParameter = "end_time";
+    private const string LastIdQueryParameter = "last_id";
 
     private readonly long _accountId;
     private readonly Uri _resourceUri;
@@ -81,6 +84,61 @@ internal sealed class SuppressionsIntegrationTests
 
         // Act
         var result = await clientScope.Client
+            .Account(_accountId)
+            .Suppressions()
+            .Fetch(filter)
+            .ConfigureAwait(false);
+
+        // Assert
+        mockHttp.VerifyNoOutstandingExpectation();
+
+        result.Should().BeEquivalentTo(expectedResponse);
+    }
+
+
+    [Test]
+    public async Task Fetch_WithAllFilters_Success()
+    {
+        // Arrange
+        var filter = new SuppressionFilter
+        {
+            Email = "recipient1@example.com",
+            StartTime = new DateTimeOffset(2025, 9, 1, 0, 0, 0, TimeSpan.Zero),
+            EndTime = new DateTimeOffset(2025, 9, 30, 0, 0, 0, TimeSpan.Zero),
+            LastId = "2fe148b8-b019-431f-ab3f-107663fdf868"
+        };
+
+        using var responseContent = await Feature.LoadFileToStringContent(nameof(Fetch_WithFilter_Success));
+        var expectedResponse = await responseContent.DeserializeStringContentAsync<List<Suppression>>(_jsonSerializerOptions);
+        expectedResponse.Should().NotBeNull();
+
+        using var mockHttp = new MockHttpMessageHandler();
+        mockHttp
+            .Expect(HttpMethod.Get, _resourceUri.AbsoluteUri)
+            .WithHeaders("Authorization", $"Bearer {_clientConfig.ApiToken}")
+            .WithHeaders("Accept", MimeTypes.Application.Json)
+            .WithHeaders("User-Agent", HeaderValues.UserAgent.ToString())
+            .WithExactQueryString(new Dictionary<string, string>
+            {
+                [EmailQueryParameter] = filter.Email,
+                [StartTimeQueryParameter] = filter.StartTime.Value.ToString("O"),
+                [EndTimeQueryParameter] = filter.EndTime.Value.ToString("O"),
+                [LastIdQueryParameter] = filter.LastId
+            })
+            .Respond(HttpStatusCode.OK, responseContent);
+
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection
+            .AddMailtrapClient(_clientConfig)
+            .ConfigurePrimaryHttpMessageHandler(() => mockHttp);
+
+        using var services = serviceCollection.BuildServiceProvider();
+
+        var client = services.GetRequiredService<IMailtrapClient>();
+
+        // Act
+        var result = await client
             .Account(_accountId)
             .Suppressions()
             .Fetch(filter)

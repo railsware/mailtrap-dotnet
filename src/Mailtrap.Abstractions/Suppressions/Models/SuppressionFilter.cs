@@ -15,4 +15,31 @@ public sealed record SuppressionFilter
     /// Email address of suppressions that will be returned by fetch.
     /// </value>
     public string? Email { get; set; }
+
+    /// <summary>
+    /// Gets or sets the lower bound of the creation timestamp.
+    /// </summary>
+    ///
+    /// <value>
+    /// Only suppressions created at or after this moment are returned.
+    /// </value>
+    public DateTimeOffset? StartTime { get; set; }
+
+    /// <summary>
+    /// Gets or sets the upper bound of the creation timestamp.
+    /// </summary>
+    ///
+    /// <value>
+    /// Only suppressions created at or before this moment are returned.
+    /// </value>
+    public DateTimeOffset? EndTime { get; set; }
+
+    /// <summary>
+    /// Gets or sets the pagination cursor.
+    /// </summary>
+    ///
+    /// <value>
+    /// Identifier from the previous response, to fetch records after it.
+    /// </value>
+    public string? LastId { get; set; }
 }
