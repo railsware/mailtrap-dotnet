@@ -12,6 +12,7 @@ global using Mailtrap.AccountAccesses.Responses;
 global using Mailtrap.Accounts;
 global using Mailtrap.Accounts.Models;
 global using Mailtrap.ApiTokens;
+global using Mailtrap.ApiTokens.Converters;
 global using Mailtrap.ApiTokens.Models;
 global using Mailtrap.ApiTokens.Requests;
 global using Mailtrap.ApiTokens.Responses;

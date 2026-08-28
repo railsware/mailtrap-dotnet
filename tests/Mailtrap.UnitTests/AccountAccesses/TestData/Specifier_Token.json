@@ -3,5 +3,6 @@
   "name": "Token",
   "author_name": "Author",
   "token": "token",
+  "masked_token": "****oken",
   "expires_at": "2025-01-01T00:00:00Z"
 }

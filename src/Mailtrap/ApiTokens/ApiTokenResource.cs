@@ -27,4 +27,18 @@ internal sealed class ApiTokenResource : RestResource, IApiTokenResource
 
         return result;
     }
+
+    public async Task<ApiTokenResetResponse> Reset(ResetApiTokenRequest request, CancellationToken cancellationToken = default)
+    {
+        Ensure.NotNull(request, nameof(request));
+
+        var uri = ResourceUri.Append(ResetSegment);
+
+        var result = await RestResourceCommandFactory
+            .CreatePost<ResetApiTokenRequest, ApiTokenResetResponse>(uri, request)
+            .Execute(cancellationToken)
+            .ConfigureAwait(false);
+
+        return result;
+    }
 }

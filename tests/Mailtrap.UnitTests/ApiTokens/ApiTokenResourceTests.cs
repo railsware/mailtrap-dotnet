@@ -49,6 +49,24 @@ internal sealed class ApiTokenResourceTests
     #endregion
 
 
+    #region Reset
+
+    [Test]
+    public async Task Reset_ShouldThrowArgumentNullException_WhenRequestIsNull()
+    {
+        // Arrange
+        var resource = CreateResource();
+
+        // Act
+        var act = () => resource.Reset(null!);
+
+        // Assert
+        await act.Should().ThrowAsync<ArgumentNullException>();
+    }
+
+    #endregion
+
+
 
     private ApiTokenResource CreateResource() => new(_commandFactoryMock, _resourceUri);
 }

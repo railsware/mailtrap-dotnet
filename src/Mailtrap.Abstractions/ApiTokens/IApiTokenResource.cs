@@ -46,4 +46,27 @@ public interface IApiTokenResource : IRestResource
     /// the new token value — store it securely; it is only returned once.
     /// </remarks>
     public Task<ApiTokenResetResponse> Reset(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Reset the API token represented by this resource, specifying an expiration for the new token.
+    /// </summary>
+    ///
+    /// <param name="request">
+    /// Request with the optional expiration for the new token.
+    /// </param>
+    ///
+    /// <param name="cancellationToken">
+    /// Token to control operation cancellation.
+    /// </param>
+    ///
+    /// <returns>
+    /// New API token details, including the full token value.
+    /// </returns>
+    ///
+    /// <remarks>
+    /// Expires the requested token and creates a new token with the same permissions.
+    /// The old token stops working after a short grace period. The response includes
+    /// the new token value – store it securely; it is only returned once.
+    /// </remarks>
+    public Task<ApiTokenResetResponse> Reset(ResetApiTokenRequest request, CancellationToken cancellationToken = default);
 }

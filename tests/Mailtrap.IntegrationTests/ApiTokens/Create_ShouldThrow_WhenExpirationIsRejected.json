@@ -1,0 +1,7 @@
+{
+  "errors": {
+    "base": [
+      "Expiration date must be in the future"
+    ]
+  }
+}
