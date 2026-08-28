@@ -66,7 +66,9 @@ try
         tokenDetails.Name,
         tokenDetails.CreatedBy);
 
-    // Reset the API token - expires the current token and returns a new one with the same permissions.
+    // Reset the API token - retires the current token and creates a new one with the same permissions.
+    // The response carries the id of the NEW token, so the resource must be re-created from it
+    // before performing further operations.
     // The parameterless overload keeps the server default expiration for the new token.
     ApiTokenResetResponse resetResponse = await apiTokenResource.Reset();
     logger.LogInformation(
@@ -75,7 +77,10 @@ try
         resetResponse.Last4Digits);
     logger.LogInformation("New token value (store securely, returned only once): {Token}", resetResponse.Token);
 
-    // Reset again, this time requesting a new token that never expires
+    // Re-point the resource at the new token
+    apiTokenResource = accountResource.ApiToken(resetResponse.Id);
+
+    // Reset the new token, this time requesting a replacement that never expires
     ApiTokenResetResponse neverExpiringToken = await apiTokenResource.Reset(new ResetApiTokenRequest
     {
         ExpiresAt = ApiTokenExpiration.Never
@@ -86,7 +91,12 @@ try
         neverExpiringToken.Last4Digits,
         neverExpiringToken.ExpiresAt);
 
-    // Delete the API token
+    // Re-point the resource at the never-expiring token
+    apiTokenResource = accountResource.ApiToken(neverExpiringToken.Id);
+
+    // Delete the active (never-expiring) API token.
+    // The retired tokens (the original and the first reset one) stop working after the server's
+    // short grace period and need no cleanup.
     // The API token resource becomes invalid after deletion and should not be used anymore
     await apiTokenResource.Delete();
     logger.LogInformation("API Token Deleted.");
