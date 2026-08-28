@@ -1,3 +1,13 @@
+## [3.6.0] - 2026-08-28
+
+## What's Changed
+* MT-23076: expose api token expiration in create and reset requests by @oshchyhol in https://github.com/mailtrap/mailtrap-dotnet/pull/253
+
+## New Contributors
+* @oshchyhol made their first contribution in https://github.com/mailtrap/mailtrap-dotnet/pull/253
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-dotnet/compare/v3.5.0...v3.6.0
+
 ## [3.5.0] - 2026-08-28
 
 ## What's Changed
