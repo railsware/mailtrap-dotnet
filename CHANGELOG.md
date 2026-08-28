@@ -1,3 +1,12 @@
+## [3.5.0] - 2026-08-28
+
+## What's Changed
+* Add sending domain update and company info endpoints by @mklocek in https://github.com/mailtrap/mailtrap-dotnet/pull/255
+* Add tracking opt-outs and create suppression by @mklocek in https://github.com/mailtrap/mailtrap-dotnet/pull/256
+
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-dotnet/compare/v3.4.0...v3.5.0
+
 ## [3.4.0] - 2026-08-14
 
 ## What's Changed
