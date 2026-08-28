@@ -1,18 +1,17 @@
-namespace Mailtrap.Suppressions.Models;
+namespace Mailtrap.TrackingOptOuts.Models;
 
 
 /// <summary>
-/// Represents a set of filtering parameters for the suppression fetching.
+/// Represents a set of filtering parameters for tracking opt-out fetching.
 /// </summary>
-public sealed record SuppressionFilter
+public sealed record TrackingOptOutFilter
 {
     /// <summary>
-    /// Gets or sets an email address of suppressions that will be returned by fetch.<br />
-    /// If specified, only suppressions with particular email address are returned.
+    /// Gets or sets the email address to filter by.
     /// </summary>
     ///
     /// <value>
-    /// Email address of suppressions that will be returned by fetch.
+    /// Email address, matched case-insensitively.
     /// </value>
     public string? Email { get; set; }
 
@@ -21,7 +20,7 @@ public sealed record SuppressionFilter
     /// </summary>
     ///
     /// <value>
-    /// Only suppressions created at or after this moment are returned.
+    /// Only opt-outs created at or after this moment are returned.
     /// </value>
     public DateTimeOffset? StartTime { get; set; }
 
@@ -30,7 +29,7 @@ public sealed record SuppressionFilter
     /// </summary>
     ///
     /// <value>
-    /// Only suppressions created at or before this moment are returned.
+    /// Only opt-outs created at or before this moment are returned.
     /// </value>
     public DateTimeOffset? EndTime { get; set; }
 

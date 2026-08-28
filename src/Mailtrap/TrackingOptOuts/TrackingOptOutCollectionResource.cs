@@ -1,7 +1,7 @@
-﻿namespace Mailtrap.Suppressions;
+namespace Mailtrap.TrackingOptOuts;
 
 
-internal sealed class SuppressionCollectionResource : RestResource, ISuppressionCollectionResource
+internal sealed class TrackingOptOutCollectionResource : RestResource, ITrackingOptOutCollectionResource
 {
     private const string EmailQueryParameter = "email";
     private const string StartTimeQueryParameter = "start_time";
@@ -9,22 +9,25 @@ internal sealed class SuppressionCollectionResource : RestResource, ISuppression
     private const string LastIdQueryParameter = "last_id";
 
 
-    public SuppressionCollectionResource(IRestResourceCommandFactory restResourceCommandFactory, Uri resourceUri)
+    public TrackingOptOutCollectionResource(IRestResourceCommandFactory restResourceCommandFactory, Uri resourceUri)
         : base(restResourceCommandFactory, resourceUri) { }
 
 
-    public async Task<IList<Suppression>> Fetch(SuppressionFilter? filter = null, CancellationToken cancellationToken = default)
-        => await GetList<Suppression>(CreateFetchUri(filter), cancellationToken).ConfigureAwait(false);
+    public async Task<TrackingOptOutList> Fetch(TrackingOptOutFilter? filter = null, CancellationToken cancellationToken = default)
+        => await RestResourceCommandFactory
+            .CreateGet<TrackingOptOutList>(CreateFetchUri(filter))
+            .Execute(cancellationToken)
+            .ConfigureAwait(false);
 
-    public async Task<Suppression> Create(CreateSuppressionRequest request, CancellationToken cancellationToken = default)
+    public async Task<TrackingOptOut> Create(CreateTrackingOptOutRequest request, CancellationToken cancellationToken = default)
     {
-        var response = await Create<CreateSuppressionRequest, SuppressionResponseDto>(request, cancellationToken).ConfigureAwait(false);
+        var response = await Create<CreateTrackingOptOutRequest, TrackingOptOutResponseDto>(request, cancellationToken).ConfigureAwait(false);
 
-        return response.Suppression;
+        return response.TrackingOptOut;
     }
 
 
-    private Uri CreateFetchUri(SuppressionFilter? filter)
+    private Uri CreateFetchUri(TrackingOptOutFilter? filter)
     {
         if (filter is null)
         {

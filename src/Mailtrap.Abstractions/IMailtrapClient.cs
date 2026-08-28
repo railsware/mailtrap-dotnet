@@ -104,6 +104,38 @@ public interface IMailtrapClient : IRestResource
 
 
 
+    #region Tracking Opt-outs
+
+    /// <summary>
+    /// Gets the tracking opt-out collection resource.
+    /// </summary>
+    ///
+    /// <returns>
+    /// Tracking opt-out collection resource.
+    /// </returns>
+    public ITrackingOptOutCollectionResource TrackingOptOuts();
+
+    /// <summary>
+    /// Gets resource for specific tracking opt-out, identified by <paramref name="trackingOptOutId"/>.
+    /// </summary>
+    ///
+    /// <param name="trackingOptOutId">
+    /// ID of the tracking opt-out to get resource for.
+    /// </param>
+    ///
+    /// <returns>
+    /// Resource for the tracking opt-out with specified ID.
+    /// </returns>
+    ///
+    /// <exception cref="ArgumentException">
+    /// When <paramref name="trackingOptOutId"/> is <see langword="null"/> or empty.
+    /// </exception>
+    public ITrackingOptOutResource TrackingOptOut(string trackingOptOutId);
+
+    #endregion
+
+
+
     #region Regular Emails
 
     /// <summary>

@@ -1,7 +1,9 @@
 ﻿using Mailtrap;
 using Mailtrap.Accounts;
+using Mailtrap.Core.Models;
 using Mailtrap.Suppressions;
 using Mailtrap.Suppressions.Models;
+using Mailtrap.Suppressions.Requests;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +28,18 @@ try
 
     // Get resource for suppressions collection
     ISuppressionCollectionResource suppressionsResource = accountResource.Suppressions();
+
+    var createRequest = new CreateSuppressionRequest
+    {
+        Email = "test@demomailtrap.co",
+        DomainId = 12345,
+        SendingStream = SendingStream.Transactional,
+        Type = SuppressionType.ManualImport
+    };
+
+    Suppression createdSuppression = await suppressionsResource.Create(createRequest);
+
+    logger.LogInformation("Created suppression: {Suppression}", createdSuppression);
 
     var suppressionFilter = new SuppressionFilter
     {
